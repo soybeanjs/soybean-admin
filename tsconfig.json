@@ -5,7 +5,13 @@
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
+		"allowSyntheticDefaultImports": true,
     "sourceMap": true,
+		"paths": {
+			"@/*": [
+				"./src/*"
+			]
+		},
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"]

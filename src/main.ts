@@ -1,4 +1,8 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import { setupElementPlus } from './plugins';
+import 'virtual:windi.css';
 
-createApp(App).mount('#app');
+const app = createApp(App);
+setupElementPlus(app);
+app.mount('#app');

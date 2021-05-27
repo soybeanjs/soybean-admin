@@ -1,6 +1,5 @@
 <template>
-  <h1>{{ msg }}</h1>
-
+  <h1 class="text-red-400 font-medium">{{ msg }}</h1>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
@@ -12,19 +11,16 @@
     <code>&lt;script setup&gt;</code>
     )
   </p>
-
-  <p>
+  <p class="mx-auto">
     See
     <code>README.md</code>
     for more information.
   </p>
-
   <p>
     <a href="https://vitejs.dev/guide/features.html" target="_blank">Vite Docs</a>
     |
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
   </p>
-
   <button @click="count++">count is: {{ count }}</button>
   <p>
     Edit
