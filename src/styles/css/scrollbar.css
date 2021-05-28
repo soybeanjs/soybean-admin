@@ -1,0 +1,20 @@
+/*---滚动条默认显示样式--*/
+::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 8px;
+}
+/*---鼠标点击滚动条显示样式--*/
+::-webkit-scrollbar-thumb:hover {
+  background-color: #d9d9d9;
+  border-radius: 4px;
+}
+/*---滚动条大小--*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+/*---滚动框背景样式--*/
+::-webkit-scrollbar-track-piece {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 0;
+}

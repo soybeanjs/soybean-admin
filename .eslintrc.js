@@ -14,6 +14,7 @@ module.exports = {
     'no-unused-vars': 0,
     'import/extensions': ['error', 'never'],
     'import/no-extraneous-dependencies': [2, { devDependencies: true }],
-    'import/no-unresolved': 0
+    'import/no-unresolved': 0,
+    'no-shadow': 0
   }
 };

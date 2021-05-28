@@ -12,8 +12,12 @@
     "*.{vue,js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "dayjs": "^1.10.5",
     "element-plus": "^1.0.2-beta.44",
     "nprogress": "^0.2.0",
+    "qs": "^6.10.1",
+    "smoothscroll-polyfill": "^0.4.4",
     "vue": "^3.0.5"
   },
   "devDependencies": {
@@ -21,6 +25,8 @@
     "@commitlint/config-conventional": "^12.1.4",
     "@iconify/json": "^1.1.349",
     "@types/nprogress": "^0.2.0",
+    "@types/qs": "^6.9.6",
+    "@types/smoothscroll-polyfill": "^0.3.1",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
     "@vitejs/plugin-vue": "^1.2.2",

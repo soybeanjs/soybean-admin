@@ -1,0 +1,23 @@
+@import './scrollbar.css';
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+}
+html {
+  min-width: 1320px;
+  min-height: 650px;
+  font-size: 16px;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+}
+svg {
+  display: inline-block;
+}

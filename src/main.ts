@@ -1,7 +1,10 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { setupElementPlus } from './plugins';
+import { setupSmoothScroll, setupElementPlus } from './plugins';
 import 'virtual:windi.css';
+import './styles/css/global.css';
+
+setupSmoothScroll();
 
 const app = createApp(App);
 setupElementPlus(app);
