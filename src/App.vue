@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <el-date-picker />
+  </div>
 </template>
 
 <script lang="ts" setup></script>
