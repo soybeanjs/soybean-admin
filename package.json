@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
     "serve": "vite preview",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
     "prepare": "husky install"
