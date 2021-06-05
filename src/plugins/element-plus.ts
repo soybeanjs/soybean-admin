@@ -1,5 +1,6 @@
 import type { App } from 'vue';
 import 'element-plus/lib/theme-chalk/base.css';
+import locale from 'element-plus/lib/locale';
 import lang from 'element-plus/lib/locale/lang/zh-cn';
 import 'dayjs/locale/zh-cn';
 import {
@@ -83,11 +84,10 @@ import {
   // ElTree,
   // ElUpload,
   // ElInfiniteScroll,
-  ElLoading,
+  ElLoading
   // ElMessage
   // ElMessageBox,
   // ElNotification
-  locale
 } from 'element-plus';
 
 const components = [
@@ -183,7 +183,7 @@ const plugins = [
 /** 引入element-plus UI组件 */
 export default function setupElementPlus(app: App<Element>) {
   /** 国际化 */
-  locale(lang);
+  locale.use(lang);
   components.forEach(component => {
     app.component(component.name, component);
   });
