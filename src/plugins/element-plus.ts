@@ -181,7 +181,7 @@ const plugins = [
 ];
 
 /** 引入element-plus UI组件 */
-export default function setupElementPlus(app: App<Element>) {
+export default function setupElementPlus(app: App<Element>): void {
   /** 国际化 */
   locale.use(lang);
   components.forEach(component => {

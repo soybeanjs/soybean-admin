@@ -35,7 +35,7 @@ export default class CustomAxiosInstance {
   }
 
   /** 设置请求拦截器 */
-  setInterceptor(statusConfig: StatusConfig) {
+  setInterceptor(statusConfig: StatusConfig): void {
     this.instance.interceptors.request.use(
       config => {
         const handleConfig = { ...config };

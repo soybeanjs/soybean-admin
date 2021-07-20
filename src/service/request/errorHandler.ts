@@ -23,7 +23,7 @@ export const errorDuration = 3000 / 1000;
  * 网络请求错误状态处理
  * @param error - 错误
  */
-export function errorHandler(error: any) {
+export function errorHandler(error: any): void {
   if (error.response) {
     const status = error.response.status as ErrorStatus;
     ElMessage.error(ERROR_STATUS[status]);
