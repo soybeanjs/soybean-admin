@@ -4,8 +4,8 @@ import { setupSmoothScroll, setupElementPlus } from './plugins';
 import 'virtual:windi.css';
 import './styles/css/global.css';
 
-setupSmoothScroll();
-
 const app = createApp(App);
+setupSmoothScroll();
 setupElementPlus(app);
+
 app.mount('#app');

@@ -1,4 +1,3 @@
-export { getStorageToken, getStorageUserInfo } from './auth';
 export {
   isNumber,
   isString,
@@ -11,4 +10,4 @@ export {
   isRegExp,
   isSet,
   isMap
-} from './common';
+} from './typeof';

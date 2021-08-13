@@ -18,13 +18,12 @@ module.exports = {
     '@vue/prettier/@typescript-eslint'
   ],
   rules: {
-    'no-unused-vars': 1,
+    'no-unused-vars': 'off',
     'import/extensions': ['error', 'never'],
     'import/no-extraneous-dependencies': [2, { devDependencies: true }],
     'import/no-unresolved': 0,
     'no-shadow': 0,
     'import/prefer-default-export': 0,
-    'vue/no-deprecated-slot-attribute': 1,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-inferrable-types': 0,
     '@typescript-eslint/ban-ts-ignore': 'off',

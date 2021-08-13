@@ -14,10 +14,7 @@ const ERROR_STATUS = {
   504: '504: 网关超时~',
   505: '505: http版本不支持该请求~'
 };
-type ErrorStatus = 400 | 401 | 403 | 404 | 405 | 408 | 500 | 501 | 502 | 503 | 504 | 505;
-
-/** 错误信息显示时间 */
-export const errorDuration = 3000 / 1000;
+type ErrorStatus = keyof typeof ERROR_STATUS;
 
 /**
  * 网络请求错误状态处理
@@ -37,7 +34,7 @@ export function errorHandler(error: any): void {
     ElMessage.error('网络不可用~');
     return;
   }
-  ElMessage.error('未知错误~');
+  ElMessage.error('请求错误~');
 }
 
 /**

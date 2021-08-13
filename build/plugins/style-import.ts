@@ -8,8 +8,8 @@ export default [
         esModule: true,
         ensureStyleFile: true,
         resolveStyle: name => {
-          name = name.slice(3);
-          return `element-plus/packages/theme-chalk/src/${name}.scss`;
+          const formatName = name.slice(3);
+          return `element-plus/packages/theme-chalk/src/${formatName}.scss`;
         },
         resolveComponent: name => {
           return `element-plus/lib/${name}`;

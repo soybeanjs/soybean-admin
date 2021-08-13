@@ -1,9 +1,11 @@
 import axios from 'axios';
 import qs from 'qs';
-import { getStorageToken } from '@/utils';
 import { ElMessage } from 'element-plus';
 import type { AxiosRequestConfig, AxiosInstance } from 'axios';
+import { ContentType } from '@/enum';
+import { getStorageToken } from '@/utils';
 import { errorHandler } from './errorHandler';
+import { transformFile } from '../utils';
 
 export interface StatusConfig {
   /** 表明请求状态的属性key */
@@ -37,15 +39,20 @@ export default class CustomAxiosInstance {
   /** 设置请求拦截器 */
   setInterceptor(statusConfig: StatusConfig): void {
     this.instance.interceptors.request.use(
-      config => {
+      async config => {
         const handleConfig = { ...config };
-        // content-type为application/x-www-form-urlencoded类型的data参数需要序列化
-        if (handleConfig.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
+        // form类型转换
+        if (handleConfig.headers['Content-Type'] === ContentType.formUrlencoded) {
           handleConfig.data = qs.stringify(handleConfig.data);
+        }
+        // 文件类型转换
+        if (handleConfig.headers['Content-Type'] === ContentType.formData) {
+          const key = Object.keys(handleConfig.data)[0];
+          const file = handleConfig.data[key];
+          handleConfig.data = await transformFile(file, key);
         }
         // 设置token
         handleConfig.headers.Authorization = getStorageToken();
-
         return handleConfig;
       },
       error => {

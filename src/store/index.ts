@@ -1,10 +1,10 @@
 import type { App } from 'vue';
-import { createAuthStore, useAuthStore } from './modules/auth';
-import { createAsideStore, useAsideStore } from './modules/aside';
+import { createPinia } from 'pinia';
 
-export function createStore(app: App) {
-  createAuthStore(app);
-  createAsideStore(app);
+export const store = createPinia();
+
+export function setupStore(app: App) {
+  app.use(store);
 }
 
-export { useAuthStore, useAsideStore };
+export { useAppStore, useAuthStore } from './modules';

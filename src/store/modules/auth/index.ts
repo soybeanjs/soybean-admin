@@ -1,44 +1,40 @@
-import { computed, inject, reactive } from 'vue';
-import type { ComputedRef, App, InjectionKey } from 'vue';
-
-interface UserInfo {
-  userId: string;
-  userName: string;
-  userPhone: string;
-}
+import { defineStore } from 'pinia';
+import type { UserInfo } from '@/interface';
+import { store } from '../../index';
 
 interface AuthState {
+  /** 用户token */
   token: string;
+  /** 用户信息 */
   userInfo: UserInfo;
 }
 
-interface AuthStore {
-  /** auth状态 */
-  authState: AuthState;
-  /** 是否登录 */
-  isLogin: ComputedRef<boolean>;
-}
-
-const injectKey: InjectionKey<AuthStore> = Symbol('auth-store');
-
-export function createAuthStore(app: App) {
-  const state = reactive<AuthState>({
-    token: '',
-    userInfo: {
-      userId: '',
-      userName: '',
-      userPhone: ''
+const authStore = defineStore({
+  /** 区分不通状态的唯一标识 */
+  id: 'auth-store',
+  /** 状态 */
+  state: (): AuthState => {
+    return {
+      token: '',
+      userInfo: {
+        userId: '',
+        userName: '',
+        userPhone: ''
+      }
+    };
+  },
+  getters: {
+    /** 是否登录 */
+    isLogin: state => Boolean(state.token)
+  },
+  actions: {
+    /** 重置auth状态 */
+    resetAuthState() {
+      this.$reset();
     }
-  });
-  const isLogin = computed(() => Boolean(state.token));
+  }
+});
 
-  const provideData: AuthStore = {
-    authState: state,
-    isLogin
-  };
-  app.provide(injectKey, provideData);
-}
-
-export function useAuthStore() {
-  return inject(injectKey)!;
+export default function useAuthStore() {
+  return authStore(store);
 }

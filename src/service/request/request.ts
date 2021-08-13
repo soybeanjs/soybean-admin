@@ -49,18 +49,3 @@ export function createRequest(axiosConfig: AxiosRequestConfig, statusConfig?: St
   const request = new Request(customInstance.instance);
   return request;
 }
-
-/**
- * 对请求的结果数据进行格式化的处理
- * @param handleFunc - 处理函数
- * @param errors - 接收多个请求的错误
- * @param datas - 接收多个请求的数据
- */
-export function handleResponse<T>(handleFunc: Function, errors: any[], datas: any[]) {
-  let handleData = null;
-  if (errors.every(error => !error)) {
-    handleData = handleFunc(...datas);
-  }
-  const resError = errors.find(error => Boolean(error));
-  return [resError, handleData] as [any, T];
-}
