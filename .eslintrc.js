@@ -19,8 +19,8 @@ module.exports = {
   ],
   rules: {
     'no-unused-vars': 'off',
-    'import/extensions': ['error', 'never'],
-    'import/no-extraneous-dependencies': [2, { devDependencies: true }],
+    'import/extensions': 'off',
+    'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': 0,
     'no-shadow': 0,
     'import/prefer-default-export': 0,

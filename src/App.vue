@@ -1,8 +1,6 @@
 <template>
   <el-config-provider :locale="locale">
-    <div>
-      <el-date-picker />
-    </div>
+    <router-view />
   </el-config-provider>
 </template>
 
