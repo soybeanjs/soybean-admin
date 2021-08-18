@@ -1,5 +1,5 @@
 import setupSmoothScroll from './smooth-scroll';
-import setupElementPlus from './element-plus';
+import setupNaive from './naive';
 import NProgress from './nprogress';
 
-export { setupSmoothScroll, setupElementPlus, NProgress };
+export { setupSmoothScroll, setupNaive, NProgress };

@@ -1,10 +1,15 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { alias, viteEnv, plugins } from './build';
+import path from 'path';
+import { viteEnv, plugins } from './build';
 
 export default defineConfig({
   base: viteEnv.VITE_BASE_URL,
-  resolve: { alias },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  },
   css: {
     preprocessorOptions: {
       scss: {

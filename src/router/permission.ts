@@ -1,5 +1,4 @@
 import type { Router } from 'vue-router';
-import { NProgress } from '@/plugins';
 
 /**
  * 路由守卫函数
@@ -7,10 +6,10 @@ import { NProgress } from '@/plugins';
  */
 export default function createRouterGuide(router: Router) {
   router.beforeEach((to, from, next) => {
-    NProgress.start();
+    window.$loadingBar?.start();
     next();
   });
   router.afterEach(() => {
-    NProgress.done();
+    window.$loadingBar?.finish();
   });
 }

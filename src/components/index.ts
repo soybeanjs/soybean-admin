@@ -1,0 +1,1 @@
+export { NaiveApp } from './common';

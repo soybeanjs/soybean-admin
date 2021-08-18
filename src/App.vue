@@ -1,11 +1,16 @@
 <template>
-  <el-config-provider :locale="locale">
-    <router-view />
-  </el-config-provider>
+  <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme-overrides="app.themeOverrids">
+    <naive-app>
+      <router-view />
+    </naive-app>
+  </n-config-provider>
 </template>
 
 <script lang="ts" setup>
-import { ElConfigProvider } from 'element-plus';
-import locale from 'element-plus/lib/locale/lang/zh-cn';
+import { NConfigProvider, zhCN, dateZhCN } from 'naive-ui';
+import { NaiveApp } from '@/components';
+import { useAppStore } from '@/store';
+
+const app = useAppStore();
 </script>
 <style></style>

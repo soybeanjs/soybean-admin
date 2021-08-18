@@ -6,7 +6,7 @@ import createRouterGuide from './permission';
 
 const routes: Array<RouteRecordRaw> = [...customRoutes];
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(),
   routes
 });

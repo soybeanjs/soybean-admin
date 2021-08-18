@@ -10,5 +10,6 @@ export {
   isDate,
   isRegExp,
   isSet,
-  isMap
+  isMap,
+  brightenColor
 } from './common';

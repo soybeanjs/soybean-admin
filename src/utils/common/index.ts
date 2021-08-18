@@ -11,3 +11,5 @@ export {
   isSet,
   isMap
 } from './typeof';
+
+export { brightenColor } from './color';

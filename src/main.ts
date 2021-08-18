@@ -1,13 +1,33 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { setupRouter } from './router';
-import { setupSmoothScroll, setupElementPlus } from './plugins';
+import { setupStore } from './store';
+import { router, setupRouter } from './router';
+import { setupSmoothScroll, setupNaive } from './plugins';
+import { NaiveApp } from './components';
 import 'virtual:windi.css';
 import './styles/css/global.css';
 
-const app = createApp(App);
-setupSmoothScroll();
-setupElementPlus(app);
-setupRouter(app);
+async function setupApp() {
+  const naiveApp = createApp(NaiveApp);
+  const app = createApp(App);
 
-app.mount('#app');
+  /** 注册naive UI组件 */
+  setupNaive(app);
+
+  /** 挂载全局状态 */
+  setupStore(app);
+
+  // 优先挂载一下 naiveApp 解决路由守卫，Axios中可使用，Dialog，Message 等之类组件
+  naiveApp.mount('#naiveApp', true);
+
+  // 挂载路由
+  setupRouter(app);
+
+  // 路由准备就绪后挂载APP实例
+  await router.isReady();
+
+  app.mount('#app', true);
+}
+
+setupSmoothScroll();
+setupApp();
