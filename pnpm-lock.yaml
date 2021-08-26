@@ -32,7 +32,6 @@ specifiers:
   husky: ^7.0.2
   lint-staged: ^11.1.2
   naive-ui: ^2.16.6
-  nprogress: ^0.2.0
   patch-package: ^6.4.7
   pinia: ^2.0.0-rc.4
   postinstall-postinstall: ^2.1.0
@@ -59,7 +58,6 @@ dependencies:
   dayjs: registry.nlark.com/dayjs/1.10.6
   form-data: 4.0.0
   naive-ui: registry.nlark.com/naive-ui/2.16.6_vue@3.2.4
-  nprogress: 0.2.0
   pinia: registry.nlark.com/pinia/2.0.0-rc.4_typescript@4.3.5+vue@3.2.4
   qs: 6.10.1
   smoothscroll-polyfill: registry.nlark.com/smoothscroll-polyfill/0.4.4
@@ -1295,10 +1293,6 @@ packages:
     dependencies:
       path-key: 3.1.1
     dev: true
-
-  /nprogress/0.2.0:
-    resolution: {integrity: sha1-y480xTIT2JVyP8urkH6UIq28r7E=, tarball: nprogress/download/nprogress-0.2.0.tgz}
-    dev: false
 
   /object-assign/4.1.1:
     resolution: {integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=, tarball: object-assign/download/object-assign-4.1.1.tgz}
