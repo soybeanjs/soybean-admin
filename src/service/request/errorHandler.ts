@@ -1,5 +1,3 @@
-import { ElMessage } from 'element-plus';
-
 const ERROR_STATUS = {
   400: '400: 请求出现语法错误',
   401: '401: 用户未授权~',
@@ -21,20 +19,21 @@ type ErrorStatus = keyof typeof ERROR_STATUS;
  * @param error - 错误
  */
 export function errorHandler(error: any): void {
+  const { $message: Message } = window;
   if (error.response) {
     const status = error.response.status as ErrorStatus;
-    ElMessage.error(ERROR_STATUS[status]);
+    Message?.error(ERROR_STATUS[status]);
     return;
   }
   if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
-    ElMessage.error('网络连接超时~');
+    Message?.error('网络连接超时~');
     return;
   }
   if (!window.navigator.onLine || error.message === 'Network Error') {
-    ElMessage.error('网络不可用~');
+    Message?.error('网络不可用~');
     return;
   }
-  ElMessage.error('请求错误~');
+  Message?.error('请求错误~');
 }
 
 /**

@@ -21,7 +21,7 @@ async function setupApp() {
   naiveApp.mount('#naiveApp', true);
 
   // 挂载路由
-  setupRouter(app);
+  await setupRouter(app);
 
   // 路由准备就绪后挂载APP实例
   await router.isReady();

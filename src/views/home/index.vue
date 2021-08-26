@@ -9,32 +9,24 @@
 </template>
 
 <script lang="ts" setup>
-import { useLoadingBar, useDialog, useNotification, useMessage } from 'naive-ui';
+import { useDialog, useNotification, useMessage } from 'naive-ui';
 
-type ActionType = 'loading-bar' | 'dialog' | 'notification' | 'message';
+type ActionType = 'dialog' | 'notification' | 'message';
 interface Action {
   key: ActionType;
   label: string;
 }
 
-const loadingBar = useLoadingBar();
 const dialog = useDialog();
 const notification = useNotification();
 const message = useMessage();
 
 const actions: Action[] = [
-  { key: 'loading-bar', label: 'loading bar' },
   { key: 'dialog', label: 'dialog' },
   { key: 'notification', label: 'notification' },
   { key: 'message', label: 'message' }
 ];
 function handleClick(type: ActionType) {
-  if (type === 'loading-bar') {
-    loadingBar.start();
-    setTimeout(() => {
-      loadingBar.finish();
-    }, 5000);
-  }
   if (type === 'dialog') {
     dialog.info({ content: '弹窗示例！' });
   }

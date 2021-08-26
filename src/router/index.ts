@@ -11,8 +11,7 @@ export const router = createRouter({
   routes
 });
 
-createRouterGuide(router);
-
 export function setupRouter(app: App) {
   app.use(router);
+  createRouterGuide(router);
 }

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import qs from 'qs';
-import { ElMessage } from 'element-plus';
 import type { AxiosRequestConfig, AxiosInstance } from 'axios';
 import { ContentType } from '@/enum';
 import { getStorageToken } from '@/utils';
@@ -68,7 +67,7 @@ export default class CustomAxiosInstance {
           if (data[statusKey] === successCode) {
             return Promise.resolve(data.data);
           }
-          ElMessage.error(data[msgKey]);
+          window.$message?.error(data[msgKey]);
           return Promise.reject(data[msgKey]);
         }
         const error = { response };
