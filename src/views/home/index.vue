@@ -5,6 +5,7 @@
         {{ item.label }}
       </n-button>
     </n-space>
+    <router-link to="/system">system</router-link>
   </div>
 </template>
 

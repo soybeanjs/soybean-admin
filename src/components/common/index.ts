@@ -1,3 +1,3 @@
-import NaiveApp from './NaiveApp/index.vue';
+import AppProviderContent from './AppProviderContent/index.vue';
 
-export { NaiveApp };
+export { AppProviderContent };

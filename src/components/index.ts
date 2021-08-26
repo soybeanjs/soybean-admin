@@ -1,1 +1,1 @@
-export { NaiveApp } from './common';
+export { AppProviderContent } from './common';

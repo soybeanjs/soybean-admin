@@ -1,14 +1,14 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import AppProvider from './AppProvider.vue';
 import { setupStore } from './store';
 import { router, setupRouter } from './router';
 import { setupSmoothScroll, setupNaive } from './plugins';
-import { NaiveApp } from './components';
 import 'virtual:windi.css';
 import './styles/css/global.css';
 
 async function setupApp() {
-  const naiveApp = createApp(NaiveApp);
+  const naiveApp = createApp(AppProvider);
   const app = createApp(App);
 
   /** 注册naive UI组件 */
