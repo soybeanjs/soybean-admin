@@ -12,4 +12,4 @@ export {
   isMap
 } from './typeof';
 
-export { brightenColor } from './color';
+export { brightenColor, darkenColor } from './color';

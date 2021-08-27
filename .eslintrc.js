@@ -24,6 +24,7 @@ module.exports = {
     'import/no-unresolved': 0,
     'no-shadow': 0,
     'import/prefer-default-export': 0,
+    'no-use-before-define': 'off',
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-inferrable-types': 0,
     '@typescript-eslint/ban-ts-ignore': 'off',
@@ -33,6 +34,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true }]
+    '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true }],
+    '@typescript-eslint/no-use-before-define': ['error', { classes: true, functions: false, typedefs: false }]
   }
 };

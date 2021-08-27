@@ -11,5 +11,6 @@ export {
   isRegExp,
   isSet,
   isMap,
-  brightenColor
+  brightenColor,
+  darkenColor
 } from './common';

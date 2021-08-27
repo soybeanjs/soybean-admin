@@ -17,7 +17,7 @@ async function setupApp() {
   /** 挂载全局状态 */
   setupStore(app);
 
-  // 优先挂载一下 naiveApp 解决路由守卫，Axios中可使用，Dialog，Message 等之类组件
+  // 优先挂载一下 naiveApp 解决路由守卫，Axios中可使用，LoadingBar，Dialog，Message 等之类组件
   naiveApp.mount('#naiveApp', true);
 
   // 挂载路由

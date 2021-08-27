@@ -3,7 +3,7 @@ import type { GlobalThemeOverrides } from 'naive-ui';
 import { store } from '../../index';
 import { themeSettings } from '@/settings';
 import type { ThemeSettings } from '@/interface';
-import { brightenColor } from '@/utils';
+import { getHoverAndPressedColor } from './helpers';
 
 interface AppState {
   /** 主题配置 */
@@ -21,16 +21,36 @@ const appStore = defineStore({
   getters: {
     /** naive UI主题配置 */
     themeOverrids(): GlobalThemeOverrides {
-      const primaryColor = this.themeSettings.themeColor;
-      const primaryColorHover = brightenColor(primaryColor);
-      const primaryColorPressed = primaryColorHover;
+      const {
+        themeColor: primaryColor,
+        otherColor: { info: infoColor, success: successColor, warning: warningColor, error: errorColor }
+      } = this.themeSettings;
+
+      const { hover: primaryColorHover, pressed: primaryColorPressed } = getHoverAndPressedColor(primaryColor);
+      const { hover: infoColorHover, pressed: infoColorPressed } = getHoverAndPressedColor(infoColor);
+      const { hover: successColorHover, pressed: successColorPressed } = getHoverAndPressedColor(successColor);
+      const { hover: warningColorHover, pressed: warningColorPressed } = getHoverAndPressedColor(warningColor);
+      const { hover: errorColorHover, pressed: errorColorPressed } = getHoverAndPressedColor(errorColor);
+
       const colorLoading = primaryColor;
 
       return {
         common: {
           primaryColor,
           primaryColorHover,
-          primaryColorPressed
+          primaryColorPressed,
+          infoColor,
+          infoColorHover,
+          infoColorPressed,
+          successColor,
+          successColorHover,
+          successColorPressed,
+          warningColor,
+          warningColorHover,
+          warningColorPressed,
+          errorColor,
+          errorColorHover,
+          errorColorPressed
         },
         LoadingBar: {
           colorLoading

@@ -5,6 +5,14 @@
         {{ item.label }}
       </n-button>
     </n-space>
+    <n-space>
+      <n-button>Default</n-button>
+      <n-button type="primary">Primary</n-button>
+      <n-button type="info">Info</n-button>
+      <n-button type="success">Success</n-button>
+      <n-button type="warning">Warning</n-button>
+      <n-button type="error">Error</n-button>
+    </n-space>
     <router-link to="/system">system</router-link>
   </div>
 </template>
