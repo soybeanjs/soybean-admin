@@ -26,6 +26,13 @@ interface Action {
   label: string;
 }
 
+defineProps({
+  code: {
+    type: String,
+    default: ''
+  }
+});
+
 const dialog = useDialog();
 const notification = useNotification();
 const message = useMessage();

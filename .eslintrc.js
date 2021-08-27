@@ -3,6 +3,12 @@ module.exports = {
     browser: true,
     es2021: true
   },
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
+  },
   parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 12,
