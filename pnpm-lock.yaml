@@ -37,7 +37,7 @@ specifiers:
   postinstall-postinstall: ^2.1.0
   prettier: ^2.3.2
   qs: ^6.10.1
-  sass: ^1.38.1
+  sass: ^1.38.2
   smoothscroll-polyfill: ^0.4.4
   typescript: ^4.4.0
   vite: ^2.5.1
@@ -93,7 +93,7 @@ devDependencies:
   patch-package: registry.nlark.com/patch-package/6.4.7
   postinstall-postinstall: registry.nlark.com/postinstall-postinstall/2.1.0
   prettier: registry.nlark.com/prettier/2.3.2
-  sass: registry.nlark.com/sass/1.38.1
+  sass: registry.nlark.com/sass/1.38.2
   typescript: registry.nlark.com/typescript/4.4.2
   vite: registry.nlark.com/vite/2.5.1
   vite-plugin-components: registry.nlark.com/vite-plugin-components/0.13.2_vite@2.5.1
@@ -5075,10 +5075,10 @@ packages:
       tslib: registry.nlark.com/tslib/1.14.1
     dev: true
 
-  registry.nlark.com/sass/1.38.1:
-    resolution: {integrity: sha1-VN+xf7FohGtYUDJLgvxi3Gj1G60=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/sass/download/sass-1.38.1.tgz}
+  registry.nlark.com/sass/1.38.2:
+    resolution: {integrity: sha1-lwBF2ZZhgAAqjI84IPwRTN20KCI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/sass/download/sass-1.38.2.tgz}
     name: sass
-    version: 1.38.1
+    version: 1.38.2
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:

@@ -13,7 +13,14 @@
       <n-button type="warning">Warning</n-button>
       <n-button type="error">Error</n-button>
     </n-space>
-    <router-link to="/system">system</router-link>
+    <router-link class="text-primary" to="/system">system</router-link>
+    <div>
+      <span class="text-primary">primary</span>
+      <span class="text-info">info</span>
+      <span class="text-success">success</span>
+      <span class="text-warning">warning</span>
+      <span class="text-error">error</span>
+    </div>
   </div>
 </template>
 
