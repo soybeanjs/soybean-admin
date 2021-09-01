@@ -2,7 +2,7 @@
   <n-drawer v-model:show="app.settingDrawer.visible">
     <n-drawer-content title="主题配置">
       <dark-mode />
-			<system-theme />
+      <system-theme />
     </n-drawer-content>
   </n-drawer>
 </template>
