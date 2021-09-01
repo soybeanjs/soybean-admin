@@ -1,6 +1,6 @@
 <template>
   <div class="global-header flex-y-center justify-between">
-    <h2>123</h2>
+    <h2></h2>
     <header-item-container class="w-40px h-full" @click="openSettingDrawer">
       <icon-mdi-light-cog class="text-16px" />
     </header-item-container>

@@ -1,7 +1,7 @@
 <template>
   <n-layout has-sider :position="position">
     <n-layout-sider
-      class="layout-sider min-h-100vh"
+      class="layout-sider min-h-100vh z-11"
       :native-scrollbar="false"
       :inverted="inverted"
       collapse-mode="width"

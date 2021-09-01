@@ -4,7 +4,6 @@ const themeColorList = [
   '#409EFF',
   '#2d8cf0',
   '#0960bd',
-  '#0084f4',
   '#009688',
   '#536dfe',
   '#ff5c93',

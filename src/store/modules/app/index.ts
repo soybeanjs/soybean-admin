@@ -80,6 +80,10 @@ const appStore = defineStore({
     /** 关闭配置抽屉 */
     closeSettingDrawer() {
       this.settingDrawer.visible = false;
+    },
+    /** 设置系统主题颜色 */
+    setThemeColor(color: string) {
+      this.themeSettings.themeColor = color;
     }
   }
 });
