@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
+    "dev:prod": "vite --mode production",
+    "dev:vercel": "vite --mode vercel",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
+    "build:test": "vue-tsc --noEmit --skipLibCheck && vite build --mode development",
+    "build:vercel": "vue-tsc --noEmit --skipLibCheck && vite build --mode vercel",
     "serve": "vite preview",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
