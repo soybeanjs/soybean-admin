@@ -5,10 +5,10 @@ export default function setupWindicssDarkMode() {
   const app = useAppStore();
 
   const DARK_CLASS = 'dark';
+
   function getHtmlElement() {
     return document.querySelector('html')!;
   }
-
   function addDarkClass() {
     const html = getHtmlElement();
     html.classList.add(DARK_CLASS);
