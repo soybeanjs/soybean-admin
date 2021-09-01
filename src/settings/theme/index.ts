@@ -23,18 +23,44 @@ const themeColorList = [
 ];
 
 const themeSettings: ThemeSettings = {
-  /** 深色主题 */
   darkMode: false,
-  /** 系统主题色 */
   themeColor: themeColorList[0],
-  /** 系统内置主题色列表 */
   themeColorList,
-  /** 其他颜色 */
   otherColor: {
     info: '#2080f0',
     success: '#67C23A',
     warning: '#E6A23C',
     error: '#F56C6C'
+  },
+  navStyle: {
+    mode: 'vertical',
+    theme: 'light'
+  },
+  headerStyle: {
+    height: 64,
+    bgColor: '#fff',
+    fixed: true,
+    showReload: true
+  },
+  menuStyle: {
+    collapsed: false,
+    width: 200,
+    collapsedWidth: 64,
+    fixed: true,
+    splitMenu: false
+  },
+  multiTabStyle: {
+    visible: true,
+    bgColor: '#fff',
+    fixed: true
+  },
+  crumbsStyle: {
+    visible: true,
+    showIcon: false
+  },
+  pageStyle: {
+    animate: true,
+    animateType: 'zoom-fade'
   }
 };
 

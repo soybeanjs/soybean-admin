@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useDialog, useNotification, useMessage } from 'naive-ui';
+import { NButton, NSpace, useDialog, useNotification, useMessage } from 'naive-ui';
 
 type ActionType = 'dialog' | 'notification' | 'message';
 interface Action {

@@ -1,22 +1,28 @@
 import { defineStore } from 'pinia';
 import type { GlobalThemeOverrides } from 'naive-ui';
-import { store } from '../../index';
 import { themeSettings } from '@/settings';
 import type { ThemeSettings } from '@/interface';
+import { store } from '../../index';
 import { getHoverAndPressedColor } from './helpers';
 
 interface AppState {
   /** 主题配置 */
   themeSettings: ThemeSettings;
-  /** 侧边栏折叠 */
-  asideCollapse: boolean;
+  /** 主题配置抽屉 */
+  settingDrawer: SettingDrawer;
+}
+
+interface SettingDrawer {
+  visible: boolean;
 }
 
 const appStore = defineStore({
   id: 'app-store',
   state: (): AppState => ({
     themeSettings,
-    asideCollapse: false
+    settingDrawer: {
+      visible: false
+    }
   }),
   getters: {
     /** naive UI主题配置 */
@@ -59,11 +65,21 @@ const appStore = defineStore({
     }
   },
   actions: {
-    handleAsideCollapse(collapse: boolean) {
-      this.asideCollapse = collapse;
+    /** 折叠/展开菜单 */
+    handleMenuCollapse(collapsed: boolean) {
+      this.themeSettings.menuStyle.collapsed = collapsed;
     },
-    toggleAside() {
-      this.asideCollapse = !this.asideCollapse;
+    /** 切换折叠/展开菜单 */
+    toggleMenu() {
+      this.themeSettings.menuStyle.collapsed = !this.themeSettings.menuStyle.collapsed;
+    },
+    /** 打开配置抽屉 */
+    openSettingDrawer() {
+      this.settingDrawer.visible = true;
+    },
+    /** 关闭配置抽屉 */
+    closeSettingDrawer() {
+      this.settingDrawer.visible = false;
     }
   }
 });
