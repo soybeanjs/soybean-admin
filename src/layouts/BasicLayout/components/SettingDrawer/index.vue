@@ -1,5 +1,5 @@
 <template>
-  <n-drawer v-model:show="app.settingDrawer.visible">
+  <n-drawer v-model:show="app.settingDrawer.visible" :width="330">
     <n-drawer-content title="主题配置" :native-scrollbar="false">
       <dark-mode />
       <nav-mode />

@@ -34,7 +34,7 @@ interface OtherColor {
   error: string;
 }
 
-type NavMode = keyof typeof EnumNavMode;
+export type NavMode = keyof typeof EnumNavMode;
 type NavTheme = keyof typeof EnumNavTheme;
 
 interface NavStyle {

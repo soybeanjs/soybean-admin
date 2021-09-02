@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { themeSettings } from '@/settings';
-import type { ThemeSettings } from '@/interface';
+import type { ThemeSettings, NavMode } from '@/interface';
 import { store } from '../../index';
 import { getHoverAndPressedColor } from './helpers';
 
@@ -84,6 +84,10 @@ const appStore = defineStore({
     /** 设置系统主题颜色 */
     setThemeColor(color: string) {
       this.themeSettings.themeColor = color;
+    },
+    /** 设置导航栏模式 */
+    setNavMode(mode: NavMode) {
+      this.themeSettings.navStyle.mode = mode;
     }
   }
 });
