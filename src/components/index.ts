@@ -1,1 +1,1 @@
-export { AppProviderContent } from './common';
+export { AppProviderContent, ColorBlock } from './common';
