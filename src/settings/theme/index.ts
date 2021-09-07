@@ -1,4 +1,5 @@
 import type { ThemeSettings } from '@/interface';
+import { EnumAnimate } from '@/enum';
 
 const themeColorList = [
   '#409EFF',
@@ -36,7 +37,6 @@ const themeSettings: ThemeSettings = {
     theme: 'light'
   },
   menuStyle: {
-    collapsed: false,
     width: 200,
     collapsedWidth: 64,
     fixed: true,
@@ -58,7 +58,15 @@ const themeSettings: ThemeSettings = {
   },
   pageStyle: {
     animate: true,
-    animateType: 'zoom-fade'
+    animateType: 'zoom-fade',
+    animateTypeList: [
+      { value: 'zoom-fade', label: EnumAnimate['zoom-fade'] },
+      { value: 'zoom-out', label: EnumAnimate['zoom-out'] },
+      { value: 'fade-slide', label: EnumAnimate['fade-slide'] },
+      { value: 'fade', label: EnumAnimate.fade },
+      { value: 'fade-bottom', label: EnumAnimate['fade-bottom'] },
+      { value: 'fade-scale', label: EnumAnimate['fade-scale'] }
+    ]
   }
 };
 

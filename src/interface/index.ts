@@ -1,2 +1,2 @@
 export { UserInfo } from './business';
-export { ThemeSettings, NavMode } from './theme';
+export { ThemeSettings, NavMode, AnimateType } from './theme';

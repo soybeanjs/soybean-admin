@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { themeSettings } from '@/settings';
 import { store } from '@/store';
-import type { ThemeSettings, NavMode } from '@/interface';
+import type { ThemeSettings, NavMode, AnimateType } from '@/interface';
 import { getHoverAndPressedColor } from './helpers';
 
 type ThemeState = ThemeSettings;
@@ -69,9 +69,39 @@ const themeStore = defineStore({
     handleSplitMenu(isSplit: boolean) {
       this.menuStyle.splitMenu = isSplit;
     },
+    /** 更改菜单展开的宽度 */
+    handleMenuWidth(width: number) {
+      this.menuStyle.width = width;
+    },
+    /** 更改头部的高度(不包含tab标签) */
+    handleHeaderHeight(height: number) {
+      this.headerStyle.height = height;
+    },
     /** 固定头部 */
     handleFixedHeader(isFixed: boolean) {
       this.headerStyle.fixed = isFixed;
+    },
+    /** 设置多标签的显示 */
+    handleMultiTabVisible(visible: boolean) {
+      this.multiTabStyle.visible = visible;
+    },
+    /** 设置面包屑的显示 */
+    handleCrumbsVisible(visible: boolean) {
+      this.crumbsStyle.visible = visible;
+    },
+    /** 设置面包屑图标的显示 */
+    handleCrumbsIconVisible(visible: boolean) {
+      this.crumbsStyle.showIcon = visible;
+    },
+    /** 开启页面切换动画 */
+    handlePageAnimate(animate: boolean) {
+      this.pageStyle.animate = animate;
+    },
+    /** 设置页面切换动画类型 */
+    handlePageAnimateType(animateType: AnimateType) {
+      if (this.pageStyle.animate) {
+        this.pageStyle.animateType = animateType;
+      }
     }
   }
 });

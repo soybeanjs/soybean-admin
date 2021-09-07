@@ -81,11 +81,18 @@ interface CrumbsStyle {
   showIcon: boolean;
 }
 
-type AnimateType = keyof typeof EnumAnimate;
+export type AnimateType = keyof typeof EnumAnimate;
+
+interface AnimateTypeList {
+  value: AnimateType;
+  label: EnumAnimate;
+}
 
 interface PageStyle {
   /** 页面是否开启动画 */
   animate: boolean;
   /** 动画类型 */
   animateType: AnimateType;
+  /** 动画类型列表 */
+  animateTypeList: AnimateTypeList[];
 }
