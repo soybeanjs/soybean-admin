@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="theme" :theme-overrides="app.themeOverrids">
+  <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="dark" :theme-overrides="theme.themeOverrids">
     <n-loading-bar-provider>
       <n-dialog-provider>
         <n-notification-provider>
@@ -26,9 +26,9 @@ import {
   NMessageProvider
 } from 'naive-ui';
 import { AppProviderContent } from '@/components';
-import { useAppStore } from '@/store';
+import { useThemeStore } from '@/store';
 
-const app = useAppStore();
-const theme = computed(() => (app.themeSettings.darkMode ? darkTheme : undefined));
+const theme = useThemeStore();
+const dark = computed(() => (theme.darkMode ? darkTheme : undefined));
 </script>
 <style scoped></style>

@@ -5,7 +5,7 @@
       v-for="item in modeList"
       :key="item.mode"
       :mode="item.mode"
-      :checked="app.themeSettings.navStyle.mode === item.mode"
+      :checked="theme.navStyle.mode === item.mode"
       @click="setNavMode(item.mode)"
     />
   </n-space>
@@ -16,15 +16,15 @@ import { NDivider, NSpace } from 'naive-ui';
 import { EnumNavMode } from '@/enum';
 import type { NavMode } from '@/interface';
 import { NavType } from './components';
-import { useAppStore } from '@/store';
+import { useThemeStore } from '@/store';
 
 interface ModeList {
   mode: NavMode;
   label: string;
 }
 
-const app = useAppStore();
-const { setNavMode } = useAppStore();
+const theme = useThemeStore();
+const { setNavMode } = useThemeStore();
 
 const modeList: ModeList[] = [
   { mode: 'vertical', label: EnumNavMode.vertical },

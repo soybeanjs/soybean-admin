@@ -25,6 +25,7 @@ async function setupApp() {
 
   app.mount('#app', true);
 
+  // 配置windicss暗黑主题
   setupWindicssDarkMode();
 }
 

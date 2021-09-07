@@ -5,8 +5,8 @@
       :native-scrollbar="false"
       :inverted="inverted"
       collapse-mode="width"
-      :collapsed="app.themeSettings.menuStyle.collapsed"
-      :collapsed-width="app.themeSettings.menuStyle.collapsedWidth"
+      :collapsed="app.menu.collapsed"
+      :collapsed-width="theme.menuStyle.collapsedWidth"
       :width="menuWidth"
       @collapse="handleMenuCollapse(true)"
       @expand="handleMenuCollapse(false)"
@@ -30,27 +30,27 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { NLayout, NLayoutSider, NLayoutHeader, NLayoutContent, NLayoutFooter } from 'naive-ui';
-import { useAppStore } from '@/store';
+import { useThemeStore, useAppStore } from '@/store';
 import { GlobalHeader, GlobalLogo, GlobalMenu, SettingDrawer } from './components';
 
+const theme = useThemeStore();
 const app = useAppStore();
 const { handleMenuCollapse } = useAppStore();
 
-const position = computed(() => (app.themeSettings.headerStyle.fixed ? 'absolute' : 'static'));
+const position = computed(() => (theme.headerStyle.fixed ? 'absolute' : 'static'));
 const menuWidth = computed(() => {
-  const { collapsed, collapsedWidth, width } = app.themeSettings.menuStyle;
+  const { collapsed } = app.menu;
+  const { collapsedWidth, width } = theme.menuStyle;
   return collapsed ? collapsedWidth : width;
 });
 const inverted = computed(() => {
-  const { theme } = app.themeSettings.navStyle;
-  return theme !== 'light';
+  return theme.navStyle.theme !== 'light';
 });
 const headerInverted = computed(() => {
-  const { theme } = app.themeSettings.navStyle;
-  return theme !== 'dark' ? inverted.value : !inverted.value;
+  return theme.navStyle.theme !== 'dark' ? inverted.value : !inverted.value;
 });
 const headerHeight = computed(() => {
-  const { height } = app.themeSettings.headerStyle;
+  const { height } = theme.headerStyle;
   return `${height}px`;
 });
 </script>

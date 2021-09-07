@@ -35,6 +35,7 @@ interface OtherColor {
 }
 
 export type NavMode = keyof typeof EnumNavMode;
+
 type NavTheme = keyof typeof EnumNavTheme;
 
 interface NavStyle {
@@ -56,8 +57,6 @@ interface HeaderStyle {
 }
 
 interface MenuStyle {
-  /** 折叠菜单 */
-  collapsed: boolean;
   /** 菜单宽度 */
   width: number;
   /** 菜单折叠时的宽度 */

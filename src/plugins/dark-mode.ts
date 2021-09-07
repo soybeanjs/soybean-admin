@@ -1,8 +1,8 @@
 import { watch } from 'vue';
-import { useAppStore } from '@/store';
+import { useThemeStore } from '@/store';
 
 export default function setupWindicssDarkMode() {
-  const app = useAppStore();
+  const theme = useThemeStore();
 
   const DARK_CLASS = 'dark';
 
@@ -19,7 +19,7 @@ export default function setupWindicssDarkMode() {
   }
 
   watch(
-    () => app.themeSettings.darkMode,
+    () => theme.darkMode,
     newValue => {
       if (newValue) {
         addDarkClass();

@@ -10,7 +10,7 @@ import { computed } from 'vue';
 import { useAppStore } from '@/store';
 
 const app = useAppStore();
-const showTitle = computed(() => !app.themeSettings.menuStyle.collapsed);
+const showTitle = computed(() => !app.menu.collapsed);
 const title = import.meta.env.VITE_APP_TITLE as string;
 </script>
 <style scoped></style>
