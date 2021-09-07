@@ -4,6 +4,8 @@
       <dark-mode />
       <nav-mode />
       <system-theme />
+      <page-func />
+      <page-view />
     </n-drawer-content>
   </n-drawer>
 </template>
@@ -11,7 +13,7 @@
 <script lang="ts" setup>
 import { NDrawer, NDrawerContent } from 'naive-ui';
 import { useAppStore } from '@/store';
-import { DarkMode, NavMode, SystemTheme } from './components';
+import { DarkMode, NavMode, SystemTheme, PageFunc, PageView } from './components';
 
 const app = useAppStore();
 </script>

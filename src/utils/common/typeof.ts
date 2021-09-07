@@ -1,47 +1,35 @@
-enum DataType {
-  number = '[object Number]',
-  string = '[object String]',
-  boolean = '[object Object]',
-  null = '[object Null]',
-  undefined = '[object Undefined]',
-  object = '[object Object]',
-  array = '[object Array]',
-  date = '[object Date]',
-  regexp = '[object RegExp]',
-  set = '[object Set]',
-  map = '[object Map]'
-}
+import { EnumDataType } from '@/enum';
 
 export function isNumber(data: any) {
-  return Object.prototype.toString.call(data) === DataType.number;
+  return Object.prototype.toString.call(data) === EnumDataType.number;
 }
 export function isString(data: any) {
-  return Object.prototype.toString.call(data) === DataType.string;
+  return Object.prototype.toString.call(data) === EnumDataType.string;
 }
 export function isBoolean(data: any) {
-  return Object.prototype.toString.call(data) === DataType.boolean;
+  return Object.prototype.toString.call(data) === EnumDataType.boolean;
 }
 export function isNull(data: any) {
-  return Object.prototype.toString.call(data) === DataType.null;
+  return Object.prototype.toString.call(data) === EnumDataType.null;
 }
 export function isUndefined(data: any) {
-  return Object.prototype.toString.call(data) === DataType.undefined;
+  return Object.prototype.toString.call(data) === EnumDataType.undefined;
 }
 export function isObject(data: any) {
-  return Object.prototype.toString.call(data) === DataType.object;
+  return Object.prototype.toString.call(data) === EnumDataType.object;
 }
 export function isArray(data: any) {
-  return Object.prototype.toString.call(data) === DataType.array;
+  return Object.prototype.toString.call(data) === EnumDataType.array;
 }
 export function isDate(data: any) {
-  return Object.prototype.toString.call(data) === DataType.date;
+  return Object.prototype.toString.call(data) === EnumDataType.date;
 }
 export function isRegExp(data: any) {
-  return Object.prototype.toString.call(data) === DataType.regexp;
+  return Object.prototype.toString.call(data) === EnumDataType.regexp;
 }
 export function isSet(data: any) {
-  return Object.prototype.toString.call(data) === DataType.set;
+  return Object.prototype.toString.call(data) === EnumDataType.set;
 }
 export function isMap(data: any) {
-  return Object.prototype.toString.call(data) === DataType.map;
+  return Object.prototype.toString.call(data) === EnumDataType.map;
 }

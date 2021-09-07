@@ -35,12 +35,6 @@ const themeSettings: ThemeSettings = {
     mode: 'vertical',
     theme: 'light'
   },
-  headerStyle: {
-    height: 64,
-    bgColor: '#fff',
-    fixed: true,
-    showReload: true
-  },
   menuStyle: {
     collapsed: false,
     width: 200,
@@ -48,10 +42,15 @@ const themeSettings: ThemeSettings = {
     fixed: true,
     splitMenu: false
   },
+  headerStyle: {
+    height: 64,
+    bgColor: '#fff',
+    fixed: true,
+    showReload: true
+  },
   multiTabStyle: {
     visible: true,
-    bgColor: '#fff',
-    fixed: true
+    bgColor: '#fff'
   },
   crumbsStyle: {
     visible: true,

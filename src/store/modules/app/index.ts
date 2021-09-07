@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { themeSettings } from '@/settings';
+import { store } from '@/store';
 import type { ThemeSettings, NavMode } from '@/interface';
-import { store } from '../../index';
 import { getHoverAndPressedColor } from './helpers';
 
 interface AppState {
@@ -81,6 +81,10 @@ const appStore = defineStore({
     closeSettingDrawer() {
       this.settingDrawer.visible = false;
     },
+    /** 设置暗黑模式 */
+    handleDarkMode(isDark: boolean) {
+      this.themeSettings.darkMode = isDark;
+    },
     /** 设置系统主题颜色 */
     setThemeColor(color: string) {
       this.themeSettings.themeColor = color;
@@ -88,6 +92,14 @@ const appStore = defineStore({
     /** 设置导航栏模式 */
     setNavMode(mode: NavMode) {
       this.themeSettings.navStyle.mode = mode;
+    },
+    /** 折叠菜单 */
+    handleSplitMenu(isSplit: boolean) {
+      this.themeSettings.menuStyle.splitMenu = isSplit;
+    },
+    /** 固定头部 */
+    handleFixedHeader(isFixed: boolean) {
+      this.themeSettings.headerStyle.fixed = isFixed;
     }
   }
 });

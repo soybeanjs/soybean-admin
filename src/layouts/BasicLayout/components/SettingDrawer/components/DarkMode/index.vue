@@ -1,7 +1,7 @@
 <template>
   <n-divider title-placement="center">深色主题</n-divider>
   <div class="flex-center">
-    <n-switch v-model:value="app.themeSettings.darkMode">
+    <n-switch :value="app.themeSettings.darkMode" @update:value="handleDarkMode">
       <template #checked>
         <icon-mdi-white-balance-sunny class="text-14px text-primary" />
       </template>
@@ -17,6 +17,7 @@ import { NDivider, NSwitch } from 'naive-ui';
 import { useAppStore } from '@/store';
 
 const app = useAppStore();
+const { handleDarkMode } = useAppStore();
 </script>
 <style scoped>
 :deep(.n-switch__rail) {

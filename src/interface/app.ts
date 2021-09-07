@@ -11,10 +11,10 @@ export interface ThemeSettings {
   otherColor: OtherColor;
   /** 导航样式 */
   navStyle: NavStyle;
-  /** 头部样式 */
-  headerStyle: HeaderStyle;
   /** 菜单样式 */
   menuStyle: MenuStyle;
+  /** 头部样式 */
+  headerStyle: HeaderStyle;
   /** 多标签样式 */
   multiTabStyle: MultiTabStyle;
   /** 面包屑样式 */
@@ -73,8 +73,6 @@ interface MultiTabStyle {
   visible: boolean;
   /** 背景颜色 */
   bgColor: string;
-  /** 固定标签页 */
-  fixed: boolean;
 }
 
 interface CrumbsStyle {
