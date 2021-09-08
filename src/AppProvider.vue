@@ -1,5 +1,11 @@
 <template>
-  <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="dark" :theme-overrides="theme.themeOverrids">
+  <n-config-provider
+    class="h-full"
+    :locale="zhCN"
+    :date-locale="dateZhCN"
+    :theme="dark"
+    :theme-overrides="theme.themeOverrids"
+  >
     <n-loading-bar-provider>
       <n-dialog-provider>
         <n-notification-provider>

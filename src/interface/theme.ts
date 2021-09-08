@@ -59,6 +59,8 @@ interface HeaderStyle {
 interface MenuStyle {
   /** 菜单宽度 */
   width: number;
+  /** 混合菜单的宽度 */
+  mixWidth: number;
   /** 菜单折叠时的宽度 */
   collapsedWidth: number;
   /** 固定菜单 */

@@ -1,6 +1,6 @@
+import GlobalSider from './GlobalSider/index.vue';
 import GlobalHeader from './GlobalHeader/index.vue';
-import GlobalLogo from './GlobalLogo/index.vue';
-import GlobalMenu from './GlobalMenu/index.vue';
+import GlobalFooter from './GlobalFooter/index.vue';
 import SettingDrawer from './SettingDrawer/index.vue';
 
-export { GlobalHeader, GlobalLogo, GlobalMenu, SettingDrawer };
+export { GlobalSider, GlobalHeader, GlobalFooter, SettingDrawer };

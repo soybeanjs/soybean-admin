@@ -18,6 +18,7 @@ export default defineConfig({
     'inline-flex-y-center': 'inline-flex items-center',
     'flex-1-hidden': 'flex-1 overflow-hidden',
     'flex-col-stretch': 'flex flex-col items-stretch',
+    'inline-flex-col-stretch': 'flex flex-col items-stretch',
     'absolute-center': 'absolute left-0 top-0 flex justify-center items-center w-full h-full',
     'absolute-lt': 'absolute left-0 top-0',
     'absolute-lb': 'absolute left-0 bottom-0',

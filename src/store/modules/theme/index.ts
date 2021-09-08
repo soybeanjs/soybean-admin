@@ -50,6 +50,10 @@ const themeStore = defineStore({
           colorLoading
         }
       };
+    },
+    isVerticalNav(): boolean {
+      const { mode } = this.navStyle;
+      return mode === 'vertical' || mode === 'vertical-mix';
     }
   },
   actions: {
@@ -73,6 +77,12 @@ const themeStore = defineStore({
     handleMenuWidth(width: number | null) {
       if (width !== null) {
         this.menuStyle.width = width;
+      }
+    },
+    /** 更改混合菜单展开的宽度 */
+    handleMixMenuWidth(width: number | null) {
+      if (width !== null) {
+        this.menuStyle.mixWidth = width;
       }
     },
     /** 更改头部的高度(不包含tab标签) */

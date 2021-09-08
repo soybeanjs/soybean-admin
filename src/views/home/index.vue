@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-h-500px">
     <n-space>
       <n-button v-for="item in actions" :key="item.key" type="primary" @click="handleClick(item.key)">
         {{ item.label }}
@@ -21,6 +21,7 @@
       <span class="text-warning">warning</span>
       <span class="text-error">error</span>
     </div>
+    <p v-for="i in 100" :key="i">{{ i }}</p>
   </div>
 </template>
 

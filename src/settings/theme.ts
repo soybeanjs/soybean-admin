@@ -1,5 +1,5 @@
-import type { ThemeSettings } from '../../interface';
-import { EnumAnimate } from '../../enum';
+import type { ThemeSettings } from '../interface';
+import { EnumAnimate } from '../enum';
 
 const themeColorList = [
   '#409EFF',
@@ -38,6 +38,7 @@ const themeSettings: ThemeSettings = {
   },
   menuStyle: {
     width: 200,
+    mixWidth: 80,
     collapsedWidth: 64,
     fixed: true,
     splitMenu: false

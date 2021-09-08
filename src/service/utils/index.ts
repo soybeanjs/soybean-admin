@@ -28,6 +28,8 @@ export function handleResponse<T>(handleFunc: HandleFunc<T>, ...requests: Reques
 
 /**
  * 接口为上传文件的类型时数据转换
+ * @param file - 单文件或多文件
+ * @param key - 文件的属性名
  */
 export async function transformFile(file: File[] | File, key: string) {
   const formData = new FormData();

@@ -1,67 +1,44 @@
 <template>
-  <n-layout has-sider :position="position">
-    <n-layout-sider
-      class="layout-sider min-h-100vh z-11"
-      :native-scrollbar="false"
-      :inverted="inverted"
-      collapse-mode="width"
-      :collapsed="app.menu.collapsed"
-      :collapsed-width="theme.menuStyle.collapsedWidth"
-      :width="menuWidth"
-      @collapse="handleMenuCollapse(true)"
-      @expand="handleMenuCollapse(false)"
-    >
-      <global-logo />
-      <global-menu />
-    </n-layout-sider>
-    <n-layout :inverted="inverted">
-      <n-layout-header :position="position" :inverted="headerInverted" class="z-10">
-        <global-header class="header-height" />
-      </n-layout-header>
-      <n-layout-content class="main-padding flex-auto min-h-100vh">
-        <router-view />
-      </n-layout-content>
-      <n-layout-footer></n-layout-footer>
-    </n-layout>
+  <n-layout class="h-full" has-sider>
+    <global-sider v-if="theme.isVerticalNav" :z-index="2" />
+    <global-header v-if="isHorizontalMix" :z-index="2" />
+    <div class="flex-1-hidden flex h-full">
+      <global-sider v-if="isHorizontalMix" class="sider-margin" :z-index="1" />
+      <n-scrollbar class="h-full" :x-scrollable="true">
+        <div class="inline-flex-col-stretch w-full min-h-100vh" :class="{ 'content-padding': isHorizontalMix }">
+          <global-header v-if="!isHorizontalMix" :z-index="1" />
+          <n-layout-content class="flex-auto" :class="{ 'bg-[#f5f7f9]': !theme.darkMode }">
+            <router-view />
+          </n-layout-content>
+          <global-footer />
+        </div>
+      </n-scrollbar>
+    </div>
     <setting-drawer />
   </n-layout>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { NLayout, NLayoutSider, NLayoutHeader, NLayoutContent, NLayoutFooter } from 'naive-ui';
-import { useThemeStore, useAppStore } from '@/store';
-import { GlobalHeader, GlobalLogo, GlobalMenu, SettingDrawer } from './components';
+import { NLayout, NScrollbar, NLayoutContent } from 'naive-ui';
+import { useThemeStore } from '@/store';
+import { GlobalSider, GlobalHeader, GlobalFooter, SettingDrawer } from './components';
 
 const theme = useThemeStore();
-const app = useAppStore();
-const { handleMenuCollapse } = useAppStore();
-
-const position = computed(() => (theme.headerStyle.fixed ? 'absolute' : 'static'));
-const menuWidth = computed(() => {
-  const { collapsed } = app.menu;
-  const { collapsedWidth, width } = theme.menuStyle;
-  return collapsed ? collapsedWidth : width;
-});
-const inverted = computed(() => {
-  return theme.navStyle.theme !== 'light';
-});
-const headerInverted = computed(() => {
-  return theme.navStyle.theme !== 'dark' ? inverted.value : !inverted.value;
-});
+const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
 const headerHeight = computed(() => {
   const { height } = theme.headerStyle;
   return `${height}px`;
 });
 </script>
 <style scoped>
-.layout-sider {
-  box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+:deep(.n-scrollbar-rail) {
+  z-index: 11;
 }
-.header-height {
-  height: v-bind(headerHeight);
+.sider-margin {
+  margin-top: v-bind(headerHeight);
 }
-.main-padding {
+.content-padding {
   padding-top: v-bind(headerHeight);
 }
 </style>
