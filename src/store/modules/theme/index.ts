@@ -70,12 +70,16 @@ const themeStore = defineStore({
       this.menuStyle.splitMenu = isSplit;
     },
     /** 更改菜单展开的宽度 */
-    handleMenuWidth(width: number) {
-      this.menuStyle.width = width;
+    handleMenuWidth(width: number | null) {
+      if (width !== null) {
+        this.menuStyle.width = width;
+      }
     },
     /** 更改头部的高度(不包含tab标签) */
-    handleHeaderHeight(height: number) {
-      this.headerStyle.height = height;
+    handleHeaderHeight(height: number | null) {
+      if (height !== null) {
+        this.headerStyle.height = height;
+      }
     },
     /** 固定头部 */
     handleFixedHeader(isFixed: boolean) {

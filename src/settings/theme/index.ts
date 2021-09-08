@@ -1,5 +1,5 @@
-import type { ThemeSettings } from '@/interface';
-import { EnumAnimate } from '@/enum';
+import type { ThemeSettings } from '../../interface';
+import { EnumAnimate } from '../../enum';
 
 const themeColorList = [
   '#409EFF',
