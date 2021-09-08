@@ -1,3 +1,3 @@
-import HeaderItemContainer from './HeaderItemContainer.vue';
+import HeaderItem from './HeaderItem.vue';
 
-export { HeaderItemContainer };
+export { HeaderItem };

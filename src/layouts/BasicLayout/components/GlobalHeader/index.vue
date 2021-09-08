@@ -1,17 +1,22 @@
 <template>
-  <div class="global-header flex-y-center justify-between">
-    <h2></h2>
-    <header-item-container class="w-40px h-full" @click="openSettingDrawer">
+  <div class="global-header flex-y-center justify-end">
+    <header-item class="w-40px h-full" @click="toggle">
+      <icon-gridicons-fullscreen-exit v-if="isFullscreen" class="text-16px" />
+      <icon-gridicons-fullscreen v-else class="text-16px" />
+    </header-item>
+    <header-item class="w-40px h-full" @click="openSettingDrawer">
       <icon-mdi-light-cog class="text-16px" />
-    </header-item-container>
+    </header-item>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useFullscreen } from '@vueuse/core';
 import { useAppStore } from '@/store';
-import { HeaderItemContainer } from './components';
+import { HeaderItem } from './components';
 
 const { openSettingDrawer } = useAppStore();
+const { isFullscreen, toggle } = useFullscreen();
 </script>
 <style scoped>
 .global-header {
