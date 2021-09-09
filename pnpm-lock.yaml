@@ -4,6 +4,7 @@ specifiers:
   '@commitlint/cli': ^13.1.0
   '@commitlint/config-conventional': ^13.1.0
   '@iconify/json': ^1.1.399
+  '@iconify/vue': ^3.0.0
   '@types/chroma-js': ^2.1.3
   '@types/nprogress': ^0.2.0
   '@types/qs': ^6.9.7
@@ -35,7 +36,7 @@ specifiers:
   patch-package: ^6.4.7
   pinia: ^2.0.0-rc.4
   postinstall-postinstall: ^2.1.0
-  prettier: ^2.3.2
+  prettier: ^2.4.0
   qs: ^6.10.1
   sass: ^1.39.0
   smoothscroll-polyfill: ^0.4.4
@@ -67,6 +68,7 @@ devDependencies:
   '@commitlint/cli': registry.nlark.com/@commitlint/cli/13.1.0
   '@commitlint/config-conventional': registry.nlark.com/@commitlint/config-conventional/13.1.0
   '@iconify/json': registry.nlark.com/@iconify/json/1.1.399
+  '@iconify/vue': registry.nlark.com/@iconify/vue/3.0.0_vue@3.2.10
   '@types/chroma-js': registry.nlark.com/@types/chroma-js/2.1.3
   '@types/nprogress': registry.nlark.com/@types/nprogress/0.2.0
   '@types/qs': registry.nlark.com/@types/qs/6.9.7
@@ -75,7 +77,7 @@ devDependencies:
   '@typescript-eslint/parser': registry.nlark.com/@typescript-eslint/parser/4.31.0_eslint@7.32.0+typescript@4.4.2
   '@vitejs/plugin-vue': registry.nlark.com/@vitejs/plugin-vue/1.6.2_@vue+compiler-sfc@3.2.11
   '@vue/compiler-sfc': registry.nlark.com/@vue/compiler-sfc/3.2.11
-  '@vue/eslint-config-prettier': 6.0.0_2127539a99f1ff5da0f49b56a079f074
+  '@vue/eslint-config-prettier': 6.0.0_b4d73ff40db55d7af7de6f3602f2b630
   '@vue/eslint-config-typescript': 7.0.0_0643334a6dbf62beef45105491db6c15
   commitizen: registry.nlark.com/commitizen/4.2.4
   cz-conventional-changelog: registry.nlark.com/cz-conventional-changelog/3.3.0
@@ -85,13 +87,13 @@ devDependencies:
   eslint-config-airbnb-base: 14.2.1_b7a4de75e7d0094cbe979e30a9a325ab
   eslint-config-prettier: registry.nlark.com/eslint-config-prettier/8.3.0_eslint@7.32.0
   eslint-plugin-import: registry.nlark.com/eslint-plugin-import/2.24.2_eslint@7.32.0
-  eslint-plugin-prettier: registry.nlark.com/eslint-plugin-prettier/4.0.0_5a48a349ffec60f5257b5f148f5199c3
+  eslint-plugin-prettier: registry.nlark.com/eslint-plugin-prettier/4.0.0_5559632aa3c77deec3ae5c2ea6ed0f36
   eslint-plugin-vue: registry.nlark.com/eslint-plugin-vue/7.17.0_eslint@7.32.0
   husky: registry.nlark.com/husky/7.0.2
   lint-staged: registry.nlark.com/lint-staged/11.1.2
   patch-package: registry.nlark.com/patch-package/6.4.7
   postinstall-postinstall: registry.nlark.com/postinstall-postinstall/2.1.0
-  prettier: registry.nlark.com/prettier/2.3.2
+  prettier: registry.nlark.com/prettier/2.4.0
   sass: registry.nlark.com/sass/1.39.0
   typescript: registry.nlark.com/typescript/4.4.2
   unplugin-icons: registry.nlark.com/unplugin-icons/0.7.6_5d72f6392975d02ee45d0acbc066efa3
@@ -112,7 +114,7 @@ packages:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=, tarball: '@types/json5/download/@types/json5-0.0.29.tgz'}
     dev: true
 
-  /@vue/eslint-config-prettier/6.0.0_2127539a99f1ff5da0f49b56a079f074:
+  /@vue/eslint-config-prettier/6.0.0_b4d73ff40db55d7af7de6f3602f2b630:
     resolution: {integrity: sha1-rVkSswj0rkaEWOAqKwXbC50kZwA=, tarball: '@vue/eslint-config-prettier/download/@vue/eslint-config-prettier-6.0.0.tgz'}
     peerDependencies:
       eslint: '>= 5.0.0'
@@ -121,8 +123,8 @@ packages:
     dependencies:
       eslint: registry.nlark.com/eslint/7.32.0
       eslint-config-prettier: registry.nlark.com/eslint-config-prettier/6.15.0_eslint@7.32.0
-      eslint-plugin-prettier: registry.nlark.com/eslint-plugin-prettier/4.0.0_5a48a349ffec60f5257b5f148f5199c3
-      prettier: registry.nlark.com/prettier/2.3.2
+      eslint-plugin-prettier: registry.nlark.com/eslint-plugin-prettier/4.0.0_5559632aa3c77deec3ae5c2ea6ed0f36
+      prettier: registry.nlark.com/prettier/2.4.0
     dev: true
 
   /@vue/eslint-config-typescript/7.0.0_0643334a6dbf62beef45105491db6c15:
@@ -2349,6 +2351,17 @@ packages:
     version: 1.1.399
     dev: true
 
+  registry.nlark.com/@iconify/vue/3.0.0_vue@3.2.10:
+    resolution: {integrity: sha1-fi+opRWupOUDE9QazbPMCzSSgp0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@iconify/vue/download/@iconify/vue-3.0.0.tgz}
+    id: registry.nlark.com/@iconify/vue/3.0.0
+    name: '@iconify/vue'
+    version: 3.0.0
+    peerDependencies:
+      vue: ^3.0.11
+    dependencies:
+      vue: registry.nlark.com/vue/3.2.10
+    dev: true
+
   registry.nlark.com/@jest/types/26.6.2:
     resolution: {integrity: sha1-vvWlMgMOHYii9abZM/hOlyJu1I4=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@jest/types/download/@jest/types-26.6.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Ftypes%2Fdownload%2F%40jest%2Ftypes-26.6.2.tgz}
     name: '@jest/types'
@@ -2939,6 +2952,11 @@ packages:
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
     dependencies:
       '@vueuse/shared': registry.nlark.com/@vueuse/shared/6.3.2_vue@3.2.10
       vue: registry.nlark.com/vue/3.2.10
@@ -2953,6 +2971,11 @@ packages:
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
     dependencies:
       vue: registry.nlark.com/vue/3.2.10
       vue-demi: registry.nlark.com/vue-demi/0.11.4_vue@3.2.10
@@ -3666,7 +3689,7 @@ packages:
       tsconfig-paths: registry.nlark.com/tsconfig-paths/3.11.0
     dev: true
 
-  registry.nlark.com/eslint-plugin-prettier/4.0.0_5a48a349ffec60f5257b5f148f5199c3:
+  registry.nlark.com/eslint-plugin-prettier/4.0.0_5559632aa3c77deec3ae5c2ea6ed0f36:
     resolution: {integrity: sha1-i5nR5LiySnYkcrRWeZICNhnLmOA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/eslint-plugin-prettier/download/eslint-plugin-prettier-4.0.0.tgz}
     id: registry.nlark.com/eslint-plugin-prettier/4.0.0
     name: eslint-plugin-prettier
@@ -3682,7 +3705,7 @@ packages:
     dependencies:
       eslint: registry.nlark.com/eslint/7.32.0
       eslint-config-prettier: registry.nlark.com/eslint-config-prettier/8.3.0_eslint@7.32.0
-      prettier: registry.nlark.com/prettier/2.3.2
+      prettier: registry.nlark.com/prettier/2.4.0
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -5002,10 +5025,10 @@ packages:
     requiresBuild: true
     dev: true
 
-  registry.nlark.com/prettier/2.3.2:
-    resolution: {integrity: sha1-7ygKBewlNxLkhiM9tcbyNEHnNC0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/prettier/download/prettier-2.3.2.tgz?cache=0&sync_timestamp=1624696947325&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fprettier%2Fdownload%2Fprettier-2.3.2.tgz}
+  registry.nlark.com/prettier/2.4.0:
+    resolution: {integrity: sha1-hb3+D3DD53fPE6T//zlxPKb2TLo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/prettier/download/prettier-2.4.0.tgz}
     name: prettier
-    version: 2.3.2
+    version: 2.4.0
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true

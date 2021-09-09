@@ -1,6 +1,6 @@
 <template>
   <n-layout-footer>
-    <h3 class="flex-center h-48px text-18px text-error">页脚</h3>
+    <div class="flex-center h-48px text-[#00000073]">Copyright ©2021 Soybean Admin</div>
   </n-layout-footer>
 </template>
 
