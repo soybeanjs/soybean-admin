@@ -22,4 +22,4 @@ Soybean Admin 是一个基于 Vue3、Vite、Naive UI、TypeScript 的中后台�
 
 ## 预览
 
-- [soybean-admin](https://soybean.pro/) - 完整版中文站点
+- [soybean-admin](https://soybean.pro/) - 站点

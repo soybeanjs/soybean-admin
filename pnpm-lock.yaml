@@ -10,11 +10,11 @@ specifiers:
   '@types/smoothscroll-polyfill': ^0.3.1
   '@typescript-eslint/eslint-plugin': ^4.31.0
   '@typescript-eslint/parser': ^4.31.0
-  '@vitejs/plugin-vue': ^1.6.1
-  '@vue/compiler-sfc': ^3.2.10
+  '@vitejs/plugin-vue': ^1.6.2
+  '@vue/compiler-sfc': ^3.2.11
   '@vue/eslint-config-prettier': ^6.0.0
   '@vue/eslint-config-typescript': ^7.0.0
-  '@vueuse/core': ^6.2.1
+  '@vueuse/core': ^6.3.2
   axios: ^0.21.4
   chroma-js: ^2.1.2
   commitizen: ^4.2.4
@@ -42,7 +42,7 @@ specifiers:
   typescript: ^4.4.2
   unplugin-icons: ^0.7.6
   unplugin-vue-components: ^0.15.0
-  vite: ^2.5.5
+  vite: ^2.5.6
   vite-plugin-html: ^2.1.0
   vite-plugin-windicss: ^1.4.2
   vue: ^3.2.10
@@ -51,7 +51,7 @@ specifiers:
   windicss: ^3.1.7
 
 dependencies:
-  '@vueuse/core': registry.nlark.com/@vueuse/core/6.2.1_vue@3.2.10
+  '@vueuse/core': registry.nlark.com/@vueuse/core/6.3.2_vue@3.2.10
   axios: registry.nlark.com/axios/0.21.4
   chroma-js: registry.nlark.com/chroma-js/2.1.2
   dayjs: registry.nlark.com/dayjs/1.10.6
@@ -73,8 +73,8 @@ devDependencies:
   '@types/smoothscroll-polyfill': registry.nlark.com/@types/smoothscroll-polyfill/0.3.1
   '@typescript-eslint/eslint-plugin': registry.nlark.com/@typescript-eslint/eslint-plugin/4.31.0_a690ff3776b01e92cf0b93501bb5ae6a
   '@typescript-eslint/parser': registry.nlark.com/@typescript-eslint/parser/4.31.0_eslint@7.32.0+typescript@4.4.2
-  '@vitejs/plugin-vue': registry.nlark.com/@vitejs/plugin-vue/1.6.1_@vue+compiler-sfc@3.2.10
-  '@vue/compiler-sfc': registry.nlark.com/@vue/compiler-sfc/3.2.10
+  '@vitejs/plugin-vue': registry.nlark.com/@vitejs/plugin-vue/1.6.2_@vue+compiler-sfc@3.2.11
+  '@vue/compiler-sfc': registry.nlark.com/@vue/compiler-sfc/3.2.11
   '@vue/eslint-config-prettier': 6.0.0_2127539a99f1ff5da0f49b56a079f074
   '@vue/eslint-config-typescript': 7.0.0_0643334a6dbf62beef45105491db6c15
   commitizen: registry.nlark.com/commitizen/4.2.4
@@ -94,11 +94,11 @@ devDependencies:
   prettier: registry.nlark.com/prettier/2.3.2
   sass: registry.nlark.com/sass/1.39.0
   typescript: registry.nlark.com/typescript/4.4.2
-  unplugin-icons: registry.nlark.com/unplugin-icons/0.7.6_8778aa393f2231eb411cf3b016af5770
-  unplugin-vue-components: registry.nlark.com/unplugin-vue-components/0.15.0_vite@2.5.5+vue@3.2.10
-  vite: registry.nlark.com/vite/2.5.5
-  vite-plugin-html: registry.nlark.com/vite-plugin-html/2.1.0_vite@2.5.5
-  vite-plugin-windicss: registry.nlark.com/vite-plugin-windicss/1.4.2_typescript@4.4.2+vite@2.5.5
+  unplugin-icons: registry.nlark.com/unplugin-icons/0.7.6_5d72f6392975d02ee45d0acbc066efa3
+  unplugin-vue-components: registry.nlark.com/unplugin-vue-components/0.15.0_vite@2.5.6+vue@3.2.10
+  vite: registry.nlark.com/vite/2.5.6
+  vite-plugin-html: registry.nlark.com/vite-plugin-html/2.1.0_vite@2.5.6
+  vite-plugin-windicss: registry.nlark.com/vite-plugin-windicss/1.4.2_typescript@4.4.2+vite@2.5.6
   vue-tsc: registry.nlark.com/vue-tsc/0.3.0_typescript@4.4.2
   windicss: registry.nlark.com/windicss/3.1.7
 
@@ -2314,6 +2314,8 @@ packages:
       js-yaml: 3.14.1
       minimatch: 3.0.4
       strip-json-comments: 3.1.1
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   registry.nlark.com/@humanwhocodes/config-array/0.5.0:
@@ -2325,6 +2327,8 @@ packages:
       '@humanwhocodes/object-schema': registry.nlark.com/@humanwhocodes/object-schema/1.2.0
       debug: registry.nlark.com/debug/4.3.2
       minimatch: 3.0.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   registry.nlark.com/@humanwhocodes/object-schema/1.2.0:
@@ -2655,16 +2659,16 @@ packages:
       eslint-visitor-keys: registry.nlark.com/eslint-visitor-keys/2.1.0
     dev: true
 
-  registry.nlark.com/@vitejs/plugin-vue/1.6.1_@vue+compiler-sfc@3.2.10:
-    resolution: {integrity: sha1-pAoGZhr2H9wb69+4EbKPUK0537M=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.6.1.tgz}
-    id: registry.nlark.com/@vitejs/plugin-vue/1.6.1
+  registry.nlark.com/@vitejs/plugin-vue/1.6.2_@vue+compiler-sfc@3.2.11:
+    resolution: {integrity: sha1-QN/jFM/2ENTdAnoLTqKpOiV/P8k=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.6.2.tgz}
+    id: registry.nlark.com/@vitejs/plugin-vue/1.6.2
     name: '@vitejs/plugin-vue'
-    version: 1.6.1
+    version: 1.6.2
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@vue/compiler-sfc': ^3.2.6
     dependencies:
-      '@vue/compiler-sfc': registry.nlark.com/@vue/compiler-sfc/3.2.10
+      '@vue/compiler-sfc': registry.nlark.com/@vue/compiler-sfc/3.2.11
     dev: true
 
   registry.nlark.com/@volar/code-gen/0.27.3:
@@ -2736,6 +2740,19 @@ packages:
       '@vue/shared': registry.nlark.com/@vue/shared/3.2.10
       estree-walker: 2.0.2
       source-map: registry.nlark.com/source-map/0.6.1
+    dev: false
+
+  registry.nlark.com/@vue/compiler-core/3.2.11:
+    resolution: {integrity: sha1-EK83d9ujA+56rmaAKfExy5A5G+4=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/compiler-core/download/@vue/compiler-core-3.2.11.tgz}
+    name: '@vue/compiler-core'
+    version: 3.2.11
+    dependencies:
+      '@babel/parser': registry.nlark.com/@babel/parser/7.15.3
+      '@babel/types': registry.nlark.com/@babel/types/7.15.0
+      '@vue/shared': registry.nlark.com/@vue/shared/3.2.11
+      estree-walker: 2.0.2
+      source-map: registry.nlark.com/source-map/0.6.1
+    dev: true
 
   registry.nlark.com/@vue/compiler-core/3.2.4:
     resolution: {integrity: sha1-qY0pV3GZjB6NzMTuPVL+sUsCrqk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/compiler-core/download/@vue/compiler-core-3.2.4.tgz}
@@ -2756,6 +2773,16 @@ packages:
     dependencies:
       '@vue/compiler-core': registry.nlark.com/@vue/compiler-core/3.2.10
       '@vue/shared': registry.nlark.com/@vue/shared/3.2.10
+    dev: false
+
+  registry.nlark.com/@vue/compiler-dom/3.2.11:
+    resolution: {integrity: sha1-0Gb44fGBK06IFZOBmt4P5tZUx3Y=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/compiler-dom/download/@vue/compiler-dom-3.2.11.tgz}
+    name: '@vue/compiler-dom'
+    version: 3.2.11
+    dependencies:
+      '@vue/compiler-core': registry.nlark.com/@vue/compiler-core/3.2.11
+      '@vue/shared': registry.nlark.com/@vue/shared/3.2.11
+    dev: true
 
   registry.nlark.com/@vue/compiler-dom/3.2.4:
     resolution: {integrity: sha1-OkPeJD66Enq75X55aguWnS33jAg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/compiler-dom/download/@vue/compiler-dom-3.2.4.tgz}
@@ -2766,19 +2793,19 @@ packages:
       '@vue/shared': registry.nlark.com/@vue/shared/3.2.4
     dev: true
 
-  registry.nlark.com/@vue/compiler-sfc/3.2.10:
-    resolution: {integrity: sha1-MTcvf+ZVTcXc+945g/Tkob+J1u8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/compiler-sfc/download/@vue/compiler-sfc-3.2.10.tgz}
+  registry.nlark.com/@vue/compiler-sfc/3.2.11:
+    resolution: {integrity: sha1-Yo+hIjh2DZubM5rC4SWnWSJPrb8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/compiler-sfc/download/@vue/compiler-sfc-3.2.11.tgz}
     name: '@vue/compiler-sfc'
-    version: 3.2.10
+    version: 3.2.11
     dependencies:
       '@babel/parser': registry.nlark.com/@babel/parser/7.15.3
       '@babel/types': registry.nlark.com/@babel/types/7.15.0
       '@types/estree': registry.nlark.com/@types/estree/0.0.48
-      '@vue/compiler-core': registry.nlark.com/@vue/compiler-core/3.2.10
-      '@vue/compiler-dom': registry.nlark.com/@vue/compiler-dom/3.2.10
-      '@vue/compiler-ssr': registry.nlark.com/@vue/compiler-ssr/3.2.10
-      '@vue/ref-transform': registry.nlark.com/@vue/ref-transform/3.2.10
-      '@vue/shared': registry.nlark.com/@vue/shared/3.2.10
+      '@vue/compiler-core': registry.nlark.com/@vue/compiler-core/3.2.11
+      '@vue/compiler-dom': registry.nlark.com/@vue/compiler-dom/3.2.11
+      '@vue/compiler-ssr': registry.nlark.com/@vue/compiler-ssr/3.2.11
+      '@vue/ref-transform': registry.nlark.com/@vue/ref-transform/3.2.11
+      '@vue/shared': registry.nlark.com/@vue/shared/3.2.11
       consolidate: registry.nlark.com/consolidate/0.16.0
       estree-walker: 2.0.2
       hash-sum: 2.0.0
@@ -2815,13 +2842,13 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  registry.nlark.com/@vue/compiler-ssr/3.2.10:
-    resolution: {integrity: sha1-dAEy6e8M+AypZCuV5Ii+yqmmxTU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/compiler-ssr/download/@vue/compiler-ssr-3.2.10.tgz}
+  registry.nlark.com/@vue/compiler-ssr/3.2.11:
+    resolution: {integrity: sha1-cCzvNCllFkW9vgn+WWKAO1piGrs=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/compiler-ssr/download/@vue/compiler-ssr-3.2.11.tgz}
     name: '@vue/compiler-ssr'
-    version: 3.2.10
+    version: 3.2.11
     dependencies:
-      '@vue/compiler-dom': registry.nlark.com/@vue/compiler-dom/3.2.10
-      '@vue/shared': registry.nlark.com/@vue/shared/3.2.10
+      '@vue/compiler-dom': registry.nlark.com/@vue/compiler-dom/3.2.11
+      '@vue/shared': registry.nlark.com/@vue/shared/3.2.11
     dev: true
 
   registry.nlark.com/@vue/compiler-ssr/3.2.4:
@@ -2855,14 +2882,14 @@ packages:
       '@vue/shared': registry.nlark.com/@vue/shared/3.2.4
     dev: true
 
-  registry.nlark.com/@vue/ref-transform/3.2.10:
-    resolution: {integrity: sha1-LDXqVAHL1fVDiV8jY0iM2qWyFAY=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/ref-transform/download/@vue/ref-transform-3.2.10.tgz}
+  registry.nlark.com/@vue/ref-transform/3.2.11:
+    resolution: {integrity: sha1-TSgrlXDRSFpz579dV8zie0p6ppA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/ref-transform/download/@vue/ref-transform-3.2.11.tgz}
     name: '@vue/ref-transform'
-    version: 3.2.10
+    version: 3.2.11
     dependencies:
       '@babel/parser': registry.nlark.com/@babel/parser/7.15.3
-      '@vue/compiler-core': registry.nlark.com/@vue/compiler-core/3.2.10
-      '@vue/shared': registry.nlark.com/@vue/shared/3.2.10
+      '@vue/compiler-core': registry.nlark.com/@vue/compiler-core/3.2.11
+      '@vue/shared': registry.nlark.com/@vue/shared/3.2.11
       estree-walker: 2.0.2
       magic-string: registry.nlark.com/magic-string/0.25.7
     dev: true
@@ -2890,6 +2917,13 @@ packages:
     resolution: {integrity: sha1-dv+lAwGeUkYzZ+JSdWVtHSmdyRw=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/shared/download/@vue/shared-3.2.10.tgz}
     name: '@vue/shared'
     version: 3.2.10
+    dev: false
+
+  registry.nlark.com/@vue/shared/3.2.11:
+    resolution: {integrity: sha1-AYmfVJScrxrCQd45e9FwaWMldN4=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/shared/download/@vue/shared-3.2.11.tgz}
+    name: '@vue/shared'
+    version: 3.2.11
+    dev: true
 
   registry.nlark.com/@vue/shared/3.2.4:
     resolution: {integrity: sha1-uioJUnr/8nso0I+SG0pZfpUEyno=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/shared/download/@vue/shared-3.2.4.tgz}
@@ -2897,38 +2931,28 @@ packages:
     version: 3.2.4
     dev: true
 
-  registry.nlark.com/@vueuse/core/6.2.1_vue@3.2.10:
-    resolution: {integrity: sha1-u6SHJ+nnBjfDkkARyVv5NGFjONA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vueuse/core/download/@vueuse/core-6.2.1.tgz}
-    id: registry.nlark.com/@vueuse/core/6.2.1
+  registry.nlark.com/@vueuse/core/6.3.2_vue@3.2.10:
+    resolution: {integrity: sha1-M2WyGi0JTVr8QrYH6EeS/takxGM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vueuse/core/download/@vueuse/core-6.3.2.tgz}
+    id: registry.nlark.com/@vueuse/core/6.3.2
     name: '@vueuse/core'
-    version: 6.2.1
+    version: 6.3.2
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      vue:
-        optional: true
     dependencies:
-      '@vueuse/shared': registry.nlark.com/@vueuse/shared/6.2.1_vue@3.2.10
+      '@vueuse/shared': registry.nlark.com/@vueuse/shared/6.3.2_vue@3.2.10
       vue: registry.nlark.com/vue/3.2.10
       vue-demi: registry.nlark.com/vue-demi/0.11.4_vue@3.2.10
     dev: false
 
-  registry.nlark.com/@vueuse/shared/6.2.1_vue@3.2.10:
-    resolution: {integrity: sha1-SyCzh23kTD6FkISbRjUA377TeQg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vueuse/shared/download/@vueuse/shared-6.2.1.tgz}
-    id: registry.nlark.com/@vueuse/shared/6.2.1
+  registry.nlark.com/@vueuse/shared/6.3.2_vue@3.2.10:
+    resolution: {integrity: sha1-NaghVh/U+x6i4ktvqQhvPQ1QYxY=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vueuse/shared/download/@vueuse/shared-6.3.2.tgz}
+    id: registry.nlark.com/@vueuse/shared/6.3.2
     name: '@vueuse/shared'
-    version: 6.2.1
+    version: 6.3.2
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      vue:
-        optional: true
     dependencies:
       vue: registry.nlark.com/vue/3.2.10
       vue-demi: registry.nlark.com/vue-demi/0.11.4_vue@3.2.10
@@ -3248,7 +3272,7 @@ packages:
     dev: true
 
   registry.nlark.com/colorette/1.3.0:
-    resolution: {integrity: sha1-/0XS8O2yRAadO3cq3rBP7TjQoK8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/colorette/download/colorette-1.3.0.tgz?cache=0&sync_timestamp=1628600438560&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcolorette%2Fdownload%2Fcolorette-1.3.0.tgz}
+    resolution: {integrity: sha1-/0XS8O2yRAadO3cq3rBP7TjQoK8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/colorette/download/colorette-1.3.0.tgz?cache=0&sync_timestamp=1631034394587&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcolorette%2Fdownload%2Fcolorette-1.3.0.tgz}
     name: colorette
     version: 1.3.0
     dev: true
@@ -3773,6 +3797,8 @@ packages:
       table: registry.nlark.com/table/6.7.1
       text-table: 0.2.0
       v8-compile-cache: 2.3.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   registry.nlark.com/espree/6.2.1:
@@ -5483,7 +5509,7 @@ packages:
     hasBin: true
     dev: true
 
-  registry.nlark.com/unplugin-icons/0.7.6_8778aa393f2231eb411cf3b016af5770:
+  registry.nlark.com/unplugin-icons/0.7.6_5d72f6392975d02ee45d0acbc066efa3:
     resolution: {integrity: sha1-CLYc+b2imJyKfcbU6oBStluwkKA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/unplugin-icons/download/unplugin-icons-0.7.6.tgz}
     id: registry.nlark.com/unplugin-icons/0.7.6
     name: unplugin-icons
@@ -5506,16 +5532,16 @@ packages:
     dependencies:
       '@iconify/json': registry.nlark.com/@iconify/json/1.1.399
       '@iconify/json-tools': registry.nlark.com/@iconify/json-tools/1.0.10
-      '@vue/compiler-sfc': registry.nlark.com/@vue/compiler-sfc/3.2.10
+      '@vue/compiler-sfc': registry.nlark.com/@vue/compiler-sfc/3.2.11
       has-pkg: registry.nlark.com/has-pkg/0.0.1
-      unplugin: registry.nlark.com/unplugin/0.2.7_vite@2.5.5
+      unplugin: registry.nlark.com/unplugin/0.2.7_vite@2.5.6
     transitivePeerDependencies:
       - rollup
       - vite
       - webpack
     dev: true
 
-  registry.nlark.com/unplugin-vue-components/0.15.0_vite@2.5.5+vue@3.2.10:
+  registry.nlark.com/unplugin-vue-components/0.15.0_vite@2.5.6+vue@3.2.10:
     resolution: {integrity: sha1-XxJNcPFm+KzgWtnOkjCoToswasU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/unplugin-vue-components/download/unplugin-vue-components-0.15.0.tgz}
     id: registry.nlark.com/unplugin-vue-components/0.15.0
     name: unplugin-vue-components
@@ -5532,7 +5558,7 @@ packages:
       magic-string: registry.nlark.com/magic-string/0.25.7
       minimatch: registry.nlark.com/minimatch/3.0.4
       resolve: 1.20.0
-      unplugin: registry.nlark.com/unplugin/0.2.7_vite@2.5.5
+      unplugin: registry.nlark.com/unplugin/0.2.7_vite@2.5.6
       vue: registry.nlark.com/vue/3.2.10
     transitivePeerDependencies:
       - rollup
@@ -5541,7 +5567,7 @@ packages:
       - webpack
     dev: true
 
-  registry.nlark.com/unplugin/0.2.7_vite@2.5.5:
+  registry.nlark.com/unplugin/0.2.7_vite@2.5.6:
     resolution: {integrity: sha1-QAchRSh5Q6u8VSGF7n3xUlkyEz0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/unplugin/download/unplugin-0.2.7.tgz}
     id: registry.nlark.com/unplugin/0.2.7
     name: unplugin
@@ -5559,7 +5585,7 @@ packages:
         optional: true
     dependencies:
       upath: 2.0.1
-      vite: registry.nlark.com/vite/2.5.5
+      vite: registry.nlark.com/vite/2.5.6
       webpack-virtual-modules: registry.nlark.com/webpack-virtual-modules/0.4.3
     dev: true
 
@@ -5588,7 +5614,7 @@ packages:
     version: 0.1.0
     dev: false
 
-  registry.nlark.com/vite-plugin-html/2.1.0_vite@2.5.5:
+  registry.nlark.com/vite-plugin-html/2.1.0_vite@2.5.6:
     resolution: {integrity: sha1-d7buEdnNvfdmtXMf1Ba6zyZ0T84=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/vite-plugin-html/download/vite-plugin-html-2.1.0.tgz}
     id: registry.nlark.com/vite-plugin-html/2.1.0
     name: vite-plugin-html
@@ -5602,10 +5628,10 @@ packages:
       ejs: 3.1.6
       fs-extra: registry.nlark.com/fs-extra/10.0.0
       html-minifier-terser: 5.1.1
-      vite: registry.nlark.com/vite/2.5.5
+      vite: registry.nlark.com/vite/2.5.6
     dev: true
 
-  registry.nlark.com/vite-plugin-windicss/1.4.2_typescript@4.4.2+vite@2.5.5:
+  registry.nlark.com/vite-plugin-windicss/1.4.2_typescript@4.4.2+vite@2.5.6:
     resolution: {integrity: sha1-B1z160lGk9FtQLSr6Yh7YfR8Du8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/vite-plugin-windicss/download/vite-plugin-windicss-1.4.2.tgz}
     id: registry.nlark.com/vite-plugin-windicss/1.4.2
     name: vite-plugin-windicss
@@ -5616,7 +5642,7 @@ packages:
       '@windicss/plugin-utils': registry.nlark.com/@windicss/plugin-utils/1.4.2_typescript@4.4.2
       chalk: registry.nlark.com/chalk/4.1.2
       debug: registry.nlark.com/debug/4.3.2
-      vite: registry.nlark.com/vite/2.5.5
+      vite: registry.nlark.com/vite/2.5.6
       windicss: registry.nlark.com/windicss/3.1.7
     transitivePeerDependencies:
       - supports-color
@@ -5624,10 +5650,10 @@ packages:
       - typescript
     dev: true
 
-  registry.nlark.com/vite/2.5.5:
-    resolution: {integrity: sha1-mVQJeR2dFuMYkNXEGS/P9dCw94w=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/vite/download/vite-2.5.5.tgz}
+  registry.nlark.com/vite/2.5.6:
+    resolution: {integrity: sha1-UUMbtbmbBBKJWVMAuhWUe60Piao=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/vite/download/vite-2.5.6.tgz?cache=0&sync_timestamp=1631117758830&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvite%2Fdownload%2Fvite-2.5.6.tgz}
     name: vite
-    version: 2.5.5
+    version: 2.5.6
     engines: {node: '>=12.2.0'}
     hasBin: true
     dependencies:

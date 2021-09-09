@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import AppProvider from './AppProvider.vue';
 import { setupStore } from './store';
-import { router, setupRouter } from './router';
+import { setupRouter } from './router';
 import { setupSmoothScroll, setupWindicssDarkMode } from './plugins';
 import 'virtual:windi.css';
 import './styles/css/global.css';
@@ -18,11 +18,9 @@ async function setupApp() {
   appProvider.mount('#appProvider', true);
 
   // 挂载路由
-  setupRouter(app);
+  await setupRouter(app);
 
   // 路由准备就绪后挂载APP实例
-  await router.isReady();
-
   app.mount('#app', true);
 
   // 配置windicss暗黑主题
