@@ -12,7 +12,6 @@ module.exports = {
   eslintIntegration: false, //不让prettier使用eslint的代码格式进行校验
   htmlWhitespaceSensitivity: 'ignore', // 指定HTML文件的全局空白区域敏感度 有效选项："css"- 遵守CSS display属性的默认值。"strict" - 空格被认为是敏感的。"ignore" - 空格被认为是不敏感的。html 中空格也会占位，影响布局，prettier 格式化的时候可能会将文本换行，造成布局错乱
   ignorePath: '.prettierignore', // 不使用prettier格式化的文件填写在项目的.prettierignore文件中
-  jsxBracketSameLine: false, // 在jsx中把'>' 是否单独放一行
   jsxSingleQuote: false, // 在jsx中使用单引号代替双引号
   // parser: 'babylon', // 格式化的解析器，默认是babylon
   requireConfig: false, // Require a 'prettierconfig' to format prettier

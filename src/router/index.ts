@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 import type { App } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
-import { constantRoutes, customRoutes } from './routes';
+import { constantRoutes, customRoutes, RouteNameMap } from './routes';
 import createRouterGuide from './permission';
 
 const routes: Array<RouteRecordRaw> = [...customRoutes, ...constantRoutes];
@@ -19,3 +19,5 @@ export async function setupRouter(app: App) {
   createRouterGuide(router);
   await router.isReady();
 }
+
+export { RouteNameMap };

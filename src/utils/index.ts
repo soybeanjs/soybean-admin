@@ -1,4 +1,4 @@
-export { getStorageToken, getStorageUserInfo } from './auth';
+export { getToken, getUserInfo, getLoginModuleRegExp } from './auth';
 export {
   isNumber,
   isString,

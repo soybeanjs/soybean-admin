@@ -8,10 +8,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useAppStore, useThemeStore } from '@/store';
+import { useAppTitle } from '@/hooks';
 
 const app = useAppStore();
 const theme = useThemeStore();
 const showTitle = computed(() => !app.menu.collapsed && theme.navStyle.mode !== 'vertical-mix');
-const title = import.meta.env.VITE_APP_TITLE as string;
+const title = useAppTitle();
 </script>
 <style scoped></style>
