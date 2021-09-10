@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 import type { AxiosRequestConfig, AxiosInstance } from 'axios';
 import { ContentType } from '@/enum';
-import { getStorageToken } from '@/utils';
+import { getToken } from '@/utils';
 import { errorHandler } from './errorHandler';
 import { transformFile } from '../utils';
 
@@ -51,7 +51,7 @@ export default class CustomAxiosInstance {
           handleConfig.data = await transformFile(file, key);
         }
         // 设置token
-        handleConfig.headers.Authorization = getStorageToken();
+        handleConfig.headers.Authorization = getToken();
         return handleConfig;
       },
       error => {
