@@ -1,4 +1,4 @@
-<div style="text-align:center;">
+<div align="center">
   <a href="https://github.com/honghuangdc/soybean-admin">
     <img alt="SoybeanAdmin Logo" width="200" height="200" src="https://s3.bmp.ovh/imgs/2021/09/088571214c76b1e5.png">
   </a>
@@ -7,6 +7,7 @@
 	<h1>Soybean Admin</h1>
   <br />
 </div>
+
 
 
 ## 简介
@@ -32,7 +33,6 @@ soybean-admin
 ├── README.md                  //项目说明文档
 ├── build                      //vite构建相关配置和插件
 │   ├── env                    //.env环境文件内容加载插件
-│   ├── index.ts
 │   └── plugins                //构建插件
 │       ├── html.ts            //html插件(注入变量，压缩代码等)
 │       ├── iconify.ts         //iconify图标插件
@@ -47,59 +47,47 @@ soybean-admin
 │   ├── App.vue                //vue文件入口
 │   ├── AppProvider.vue        //配置naive UI的vue文件(国际化,loadingBar、message等组件)
 │   ├── assets                 //静态资源
-│   │   └── img
 │   ├── components             //全局组件
 │   │   ├── business           //业务相关组件
 │   │   ├── common             //公共组件
-│   │   ├── custom             //自定义组件
-│   │   └── index.ts
+│   │   └── custom             //自定义组件
 │   ├── enum                   //TS枚举
 │   │   ├── animate.ts         //动画枚举
 │   │   ├── business.ts        //业务相关枚举
 │   │   ├── common.ts          //通用枚举
-│   │   ├── index.ts
 │   │   ├── route.ts           //路由相关枚举
 │   │   └── theme.ts           //系统主题配置相关枚举
 │   ├── hooks                  //组合式的钩子函数hooks
 │   │   ├── business           //业务相关hooks
-│   │   ├── common             //通用hooks
-│   │   └── index.ts
+│   │   └── common             //通用hooks
 │   ├── interface              //TS类型接口
 │   │   ├── business.ts        //业务相关类型接口
 │   │   ├── common.ts          //通用类型接口
-│   │   ├── index.ts
 │   │   └── theme.ts           //系统主题配置相关类型接口
 │   ├── layouts                //布局组件
 │   │   ├── BasicLayout        //基本布局组件(包含全局头部、侧边栏、底部等)
-│   │   ├── BlankLayout        //空白布局组件
-│   │   └── index.ts
+│   │   └── BlankLayout        //空白布局组件
 │   ├── main.ts                //项目入口ts文件
 │   ├── plugins                //插件
 │   │   ├── dark-mode.ts       //windicss暗黑模式插件
-│   │   ├── index.ts
 │   │   └── smooth-scroll.ts   //滚动平滑插件
 │   ├── router                 //vue路由
-│   │   ├── index.ts
 │   │   ├── permission.ts      //路由守卫相关函数
 │   │   └── routes.ts          //声明的路由
 │   ├── service                //网络请求
 │   │   ├── api                //请求接口
-│   │   ├── index.ts
 │   │   ├── middleware         //请求结果的处理中间件
 │   │   ├── request            //封装的请求函数
 │   │   └── utils              //请求相关工具函数
 │   ├── settings               //项目初始配置
-│   │   ├── index.ts
 │   │   └── theme.ts           //项目主题初始配置
 │   ├── store                  //状态管理
-│   │   ├── index.ts
 │   │   └── modules            //状态管理划分的模块
 │   ├── styles                 //样式
 │   ├── types                  //TS类型声明文件(*.d.ts)
 │   ├── utils                  //全局工具函数
 │   │   ├── auth
 │   │   ├── common
-│   │   ├── index.ts
 │   │   └── storage
 │   └── views                  //页面
 │       ├── dashboard

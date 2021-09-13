@@ -1,3 +1,3 @@
 export { UserInfo } from './business';
 export { ThemeSettings, NavMode, AnimateType } from './theme';
-export { RoutePathKey, LoginModuleType } from './common';
+export { RouteMeta, RoutePathKey, LoginModuleType } from './common';
