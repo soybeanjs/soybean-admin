@@ -1,10 +1,15 @@
 import { useRouter } from 'vue-router';
-import { EnumRoutePaths } from '@/enum';
+import { EnumRoutePath } from '@/enum';
 import { RouteNameMap } from '@/router';
 import type { LoginModuleType } from '@/interface';
 
 export default function useRouterChange() {
   const router = useRouter();
+
+  /** 跳转首页 */
+  function toHome() {
+    router.push('/');
+  }
 
   /**
    * 跳转登录页面(通过vue路由)
@@ -28,7 +33,7 @@ export default function useRouterChange() {
    * @param redirectUrl - 登录后重定向的页面路径
    */
   function toLoginByLocation(module: LoginModuleType = 'pwd-login', redirectUrl?: string) {
-    let href = `${window.location.origin + EnumRoutePaths.login}/${module}`;
+    let href = `${window.location.origin + EnumRoutePath.login}/${module}`;
     if (redirectUrl) {
       href += redirectUrl;
     }
@@ -36,6 +41,7 @@ export default function useRouterChange() {
   }
 
   return {
+    toHome,
     toLogin,
     toLoginByLocation
   };

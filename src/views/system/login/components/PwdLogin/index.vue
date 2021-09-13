@@ -28,19 +28,21 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton, useMessage } from 'naive-ui';
+import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton, useNotification } from 'naive-ui';
 import type { FormInst } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
-import { useRouterChange } from '@/hooks';
+import { useRouterChange, useRouteParam } from '@/hooks';
+import { setToken, toLoginRedirectUrl } from '@/utils';
 import { OtherLogin } from '../common';
 
-const { toLogin } = useRouterChange();
-const message = useMessage();
+const { toLogin, toHome } = useRouterChange();
+const { loginRedirectUrl } = useRouteParam();
+const notification = useNotification();
 
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
-  phone: '',
-  pwd: ''
+  phone: '15170283876',
+  pwd: '123456'
 });
 const rules = {
   phone: {
@@ -62,9 +64,17 @@ function handleSubmit(e: MouseEvent) {
 
   formRef.value.validate(errors => {
     if (!errors) {
-      message.success('验证成功');
-    } else {
-      message.error('验证失败');
+      setToken('temp-token');
+      if (loginRedirectUrl.value) {
+        toLoginRedirectUrl(loginRedirectUrl.value);
+      } else {
+        toHome();
+      }
+
+      notification.success({
+        title: '登录成功！',
+        content: '欢迎回来，Soybean!'
+      });
     }
   });
 }

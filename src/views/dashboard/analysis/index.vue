@@ -2,14 +2,14 @@
   <div class="p-10px">
     <data-card :loading="loading" />
     <nav-card :loading="loading" />
-    <router-link :to="EnumRoutePaths['dashboard-workbench']">workbench</router-link>
+    <router-link :to="EnumRoutePath['dashboard-workbench']">workbench</router-link>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { DataCard, NavCard } from './components';
-import { EnumRoutePaths } from '@/enum';
+import { EnumRoutePath } from '@/enum';
 
 const loading = ref(true);
 

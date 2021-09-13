@@ -1,4 +1,13 @@
-export { getToken, getUserInfo, getLoginModuleRegExp } from './auth';
+export {
+  setToken,
+  getToken,
+  getUserInfo,
+  getLoginModuleRegExp,
+  getLoginRedirectUrl,
+  toLoginRedirectUrl,
+  toHomeByLocation
+} from './auth';
+
 export {
   isNumber,
   isString,
@@ -14,3 +23,5 @@ export {
   brightenColor,
   darkenColor
 } from './common';
+
+export { setLocal, getLocal, setSession, getSession } from './storage';

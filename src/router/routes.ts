@@ -1,12 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout, BlankLayout } from '@/layouts';
-import { EnumRoutePaths } from '@/enum';
+import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import type { RoutePathKey, LoginModuleType } from '@/interface';
 import { getLoginModuleRegExp } from '@/utils';
 
 /** 路由名称 */
 export const RouteNameMap = new Map<RoutePathKey, RoutePathKey>(
-  (Object.keys(EnumRoutePaths) as RoutePathKey[]).map(v => [v, v])
+  (Object.keys(EnumRoutePath) as RoutePathKey[]).map(v => [v, v])
 );
 
 const loginModuleRegExp = getLoginModuleRegExp();
@@ -15,17 +15,20 @@ const loginModuleRegExp = getLoginModuleRegExp();
  * 固定不变的路由
  * @description !最后一项重定向未找到的路由须放置路由的最后一项
  */
-export const constantRoutes: Array<RouteRecordRaw> = [
+export const constantRoutes: RouteRecordRaw[] = [
   {
-    name: 'system',
-    path: '/system',
+    name: RouteNameMap.get('system'),
+    path: EnumRoutePath.system,
     component: BlankLayout,
-    redirect: { name: 'not-found' },
+    redirect: { name: RouteNameMap.get('not-found') },
+    meta: {
+      title: EnumRouteTitle.system
+    },
     children: [
       // 登录
       {
         name: RouteNameMap.get('login'),
-        path: `${EnumRoutePaths.login}/:module(/${loginModuleRegExp}/)?`,
+        path: `${EnumRoutePath.login}/:module(/${loginModuleRegExp}/)?`,
         component: () => import('@/views/system/login/index.vue'),
         props: route => {
           const moduleType: LoginModuleType = (route.params.module as LoginModuleType) || 'pwd-login';
@@ -34,33 +37,37 @@ export const constantRoutes: Array<RouteRecordRaw> = [
           };
         },
         meta: {
+          title: EnumRouteTitle.login,
           fullPage: true
         }
       },
       // 404
       {
         name: RouteNameMap.get('not-found'),
-        path: EnumRoutePaths['not-found'],
+        path: EnumRoutePath['not-found'],
         component: () => import('@/views/system/exception/404.vue'),
         meta: {
+          title: EnumRouteTitle['not-found'],
           fullPage: true
         }
       },
       // 403
       {
         name: RouteNameMap.get('no-permission'),
-        path: EnumRoutePaths['no-permission'],
+        path: EnumRoutePath['no-permission'],
         component: () => import('@/views/system/exception/403.vue'),
         meta: {
+          title: EnumRouteTitle['no-permission'],
           fullPage: true
         }
       },
       // 500
       {
         name: RouteNameMap.get('service-error'),
-        path: EnumRoutePaths['service-error'],
+        path: EnumRoutePath['service-error'],
         component: () => import('@/views/system/exception/500.vue'),
         meta: {
+          title: EnumRouteTitle['service-error'],
           fullPage: true
         }
       }
@@ -78,48 +85,89 @@ export const constantRoutes: Array<RouteRecordRaw> = [
  */
 export const customRoutes: Array<RouteRecordRaw> = [
   {
-    name: 'root',
-    path: '/',
-    redirect: { name: RouteNameMap.get('dashboard-analysis') }
+    name: RouteNameMap.get('root'),
+    path: EnumRoutePath.root,
+    redirect: { name: RouteNameMap.get('dashboard-analysis') },
+    meta: {
+      asMenu: false
+    }
   },
   {
-    name: 'dashboard',
-    path: '/dashboard',
+    name: RouteNameMap.get('dashboard'),
+    path: EnumRoutePath.dashboard,
     component: BasicLayout,
     redirect: { name: RouteNameMap.get('dashboard-analysis') },
+    meta: {
+      title: EnumRouteTitle.dashboard,
+      asMenu: true,
+      icon: 'mdi:view-dashboard'
+    },
     children: [
       {
         name: RouteNameMap.get('dashboard-analysis'),
-        path: EnumRoutePaths['dashboard-analysis'],
-        component: () => import('@/views/dashboard/analysis/index.vue')
+        path: EnumRoutePath['dashboard-analysis'],
+        component: () => import('@/views/dashboard/analysis/index.vue'),
+        meta: {
+          title: EnumRouteTitle['dashboard-analysis'],
+          asMenu: true
+        }
       },
       {
         name: RouteNameMap.get('dashboard-workbench'),
-        path: EnumRoutePaths['dashboard-workbench'],
-        component: () => import('@/views/dashboard/workbench/index.vue')
+        path: EnumRoutePath['dashboard-workbench'],
+        component: () => import('@/views/dashboard/workbench/index.vue'),
+        meta: {
+          title: EnumRouteTitle['dashboard-workbench'],
+          asMenu: true
+        }
       }
     ]
   },
   {
-    name: 'exception',
-    path: '/exception',
+    name: RouteNameMap.get('exception'),
+    path: EnumRoutePath.exception,
     component: BasicLayout,
+    meta: {
+      title: EnumRouteTitle.exception,
+      asMenu: true,
+      icon: 'ant-design:exception-outlined'
+    },
     children: [
       {
         name: RouteNameMap.get('exception-403'),
-        path: EnumRoutePaths['exception-403'],
-        component: () => import('@/views/system/exception/403.vue')
+        path: EnumRoutePath['exception-403'],
+        component: () => import('@/views/system/exception/403.vue'),
+        meta: {
+          title: EnumRouteTitle['exception-403'],
+          asMenu: true
+        }
       },
       {
         name: RouteNameMap.get('exception-404'),
-        path: EnumRoutePaths['exception-404'],
-        component: () => import('@/views/system/exception/404.vue')
+        path: EnumRoutePath['exception-404'],
+        component: () => import('@/views/system/exception/404.vue'),
+        meta: {
+          title: EnumRouteTitle['exception-404'],
+          asMenu: true
+        }
       },
       {
         name: RouteNameMap.get('exception-500'),
-        path: EnumRoutePaths['exception-500'],
-        component: () => import('@/views/system/exception/500.vue')
+        path: EnumRoutePath['exception-500'],
+        component: () => import('@/views/system/exception/500.vue'),
+        meta: {
+          title: EnumRouteTitle['exception-500'],
+          asMenu: true
+        }
       }
     ]
   }
+];
+
+/** 路由白名单(不需要登录) */
+export const whitelistRoutes: string[] = [
+  RouteNameMap.get('login')!,
+  RouteNameMap.get('exception-403')!,
+  RouteNameMap.get('exception-404')!,
+  RouteNameMap.get('exception-500')!
 ];
