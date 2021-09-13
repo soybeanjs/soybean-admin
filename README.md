@@ -95,5 +95,15 @@ soybean-admin
 ├── tree.md
 ├── tsconfig.json              //TS配置
 ├── vite.config.ts             //vite配置
-└── windi.config.ts            //windicss框架配置
+├── windi.config.ts            //windicss框架配置
+├── .cz-config.js              //git cz提交配置
+├── .editorconfig              //统一编辑器配置
+├── .env                       //环境文件
+├── .env.development           //环境文件(开发模式)
+├── .env.production            //环境文件(生产模式)
+├── .env.vercel                //环境文件(自定义vercel模式)
+├── .eslintignore              //忽略eslint检查的配置文件
+├── .eslintrc.js               //eslint配置文件
+├── .gitignore                 //忽略git提交的配置文件
+└── .prettierrc.js             //prettier代码格式插件配置
 ```
