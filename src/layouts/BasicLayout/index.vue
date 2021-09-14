@@ -4,7 +4,7 @@
     <global-header v-if="isHorizontalMix" :z-index="2" />
     <div class="flex-1-hidden flex h-full">
       <global-sider v-if="isHorizontalMix" class="sider-margin" :z-index="1" />
-      <n-scrollbar class="h-full" :x-scrollable="true" :content-class="fullPage ? 'h-full' : ''">
+      <n-scrollbar ref="scrollbar" class="h-full" :x-scrollable="true" :content-class="fullPage ? 'h-full' : ''">
         <div
           class="inline-flex-col-stretch w-full"
           :class="[{ 'content-padding': isHorizontalMix }, fullPage ? 'h-full' : 'min-h-100vh']"
@@ -26,10 +26,12 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { NLayout, NScrollbar, NLayoutContent } from 'naive-ui';
 import { useThemeStore } from '@/store';
+import { useScrollBehavior } from '@/hooks';
 import { GlobalSider, GlobalHeader, GlobalFooter, SettingDrawer } from './components';
 
 const route = useRoute();
 const theme = useThemeStore();
+const { scrollbar, resetScrollWatcher } = useScrollBehavior();
 
 const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
 const headerHeight = computed(() => {
@@ -38,6 +40,9 @@ const headerHeight = computed(() => {
 });
 /** 100%视高 */
 const fullPage = computed(() => Boolean(route.meta?.fullPage));
+
+// 路由切换，重置滚动行为
+resetScrollWatcher();
 </script>
 <style scoped>
 :deep(.n-scrollbar-rail) {

@@ -11,8 +11,7 @@ const isVercel = import.meta.env.VITE_HTTP_ENV === 'VERCEL';
 
 const router = createRouter({
   history: isVercel ? createWebHashHistory() : createWebHistory(),
-  routes,
-  scrollBehavior: () => ({ left: 0, top: 0 })
+  routes
 });
 
 export async function setupRouter(app: App) {

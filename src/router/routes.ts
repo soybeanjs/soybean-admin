@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout, BlankLayout } from '@/layouts';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
-import type { RoutePathKey, LoginModuleType } from '@/interface';
+import type { CustomRoute, RoutePathKey, LoginModuleType } from '@/interface';
 import { getLoginModuleRegExp } from '@/utils';
 
 /** 路由名称 */
@@ -83,7 +83,7 @@ export const constantRoutes: RouteRecordRaw[] = [
 /**
  * 自定义路由
  */
-export const customRoutes: Array<RouteRecordRaw> = [
+export const customRoutes: CustomRoute[] = [
   {
     name: RouteNameMap.get('root'),
     path: EnumRoutePath.root,
