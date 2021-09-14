@@ -13,3 +13,5 @@ export {
 } from './typeof';
 
 export { brightenColor, darkenColor } from './color';
+
+export { dynamicIconRender } from './icon';

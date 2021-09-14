@@ -10,6 +10,7 @@
           <icon-gridicons-fullscreen-exit v-if="isFullscreen" class="text-16px" />
           <icon-gridicons-fullscreen v-else class="text-16px" />
         </header-item>
+        <user-avatar />
         <header-item class="w-40px h-full" @click="openSettingDrawer">
           <icon-mdi-light-cog class="text-16px" />
         </header-item>
@@ -23,7 +24,7 @@ import { computed } from 'vue';
 import { NLayoutHeader } from 'naive-ui';
 import { useFullscreen } from '@vueuse/core';
 import { useAppStore, useThemeStore } from '@/store';
-import { HeaderItem } from './components';
+import { UserAvatar, HeaderItem } from './components';
 import { GlobalLogo } from '../common';
 
 defineProps({

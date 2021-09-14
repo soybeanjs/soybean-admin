@@ -1,4 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
+import { Dashboard } from '@vicons/carbon';
+import { ExceptionOutlined } from '@vicons/antd';
 import { BasicLayout, BlankLayout } from '@/layouts';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import type { CustomRoute, RoutePathKey, LoginModuleType } from '@/interface';
@@ -100,7 +102,7 @@ export const customRoutes: CustomRoute[] = [
     meta: {
       title: EnumRouteTitle.dashboard,
       asMenu: true,
-      icon: 'mdi:view-dashboard'
+      icon: Dashboard
     },
     children: [
       {
@@ -130,7 +132,7 @@ export const customRoutes: CustomRoute[] = [
     meta: {
       title: EnumRouteTitle.exception,
       asMenu: true,
-      icon: 'ant-design:exception-outlined'
+      icon: ExceptionOutlined
     },
     children: [
       {
@@ -157,7 +159,7 @@ export const customRoutes: CustomRoute[] = [
         component: () => import('@/views/system/exception/500.vue'),
         meta: {
           title: EnumRouteTitle['exception-500'],
-          asMenu: true
+          asMenu: false
         }
       }
     ]

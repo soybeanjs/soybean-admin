@@ -3,7 +3,7 @@ import App from './App.vue';
 import AppProvider from './AppProvider.vue';
 import { setupStore } from './store';
 import { setupRouter } from './router';
-import { setupSmoothScroll, setupWindicssDarkMode } from './plugins';
+import { setupWindicssDarkMode } from './plugins';
 import 'virtual:windi.css';
 import './styles/css/global.css';
 
@@ -27,5 +27,4 @@ async function setupApp() {
   setupWindicssDarkMode();
 }
 
-setupSmoothScroll();
 setupApp();

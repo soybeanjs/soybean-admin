@@ -1,2 +1,2 @@
-export { setLocal, getLocal } from './local';
+export { setLocal, getLocal, removeLocal } from './local';
 export { setSession, getSession } from './session';

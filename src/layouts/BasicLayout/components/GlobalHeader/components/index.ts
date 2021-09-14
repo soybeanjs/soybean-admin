@@ -1,3 +1,4 @@
+import UserAvatar from './UserAvatar.vue';
 import HeaderItem from './HeaderItem.vue';
 
-export { HeaderItem };
+export { UserAvatar, HeaderItem };

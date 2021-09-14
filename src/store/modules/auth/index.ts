@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
+import { removeToken } from '@/utils';
 import type { UserInfo } from '@/interface';
 
 interface AuthState {
@@ -30,7 +31,9 @@ const authStore = defineStore({
   actions: {
     /** 重置auth状态 */
     resetAuthState() {
+      removeToken();
       this.$reset();
+      window.location.reload();
     }
   }
 });

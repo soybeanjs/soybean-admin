@@ -1,6 +1,5 @@
 <template>
   <div class="relative flex-center w-full h-full bg-[#DBE0F9]">
-    <login-bg />
     <div class="w-400px p-40px bg-white rounded-20px z-10">
       <header class="flex-y-center justify-between">
         <div class="w-70px h-70px rounded-35px overflow-hidden">
@@ -15,6 +14,7 @@
         </div>
       </main>
     </div>
+    <login-bg />
   </div>
 </template>
 

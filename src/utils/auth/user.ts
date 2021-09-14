@@ -1,6 +1,6 @@
 import { EnumStorageKey } from '@/enum';
 import type { LoginModuleType } from '@/interface';
-import { setLocal, getLocal } from '../storage';
+import { setLocal, getLocal, removeLocal } from '../storage';
 
 /** 设置token */
 export function getToken() {
@@ -10,6 +10,10 @@ export function getToken() {
 /** 获取token */
 export function setToken(token: string) {
   setLocal(EnumStorageKey.token, token);
+}
+
+export function removeToken() {
+  removeLocal(EnumStorageKey.token);
 }
 
 export function getUserInfo() {}

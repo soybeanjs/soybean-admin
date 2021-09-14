@@ -1,6 +1,7 @@
 export {
   setToken,
   getToken,
+  removeToken,
   getUserInfo,
   getLoginModuleRegExp,
   getLoginRedirectUrl,
@@ -21,7 +22,8 @@ export {
   isSet,
   isMap,
   brightenColor,
-  darkenColor
+  darkenColor,
+  dynamicIconRender
 } from './common';
 
 export { setLocal, getLocal, setSession, getSession } from './storage';
