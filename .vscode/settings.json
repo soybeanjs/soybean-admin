@@ -1,0 +1,63 @@
+{
+	"editor.quickSuggestions": {
+			"strings": true
+	},
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.colorTheme": "One Dark Pro",
+	"editor.fontSize": 15,
+	"editor.tabSize": 2,
+	"editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+	"editor.fontLigatures": true,
+	"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+	},
+	"git.enableSmartCommit": true,
+	"path-intellisense.mappings": {
+			"@": "${workspaceFolder}/src",
+			"~@": "${workspaceFolder}/src",
+	},
+	"gutterpreview.paths": {
+			"@": "/src",
+			"~@": "/src"
+	},
+	"terminal.integrated.cursorStyle": "line",
+	"files.associations": {
+			"*.env.*": "dotenv"
+	},
+	"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"[json]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"[javascript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"[javascriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"terminal.integrated.fontSize": 14,
+	"terminal.integrated.fontFamily": "Fira Code",
+	"terminal.integrated.fontWeight": 500,
+	"i18n-ally.displayLanguage": "zh",
+	"[html]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[vue]": {
+			"editor.defaultFormatter": "johnsoncodehk.volar"
+	},
+	"terminal.integrated.tabs.enabled": false,
+	"[typescriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[markdown]": {
+			"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+	},
+	"volar.tsPlugin": true,
+	"volar.tsPluginStatus": true,
+	"workbench.productIconTheme": "fluent-icons",
+}
