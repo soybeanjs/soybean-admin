@@ -13,6 +13,7 @@
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { NMenu } from 'naive-ui';
+import type { MenuOption } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
 import { menus } from '@/router';
 import { GlobalMenuOption } from '@/interface';
@@ -28,7 +29,8 @@ function getActiveKey() {
   return route.name as string;
 }
 
-function handleUpdateMenu(key: string, menuItem: GlobalMenuOption) {
+function handleUpdateMenu(key: string, item: MenuOption) {
+  const menuItem = item as GlobalMenuOption;
   router.push(menuItem.routePath);
 }
 </script>
