@@ -1,7 +1,7 @@
 <template>
   <n-dropdown :options="options" @select="handleDropdown">
     <header-item class="px-12px">
-      <n-avatar :src="avatar" :round="true" />
+      <n-avatar :src="avatar" size="small" :round="true" />
       <span class="pl-8px text-16px font-medium">Soybean</span>
     </header-item>
   </n-dropdown>

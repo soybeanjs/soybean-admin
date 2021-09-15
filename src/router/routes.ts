@@ -141,6 +141,7 @@ export const customRoutes: CustomRoute[] = [
         component: () => import('@/views/system/exception/403.vue'),
         meta: {
           title: EnumRouteTitle['exception-403'],
+          fullPage: true,
           asMenu: true
         }
       },
@@ -150,6 +151,7 @@ export const customRoutes: CustomRoute[] = [
         component: () => import('@/views/system/exception/404.vue'),
         meta: {
           title: EnumRouteTitle['exception-404'],
+          fullPage: true,
           asMenu: true
         }
       },
@@ -159,7 +161,8 @@ export const customRoutes: CustomRoute[] = [
         component: () => import('@/views/system/exception/500.vue'),
         meta: {
           title: EnumRouteTitle['exception-500'],
-          asMenu: false
+          fullPage: true,
+          asMenu: true
         }
       }
     ]

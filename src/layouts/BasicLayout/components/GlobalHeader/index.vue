@@ -5,15 +5,12 @@
       <div v-if="!theme.isVerticalNav" class="menu-width h-full">
         <global-logo />
       </div>
+      <menu-collapse />
       <div class="flex-1 flex justify-end h-full">
-        <header-item class="w-40px h-full" @click="toggle">
-          <icon-gridicons-fullscreen-exit v-if="isFullscreen" class="text-16px" />
-          <icon-gridicons-fullscreen v-else class="text-16px" />
-        </header-item>
+        <gihub-site />
+        <full-screen />
         <user-avatar />
-        <header-item class="w-40px h-full" @click="openSettingDrawer">
-          <icon-mdi-light-cog class="text-16px" />
-        </header-item>
+        <setting-drawer-button />
       </div>
     </div>
   </n-layout-header>
@@ -22,9 +19,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { NLayoutHeader } from 'naive-ui';
-import { useFullscreen } from '@vueuse/core';
-import { useAppStore, useThemeStore } from '@/store';
-import { UserAvatar, HeaderItem } from './components';
+import { useThemeStore } from '@/store';
+import { UserAvatar, MenuCollapse, FullScreen, GihubSite, SettingDrawerButton } from './components';
 import { GlobalLogo } from '../common';
 
 defineProps({
@@ -34,9 +30,7 @@ defineProps({
   }
 });
 
-const { openSettingDrawer } = useAppStore();
 const theme = useThemeStore();
-const { isFullscreen, toggle } = useFullscreen();
 
 const inverted = computed(() => {
   return theme.navStyle.theme !== 'light';

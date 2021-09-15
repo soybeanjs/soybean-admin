@@ -1,6 +1,6 @@
 <template>
   <n-layout-sider
-    class="sider-shadow h-full"
+    class="global-sider h-full"
     :style="{ zIndex }"
     :native-scrollbar="false"
     :inverted="inverted"
@@ -46,7 +46,8 @@ const menuWidth = computed(() => {
 });
 </script>
 <style scoped>
-.sider-shadow {
+.global-sider {
+  transition: all 0.2s ease-in-out;
   box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
 }
 </style>
