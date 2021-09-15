@@ -17,5 +17,8 @@ export default defineConfig({
       }
     }
   },
-  plugins: [vue(), ...plugins]
+  plugins: [vue(), ...plugins],
+  build: {
+    brotliSize: false
+  }
 });
