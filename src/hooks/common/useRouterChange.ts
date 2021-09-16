@@ -1,4 +1,5 @@
 import { useRouter } from 'vue-router';
+import type { RouteLocationRaw } from 'vue-router';
 import { router as globalRouter, RouteNameMap } from '@/router';
 import type { LoginModuleType } from '@/interface';
 
@@ -8,7 +9,7 @@ interface LoginRedirect {
    * - current: 取当前的地址作为重定向地址
    * - custom: 自定义地址作为重定向地址
    */
-  type: 'current' | 'custom';
+  type: 'current' | 'custom' | 'no';
   /** 自定义地址 */
   url: string;
 }
@@ -28,15 +29,23 @@ export default function useRouterChange(inSetup: boolean = true) {
   /**
    * 跳转登录页面(通过vue路由)
    * @param module - 展示的登录模块
+   * @param addRedirect - 是否添加重定向地址
    * @param redirect - 登录后重定向相关配置
    */
-  function toLogin(module: LoginModuleType = 'pwd-login', redirect: LoginRedirect = { type: 'current', url: '' }) {
+  function toLogin(
+    module: LoginModuleType = 'pwd-login',
+    addRedirect: boolean = false,
+    redirect: LoginRedirect = { type: 'current', url: '' }
+  ) {
     const redirectUrl = redirect.type === 'current' ? window.location.href : redirect.url;
-    router.push({
+    const routeLocation: RouteLocationRaw = {
       name: RouteNameMap.get('login'),
-      params: { module },
-      query: { redirectUrl }
-    });
+      params: { module }
+    };
+    if (addRedirect) {
+      routeLocation.query = { redirectUrl };
+    }
+    router.push(routeLocation);
   }
 
   return {

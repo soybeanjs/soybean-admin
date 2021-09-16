@@ -52,7 +52,7 @@ function handleRouterAction(to: RouteLocationNormalized, from: RouteLocationNorm
     ],
     // 登录状态进入需要登录权限的页面,直接通行
     [
-      needLogin && isLogin,
+      isLogin && needLogin,
       () => {
         next();
       }
