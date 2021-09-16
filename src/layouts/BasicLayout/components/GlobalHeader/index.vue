@@ -6,7 +6,7 @@
         <global-logo />
       </div>
       <div class="flex-y-center h-full">
-        <menu-collapse />
+        <menu-collapse v-if="theme.navStyle.mode !== 'horizontal'" />
         <global-breadcrumb v-if="theme.crumbsStyle.visible" />
       </div>
       <div class="flex-1 flex justify-end h-full">

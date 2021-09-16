@@ -10,15 +10,17 @@
       <n-space :vertical="true" size="large">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="rememberMe">记住我</n-checkbox>
-          <span class="text-primary cursor-pointer" @click="toLogin('reset-pwd')">忘记密码？</span>
+          <span class="text-primary cursor-pointer" @click="toCurrentLogin('reset-pwd')">忘记密码？</span>
         </div>
         <n-button type="primary" size="large" :block="true" :round="true" @click="handleSubmit">确定</n-button>
         <div class="flex-y-center justify-between">
-          <n-button class="flex-1" :block="true" @click="toLogin('code-login')">
+          <n-button class="flex-1" :block="true" @click="toCurrentLogin('code-login')">
             {{ EnumLoginModule['code-login'] }}
           </n-button>
           <div class="w-12px"></div>
-          <n-button class="flex-1" :block="true" @click="toLogin('register')">{{ EnumLoginModule.register }}</n-button>
+          <n-button class="flex-1" :block="true" @click="toCurrentLogin('register')">
+            {{ EnumLoginModule.register }}
+          </n-button>
         </div>
       </n-space>
     </n-form>
@@ -35,7 +37,7 @@ import { useRouterChange, useRouteQuery } from '@/hooks';
 import { setToken, toLoginRedirectUrl } from '@/utils';
 import { OtherLogin } from './components';
 
-const { toLogin, toHome } = useRouterChange();
+const { toHome, toCurrentLogin } = useRouterChange();
 const { loginRedirectUrl } = useRouteQuery();
 const notification = useNotification();
 

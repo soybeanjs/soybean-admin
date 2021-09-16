@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
+import type { RouteLocationNormalizedLoaded } from 'vue-router';
 import { store } from '@/store';
 
 /** app状态 */
 interface AppState {
   menu: MenuState;
+  multiTab: MultiTab;
   settingDrawer: SettingDrawer;
 }
 
@@ -13,7 +15,11 @@ interface MenuState {
   collapsed: boolean;
 }
 
-/** 设置抽屉的状态 */
+interface MultiTab {
+  routes: RouteLocationNormalizedLoaded[];
+}
+
+/** 项目配置抽屉的状态 */
 interface SettingDrawer {
   /** 设置抽屉可见性 */
   visible: boolean;
@@ -24,6 +30,9 @@ const appStore = defineStore({
   state: (): AppState => ({
     menu: {
       collapsed: false
+    },
+    multiTab: {
+      routes: []
     },
     settingDrawer: {
       visible: false
@@ -38,6 +47,8 @@ const appStore = defineStore({
     toggleMenu() {
       this.menu.collapsed = !this.menu.collapsed;
     },
+    /** 初始化多tab的数据 */
+    initMultiTab() {},
     /** 打开配置抽屉 */
     openSettingDrawer() {
       this.settingDrawer.visible = true;

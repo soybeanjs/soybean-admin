@@ -7,6 +7,8 @@ import { EnumRoutePath, EnumLoginModule } from '@/enum';
 interface RouteMeta {
   /** 路由名称 */
   title?: string;
+  /** 缓存页面 */
+  keepAlive?: boolean;
   /** 页面100%视高 */
   fullPage?: boolean;
   /** 不作为菜单 */

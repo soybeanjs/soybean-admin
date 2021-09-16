@@ -1,4 +1,4 @@
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
 import { router as globalRouter, RouteNameMap } from '@/router';
 import type { LoginModuleType } from '@/interface';
@@ -20,6 +20,7 @@ interface LoginRedirect {
  */
 export default function useRouterChange(inSetup: boolean = true) {
   const router = inSetup ? useRouter() : globalRouter;
+  const route = inSetup ? useRoute() : null;
 
   /** 跳转首页 */
   function toHome() {
@@ -48,8 +49,21 @@ export default function useRouterChange(inSetup: boolean = true) {
     router.push(routeLocation);
   }
 
+  /**
+   * 登陆页跳转登陆页
+   * @param module - 展示的登录模块
+   * @param query - 查询参数
+   */
+  function toCurrentLogin(module: LoginModuleType) {
+    if (route) {
+      const { query } = route;
+      router.push({ name: RouteNameMap.get('login'), params: { module }, query });
+    }
+  }
+
   return {
     toHome,
-    toLogin
+    toLogin,
+    toCurrentLogin
   };
 }

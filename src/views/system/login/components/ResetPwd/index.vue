@@ -19,7 +19,7 @@
       </n-form-item>
       <n-space :vertical="true" size="large">
         <n-button type="primary" size="large" :block="true" :round="true" @click="handleSubmit">确定</n-button>
-        <n-button size="large" :block="true" :round="true" @click="toLogin('pwd-login')">返回</n-button>
+        <n-button size="large" :block="true" :round="true" @click="toCurrentLogin('pwd-login')">返回</n-button>
       </n-space>
     </n-form>
   </div>
@@ -32,7 +32,7 @@ import type { FormInst } from 'naive-ui';
 import { useRouterChange, useSmsCode } from '@/hooks';
 
 const message = useMessage();
-const { toLogin } = useRouterChange();
+const { toCurrentLogin } = useRouterChange();
 const { label, isCounting, start } = useSmsCode();
 
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
