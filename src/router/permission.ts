@@ -24,33 +24,37 @@ export default function createRouterGuide(router: Router) {
 
 function handleRouterAction(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
   const token = getToken();
+  const isLogin = Boolean(token);
+  const needLogin = Boolean(to.meta?.requiresAuth);
+
   const routerAction: [boolean, () => void][] = [
     // 已登录状态跳转登录页，跳转至首页
     [
-      to.name === RouteNameMap.get('login') && Boolean(token),
+      isLogin && to.name === RouteNameMap.get('login'),
       () => {
         next({ name: RouteNameMap.get('root') });
       }
     ],
-    // 不需要权限的页面直接通行
+    // 不需要登录权限的页面直接通行
     [
-      !to.meta?.requiresAuth,
+      !needLogin,
       () => {
         next();
       }
     ],
-    // 需要权限的页面
+    // 未登录状态进入需要登录权限的页面
     [
-      Boolean(to.meta?.requiresAuth),
+      !isLogin && needLogin,
       () => {
-        if (token) {
-          // 有权限直接通行
-          next();
-        } else {
-          // 没有权限，跳转至登录页
-          const redirectUrl = window.location.href;
-          next({ name: RouteNameMap.get('login'), query: { redirectUrl } });
-        }
+        const redirectUrl = window.location.href;
+        next({ name: RouteNameMap.get('login'), query: { redirectUrl } });
+      }
+    ],
+    // 登录状态进入需要登录权限的页面,直接通行
+    [
+      needLogin && isLogin,
+      () => {
+        next();
       }
     ]
   ];
