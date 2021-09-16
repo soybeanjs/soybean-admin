@@ -14,3 +14,7 @@ export function getLocal<T>(key: string) {
 export function removeLocal(key: string) {
   window.localStorage.removeItem(key);
 }
+
+export function clearLocal() {
+  window.localStorage.clear();
+}

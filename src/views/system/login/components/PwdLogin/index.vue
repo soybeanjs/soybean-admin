@@ -31,12 +31,12 @@ import { reactive, ref } from 'vue';
 import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton, useNotification } from 'naive-ui';
 import type { FormInst } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
-import { useRouterChange, useRouteParam } from '@/hooks';
+import { useRouterChange, useRouteQuery } from '@/hooks';
 import { setToken, toLoginRedirectUrl } from '@/utils';
-import { OtherLogin } from '../common';
+import { OtherLogin } from './components';
 
 const { toLogin, toHome } = useRouterChange();
-const { loginRedirectUrl } = useRouteParam();
+const { loginRedirectUrl } = useRouteQuery();
 const notification = useNotification();
 
 const formRef = ref<(HTMLElement & FormInst) | null>(null);

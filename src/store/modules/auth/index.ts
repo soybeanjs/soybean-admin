@@ -33,7 +33,7 @@ const authStore = defineStore({
     resetAuthState() {
       removeToken();
       this.$reset();
-      window.location.reload();
+      // window.location.reload();
     }
   }
 });

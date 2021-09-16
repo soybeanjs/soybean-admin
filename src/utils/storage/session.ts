@@ -10,3 +10,11 @@ export function getSession<T>(key: string) {
   }
   return json;
 }
+
+export function removeSession(key: string) {
+  window.sessionStorage.removeItem(key);
+}
+
+export function clearSession() {
+  window.sessionStorage.clear();
+}

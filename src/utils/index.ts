@@ -3,10 +3,10 @@ export {
   getToken,
   removeToken,
   getUserInfo,
+  resetAuthStorage,
   getLoginModuleRegExp,
   getLoginRedirectUrl,
-  toLoginRedirectUrl,
-  toHomeByLocation
+  toLoginRedirectUrl
 } from './auth';
 
 export {
@@ -26,4 +26,13 @@ export {
   dynamicIconRender
 } from './common';
 
-export { setLocal, getLocal, setSession, getSession } from './storage';
+export {
+  setLocal,
+  getLocal,
+  removeLocal,
+  clearLocal,
+  setSession,
+  getSession,
+  removeSession,
+  clearSession
+} from './storage';

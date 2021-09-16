@@ -10,14 +10,11 @@
 <script lang="ts" setup>
 import { NDropdown, NAvatar } from 'naive-ui';
 import { UserAvatar, Logout } from '@vicons/carbon';
-import { dynamicIconRender } from '@/utils';
+import { dynamicIconRender, resetAuthStorage } from '@/utils';
 import HeaderItem from './HeaderItem.vue';
 import avatar from '@/assets/img/common/logo-fill.png';
-import { useAuthStore } from '@/store';
 
 type DropdownKey = 'user-center' | 'logout';
-
-const { resetAuthState } = useAuthStore();
 
 const options = [
   {
@@ -39,7 +36,8 @@ const options = [
 function handleDropdown(optionKey: string) {
   const key = optionKey as DropdownKey;
   if (key === 'logout') {
-    resetAuthState();
+    resetAuthStorage();
+    window.location.reload();
   }
 }
 </script>

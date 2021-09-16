@@ -7,8 +7,3 @@ export function getLoginRedirectUrl() {
 export function toLoginRedirectUrl(redirectUrl: string) {
   window.location.href = redirectUrl;
 }
-
-/** 回到首页 */
-export function toHomeByLocation() {
-  window.location.href = '/';
-}

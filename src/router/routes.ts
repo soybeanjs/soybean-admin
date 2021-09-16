@@ -109,6 +109,7 @@ export const customRoutes: CustomRoute[] = [
         path: EnumRoutePath['dashboard-analysis'],
         component: () => import('@/views/dashboard/analysis/index.vue'),
         meta: {
+          requiresAuth: true,
           title: EnumRouteTitle['dashboard-analysis']
         }
       },
@@ -117,6 +118,7 @@ export const customRoutes: CustomRoute[] = [
         path: EnumRoutePath['dashboard-workbench'],
         component: () => import('@/views/dashboard/workbench/index.vue'),
         meta: {
+          requiresAuth: true,
           title: EnumRouteTitle['dashboard-workbench']
         }
       }
@@ -127,6 +129,7 @@ export const customRoutes: CustomRoute[] = [
     path: EnumRoutePath.exception,
     component: BasicLayout,
     meta: {
+      requiresAuth: true,
       title: EnumRouteTitle.exception,
       icon: ExceptionOutlined
     },
@@ -136,6 +139,7 @@ export const customRoutes: CustomRoute[] = [
         path: EnumRoutePath['exception-403'],
         component: () => import('@/views/system/exception/403.vue'),
         meta: {
+          requiresAuth: true,
           title: EnumRouteTitle['exception-403'],
           fullPage: true
         }
@@ -145,6 +149,7 @@ export const customRoutes: CustomRoute[] = [
         path: EnumRoutePath['exception-404'],
         component: () => import('@/views/system/exception/404.vue'),
         meta: {
+          requiresAuth: true,
           title: EnumRouteTitle['exception-404'],
           fullPage: true
         }
@@ -154,6 +159,7 @@ export const customRoutes: CustomRoute[] = [
         path: EnumRoutePath['exception-500'],
         component: () => import('@/views/system/exception/500.vue'),
         meta: {
+          requiresAuth: true,
           title: EnumRouteTitle['exception-500'],
           fullPage: true
         }

@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [...customRoutes, ...constantRoutes];
 /** 用于部署vercel托管服务 */
 const isVercel = import.meta.env.VITE_HTTP_ENV === 'VERCEL';
 
-const router = createRouter({
+export const router = createRouter({
   history: isVercel ? createWebHashHistory() : createWebHistory(),
   routes
 });
