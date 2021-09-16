@@ -6,7 +6,7 @@ export default [
   injectHtml({
     injectData: {
       title: viteEnv.VITE_APP_TITLE,
-      appName: viteEnv.VITE_APP_TITLE_Label
+      appName: viteEnv.VITE_APP_TITLE_LABEL
     }
   })
 ];

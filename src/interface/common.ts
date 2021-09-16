@@ -9,8 +9,8 @@ interface RouteMeta {
   title?: string;
   /** 页面100%视高 */
   fullPage?: boolean;
-  /** 作为菜单 */
-  asMenu?: boolean;
+  /** 不作为菜单 */
+  isNotMenu?: boolean;
   /** 菜单和面包屑对应的图标 */
   icon?: Component;
 }

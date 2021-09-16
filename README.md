@@ -72,6 +72,7 @@ soybean-admin
 │   │   ├── dark-mode.ts       //windicss暗黑模式插件
 │   │   └── smooth-scroll.ts   //滚动平滑插件
 │   ├── router                 //vue路由
+│   │   ├── menus.ts      //菜单
 │   │   ├── permission.ts      //路由守卫相关函数
 │   │   └── routes.ts          //声明的路由
 │   ├── service                //网络请求

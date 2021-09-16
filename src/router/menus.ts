@@ -31,7 +31,7 @@ export function transformRouteToMenu(routes: CustomRoute[]) {
 
 /** 判断路由是否作为菜单 */
 function asMenu(route: CustomRoute) {
-  return Boolean(route.meta?.asMenu);
+  return !route.meta?.isNotMenu;
 }
 
 /** 给菜单添加可选属性 */

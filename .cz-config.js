@@ -2,7 +2,7 @@ module.exports = {
   // type 类型（定义之后，可通过上下键选择）
   types: [
     { value: 'feat', name: 'feat:     新增功能' },
-    { value: 'fix', name: 'fix:      修复 bug' },
+    { value: 'fix', name: 'fix:      修复bug' },
     { value: 'docs', name: 'docs:     文档变更' },
     { value: 'style', name: 'style:    代码格式（不影响功能，例如空格、分号等格式修正）' },
     { value: 'refactor', name: 'refactor: 代码重构（不包括 bug 修复、功能新增）' },
@@ -20,7 +20,7 @@ module.exports = {
     ['components', '组件相关'],
     ['hooks', 'hook 相关'],
     ['utils', 'utils 相关'],
-    ['element-ui', '对 element-ui 的调整'],
+    ['types', 'ts类型相关'],
     ['styles', '样式相关'],
     ['deps', '项目依赖'],
     ['auth', '对 auth 修改'],

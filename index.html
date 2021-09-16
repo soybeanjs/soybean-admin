@@ -8,7 +8,25 @@
   </head>
   <body>
 		<div id="appProvider" style="display: none"></div>
-    <div id="app"></div>
+    <div id="app">
+			<!-- 页面渲染之前加载动画 -->
+      <div class="app-loading">
+        <img class="app-loading_logo" src="/resource/logo.png" />
+        <div class="app-loading__dot-wrapper">
+          <div class="app-loading__dot">
+            <i class="left top"></i>
+            <i class="left bottom delay-400"></i>
+            <i class="right top delay-800"></i>
+            <i class="right bottom delay-1200"></i>
+          </div>
+        </div>
+        <h2 class="app-loading_title"><%= appName %></h2>
+        <style>
+          @import '/resource/loading.css';
+        </style>
+      </div>
+      <!-- End -->
+		</div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

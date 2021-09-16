@@ -5,7 +5,10 @@
       <div v-if="!theme.isVerticalNav" class="menu-width h-full">
         <global-logo />
       </div>
-      <menu-collapse />
+      <div class="flex-y-center h-full">
+        <menu-collapse />
+        <global-breadcrumb v-if="theme.crumbsStyle.visible" />
+      </div>
       <div class="flex-1 flex justify-end h-full">
         <gihub-site />
         <full-screen />
@@ -20,7 +23,7 @@
 import { computed } from 'vue';
 import { NLayoutHeader } from 'naive-ui';
 import { useThemeStore } from '@/store';
-import { UserAvatar, MenuCollapse, FullScreen, GihubSite, SettingDrawerButton } from './components';
+import { GlobalBreadcrumb, UserAvatar, MenuCollapse, FullScreen, GihubSite, SettingDrawerButton } from './components';
 import { GlobalLogo } from '../common';
 
 defineProps({
