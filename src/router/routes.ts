@@ -101,6 +101,7 @@ export const customRoutes: CustomRoute[] = [
     redirect: { name: RouteNameMap.get('dashboard-analysis') },
     meta: {
       title: EnumRouteTitle.dashboard,
+      keepAlive: true,
       icon: Dashboard
     },
     children: [

@@ -85,15 +85,17 @@ const themeStore = defineStore({
         this.menuStyle.mixWidth = width;
       }
     },
-    /** 更改头部的高度(不包含tab标签) */
+    /** 更改头部的高度 */
     handleHeaderHeight(height: number | null) {
       if (height !== null) {
         this.headerStyle.height = height;
       }
     },
-    /** 固定头部 */
-    handleFixedHeader(isFixed: boolean) {
-      this.headerStyle.fixed = isFixed;
+    /** 更改Tab标签的高度 */
+    handleMultiTabHeight(height: number | null) {
+      if (height !== null) {
+        this.multiTabStyle.height = height;
+      }
     },
     /** 设置多标签的显示 */
     handleMultiTabVisible(visible: boolean) {
@@ -116,6 +118,10 @@ const themeStore = defineStore({
       if (this.pageStyle.animate) {
         this.pageStyle.animateType = animateType;
       }
+    },
+    /** 固定头部 */
+    handleFixedHeaderAndTab(isFixed: boolean) {
+      this.fixedHeaderAndTab = isFixed;
     }
   }
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10px">
+  <div class="px-10px">
     <div class="flex-y-center flex-col h-500px bg-white">
       <n-gradient-text type="primary" size="32">工作台</n-gradient-text>
       <n-space>

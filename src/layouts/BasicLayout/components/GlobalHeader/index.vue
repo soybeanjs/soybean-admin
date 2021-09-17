@@ -1,5 +1,5 @@
 <template>
-  <header v-if="fixedHeader && theme.navStyle.mode !== 'horizontal-mix'" class="w-full header-height"></header>
+  <header v-if="fixedHeaderAndTab && theme.navStyle.mode !== 'horizontal-mix'" class="header-height w-full"></header>
   <n-layout-header :inverted="headerInverted" :position="position" :style="{ zIndex }">
     <div class="global-header header-height flex-y-center w-full">
       <div v-if="!theme.isVerticalNav" class="menu-width h-full">
@@ -38,8 +38,8 @@ const theme = useThemeStore();
 const inverted = computed(() => {
   return theme.navStyle.theme !== 'light';
 });
-const fixedHeader = computed(() => theme.headerStyle.fixed || theme.navStyle.mode === 'horizontal-mix');
-const position = computed(() => (fixedHeader.value ? 'absolute' : 'static'));
+const fixedHeaderAndTab = computed(() => theme.fixedHeaderAndTab || theme.navStyle.mode === 'horizontal-mix');
+const position = computed(() => (fixedHeaderAndTab.value ? 'absolute' : 'static'));
 const headerInverted = computed(() => {
   return theme.navStyle.theme !== 'dark' ? inverted.value : !inverted.value;
 });

@@ -47,8 +47,10 @@ const appStore = defineStore({
     toggleMenu() {
       this.menu.collapsed = !this.menu.collapsed;
     },
-    /** 初始化多tab的数据 */
-    initMultiTab() {},
+    /** 添加多tab的数据 */
+    addMultiTab(route: RouteLocationNormalizedLoaded) {
+      this.multiTab.routes.push(route);
+    },
     /** 打开配置抽屉 */
     openSettingDrawer() {
       this.settingDrawer.visible = true;

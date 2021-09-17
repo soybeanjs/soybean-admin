@@ -45,11 +45,10 @@ const themeSettings: ThemeSettings = {
   },
   headerStyle: {
     height: 64,
-    bgColor: '#fff',
-    fixed: true,
-    showReload: true
+    bgColor: '#fff'
   },
   multiTabStyle: {
+    height: 48,
     visible: true,
     bgColor: '#fff'
   },
@@ -68,7 +67,9 @@ const themeSettings: ThemeSettings = {
       { value: 'fade-bottom', label: EnumAnimate['fade-bottom'] },
       { value: 'fade-scale', label: EnumAnimate['fade-scale'] }
     ]
-  }
+  },
+  fixedHeaderAndTab: true,
+  showReload: true
 };
 
 export default themeSettings;

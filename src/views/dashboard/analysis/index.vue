@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10px">
+  <div class="px-10px">
     <data-card :loading="loading" />
     <nav-card :loading="loading" />
   </div>

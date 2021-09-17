@@ -4,8 +4,8 @@
     <setting-menu-item label="分割菜单">
       <n-switch :value="theme.menuStyle.splitMenu" @update:value="handleSplitMenu" />
     </setting-menu-item>
-    <setting-menu-item label="固定头部">
-      <n-switch :value="splitMenu" :disabled="disabledSplitMenu" @update:value="handleFixedHeader" />
+    <setting-menu-item label="固定头部和多标签">
+      <n-switch :value="splitMenu" :disabled="disabledSplitMenu" @update:value="handleFixedHeaderAndTab" />
     </setting-menu-item>
     <setting-menu-item label="头部高度">
       <n-input-number
@@ -14,6 +14,15 @@
         :value="theme.headerStyle.height"
         :step="1"
         @update:value="handleHeaderHeight"
+      />
+    </setting-menu-item>
+    <setting-menu-item label="多标签高度">
+      <n-input-number
+        class="w-120px"
+        size="small"
+        :value="theme.multiTabStyle.height"
+        :step="1"
+        @update:value="handleMultiTabHeight"
       />
     </setting-menu-item>
     <setting-menu-item label="菜单展开宽度">
@@ -46,10 +55,17 @@ import { useThemeStore } from '@/store';
 import { SettingMenuItem } from '../common';
 
 const theme = useThemeStore();
-const { handleSplitMenu, handleFixedHeader, handleHeaderHeight, handleMenuWidth, handleMixMenuWidth } = useThemeStore();
+const {
+  handleSplitMenu,
+  handleFixedHeaderAndTab,
+  handleHeaderHeight,
+  handleMultiTabHeight,
+  handleMenuWidth,
+  handleMixMenuWidth
+} = useThemeStore();
 
 const disabledSplitMenu = computed(() => theme.navStyle.mode === 'horizontal-mix');
-const splitMenu = computed(() => theme.headerStyle.fixed || disabledSplitMenu.value);
+const splitMenu = computed(() => theme.fixedHeaderAndTab || disabledSplitMenu.value);
 const disabledMenuWidth = computed(() => {
   const { mode } = theme.navStyle;
   return mode !== 'vertical' && mode !== 'horizontal-mix';

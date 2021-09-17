@@ -21,6 +21,10 @@ export interface ThemeSettings {
   crumbsStyle: CrumbsStyle;
   /** 页面样式 */
   pageStyle: PageStyle;
+  /** 固定头部和多标签 */
+  fixedHeaderAndTab: boolean;
+  /** 显示重载按钮 */
+  showReload: boolean;
 }
 
 interface OtherColor {
@@ -50,10 +54,6 @@ interface HeaderStyle {
   height: number;
   /** 背景颜色 */
   bgColor: string;
-  /** 固定顶部 */
-  fixed: boolean;
-  /** 显示重载按钮 */
-  showReload: boolean;
 }
 
 interface MenuStyle {
@@ -70,6 +70,8 @@ interface MenuStyle {
 }
 
 interface MultiTabStyle {
+  /** 多标签高度 */
+  height: number;
   /** 多标签可见 */
   visible: boolean;
   /** 背景颜色 */

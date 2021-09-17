@@ -10,8 +10,14 @@
           :class="[{ 'content-padding': isHorizontalMix }, fullPage ? 'h-full' : 'min-h-100vh']"
         >
           <global-header v-if="!isHorizontalMix" :z-index="1" />
+          <global-tab :z-index="1" />
           <n-layout-content class="flex-auto" :class="{ 'bg-[#f5f7f9]': !theme.darkMode }">
-            <router-view />
+            <router-view v-slot="{ Component }">
+              <keep-alive v-if="keepAlive">
+                <component :is="Component" />
+              </keep-alive>
+              <component :is="Component" v-else />
+            </router-view>
           </n-layout-content>
           <global-footer />
         </div>
@@ -27,17 +33,24 @@ import { useRoute } from 'vue-router';
 import { NLayout, NScrollbar, NLayoutContent } from 'naive-ui';
 import { useThemeStore } from '@/store';
 import { useScrollBehavior } from '@/hooks';
-import { GlobalSider, GlobalHeader, GlobalFooter, SettingDrawer } from './components';
+import { GlobalSider, GlobalHeader, GlobalTab, GlobalFooter, SettingDrawer } from './components';
 
 const route = useRoute();
 const theme = useThemeStore();
 const { scrollbar, resetScrollWatcher } = useScrollBehavior();
 
 const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
-const headerHeight = computed(() => {
-  const { height } = theme.headerStyle;
-  return `${height}px`;
+const headerAndMultiTabHeight = computed(() => {
+  const {
+    headerStyle: { height: hHeight },
+    multiTabStyle: { height: mHeight }
+  } = theme;
+  return `${hHeight + mHeight}px`;
 });
+
+/** 缓存页面 */
+const keepAlive = computed(() => Boolean(route.meta?.keepAlive));
+
 /** 100%视高 */
 const fullPage = computed(() => Boolean(route.meta?.fullPage));
 
@@ -49,9 +62,9 @@ resetScrollWatcher();
   z-index: 11;
 }
 .sider-margin {
-  margin-top: v-bind(headerHeight);
+  margin-top: v-bind(headerAndMultiTabHeight);
 }
 .content-padding {
-  padding-top: v-bind(headerHeight);
+  padding-top: v-bind(headerAndMultiTabHeight);
 }
 </style>
