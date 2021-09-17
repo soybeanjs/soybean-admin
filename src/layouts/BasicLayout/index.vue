@@ -4,19 +4,24 @@
     <global-header v-if="isHorizontalMix" :z-index="2" />
     <div class="flex-1-hidden flex h-full">
       <global-sider v-if="isHorizontalMix" class="sider-margin" :z-index="1" />
-      <n-scrollbar ref="scrollbar" class="h-full" :x-scrollable="true" :content-class="fullPage ? 'h-full' : ''">
+      <n-scrollbar
+        ref="scrollbar"
+        class="h-full"
+        :x-scrollable="true"
+        :content-class="routeProps.fullPage ? 'h-full' : ''"
+      >
         <div
           class="inline-flex-col-stretch w-full"
-          :class="[{ 'content-padding': isHorizontalMix }, fullPage ? 'h-full' : 'min-h-100vh']"
+          :class="[{ 'content-padding': isHorizontalMix }, routeProps.fullPage ? 'h-full' : 'min-h-100vh']"
         >
           <global-header v-if="!isHorizontalMix" :z-index="1" />
           <global-tab :z-index="1" />
           <n-layout-content class="flex-auto" :class="{ 'bg-[#f5f7f9]': !theme.darkMode }">
             <router-view v-slot="{ Component }">
-              <keep-alive v-if="keepAlive">
-                <component :is="Component" />
+              <keep-alive>
+                <component :is="Component" v-if="routeProps.keepAlive" :key="routeProps.name" />
               </keep-alive>
-              <component :is="Component" v-else />
+              <component :is="Component" v-if="!routeProps.keepAlive" :key="routeProps.name" />
             </router-view>
           </n-layout-content>
           <global-footer />
@@ -29,15 +34,14 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
 import { NLayout, NScrollbar, NLayoutContent } from 'naive-ui';
 import { useThemeStore } from '@/store';
-import { useScrollBehavior } from '@/hooks';
 import { GlobalSider, GlobalHeader, GlobalTab, GlobalFooter, SettingDrawer } from './components';
+import { useRouteProps, useScrollBehavior } from '../composables';
 
-const route = useRoute();
 const theme = useThemeStore();
-const { scrollbar, resetScrollWatcher } = useScrollBehavior();
+const { scrollbar } = useScrollBehavior();
+const routeProps = useRouteProps();
 
 const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
 const headerAndMultiTabHeight = computed(() => {
@@ -47,15 +51,6 @@ const headerAndMultiTabHeight = computed(() => {
   } = theme;
   return `${hHeight + mHeight}px`;
 });
-
-/** 缓存页面 */
-const keepAlive = computed(() => Boolean(route.meta?.keepAlive));
-
-/** 100%视高 */
-const fullPage = computed(() => Boolean(route.meta?.fullPage));
-
-// 路由切换，重置滚动行为
-resetScrollWatcher();
 </script>
 <style scoped>
 :deep(.n-scrollbar-rail) {

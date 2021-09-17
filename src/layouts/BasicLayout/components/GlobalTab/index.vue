@@ -11,7 +11,10 @@
         :key="item.path"
         :type="app.multiTab.activeRoute === item.fullPath ? 'primary' : 'default'"
         class="cursor-pointer"
+        :closable="item.name !== ROUTE_HOME.name"
+        size="large"
         @click="handleClickTab(item.fullPath)"
+        @close="removeMultiTab(item.fullPath)"
       >
         {{ item.meta?.title }}
       </n-tag>
@@ -28,6 +31,7 @@ import { useRoute } from 'vue-router';
 import { NSpace, NTag } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
 import { useRouterChange } from '@/hooks';
+import { ROUTE_HOME } from '@/router';
 
 defineProps({
   zIndex: {
@@ -39,7 +43,7 @@ defineProps({
 const route = useRoute();
 const theme = useThemeStore();
 const app = useAppStore();
-const { initMultiTab, addMultiTab, setActiveMultiTab, handleClickTab } = useAppStore();
+const { initMultiTab, addMultiTab, removeMultiTab, setActiveMultiTab, handleClickTab } = useAppStore();
 const { toReload } = useRouterChange();
 
 const fixedHeaderAndTab = computed(() => theme.fixedHeaderAndTab || theme.navStyle.mode === 'horizontal-mix');

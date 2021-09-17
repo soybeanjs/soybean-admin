@@ -60,11 +60,11 @@ const appStore = defineStore({
     toggleMenu() {
       this.menu.collapsed = !this.menu.collapsed;
     },
-    /** 判断tab路由是否存在某个路由 */
+    /** 判断页签路由是否存在某个路由 */
     getIndexInTabRoutes(fullPath: string) {
       return this.multiTab.routes.findIndex(item => item.fullPath === fullPath);
     },
-    /** 添加多tab的数据 */
+    /** 添加多页签的数据 */
     addMultiTab(route: RouteLocationNormalizedLoaded) {
       const { fullPath } = route;
       const isExist = this.getIndexInTabRoutes(fullPath) > -1;
@@ -72,13 +72,24 @@ const appStore = defineStore({
         this.multiTab.routes.push({ ...route });
       }
     },
+    /** 删除多页签的数据 */
+    removeMultiTab(fullPath: string) {
+      const index = this.getIndexInTabRoutes(fullPath);
+      if (index > -1) {
+        this.multiTab.routes = this.multiTab.routes.filter(item => item.fullPath !== fullPath);
+        const { routes } = this.multiTab;
+        const activePath = routes[routes.length - 1].fullPath;
+        router.push(activePath);
+      }
+    },
+    /** 点击单个页签tab */
     handleClickTab(fullPath: string) {
       if (this.multiTab.activeRoute !== fullPath) {
         router.push(fullPath);
         this.setActiveMultiTab(fullPath);
       }
     },
-    /** 设置当前路由对应的tab为激活状态 */
+    /** 设置当前路由对应的页签为激活状态 */
     setActiveMultiTab(fullPath: string) {
       this.multiTab.activeRoute = fullPath;
     },
