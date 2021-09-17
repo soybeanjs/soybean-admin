@@ -15,13 +15,13 @@ export interface ThemeSettings {
   menuStyle: MenuStyle;
   /** 头部样式 */
   headerStyle: HeaderStyle;
-  /** 多标签样式 */
+  /** 多页签样式 */
   multiTabStyle: MultiTabStyle;
   /** 面包屑样式 */
   crumbsStyle: CrumbsStyle;
   /** 页面样式 */
   pageStyle: PageStyle;
-  /** 固定头部和多标签 */
+  /** 固定头部和多页签 */
   fixedHeaderAndTab: boolean;
   /** 显示重载按钮 */
   showReload: boolean;
@@ -70,9 +70,9 @@ interface MenuStyle {
 }
 
 interface MultiTabStyle {
-  /** 多标签高度 */
+  /** 多页签高度 */
   height: number;
-  /** 多标签可见 */
+  /** 多页签可见 */
   visible: boolean;
   /** 背景颜色 */
   bgColor: string;

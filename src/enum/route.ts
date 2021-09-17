@@ -5,6 +5,7 @@ export enum EnumRoutePath {
   'not-found' = '/404',
   'no-permission' = '/403',
   'service-error' = '/500',
+  'reload' = '/reload',
   // 自定义路由
   'dashboard' = '/dashboard',
   'dashboard-analysis' = '/dashboard/analysis',
@@ -22,6 +23,8 @@ export enum EnumRouteTitle {
   'not-found' = '未找到',
   'no-permission' = '无权限',
   'service-error' = '服务器错误',
+  'reload' = '重载',
+  // 自定义路由
   'dashboard' = '仪表盘',
   'dashboard-analysis' = '分析页',
   'dashboard-workbench' = '工作台',

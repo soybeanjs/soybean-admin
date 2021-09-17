@@ -97,7 +97,7 @@ const themeStore = defineStore({
         this.multiTabStyle.height = height;
       }
     },
-    /** 设置多标签的显示 */
+    /** 设置多页签的显示 */
     handleMultiTabVisible(visible: boolean) {
       this.multiTabStyle.visible = visible;
     },

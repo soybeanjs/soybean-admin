@@ -7,7 +7,7 @@
     <setting-menu-item label="面包屑图标">
       <n-switch :value="theme.crumbsStyle.showIcon" @update:value="handleCrumbsIconVisible" />
     </setting-menu-item>
-    <setting-menu-item label="多标签">
+    <setting-menu-item label="多页签">
       <n-switch :value="theme.multiTabStyle.visible" @update:value="handleMultiTabVisible" />
     </setting-menu-item>
     <setting-menu-item label="页面切换动画">

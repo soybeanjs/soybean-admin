@@ -1,5 +1,6 @@
 import { useRouter, useRoute } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
+import { EnumRoutePath } from '@/enum';
 import { router as globalRouter, RouteNameMap } from '@/router';
 import type { LoginModuleType } from '@/interface';
 
@@ -61,9 +62,14 @@ export default function useRouterChange(inSetup: boolean = true) {
     }
   }
 
+  function toReload(redirectUrl: string) {
+    router.push({ path: EnumRoutePath.reload, query: { redirectUrl } });
+  }
+
   return {
     toHome,
     toLogin,
-    toCurrentLogin
+    toCurrentLogin,
+    toReload
   };
 }

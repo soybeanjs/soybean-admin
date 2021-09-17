@@ -48,7 +48,7 @@ const themeSettings: ThemeSettings = {
     bgColor: '#fff'
   },
   multiTabStyle: {
-    height: 48,
+    height: 44,
     visible: true,
     bgColor: '#fff'
   },

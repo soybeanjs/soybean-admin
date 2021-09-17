@@ -17,7 +17,7 @@ const loginModuleRegExp = getLoginModuleRegExp();
  * 固定不变的路由
  * @description !最后一项重定向未找到的路由须放置路由的最后一项
  */
-export const constantRoutes: RouteRecordRaw[] = [
+const constantRoutes: RouteRecordRaw[] = [
   {
     name: RouteNameMap.get('system'),
     path: EnumRoutePath.system,
@@ -82,6 +82,17 @@ export const constantRoutes: RouteRecordRaw[] = [
   }
 ];
 
+/** 路由首页 */
+export const ROUTE_HOME: CustomRoute = {
+  name: RouteNameMap.get('dashboard-analysis'),
+  path: EnumRoutePath['dashboard-analysis'],
+  component: () => import('@/views/dashboard/analysis/index.vue'),
+  meta: {
+    requiresAuth: true,
+    title: EnumRouteTitle['dashboard-analysis']
+  }
+};
+
 /**
  * 自定义路由
  */
@@ -89,10 +100,24 @@ export const customRoutes: CustomRoute[] = [
   {
     name: RouteNameMap.get('root'),
     path: EnumRoutePath.root,
-    redirect: { name: RouteNameMap.get('dashboard-analysis') },
+    component: BasicLayout,
+    redirect: { name: ROUTE_HOME.name },
     meta: {
       isNotMenu: true
-    }
+    },
+    children: [
+      // 重载
+      {
+        name: RouteNameMap.get('reload'),
+        path: EnumRoutePath.reload,
+        component: () => import('@/views/system/reload/index.vue'),
+        meta: {
+          title: EnumRouteTitle.reload,
+          isNotMenu: true,
+          fullPage: true
+        }
+      }
+    ]
   },
   {
     name: RouteNameMap.get('dashboard'),
@@ -105,15 +130,7 @@ export const customRoutes: CustomRoute[] = [
       icon: Dashboard
     },
     children: [
-      {
-        name: RouteNameMap.get('dashboard-analysis'),
-        path: EnumRoutePath['dashboard-analysis'],
-        component: () => import('@/views/dashboard/analysis/index.vue'),
-        meta: {
-          requiresAuth: true,
-          title: EnumRouteTitle['dashboard-analysis']
-        }
-      },
+      ROUTE_HOME,
       {
         name: RouteNameMap.get('dashboard-workbench'),
         path: EnumRoutePath['dashboard-workbench'],
@@ -169,10 +186,5 @@ export const customRoutes: CustomRoute[] = [
   }
 ];
 
-/** 路由白名单(不需要登录) */
-export const whitelistRoutes: string[] = [
-  RouteNameMap.get('login')!,
-  RouteNameMap.get('exception-403')!,
-  RouteNameMap.get('exception-404')!,
-  RouteNameMap.get('exception-500')!
-];
+/** 所有路由 */
+export const routes: RouteRecordRaw[] = [...customRoutes, ...constantRoutes];

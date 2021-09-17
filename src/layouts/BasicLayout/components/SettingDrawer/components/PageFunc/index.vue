@@ -4,7 +4,7 @@
     <setting-menu-item label="分割菜单">
       <n-switch :value="theme.menuStyle.splitMenu" @update:value="handleSplitMenu" />
     </setting-menu-item>
-    <setting-menu-item label="固定头部和多标签">
+    <setting-menu-item label="固定头部和多页签">
       <n-switch :value="splitMenu" :disabled="disabledSplitMenu" @update:value="handleFixedHeaderAndTab" />
     </setting-menu-item>
     <setting-menu-item label="头部高度">
@@ -16,7 +16,7 @@
         @update:value="handleHeaderHeight"
       />
     </setting-menu-item>
-    <setting-menu-item label="多标签高度">
+    <setting-menu-item label="多页签高度">
       <n-input-number
         class="w-120px"
         size="small"

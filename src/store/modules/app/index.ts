@@ -1,11 +1,15 @@
 import { defineStore } from 'pinia';
+import { nextTick } from 'vue';
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
 import { store } from '@/store';
+import { router, ROUTE_HOME } from '@/router';
 
 /** app状态 */
 interface AppState {
   menu: MenuState;
   multiTab: MultiTab;
+  /** 重新加载标记 */
+  reloadFlag: boolean;
   settingDrawer: SettingDrawer;
 }
 
@@ -15,8 +19,15 @@ interface MenuState {
   collapsed: boolean;
 }
 
+type MultiTabRoute = Partial<RouteLocationNormalizedLoaded> & {
+  path: string;
+  fullPath: string;
+};
+
+/** 多页签 */
 interface MultiTab {
-  routes: RouteLocationNormalizedLoaded[];
+  routes: MultiTabRoute[];
+  activeRoute: string;
 }
 
 /** 项目配置抽屉的状态 */
@@ -32,8 +43,10 @@ const appStore = defineStore({
       collapsed: false
     },
     multiTab: {
-      routes: []
+      routes: [],
+      activeRoute: ''
     },
+    reloadFlag: true,
     settingDrawer: {
       visible: false
     }
@@ -47,9 +60,59 @@ const appStore = defineStore({
     toggleMenu() {
       this.menu.collapsed = !this.menu.collapsed;
     },
+    /** 判断tab路由是否存在某个路由 */
+    getIndexInTabRoutes(fullPath: string) {
+      return this.multiTab.routes.findIndex(item => item.fullPath === fullPath);
+    },
     /** 添加多tab的数据 */
     addMultiTab(route: RouteLocationNormalizedLoaded) {
-      this.multiTab.routes.push(route);
+      const { fullPath } = route;
+      const isExist = this.getIndexInTabRoutes(fullPath) > -1;
+      if (!isExist) {
+        this.multiTab.routes.push({ ...route });
+      }
+    },
+    handleClickTab(fullPath: string) {
+      if (this.multiTab.activeRoute !== fullPath) {
+        router.push(fullPath);
+        this.setActiveMultiTab(fullPath);
+      }
+    },
+    /** 设置当前路由对应的tab为激活状态 */
+    setActiveMultiTab(fullPath: string) {
+      this.multiTab.activeRoute = fullPath;
+    },
+    /** 获取路由首页信息 */
+    getHomeTabRoute(route: RouteLocationNormalizedLoaded, isHome: boolean) {
+      const { name, path, meta } = ROUTE_HOME;
+      const home: MultiTabRoute = {
+        name,
+        path,
+        fullPath: path,
+        meta
+      };
+      if (isHome) {
+        Object.assign(home, route);
+      }
+      return home;
+    },
+    /** 初始化多页签数据 */
+    initMultiTab() {
+      const { currentRoute } = router;
+      const isHome = currentRoute.value.name === ROUTE_HOME.name;
+      const home = this.getHomeTabRoute(currentRoute.value, isHome);
+      const routes = [home];
+      if (!isHome) {
+        routes.push(currentRoute.value);
+      }
+      this.multiTab.routes = routes;
+      this.setActiveMultiTab(currentRoute.value.fullPath);
+    },
+    /** 重新加载页面 */
+    async handleReload() {
+      this.reloadFlag = false;
+      await nextTick();
+      this.reloadFlag = true;
     },
     /** 打开配置抽屉 */
     openSettingDrawer() {
