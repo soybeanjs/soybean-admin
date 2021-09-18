@@ -14,7 +14,7 @@
         :closable="item.name !== ROUTE_HOME.name"
         size="large"
         @click="handleClickTab(item.fullPath)"
-        @close="removeMultiTab(item.fullPath)"
+        @close.stop="removeMultiTab(item.fullPath)"
       >
         {{ item.meta?.title }}
       </n-tag>

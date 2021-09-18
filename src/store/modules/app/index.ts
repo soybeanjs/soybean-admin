@@ -74,12 +74,14 @@ const appStore = defineStore({
     },
     /** 删除多页签的数据 */
     removeMultiTab(fullPath: string) {
-      const index = this.getIndexInTabRoutes(fullPath);
-      if (index > -1) {
-        this.multiTab.routes = this.multiTab.routes.filter(item => item.fullPath !== fullPath);
-        const { routes } = this.multiTab;
-        const activePath = routes[routes.length - 1].fullPath;
+      const isActive = this.multiTab.activeRoute === fullPath;
+      const { routes } = this.multiTab;
+      const updateRoutes = routes.filter(v => v.fullPath !== fullPath);
+      this.multiTab.routes = updateRoutes;
+      if (isActive) {
+        const activePath = updateRoutes[updateRoutes.length - 1].fullPath;
         router.push(activePath);
+        this.setActiveMultiTab(activePath);
       }
     },
     /** 点击单个页签tab */
