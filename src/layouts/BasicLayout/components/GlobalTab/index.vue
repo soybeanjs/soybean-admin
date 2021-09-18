@@ -19,6 +19,7 @@
         {{ item.meta?.title }}
       </n-tag>
     </n-space>
+    <h3>{{ reload }}</h3>
     <div class="flex-center w-32px h-32px bg-white cursor-pointer" @click="handleReload">
       <icon-mdi-refresh class="text-16px" />
     </div>
@@ -30,7 +31,8 @@ import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { NSpace, NTag } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
-import { useRouterChange } from '@/hooks';
+// import { useRouterChange } from '@/hooks';
+import { useReloadInject } from '@/context';
 import { ROUTE_HOME } from '@/router';
 
 defineProps({
@@ -44,7 +46,8 @@ const route = useRoute();
 const theme = useThemeStore();
 const app = useAppStore();
 const { initMultiTab, addMultiTab, removeMultiTab, setActiveMultiTab, handleClickTab } = useAppStore();
-const { toReload } = useRouterChange();
+// const { toReload } = useRouterChange();
+const { reload, handleReload } = useReloadInject();
 
 const fixedHeaderAndTab = computed(() => theme.fixedHeaderAndTab || theme.navStyle.mode === 'horizontal-mix');
 const multiTabHeight = computed(() => {
@@ -56,9 +59,9 @@ const headerHeight = computed(() => {
   return `${height}px`;
 });
 
-function handleReload() {
-  toReload(route.fullPath);
-}
+// async function handleReload() {
+//   // toReload(route.fullPath);
+// }
 
 function init() {
   initMultiTab();

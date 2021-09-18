@@ -122,10 +122,11 @@ const appStore = defineStore({
       this.setActiveMultiTab(currentRoute.value.fullPath);
     },
     /** 重新加载页面 */
-    async handleReload() {
+    handleReload() {
       this.reloadFlag = false;
-      await nextTick();
-      this.reloadFlag = true;
+      nextTick(() => {
+        this.reloadFlag = true;
+      });
     },
     /** 打开配置抽屉 */
     openSettingDrawer() {

@@ -10,11 +10,19 @@
         <n-button type="warning">Warning</n-button>
         <n-button type="error">Error</n-button>
       </n-space>
+      <n-spin v-show="loading" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { NGradientText, NSpace, NButton } from 'naive-ui';
+import { ref } from 'vue';
+import { NGradientText, NSpace, NButton, NSpin } from 'naive-ui';
+
+const loading = ref(true);
+
+setTimeout(() => {
+  loading.value = false;
+}, 1500);
 </script>
 <style scoped></style>

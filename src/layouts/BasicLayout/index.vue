@@ -19,9 +19,9 @@
           <n-layout-content class="flex-auto" :class="{ 'bg-[#f5f7f9]': !theme.darkMode }">
             <router-view v-slot="{ Component }">
               <keep-alive>
-                <component :is="Component" v-if="routeProps.keepAlive" :key="routeProps.name" />
+                <component :is="Component" v-if="routeProps.keepAlive && reload" :key="routeProps.name" />
               </keep-alive>
-              <component :is="Component" v-if="!routeProps.keepAlive" :key="routeProps.name" />
+              <component :is="Component" v-if="!routeProps.keepAlive && reload" :key="routeProps.name" />
             </router-view>
           </n-layout-content>
           <global-footer />
@@ -36,12 +36,14 @@
 import { computed } from 'vue';
 import { NLayout, NScrollbar, NLayoutContent } from 'naive-ui';
 import { useThemeStore } from '@/store';
+import { useReloadInject } from '@/context';
 import { GlobalSider, GlobalHeader, GlobalTab, GlobalFooter, SettingDrawer } from './components';
 import { useRouteProps, useScrollBehavior } from '../composables';
 
 const theme = useThemeStore();
 const { scrollbar } = useScrollBehavior();
 const routeProps = useRouteProps();
+const { reload } = useReloadInject();
 
 const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
 const headerAndMultiTabHeight = computed(() => {

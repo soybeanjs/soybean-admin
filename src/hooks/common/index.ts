@@ -1,7 +1,7 @@
 import useAppTitle from './useAppTitle';
-import useCreateContext from './useCreateContext';
+import useContext from './useContext';
 import useRouterChange from './useRouterChange';
 import useRouteParam from './useRouteParam';
 import useRouteQuery from './useRouteQuery';
 
-export { useAppTitle, useCreateContext, useRouterChange, useRouteParam, useRouteQuery };
+export { useAppTitle, useContext, useRouterChange, useRouteParam, useRouteQuery };
