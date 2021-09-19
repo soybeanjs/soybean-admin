@@ -85,7 +85,7 @@ soybean-admin
 │   ├── store                  //状态管理
 │   │   └── modules            //状态管理划分的模块
 │   ├── styles                 //样式
-│   ├── types                  //TS类型声明文件(*.d.ts)
+│   ├── typings                //TS类型声明文件(*.d.ts)
 │   ├── utils                  //全局工具函数
 │   │   ├── auth
 │   │   ├── common

@@ -1,4 +1,4 @@
-import { EnumAnimate, EnumNavMode, EnumNavTheme } from '@/enum';
+import { EnumAnimate, EnumNavMode, EnumNavTheme, EnumMultiTabMode } from '@/enum';
 
 export interface ThemeSettings {
   /** 深色模式 */
@@ -69,6 +69,13 @@ interface MenuStyle {
   splitMenu: boolean;
 }
 
+export type MultiTabMode = keyof typeof EnumMultiTabMode;
+
+interface MultiTabModeList {
+  value: MultiTabMode;
+  label: EnumMultiTabMode;
+}
+
 interface MultiTabStyle {
   /** 多页签高度 */
   height: number;
@@ -76,6 +83,10 @@ interface MultiTabStyle {
   visible: boolean;
   /** 背景颜色 */
   bgColor: string;
+  /** 多页签模式 */
+  mode: MultiTabMode;
+  /** 多页签模式列表 */
+  modeList: MultiTabModeList[];
 }
 
 interface CrumbsStyle {

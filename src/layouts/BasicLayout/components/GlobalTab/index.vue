@@ -1,25 +1,39 @@
 <template>
   <div v-if="fixedHeaderAndTab && theme.navStyle.mode !== 'horizontal-mix'" class="multi-tab-height w-full"></div>
   <div
-    class="multi-tab-height flex-y-center justify-between w-full px-10px"
-    :class="{ 'multi-tab-top absolute': fixedHeaderAndTab, 'bg-[#f5f7f9]': !theme.darkMode }"
+    class="multi-tab-height flex-center justify-between w-full px-10px"
+    :class="{ 'multi-tab-top absolute': fixedHeaderAndTab, 'bg-[#18181c]': theme.darkMode }"
     :style="{ zIndex }"
+    :align="'center'"
+    justify="space-between"
+    :item-style="{ paddingTop: '0px', paddingBottom: '0px' }"
   >
-    <n-space :align="'center'">
-      <n-tag
+    <n-space v-if="theme.multiTabStyle.mode === 'button'" :align="'center'" size="small" class="h-full">
+      <button-tab
         v-for="item in app.multiTab.routes"
         :key="item.path"
-        :type="app.multiTab.activeRoute === item.fullPath ? 'primary' : 'default'"
-        class="cursor-pointer"
+        :active="app.multiTab.activeRoute === item.fullPath"
         :closable="item.name !== ROUTE_HOME.name"
-        size="large"
         @click="handleClickTab(item.fullPath)"
-        @close.stop="removeMultiTab(item.fullPath)"
+        @close="removeMultiTab(item.fullPath)"
       >
         {{ item.meta?.title }}
-      </n-tag>
+      </button-tab>
     </n-space>
-    <h3>{{ reload }}</h3>
+    <n-space v-if="theme.multiTabStyle.mode === 'browser'" :align="'flex-end'" :size="0" class="h-full px-16px">
+      <browser-tab
+        v-for="(item, index) in app.multiTab.routes"
+        :key="item.path"
+        v-model:hover-index="hoverIndex"
+        :current-index="index"
+        :active-index="app.activeMultiTabIndex"
+        :closable="item.name !== ROUTE_HOME.name"
+        @click="handleClickTab(item.fullPath)"
+        @close="removeMultiTab(item.fullPath)"
+      >
+        {{ item.meta?.title }}
+      </browser-tab>
+    </n-space>
     <div class="flex-center w-32px h-32px bg-white cursor-pointer" @click="handleReload">
       <icon-mdi-refresh class="text-16px" />
     </div>
@@ -27,13 +41,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { NSpace, NTag } from 'naive-ui';
+import { NSpace } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
-// import { useRouterChange } from '@/hooks';
 import { useReloadInject } from '@/context';
 import { ROUTE_HOME } from '@/router';
+import { ButtonTab, BrowserTab } from './components';
 
 defineProps({
   zIndex: {
@@ -46,8 +60,9 @@ const route = useRoute();
 const theme = useThemeStore();
 const app = useAppStore();
 const { initMultiTab, addMultiTab, removeMultiTab, setActiveMultiTab, handleClickTab } = useAppStore();
-// const { toReload } = useRouterChange();
-const { reload, handleReload } = useReloadInject();
+const { handleReload } = useReloadInject();
+
+const hoverIndex = ref(NaN);
 
 const fixedHeaderAndTab = computed(() => theme.fixedHeaderAndTab || theme.navStyle.mode === 'horizontal-mix');
 const multiTabHeight = computed(() => {
@@ -58,10 +73,6 @@ const headerHeight = computed(() => {
   const { height } = theme.headerStyle;
   return `${height}px`;
 });
-
-// async function handleReload() {
-//   // toReload(route.fullPath);
-// }
 
 function init() {
   initMultiTab();

@@ -1,5 +1,5 @@
 import type { ThemeSettings } from '../interface';
-import { EnumAnimate } from '../enum';
+import { EnumAnimate, EnumMultiTabMode } from '../enum';
 
 const themeColorList = [
   '#409EFF',
@@ -48,9 +48,14 @@ const themeSettings: ThemeSettings = {
     bgColor: '#fff'
   },
   multiTabStyle: {
-    height: 44,
+    height: 48,
     visible: true,
-    bgColor: '#fff'
+    bgColor: '#fff',
+    mode: 'browser',
+    modeList: [
+      { value: 'button', label: EnumMultiTabMode.button },
+      { value: 'browser', label: EnumMultiTabMode.browser }
+    ]
   },
   crumbsStyle: {
     visible: true,

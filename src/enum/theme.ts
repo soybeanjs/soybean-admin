@@ -12,3 +12,8 @@ export enum EnumNavTheme {
   'light' = '白色侧边栏',
   'header-dark' = '暗色的侧边栏和顶栏'
 }
+
+export enum EnumMultiTabMode {
+  'button' = '按钮风格',
+  'browser' = '浏览器风格'
+}

@@ -36,7 +36,8 @@ export default defineConfig({
         success,
         warning,
         error
-      }
+      },
+      transitionProperty: ['width', 'height', 'background']
     }
   },
   variants: {},

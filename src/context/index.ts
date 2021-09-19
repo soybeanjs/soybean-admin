@@ -1,3 +1,3 @@
-import { setupAppContext, useReloadInject } from './app';
+export { setupAppContext, useReloadInject } from './app';
 
-export { setupAppContext, useReloadInject };
+export { useHoverIndexProvide, useHoverIndexInject } from './part';

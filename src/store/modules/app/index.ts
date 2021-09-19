@@ -51,6 +51,12 @@ const appStore = defineStore({
       visible: false
     }
   }),
+  getters: {
+    activeMultiTabIndex(state) {
+      const { routes, activeRoute } = state.multiTab;
+      return routes.findIndex(v => v.fullPath === activeRoute);
+    }
+  },
   actions: {
     /** 折叠/展开菜单 */
     handleMenuCollapse(collapsed: boolean) {

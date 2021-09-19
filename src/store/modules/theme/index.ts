@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { themeSettings } from '@/settings';
 import { store } from '@/store';
-import type { ThemeSettings, NavMode, AnimateType } from '@/interface';
+import type { ThemeSettings, NavMode, MultiTabMode, AnimateType } from '@/interface';
 import { getHoverAndPressedColor } from './helpers';
 
 type ThemeState = ThemeSettings;
@@ -100,6 +100,10 @@ const themeStore = defineStore({
     /** 设置多页签的显示 */
     handleMultiTabVisible(visible: boolean) {
       this.multiTabStyle.visible = visible;
+    },
+    /** 设置多页签的显示 */
+    handleMultiTabMode(mode: MultiTabMode) {
+      this.multiTabStyle.mode = mode;
     },
     /** 设置面包屑的显示 */
     handleCrumbsVisible(visible: boolean) {

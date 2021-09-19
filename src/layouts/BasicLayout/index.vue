@@ -15,8 +15,8 @@
           :class="[{ 'content-padding': isHorizontalMix }, routeProps.fullPage ? 'h-full' : 'min-h-100vh']"
         >
           <global-header v-if="!isHorizontalMix" :z-index="1" />
-          <global-tab :z-index="1" />
-          <n-layout-content class="flex-auto" :class="{ 'bg-[#f5f7f9]': !theme.darkMode }">
+          <global-tab v-if="theme.multiTabStyle.visible" :z-index="1" />
+          <n-layout-content class="flex-auto p-10px" :class="{ 'bg-[#f5f7f9]': !theme.darkMode }">
             <router-view v-slot="{ Component }">
               <keep-alive>
                 <component :is="Component" v-if="routeProps.keepAlive && reload" :key="routeProps.name" />

@@ -10,6 +10,15 @@
     <setting-menu-item label="多页签">
       <n-switch :value="theme.multiTabStyle.visible" @update:value="handleMultiTabVisible" />
     </setting-menu-item>
+    <setting-menu-item label="多页签风格">
+      <n-select
+        class="w-120px"
+        size="small"
+        :value="theme.multiTabStyle.mode"
+        :options="theme.multiTabStyle.modeList"
+        @update:value="handleMultiTabMode"
+      />
+    </setting-menu-item>
     <setting-menu-item label="页面切换动画">
       <n-switch :value="theme.pageStyle.animate" @update:value="handlePageAnimate" />
     </setting-menu-item>
@@ -35,6 +44,7 @@ const {
   handleCrumbsVisible,
   handleCrumbsIconVisible,
   handleMultiTabVisible,
+  handleMultiTabMode,
   handlePageAnimate,
   handlePageAnimateType
 } = useThemeStore();

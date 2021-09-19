@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import { viteEnv, plugins } from './build';
 
@@ -17,7 +16,7 @@ export default defineConfig({
       }
     }
   },
-  plugins: [vue(), ...plugins],
+  plugins,
   build: {
     brotliSize: false
   }
