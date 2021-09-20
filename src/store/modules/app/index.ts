@@ -90,6 +90,19 @@ const appStore = defineStore({
         this.setActiveMultiTab(activePath);
       }
     },
+    /**
+     * 删除所有多页签只保留路由首页
+     * @param exclude - 保留的多页签
+     */
+    clearMultiTab(exclude: string[] = []) {
+      const remain = [ROUTE_HOME.path, ...exclude];
+      const { routes } = this.multiTab;
+      const updateRoutes = routes.filter(v => remain.includes(v.fullPath));
+      this.multiTab.routes = updateRoutes;
+      const activePath = updateRoutes[updateRoutes.length - 1].fullPath;
+      router.push(activePath);
+      this.setActiveMultiTab(activePath);
+    },
     /** 点击单个页签tab */
     handleClickTab(fullPath: string) {
       if (this.multiTab.activeRoute !== fullPath) {
@@ -102,8 +115,9 @@ const appStore = defineStore({
       this.multiTab.activeRoute = fullPath;
     },
     /** 获取路由首页信息 */
-    getHomeTabRoute(route: RouteLocationNormalizedLoaded, isHome: boolean) {
+    getHomeTabRoute(route: RouteLocationNormalizedLoaded) {
       const { name, path, meta } = ROUTE_HOME;
+      const isHome = route.name === ROUTE_HOME.name;
       const home: MultiTabRoute = {
         name,
         path,
@@ -119,7 +133,7 @@ const appStore = defineStore({
     initMultiTab() {
       const { currentRoute } = router;
       const isHome = currentRoute.value.name === ROUTE_HOME.name;
-      const home = this.getHomeTabRoute(currentRoute.value, isHome);
+      const home = this.getHomeTabRoute(currentRoute.value);
       const routes = [home];
       if (!isHome) {
         routes.push(currentRoute.value);

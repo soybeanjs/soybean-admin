@@ -1,7 +1,6 @@
 <template>
   <div
     class="
-      button-tab
       inline-flex-center
       h-34px
       px-14px
@@ -9,20 +8,29 @@
       border-1px border-[#e5e7eb]
       rounded-2px
       cursor-pointer
-      hover:text-primary hover:border-primary
+      transition
+      duration-400
+      ease-in-out
     "
-    :class="{ 'text-primary bg-primary bg-opacity-10 !border-primary': active }"
+    :class="{ 'text-primary bg-primary bg-opacity-10 !border-primary': active, 'text-primary border-primary': isHover }"
+    @mouseenter="setTrue"
+    @mouseleave="setFalse"
   >
     <span>
       <slot></slot>
     </span>
-    <div v-if="closable" class="icon-close-container w-0 overflow-hidden">
+    <div
+      v-if="closable"
+      class="overflow-hidden transition-width duration-400 ease-in-out"
+      :class="[isHover ? 'w-18px' : 'w-0']"
+    >
       <icon-close :is-primary="true" @click="handleClose" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useBoolean } from '@/hooks';
 import { IconClose } from '../common';
 
 defineProps({
@@ -37,21 +45,11 @@ defineProps({
 });
 const emit = defineEmits(['close']);
 
+const { bool: isHover, setTrue, setFalse } = useBoolean();
+
 function handleClose(e: MouseEvent) {
   e.stopPropagation();
   emit('close');
 }
 </script>
-<style scoped lang="scss">
-.button-tab {
-  transition: all 0.4s ease-out;
-  &:hover {
-    .icon-close-container {
-      width: 18px !important;
-    }
-  }
-  .icon-close-container {
-    transition: width 0.4s ease-out;
-  }
-}
-</style>
+<style scoped></style>

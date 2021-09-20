@@ -1,0 +1,35 @@
+<template>
+  <hover-container class="w-40px h-full" placement="bottom-end" content="刷新当页" @click="handleRefresh">
+    <icon-mdi-refresh class="text-16px" :class="{ 'reload-animation': loading }" />
+  </hover-container>
+</template>
+
+<script lang="ts" setup>
+import { HoverContainer } from '@/components';
+import { useReloadInject } from '@/context';
+import { useLoading } from '@/hooks';
+
+const { handleReload } = useReloadInject();
+const { loading, startLoading, endLoading } = useLoading();
+
+function handleRefresh() {
+  startLoading();
+  handleReload();
+  setTimeout(() => {
+    endLoading();
+  }, 1000);
+}
+</script>
+<style scoped>
+.reload-animation {
+  animation: rotate 1s;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>

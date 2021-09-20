@@ -4,5 +4,6 @@ import useRouterChange from './useRouterChange';
 import useRouteParam from './useRouteParam';
 import useRouteQuery from './useRouteQuery';
 import useBoolean from './useBoolean';
+import useLoading from './useLoading';
 
-export { useAppTitle, useContext, useRouterChange, useRouteParam, useRouteQuery, useBoolean };
+export { useAppTitle, useContext, useRouterChange, useRouteParam, useRouteQuery, useBoolean, useLoading };

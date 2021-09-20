@@ -6,13 +6,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onActivated } from 'vue';
+import { useLoading } from '@/hooks';
 import { DataCard, NavCard } from './components';
 
-const loading = ref(true);
+const { loading, startLoading, endLoading } = useLoading(true);
 
-setTimeout(() => {
-  loading.value = false;
-}, 1500);
+function handleEndLoading() {
+  startLoading();
+  setTimeout(() => {
+    endLoading();
+  }, 1000);
+}
+onActivated(() => {
+  handleEndLoading();
+});
 </script>
 <style scoped></style>

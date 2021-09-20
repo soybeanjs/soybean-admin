@@ -3,7 +3,6 @@ import { useRoute } from 'vue-router';
 
 export function useRouteProps() {
   const route = useRoute();
-
   const props = computed(() => {
     /** 路由名称 */
     const name = route.name as string;

@@ -1,9 +1,9 @@
 <template>
   <n-layout class="h-full" has-sider>
-    <global-sider v-if="theme.isVerticalNav" :z-index="2" />
+    <global-sider v-if="theme.isVerticalNav" :z-index="3" />
     <global-header v-if="isHorizontalMix" :z-index="2" />
     <div class="flex-1-hidden flex h-full">
-      <global-sider v-if="isHorizontalMix" class="sider-margin" :z-index="1" />
+      <global-sider v-if="isHorizontalMix" class="sider-margin" :z-index="3" />
       <n-scrollbar
         ref="scrollbar"
         class="h-full"
@@ -14,7 +14,7 @@
           class="inline-flex-col-stretch w-full"
           :class="[{ 'content-padding': isHorizontalMix }, routeProps.fullPage ? 'h-full' : 'min-h-100vh']"
         >
-          <global-header v-if="!isHorizontalMix" :z-index="1" />
+          <global-header v-if="!isHorizontalMix" :z-index="2" />
           <global-tab v-if="theme.multiTabStyle.visible" :z-index="1" />
           <n-layout-content class="flex-auto p-10px" :class="{ 'bg-[#f5f7f9]': !theme.darkMode }">
             <router-view v-slot="{ Component }">

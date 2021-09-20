@@ -1,12 +1,12 @@
 <template>
-  <header-item class="w-40px h-full" @click="openSettingDrawer">
+  <hover-container class="w-40px h-full" placement="bottom-end" content="项目配置" @click="openSettingDrawer">
     <icon-mdi-light-cog class="text-16px" />
-  </header-item>
+  </hover-container>
 </template>
 
 <script lang="ts" setup>
 import { useAppStore } from '@/store';
-import HeaderItem from './HeaderItem.vue';
+import { HoverContainer } from '@/components';
 
 const { openSettingDrawer } = useAppStore();
 </script>

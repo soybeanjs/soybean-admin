@@ -51,7 +51,7 @@ const themeSettings: ThemeSettings = {
     height: 48,
     visible: true,
     bgColor: '#fff',
-    mode: 'browser',
+    mode: 'button',
     modeList: [
       { value: 'button', label: EnumMultiTabMode.button },
       { value: 'browser', label: EnumMultiTabMode.browser }

@@ -1,13 +1,13 @@
 <template>
-  <header-item class="w-40px h-full" @click="toggle">
+  <hover-container class="w-40px h-full" content="全屏" @click="toggle">
     <icon-gridicons-fullscreen-exit v-if="isFullscreen" class="text-16px" />
     <icon-gridicons-fullscreen v-else class="text-16px" />
-  </header-item>
+  </hover-container>
 </template>
 
 <script lang="ts" setup>
 import { useFullscreen } from '@vueuse/core';
-import HeaderItem from './HeaderItem.vue';
+import { HoverContainer } from '@/components';
 
 const { isFullscreen, toggle } = useFullscreen();
 </script>

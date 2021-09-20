@@ -1,9 +1,9 @@
 <template>
   <n-dropdown :options="options" @select="handleDropdown">
-    <header-item class="px-12px">
+    <hover-container class="px-12px" :show-tooltip="false">
       <n-avatar :src="avatar" size="small" :round="true" />
       <span class="pl-8px text-16px font-medium">Soybean</span>
-    </header-item>
+    </hover-container>
   </n-dropdown>
 </template>
 
@@ -11,7 +11,7 @@
 import { NDropdown, NAvatar } from 'naive-ui';
 import { UserAvatar, Logout } from '@vicons/carbon';
 import { dynamicIconRender, resetAuthStorage } from '@/utils';
-import HeaderItem from './HeaderItem.vue';
+import { HoverContainer } from '@/components';
 import avatar from '@/assets/img/common/logo-fill.png';
 
 type DropdownKey = 'user-center' | 'logout';

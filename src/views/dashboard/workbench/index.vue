@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex-y-center flex-col h-500px bg-white">
+    <n-spin class="flex-y-center flex-col h-500px bg-white" :show="loading">
       <n-gradient-text type="primary" size="32">工作台</n-gradient-text>
       <n-space>
         <n-button>Default</n-button>
@@ -10,8 +10,7 @@
         <n-button type="warning">Warning</n-button>
         <n-button type="error">Error</n-button>
       </n-space>
-      <n-spin v-show="loading" />
-    </div>
+    </n-spin>
   </div>
 </template>
 

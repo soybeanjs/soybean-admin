@@ -1,8 +1,8 @@
 <template>
   <div v-if="fixedHeaderAndTab && theme.navStyle.mode !== 'horizontal-mix'" class="multi-tab-height w-full"></div>
   <div
-    class="multi-tab-height flex-center justify-between w-full px-10px"
-    :class="{ 'multi-tab-top absolute': fixedHeaderAndTab, 'bg-[#18181c]': theme.darkMode }"
+    class="multi-tab flex-center justify-between w-full pl-10px"
+    :class="[theme.darkMode ? 'bg-[#18181c]' : 'bg-white', { 'multi-tab-top absolute': fixedHeaderAndTab }]"
     :style="{ zIndex }"
     :align="'center'"
     justify="space-between"
@@ -16,6 +16,7 @@
         :closable="item.name !== ROUTE_HOME.name"
         @click="handleClickTab(item.fullPath)"
         @close="removeMultiTab(item.fullPath)"
+        @contextmenu="handleContextMenu($event, item.fullPath)"
       >
         {{ item.meta?.title }}
       </button-tab>
@@ -34,20 +35,24 @@
         {{ item.meta?.title }}
       </browser-tab>
     </n-space>
-    <div class="flex-center w-32px h-32px bg-white cursor-pointer" @click="handleReload">
-      <icon-mdi-refresh class="text-16px" />
-    </div>
+    <reload-button />
+    <context-menu
+      :visible="dropdownVisible"
+      :current-path="dropdownConfig.currentPath"
+      :x="dropdownConfig.x"
+      :y="dropdownConfig.y"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref, reactive, watch, nextTick } from 'vue';
 import { useRoute } from 'vue-router';
 import { NSpace } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
-import { useReloadInject } from '@/context';
 import { ROUTE_HOME } from '@/router';
-import { ButtonTab, BrowserTab } from './components';
+import { ButtonTab, BrowserTab, ReloadButton, ContextMenu } from './components';
+import { useBoolean } from '@/hooks';
 
 defineProps({
   zIndex: {
@@ -60,7 +65,7 @@ const route = useRoute();
 const theme = useThemeStore();
 const app = useAppStore();
 const { initMultiTab, addMultiTab, removeMultiTab, setActiveMultiTab, handleClickTab } = useAppStore();
-const { handleReload } = useReloadInject();
+const { bool: dropdownVisible, setTrue: showDropdown, setFalse: hideDropdown } = useBoolean();
 
 const hoverIndex = ref(NaN);
 
@@ -73,6 +78,25 @@ const headerHeight = computed(() => {
   const { height } = theme.headerStyle;
   return `${height}px`;
 });
+
+const dropdownConfig = reactive({
+  x: 0,
+  y: 0,
+  currentPath: ''
+});
+
+function setDropdownConfig(x: number, y: number, currentPath: string) {
+  Object.assign(dropdownConfig, { x, y, currentPath });
+}
+
+function handleContextMenu(e: MouseEvent, fullPath: string) {
+  e.preventDefault();
+  hideDropdown();
+  setDropdownConfig(e.clientX, e.clientY, fullPath);
+  nextTick(() => {
+    showDropdown();
+  });
+}
 
 function init() {
   initMultiTab();
@@ -90,6 +114,10 @@ watch(
 init();
 </script>
 <style scoped>
+.multi-tab {
+  height: v-bind(multiTabHeight);
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+}
 .multi-tab-height {
   height: v-bind(multiTabHeight);
 }

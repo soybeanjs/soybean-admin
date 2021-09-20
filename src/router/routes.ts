@@ -88,6 +88,7 @@ export const ROUTE_HOME: CustomRoute = {
   path: EnumRoutePath['dashboard-analysis'],
   component: () => import('@/views/dashboard/analysis/index.vue'),
   meta: {
+    keepAlive: true,
     requiresAuth: true,
     title: EnumRouteTitle['dashboard-analysis']
   }
@@ -126,7 +127,6 @@ export const customRoutes: CustomRoute[] = [
     redirect: { name: RouteNameMap.get('dashboard-analysis') },
     meta: {
       title: EnumRouteTitle.dashboard,
-      keepAlive: true,
       icon: Dashboard
     },
     children: [

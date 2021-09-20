@@ -32,7 +32,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@iconify/json": "^1.1.403",
+    "@iconify/json": "^1.1.404",
     "@iconify/vue": "^3.0.0",
     "@types/chroma-js": "^2.1.3",
     "@types/qs": "^6.9.7",
@@ -46,7 +46,7 @@
     "@vicons/ionicons5": "^0.11.0",
     "@vicons/material": "^0.11.0",
     "@vicons/tabler": "^0.11.0",
-    "@vitejs/plugin-vue": "^1.8.0",
+    "@vitejs/plugin-vue": "^1.8.1",
     "@vue/compiler-sfc": "^3.2.12",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
@@ -73,6 +73,7 @@
     "vite-plugin-html": "^2.1.0",
     "vite-plugin-windicss": "^1.4.3",
     "vue-tsc": "^0.3.0",
+    "vueuc": "^0.4.10",
     "windicss": "^3.1.7"
   },
   "config": {

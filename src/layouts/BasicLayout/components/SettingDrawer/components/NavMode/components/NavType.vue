@@ -17,8 +17,9 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { NTooltip } from 'naive-ui';
 import type { PropType } from 'vue';
+import { NTooltip } from 'naive-ui';
+import type { FollowerPlacement } from 'vueuc';
 import { EnumNavMode } from '@/enum';
 import type { NavMode } from '@/interface';
 
@@ -33,7 +34,7 @@ const props = defineProps({
   }
 });
 
-const config = new Map<NavMode, { placement: any; menuClass: string; mainClass: string }>([
+const config = new Map<NavMode, { placement: FollowerPlacement; menuClass: string; mainClass: string }>([
   ['vertical', { placement: 'bottom-start', menuClass: 'w-1/3 h-full', mainClass: 'w-2/3 h-3/4' }],
   ['vertical-mix', { placement: 'bottom', menuClass: 'w-1/4 h-full', mainClass: 'w-2/3 h-3/4' }],
   ['horizontal', { placement: 'bottom', menuClass: 'w-full h-1/4', mainClass: 'w-full h-3/4' }],

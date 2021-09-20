@@ -14,16 +14,14 @@ export default function useReloadContext() {
   function handleReload() {
     reload.value = false;
     nextTick(() => {
-      nextTick(() => {
-        reload.value = true;
-      });
+      reload.value = true;
     });
   }
+
   const context: ReloadContext = {
     reload,
     handleReload
   };
-
   function useReloadProvide() {
     useProvide(context);
   }
