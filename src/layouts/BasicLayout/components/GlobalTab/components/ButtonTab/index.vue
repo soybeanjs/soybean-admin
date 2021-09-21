@@ -2,7 +2,7 @@
   <div
     class="
       inline-flex-center
-      h-34px
+      h-30px
       px-14px
       bg-white
       border-1px border-[#e5e7eb]

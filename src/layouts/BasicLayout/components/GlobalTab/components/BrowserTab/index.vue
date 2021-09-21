@@ -3,7 +3,7 @@
     class="
       relative
       inline-flex-center
-      h-34px
+      h-30px
       px-32px
       transition-background
       duration-400

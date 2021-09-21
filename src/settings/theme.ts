@@ -44,11 +44,11 @@ const themeSettings: ThemeSettings = {
     splitMenu: false
   },
   headerStyle: {
-    height: 64,
+    height: 56,
     bgColor: '#fff'
   },
   multiTabStyle: {
-    height: 48,
+    height: 44,
     visible: true,
     bgColor: '#fff',
     mode: 'button',
