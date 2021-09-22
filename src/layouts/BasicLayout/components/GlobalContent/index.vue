@@ -1,22 +1,26 @@
 <template>
-  <n-layout-content class="flex-auto p-10px" :class="{ 'bg-[#f5f7f9]': !theme.darkMode }">
+  <div
+    class="flex-1 flex-col-stretch p-10px"
+    :class="{ 'bg-[#f5f7f9]': !theme.darkMode, 'overflow-hidden': routeProps.fullPage }"
+  >
     <router-view v-slot="{ Component, route }">
       <transition :name="theme.pageStyle.animateType" mode="out-in" appear>
         <keep-alive :include="cacheRoutes">
-          <component :is="Component" v-if="reload" :key="route.fullPath" />
+          <component :is="Component" v-if="reload" :key="route.fullPath" class="flex-1" />
         </keep-alive>
       </transition>
     </router-view>
-  </n-layout-content>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { NLayoutContent } from 'naive-ui';
 import { useThemeStore } from '@/store';
 import { useReloadInject } from '@/context';
 import { cacheRoutes } from '@/router';
+import { useRouteProps } from '@/hooks';
 
 const theme = useThemeStore();
 const { reload } = useReloadInject();
+const routeProps = useRouteProps();
 </script>
 <style scoped></style>

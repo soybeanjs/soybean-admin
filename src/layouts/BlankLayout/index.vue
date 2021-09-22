@@ -1,10 +1,15 @@
 <template>
   <n-scrollbar ref="scrollbar" class="h-full" :x-scrollable="true" :content-class="routeProps.fullPage ? 'h-full' : ''">
-    <div class="inline-block w-full" :class="[routeProps.fullPage ? 'h-full' : 'min-h-100vh']">
+    <div class="inline-block w-full h-full">
       <router-view v-slot="{ Component, route: itemRoute }">
         <transition :name="theme.pageStyle.animateType" mode="out-in" appear>
           <keep-alive :include="cacheRoutes">
-            <component :is="Component" v-if="reload" :key="itemRoute.fullPath" />
+            <component
+              :is="Component"
+              v-if="reload"
+              :key="itemRoute.fullPath"
+              :class="{ 'min-h-100vh': !routeProps.fullPage }"
+            />
           </keep-alive>
         </transition>
       </router-view>
