@@ -36,12 +36,13 @@ soybean-admin
 │   └── plugins                //构建插件
 │       ├── html.ts            //html插件(注入变量，压缩代码等)
 │       ├── iconify.ts         //iconify图标插件
-│       └── index.ts
+│       └── vue.ts             //vue相关vite插件
 ├── commitlint.config.js       //commitlint提交规范插件配置
 ├── index.html
 ├── package.json
 ├── pnpm-lock.yaml             //npm包管理器pnpm依赖锁定文件
 ├── public                     //公共目录
+│   ├── resource               //资源文件夹(不会被打包)
 │   └── favicon.ico
 ├── src
 │   ├── App.vue                //vue文件入口
@@ -51,11 +52,15 @@ soybean-admin
 │   │   ├── business           //业务相关组件
 │   │   ├── common             //公共组件
 │   │   └── custom             //自定义组件
+│   ├── context                //全局上下文(通过provide和inject实现)
+│   │   ├── app                //从app.vue注入的上下文
+│   │   └── part               //局部组件注入的上下文
 │   ├── enum                   //TS枚举
 │   │   ├── animate.ts         //动画枚举
 │   │   ├── business.ts        //业务相关枚举
 │   │   ├── common.ts          //通用枚举
 │   │   ├── route.ts           //路由相关枚举
+│   │   ├── storage.ts           //存储相关枚举
 │   │   └── theme.ts           //系统主题配置相关枚举
 │   ├── hooks                  //组合式的钩子函数hooks
 │   │   ├── business           //业务相关hooks
@@ -69,9 +74,11 @@ soybean-admin
 │   │   └── BlankLayout        //空白布局组件
 │   ├── main.ts                //项目入口ts文件
 │   ├── plugins                //插件
-│   │   ├── dark-mode.ts       //windicss暗黑模式插件
-│   │   └── smooth-scroll.ts   //滚动平滑插件
+│   │   └── dark-mode.ts       //windicss暗黑模式插件
 │   ├── router                 //vue路由
+│   │   ├── cache.ts           //缓存的路由
+│   │   ├── components.ts      //缓存的路由对应的组件
+│   │   ├── helpers.ts         //工具函数
 │   │   ├── menus.ts           //菜单
 │   │   ├── permission.ts      //路由守卫相关函数
 │   │   └── routes.ts          //声明的路由
@@ -101,9 +108,10 @@ soybean-admin
 ├── .env                       //环境文件
 ├── .env.development           //环境文件(开发模式)
 ├── .env.production            //环境文件(生产模式)
-├── .env.vercel                //环境文件(自定义vercel模式)
+├── .env.staging                //环境文件(自定义staging模式)
 ├── .eslintignore              //忽略eslint检查的配置文件
 ├── .eslintrc.js               //eslint配置文件
 ├── .gitignore                 //忽略git提交的配置文件
+├── .husky                     //git commit提交钩子，提交前检查代码格式和提交commit内容的格式
 └── .prettierrc.js             //prettier代码格式插件配置
 ```
