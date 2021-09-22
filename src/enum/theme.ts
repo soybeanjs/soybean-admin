@@ -13,7 +13,15 @@ export enum EnumNavTheme {
   'header-dark' = '暗色的侧边栏和顶栏'
 }
 
+/** 多页签风格 */
 export enum EnumMultiTabMode {
   'button' = '按钮风格',
   'browser' = '浏览器风格'
+}
+
+/** 水平模式的菜单位置 */
+export enum EnumHorizontalMenuPosition {
+  'flex-start' = '居左',
+  'center' = '居中',
+  'flex-end' = '居右'
 }

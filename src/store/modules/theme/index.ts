@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { themeSettings } from '@/settings';
 import { store } from '@/store';
-import type { ThemeSettings, NavMode, MultiTabMode, AnimateType } from '@/interface';
+import type { ThemeSettings, NavMode, MultiTabMode, AnimateType, HorizontalMenuPosition } from '@/interface';
 import { getHoverAndPressedColor } from './helpers';
 
 type ThemeState = ThemeSettings;
@@ -84,6 +84,10 @@ const themeStore = defineStore({
       if (width !== null) {
         this.menuStyle.mixWidth = width;
       }
+    },
+    /** 更改顶部水平菜单的位置 */
+    handleHorizontalMenuPosition(position: HorizontalMenuPosition) {
+      this.menuStyle.horizontalPosition = position;
     },
     /** 更改头部的高度 */
     handleHeaderHeight(height: number | null) {

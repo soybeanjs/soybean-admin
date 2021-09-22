@@ -1,5 +1,5 @@
 import type { ThemeSettings } from '../interface';
-import { EnumAnimate, EnumMultiTabMode } from '../enum';
+import { EnumAnimate, EnumMultiTabMode, EnumHorizontalMenuPosition } from '../enum';
 
 const themeColorList = [
   '#409EFF',
@@ -41,7 +41,13 @@ const themeSettings: ThemeSettings = {
     mixWidth: 80,
     collapsedWidth: 64,
     fixed: true,
-    splitMenu: false
+    splitMenu: false,
+    horizontalPosition: 'flex-start',
+    horizontalPositionList: [
+      { value: 'flex-start', label: EnumHorizontalMenuPosition['flex-start'] },
+      { value: 'center', label: EnumHorizontalMenuPosition.center },
+      { value: 'flex-end', label: EnumHorizontalMenuPosition['flex-end'] }
+    ]
   },
   headerStyle: {
     height: 56,

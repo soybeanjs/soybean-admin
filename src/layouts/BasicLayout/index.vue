@@ -1,7 +1,7 @@
 <template>
   <n-layout class="h-full" has-sider>
     <global-sider v-if="theme.isVerticalNav" :z-index="3" />
-    <global-header v-if="isHorizontalMix" :z-index="2" />
+    <global-header v-if="isHorizontalMix" :z-index="4" />
     <div class="flex-1-hidden flex h-full">
       <global-sider v-if="isHorizontalMix" class="sider-margin" :z-index="3" />
       <n-scrollbar
@@ -39,6 +39,11 @@ const { scrollbar, resetScrollBehavior } = useScrollBehavior();
 const routeProps = useRouteProps();
 
 const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
+
+const headerHeight = computed(() => {
+  const { height } = theme.headerStyle;
+  return `${height}px`;
+});
 const headerAndMultiTabHeight = computed(() => {
   const {
     headerStyle: { height: hHeight },
@@ -59,7 +64,7 @@ watch(
   z-index: 11;
 }
 .sider-margin {
-  margin-top: v-bind(headerAndMultiTabHeight);
+  margin-top: v-bind(headerHeight);
 }
 .content-padding {
   padding-top: v-bind(headerAndMultiTabHeight);

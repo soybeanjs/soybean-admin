@@ -5,11 +5,12 @@
       <div v-if="!theme.isVerticalNav" class="menu-width h-full">
         <global-logo />
       </div>
-      <div class="flex-y-center h-full">
+      <div class="flex-1-hidden flex-y-center h-full" :style="{ justifyContent: theme.menuStyle.horizontalPosition }">
         <menu-collapse v-if="theme.navStyle.mode !== 'horizontal'" />
-        <global-breadcrumb v-if="theme.crumbsStyle.visible" />
+        <global-breadcrumb v-if="theme.crumbsStyle.visible && theme.navStyle.mode !== 'horizontal'" />
+        <header-menu v-if="theme.navStyle.mode === 'horizontal'" />
       </div>
-      <div class="flex-1 flex justify-end h-full">
+      <div class="flex justify-end h-full">
         <gihub-site />
         <full-screen />
         <user-avatar />
@@ -25,6 +26,7 @@ import { NLayoutHeader } from 'naive-ui';
 import { useThemeStore } from '@/store';
 import { GlobalBreadcrumb, UserAvatar, MenuCollapse, FullScreen, GihubSite, SettingDrawerButton } from './components';
 import { GlobalLogo } from '../common';
+import HeaderMenu from './components/HeaderMenu.vue';
 
 defineProps({
   zIndex: {

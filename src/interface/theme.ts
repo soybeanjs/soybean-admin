@@ -1,4 +1,4 @@
-import { EnumAnimate, EnumNavMode, EnumNavTheme, EnumMultiTabMode } from '@/enum';
+import { EnumAnimate, EnumNavMode, EnumNavTheme, EnumMultiTabMode, EnumHorizontalMenuPosition } from '@/enum';
 
 export interface ThemeSettings {
   /** 深色模式 */
@@ -56,6 +56,13 @@ interface HeaderStyle {
   bgColor: string;
 }
 
+export type HorizontalMenuPosition = keyof typeof EnumHorizontalMenuPosition;
+
+interface HorizontalMenuPositionList {
+  value: HorizontalMenuPosition;
+  label: EnumHorizontalMenuPosition;
+}
+
 interface MenuStyle {
   /** 菜单宽度 */
   width: number;
@@ -67,6 +74,10 @@ interface MenuStyle {
   fixed: boolean;
   /** 分割菜单 */
   splitMenu: boolean;
+  /** 水平模式的菜单的位置 */
+  horizontalPosition: HorizontalMenuPosition;
+  /** 水平模式的菜单的位置列表 */
+  horizontalPositionList: HorizontalMenuPositionList[];
 }
 
 export type MultiTabMode = keyof typeof EnumMultiTabMode;

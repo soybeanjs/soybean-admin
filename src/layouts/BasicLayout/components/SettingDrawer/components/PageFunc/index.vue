@@ -4,25 +4,13 @@
     <setting-menu-item label="分割菜单">
       <n-switch :value="theme.menuStyle.splitMenu" @update:value="handleSplitMenu" />
     </setting-menu-item>
-    <setting-menu-item label="固定头部和多页签">
-      <n-switch :value="splitMenu" :disabled="disabledSplitMenu" @update:value="handleFixedHeaderAndTab" />
-    </setting-menu-item>
-    <setting-menu-item label="头部高度">
-      <n-input-number
+    <setting-menu-item label="顶部菜单位置">
+      <n-select
         class="w-120px"
         size="small"
-        :value="theme.headerStyle.height"
-        :step="1"
-        @update:value="handleHeaderHeight"
-      />
-    </setting-menu-item>
-    <setting-menu-item label="多页签高度">
-      <n-input-number
-        class="w-120px"
-        size="small"
-        :value="theme.multiTabStyle.height"
-        :step="1"
-        @update:value="handleMultiTabHeight"
+        :value="theme.menuStyle.horizontalPosition"
+        :options="theme.menuStyle.horizontalPositionList"
+        @update:value="handleHorizontalMenuPosition"
       />
     </setting-menu-item>
     <setting-menu-item label="菜单展开宽度">
@@ -45,18 +33,40 @@
         @update:value="handleMixMenuWidth"
       />
     </setting-menu-item>
+    <setting-menu-item label="固定头部和多页签">
+      <n-switch :value="splitMenu" :disabled="disabledSplitMenu" @update:value="handleFixedHeaderAndTab" />
+    </setting-menu-item>
+    <setting-menu-item label="头部高度">
+      <n-input-number
+        class="w-120px"
+        size="small"
+        :value="theme.headerStyle.height"
+        :step="1"
+        @update:value="handleHeaderHeight"
+      />
+    </setting-menu-item>
+    <setting-menu-item label="多页签高度">
+      <n-input-number
+        class="w-120px"
+        size="small"
+        :value="theme.multiTabStyle.height"
+        :step="1"
+        @update:value="handleMultiTabHeight"
+      />
+    </setting-menu-item>
   </n-space>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { NDivider, NSpace, NSwitch, NInputNumber } from 'naive-ui';
+import { NDivider, NSpace, NSwitch, NSelect, NInputNumber } from 'naive-ui';
 import { useThemeStore } from '@/store';
 import { SettingMenuItem } from '../common';
 
 const theme = useThemeStore();
 const {
   handleSplitMenu,
+  handleHorizontalMenuPosition,
   handleFixedHeaderAndTab,
   handleHeaderHeight,
   handleMultiTabHeight,
