@@ -63,7 +63,7 @@ const themeSettings: ThemeSettings = {
   },
   pageStyle: {
     animate: true,
-    animateType: 'zoom-fade',
+    animateType: 'fade-slide',
     animateTypeList: [
       { value: 'zoom-fade', label: EnumAnimate['zoom-fade'] },
       { value: 'zoom-out', label: EnumAnimate['zoom-out'] },

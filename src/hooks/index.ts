@@ -4,7 +4,9 @@ export {
   useRouterChange,
   useRouteParam,
   useRouteQuery,
+  useRouteProps,
   useBoolean,
-  useLoading
+  useLoading,
+  useScrollBehavior
 } from './common';
 export { useCountDown, useSmsCode } from './business';

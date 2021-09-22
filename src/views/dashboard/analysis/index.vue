@@ -4,7 +4,6 @@
     <nav-card :loading="loading" />
   </div>
 </template>
-
 <script lang="ts" setup>
 import { onActivated } from 'vue';
 import { useLoading } from '@/hooks';

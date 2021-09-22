@@ -1,9 +1,0 @@
-/* opacity透明过度 */
-.transition-opacity-enter-active,
-.transition-opacity-enter-active {
-  transition: opacity 0.4s ease-out;
-}
-.transition-opacity-enter-from,
-.transition-opacity-leave-to {
-  opacity: 0;
-}

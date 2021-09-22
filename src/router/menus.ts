@@ -1,9 +1,9 @@
 import type { Component } from 'vue';
 import { customRoutes } from './routes';
-import { CustomRoute, GlobalMenuOption } from '@/interface';
+import type { CustomRoute, GlobalMenuOption } from '@/interface';
 import { dynamicIconRender } from '@/utils';
 
-export function transformRouteToMenu(routes: CustomRoute[]) {
+function transformRouteToMenu(routes: CustomRoute[]) {
   const globalMenu: GlobalMenuOption[] = [];
   routes.forEach(route => {
     if (asMenu(route)) {

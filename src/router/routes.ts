@@ -3,14 +3,25 @@ import { Dashboard } from '@vicons/carbon';
 import { ExceptionOutlined } from '@vicons/antd';
 import { BasicLayout, BlankLayout } from '@/layouts';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
-import type { CustomRoute, RoutePathKey, LoginModuleType } from '@/interface';
+import type { CustomRoute, LoginModuleType } from '@/interface';
 import { getLoginModuleRegExp } from '@/utils';
+import {
+  Login,
+  NoPermission,
+  NotFound,
+  ServiceError,
+  DashboardAnalysis,
+  DashboardWorkbench,
+  Exception403,
+  Exception404,
+  Exception500
+} from './components';
+import { getRouteNameMap } from './helpers';
 
 /** 路由名称 */
-export const RouteNameMap = new Map<RoutePathKey, RoutePathKey>(
-  (Object.keys(EnumRoutePath) as RoutePathKey[]).map(v => [v, v])
-);
+export const RouteNameMap = getRouteNameMap();
 
+/** 登录模块的正则字符串 */
 const loginModuleRegExp = getLoginModuleRegExp();
 
 /**
@@ -24,6 +35,7 @@ const constantRoutes: RouteRecordRaw[] = [
     component: BlankLayout,
     redirect: { name: RouteNameMap.get('not-found') },
     meta: {
+      keepAlive: true,
       title: EnumRouteTitle.system
     },
     children: [
@@ -31,7 +43,7 @@ const constantRoutes: RouteRecordRaw[] = [
       {
         name: RouteNameMap.get('login'),
         path: `${EnumRoutePath.login}/:module(/${loginModuleRegExp}/)?`,
-        component: () => import('@/views/system/login/index.vue'),
+        component: Login,
         props: route => {
           const moduleType: LoginModuleType = (route.params.module as LoginModuleType) || 'pwd-login';
           return {
@@ -43,23 +55,23 @@ const constantRoutes: RouteRecordRaw[] = [
           fullPage: true
         }
       },
-      // 404
-      {
-        name: RouteNameMap.get('not-found'),
-        path: EnumRoutePath['not-found'],
-        component: () => import('@/views/system/exception/404.vue'),
-        meta: {
-          title: EnumRouteTitle['not-found'],
-          fullPage: true
-        }
-      },
       // 403
       {
         name: RouteNameMap.get('no-permission'),
         path: EnumRoutePath['no-permission'],
-        component: () => import('@/views/system/exception/403.vue'),
+        component: NoPermission,
         meta: {
           title: EnumRouteTitle['no-permission'],
+          fullPage: true
+        }
+      },
+      // 404
+      {
+        name: RouteNameMap.get('not-found'),
+        path: EnumRoutePath['not-found'],
+        component: NotFound,
+        meta: {
+          title: EnumRouteTitle['not-found'],
           fullPage: true
         }
       },
@@ -67,7 +79,7 @@ const constantRoutes: RouteRecordRaw[] = [
       {
         name: RouteNameMap.get('service-error'),
         path: EnumRoutePath['service-error'],
-        component: () => import('@/views/system/exception/500.vue'),
+        component: ServiceError,
         meta: {
           title: EnumRouteTitle['service-error'],
           fullPage: true
@@ -86,7 +98,7 @@ const constantRoutes: RouteRecordRaw[] = [
 export const ROUTE_HOME: CustomRoute = {
   name: RouteNameMap.get('dashboard-analysis'),
   path: EnumRoutePath['dashboard-analysis'],
-  component: () => import('@/views/dashboard/analysis/index.vue'),
+  component: DashboardAnalysis,
   meta: {
     keepAlive: true,
     requiresAuth: true,
@@ -105,20 +117,7 @@ export const customRoutes: CustomRoute[] = [
     redirect: { name: ROUTE_HOME.name },
     meta: {
       isNotMenu: true
-    },
-    children: [
-      // 重载
-      {
-        name: RouteNameMap.get('reload'),
-        path: EnumRoutePath.reload,
-        component: () => import('@/views/system/reload/index.vue'),
-        meta: {
-          title: EnumRouteTitle.reload,
-          isNotMenu: true,
-          fullPage: true
-        }
-      }
-    ]
+    }
   },
   {
     name: RouteNameMap.get('dashboard'),
@@ -134,8 +133,9 @@ export const customRoutes: CustomRoute[] = [
       {
         name: RouteNameMap.get('dashboard-workbench'),
         path: EnumRoutePath['dashboard-workbench'],
-        component: () => import('@/views/dashboard/workbench/index.vue'),
+        component: DashboardWorkbench,
         meta: {
+          keepAlive: true,
           requiresAuth: true,
           title: EnumRouteTitle['dashboard-workbench']
         }
@@ -155,7 +155,7 @@ export const customRoutes: CustomRoute[] = [
       {
         name: RouteNameMap.get('exception-403'),
         path: EnumRoutePath['exception-403'],
-        component: () => import('@/views/system/exception/403.vue'),
+        component: Exception403,
         meta: {
           requiresAuth: true,
           title: EnumRouteTitle['exception-403'],
@@ -165,7 +165,7 @@ export const customRoutes: CustomRoute[] = [
       {
         name: RouteNameMap.get('exception-404'),
         path: EnumRoutePath['exception-404'],
-        component: () => import('@/views/system/exception/404.vue'),
+        component: Exception404,
         meta: {
           requiresAuth: true,
           title: EnumRouteTitle['exception-404'],
@@ -175,7 +175,7 @@ export const customRoutes: CustomRoute[] = [
       {
         name: RouteNameMap.get('exception-500'),
         path: EnumRoutePath['exception-500'],
-        component: () => import('@/views/system/exception/500.vue'),
+        component: Exception500,
         meta: {
           requiresAuth: true,
           title: EnumRouteTitle['exception-500'],
