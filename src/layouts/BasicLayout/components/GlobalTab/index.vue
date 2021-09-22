@@ -31,6 +31,7 @@
         :closable="item.name !== ROUTE_HOME.name"
         @click="handleClickTab(item.fullPath)"
         @close="removeMultiTab(item.fullPath)"
+        @contextmenu="handleContextMenu($event, item.fullPath)"
       >
         {{ item.meta?.title }}
       </browser-tab>
