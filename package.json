@@ -4,10 +4,10 @@
   "scripts": {
     "dev": "vite",
     "dev:prod": "vite --mode production",
-    "dev:vercel": "vite --mode vercel",
+    "dev:staging": "vite --mode staging",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
     "build:dev": "vue-tsc --noEmit --skipLibCheck && vite build --mode development",
-    "build:vercel": "vue-tsc --noEmit --skipLibCheck && vite build --mode vercel",
+    "build:staging": "vue-tsc --noEmit --skipLibCheck && vite build --mode staging",
     "serve": "vite preview",
     "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
     "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",

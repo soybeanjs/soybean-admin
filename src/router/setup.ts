@@ -4,10 +4,10 @@ import { routes } from './routes';
 import createRouterGuide from './permission';
 
 /** 用于部署vercel托管服务 */
-const isVercel = import.meta.env.VITE_HTTP_ENV === 'VERCEL';
+const isStaging = import.meta.env.VITE_HTTP_ENV === 'STAGING';
 
 export const router = createRouter({
-  history: isVercel ? createWebHashHistory() : createWebHistory(),
+  history: isStaging ? createWebHashHistory() : createWebHistory(),
   routes
 });
 
