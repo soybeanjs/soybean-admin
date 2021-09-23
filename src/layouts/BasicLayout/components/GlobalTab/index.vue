@@ -21,7 +21,7 @@
         {{ item.meta?.title }}
       </button-tab>
     </n-space>
-    <browser-tab />
+    <browser-tab v-if="theme.multiTabStyle.mode === 'browser'" />
     <reload-button />
     <context-menu
       :visible="dropdownVisible"
