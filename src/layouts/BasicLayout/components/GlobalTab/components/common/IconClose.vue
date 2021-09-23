@@ -1,7 +1,7 @@
 <template>
   <div
     class="relative flex-center w-18px h-18px text-14px"
-    :class="{ 'text-primary': isPrimary }"
+    :class="[isPrimary ? 'text-primary' : 'text-gray-400']"
     @mouseenter="setTrue"
     @mouseleave="setFalse"
   >

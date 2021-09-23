@@ -21,21 +21,7 @@
         {{ item.meta?.title }}
       </button-tab>
     </n-space>
-    <n-space v-if="theme.multiTabStyle.mode === 'browser'" :align="'flex-end'" :size="0" class="h-full px-16px">
-      <browser-tab
-        v-for="(item, index) in app.multiTab.routes"
-        :key="item.path"
-        v-model:hover-index="hoverIndex"
-        :current-index="index"
-        :active-index="app.activeMultiTabIndex"
-        :closable="item.name !== ROUTE_HOME.name"
-        @click="handleClickTab(item.fullPath)"
-        @close="removeMultiTab(item.fullPath)"
-        @contextmenu="handleContextMenu($event, item.fullPath)"
-      >
-        {{ item.meta?.title }}
-      </browser-tab>
-    </n-space>
+    <browser-tab />
     <reload-button />
     <context-menu
       :visible="dropdownVisible"

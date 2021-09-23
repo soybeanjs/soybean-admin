@@ -1,117 +1,29 @@
 <template>
-  <div
-    class="
-      relative
-      inline-flex-center
-      h-30px
-      px-32px
-      transition-background
-      duration-400
-      ease-in-out
-      bg-opacity-10
-      cursor-pointer
-    "
-    :class="{ 'text-primary bg-primary z-3': active, 'bg-black z-2': isHover && !active }"
-    @mouseenter="handleMouseOnTab('enter')"
-    @mouseleave="handleMouseOnTab('leave')"
-  >
-    <span>
-      <slot></slot>
-    </span>
-    <div
-      v-if="closable"
-      class="transition-width duration-400 ease-in-out overflow-hidden"
-      :class="[isHover ? 'w-18px' : 'w-0']"
+  <div class="flex items-end h-full">
+    <browser-tab-item
+      v-for="(item, index) in app.multiTab.routes"
+      :key="item.path"
+      v-model:hover-index="hoverIndex"
+      :current-index="index"
+      :active-index="app.activeMultiTabIndex"
+      :closable="item.name !== ROUTE_HOME.name"
+      @click="handleClickTab(item.fullPath)"
+      @close="removeMultiTab(item.fullPath)"
     >
-      <icon-close :is-primary="active" @click="handleClose" />
-    </div>
-    <left-tab-radius
-      class="transition-opacity duration-400 ease-in-out"
-      :class="[showRadius ? 'opacity-100' : 'opacity-0']"
-      :is-primary="active"
-      :is-hover="isHover"
-      :is-left-hover="isLeftHover"
-    />
-    <right-tab-radius
-      class="transition-opacity duration-400 ease-out"
-      :class="[showRadius ? 'opacity-100' : 'opacity-0']"
-      :is-primary="active"
-      :is-hover="isHover"
-      :is-right-hover="isRightHover"
-    />
+      {{ item.meta?.title }}
+    </browser-tab-item>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
-import { useBoolean } from '@/hooks';
-import { IconClose } from '../common';
-import { LeftTabRadius, RightTabRadius } from './components';
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useAppStore } from '@/store';
+import { ROUTE_HOME } from '@/router';
+import { BrowserTabItem } from './components';
 
-const props = defineProps({
-  currentIndex: {
-    type: Number,
-    required: true
-  },
-  activeIndex: {
-    type: Number,
-    required: true
-  },
-  hoverIndex: {
-    type: Number,
-    default: NaN
-  },
-  closable: {
-    type: Boolean,
-    default: true
-  }
-});
-const emit = defineEmits(['close', 'update:hoverIndex']);
+const app = useAppStore();
+const { removeMultiTab, handleClickTab } = useAppStore();
 
-const { bool: isHover, setTrue, setFalse } = useBoolean();
-
-const hoveredIndex = ref(props.hoverIndex);
-function setHoverIndex(index: number) {
-  hoveredIndex.value = index;
-}
-function resetHoverIndex() {
-  hoveredIndex.value = NaN;
-}
-
-const active = computed(() => props.currentIndex === props.activeIndex);
-const showRadius = computed(() => isHover.value || active.value);
-const isLeftHover = computed(() => active.value && props.activeIndex === hoveredIndex.value + 1);
-const isRightHover = computed(() => active.value && props.activeIndex === hoveredIndex.value - 1);
-
-function handleMouseOnTab(mode: 'enter' | 'leave') {
-  if (mode === 'enter') {
-    setTrue();
-    setHoverIndex(props.currentIndex);
-  } else {
-    setFalse();
-    resetHoverIndex();
-  }
-}
-
-function handleClose(e: MouseEvent) {
-  e.stopPropagation();
-  emit('close');
-}
-
-watch(
-  () => props.hoverIndex,
-  newValue => {
-    setHoverIndex(newValue);
-  }
-);
-watch(hoveredIndex, newValue => {
-  emit('update:hoverIndex', newValue);
-});
-watch(
-  () => props.activeIndex,
-  () => {
-    resetHoverIndex();
-  }
-);
+const hoverIndex = ref(NaN);
 </script>
 <style scoped></style>

@@ -1,4 +1,5 @@
+import BrowserTabItem from './BrowserTabItem.vue';
 import LeftTabRadius from './LeftTabRadius.vue';
 import RightTabRadius from './RightTabRadius.vue';
 
-export { LeftTabRadius, RightTabRadius };
+export { BrowserTabItem, LeftTabRadius, RightTabRadius };

@@ -14,6 +14,8 @@ const app = useAppStore();
 const theme = useThemeStore();
 const title = useAppTitle();
 
-const showTitle = computed(() => !app.menu.collapsed || !theme.isVerticalNav);
+const showTitle = computed(
+  () => !theme.isVerticalNav || (!app.menu.collapsed && theme.navStyle.mode !== 'vertical-mix')
+);
 </script>
 <style scoped></style>
