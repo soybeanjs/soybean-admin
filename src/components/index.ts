@@ -1,2 +1,2 @@
 export { AppProviderContent, SystemLogo, ExceptionSvg, LoginBg, BannerSvg, HoverContainer } from './common';
-export { CountTo } from './custom';
+export { CountTo, IconClose, ButtonTab, ChromeTab } from './custom';

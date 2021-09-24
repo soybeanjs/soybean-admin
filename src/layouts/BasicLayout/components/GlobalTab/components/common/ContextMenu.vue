@@ -13,13 +13,18 @@
 <script lang="ts" setup>
 import { computed, watch } from 'vue';
 import { NDropdown } from 'naive-ui';
-import { CloseOutlined, ColumnWidthOutlined, MinusOutlined } from '@vicons/antd';
+import type { DropdownOption } from 'naive-ui';
+import { ReloadOutlined, CloseOutlined, ColumnWidthOutlined, MinusOutlined } from '@vicons/antd';
 import { useAppStore } from '@/store';
 import { useBoolean } from '@/hooks';
 import { ROUTE_HOME } from '@/router';
+import { useReloadInject } from '@/context';
 import { dynamicIconRender } from '@/utils';
 
-type DropdownKey = 'close-current' | 'close-other' | 'close-all';
+type DropdownKey = 'reload-current' | 'close-current' | 'close-other' | 'close-all';
+type Option = DropdownOption & {
+  key: DropdownKey;
+};
 
 const props = defineProps({
   visible: {
@@ -48,28 +53,41 @@ const emit = defineEmits(['update:visible']);
 
 const app = useAppStore();
 const { removeMultiTab, clearMultiTab } = useAppStore();
+const { handleReload } = useReloadInject();
 const { bool: dropdownVisible, setTrue: show, setFalse: hide } = useBoolean(props.visible);
 
-const options = computed(() => [
+const options = computed<Option[]>(() => [
   {
-    label: '关闭当前',
+    label: '重新加载',
+    key: 'reload-current',
+    disabled: props.currentPath !== app.multiTab.activeRoute,
+    icon: dynamicIconRender(ReloadOutlined)
+  },
+  {
+    label: '关闭标签页',
     key: 'close-current',
     disabled: props.currentPath === ROUTE_HOME.path,
     icon: dynamicIconRender(CloseOutlined)
   },
   {
-    label: '关闭其他',
+    label: '关闭其他标签页',
     key: 'close-other',
     icon: dynamicIconRender(ColumnWidthOutlined)
   },
   {
-    label: '关闭全部',
+    label: '关闭全部标签页',
     key: 'close-all',
     icon: dynamicIconRender(MinusOutlined)
   }
 ]);
 
 const actionMap = new Map<DropdownKey, () => void>([
+  [
+    'reload-current',
+    () => {
+      handleReload();
+    }
+  ],
   [
     'close-current',
     () => {

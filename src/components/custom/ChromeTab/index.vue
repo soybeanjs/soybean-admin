@@ -1,0 +1,47 @@
+<template>
+  <div
+    class="relative flex-y-center h-34px px-24px cursor-pointer -mr-18px"
+    :class="{ 'z-10': isActive, 'z-9': isHover }"
+    @mouseenter="setTrue"
+    @mouseleave="setFalse"
+  >
+    <div class="absolute-lb w-full h-full overflow-hidden">
+      <svg-radius-bg class="w-full h-full" :is-active="isActive" :is-hover="isHover" />
+    </div>
+    <span class="relative z-2">
+      <slot></slot>
+    </span>
+    <div v-if="closable" class="pl-18px">
+      <icon-close :is-primary="isActive" @click="handleClose" />
+    </div>
+    <n-divider v-if="!isHover && !isActive" :vertical="true" class="absolute right-0 !bg-[#a4abb8] z-2" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { NDivider } from 'naive-ui';
+import { useBoolean } from '@/hooks';
+import IconClose from '../IconClose/index.vue';
+import { SvgRadiusBg } from './components';
+
+defineProps({
+  isActive: {
+    type: Boolean,
+    default: false
+  },
+  closable: {
+    type: Boolean,
+    default: true
+  }
+});
+
+const emit = defineEmits(['close']);
+
+const { bool: isHover, setTrue, setFalse } = useBoolean();
+
+function handleClose(e: MouseEvent) {
+  e.stopPropagation();
+  emit('close');
+}
+</script>
+<style scoped></style>

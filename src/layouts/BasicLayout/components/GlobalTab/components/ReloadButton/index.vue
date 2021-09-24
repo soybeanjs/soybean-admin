@@ -1,5 +1,5 @@
 <template>
-  <hover-container class="w-40px h-full" placement="bottom-end" content="刷新当页" @click="handleRefresh">
+  <hover-container class="w-40px h-full" placement="bottom-end" content="重新加载" @click="handleRefresh">
     <icon-mdi-refresh class="text-16px" :class="{ 'reload-animation': loading }" />
   </hover-container>
 </template>

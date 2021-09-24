@@ -57,10 +57,10 @@ const themeSettings: ThemeSettings = {
     height: 44,
     visible: true,
     bgColor: '#fff',
-    mode: 'button',
+    mode: 'chrome',
     modeList: [
       { value: 'button', label: EnumMultiTabMode.button },
-      { value: 'browser', label: EnumMultiTabMode.browser }
+      { value: 'chrome', label: EnumMultiTabMode.chrome }
     ]
   },
   crumbsStyle: {

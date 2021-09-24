@@ -16,7 +16,7 @@ export enum EnumNavTheme {
 /** 多页签风格 */
 export enum EnumMultiTabMode {
   'button' = '按钮风格',
-  'browser' = '浏览器风格'
+  'chrome' = '谷歌风格'
 }
 
 /** 水平模式的菜单位置 */

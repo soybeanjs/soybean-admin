@@ -8,38 +8,16 @@
     justify="space-between"
     :item-style="{ paddingTop: '0px', paddingBottom: '0px' }"
   >
-    <n-space v-if="theme.multiTabStyle.mode === 'button'" :align="'center'" size="small" class="h-full">
-      <button-tab
-        v-for="item in app.multiTab.routes"
-        :key="item.path"
-        :active="app.multiTab.activeRoute === item.fullPath"
-        :closable="item.name !== ROUTE_HOME.name"
-        @click="handleClickTab(item.fullPath)"
-        @close="removeMultiTab(item.fullPath)"
-        @contextmenu="handleContextMenu($event, item.fullPath)"
-      >
-        {{ item.meta?.title }}
-      </button-tab>
-    </n-space>
-    <browser-tab v-if="theme.multiTabStyle.mode === 'browser'" />
+    <multi-tab />
     <reload-button />
-    <context-menu
-      :visible="dropdownVisible"
-      :current-path="dropdownConfig.currentPath"
-      :x="dropdownConfig.x"
-      :y="dropdownConfig.y"
-    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, reactive, watch, nextTick } from 'vue';
+import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { NSpace } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
-import { ROUTE_HOME } from '@/router';
-import { ButtonTab, BrowserTab, ReloadButton, ContextMenu } from './components';
-import { useBoolean } from '@/hooks';
+import { MultiTab, ReloadButton } from './components';
 
 defineProps({
   zIndex: {
@@ -50,11 +28,7 @@ defineProps({
 
 const route = useRoute();
 const theme = useThemeStore();
-const app = useAppStore();
-const { initMultiTab, addMultiTab, removeMultiTab, setActiveMultiTab, handleClickTab } = useAppStore();
-const { bool: dropdownVisible, setTrue: showDropdown, setFalse: hideDropdown } = useBoolean();
-
-const hoverIndex = ref(NaN);
+const { initMultiTab, addMultiTab, setActiveMultiTab } = useAppStore();
 
 const fixedHeaderAndTab = computed(() => theme.fixedHeaderAndTab || theme.navStyle.mode === 'horizontal-mix');
 const multiTabHeight = computed(() => {
@@ -65,25 +39,6 @@ const headerHeight = computed(() => {
   const { height } = theme.headerStyle;
   return `${height}px`;
 });
-
-const dropdownConfig = reactive({
-  x: 0,
-  y: 0,
-  currentPath: ''
-});
-
-function setDropdownConfig(x: number, y: number, currentPath: string) {
-  Object.assign(dropdownConfig, { x, y, currentPath });
-}
-
-function handleContextMenu(e: MouseEvent, fullPath: string) {
-  e.preventDefault();
-  hideDropdown();
-  setDropdownConfig(e.clientX, e.clientY, fullPath);
-  nextTick(() => {
-    showDropdown();
-  });
-}
 
 function init() {
   initMultiTab();

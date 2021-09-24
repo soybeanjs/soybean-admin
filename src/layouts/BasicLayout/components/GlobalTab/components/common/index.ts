@@ -1,3 +1,3 @@
-import IconClose from './IconClose.vue';
+import ContextMenu from './ContextMenu.vue';
 
-export { IconClose };
+export { ContextMenu };
