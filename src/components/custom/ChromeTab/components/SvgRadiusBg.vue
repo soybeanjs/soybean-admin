@@ -11,11 +11,12 @@
         <rect width="100%" height="100%" x="0"></rect>
       </clipPath>
     </defs>
-    <svg width="52%" height="100%">
+    <!-- 修改为50%防止重叠颜色不一致 -->
+    <svg width="50%" height="100%">
       <use xlink:href="#geometry-left" width="214" height="36" :fill="fill"></use>
     </svg>
     <g transform="scale(-1, 1)">
-      <svg width="52%" height="100%" x="-100%" y="0">
+      <svg width="50%" height="100%" x="-100%" y="0">
         <use xlink:href="#geometry-right" width="214" height="36" :fill="fill"></use>
       </svg>
     </g>
@@ -28,15 +29,15 @@ import { computed } from 'vue';
 const props = defineProps({
   activeColor: {
     type: String,
-    default: '#eef6ff'
+    default: 'rgba(14,118,226,0.45)' // 修改原色 黑暗模式和亮色模式均可用
   },
   hoverColor: {
     type: String,
-    default: '#dee1e6'
+    default: 'rgba(51,99,152,0.17)'
   },
   defaultColor: {
     type: String,
-    default: '#fff'
+    default: 'rgba(14,118,226,0.13)'
   },
   isActive: {
     type: Boolean,

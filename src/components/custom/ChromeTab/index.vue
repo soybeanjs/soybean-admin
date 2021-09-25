@@ -14,12 +14,13 @@
     <div v-if="closable" class="pl-18px">
       <icon-close :is-primary="isActive" @click="handleClose" />
     </div>
-    <n-divider v-if="!isHover && !isActive" :vertical="true" class="absolute right-0 !bg-[#a4abb8] z-2" />
+    <!-- 删除divder防止不和谐 -->
+    <!-- <n-divider v-if="!isHover && !isActive" :vertical="true" class="absolute right-0 !bg-[#a4abb8] z-2" /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { NDivider } from 'naive-ui';
+// import { NDivider } from 'naive-ui';
 import { useBoolean } from '@/hooks';
 import IconClose from '../IconClose/index.vue';
 import { SvgRadiusBg } from './components';
