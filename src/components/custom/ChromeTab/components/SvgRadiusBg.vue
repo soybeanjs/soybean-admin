@@ -26,19 +26,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+/** 填充的背景颜色： [默认颜色, 暗黑主题颜色] */
+type FillColor = [string, string];
+
 const props = defineProps({
-  activeColor: {
-    type: String,
-    default: 'rgba(14,118,226,0.45)' // 修改原色 黑暗模式和亮色模式均可用
-  },
-  hoverColor: {
-    type: String,
-    default: 'rgba(51,99,152,0.17)'
-  },
-  defaultColor: {
-    type: String,
-    default: 'rgba(14,118,226,0.13)'
-  },
   isActive: {
     type: Boolean,
     default: false
@@ -46,15 +37,25 @@ const props = defineProps({
   isHover: {
     type: Boolean,
     default: false
+  },
+  darkMode: {
+    type: Boolean,
+    default: false
   }
 });
 
+const defaultColor: FillColor = ['#fff', '#18181c'];
+const activeColor: FillColor = ['#eef6ff', '#1e3044'];
+const hoverColor: FillColor = ['#dee1e6', '#3f3c37'];
+
 const fill = computed(() => {
-  let color = props.defaultColor;
+  const index = Number(props.darkMode);
+  let color = defaultColor[index];
   if (props.isActive) {
-    color = props.activeColor;
-  } else if (props.isHover) {
-    color = props.hoverColor;
+    color = activeColor[index];
+  }
+  if (props.isHover) {
+    color = hoverColor[index];
   }
   return color;
 });

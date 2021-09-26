@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div>
     <n-spin class="flex-y-center flex-col" :show="loading">
       <n-gradient-text type="primary" size="32">工作台</n-gradient-text>
       <n-space>
@@ -10,13 +10,17 @@
         <n-button type="warning">Warning</n-button>
         <n-button type="error">Error</n-button>
       </n-space>
+      <n-space>
+        <n-tag>Tag</n-tag>
+        <n-tag type="primary">Primary Tag</n-tag>
+      </n-space>
     </n-spin>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { NGradientText, NSpace, NButton, NSpin } from 'naive-ui';
+import { NGradientText, NSpace, NButton, NSpin, NTag } from 'naive-ui';
 
 const loading = ref(true);
 

@@ -1,10 +1,14 @@
 <template>
-  <!--删除 bg-white 黑暗模式正常-->
   <div
-    class="relative flex-center h-30px pl-14px border-1px border-[#e5e7eb] rounded-2px cursor-pointer"
+    class="relative flex-center h-30px pl-14px border-1px rounded-2px cursor-pointer"
     :class="[
       closable ? 'pr-6px' : 'pr-14px',
-      { 'text-primary bg-primary bg-opacity-10 !border-primary': active, 'text-primary border-primary': isHover }
+      active || isHover
+        ? 'text-primary border-primary border-opacity-30'
+        : darkMode
+        ? 'border-[#ffffff3d]'
+        : 'border-[#e5e7eb]',
+      { 'bg-primary bg-opacity-10': active }
     ]"
     @mouseenter="setTrue"
     @mouseleave="setFalse"
@@ -30,6 +34,10 @@ defineProps({
   closable: {
     type: Boolean,
     default: true
+  },
+  darkMode: {
+    type: Boolean,
+    default: false
   }
 });
 const emit = defineEmits(['close']);

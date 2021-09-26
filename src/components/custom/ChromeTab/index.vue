@@ -6,7 +6,7 @@
     @mouseleave="setFalse"
   >
     <div class="absolute-lb w-full h-full overflow-hidden">
-      <svg-radius-bg class="w-full h-full" :is-active="isActive" :is-hover="isHover" />
+      <svg-radius-bg class="w-full h-full" :is-active="isActive" :is-hover="isHover" :dark-mode="darkMode" />
     </div>
     <span class="relative z-2">
       <slot></slot>
@@ -14,13 +14,12 @@
     <div v-if="closable" class="pl-18px">
       <icon-close :is-primary="isActive" @click="handleClose" />
     </div>
-    <!-- 删除divder防止不和谐 -->
-    <!-- <n-divider v-if="!isHover && !isActive" :vertical="true" class="absolute right-0 !bg-[#a4abb8] z-2" /> -->
+    <n-divider v-if="!isHover && !isActive" :vertical="true" class="absolute right-0 !bg-[#a4abb8] z-2" />
   </div>
 </template>
 
 <script setup lang="ts">
-// import { NDivider } from 'naive-ui';
+import { NDivider } from 'naive-ui';
 import { useBoolean } from '@/hooks';
 import IconClose from '../IconClose/index.vue';
 import { SvgRadiusBg } from './components';
@@ -33,6 +32,10 @@ defineProps({
   closable: {
     type: Boolean,
     default: true
+  },
+  darkMode: {
+    type: Boolean,
+    default: false
   }
 });
 

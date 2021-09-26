@@ -4,9 +4,7 @@
 	},
 	"workbench.iconTheme": "material-icon-theme",
 	"workbench.colorTheme": "One Dark Pro",
-	"editor.fontSize": 22,
 	"editor.tabSize": 2,
-	"editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
 	"editor.fontLigatures": true,
 	"editor.codeActionsOnSave": {
 			"source.fixAll.eslint": true
@@ -38,7 +36,6 @@
 			"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"terminal.integrated.fontSize": 14,
-	"terminal.integrated.fontFamily": "monospace",
 	"terminal.integrated.fontWeight": 500,
 	"i18n-ally.displayLanguage": "zh",
 	"[html]": {
