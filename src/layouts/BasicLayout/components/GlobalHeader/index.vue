@@ -5,10 +5,16 @@
       <div v-if="!theme.isVerticalNav" class="menu-width h-full">
         <global-logo />
       </div>
-      <div class="flex-1-hidden flex-y-center h-full" :style="{ justifyContent: theme.menuStyle.horizontalPosition }">
-        <menu-collapse v-if="theme.navStyle.mode !== 'horizontal'" />
-        <global-breadcrumb v-if="theme.crumbsStyle.visible && theme.navStyle.mode !== 'horizontal'" />
-        <header-menu v-if="theme.navStyle.mode === 'horizontal'" />
+      <div v-if="theme.navStyle.mode !== 'horizontal'" class="flex-1-hidden flex-y-center h-full">
+        <menu-collapse v-if="theme.navStyle.mode !== 'vertical-mix'" />
+        <global-breadcrumb v-if="theme.crumbsStyle.visible" />
+      </div>
+      <div
+        v-else
+        class="flex-1-hidden flex-y-center h-full"
+        :style="{ justifyContent: theme.menuStyle.horizontalPosition }"
+      >
+        <header-menu />
       </div>
       <div class="flex justify-end h-full">
         <gihub-site />

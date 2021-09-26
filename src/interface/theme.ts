@@ -66,12 +66,12 @@ interface HorizontalMenuPositionList {
 interface MenuStyle {
   /** 菜单宽度 */
   width: number;
-  /** 混合菜单的宽度 */
-  mixWidth: number;
   /** 菜单折叠时的宽度 */
   collapsedWidth: number;
-  /** 固定菜单 */
-  fixed: boolean;
+  /** 混合菜单的宽度 */
+  mixWidth: number;
+  /** 混合菜单折叠时的宽度 */
+  mixCollapsedWidth: number;
   /** 分割菜单 */
   splitMenu: boolean;
   /** 水平模式的菜单的位置 */

@@ -69,7 +69,7 @@ const themeStore = defineStore({
     setNavMode(mode: NavMode) {
       this.navStyle.mode = mode;
     },
-    /** 折叠菜单 */
+    /** 切割菜单(顶部混合模式horizontal-mix) */
     handleSplitMenu(isSplit: boolean) {
       this.menuStyle.splitMenu = isSplit;
     },

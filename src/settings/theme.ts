@@ -38,9 +38,9 @@ const themeSettings: ThemeSettings = {
   },
   menuStyle: {
     width: 200,
-    mixWidth: 80,
     collapsedWidth: 64,
-    fixed: true,
+    mixWidth: 80,
+    mixCollapsedWidth: 48,
     splitMenu: false,
     horizontalPosition: 'flex-start',
     horizontalPositionList: [

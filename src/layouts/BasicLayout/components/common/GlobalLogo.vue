@@ -1,5 +1,5 @@
 <template>
-  <a href="/" class="nowrap-hidden flex-center h-64px cursor-pointer">
+  <a href="/" class="logo-height nowrap-hidden flex-center cursor-pointer">
     <img src="@/assets/img/common/logo.png" alt="" class="w-32px h-32px" />
     <h2 v-show="showTitle" class="pl-8px text-16px text-primary font-bold">{{ title }}</h2>
   </a>
@@ -17,5 +17,13 @@ const title = useAppTitle();
 const showTitle = computed(
   () => !theme.isVerticalNav || (!app.menu.collapsed && theme.navStyle.mode !== 'vertical-mix')
 );
+const headerHeight = computed(() => {
+  const { height } = theme.headerStyle;
+  return `${height}px`;
+});
 </script>
-<style scoped></style>
+<style scoped>
+.logo-height {
+  height: v-bind(headerHeight);
+}
+</style>
