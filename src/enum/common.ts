@@ -9,7 +9,7 @@ export enum ContentType {
 export enum EnumDataType {
   number = '[object Number]',
   string = '[object String]',
-  boolean = '[object Object]',
+  boolean = '[object Boolean]',
   null = '[object Null]',
   undefined = '[object Undefined]',
   object = '[object Object]',
