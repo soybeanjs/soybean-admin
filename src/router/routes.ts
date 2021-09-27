@@ -146,6 +146,7 @@ export const customRoutes: CustomRoute[] = [
     name: RouteNameMap.get('exception'),
     path: EnumRoutePath.exception,
     component: BasicLayout,
+    redirect: { name: RouteNameMap.get('exception-403') },
     meta: {
       requiresAuth: true,
       title: EnumRouteTitle.exception,

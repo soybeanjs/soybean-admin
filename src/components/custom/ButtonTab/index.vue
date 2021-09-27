@@ -3,11 +3,7 @@
     class="relative flex-center h-30px pl-14px border-1px rounded-2px cursor-pointer"
     :class="[
       closable ? 'pr-6px' : 'pr-14px',
-      active || isHover
-        ? 'text-primary border-primary border-opacity-30'
-        : darkMode
-        ? 'border-[#ffffff3d]'
-        : 'border-[#e5e7eb]',
+      active || isHover ? 'text-primary border-primary border-opacity-30 ' : 'border-[#e5e7eb] dark:border-[#ffffff3d]',
       { 'bg-primary bg-opacity-10': active }
     ]"
     @mouseenter="setTrue"
@@ -34,10 +30,6 @@ defineProps({
   closable: {
     type: Boolean,
     default: true
-  },
-  darkMode: {
-    type: Boolean,
-    default: false
   }
 });
 const emit = defineEmits(['close']);

@@ -1,7 +1,6 @@
 <template>
   <n-layout-sider
     :style="{ zIndex }"
-    :native-scrollbar="false"
     :inverted="inverted"
     collapse-mode="width"
     :collapsed="app.menu.collapsed"
@@ -10,22 +9,26 @@
     @collapse="handleMenuCollapse(true)"
     @expand="handleMenuCollapse(false)"
   >
-    <global-logo v-if="theme.isVerticalNav" />
-    <n-menu
-      :value="activeKey"
-      :collapsed="app.menu.collapsed"
-      :collapsed-width="theme.menuStyle.collapsedWidth"
-      :collapsed-icon-size="22"
-      :options="menus"
-      @update:value="handleUpdateMenu"
-    />
+    <div class="flex-col-stretch h-full">
+      <global-logo v-if="theme.isVerticalNav" />
+      <n-scrollbar class="flex-1-hidden">
+        <n-menu
+          :value="activeKey"
+          :collapsed="app.menu.collapsed"
+          :collapsed-width="theme.menuStyle.collapsedWidth"
+          :collapsed-icon-size="22"
+          :options="menus"
+          @update:value="handleUpdateMenu"
+        />
+      </n-scrollbar>
+    </div>
   </n-layout-sider>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { NMenu, NLayoutSider } from 'naive-ui';
+import { NLayoutSider, NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
 import { menus } from '@/router';

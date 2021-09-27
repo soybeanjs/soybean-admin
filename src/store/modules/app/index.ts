@@ -17,6 +17,8 @@ interface AppState {
 interface MenuState {
   /** 菜单折叠 */
   collapsed: boolean;
+  /** 混合菜单vertical-mix是否固定二级菜单 */
+  fixedMix: boolean;
 }
 
 type MultiTabRoute = Partial<RouteLocationNormalizedLoaded> & {
@@ -40,7 +42,8 @@ const appStore = defineStore({
   id: 'app-store',
   state: (): AppState => ({
     menu: {
-      collapsed: false
+      collapsed: false,
+      fixedMix: false
     },
     multiTab: {
       routes: [],
@@ -61,6 +64,10 @@ const appStore = defineStore({
     /** 折叠/展开菜单 */
     handleMenuCollapse(collapsed: boolean) {
       this.menu.collapsed = collapsed;
+    },
+    /** 设置混合菜单是否固定 */
+    toggleFixedMixMenu() {
+      this.menu.fixedMix = !this.menu.fixedMix;
     },
     /** 切换折叠/展开菜单 */
     toggleMenu() {

@@ -1,15 +1,16 @@
 <template>
-  <div
-    class="h-full transition-width duration-500 ease-in-out"
-    :class="[app.menu.collapsed ? 'mix-menu-collapsed-width' : 'mix-menu-width']"
-  >
-    <div class="flex-col-stretch h-full">
+  <div class="flex h-full bg-white dark:bg-[#18181c]">
+    <div
+      class="flex-col-stretch flex-1 h-full transition-width duration-300 ease-in-out"
+      :class="[app.menu.collapsed ? 'mix-menu-collapsed-width' : 'mix-menu-width']"
+    >
       <global-logo />
       <div class="flex-1-hidden">
         <n-scrollbar>
           <mix-menu
             v-for="item in firstDegreeMenus"
             :key="item.routeName"
+            v-model:hover-route="hoverRoute"
             :route-name="item.routeName"
             :label="item.label"
             :icon="item.icon"
@@ -20,17 +21,23 @@
       </div>
       <mix-menu-collapse />
     </div>
+    <div
+      class="relative h-full transition-width duration-300 ease-in-out"
+      :style="{ width: app.menu.fixedMix ? theme.menuStyle.width + 'px' : '0px' }"
+    >
+      <mix-menu-drawer :hover-route="hoverRoute" @reset-hover-route="resetHoverRoute" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import type { VNodeChild } from 'vue';
 import { NScrollbar } from 'naive-ui';
 import { useRoute } from 'vue-router';
 import { useAppStore, useThemeStore } from '@/store';
 import { menus } from '@/router';
-import { MixMenu, MixMenuCollapse } from './components';
+import { MixMenu, MixMenuCollapse, MixMenuDrawer } from './components';
 import { GlobalLogo } from '../../../common';
 
 const theme = useThemeStore();
@@ -60,6 +67,11 @@ const activeParentRouteName = computed(() => {
   }
   return name;
 });
+
+const hoverRoute = ref('');
+function resetHoverRoute() {
+  hoverRoute.value = '';
+}
 </script>
 <style scoped>
 .mix-menu-width {

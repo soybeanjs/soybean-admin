@@ -1,7 +1,7 @@
 <template>
   <div
-    class="flex-1 flex-col-stretch p-10px"
-    :class="{ 'bg-[#f5f7f9]': !theme.darkMode, 'overflow-hidden': routeProps.fullPage }"
+    class="flex-1 flex-col-stretch p-10px bg-[#f5f7f9] dark:bg-black"
+    :class="{ 'overflow-hidden': routeProps.fullPage }"
   >
     <router-view v-slot="{ Component, route }">
       <transition :name="theme.pageStyle.animateType" mode="out-in" appear>
