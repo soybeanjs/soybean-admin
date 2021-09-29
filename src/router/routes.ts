@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { Dashboard } from '@vicons/carbon';
+import { Dashboard, Menu } from '@vicons/carbon';
 import { ExceptionOutlined } from '@vicons/antd';
-import { BasicLayout, BlankLayout } from '@/layouts';
+import { BasicLayout, BlankLayout, MultiMenuLayout } from '@/layouts';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import type { CustomRoute, LoginModuleType } from '@/interface';
 import { getLoginModuleRegExp } from '@/utils';
@@ -12,6 +12,7 @@ import {
   ServiceError,
   DashboardAnalysis,
   DashboardWorkbench,
+  MultimenuFirstSecond,
   Exception403,
   Exception404,
   Exception500
@@ -182,6 +183,40 @@ export const customRoutes: CustomRoute[] = [
           title: EnumRouteTitle['exception-500'],
           fullPage: true
         }
+      }
+    ]
+  },
+  {
+    name: RouteNameMap.get('multimenu'),
+    path: EnumRoutePath.multimenu,
+    component: MultiMenuLayout,
+    redirect: { name: RouteNameMap.get('multimenu-first') },
+    meta: {
+      title: EnumRouteTitle.multimenu,
+      icon: Menu
+    },
+    children: [
+      {
+        name: RouteNameMap.get('multimenu-first'),
+        path: EnumRoutePath['multimenu-first'],
+        component: BasicLayout,
+        meta: {
+          keepAlive: true,
+          requiresAuth: true,
+          title: EnumRouteTitle['multimenu-first']
+        },
+        children: [
+          {
+            name: RouteNameMap.get('multimenu-first-second'),
+            path: EnumRoutePath['multimenu-first-second'],
+            component: MultimenuFirstSecond,
+            meta: {
+              keepAlive: true,
+              requiresAuth: true,
+              title: EnumRouteTitle['multimenu-first-second']
+            }
+          }
+        ]
       }
     ]
   }

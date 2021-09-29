@@ -13,13 +13,10 @@
       dark:bg-[#18181c]
     "
     :style="{ width: showDrawer ? theme.menuStyle.width + 'px' : '0px' }"
-    @mouseenter="handleMouseEvent('enter')"
-    @mouseleave="handleMouseEvent('leave')"
   >
     <header class="header-height flex-y-center justify-between">
       <h2 class="pl-8px text-16px text-primary font-bold">{{ title }}</h2>
-
-      <div class="px-8px text-16px cursor-pointer" @click="toggleFixedMixMenu">
+      <div class="px-8px text-16px text-gray-600 cursor-pointer" @click="toggleFixedMixMenu">
         <icon-mdi:pin-off v-if="app.menu.fixedMix" />
         <icon-mdi:pin v-else />
       </div>
@@ -39,11 +36,14 @@ import { NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
 import { useAppTitle } from '@/hooks';
-import { useVerticalMixSiderContext } from '@/context';
 import { menus } from '@/router';
 import type { GlobalMenuOption } from '@/interface';
 
 const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false
+  },
   activeRouteName: {
     type: String,
     required: true
@@ -55,23 +55,12 @@ const route = useRoute();
 const theme = useThemeStore();
 const app = useAppStore();
 const { toggleFixedMixMenu } = useAppStore();
-const { useVerticalMixSiderInject } = useVerticalMixSiderContext();
 const title = useAppTitle();
-
-const {
-  childMenuVisible,
-  hoverRouteName,
-  setHoverRouteName,
-  showChildMenu,
-  hideChildMenu,
-  setMouseEnterChildMenu,
-  setMouseLeaveChildMenu
-} = useVerticalMixSiderInject();
 
 const childMenus = computed(() => {
   const children: MenuOption[] = [];
   menus.some(item => {
-    const flag = item.routeName === hoverRouteName.value && Boolean(item.children?.length);
+    const flag = item.routeName === props.activeRouteName && Boolean(item.children?.length);
     if (flag) {
       children.push(...item.children!);
     }
@@ -80,7 +69,7 @@ const childMenus = computed(() => {
   return children;
 });
 
-const showDrawer = computed(() => (childMenuVisible.value && childMenus.value.length) || app.menu.fixedMix);
+const showDrawer = computed(() => (props.visible && childMenus.value.length) || app.menu.fixedMix);
 
 const activeKey = computed(() => route.name as string);
 
@@ -93,17 +82,6 @@ const headerHeight = computed(() => {
   const { height } = theme.headerStyle;
   return `${height}px`;
 });
-
-function handleMouseEvent(type: 'enter' | 'leave') {
-  if (type === 'enter') {
-    showChildMenu();
-    setMouseEnterChildMenu();
-  } else {
-    hideChildMenu();
-    setMouseLeaveChildMenu();
-    setHoverRouteName(props.activeRouteName);
-  }
-}
 </script>
 <style scoped>
 .drawer-shadow {
