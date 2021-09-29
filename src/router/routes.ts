@@ -189,7 +189,7 @@ export const customRoutes: CustomRoute[] = [
   {
     name: RouteNameMap.get('multimenu'),
     path: EnumRoutePath.multimenu,
-    component: MultiMenuLayout,
+    component: BasicLayout,
     redirect: { name: RouteNameMap.get('multimenu-first') },
     meta: {
       title: EnumRouteTitle.multimenu,
@@ -199,7 +199,8 @@ export const customRoutes: CustomRoute[] = [
       {
         name: RouteNameMap.get('multimenu-first'),
         path: EnumRoutePath['multimenu-first'],
-        component: BasicLayout,
+        component: MultiMenuLayout,
+        redirect: { name: RouteNameMap.get('multimenu-first-second') },
         meta: {
           keepAlive: true,
           requiresAuth: true,
