@@ -43,7 +43,7 @@ const notification = useNotification();
 
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
-  phone: '15170283876',
+  phone: '15100000000',
   pwd: '123456'
 });
 const rules = {

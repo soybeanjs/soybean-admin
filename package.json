@@ -23,21 +23,21 @@
     "chroma-js": "^2.1.2",
     "dayjs": "^1.10.7",
     "form-data": "^4.0.0",
-    "naive-ui": "^2.19.2",
+    "naive-ui": "^2.19.3",
     "pinia": "^2.0.0-rc.4",
     "qs": "^6.10.1",
     "vue": "^3.2.10",
     "vue-router": "^4.0.11"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "@iconify/json": "^1.1.406",
+    "@commitlint/cli": "^13.2.0",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@iconify/json": "^1.1.407",
     "@iconify/vue": "^3.0.0",
     "@types/chroma-js": "^2.1.3",
     "@types/qs": "^6.9.7",
-    "@typescript-eslint/eslint-plugin": "^4.31.2",
-    "@typescript-eslint/parser": "^4.31.2",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
     "@vicons/antd": "^0.11.0",
     "@vicons/carbon": "^0.11.0",
     "@vicons/fa": "^0.11.0",
@@ -70,11 +70,11 @@
     "unplugin-icons": "^0.11.4",
     "unplugin-vue-components": "^0.15.4",
     "vite": "^2.5.10",
-    "vite-plugin-html": "^2.1.0",
-    "vite-plugin-windicss": "^1.4.7",
+    "vite-plugin-html": "^2.1.1",
+    "vite-plugin-windicss": "^1.4.8",
     "vue-tsc": "^0.3.0",
     "vueuc": "^0.4.12",
-    "windicss": "^3.1.7"
+    "windicss": "^3.1.8"
   },
   "config": {
     "commitizen": {

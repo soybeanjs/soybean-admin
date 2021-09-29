@@ -27,7 +27,6 @@ export default function useReloadContext() {
   }
 
   return {
-    context,
     useReloadProvide,
     useReloadInject
   };

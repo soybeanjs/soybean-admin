@@ -21,10 +21,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed } from 'vue';
 import type { PropType, VNodeChild } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAppStore } from '@/store';
 import { useBoolean } from '@/hooks';
+import { useVerticalMixSiderContext } from '@/context';
 
 const props = defineProps({
   routeName: {
@@ -39,51 +41,50 @@ const props = defineProps({
     type: Function as PropType<() => VNodeChild>,
     required: true
   },
-  isActive: {
-    type: Boolean,
-    default: false
+  activeRouteName: {
+    type: String,
+    required: true
   },
   isMini: {
     type: Boolean,
     default: false
-  },
-  hoverRoute: {
-    type: String,
-    default: ''
   }
 });
 
-const emit = defineEmits(['update:hoverRoute']);
-
+const app = useAppStore();
 const router = useRouter();
+const { useVerticalMixSiderInject } = useVerticalMixSiderContext();
 const { bool: isHover, setTrue, setFalse } = useBoolean();
+const { bool: isMouseEnterMenu, setTrue: setMouseEnterMenu, setFalse: setMouseLeaveMenu } = useBoolean();
 
-const hoverRouteName = ref(props.hoverRoute);
-function setHoverRouteName(name: string) {
-  hoverRouteName.value = name;
-}
+const { setHoverRouteName, showChildMenu, hideChildMenu, isMouseEnterChildMenu } = useVerticalMixSiderInject();
+
+const isActive = computed(() => props.routeName === props.activeRouteName);
 
 function handleRouter() {
   router.push({ name: props.routeName });
 }
 
-function handleMouseEvent(type: 'enter' | 'leave') {
-  if (type === 'enter') {
-    setTrue();
-    setHoverRouteName(props.routeName);
-  } else {
-    setFalse();
-  }
+async function setActiveHoverRouteName() {
+  setTimeout(() => {
+    if (app.menu.fixedMix && !isMouseEnterChildMenu.value && !isMouseEnterMenu.value) {
+      setHoverRouteName(props.activeRouteName);
+    }
+    setMouseLeaveMenu();
+  }, 100);
 }
 
-watch(
-  () => props.hoverRoute,
-  newValue => {
-    setHoverRouteName(newValue);
+function handleMouseEvent(type: 'enter' | 'leave') {
+  if (type === 'enter') {
+    setMouseEnterMenu();
+    setTrue();
+    setHoverRouteName(props.routeName);
+    showChildMenu();
+  } else {
+    setFalse();
+    hideChildMenu();
+    setActiveHoverRouteName();
   }
-);
-watch(hoverRouteName, newValue => {
-  emit('update:hoverRoute', newValue);
-});
+}
 </script>
 <style scoped></style>

@@ -10,11 +10,10 @@
           <mix-menu
             v-for="item in firstDegreeMenus"
             :key="item.routeName"
-            v-model:hover-route="hoverRoute"
             :route-name="item.routeName"
             :label="item.label"
             :icon="item.icon"
-            :is-active="activeParentRouteName === item.routeName"
+            :active-route-name="activeParentRouteName"
             :is-mini="app.menu.collapsed"
           />
         </n-scrollbar>
@@ -25,17 +24,18 @@
       class="relative h-full transition-width duration-300 ease-in-out"
       :style="{ width: app.menu.fixedMix ? theme.menuStyle.width + 'px' : '0px' }"
     >
-      <mix-menu-drawer :hover-route="hoverRoute" @reset-hover-route="resetHoverRoute" />
+      <mix-menu-drawer :active-route-name="activeParentRouteName" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import type { VNodeChild } from 'vue';
 import { NScrollbar } from 'naive-ui';
 import { useRoute } from 'vue-router';
 import { useAppStore, useThemeStore } from '@/store';
+import { useVerticalMixSiderContext } from '@/context';
 import { menus } from '@/router';
 import { MixMenu, MixMenuCollapse, MixMenuDrawer } from './components';
 import { GlobalLogo } from '../../../common';
@@ -43,6 +43,7 @@ import { GlobalLogo } from '../../../common';
 const theme = useThemeStore();
 const app = useAppStore();
 const route = useRoute();
+const { useVerticalMixSiderProvide } = useVerticalMixSiderContext();
 
 const mixMenuWidth = computed(() => `${theme.menuStyle.mixWidth}px`);
 const mixMenuCollapsedWidth = computed(() => `${theme.menuStyle.mixCollapsedWidth}px`);
@@ -68,10 +69,7 @@ const activeParentRouteName = computed(() => {
   return name;
 });
 
-const hoverRoute = ref('');
-function resetHoverRoute() {
-  hoverRoute.value = '';
-}
+useVerticalMixSiderProvide();
 </script>
 <style scoped>
 .mix-menu-width {
