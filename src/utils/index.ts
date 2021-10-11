@@ -36,3 +36,5 @@ export {
   removeSession,
   clearSession
 } from './storage';
+
+export { getRouteNameMap, setRouterCacheName } from './router';

@@ -8,7 +8,7 @@ export function getRouteNameMap() {
 }
 
 /** 给需要缓存的页面组件设置名称 */
-export function setCacheName(component: Component, name?: string) {
+export function setRouterCacheName(component: Component, name?: string) {
   if (name) {
     Object.assign(component, { name });
   }

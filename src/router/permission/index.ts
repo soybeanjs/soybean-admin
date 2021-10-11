@@ -1,7 +1,7 @@
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { useTitle } from '@vueuse/core';
 import { getToken } from '@/utils';
-import { RouteNameMap } from './routes';
+import { RouteNameMap } from '../helpers';
 
 /**
  * 路由守卫函数

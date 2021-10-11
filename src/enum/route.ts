@@ -8,15 +8,15 @@ export enum EnumRoutePath {
   'reload' = '/reload',
   // 自定义路由
   'dashboard' = '/dashboard',
-  'dashboard-analysis' = '/dashboard/analysis',
-  'dashboard-workbench' = '/dashboard/workbench',
-  'multimenu' = '/multimenu',
-  'multimenu-first' = '/multimenu/first',
-  'multimenu-first-second' = '/multimenu/first/second',
+  'dashboard_analysis' = '/dashboard/analysis',
+  'dashboard_workbench' = '/dashboard/workbench',
+  'multi-menu' = '/multi-menu',
+  'multi-menu_first' = '/multi-menu/first',
+  'multi-menu_first_second' = '/multi-menu/first/second',
   'exception' = '/exception',
-  'exception-403' = '/exception/403',
-  'exception-404' = '/exception/404',
-  'exception-500' = '/exception/500'
+  'exception_403' = '/exception/403',
+  'exception_404' = '/exception/404',
+  'exception_500' = '/exception/500'
 }
 
 export enum EnumRouteTitle {
@@ -29,13 +29,13 @@ export enum EnumRouteTitle {
   'reload' = '重载',
   // 自定义路由
   'dashboard' = '仪表盘',
-  'dashboard-analysis' = '分析页',
-  'dashboard-workbench' = '工作台',
-  'multimenu' = '多级菜单',
-  'multimenu-first' = '一级菜单',
-  'multimenu-first-second' = '二级菜单',
+  'dashboard_analysis' = '分析页',
+  'dashboard_workbench' = '工作台',
+  'multi-menu' = '多级菜单',
+  'multi-menu_first' = '一级菜单',
+  'multi-menu_first_second' = '二级菜单',
   'exception' = '异常页',
-  'exception-403' = '异常页-403',
-  'exception-404' = '异常页-404',
-  'exception-500' = '异常页-500'
+  'exception_403' = '异常页-403',
+  'exception_404' = '异常页-404',
+  'exception_500' = '异常页-500'
 }

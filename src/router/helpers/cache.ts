@@ -1,14 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { routes } from './routes';
-
-function getCacheRoutes() {
-  const cacheNames: string[] = [];
-  routes.forEach(route => {
-    const isCache = isKeepAlive(route);
-    cacheNames.push(...getCacheName(route, isCache));
-  });
-  return cacheNames;
-}
 
 function getCacheName(route: RouteRecordRaw, isCache: boolean) {
   const cacheNames: string[] = [];
@@ -34,5 +24,12 @@ function hasChildren(route: RouteRecordRaw) {
   return Boolean(route.children && route.children.length);
 }
 
-/** 被缓存的路由 */
-export const cacheRoutes = getCacheRoutes();
+/** 获取被缓存的路由 */
+export default function getCacheRoutes(routes: RouteRecordRaw[]) {
+  const cacheNames: string[] = [];
+  routes.forEach(route => {
+    const isCache = isKeepAlive(route);
+    cacheNames.push(...getCacheName(route, isCache));
+  });
+  return cacheNames;
+}

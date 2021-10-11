@@ -51,11 +51,11 @@ const hoverColor: FillColor = ['#dee1e6', '#3f3c37'];
 const fill = computed(() => {
   const index = Number(props.darkMode);
   let color = defaultColor[index];
-  if (props.isActive) {
-    color = activeColor[index];
-  }
   if (props.isHover) {
     color = hoverColor[index];
+  }
+  if (props.isActive) {
+    color = activeColor[index];
   }
   return color;
 });
