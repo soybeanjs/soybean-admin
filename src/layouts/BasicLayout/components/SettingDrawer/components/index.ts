@@ -3,5 +3,6 @@ import NavMode from './NavMode/index.vue';
 import SystemTheme from './SystemTheme/index.vue';
 import PageFunc from './PageFunc/index.vue';
 import PageView from './PageView/index.vue';
+import ThemeConfig from './ThemeConfig/index.vue';
 
-export { DarkMode, NavMode, SystemTheme, PageFunc, PageView };
+export { DarkMode, NavMode, SystemTheme, PageFunc, PageView, ThemeConfig };

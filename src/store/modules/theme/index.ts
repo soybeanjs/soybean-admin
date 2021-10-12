@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { GlobalThemeOverrides } from 'naive-ui';
-import { themeSettings } from '@/settings';
+import { themeSettings, defaultThemeSettings } from '@/settings';
 import { store } from '@/store';
 import type { ThemeSettings, NavMode, MultiTabMode, AnimateType, HorizontalMenuPosition } from '@/interface';
 import { getHoverAndPressedColor } from './helpers';
@@ -57,6 +57,10 @@ const themeStore = defineStore({
     }
   },
   actions: {
+    /** 设置默认配置 */
+    setDefaultThemeStore() {
+      Object.assign(this, defaultThemeSettings);
+    },
     /** 设置暗黑模式 */
     handleDarkMode(isDark: boolean) {
       this.darkMode = isDark;

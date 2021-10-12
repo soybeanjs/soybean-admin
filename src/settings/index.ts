@@ -1,3 +1,3 @@
-import themeSettings from './theme';
+import { themeSettings, defaultThemeSettings } from './theme';
 
-export { themeSettings };
+export { themeSettings, defaultThemeSettings };

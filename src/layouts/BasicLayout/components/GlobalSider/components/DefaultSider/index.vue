@@ -18,7 +18,9 @@
           :collapsed-width="theme.menuStyle.collapsedWidth"
           :collapsed-icon-size="22"
           :options="menus"
+          :expanded-keys="expandedKeys"
           @update:value="handleUpdateMenu"
+          @update:expanded-keys="handleUpdateExpandedKeys"
         />
       </n-scrollbar>
     </div>
@@ -26,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { NLayoutSider, NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
@@ -60,15 +62,33 @@ const menuWidth = computed(() => {
   return collapsed ? collapsedWidth : modeWidth;
 });
 
-const activeKey = computed(() => getActiveKey());
+const activeKey = computed(() => route.name as string);
+const expandedKeys = ref<string[]>(getExpendedKeys());
 
-function getActiveKey() {
-  return route.name as string;
+function getExpendedKeys() {
+  const keys: string[] = [];
+  route.matched.forEach(item => {
+    if (item.children && item.children.length) {
+      keys.push(item.name as string);
+    }
+  });
+  return keys;
 }
 
 function handleUpdateMenu(key: string, item: MenuOption) {
   const menuItem = item as GlobalMenuOption;
   router.push(menuItem.routePath);
 }
+
+function handleUpdateExpandedKeys(keys: string[]) {
+  expandedKeys.value = keys;
+}
+
+watch(
+  () => route.name,
+  () => {
+    expandedKeys.value = getExpendedKeys();
+  }
+);
 </script>
 <style scoped></style>

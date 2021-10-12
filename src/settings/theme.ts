@@ -1,5 +1,6 @@
-import type { ThemeSettings } from '../interface';
-import { EnumAnimate, EnumMultiTabMode, EnumHorizontalMenuPosition } from '../enum';
+import type { ThemeSettings } from '@/interface';
+import { EnumAnimate, EnumMultiTabMode, EnumHorizontalMenuPosition } from '@/enum';
+import customThemeSettings from './theme.json';
 
 const themeColorList = [
   '#409EFF',
@@ -22,7 +23,7 @@ const themeColorList = [
   '#FC5404'
 ];
 
-const themeSettings: ThemeSettings = {
+const defaultThemeSettings: ThemeSettings = {
   darkMode: false,
   themeColor: themeColorList[0],
   themeColorList,
@@ -83,4 +84,6 @@ const themeSettings: ThemeSettings = {
   showReload: true
 };
 
-export default themeSettings;
+export const themeSettings = (customThemeSettings as ThemeSettings) || defaultThemeSettings;
+
+export { defaultThemeSettings };

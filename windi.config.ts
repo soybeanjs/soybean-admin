@@ -1,5 +1,5 @@
 import { defineConfig } from 'windicss/helpers';
-import { themeSettings } from './src/settings';
+import themeSettings from './src/settings/theme.json';
 
 const {
   themeColor,
