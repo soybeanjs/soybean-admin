@@ -40,18 +40,20 @@ export default class CustomAxiosInstance {
     this.instance.interceptors.request.use(
       async config => {
         const handleConfig = { ...config };
-        // form类型转换
-        if (handleConfig.headers['Content-Type'] === ContentType.formUrlencoded) {
-          handleConfig.data = qs.stringify(handleConfig.data);
+        if (handleConfig.headers) {
+          // form类型转换
+          if (handleConfig.headers['Content-Type'] === ContentType.formUrlencoded) {
+            handleConfig.data = qs.stringify(handleConfig.data);
+          }
+          // 文件类型转换
+          if (handleConfig?.headers['Content-Type'] === ContentType.formData) {
+            const key = Object.keys(handleConfig.data)[0];
+            const file = handleConfig.data[key];
+            handleConfig.data = await transformFile(file, key);
+          }
+          // 设置token
+          handleConfig.headers.Authorization = getToken();
         }
-        // 文件类型转换
-        if (handleConfig.headers['Content-Type'] === ContentType.formData) {
-          const key = Object.keys(handleConfig.data)[0];
-          const file = handleConfig.data[key];
-          handleConfig.data = await transformFile(file, key);
-        }
-        // 设置token
-        handleConfig.headers.Authorization = getToken();
         return handleConfig;
       },
       error => {
@@ -64,11 +66,12 @@ export default class CustomAxiosInstance {
         const { status, data } = response;
         const { statusKey, msgKey, successCode } = statusConfig;
         if (status === 200 || status < 300 || status === 304) {
-          if (data[statusKey] === successCode) {
-            return Promise.resolve(data.data);
+          const responseData = data as any;
+          if (responseData[statusKey] === successCode) {
+            return Promise.resolve(responseData.data);
           }
-          window.$message?.error(data[msgKey]);
-          return Promise.reject(data[msgKey]);
+          window.$message?.error(responseData[msgKey]);
+          return Promise.reject(responseData[msgKey]);
         }
         const error = { response };
         errorHandler(error);
