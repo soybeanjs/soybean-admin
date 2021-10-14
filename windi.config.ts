@@ -7,6 +7,10 @@ const {
 } = themeSettings;
 
 export default defineConfig({
+  extract: {
+    include: ['src/**/*.{vue,html,jsx,tsx}', 'public/**/*.{html}', './*.html'],
+    exclude: ['node_modules', '.git']
+  },
   darkMode: 'class', // or 'media'
   shortcuts: {
     'center-layout': 'w-1280px mx-auto px-15px',
