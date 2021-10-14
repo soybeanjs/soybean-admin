@@ -1,11 +1,18 @@
 <template>
   <div
-    class="relative flex-center h-30px pl-14px border-1px rounded-2px cursor-pointer"
-    :class="[
-      closable ? 'pr-6px' : 'pr-14px',
-      active || isHover ? 'text-primary border-primary border-opacity-30 ' : 'border-[#e5e7eb] dark:border-[#ffffff3d]',
-      { 'bg-primary bg-opacity-10': active }
-    ]"
+    class="
+      relative
+      flex-center
+      h-30px
+      pl-14px
+      border-1px
+      rounded-2px
+      cursor-pointer
+      border-[#e5e7eb]
+      dark:border-[#ffffff3d]
+    "
+    :class="[closable ? 'pr-6px' : 'pr-14px']"
+    :style="buttonStyle"
     @mouseenter="setTrue"
     @mouseleave="setFalse"
   >
@@ -13,19 +20,25 @@
       <slot></slot>
     </span>
     <div v-if="closable" class="pl-10px">
-      <icon-close :is-primary="active || isHover" @click="handleClose" />
+      <icon-close :is-primary="active || isHover" :primary-color="primaryColor" @click="handleClose" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 import { useBoolean } from '@/hooks';
 import { IconClose } from '@/components';
+import { shallowColor } from '@/utils';
 
-defineProps({
+const props = defineProps({
   active: {
     type: Boolean,
     default: false
+  },
+  primaryColor: {
+    type: String,
+    default: '#409EFF'
   },
   closable: {
     type: Boolean,
@@ -40,5 +53,17 @@ function handleClose(e: MouseEvent) {
   e.stopPropagation();
   emit('close');
 }
+
+const buttonStyle = computed(() => {
+  const style: { [key: string]: string } = {};
+  if (props.active || isHover.value) {
+    style.color = props.primaryColor;
+    style.borderColor = shallowColor(props.primaryColor, 0.3);
+    if (props.active) {
+      style.backgroundColor = shallowColor(props.primaryColor, 0.1);
+    }
+  }
+  return style;
+});
 </script>
 <style scoped></style>

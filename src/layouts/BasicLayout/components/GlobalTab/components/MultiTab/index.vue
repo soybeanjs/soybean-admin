@@ -19,6 +19,7 @@
       :key="item.path"
       class="mr-10px"
       :active="app.multiTab.activeRoute === item.fullPath"
+      :primary-color="theme.themeColor"
       :closable="item.name !== ROUTE_HOME.name"
       :dark-mode="theme.darkMode"
       @click="handleClickTab(item.fullPath)"

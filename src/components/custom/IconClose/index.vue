@@ -1,7 +1,7 @@
 <template>
   <div
     class="relative flex-center w-18px h-18px text-14px"
-    :class="[isPrimary ? 'text-primary' : 'text-gray-400']"
+    :style="{ color: isPrimary ? primaryColor : defaultColor }"
     @mouseenter="setTrue"
     @mouseleave="setFalse"
   >
@@ -19,6 +19,14 @@ defineProps({
   isPrimary: {
     type: Boolean,
     default: false
+  },
+  primaryColor: {
+    type: String,
+    default: '#409EFF'
+  },
+  defaultColor: {
+    type: String,
+    default: '#9ca3af'
   }
 });
 

@@ -22,6 +22,7 @@ export {
   isSet,
   isMap,
   brightenColor,
+  shallowColor,
   darkenColor,
   dynamicIconRender
 } from './common';

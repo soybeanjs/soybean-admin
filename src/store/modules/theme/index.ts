@@ -3,9 +3,16 @@ import type { GlobalThemeOverrides } from 'naive-ui';
 import { themeSettings, defaultThemeSettings } from '@/settings';
 import { store } from '@/store';
 import type { ThemeSettings, NavMode, MultiTabMode, AnimateType, HorizontalMenuPosition } from '@/interface';
+import { shallowColor } from '@/utils';
 import { getHoverAndPressedColor } from './helpers';
 
 type ThemeState = ThemeSettings;
+
+interface relativeThemeColor {
+  hover: string;
+  pressed: string;
+  shallow: string;
+}
 
 const themeStore = defineStore({
   id: 'theme-store',
@@ -49,6 +56,13 @@ const themeStore = defineStore({
         LoadingBar: {
           colorLoading
         }
+      };
+    },
+    relativeThemeColor(): relativeThemeColor {
+      const shallow = shallowColor(this.themeColor, 0.1);
+      return {
+        ...getHoverAndPressedColor(this.themeColor),
+        shallow
       };
     },
     isVerticalNav(): boolean {

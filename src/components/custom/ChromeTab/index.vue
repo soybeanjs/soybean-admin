@@ -12,7 +12,7 @@
       <slot></slot>
     </span>
     <div v-if="closable" class="pl-18px">
-      <icon-close :is-primary="isActive" @click="handleClose" />
+      <icon-close :is-primary="isActive" :primary-color="primaryColor" @click="handleClose" />
     </div>
     <n-divider v-if="!isHover && !isActive" :vertical="true" class="absolute right-0 !bg-[#a4abb8] z-2" />
   </div>
@@ -28,6 +28,10 @@ defineProps({
   isActive: {
     type: Boolean,
     default: false
+  },
+  primaryColor: {
+    type: String,
+    default: '#409EFF'
   },
   closable: {
     type: Boolean,
