@@ -1,19 +1,22 @@
 <template>
-  <img :src="logoSrc" alt="" />
+  <div>
+    <svg-fill-logo v-if="fill" :color="color" />
+    <svg-logo v-else :color="color" />
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import logo from '@/assets/img/common/logo.png';
-import logoFill from '@/assets/img/common/logo-fill.png';
+import { SvgLogo, SvgFillLogo } from './components';
 
-const props = defineProps({
+defineProps({
   fill: {
     type: Boolean,
     default: false
+  },
+  color: {
+    type: String,
+    default: '#409EFF'
   }
 });
-
-const logoSrc = computed(() => (props.fill ? logoFill : logo));
 </script>
 <style scoped></style>

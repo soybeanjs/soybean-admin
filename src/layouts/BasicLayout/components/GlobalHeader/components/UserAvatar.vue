@@ -1,18 +1,18 @@
 <template>
   <n-dropdown :options="options" @select="handleDropdown">
     <hover-container class="px-12px" :show-tooltip="false">
-      <n-avatar :src="avatar" size="small" :round="true" />
+      <img :src="avatar" class="w-32px h-32px" />
       <span class="pl-8px text-16px font-medium">Soybean</span>
     </hover-container>
   </n-dropdown>
 </template>
 
 <script lang="ts" setup>
-import { NDropdown, NAvatar } from 'naive-ui';
+import { NDropdown } from 'naive-ui';
 import { UserAvatar, Logout } from '@vicons/carbon';
 import { dynamicIconRender, resetAuthStorage } from '@/utils';
 import { HoverContainer } from '@/components';
-import avatar from '@/assets/img/common/logo-fill.png';
+import avatar from '@/assets/svg/avatar/avatar01.svg';
 
 type DropdownKey = 'user-center' | 'logout';
 
