@@ -39,7 +39,9 @@ export default defineConfig({
         info,
         success,
         warning,
-        error
+        error,
+        light: '#ffffff',
+        dark: '#18181c'
       },
       transitionProperty: ['width', 'height', 'background', 'background-color']
     }

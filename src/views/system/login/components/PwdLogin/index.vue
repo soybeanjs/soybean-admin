@@ -10,7 +10,7 @@
       <n-space :vertical="true" size="large">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="rememberMe">记住我</n-checkbox>
-          <span class="text-primary cursor-pointer" @click="toCurrentLogin('reset-pwd')">忘记密码？</span>
+          <span class="g_text-primary cursor-pointer" @click="toCurrentLogin('reset-pwd')">忘记密码？</span>
         </div>
         <n-button type="primary" size="large" :block="true" :round="true" @click="handleSubmit">确定</n-button>
         <div class="flex-y-center justify-between">

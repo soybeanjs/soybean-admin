@@ -1,7 +1,7 @@
 <template>
   <div
-    class="border-2px rounded-6px cursor-pointer hover:border-primary"
-    :class="[checked ? 'border-primary' : 'border-transparent']"
+    class="border-2px rounded-6px cursor-pointer hover:g_border-primary"
+    :class="[checked ? 'g_border-primary' : 'border-transparent']"
   >
     <n-tooltip :placement="activeConfig.placement" trigger="hover">
       <template #trigger>

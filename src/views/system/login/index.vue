@@ -9,7 +9,7 @@
       </header>
       <main class="pt-24px">
         <div v-for="item in modules" v-show="module === item.key" :key="item.key">
-          <h3 class="text-18px text-primary font-medium">{{ item.label }}</h3>
+          <h3 class="text-18px g_text-primary font-medium">{{ item.label }}</h3>
           <component :is="item.component" />
         </div>
       </main>

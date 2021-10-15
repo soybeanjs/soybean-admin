@@ -24,6 +24,7 @@ export {
   brightenColor,
   shallowColor,
   darkenColor,
+  addColorAlpha,
   dynamicIconRender
 } from './common';
 

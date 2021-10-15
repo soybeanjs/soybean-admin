@@ -11,11 +11,16 @@
         <rect width="100%" height="100%" x="0"></rect>
       </clipPath>
     </defs>
-    <!-- 修改为50%防止重叠颜色不一致 -->
+    <svg width="50%" height="100%">
+      <use xlink:href="#geometry-left" width="214" height="36" :fill="foregorund"></use>
+    </svg>
     <svg width="50%" height="100%">
       <use xlink:href="#geometry-left" width="214" height="36" :fill="fill"></use>
     </svg>
     <g transform="scale(-1, 1)">
+      <svg width="50%" height="100%" x="-100%" y="0">
+        <use xlink:href="#geometry-right" width="214" height="36" :fill="foregorund"></use>
+      </svg>
       <svg width="50%" height="100%" x="-100%" y="0">
         <use xlink:href="#geometry-right" width="214" height="36" :fill="fill"></use>
       </svg>
@@ -25,6 +30,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { shallowColor } from '@/utils';
 
 /** 填充的背景颜色： [默认颜色, 暗黑主题颜色] */
 type FillColor = [string, string];
@@ -38,6 +44,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  primaryColor: {
+    type: String,
+    default: '#409EFF'
+  },
   darkMode: {
     type: Boolean,
     default: false
@@ -45,9 +55,9 @@ const props = defineProps({
 });
 
 const defaultColor: FillColor = ['#fff', '#18181c'];
-const activeColor: FillColor = ['#eef6ff', '#1e3044'];
 const hoverColor: FillColor = ['#dee1e6', '#3f3c37'];
 
+const foregorund = computed(() => defaultColor[Number(props.darkMode)]);
 const fill = computed(() => {
   const index = Number(props.darkMode);
   let color = defaultColor[index];
@@ -55,7 +65,8 @@ const fill = computed(() => {
     color = hoverColor[index];
   }
   if (props.isActive) {
-    color = activeColor[index];
+    const alpha = props.darkMode ? 0.15 : 0.1;
+    color = shallowColor(props.primaryColor, alpha);
   }
   return color;
 });

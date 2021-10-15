@@ -6,7 +6,13 @@
     @mouseleave="setFalse"
   >
     <div class="absolute-lb w-full h-full overflow-hidden">
-      <svg-radius-bg class="w-full h-full" :is-active="isActive" :is-hover="isHover" :dark-mode="darkMode" />
+      <svg-radius-bg
+        class="w-full h-full"
+        :is-active="isActive"
+        :is-hover="isHover"
+        :dark-mode="darkMode"
+        :primary-color="primaryColor"
+      />
     </div>
     <span class="relative z-2">
       <slot></slot>

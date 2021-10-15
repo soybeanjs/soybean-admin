@@ -33,8 +33,29 @@ import {
 } from 'naive-ui';
 import { AppProviderContent } from '@/components';
 import { useThemeStore } from '@/store';
+import { addColorAlpha } from '@/utils';
 
 const theme = useThemeStore();
 const dark = computed(() => (theme.darkMode ? darkTheme : undefined));
+
+const primary = computed(() => theme.themeColor);
+const primaryWithAlpha = computed(() => {
+  const alpha = theme.darkMode ? 0.15 : 0.1;
+  return addColorAlpha(primary.value, alpha);
+});
 </script>
-<style scoped></style>
+<style>
+/* 全局与主题颜色相关 */
+.g_text-primary {
+  color: v-bind(primary);
+}
+.g_bg-primary {
+  background-color: v-bind(primary);
+}
+.g_bg-primary_active {
+  background-color: v-bind(primaryWithAlpha);
+}
+.g_border-primary {
+  border-color: v-bind(primary);
+}
+</style>

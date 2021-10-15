@@ -1,7 +1,7 @@
 <template>
   <a href="/" class="logo-height nowrap-hidden flex-center cursor-pointer">
     <system-logo class="w-32px h-32px" :color="primaryColor" />
-    <h2 v-show="showTitle" class="pl-8px text-16px font-bold" :style="{ color: primaryColor }">{{ title }}</h2>
+    <h2 v-show="showTitle" class="g_text-primary pl-8px text-16px font-bold">{{ title }}</h2>
   </a>
 </template>
 

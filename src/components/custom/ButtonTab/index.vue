@@ -20,7 +20,7 @@
       <slot></slot>
     </span>
     <div v-if="closable" class="pl-10px">
-      <icon-close :is-primary="active || isHover" :primary-color="primaryColor" @click="handleClose" />
+      <icon-close :is-primary="isActive || isHover" :primary-color="primaryColor" @click="handleClose" />
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@ import { IconClose } from '@/components';
 import { shallowColor } from '@/utils';
 
 const props = defineProps({
-  active: {
+  isActive: {
     type: Boolean,
     default: false
   },
@@ -43,6 +43,10 @@ const props = defineProps({
   closable: {
     type: Boolean,
     default: true
+  },
+  darkMode: {
+    type: Boolean,
+    default: false
   }
 });
 const emit = defineEmits(['close']);
@@ -56,11 +60,12 @@ function handleClose(e: MouseEvent) {
 
 const buttonStyle = computed(() => {
   const style: { [key: string]: string } = {};
-  if (props.active || isHover.value) {
+  if (props.isActive || isHover.value) {
     style.color = props.primaryColor;
     style.borderColor = shallowColor(props.primaryColor, 0.3);
-    if (props.active) {
-      style.backgroundColor = shallowColor(props.primaryColor, 0.1);
+    if (props.isActive) {
+      const alpha = props.darkMode ? 0.15 : 0.1;
+      style.backgroundColor = shallowColor(props.primaryColor, alpha);
     }
   }
   return style;
