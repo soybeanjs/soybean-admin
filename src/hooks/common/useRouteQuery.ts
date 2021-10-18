@@ -1,5 +1,6 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { EnumRoutePath } from '@/enum';
 import { RouteNameMap } from '@/router';
 
 export default function useRouteQuery() {
@@ -7,9 +8,9 @@ export default function useRouteQuery() {
 
   /** 登录跳转链接 */
   const loginRedirectUrl = computed(() => {
-    let url = '';
+    let url: EnumRoutePath | undefined;
     if (route.name === RouteNameMap.get('login')) {
-      url = (route.query?.redirectUrl as string) ?? '';
+      url = (route.query?.redirectUrl as EnumRoutePath) || '';
     }
     return url;
   });

@@ -40,12 +40,12 @@ import type { FormInst, FormRules } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
 import { useThemeStore } from '@/store';
 import { useRouterChange, useRouteQuery } from '@/hooks';
-import { setToken, toLoginRedirectUrl } from '@/utils';
+import { setToken } from '@/utils';
 import { OtherLogin } from './components';
 import logo from '@/assets/img/common/logo.png';
 
 const theme = useThemeStore();
-const { toHome, toCurrentLogin } = useRouterChange();
+const { toHome, toCurrentLogin, toLoginRedirectUrl } = useRouterChange();
 const { loginRedirectUrl } = useRouteQuery();
 const notification = useNotification();
 

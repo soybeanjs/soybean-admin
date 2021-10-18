@@ -1,13 +1,4 @@
-export {
-  setToken,
-  getToken,
-  removeToken,
-  getUserInfo,
-  resetAuthStorage,
-  getLoginModuleRegExp,
-  getLoginRedirectUrl,
-  toLoginRedirectUrl
-} from './auth';
+export { setToken, getToken, removeToken, getUserInfo, resetAuthStorage, getLoginModuleRegExp } from './auth';
 
 export {
   isNumber,
@@ -39,4 +30,4 @@ export {
   clearSession
 } from './storage';
 
-export { getRouteNameMap, setRouterCacheName } from './router';
+export { getRouteNameMap, setRouterCacheName, getLoginRedirectUrl } from './router';

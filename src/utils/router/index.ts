@@ -1,6 +1,7 @@
 import type { Component } from 'vue';
 import { EnumRoutePath } from '@/enum';
 import type { RoutePathKey } from '@/interface';
+import { router } from '@/router';
 
 /** 获取路由name map */
 export function getRouteNameMap() {
@@ -12,4 +13,10 @@ export function setRouterCacheName(component: Component, name?: string) {
   if (name) {
     Object.assign(component, { name });
   }
+}
+
+export function getLoginRedirectUrl() {
+  const path = router.currentRoute.value.fullPath as EnumRoutePath;
+  const redirectUrl = path === EnumRoutePath.root ? undefined : path;
+  return redirectUrl;
 }

@@ -1,6 +1,6 @@
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { useTitle } from '@vueuse/core';
-import { getToken } from '@/utils';
+import { getToken, getLoginRedirectUrl } from '@/utils';
 import { RouteNameMap } from '../helpers';
 
 /**
@@ -46,7 +46,7 @@ function handleRouterAction(to: RouteLocationNormalized, from: RouteLocationNorm
     [
       !isLogin && needLogin,
       () => {
-        const redirectUrl = window.location.href;
+        const redirectUrl = getLoginRedirectUrl();
         next({ name: RouteNameMap.get('login'), query: { redirectUrl } });
       }
     ],

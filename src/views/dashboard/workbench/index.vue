@@ -41,6 +41,9 @@
             <n-radio :default-checked="true" />
           </n-space>
         </div>
+        <n-space>
+          <n-button type="primary" @click="handleDialog">Dialog</n-button>
+        </n-space>
       </n-space>
     </n-spin>
   </div>
@@ -48,12 +51,23 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { NGradientText, NSpace, NButton, NSpin, NTag, NSwitch, NCheckbox, NRadio } from 'naive-ui';
+import { NGradientText, NSpace, NButton, NSpin, NTag, NSwitch, NCheckbox, NRadio, useDialog } from 'naive-ui';
+
+const dialog = useDialog();
 
 const loading = ref(true);
 
 setTimeout(() => {
   loading.value = false;
 }, 1500);
+
+function handleDialog() {
+  dialog.info({
+    title: '提示',
+    content: '您确定要退出登录吗？',
+    positiveText: '确定',
+    negativeText: '取消'
+  });
+}
 </script>
 <style scoped></style>

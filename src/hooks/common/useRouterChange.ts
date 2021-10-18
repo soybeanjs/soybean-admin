@@ -4,16 +4,11 @@ import { EnumRoutePath } from '@/enum';
 import { router as globalRouter, RouteNameMap } from '@/router';
 import type { LoginModuleType } from '@/interface';
 
-interface LoginRedirect {
-  /**
-   * 重定向类型
-   * - current: 取当前的地址作为重定向地址
-   * - custom: 自定义地址作为重定向地址
-   */
-  type: 'current' | 'custom' | 'no';
-  /** 自定义地址 */
-  url: string;
-}
+/**
+ * 重定向地址
+ * - current: 取当前的path作为重定向地址
+ */
+type LoginRedirect = 'current' | EnumRoutePath;
 
 /**
  * 路由跳转
@@ -31,21 +26,19 @@ export default function useRouterChange(inSetup: boolean = true) {
   /**
    * 跳转登录页面(通过vue路由)
    * @param module - 展示的登录模块
-   * @param addRedirect - 是否添加重定向地址
-   * @param redirect - 登录后重定向相关配置
+   * @param redirectUrl - 重定向地址
    */
-  function toLogin(
-    module: LoginModuleType = 'pwd-login',
-    addRedirect: boolean = false,
-    redirect: LoginRedirect = { type: 'current', url: '' }
-  ) {
-    const redirectUrl = redirect.type === 'current' ? window.location.href : redirect.url;
+  function toLogin(module: LoginModuleType = 'pwd-login', redirectUrl?: LoginRedirect) {
     const routeLocation: RouteLocationRaw = {
       name: RouteNameMap.get('login'),
       params: { module }
     };
-    if (addRedirect) {
-      routeLocation.query = { redirectUrl };
+    if (redirectUrl) {
+      let url = redirectUrl;
+      if (redirectUrl === 'current') {
+        url = router.currentRoute.value.fullPath as EnumRoutePath;
+      }
+      routeLocation.query = { redirectUrl: url };
     }
     router.push(routeLocation);
   }
@@ -62,14 +55,15 @@ export default function useRouterChange(inSetup: boolean = true) {
     }
   }
 
-  function toReload(redirectUrl: string) {
-    router.push({ path: EnumRoutePath.reload, query: { redirectUrl } });
+  /** 登录后跳转重定向的地址 */
+  function toLoginRedirectUrl(path: EnumRoutePath) {
+    router.push(path);
   }
 
   return {
     toHome,
     toLogin,
     toCurrentLogin,
-    toReload
+    toLoginRedirectUrl
   };
 }

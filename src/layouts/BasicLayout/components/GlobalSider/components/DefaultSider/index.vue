@@ -6,6 +6,7 @@
     :collapsed="app.menu.collapsed"
     :collapsed-width="theme.menuStyle.collapsedWidth"
     :width="menuWidth"
+    show-trigger="bar"
     @collapse="handleMenuCollapse(true)"
     @expand="handleMenuCollapse(false)"
   >

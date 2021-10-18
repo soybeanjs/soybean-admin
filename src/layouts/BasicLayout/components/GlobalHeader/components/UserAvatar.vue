@@ -13,9 +13,11 @@ import { UserAvatar, Logout } from '@vicons/carbon';
 import { dynamicIconRender, resetAuthStorage } from '@/utils';
 import { HoverContainer } from '@/components';
 import avatar from '@/assets/svg/avatar/avatar01.svg';
+import { useRouterChange } from '@/hooks';
 
 type DropdownKey = 'user-center' | 'logout';
 
+const { toLogin } = useRouterChange();
 const dialog = useDialog();
 
 const options = [
@@ -45,7 +47,7 @@ function handleDropdown(optionKey: string) {
       negativeText: '取消',
       onPositiveClick: () => {
         resetAuthStorage();
-        window.location.reload();
+        toLogin('pwd-login', 'current');
       }
     });
   }
