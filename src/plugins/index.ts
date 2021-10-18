@@ -1,3 +1,4 @@
 import setupWindicssDarkMode from './dark-mode';
+import setupMakeitCaptcha from './makeit-captcha';
 
-export { setupWindicssDarkMode };
+export { setupWindicssDarkMode, setupMakeitCaptcha };

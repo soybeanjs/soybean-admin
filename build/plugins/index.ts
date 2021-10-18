@@ -4,6 +4,6 @@ import html from './html';
 import iconify from './iconify';
 import visualizer from './visualizer';
 
-const plugins = [vue(), ...html, ...iconify, WindiCSS(), visualizer];
+const plugins = [vue, ...html, ...iconify, WindiCSS(), visualizer];
 
 export default plugins;

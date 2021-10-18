@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import type { VNodeChild } from 'vue';
 import { NScrollbar } from 'naive-ui';
 import { useRoute } from 'vue-router';
@@ -80,6 +80,13 @@ function handleMouseLeaveMenu() {
   activeParentRouteName.value = getActiveRouteName();
   hideDrawer();
 }
+
+watch(
+  () => route.name,
+  () => {
+    activeParentRouteName.value = getActiveRouteName();
+  }
+);
 </script>
 <style scoped>
 .mix-menu-width {

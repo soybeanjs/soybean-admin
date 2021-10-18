@@ -3,13 +3,16 @@ import App from './App.vue';
 import AppProvider from './AppProvider.vue';
 import { setupStore } from './store';
 import { setupRouter } from './router';
-import { setupWindicssDarkMode } from './plugins';
+import { setupWindicssDarkMode, setupMakeitCaptcha } from './plugins';
 import 'virtual:windi.css';
 import './styles/css/global.css';
 
 async function setupApp() {
   const appProvider = createApp(AppProvider);
   const app = createApp(App);
+
+  // 图片验证码插件
+  setupMakeitCaptcha(app);
 
   // 挂载全局状态
   setupStore(app);

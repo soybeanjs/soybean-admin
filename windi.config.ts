@@ -2,7 +2,6 @@ import { defineConfig } from 'windicss/helpers';
 import themeSettings from './src/settings/theme.json';
 
 const {
-  themeColor,
   otherColor: { info, success, warning, error }
 } = themeSettings;
 
@@ -35,7 +34,6 @@ export default defineConfig({
   theme: {
     extend: {
       colors: {
-        primary: themeColor,
         info,
         success,
         warning,

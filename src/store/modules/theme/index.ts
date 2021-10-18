@@ -40,18 +40,23 @@ const themeStore = defineStore({
           primaryColor,
           primaryColorHover,
           primaryColorPressed,
+          primaryColorSuppl: primaryColor,
           infoColor,
           infoColorHover,
           infoColorPressed,
+          infoColorSuppl: infoColor,
           successColor,
           successColorHover,
           successColorPressed,
+          successColorSuppl: infoColor,
           warningColor,
           warningColorHover,
           warningColorPressed,
+          warningColorSuppl: warningColor,
           errorColor,
           errorColorHover,
-          errorColorPressed
+          errorColorPressed,
+          errorColorSuppl: errorColor
         },
         LoadingBar: {
           colorLoading

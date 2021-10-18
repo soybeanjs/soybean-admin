@@ -7,6 +7,11 @@
       <n-form-item path="pwd">
         <n-input v-model:value="model.pwd" placeholder="密码" />
       </n-form-item>
+      <n-form-item path="isCaptcha">
+        <div class="w-full">
+          <mi-captcha :theme-color="theme.themeColor" :logo="logo" @success="handleCaptcha" />
+        </div>
+      </n-form-item>
       <n-space :vertical="true" size="large">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="rememberMe">记住我</n-checkbox>
@@ -31,12 +36,15 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton, useNotification } from 'naive-ui';
-import type { FormInst } from 'naive-ui';
+import type { FormInst, FormRules } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
+import { useThemeStore } from '@/store';
 import { useRouterChange, useRouteQuery } from '@/hooks';
 import { setToken, toLoginRedirectUrl } from '@/utils';
 import { OtherLogin } from './components';
+import logo from '@/assets/img/common/logo.png';
 
+const theme = useThemeStore();
 const { toHome, toCurrentLogin } = useRouterChange();
 const { loginRedirectUrl } = useRouteQuery();
 const notification = useNotification();
@@ -44,9 +52,10 @@ const notification = useNotification();
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
   phone: '15100000000',
-  pwd: '123456'
+  pwd: '123456',
+  isCaptcha: false
 });
-const rules = {
+const rules: FormRules = {
   phone: {
     required: true,
     trigger: ['blur', 'input'],
@@ -56,9 +65,20 @@ const rules = {
     required: true,
     trigger: ['blur', 'input'],
     message: '请输入密码'
+  },
+  isCaptcha: {
+    required: true,
+    type: 'boolean',
+    trigger: 'change',
+    message: '请点击按钮进行验证码校验',
+    validator: (_, value) => value === true
   }
 };
 const rememberMe = ref(false);
+
+function handleCaptcha() {
+  model.isCaptcha = true;
+}
 
 function handleSubmit(e: MouseEvent) {
   if (!formRef.value) return;
@@ -75,7 +95,8 @@ function handleSubmit(e: MouseEvent) {
 
       notification.success({
         title: '登录成功！',
-        content: '欢迎回来，Soybean!'
+        content: '欢迎回来，Soybean!',
+        duration: 5000
       });
     }
   });

@@ -6,6 +6,7 @@
       :key="item.mode"
       :mode="item.mode"
       :checked="theme.navStyle.mode === item.mode"
+      :primary-color="theme.themeColor"
       @click="setNavMode(item.mode)"
     />
   </n-space>
