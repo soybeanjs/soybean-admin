@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex-1 flex-col-stretch p-10px bg-[#f5f7f9] dark:bg-black"
+    class="flex-1 flex-col-stretch p-10px bg-[#F6F9F8] dark:bg-black"
     :class="{ 'overflow-hidden': routeProps.fullPage }"
   >
     <router-view v-slot="{ Component, route }">

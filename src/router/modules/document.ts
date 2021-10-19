@@ -9,7 +9,7 @@ const DOCUMENT: CustomRoute = {
   name: RouteNameMap.get('document'),
   path: EnumRoutePath.document,
   component: BasicLayout,
-  redirect: { name: RouteNameMap.get('document') },
+  redirect: { name: RouteNameMap.get('document_vue') },
   meta: {
     requiresAuth: true,
     title: EnumRouteTitle.document,

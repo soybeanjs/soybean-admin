@@ -3,8 +3,7 @@ import qs from 'qs';
 import type { AxiosRequestConfig, AxiosInstance } from 'axios';
 import { ContentType } from '@/enum';
 import { getToken } from '@/utils';
-import { errorHandler } from './errorHandler';
-import { transformFile } from '../utils';
+import { transformFile, errorHandler } from '../utils';
 
 export interface StatusConfig {
   /** 表明请求状态的属性key */
