@@ -5,6 +5,9 @@ import NotFound from '@/views/system/exception/404.vue';
 import ServiceError from '@/views/system/exception/500.vue';
 import DashboardAnalysis from '@/views/dashboard/analysis/index.vue';
 import DashboardWorkbench from '@/views/dashboard/workbench/index.vue';
+import DocumentVue from '@/views/document/vue/index.vue';
+import DocumentVite from '@/views/document/vite/index.vue';
+import DocumentNaive from '@/views/document/naive/index.vue';
 import MultiMenuFirstSecond from '@/views/multi-menu/first/second/index.vue';
 
 const Exception403 = { ...NoPermission };
@@ -17,6 +20,9 @@ setCacheName(NotFound, RouteNameMap.get('not-found'));
 setCacheName(ServiceError, RouteNameMap.get('service-error'));
 setCacheName(DashboardAnalysis, RouteNameMap.get('dashboard_analysis'));
 setCacheName(DashboardWorkbench, RouteNameMap.get('dashboard_workbench'));
+setCacheName(DocumentVue, RouteNameMap.get('document_vue'));
+setCacheName(DocumentVite, RouteNameMap.get('document_vite'));
+setCacheName(DocumentNaive, RouteNameMap.get('document_naive'));
 setCacheName(MultiMenuFirstSecond, RouteNameMap.get('multi-menu_first_second'));
 setCacheName(Exception404, RouteNameMap.get('exception_404'));
 setCacheName(Exception403, RouteNameMap.get('exception_403'));
@@ -29,6 +35,9 @@ export {
   ServiceError,
   DashboardAnalysis,
   DashboardWorkbench,
+  DocumentVue,
+  DocumentVite,
+  DocumentNaive,
   Exception403,
   Exception404,
   Exception500,
