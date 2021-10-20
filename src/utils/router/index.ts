@@ -15,6 +15,7 @@ export function setRouterCacheName(component: Component, name?: string) {
   }
 }
 
+// 获取登录后的重定向地址
 export function getLoginRedirectUrl() {
   const path = router.currentRoute.value.fullPath as EnumRoutePath;
   const redirectUrl = path === EnumRoutePath.root ? undefined : path;

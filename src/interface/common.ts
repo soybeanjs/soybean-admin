@@ -15,6 +15,8 @@ interface RouteMeta {
   isNotMenu?: boolean;
   /** 菜单和面包屑对应的图标 */
   icon?: Component;
+  /** 路由作为菜单时的排序 */
+  order?: number;
 }
 
 export type CustomRoute = RouteRecordRaw & { meta: RouteMeta };

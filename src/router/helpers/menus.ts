@@ -22,24 +22,26 @@ function addPartialProps(menuItem: GlobalMenuOption, icon?: Component, children?
 export default function transformRouteToMenu(routes: CustomRoute[]) {
   const globalMenu: GlobalMenuOption[] = [];
   routes.forEach(route => {
+    const { name, path, meta } = route;
+    const routeName = name as string;
+    let menuChildren: GlobalMenuOption[] | undefined;
+    if (route.children) {
+      menuChildren = transformRouteToMenu(route.children as CustomRoute[]);
+    }
+    const menuItem: GlobalMenuOption = addPartialProps(
+      {
+        key: routeName,
+        label: meta?.title ?? routeName,
+        routeName,
+        routePath: path
+      },
+      meta?.icon,
+      menuChildren
+    );
     if (asMenu(route)) {
-      const { name, path, meta } = route;
-      const routeName = name as string;
-      let menuChildren: GlobalMenuOption[] | undefined;
-      if (route.children) {
-        menuChildren = transformRouteToMenu(route.children as CustomRoute[]);
-      }
-      const menuItem: GlobalMenuOption = addPartialProps(
-        {
-          key: routeName,
-          label: meta?.title ?? routeName,
-          routeName,
-          routePath: path
-        },
-        meta?.icon,
-        menuChildren
-      );
       globalMenu.push(menuItem);
+    } else if (menuChildren) {
+      globalMenu.push(...menuChildren);
     }
   });
   return globalMenu;
