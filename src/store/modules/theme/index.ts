@@ -3,7 +3,7 @@ import type { GlobalThemeOverrides } from 'naive-ui';
 import { themeSettings, defaultThemeSettings } from '@/settings';
 import { store } from '@/store';
 import type { ThemeSettings, NavMode, MultiTabMode, AnimateType, HorizontalMenuPosition } from '@/interface';
-import { shallowColor } from '@/utils';
+import { addColorAlpha } from '@/utils';
 import { getHoverAndPressedColor } from './helpers';
 
 type ThemeState = ThemeSettings;
@@ -64,7 +64,7 @@ const themeStore = defineStore({
       };
     },
     relativeThemeColor(): relativeThemeColor {
-      const shallow = shallowColor(this.themeColor, 0.1);
+      const shallow = addColorAlpha(this.themeColor, 0.1);
       return {
         ...getHoverAndPressedColor(this.themeColor),
         shallow

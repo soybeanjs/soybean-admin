@@ -1,9 +1,9 @@
 <template>
-  <div class="relative flex-center w-full h-full bg-[#DBE0F9]">
+  <div class="relative flex-center w-full h-full" :style="{ backgroundColor: bgColor }">
     <div class="w-400px p-40px bg-white rounded-20px z-10">
       <header class="flex-y-center justify-between">
         <div class="w-70px h-70px rounded-35px overflow-hidden">
-          <system-logo class="w-full h-full" :fill="true" />
+          <system-logo class="w-full h-full" :fill="true" :color="theme.themeColor" />
         </div>
         <n-gradient-text type="primary" :size="28">{{ title }}</n-gradient-text>
       </header>
@@ -14,18 +14,21 @@
         </div>
       </main>
     </div>
-    <login-bg />
+    <login-bg :theme-color="theme.themeColor" />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 import type { Component, PropType } from 'vue';
 import { NGradientText } from 'naive-ui';
 import { SystemLogo, LoginBg } from '@/components';
 import { useAppTitle } from '@/hooks';
 import { EnumLoginModule } from '@/enum';
+import { addColorAlpha } from '@/utils';
 import type { LoginModuleType } from '@/interface';
 import { PwdLogin, CodeLogin, Register, ResetPwd, BindWechat } from './components';
+import { useThemeStore } from '@/store';
 
 interface LoginModule {
   key: LoginModuleType;
@@ -40,6 +43,7 @@ defineProps({
   }
 });
 
+const theme = useThemeStore();
 const title = useAppTitle();
 
 const modules: LoginModule[] = [
@@ -49,5 +53,7 @@ const modules: LoginModule[] = [
   { key: 'reset-pwd', label: EnumLoginModule['reset-pwd'], component: ResetPwd },
   { key: 'bind-wechat', label: EnumLoginModule['bind-wechat'], component: BindWechat }
 ];
+
+const bgColor = computed(() => addColorAlpha(theme.themeColor, 0.1));
 </script>
 <style scoped></style>

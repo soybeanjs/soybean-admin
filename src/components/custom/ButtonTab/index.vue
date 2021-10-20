@@ -29,7 +29,7 @@
 import { computed } from 'vue';
 import { useBoolean } from '@/hooks';
 import { IconClose } from '@/components';
-import { shallowColor } from '@/utils';
+import { addColorAlpha } from '@/utils';
 
 const props = defineProps({
   isActive: {
@@ -62,10 +62,10 @@ const buttonStyle = computed(() => {
   const style: { [key: string]: string } = {};
   if (props.isActive || isHover.value) {
     style.color = props.primaryColor;
-    style.borderColor = shallowColor(props.primaryColor, 0.3);
+    style.borderColor = addColorAlpha(props.primaryColor, 0.3);
     if (props.isActive) {
       const alpha = props.darkMode ? 0.15 : 0.1;
-      style.backgroundColor = shallowColor(props.primaryColor, alpha);
+      style.backgroundColor = addColorAlpha(props.primaryColor, alpha);
     }
   }
   return style;

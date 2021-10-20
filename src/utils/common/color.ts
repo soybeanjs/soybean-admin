@@ -2,26 +2,20 @@ import chroma from 'chroma-js';
 
 /**
  * 更亮的颜色
- * @param color
+ * @param color - 颜色
+ * @param deep - 效果层次
  */
-export function brightenColor(color: string) {
-  return chroma(color).brighten(0.5).hex();
-}
-
-/**
- * 更浅的颜色
- * @param color
- */
-export function shallowColor(color: string, alpha: number = 0.5) {
-  return chroma(color).alpha(alpha).hex();
+export function brightenColor(color: string, deep: number = 0.5) {
+  return chroma(color).brighten(deep).hex();
 }
 
 /**
  * 更暗的颜色
- * @param color
+ * @param color - 颜色
+ * @param deep - 效果层次
  */
-export function darkenColor(color: string) {
-  return chroma(color).darken(0.5).hex();
+export function darkenColor(color: string, deep: number = 0.5) {
+  return chroma(color).darken(deep).hex();
 }
 
 /**

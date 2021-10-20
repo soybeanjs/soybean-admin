@@ -1,7 +1,7 @@
 import { useRouter, useRoute } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
 import { EnumRoutePath } from '@/enum';
-import { router as globalRouter, RouteNameMap } from '@/router';
+import { router as globalRouter } from '@/router';
 import type { LoginModuleType } from '@/interface';
 
 /**
@@ -30,15 +30,15 @@ export default function useRouterChange(inSetup: boolean = true) {
    */
   function toLogin(module: LoginModuleType = 'pwd-login', redirectUrl?: LoginRedirect) {
     const routeLocation: RouteLocationRaw = {
-      name: RouteNameMap.get('login'),
-      params: { module }
+      path: EnumRoutePath.login,
+      query: { module }
     };
     if (redirectUrl) {
       let url = redirectUrl;
       if (redirectUrl === 'current') {
         url = router.currentRoute.value.fullPath as EnumRoutePath;
       }
-      routeLocation.query = { redirectUrl: url };
+      routeLocation.query!.redirectUrl = url;
     }
     router.push(routeLocation);
   }
@@ -51,7 +51,7 @@ export default function useRouterChange(inSetup: boolean = true) {
   function toCurrentLogin(module: LoginModuleType) {
     if (route) {
       const { query } = route;
-      router.push({ name: RouteNameMap.get('login'), params: { module }, query });
+      router.push({ path: EnumRoutePath.login, query: { ...query, module } });
     }
   }
 

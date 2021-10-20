@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { shallowColor } from '@/utils';
+import { addColorAlpha } from '@/utils';
 
 /** 填充的背景颜色： [默认颜色, 暗黑主题颜色] */
 type FillColor = [string, string];
@@ -66,7 +66,7 @@ const fill = computed(() => {
   }
   if (props.isActive) {
     const alpha = props.darkMode ? 0.15 : 0.1;
-    color = shallowColor(props.primaryColor, alpha);
+    color = addColorAlpha(props.primaryColor, alpha);
   }
   return color;
 });

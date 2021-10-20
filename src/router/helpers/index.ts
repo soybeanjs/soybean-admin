@@ -1,5 +1,5 @@
 import type { Component } from 'vue';
-import { getLoginModuleRegExp, getRouteNameMap } from '@/utils';
+import { getRouteNameMap } from '@/utils';
 import getCacheRoutes from './cache';
 import transformRouteToMenu from './menus';
 
@@ -12,8 +12,5 @@ export function setCacheName(component: Component, name?: string) {
 
 /** 路由name map */
 export const RouteNameMap = getRouteNameMap();
-
-/** 登录模块的正则字符串 */
-export const loginModuleRegExp = getLoginModuleRegExp();
 
 export { getCacheRoutes, transformRouteToMenu };

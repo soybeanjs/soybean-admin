@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BlankLayout } from '@/layouts';
 import type { LoginModuleType } from '@/interface';
-import { RouteNameMap, loginModuleRegExp } from '../helpers';
+import { RouteNameMap } from '../helpers';
 import { Login, NoPermission, NotFound, ServiceError } from '../components';
 
 /**
@@ -23,10 +23,10 @@ const constantRoutes: RouteRecordRaw[] = [
       // 登录
       {
         name: RouteNameMap.get('login'),
-        path: `${EnumRoutePath.login}/:module(/${loginModuleRegExp}/)?`,
+        path: EnumRoutePath.login,
         component: Login,
         props: route => {
-          const moduleType: LoginModuleType = (route.params.module as LoginModuleType) || 'pwd-login';
+          const moduleType: LoginModuleType = (route.query?.module as LoginModuleType) || 'pwd-login';
           return {
             module: moduleType
           };

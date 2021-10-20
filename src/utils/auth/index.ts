@@ -1,1 +1,1 @@
-export { getToken, setToken, removeToken, getUserInfo, resetAuthStorage, getLoginModuleRegExp } from './user';
+export { getToken, setToken, removeToken, getUserInfo, resetAuthStorage } from './user';

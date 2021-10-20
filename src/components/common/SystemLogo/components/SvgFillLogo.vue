@@ -35,7 +35,7 @@ defineProps({
   },
   foreground: {
     type: String,
-    default: '#fefefe00'
+    default: '#fefefe'
   }
 });
 </script>

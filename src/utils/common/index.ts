@@ -12,6 +12,6 @@ export {
   isMap
 } from './typeof';
 
-export { brightenColor, shallowColor, darkenColor, addColorAlpha } from './color';
+export { brightenColor, darkenColor, addColorAlpha } from './color';
 
 export { dynamicIconRender } from './icon';

@@ -1,4 +1,4 @@
-export { setToken, getToken, removeToken, getUserInfo, resetAuthStorage, getLoginModuleRegExp } from './auth';
+export { setToken, getToken, removeToken, getUserInfo, resetAuthStorage } from './auth';
 
 export {
   isNumber,
@@ -13,7 +13,6 @@ export {
   isSet,
   isMap,
   brightenColor,
-  shallowColor,
   darkenColor,
   addColorAlpha,
   dynamicIconRender

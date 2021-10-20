@@ -20,7 +20,7 @@
         <gihub-site />
         <full-screen />
         <user-avatar />
-        <setting-drawer-button />
+        <setting-drawer-button v-if="showSettingButton" />
       </div>
     </div>
   </n-layout-header>
@@ -60,6 +60,8 @@ const menuWidth = computed(() => {
 
   return `${width}px`;
 });
+
+const showSettingButton = import.meta.env.DEV || import.meta.env.VITE_HTTP_ENV === 'STAGING';
 </script>
 <style scoped>
 .global-header {
