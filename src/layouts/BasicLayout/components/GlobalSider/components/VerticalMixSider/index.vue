@@ -15,7 +15,7 @@
             :icon="item.icon"
             :active-route-name="activeParentRouteName"
             :is-mini="app.menu.collapsed"
-            @click="handleMixMenu(item.routeName)"
+            @click="handleMixMenu(item.routeName, item.isSingle)"
           />
         </n-scrollbar>
       </div>
@@ -34,7 +34,7 @@
 import { ref, computed, watch } from 'vue';
 import type { VNodeChild } from 'vue';
 import { NScrollbar } from 'naive-ui';
-import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useAppStore, useThemeStore } from '@/store';
 import { menus } from '@/router';
 import { MixMenu, MixMenuCollapse, MixMenuDrawer } from './components';
@@ -43,6 +43,7 @@ import { useBoolean } from '@/hooks';
 
 const theme = useThemeStore();
 const app = useAppStore();
+const router = useRouter();
 const route = useRoute();
 const { bool: drawerVisible, setTrue: openDrawer, setFalse: hideDrawer } = useBoolean();
 
@@ -53,10 +54,13 @@ const firstDegreeMenus = menus.map(item => {
   const { routeName } = item;
   const label = item.label as string;
   const icon = item.icon! as () => VNodeChild;
+  const isSingle = !(item.children && item.children.length);
+
   return {
     routeName,
     label,
-    icon
+    icon,
+    isSingle
   };
 });
 
@@ -64,16 +68,20 @@ const activeParentRouteName = ref(getActiveRouteName());
 
 function getActiveRouteName() {
   let name = '';
-  const { matched } = route;
-  if (matched.length) {
-    name = matched[0].name as string;
+  const menuMatched = route.matched.filter(item => !item.meta.isNotMenu);
+  if (menuMatched.length) {
+    name = menuMatched[0].name as string;
   }
   return name;
 }
 
-function handleMixMenu(routeName: string) {
+function handleMixMenu(routeName: string, isSingle: boolean) {
   activeParentRouteName.value = routeName;
-  openDrawer();
+  if (isSingle) {
+    router.push({ name: routeName });
+  } else {
+    openDrawer();
+  }
 }
 
 function handleMouseLeaveMenu() {

@@ -1,6 +1,8 @@
 <template>
   <n-layout-footer>
-    <div class="flex-center h-48px bg-white text-[#333639] dark:text-[#ffffffd1]">Copyright ©2021 Soybean Admin</div>
+    <div class="flex-center h-48px bg-light dark:bg-dark text-[#333639] dark:text-[#ffffffd1]">
+      Copyright ©2021 Soybean Admin
+    </div>
   </n-layout-footer>
 </template>
 
