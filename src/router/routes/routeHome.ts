@@ -1,11 +1,13 @@
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
-import { RouteNameMap } from '../helpers';
-import { DashboardAnalysis } from '../components';
+import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
+import DashboardAnalysis from '@/views/dashboard/analysis/index.vue';
+
+setRouterCacheName(DashboardAnalysis, ROUTE_NAME_MAP.get('dashboard_analysis'));
 
 /** 路由首页 */
 const ROUTE_HOME: CustomRoute = {
-  name: RouteNameMap.get('dashboard_analysis'),
+  name: ROUTE_NAME_MAP.get('dashboard_analysis'),
   path: EnumRoutePath.dashboard_analysis,
   component: DashboardAnalysis,
   meta: {

@@ -1,4 +1,4 @@
-import ROOT from './root'; // 没有子菜单的单独页面
+import ROOT from './root';
 import DASHBOARD from './dashboard';
 import DOCUMENT from './document';
 import COMPONENT from './component';

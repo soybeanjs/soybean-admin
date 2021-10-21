@@ -2,24 +2,26 @@ import { Menu } from '@vicons/carbon';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout, BasicChildLayout } from '@/layouts';
-import { RouteNameMap } from '../helpers';
-import { MultiMenuFirstSecond } from '../components';
+import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
+import MultiMenuFirstSecond from '@/views/multi-menu/first/second/index.vue';
+
+setRouterCacheName(MultiMenuFirstSecond, ROUTE_NAME_MAP.get('multi-menu_first_second'));
 
 const MULTI_MENU: CustomRoute = {
-  name: RouteNameMap.get('multi-menu'),
+  name: ROUTE_NAME_MAP.get('multi-menu'),
   path: EnumRoutePath['multi-menu'],
   component: BasicLayout,
-  redirect: { name: RouteNameMap.get('multi-menu_first') },
+  redirect: { name: ROUTE_NAME_MAP.get('multi-menu_first') },
   meta: {
     title: EnumRouteTitle['multi-menu'],
     icon: Menu
   },
   children: [
     {
-      name: RouteNameMap.get('multi-menu_first'),
+      name: ROUTE_NAME_MAP.get('multi-menu_first'),
       path: EnumRoutePath['multi-menu_first'],
       component: BasicChildLayout,
-      redirect: { name: RouteNameMap.get('multi-menu_first_second') },
+      redirect: { name: ROUTE_NAME_MAP.get('multi-menu_first_second') },
       meta: {
         keepAlive: true,
         requiresAuth: true,
@@ -27,7 +29,7 @@ const MULTI_MENU: CustomRoute = {
       },
       children: [
         {
-          name: RouteNameMap.get('multi-menu_first_second'),
+          name: ROUTE_NAME_MAP.get('multi-menu_first_second'),
           path: EnumRoutePath['multi-menu_first_second'],
           component: MultiMenuFirstSecond,
           meta: {

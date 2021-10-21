@@ -1,11 +1,14 @@
 import { BookInformation24Regular } from '@vicons/fluent';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
-import { RouteNameMap, getSingleBasicLayoutRoute } from '../helpers';
-import { About } from '../components';
+import { ROUTE_NAME_MAP, setRouterCacheName, setSingleRoute } from '@/utils';
+import { BasicLayout } from '@/layouts';
+import About from '@/views/about/index.vue';
 
-const ABOUT: CustomRoute = getSingleBasicLayoutRoute({
-  name: RouteNameMap.get('about'),
+setRouterCacheName(About, ROUTE_NAME_MAP.get('about'));
+
+const ABOUT: CustomRoute = setSingleRoute(BasicLayout, {
+  name: ROUTE_NAME_MAP.get('about'),
   path: EnumRoutePath.about,
   component: About,
   meta: {
@@ -14,4 +17,5 @@ const ABOUT: CustomRoute = getSingleBasicLayoutRoute({
     icon: BookInformation24Regular
   }
 });
+
 export default ABOUT;

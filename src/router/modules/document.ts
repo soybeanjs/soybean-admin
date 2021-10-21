@@ -2,14 +2,20 @@ import { Document } from '@vicons/carbon';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout } from '@/layouts';
-import { RouteNameMap } from '../helpers';
-import { DocumentVue, DocumentVite, DocumentNaive } from '../components';
+import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
+import DocumentVue from '@/views/document/vue/index.vue';
+import DocumentVite from '@/views/document/vite/index.vue';
+import DocumentNaive from '@/views/document/naive/index.vue';
+
+setRouterCacheName(DocumentVue, ROUTE_NAME_MAP.get('document_vue'));
+setRouterCacheName(DocumentVite, ROUTE_NAME_MAP.get('document_vite'));
+setRouterCacheName(DocumentNaive, ROUTE_NAME_MAP.get('document_naive'));
 
 const DOCUMENT: CustomRoute = {
-  name: RouteNameMap.get('document'),
+  name: ROUTE_NAME_MAP.get('document'),
   path: EnumRoutePath.document,
   component: BasicLayout,
-  redirect: { name: RouteNameMap.get('document_vue') },
+  redirect: { name: ROUTE_NAME_MAP.get('document_vue') },
   meta: {
     requiresAuth: true,
     title: EnumRouteTitle.document,
@@ -17,7 +23,7 @@ const DOCUMENT: CustomRoute = {
   },
   children: [
     {
-      name: RouteNameMap.get('document_vue'),
+      name: ROUTE_NAME_MAP.get('document_vue'),
       path: EnumRoutePath.document_vue,
       component: DocumentVue,
       meta: {
@@ -27,7 +33,7 @@ const DOCUMENT: CustomRoute = {
       }
     },
     {
-      name: RouteNameMap.get('document_vite'),
+      name: ROUTE_NAME_MAP.get('document_vite'),
       path: EnumRoutePath.document_vite,
       component: DocumentVite,
       meta: {
@@ -37,7 +43,7 @@ const DOCUMENT: CustomRoute = {
       }
     },
     {
-      name: RouteNameMap.get('document_naive'),
+      name: ROUTE_NAME_MAP.get('document_naive'),
       path: EnumRoutePath.document_naive,
       component: DocumentNaive,
       meta: {

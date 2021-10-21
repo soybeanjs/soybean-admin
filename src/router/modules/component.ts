@@ -2,14 +2,18 @@ import { AppStore24Regular } from '@vicons/fluent';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout } from '@/layouts';
-import { RouteNameMap } from '../helpers';
-import { ComponentMap, ComponentVideo } from '../components';
+import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
+import ComponentMap from '@/views/component/map/index.vue';
+import ComponentVideo from '@/views/component/video/index.vue';
+
+setRouterCacheName(ComponentMap, ROUTE_NAME_MAP.get('component_map'));
+setRouterCacheName(ComponentVideo, ROUTE_NAME_MAP.get('component_video'));
 
 const COMPONENT: CustomRoute = {
-  name: RouteNameMap.get('component'),
+  name: ROUTE_NAME_MAP.get('component'),
   path: EnumRoutePath.component,
   component: BasicLayout,
-  redirect: { name: RouteNameMap.get('component_map') },
+  redirect: { name: ROUTE_NAME_MAP.get('component_map') },
   meta: {
     requiresAuth: true,
     title: EnumRouteTitle.component,
@@ -17,7 +21,7 @@ const COMPONENT: CustomRoute = {
   },
   children: [
     {
-      name: RouteNameMap.get('component_map'),
+      name: ROUTE_NAME_MAP.get('component_map'),
       path: EnumRoutePath.component_map,
       component: ComponentMap,
       meta: {
@@ -27,7 +31,7 @@ const COMPONENT: CustomRoute = {
       }
     },
     {
-      name: RouteNameMap.get('component_video'),
+      name: ROUTE_NAME_MAP.get('component_video'),
       path: EnumRoutePath.component_video,
       component: ComponentVideo,
       meta: {

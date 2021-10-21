@@ -29,4 +29,11 @@ export {
   clearSession
 } from './storage';
 
-export { getRouteNameMap, setRouterCacheName, getLoginRedirectUrl } from './router';
+export {
+  ROUTE_NAME_MAP,
+  setRouterCacheName,
+  getLoginRedirectUrl,
+  setSingleRoute,
+  getCacheRoutes,
+  transformRouteToMenu
+} from './router';

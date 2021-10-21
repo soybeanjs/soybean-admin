@@ -2,8 +2,11 @@ import type { RouteRecordRaw } from 'vue-router';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BlankLayout } from '@/layouts';
 import type { LoginModuleType } from '@/interface';
-import { RouteNameMap } from '../helpers';
-import { Login, NoPermission, NotFound, ServiceError } from '../components';
+import { ROUTE_NAME_MAP } from '@/utils';
+import Login from '@/views/system/login/index.vue';
+import NoPermission from '@/views/system/exception/403.vue';
+import NotFound from '@/views/system/exception/404.vue';
+import ServiceError from '@/views/system/exception/500.vue';
 
 /**
  * 固定不变的路由
@@ -11,10 +14,10 @@ import { Login, NoPermission, NotFound, ServiceError } from '../components';
  */
 const constantRoutes: RouteRecordRaw[] = [
   {
-    name: RouteNameMap.get('system'),
+    name: ROUTE_NAME_MAP.get('system'),
     path: EnumRoutePath.system,
     component: BlankLayout,
-    redirect: { name: RouteNameMap.get('not-found') },
+    redirect: { name: ROUTE_NAME_MAP.get('not-found') },
     meta: {
       keepAlive: true,
       title: EnumRouteTitle.system
@@ -22,7 +25,7 @@ const constantRoutes: RouteRecordRaw[] = [
     children: [
       // 登录
       {
-        name: RouteNameMap.get('login'),
+        name: ROUTE_NAME_MAP.get('login'),
         path: EnumRoutePath.login,
         component: Login,
         props: route => {
@@ -38,7 +41,7 @@ const constantRoutes: RouteRecordRaw[] = [
       },
       // 403
       {
-        name: RouteNameMap.get('no-permission'),
+        name: ROUTE_NAME_MAP.get('no-permission'),
         path: EnumRoutePath['no-permission'],
         component: NoPermission,
         meta: {
@@ -48,7 +51,7 @@ const constantRoutes: RouteRecordRaw[] = [
       },
       // 404
       {
-        name: RouteNameMap.get('not-found'),
+        name: ROUTE_NAME_MAP.get('not-found'),
         path: EnumRoutePath['not-found'],
         component: NotFound,
         meta: {
@@ -58,7 +61,7 @@ const constantRoutes: RouteRecordRaw[] = [
       },
       // 500
       {
-        name: RouteNameMap.get('service-error'),
+        name: ROUTE_NAME_MAP.get('service-error'),
         path: EnumRoutePath['service-error'],
         component: ServiceError,
         meta: {

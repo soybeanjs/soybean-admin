@@ -1,7 +1,6 @@
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { useTitle } from '@vueuse/core';
-import { getToken, getLoginRedirectUrl } from '@/utils';
-import { RouteNameMap } from '../helpers';
+import { getToken, getLoginRedirectUrl, ROUTE_NAME_MAP } from '@/utils';
 
 /**
  * 路由守卫函数
@@ -30,9 +29,9 @@ function handleRouterAction(to: RouteLocationNormalized, from: RouteLocationNorm
   const routerAction: [boolean, () => void][] = [
     // 已登录状态跳转登录页，跳转至首页
     [
-      isLogin && to.name === RouteNameMap.get('login'),
+      isLogin && to.name === ROUTE_NAME_MAP.get('login'),
       () => {
-        next({ name: RouteNameMap.get('root') });
+        next({ name: ROUTE_NAME_MAP.get('root') });
       }
     ],
     // 不需要登录权限的页面直接通行
@@ -47,7 +46,7 @@ function handleRouterAction(to: RouteLocationNormalized, from: RouteLocationNorm
       !isLogin && needLogin,
       () => {
         const redirectUrl = getLoginRedirectUrl();
-        next({ name: RouteNameMap.get('login'), query: { redirectUrl } });
+        next({ name: ROUTE_NAME_MAP.get('login'), query: { redirectUrl } });
       }
     ],
     // 登录状态进入需要登录权限的页面,直接通行

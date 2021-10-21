@@ -1,9 +1,8 @@
-import { getCacheRoutes, transformRouteToMenu } from './helpers';
-import { customRoutes, routes } from './routes';
+import { getCacheRoutes, transformRouteToMenu } from '@/utils';
+import { customRoutes, routes, ROUTE_HOME } from './routes';
+import { router, setupRouter } from './setup';
 
-export { router, setupRouter } from './setup';
-export { ROUTE_HOME, customRoutes, routes } from './routes';
-export { RouteNameMap } from './helpers';
+const cacheRoutes = getCacheRoutes(routes);
+const menus = transformRouteToMenu(customRoutes);
 
-export const cacheRoutes = getCacheRoutes(routes);
-export const menus = transformRouteToMenu(customRoutes);
+export { customRoutes, routes, ROUTE_HOME, router, setupRouter, cacheRoutes, menus };
