@@ -9,7 +9,13 @@
       </n-form-item>
       <n-form-item path="isCaptcha">
         <div class="w-full">
-          <mi-captcha :theme-color="theme.themeColor" :logo="logo" @success="handleCaptcha" />
+          <mi-captcha
+            :theme-color="theme.themeColor"
+            :bg-color="themeVars.inputColor"
+            :text-color="themeVars.textColorBase"
+            :logo="logo"
+            @success="handleCaptcha"
+          />
         </div>
       </n-form-item>
       <n-space :vertical="true" size="large">
@@ -17,7 +23,9 @@
           <n-checkbox v-model:checked="rememberMe">记住我</n-checkbox>
           <span class="g_text-primary cursor-pointer" @click="toCurrentLogin('reset-pwd')">忘记密码？</span>
         </div>
-        <n-button type="primary" size="large" :block="true" :round="true" @click="handleSubmit">确定</n-button>
+        <n-button type="primary" size="large" :block="true" :round="true" :loading="loading" @click="handleSubmit">
+          确定
+        </n-button>
         <div class="flex-y-center justify-between">
           <n-button class="flex-1" :block="true" @click="toCurrentLogin('code-login')">
             {{ EnumLoginModule['code-login'] }}
@@ -35,11 +43,11 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton, useNotification } from 'naive-ui';
+import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton, useNotification, useThemeVars } from 'naive-ui';
 import type { FormInst, FormRules } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
 import { useThemeStore } from '@/store';
-import { useRouterChange, useRouteQuery } from '@/hooks';
+import { useRouterChange, useRouteQuery, useLoading } from '@/hooks';
 import { setToken } from '@/utils';
 import { OtherLogin } from './components';
 import logo from '@/assets/img/common/logo.png';
@@ -47,7 +55,9 @@ import logo from '@/assets/img/common/logo.png';
 const theme = useThemeStore();
 const { toHome, toCurrentLogin, toLoginRedirectUrl } = useRouterChange();
 const { loginRedirectUrl } = useRouteQuery();
+const { loading, startLoading, endLoading } = useLoading();
 const notification = useNotification();
+const themeVars = useThemeVars();
 
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
@@ -86,18 +96,21 @@ function handleSubmit(e: MouseEvent) {
 
   formRef.value.validate(errors => {
     if (!errors) {
-      setToken('temp-token');
-      if (loginRedirectUrl.value) {
-        toLoginRedirectUrl(loginRedirectUrl.value);
-      } else {
-        toHome();
-      }
-
-      notification.success({
-        title: '登录成功！',
-        content: '欢迎回来，Soybean!',
-        duration: 5000
-      });
+      startLoading();
+      setTimeout(() => {
+        endLoading();
+        setToken('temp-token');
+        if (loginRedirectUrl.value) {
+          toLoginRedirectUrl(loginRedirectUrl.value);
+        } else {
+          toHome();
+        }
+        notification.success({
+          title: '登录成功！',
+          content: '欢迎回来，Soybean!',
+          duration: 3000
+        });
+      }, 1000);
     }
   });
 }

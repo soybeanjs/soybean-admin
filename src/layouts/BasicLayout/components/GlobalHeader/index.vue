@@ -19,6 +19,7 @@
       <div class="flex justify-end h-full">
         <gihub-site />
         <full-screen />
+        <theme-mode />
         <user-avatar />
         <setting-drawer-button v-if="showSettingButton" />
       </div>
@@ -30,7 +31,15 @@
 import { computed } from 'vue';
 import { NLayoutHeader } from 'naive-ui';
 import { useThemeStore } from '@/store';
-import { GlobalBreadcrumb, UserAvatar, MenuCollapse, FullScreen, GihubSite, SettingDrawerButton } from './components';
+import {
+  GlobalBreadcrumb,
+  UserAvatar,
+  MenuCollapse,
+  ThemeMode,
+  FullScreen,
+  GihubSite,
+  SettingDrawerButton
+} from './components';
 import { GlobalLogo } from '../common';
 import HeaderMenu from './components/HeaderMenu.vue';
 

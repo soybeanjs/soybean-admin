@@ -29,7 +29,8 @@ const DOCUMENT: CustomRoute = {
       meta: {
         requiresAuth: true,
         title: EnumRouteTitle.document_vue,
-        fullPage: true
+        fullPage: true,
+        keepAlive: true
       }
     },
     {

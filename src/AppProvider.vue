@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import {
   NConfigProvider,
   darkTheme,
@@ -31,17 +31,28 @@ import {
   NNotificationProvider,
   NMessageProvider
 } from 'naive-ui';
+import { useDark } from '@vueuse/core';
 import { AppProviderContent } from '@/components';
 import { useThemeStore } from '@/store';
 import { addColorAlpha } from '@/utils';
 
+const osDark = useDark();
 const theme = useThemeStore();
+const { handleDarkMode } = useThemeStore();
+
+/** 系统暗黑模式 */
 const dark = computed(() => (theme.darkMode ? darkTheme : undefined));
 
+// 主题颜色
 const primary = computed(() => theme.themeColor);
 const primaryWithAlpha = computed(() => {
   const alpha = theme.darkMode ? 0.15 : 0.1;
   return addColorAlpha(primary.value, alpha);
+});
+
+// 操作系统的暗黑模式
+watch(osDark, newValue => {
+  handleDarkMode(newValue);
 });
 </script>
 <style>

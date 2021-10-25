@@ -1,6 +1,6 @@
 <template>
-  <div class="relative flex-center w-full h-full" :style="{ backgroundColor: bgColor }">
-    <div class="w-400px p-40px bg-white rounded-20px z-10">
+  <div class="login-bg relative flex-center w-full h-full">
+    <shadow-card class="w-400px p-40px !rounded-20px z-10">
       <header class="flex-y-center justify-between">
         <div class="w-70px h-70px rounded-35px overflow-hidden">
           <system-logo class="w-full h-full" :fill="true" :color="theme.themeColor" />
@@ -13,7 +13,7 @@
           <component :is="item.component" />
         </div>
       </main>
-    </div>
+    </shadow-card>
     <login-bg :theme-color="theme.themeColor" />
   </div>
 </template>
@@ -22,7 +22,7 @@
 import { computed } from 'vue';
 import type { Component, PropType } from 'vue';
 import { NGradientText } from 'naive-ui';
-import { SystemLogo, LoginBg } from '@/components';
+import { ShadowCard, SystemLogo, LoginBg } from '@/components';
 import { useAppTitle } from '@/hooks';
 import { EnumLoginModule } from '@/enum';
 import { addColorAlpha } from '@/utils';
@@ -56,4 +56,8 @@ const modules: LoginModule[] = [
 
 const bgColor = computed(() => addColorAlpha(theme.themeColor, 0.1));
 </script>
-<style scoped></style>
+<style scoped>
+.login-bg {
+  background-color: v-bind(bgColor);
+}
+</style>
