@@ -7,8 +7,8 @@ specifiers:
   '@iconify/vue': ^3.0.0
   '@types/chroma-js': ^2.1.3
   '@types/qs': ^6.9.7
-  '@typescript-eslint/eslint-plugin': ^5.1.0
-  '@typescript-eslint/parser': ^5.1.0
+  '@typescript-eslint/eslint-plugin': ^5.2.0
+  '@typescript-eslint/parser': ^5.2.0
   '@vicons/antd': ^0.11.0
   '@vicons/carbon': ^0.11.0
   '@vicons/fa': ^0.11.0
@@ -22,7 +22,7 @@ specifiers:
   '@vue/eslint-config-prettier': ^6.0.0
   '@vue/eslint-config-typescript': ^8.0.0
   '@vueuse/core': ^6.7.3
-  axios: ^0.23.0
+  axios: ^0.24.0
   chroma-js: ^2.1.2
   clipboard: ^2.0.8
   commitizen: ^4.2.4
@@ -51,7 +51,7 @@ specifiers:
   typescript: ^4.4.4
   unplugin-icons: ^0.12.16
   unplugin-vue-components: ^0.16.0
-  vite: ^2.6.10
+  vite: ^2.6.11
   vite-plugin-html: ^2.1.1
   vite-plugin-windicss: ^1.4.12
   vue: ^3.2.20
@@ -62,7 +62,7 @@ specifiers:
 
 dependencies:
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/6.7.3_vue@3.2.20
-  axios: registry.npmmirror.com/axios/0.23.0
+  axios: registry.npmmirror.com/axios/0.24.0
   chroma-js: registry.nlark.com/chroma-js/2.1.2
   clipboard: registry.nlark.com/clipboard/2.0.8
   dayjs: registry.nlark.com/dayjs/1.10.7
@@ -81,8 +81,8 @@ devDependencies:
   '@iconify/vue': registry.nlark.com/@iconify/vue/3.0.0_vue@3.2.20
   '@types/chroma-js': registry.nlark.com/@types/chroma-js/2.1.3
   '@types/qs': registry.nlark.com/@types/qs/6.9.7
-  '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.1.0_273a00ec265649c49755eee7222c1c12
-  '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.1.0_eslint@8.1.0+typescript@4.4.4
+  '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.2.0_9a56ca1c5fc1d82b3da3317a5c6f9ab1
+  '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.2.0_eslint@8.1.0+typescript@4.4.4
   '@vicons/antd': registry.nlark.com/@vicons/antd/0.11.0
   '@vicons/carbon': registry.nlark.com/@vicons/carbon/0.11.0
   '@vicons/fa': registry.nlark.com/@vicons/fa/0.11.0
@@ -91,10 +91,10 @@ devDependencies:
   '@vicons/ionicons5': registry.nlark.com/@vicons/ionicons5/0.11.0
   '@vicons/material': registry.nlark.com/@vicons/material/0.11.0
   '@vicons/tabler': registry.nlark.com/@vicons/tabler/0.11.0
-  '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/1.9.3_vite@2.6.10
+  '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/1.9.3_vite@2.6.11
   '@vue/compiler-sfc': registry.npmmirror.com/@vue/compiler-sfc/3.2.20
   '@vue/eslint-config-prettier': 6.0.0_91df2dbc49a694d3127d896fd063ef53
-  '@vue/eslint-config-typescript': registry.npmmirror.com/@vue/eslint-config-typescript/8.0.0_333a40bd3b2ba6e9046e0d40233f9e1e
+  '@vue/eslint-config-typescript': registry.npmmirror.com/@vue/eslint-config-typescript/8.0.0_879fc49a891c1cb6641c01e94db88a59
   commitizen: registry.nlark.com/commitizen/4.2.4
   cz-conventional-changelog: registry.nlark.com/cz-conventional-changelog/3.3.0
   cz-customizable: registry.nlark.com/cz-customizable/6.3.0
@@ -113,11 +113,11 @@ devDependencies:
   rollup-plugin-visualizer: registry.nlark.com/rollup-plugin-visualizer/5.5.2
   sass: registry.npmmirror.com/sass/1.43.3
   typescript: registry.npmmirror.com/typescript/4.4.4
-  unplugin-icons: registry.npmmirror.com/unplugin-icons/0.12.16_db95163608a1914986a6b89b9234c90a
-  unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.16.0_vite@2.6.10+vue@3.2.20
-  vite: registry.npmmirror.com/vite/2.6.10_sass@1.43.3
-  vite-plugin-html: registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.6.10
-  vite-plugin-windicss: registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.6.10
+  unplugin-icons: registry.npmmirror.com/unplugin-icons/0.12.16_5ec103ac36155c09fef0062610abc063
+  unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.16.0_vite@2.6.11+vue@3.2.20
+  vite: registry.npmmirror.com/vite/2.6.11_sass@1.43.3
+  vite-plugin-html: registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.6.11
+  vite-plugin-windicss: registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.6.11
   vue-tsc: registry.npmmirror.com/vue-tsc/0.28.8_typescript@4.4.4
   vueuc: registry.npmmirror.com/vueuc/0.4.13_vue@3.2.20
   windicss: registry.npmmirror.com/windicss/3.1.9
@@ -233,7 +233,7 @@ packages:
     resolution: {integrity: sha1-IUj/w4uC6McFff7UhCWz5h8PJKU=, tarball: esquery/download/esquery-1.4.0.tgz}
     engines: {node: '>=0.10'}
     dependencies:
-      estraverse: registry.nlark.com/estraverse/5.2.0
+      estraverse: registry.npmmirror.com/estraverse/5.2.0
     dev: true
 
   /expand-tilde/2.0.2:
@@ -1957,13 +1957,13 @@ packages:
     dev: true
 
   registry.nlark.com/eslint-scope/5.1.1:
-    resolution: {integrity: sha1-54blmmbLkrP2wfsNUIqrF0hI9Iw=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/eslint-scope/download/eslint-scope-5.1.1.tgz?cache=0&sync_timestamp=1631500167228&other_urls=https%3A%2F%2Fregistry.nlark.com%2Feslint-scope%2Fdownload%2Feslint-scope-5.1.1.tgz}
+    resolution: {integrity: sha1-54blmmbLkrP2wfsNUIqrF0hI9Iw=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/eslint-scope/download/eslint-scope-5.1.1.tgz?cache=0&sync_timestamp=1631586848558&other_urls=https%3A%2F%2Fregistry.nlark.com%2Feslint-scope%2Fdownload%2Feslint-scope-5.1.1.tgz}
     name: eslint-scope
     version: 5.1.1
     engines: {node: '>=8.0.0'}
     dependencies:
       esrecurse: registry.nlark.com/esrecurse/4.3.0
-      estraverse: registry.nlark.com/estraverse/4.3.0
+      estraverse: registry.npmmirror.com/estraverse/4.3.0
     dev: true
 
   registry.nlark.com/eslint-scope/6.0.0:
@@ -2059,19 +2059,12 @@ packages:
     dev: true
 
   registry.nlark.com/esrecurse/4.3.0:
-    resolution: {integrity: sha1-eteWTWeauyi+5yzsY3WLHF0smSE=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/esrecurse/download/esrecurse-4.3.0.tgz}
+    resolution: {integrity: sha1-eteWTWeauyi+5yzsY3WLHF0smSE=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/esrecurse/download/esrecurse-4.3.0.tgz}
     name: esrecurse
     version: 4.3.0
     engines: {node: '>=4.0'}
     dependencies:
-      estraverse: registry.nlark.com/estraverse/5.2.0
-    dev: true
-
-  registry.nlark.com/estraverse/4.3.0:
-    resolution: {integrity: sha1-OYrT88WiSUi+dyXoPRGn3ijNvR0=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/estraverse/download/estraverse-4.3.0.tgz}
-    name: estraverse
-    version: 4.3.0
-    engines: {node: '>=4.0'}
+      estraverse: registry.npmmirror.com/estraverse/5.2.0
     dev: true
 
   registry.nlark.com/estraverse/5.2.0:
@@ -2247,11 +2240,6 @@ packages:
     name: follow-redirects
     version: 1.14.4
     engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
     dev: false
 
   registry.nlark.com/fs-extra/10.0.0:
@@ -2412,7 +2400,7 @@ packages:
     dev: true
 
   registry.nlark.com/globby/11.0.4:
-    resolution: {integrity: sha1-LLr/d8Lypi5x6bKBOme5ejowAaU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/globby/download/globby-11.0.4.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fglobby%2Fdownload%2Fglobby-11.0.4.tgz}
+    resolution: {integrity: sha1-LLr/d8Lypi5x6bKBOme5ejowAaU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/globby/download/globby-11.0.4.tgz}
     name: globby
     version: 11.0.4
     engines: {node: '>=10'}
@@ -4289,7 +4277,7 @@ packages:
     dev: true
 
   registry.nlark.com/tsutils/3.21.0_typescript@4.4.4:
-    resolution: {integrity: sha1-tIcX05TOpsHglpg+7Vjp1hcVtiM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/tsutils/download/tsutils-3.21.0.tgz?cache=0&sync_timestamp=1631500162348&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftsutils%2Fdownload%2Ftsutils-3.21.0.tgz}
+    resolution: {integrity: sha1-tIcX05TOpsHglpg+7Vjp1hcVtiM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/tsutils/download/tsutils-3.21.0.tgz}
     id: registry.nlark.com/tsutils/3.21.0
     name: tsutils
     version: 3.21.0
@@ -4878,11 +4866,11 @@ packages:
     dependencies:
       '@types/yargs-parser': registry.nlark.com/@types/yargs-parser/20.2.1
 
-  registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.1.0_273a00ec265649c49755eee7222c1c12:
-    resolution: {integrity: sha1-OBwYjfqxL3ose2qLokAtYnPq3qo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/eslint-plugin/download/@typescript-eslint/eslint-plugin-5.1.0.tgz}
-    id: registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.1.0
+  registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.2.0_9a56ca1c5fc1d82b3da3317a5c6f9ab1:
+    resolution: {integrity: sha1-K9skfMLir85++84Jr7mm8KighDQ=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/eslint-plugin/download/@typescript-eslint/eslint-plugin-5.2.0.tgz?cache=0&sync_timestamp=1635228333717&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40typescript-eslint%2Feslint-plugin%2Fdownload%2F%40typescript-eslint%2Feslint-plugin-5.2.0.tgz}
+    id: registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.2.0
     name: '@typescript-eslint/eslint-plugin'
-    version: 5.1.0
+    version: 5.2.0
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       '@typescript-eslint/parser': ^5.0.0
@@ -4892,9 +4880,9 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/experimental-utils': registry.npmmirror.com/@typescript-eslint/experimental-utils/5.1.0_eslint@8.1.0+typescript@4.4.4
-      '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.1.0_eslint@8.1.0+typescript@4.4.4
-      '@typescript-eslint/scope-manager': registry.npmmirror.com/@typescript-eslint/scope-manager/5.1.0
+      '@typescript-eslint/experimental-utils': registry.npmmirror.com/@typescript-eslint/experimental-utils/5.2.0_eslint@8.1.0+typescript@4.4.4
+      '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.2.0_eslint@8.1.0+typescript@4.4.4
+      '@typescript-eslint/scope-manager': registry.npmmirror.com/@typescript-eslint/scope-manager/5.2.0
       debug: registry.nlark.com/debug/4.3.2
       eslint: registry.npmmirror.com/eslint/8.1.0
       functional-red-black-tree: registry.nlark.com/functional-red-black-tree/1.0.1
@@ -4907,19 +4895,19 @@ packages:
       - supports-color
     dev: true
 
-  registry.npmmirror.com/@typescript-eslint/experimental-utils/5.1.0_eslint@8.1.0+typescript@4.4.4:
-    resolution: {integrity: sha1-kYoaPTBATMH47c/fDfIAgE75DTE=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/experimental-utils/download/@typescript-eslint/experimental-utils-5.1.0.tgz}
-    id: registry.npmmirror.com/@typescript-eslint/experimental-utils/5.1.0
+  registry.npmmirror.com/@typescript-eslint/experimental-utils/5.2.0_eslint@8.1.0+typescript@4.4.4:
+    resolution: {integrity: sha1-47LLnNCv+bUPaNmkFMKZ/SawZ+Y=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/experimental-utils/download/@typescript-eslint/experimental-utils-5.2.0.tgz}
+    id: registry.npmmirror.com/@typescript-eslint/experimental-utils/5.2.0
     name: '@typescript-eslint/experimental-utils'
-    version: 5.1.0
+    version: 5.2.0
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '*'
     dependencies:
       '@types/json-schema': registry.nlark.com/@types/json-schema/7.0.9
-      '@typescript-eslint/scope-manager': registry.npmmirror.com/@typescript-eslint/scope-manager/5.1.0
-      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.1.0
-      '@typescript-eslint/typescript-estree': registry.npmmirror.com/@typescript-eslint/typescript-estree/5.1.0_typescript@4.4.4
+      '@typescript-eslint/scope-manager': registry.npmmirror.com/@typescript-eslint/scope-manager/5.2.0
+      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.2.0
+      '@typescript-eslint/typescript-estree': registry.npmmirror.com/@typescript-eslint/typescript-estree/5.2.0_typescript@4.4.4
       eslint: registry.npmmirror.com/eslint/8.1.0
       eslint-scope: registry.nlark.com/eslint-scope/5.1.1
       eslint-utils: registry.nlark.com/eslint-utils/3.0.0_eslint@8.1.0
@@ -4928,11 +4916,11 @@ packages:
       - typescript
     dev: true
 
-  registry.npmmirror.com/@typescript-eslint/parser/5.1.0_eslint@8.1.0+typescript@4.4.4:
-    resolution: {integrity: sha1-bH+DfSENK8CoEefqdCr0FPTgCQg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/parser/download/@typescript-eslint/parser-5.1.0.tgz}
-    id: registry.npmmirror.com/@typescript-eslint/parser/5.1.0
+  registry.npmmirror.com/@typescript-eslint/parser/5.2.0_eslint@8.1.0+typescript@4.4.4:
+    resolution: {integrity: sha1-3AgaqJ3ha1Z2sQIVUZrzqntY+3I=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/parser/download/@typescript-eslint/parser-5.2.0.tgz}
+    id: registry.npmmirror.com/@typescript-eslint/parser/5.2.0
     name: '@typescript-eslint/parser'
-    version: 5.1.0
+    version: 5.2.0
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -4941,9 +4929,9 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/scope-manager': registry.npmmirror.com/@typescript-eslint/scope-manager/5.1.0
-      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.1.0
-      '@typescript-eslint/typescript-estree': registry.npmmirror.com/@typescript-eslint/typescript-estree/5.1.0_typescript@4.4.4
+      '@typescript-eslint/scope-manager': registry.npmmirror.com/@typescript-eslint/scope-manager/5.2.0
+      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.2.0
+      '@typescript-eslint/typescript-estree': registry.npmmirror.com/@typescript-eslint/typescript-estree/5.2.0_typescript@4.4.4
       debug: registry.nlark.com/debug/4.3.2
       eslint: registry.npmmirror.com/eslint/8.1.0
       typescript: registry.npmmirror.com/typescript/4.4.4
@@ -4951,28 +4939,28 @@ packages:
       - supports-color
     dev: true
 
-  registry.npmmirror.com/@typescript-eslint/scope-manager/5.1.0:
-    resolution: {integrity: sha1-bx8mrWao9xu7M7Y150/sQ/drRN8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/scope-manager/download/@typescript-eslint/scope-manager-5.1.0.tgz}
+  registry.npmmirror.com/@typescript-eslint/scope-manager/5.2.0:
+    resolution: {integrity: sha1-fOjkqyuqoK1SgpE+qOE84D7GoSo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/scope-manager/download/@typescript-eslint/scope-manager-5.2.0.tgz}
     name: '@typescript-eslint/scope-manager'
-    version: 5.1.0
+    version: 5.2.0
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.1.0
-      '@typescript-eslint/visitor-keys': registry.npmmirror.com/@typescript-eslint/visitor-keys/5.1.0
+      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.2.0
+      '@typescript-eslint/visitor-keys': registry.npmmirror.com/@typescript-eslint/visitor-keys/5.2.0
     dev: true
 
-  registry.npmmirror.com/@typescript-eslint/types/5.1.0:
-    resolution: {integrity: sha1-qKdd38YRZg3mvhfTrZUDAjhWB6k=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/types/download/@typescript-eslint/types-5.1.0.tgz}
+  registry.npmmirror.com/@typescript-eslint/types/5.2.0:
+    resolution: {integrity: sha1-etMtFavdsO6WijMPDqGC6lRO988=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/types/download/@typescript-eslint/types-5.2.0.tgz}
     name: '@typescript-eslint/types'
-    version: 5.1.0
+    version: 5.2.0
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  registry.npmmirror.com/@typescript-eslint/typescript-estree/5.1.0_typescript@4.4.4:
-    resolution: {integrity: sha1-EyrqNDct8J3s2pYctCRXQzqm6D0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-5.1.0.tgz}
-    id: registry.npmmirror.com/@typescript-eslint/typescript-estree/5.1.0
+  registry.npmmirror.com/@typescript-eslint/typescript-estree/5.2.0_typescript@4.4.4:
+    resolution: {integrity: sha1-wi4P9viko/eFBKgOvWhv4ocKaK4=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-5.2.0.tgz}
+    id: registry.npmmirror.com/@typescript-eslint/typescript-estree/5.2.0
     name: '@typescript-eslint/typescript-estree'
-    version: 5.1.0
+    version: 5.2.0
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -4980,8 +4968,8 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.1.0
-      '@typescript-eslint/visitor-keys': registry.npmmirror.com/@typescript-eslint/visitor-keys/5.1.0
+      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.2.0
+      '@typescript-eslint/visitor-keys': registry.npmmirror.com/@typescript-eslint/visitor-keys/5.2.0
       debug: registry.nlark.com/debug/4.3.2
       globby: registry.nlark.com/globby/11.0.4
       is-glob: registry.npmmirror.com/is-glob/4.0.3
@@ -4992,17 +4980,17 @@ packages:
       - supports-color
     dev: true
 
-  registry.npmmirror.com/@typescript-eslint/visitor-keys/5.1.0:
-    resolution: {integrity: sha1-4BoBsn6xcwknBa6YOqFFG9GEJjA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/visitor-keys/download/@typescript-eslint/visitor-keys-5.1.0.tgz}
+  registry.npmmirror.com/@typescript-eslint/visitor-keys/5.2.0:
+    resolution: {integrity: sha1-A1ItNd+YR08I4DVxcafRslmoj1U=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/visitor-keys/download/@typescript-eslint/visitor-keys-5.2.0.tgz}
     name: '@typescript-eslint/visitor-keys'
-    version: 5.1.0
+    version: 5.2.0
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.1.0
+      '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.2.0
       eslint-visitor-keys: registry.nlark.com/eslint-visitor-keys/3.0.0
     dev: true
 
-  registry.npmmirror.com/@vitejs/plugin-vue/1.9.3_vite@2.6.10:
+  registry.npmmirror.com/@vitejs/plugin-vue/1.9.3_vite@2.6.11:
     resolution: {integrity: sha1-k9YYk85scj0CCa8Eg+yLkaLNgR8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.9.3.tgz}
     id: registry.npmmirror.com/@vitejs/plugin-vue/1.9.3
     name: '@vitejs/plugin-vue'
@@ -5011,7 +4999,7 @@ packages:
     peerDependencies:
       vite: ^2.5.10
     dependencies:
-      vite: registry.npmmirror.com/vite/2.6.10_sass@1.43.3
+      vite: registry.npmmirror.com/vite/2.6.11_sass@1.43.3
     dev: true
 
   registry.npmmirror.com/@volar/code-gen/0.28.8:
@@ -5122,7 +5110,7 @@ packages:
     version: 6.0.0-beta.19
     dev: false
 
-  registry.npmmirror.com/@vue/eslint-config-typescript/8.0.0_333a40bd3b2ba6e9046e0d40233f9e1e:
+  registry.npmmirror.com/@vue/eslint-config-typescript/8.0.0_879fc49a891c1cb6641c01e94db88a59:
     resolution: {integrity: sha1-56WqDN9fXVngX36jEOiVSkm4/EE=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vue/eslint-config-typescript/download/@vue/eslint-config-typescript-8.0.0.tgz?cache=0&sync_timestamp=1634109955383&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40vue%2Feslint-config-typescript%2Fdownload%2F%40vue%2Feslint-config-typescript-8.0.0.tgz}
     id: registry.npmmirror.com/@vue/eslint-config-typescript/8.0.0
     name: '@vue/eslint-config-typescript'
@@ -5134,8 +5122,8 @@ packages:
       eslint: ^6.2.0 || ^7.0.0 || ^8.0.0
       eslint-plugin-vue: ^7.17.0
     dependencies:
-      '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.1.0_273a00ec265649c49755eee7222c1c12
-      '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.1.0_eslint@8.1.0+typescript@4.4.4
+      '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.2.0_9a56ca1c5fc1d82b3da3317a5c6f9ab1
+      '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.2.0_eslint@8.1.0+typescript@4.4.4
       eslint: registry.npmmirror.com/eslint/8.1.0
       eslint-plugin-vue: registry.npmmirror.com/eslint-plugin-vue/7.20.0_eslint@8.1.0
       vue-eslint-parser: registry.nlark.com/vue-eslint-parser/7.10.0_eslint@8.1.0
@@ -5299,18 +5287,14 @@ packages:
     version: 0.21.4
     dependencies:
       follow-redirects: registry.nlark.com/follow-redirects/1.14.4
-    transitivePeerDependencies:
-      - debug
     dev: false
 
-  registry.npmmirror.com/axios/0.23.0:
-    resolution: {integrity: sha1-sPpdCUio0ddePVY1I4tsRiWwUUk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/axios/download/axios-0.23.0.tgz}
+  registry.npmmirror.com/axios/0.24.0:
+    resolution: {integrity: sha1-gE5voeS5xSiFAd2d/1anoJQNINY=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/axios/download/axios-0.24.0.tgz}
     name: axios
-    version: 0.23.0
+    version: 0.24.0
     dependencies:
       follow-redirects: registry.nlark.com/follow-redirects/1.14.4
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   registry.npmmirror.com/camelcase-keys/6.2.2:
@@ -5704,6 +5688,20 @@ packages:
       - supports-color
     dev: true
 
+  registry.npmmirror.com/estraverse/4.3.0:
+    resolution: {integrity: sha1-OYrT88WiSUi+dyXoPRGn3ijNvR0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/estraverse/download/estraverse-4.3.0.tgz}
+    name: estraverse
+    version: 4.3.0
+    engines: {node: '>=4.0'}
+    dev: true
+
+  registry.npmmirror.com/estraverse/5.2.0:
+    resolution: {integrity: sha1-MH30JUfmzHMk088DwVXVzbjFOIA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/estraverse/download/estraverse-5.2.0.tgz}
+    name: estraverse
+    version: 5.2.0
+    engines: {node: '>=4.0'}
+    dev: true
+
   registry.npmmirror.com/find-up/2.1.0:
     resolution: {integrity: sha1-RdG35QbHF93UgndaK3eSCjwMV6c=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/find-up/download/find-up-2.1.0.tgz?cache=0&sync_timestamp=1633619099767&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Ffind-up%2Fdownload%2Ffind-up-2.1.0.tgz}
     name: find-up
@@ -5923,8 +5921,6 @@ packages:
       makeit-tooltip: registry.npmmirror.com/makeit-tooltip/1.1.2
       vue: registry.npmmirror.com/vue/3.2.20
       vue-types: registry.npmmirror.com/vue-types/3.0.2_vue@3.2.20
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   registry.npmmirror.com/makeit-tooltip/1.1.2:
@@ -6127,7 +6123,7 @@ packages:
     version: 17.0.2
 
   registry.npmmirror.com/rollup/2.58.0:
-    resolution: {integrity: sha1-pkOYM2Xnv39bfGKoMxuYO3xMZ/s=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rollup/download/rollup-2.58.0.tgz?cache=0&sync_timestamp=1633072524830&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Frollup%2Fdownload%2Frollup-2.58.0.tgz}
+    resolution: {integrity: sha1-pkOYM2Xnv39bfGKoMxuYO3xMZ/s=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rollup/download/rollup-2.58.0.tgz}
     name: rollup
     version: 2.58.0
     engines: {node: '>=10.0.0'}
@@ -6248,7 +6244,7 @@ packages:
     hasBin: true
     dev: true
 
-  registry.npmmirror.com/unplugin-icons/0.12.16_db95163608a1914986a6b89b9234c90a:
+  registry.npmmirror.com/unplugin-icons/0.12.16_5ec103ac36155c09fef0062610abc063:
     resolution: {integrity: sha1-rVKIa3cTQXO0hkxwF1rdRx1gOlU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-icons/download/unplugin-icons-0.12.16.tgz}
     id: registry.npmmirror.com/unplugin-icons/0.12.16
     name: unplugin-icons
@@ -6275,7 +6271,7 @@ packages:
       debug: registry.nlark.com/debug/4.3.2
       kolorist: registry.nlark.com/kolorist/1.5.0
       local-pkg: registry.npmmirror.com/local-pkg/0.4.0
-      unplugin: registry.npmmirror.com/unplugin/0.2.16_vite@2.6.10
+      unplugin: registry.npmmirror.com/unplugin/0.2.16_vite@2.6.11
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -6283,7 +6279,7 @@ packages:
       - webpack
     dev: true
 
-  registry.npmmirror.com/unplugin-vue-components/0.16.0_vite@2.6.10+vue@3.2.20:
+  registry.npmmirror.com/unplugin-vue-components/0.16.0_vite@2.6.11+vue@3.2.20:
     resolution: {integrity: sha1-FaXV0DrWWK4CAlI4Eex2FQd2Vp0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-vue-components/download/unplugin-vue-components-0.16.0.tgz}
     id: registry.npmmirror.com/unplugin-vue-components/0.16.0
     name: unplugin-vue-components
@@ -6301,7 +6297,7 @@ packages:
       magic-string: registry.nlark.com/magic-string/0.25.7
       minimatch: registry.nlark.com/minimatch/3.0.4
       resolve: registry.nlark.com/resolve/1.20.0
-      unplugin: registry.npmmirror.com/unplugin/0.2.16_vite@2.6.10
+      unplugin: registry.npmmirror.com/unplugin/0.2.16_vite@2.6.11
       vue: registry.npmmirror.com/vue/3.2.20
     transitivePeerDependencies:
       - rollup
@@ -6310,7 +6306,7 @@ packages:
       - webpack
     dev: true
 
-  registry.npmmirror.com/unplugin/0.2.16_vite@2.6.10:
+  registry.npmmirror.com/unplugin/0.2.16_vite@2.6.11:
     resolution: {integrity: sha1-bzTp9QaMo+ySo2sBb0e1rYu4dco=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin/download/unplugin-0.2.16.tgz}
     id: registry.npmmirror.com/unplugin/0.2.16
     name: unplugin
@@ -6327,11 +6323,11 @@ packages:
       webpack:
         optional: true
     dependencies:
-      vite: registry.npmmirror.com/vite/2.6.10_sass@1.43.3
+      vite: registry.npmmirror.com/vite/2.6.11_sass@1.43.3
       webpack-virtual-modules: registry.nlark.com/webpack-virtual-modules/0.4.3
     dev: true
 
-  registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.6.10:
+  registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.6.11:
     resolution: {integrity: sha1-AUtEEmpy1FnNRgvRVoAMIl0STL4=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-html/download/vite-plugin-html-2.1.1.tgz}
     id: registry.npmmirror.com/vite-plugin-html/2.1.1
     name: vite-plugin-html
@@ -6345,10 +6341,10 @@ packages:
       ejs: registry.nlark.com/ejs/3.1.6
       fs-extra: registry.nlark.com/fs-extra/10.0.0
       html-minifier-terser: registry.nlark.com/html-minifier-terser/5.1.1
-      vite: registry.npmmirror.com/vite/2.6.10_sass@1.43.3
+      vite: registry.npmmirror.com/vite/2.6.11_sass@1.43.3
     dev: true
 
-  registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.6.10:
+  registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.6.11:
     resolution: {integrity: sha1-owH9VUQlBCtf2uxWK9EaWg/L8Xg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-windicss/download/vite-plugin-windicss-1.4.12.tgz}
     id: registry.npmmirror.com/vite-plugin-windicss/1.4.12
     name: vite-plugin-windicss
@@ -6359,17 +6355,17 @@ packages:
       '@windicss/plugin-utils': registry.npmmirror.com/@windicss/plugin-utils/1.4.12
       chalk: registry.nlark.com/chalk/4.1.2
       debug: registry.nlark.com/debug/4.3.2
-      vite: registry.npmmirror.com/vite/2.6.10_sass@1.43.3
+      vite: registry.npmmirror.com/vite/2.6.11_sass@1.43.3
       windicss: registry.npmmirror.com/windicss/3.1.9
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  registry.npmmirror.com/vite/2.6.10_sass@1.43.3:
-    resolution: {integrity: sha1-ek9CDG4sfZBix/nORXioF8crOEI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite/download/vite-2.6.10.tgz}
-    id: registry.npmmirror.com/vite/2.6.10
+  registry.npmmirror.com/vite/2.6.11_sass@1.43.3:
+    resolution: {integrity: sha1-INPY9LT+OJBKLkJTVqqxyyMyXhI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite/download/vite-2.6.11.tgz}
+    id: registry.npmmirror.com/vite/2.6.11
     name: vite
-    version: 2.6.10
+    version: 2.6.11
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:

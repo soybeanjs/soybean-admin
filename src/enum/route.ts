@@ -1,6 +1,5 @@
 export enum EnumRoutePath {
   'root' = '/',
-  'system' = '/system',
   'login' = '/login',
   'not-found' = '/404',
   'no-permission' = '/403',
@@ -29,7 +28,6 @@ export enum EnumRoutePath {
 
 export enum EnumRouteTitle {
   'root' = 'root',
-  'system' = '系统',
   'login' = '登录',
   'not-found' = '未找到',
   'no-permission' = '无权限',

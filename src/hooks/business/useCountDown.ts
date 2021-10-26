@@ -1,4 +1,5 @@
 import { ref, computed } from 'vue';
+import useBoolean from '../common/useBoolean';
 
 /**
  * 倒计时
@@ -10,6 +11,8 @@ export default function useCountDown(second: number) {
   }
   const counts = ref(0);
   const isCounting = computed(() => Boolean(counts.value));
+  // 完成一轮倒计时
+  const { bool: isComplete, setTrue, setFalse } = useBoolean(false);
 
   let intervalId: any;
 
@@ -19,11 +22,13 @@ export default function useCountDown(second: number) {
    */
   function start(updateSecond: number = second) {
     if (!counts.value) {
+      setFalse();
       counts.value = updateSecond;
       intervalId = setInterval(() => {
         counts.value -= 1;
         if (counts.value <= 0) {
           clearInterval(intervalId);
+          setTrue();
         }
       }, 1000);
     }
@@ -41,6 +46,7 @@ export default function useCountDown(second: number) {
     counts,
     isCounting,
     start,
-    stop
+    stop,
+    isComplete
   };
 }

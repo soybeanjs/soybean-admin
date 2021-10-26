@@ -14,13 +14,12 @@ import ServiceError from '@/views/system/exception/500.vue';
  */
 const constantRoutes: RouteRecordRaw[] = [
   {
-    name: ROUTE_NAME_MAP.get('system'),
-    path: EnumRoutePath.system,
+    name: 'single_',
+    path: '/single_',
     component: BlankLayout,
     redirect: { name: ROUTE_NAME_MAP.get('not-found') },
     meta: {
-      keepAlive: true,
-      title: EnumRouteTitle.system
+      keepAlive: true
     },
     children: [
       // 登录
