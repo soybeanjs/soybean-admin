@@ -8,7 +8,11 @@
     justify="space-between"
     :item-style="{ paddingTop: '0px', paddingBottom: '0px' }"
   >
-    <multi-tab />
+    <div class="flex-1-hidden h-full">
+      <better-scroll :options="{ scrollX: true, scrollY: false }">
+        <multi-tab />
+      </better-scroll>
+    </div>
     <reload-button />
   </div>
 </template>
@@ -17,6 +21,7 @@
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useThemeStore, useAppStore } from '@/store';
+import { BetterScroll } from '@/components';
 import { MultiTab, ReloadButton } from './components';
 
 defineProps({

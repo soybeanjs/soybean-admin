@@ -16,7 +16,7 @@
     @mouseenter="setTrue"
     @mouseleave="setFalse"
   >
-    <span>
+    <span class="whitespace-nowrap">
       <slot></slot>
     </span>
     <div v-if="closable" class="pl-10px">

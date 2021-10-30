@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@better-scroll/core': ^2.4.2
   '@commitlint/cli': ^13.2.1
   '@commitlint/config-conventional': ^13.2.0
   '@iconify/json': ^1.1.417
@@ -61,6 +62,7 @@ specifiers:
   windicss: ^3.2.0
 
 dependencies:
+  '@better-scroll/core': registry.npmmirror.com/@better-scroll/core/2.4.2
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/6.7.4_vue@3.2.20
   axios: registry.npmmirror.com/axios/0.24.0
   chroma-js: registry.nlark.com/chroma-js/2.1.2
@@ -4575,6 +4577,20 @@ packages:
     version: 7.15.6
     engines: {node: '>=6.0.0'}
     hasBin: true
+
+  registry.npmmirror.com/@better-scroll/core/2.4.2:
+    resolution: {integrity: sha1-5pRwAS15kjoYA0w+STFyD7sG6uU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@better-scroll/core/download/@better-scroll/core-2.4.2.tgz}
+    name: '@better-scroll/core'
+    version: 2.4.2
+    dependencies:
+      '@better-scroll/shared-utils': registry.npmmirror.com/@better-scroll/shared-utils/2.4.2
+    dev: false
+
+  registry.npmmirror.com/@better-scroll/shared-utils/2.4.2:
+    resolution: {integrity: sha1-GsXJdJVycJOiKoAJVgeV3V48GNo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@better-scroll/shared-utils/download/@better-scroll/shared-utils-2.4.2.tgz}
+    name: '@better-scroll/shared-utils'
+    version: 2.4.2
+    dev: false
 
   registry.npmmirror.com/@commitlint/cli/13.2.1:
     resolution: {integrity: sha1-gOvUa+72zu07sMCEK82o0Co8kd4=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@commitlint/cli/download/@commitlint/cli-13.2.1.tgz}

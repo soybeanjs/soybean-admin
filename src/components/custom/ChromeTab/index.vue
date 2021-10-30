@@ -14,7 +14,7 @@
         :primary-color="primaryColor"
       />
     </div>
-    <span class="relative z-2">
+    <span class="relative whitespace-nowrap z-2">
       <slot></slot>
     </span>
     <div v-if="closable" class="pl-18px">

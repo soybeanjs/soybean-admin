@@ -18,6 +18,7 @@
     "*.{vue,js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
+    "@better-scroll/core": "^2.4.2",
     "@vueuse/core": "^6.7.4",
     "axios": "^0.24.0",
     "chroma-js": "^2.1.2",
