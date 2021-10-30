@@ -31,6 +31,7 @@ module.exports = {
     'no-shadow': 0,
     'import/prefer-default-export': 0,
     'no-use-before-define': 'off',
+    'vue/multi-word-component-names': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-inferrable-types': 0,
     '@typescript-eslint/ban-ts-ignore': 'off',
