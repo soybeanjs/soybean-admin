@@ -18,6 +18,10 @@ export default defineConfig({
   },
   plugins,
   build: {
-    brotliSize: false
+    brotliSize: false,
+    sourcemap: false
+  },
+  server: {
+    strictPort: true
   }
 });
