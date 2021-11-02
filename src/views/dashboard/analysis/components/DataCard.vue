@@ -7,7 +7,7 @@
         </template>
         <div class="flex justify-between py-4px px-4px">
           <n-skeleton v-if="loading" :width="100" size="medium" />
-          <count-to v-else prefix="$" :start-value="1" :end-value="item.value" class="text-30px" />
+          <count-to v-else prefix="$" :start-value="1" :end-value="item.value" class="text-30px text-[#666]" />
         </div>
         <div class="flex justify-between p-8px px-16px">
           <n-skeleton v-if="loading" :width="100" size="medium" />

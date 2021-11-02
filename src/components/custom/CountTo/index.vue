@@ -1,7 +1,5 @@
 <template>
-  <span :style="{ color }">
-    {{ value }}
-  </span>
+  <span>{{ value }}</span>
 </template>
 <script lang="ts" setup>
 import { ref, computed, onMounted, watch, watchEffect } from 'vue';
@@ -47,10 +45,6 @@ const props = defineProps({
   decimal: {
     type: String,
     default: '.'
-  },
-  color: {
-    type: String,
-    default: '#666'
   },
   useEasing: {
     type: Boolean,

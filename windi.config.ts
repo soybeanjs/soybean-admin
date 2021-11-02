@@ -10,7 +10,7 @@ export default defineConfig({
     include: ['src/**/*.{vue,html,jsx,tsx}', 'public/**/*.{html}', './*.html'],
     exclude: ['node_modules', '.git']
   },
-  darkMode: 'class', // or 'media'
+  darkMode: 'class',
   shortcuts: {
     'center-layout': 'w-1280px mx-auto px-15px',
     'flex-center': 'flex justify-center items-center',
