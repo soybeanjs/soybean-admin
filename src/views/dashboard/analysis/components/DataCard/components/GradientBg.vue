@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient w-full h-full p-16px text-white">
+  <div class="bg-gradient wh-full p-16px text-white">
     <slot></slot>
   </div>
 </template>

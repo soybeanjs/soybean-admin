@@ -5,9 +5,9 @@
     @mouseenter="setTrue"
     @mouseleave="setFalse"
   >
-    <div class="absolute-lb w-full h-full overflow-hidden">
+    <div class="absolute-lb wh-full overflow-hidden">
       <svg-radius-bg
-        class="w-full h-full"
+        class="wh-full"
         :is-active="isActive"
         :is-hover="isHover"
         :dark-mode="darkMode"

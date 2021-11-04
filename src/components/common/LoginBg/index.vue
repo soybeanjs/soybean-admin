@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute-lt w-full h-full overflow-hidden">
+  <div class="absolute-lt wh-full overflow-hidden">
     <div class="absolute -right-300px -top-900px">
       <corner-top :start-color="firstColor" :end-color="secondColor" />
     </div>

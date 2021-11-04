@@ -1,4 +1,5 @@
-import DataCard from './DataCard.vue';
-import NavCard from './NavCard.vue';
+import TopChart from './TopChart/index.vue';
+import DataCard from './DataCard/index.vue';
+import BottomPart from './BottomPart/index.vue';
 
-export { DataCard, NavCard };
+export { TopChart, DataCard, BottomPart };

@@ -1,9 +1,9 @@
 <template>
-  <div class="login-bg relative flex-center w-full h-full">
+  <div class="login-bg relative flex-center wh-full">
     <shadow-card class="w-400px p-40px !rounded-20px z-10">
       <header class="flex-y-center justify-between">
         <div class="w-70px h-70px rounded-35px overflow-hidden">
-          <system-logo class="w-full h-full" :fill="true" :color="theme.themeColor" />
+          <system-logo class="wh-full" :fill="true" :color="theme.themeColor" />
         </div>
         <n-gradient-text type="primary" :size="28">{{ title }}</n-gradient-text>
       </header>

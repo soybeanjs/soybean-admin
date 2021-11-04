@@ -1,6 +1,6 @@
 <template>
   <hover-container class="px-12px" :show-tooltip="false">
-    <n-switch :value="theme.darkMode" @update:value="handleDarkMode">
+    <n-switch :value="theme.darkMode" size="large" @update:value="handleDarkMode">
       <template #checked>
         <icon-mdi-white-balance-sunny class="text-14px g_text-primary" />
       </template>

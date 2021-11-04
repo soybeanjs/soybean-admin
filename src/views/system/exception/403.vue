@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-center flex-col w-full h-full">
+  <div class="flex-center flex-col wh-full">
     <exception-svg type="403" :color="theme.themeColor" />
     <router-link to="/">
       <n-button type="primary">回到首页</n-button>

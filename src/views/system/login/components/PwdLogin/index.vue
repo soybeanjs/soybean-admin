@@ -35,18 +35,20 @@ import { reactive, ref } from 'vue';
 import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton, useNotification } from 'naive-ui';
 import type { FormInst, FormRules } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
+import { useAuthStore } from '@/store';
 import { useRouterChange, useRouteQuery, useLoading } from '@/hooks';
 import { setToken } from '@/utils';
 import { OtherLogin } from './components';
 
+const notification = useNotification();
+const auth = useAuthStore();
 const { toHome, toCurrentLogin, toLoginRedirectUrl } = useRouterChange();
 const { loginRedirectUrl } = useRouteQuery();
 const { loading, startLoading, endLoading } = useLoading();
-const notification = useNotification();
 
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
-  phone: '15100000000',
+  phone: '151****3876',
   pwd: '123456'
 });
 const rules: FormRules = {
@@ -78,9 +80,10 @@ function handleSubmit(e: MouseEvent) {
         } else {
           toHome();
         }
+        const { userName } = auth.userInfo;
         notification.success({
           title: '登录成功！',
-          content: '欢迎回来，Soybean!',
+          content: `欢迎回来，${userName}!`,
           duration: 3000
         });
       }, 1000);

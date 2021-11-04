@@ -1,3 +1,3 @@
-import GradientBg from './GradientBg.vue';
+import HeaderInfo from './HeaderInfo/index.vue';
 
-export { GradientBg };
+export { HeaderInfo };

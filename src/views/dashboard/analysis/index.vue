@@ -1,24 +1,13 @@
 <template>
-  <div>
-    <data-card :loading="loading" />
-    <nav-card :loading="loading" />
-  </div>
+  <n-space :vertical="true" :size="16">
+    <top-chart />
+    <data-card />
+    <bottom-part />
+  </n-space>
 </template>
+
 <script lang="ts" setup>
-import { onActivated } from 'vue';
-import { useLoading } from '@/hooks';
-import { DataCard, NavCard } from './components';
-
-const { loading, startLoading, endLoading } = useLoading(true);
-
-function handleEndLoading() {
-  startLoading();
-  setTimeout(() => {
-    endLoading();
-  }, 1000);
-}
-onActivated(() => {
-  handleEndLoading();
-});
+import { NSpace } from 'naive-ui';
+import { TopChart, DataCard, BottomPart } from './components';
 </script>
 <style scoped></style>

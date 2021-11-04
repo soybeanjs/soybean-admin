@@ -1,6 +1,6 @@
 <template>
   <div>
-    <iframe class="w-full h-full" :src="src"></iframe>
+    <iframe class="wh-full" :src="src"></iframe>
   </div>
 </template>
 

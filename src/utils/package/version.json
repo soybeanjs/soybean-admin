@@ -1,33 +1,15 @@
 {
-  "name": "soybean-admin",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "vite",
-    "dev:prod": "vite --mode production",
-    "dev:staging": "vite --mode staging",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
-    "build:dev": "vue-tsc --noEmit --skipLibCheck && vite build --mode development",
-    "build:staging": "vue-tsc --noEmit --skipLibCheck && vite build --mode staging",
-    "serve": "vite preview",
-    "lint": "eslint ./src --ext .vue,.js,jsx,.ts,tsx",
-    "lint:fix": "eslint --fix ./src --ext .vue,.js,jsx,.ts,tsx",
-    "prepare": "husky install",
-    "postinstall": "patch-package"
-  },
-  "lint-staged": {
-    "*.{vue,js,jsx,ts,tsx}": "eslint --fix"
-  },
   "dependencies": {
     "@antv/g2plot": "^2.3.39",
     "@better-scroll/core": "^2.4.2",
-    "@vueuse/core": "^6.7.5",
+    "@vueuse/core": "^6.7.4",
     "axios": "^0.24.0",
     "chroma-js": "^2.1.2",
     "clipboard": "^2.0.8",
     "dayjs": "^1.10.7",
     "form-data": "^4.0.0",
     "naive-ui": "^2.20.1",
-    "pinia": "^2.0.2",
+    "pinia": "^2.0.0",
     "qs": "^6.10.1",
     "vue": "^3.2.20",
     "vue-router": "^4.0.11"
@@ -35,7 +17,7 @@
   "devDependencies": {
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
-    "@iconify/json": "^1.1.423",
+    "@iconify/json": "^1.1.417",
     "@iconify/vue": "^3.0.0",
     "@types/chroma-js": "^2.1.3",
     "@types/qs": "^6.9.7",
@@ -52,7 +34,7 @@
     "@vitejs/plugin-vue": "^1.9.4",
     "@vue/compiler-sfc": "^3.2.21",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-typescript": "^9.0.1",
+    "@vue/eslint-config-typescript": "^9.0.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^6.3.0",
@@ -71,18 +53,13 @@
     "rollup-plugin-visualizer": "^5.5.2",
     "sass": "^1.43.4",
     "typescript": "^4.4.4",
-    "unplugin-icons": "^0.12.18",
+    "unplugin-icons": "^0.12.17",
     "unplugin-vue-components": "^0.17.0",
-    "vite": "~2.5.10",
+    "vite": "2.5.10",
     "vite-plugin-html": "^2.1.1",
     "vite-plugin-windicss": "^1.4.12",
     "vue-tsc": "^0.28.10",
     "vueuc": "^0.4.15",
-    "windicss": "^3.2.1"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-customizable"
-    }
+    "windicss": "^3.2.0"
   }
 }

@@ -11,7 +11,6 @@ const ROUTE_HOME: CustomRoute = {
   path: EnumRoutePath.dashboard_analysis,
   component: DashboardAnalysis,
   meta: {
-    keepAlive: true,
     requiresAuth: true,
     title: EnumRouteTitle.dashboard_analysis
   }

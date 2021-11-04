@@ -12,7 +12,7 @@ class类名的顺序：
 
 例如：自定义类名结合tailwind css
 
-<div class="demo-container absolute flex justify-center items-center left-10px top-12px overflow-hidden w-full h-full p-10px border-1px border-[#f00] m-24px bg-[#fff] text-32px text-[#0f0]"></div>
+<div class="demo-container absolute flex justify-center items-center left-10px top-12px overflow-hidden wh-full p-10px border-1px border-[#f00] m-24px bg-[#fff] text-32px text-[#0f0]"></div>
 <style>
 	.demo-container {
 		box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);

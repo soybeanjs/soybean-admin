@@ -12,6 +12,7 @@ export default defineConfig({
   },
   darkMode: 'class',
   shortcuts: {
+    'wh-full': 'w-full h-full',
     'center-layout': 'w-1280px mx-auto px-15px',
     'flex-center': 'flex justify-center items-center',
     'flex-x-center': 'flex justify-center',
@@ -22,12 +23,12 @@ export default defineConfig({
     'flex-1-hidden': 'flex-1 overflow-hidden',
     'flex-col-stretch': 'flex flex-col items-stretch',
     'inline-flex-col-stretch': 'flex flex-col items-stretch',
-    'absolute-center': 'absolute left-0 top-0 flex justify-center items-center w-full h-full',
+    'absolute-center': 'absolute left-0 top-0 flex justify-center items-center wh-full',
     'absolute-lt': 'absolute left-0 top-0',
     'absolute-lb': 'absolute left-0 bottom-0',
     'absolute-rt': 'absolute right-0 top-0',
     'absolute-rb': 'absolute right-0 bottom-0',
-    'fixed-center': 'fixed left-0 top-0 flex justify-center items-center w-full h-full',
+    'fixed-center': 'fixed left-0 top-0 flex justify-center items-center wh-full',
     'ellipsis-text': 'whitespace-nowrap overflow-hidden overflow-ellipsis',
     'nowrap-hidden': 'whitespace-nowrap overflow-hidden'
   },

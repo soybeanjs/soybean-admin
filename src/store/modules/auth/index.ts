@@ -19,7 +19,7 @@ const authStore = defineStore({
       token: '',
       userInfo: {
         userId: '',
-        userName: '',
+        userName: 'Soybean',
         userPhone: ''
       }
     };
@@ -33,7 +33,6 @@ const authStore = defineStore({
     resetAuthState() {
       removeToken();
       this.$reset();
-      // window.location.reload();
     }
   }
 });
