@@ -51,7 +51,7 @@ specifiers:
   typescript: ^4.4.4
   unplugin-icons: ^0.12.17
   unplugin-vue-components: ^0.17.0
-  vite: ^2.6.13
+  vite: 2.5.10
   vite-plugin-html: ^2.1.1
   vite-plugin-windicss: ^1.4.12
   vue: ^3.2.20
@@ -71,6 +71,7 @@ dependencies:
   naive-ui: registry.npmmirror.com/naive-ui/2.20.1_eslint@8.1.0+vue@3.2.20
   pinia: registry.npmmirror.com/pinia/2.0.0_typescript@4.4.4+vue@3.2.20
   qs: 6.10.1
+  vite: registry.npmmirror.com/vite/2.5.10
   vue: registry.npmmirror.com/vue/3.2.20
   vue-router: registry.nlark.com/vue-router/4.0.11_vue@3.2.20
 
@@ -91,7 +92,7 @@ devDependencies:
   '@vicons/ionicons5': registry.nlark.com/@vicons/ionicons5/0.11.0
   '@vicons/material': registry.nlark.com/@vicons/material/0.11.0
   '@vicons/tabler': registry.nlark.com/@vicons/tabler/0.11.0
-  '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/1.9.4_vite@2.6.13
+  '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/1.9.4_vite@2.5.10
   '@vue/compiler-sfc': registry.npmmirror.com/@vue/compiler-sfc/3.2.21
   '@vue/eslint-config-prettier': 6.0.0_91df2dbc49a694d3127d896fd063ef53
   '@vue/eslint-config-typescript': registry.npmmirror.com/@vue/eslint-config-typescript/9.0.0_6e2aa7baa83ea64b77c81400f52e762e
@@ -113,11 +114,10 @@ devDependencies:
   rollup-plugin-visualizer: registry.nlark.com/rollup-plugin-visualizer/5.5.2
   sass: registry.npmmirror.com/sass/1.43.4
   typescript: registry.npmmirror.com/typescript/4.4.4
-  unplugin-icons: registry.npmmirror.com/unplugin-icons/0.12.17_ffe6ba4676d23562dbecd516d3abe553
-  unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.17.0_vite@2.6.13+vue@3.2.20
-  vite: registry.npmmirror.com/vite/2.6.13_sass@1.43.4
-  vite-plugin-html: registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.6.13
-  vite-plugin-windicss: registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.6.13
+  unplugin-icons: registry.npmmirror.com/unplugin-icons/0.12.17_1eae5c0bb2742054245c1d4b923e348d
+  unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.17.0_vite@2.5.10+vue@3.2.20
+  vite-plugin-html: registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.5.10
+  vite-plugin-windicss: registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.5.10
   vue-tsc: registry.npmmirror.com/vue-tsc/0.28.10_typescript@4.4.4
   vueuc: registry.npmmirror.com/vueuc/0.4.15_vue@3.2.20
   windicss: registry.npmmirror.com/windicss/3.2.0
@@ -2170,12 +2170,11 @@ packages:
     dev: true
 
   registry.nlark.com/fsevents/2.3.2:
-    resolution: {integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/fsevents/download/fsevents-2.3.2.tgz}
+    resolution: {integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/fsevents/download/fsevents-2.3.2.tgz}
     name: fsevents
     version: 2.3.2
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     requiresBuild: true
-    dev: true
     optional: true
 
   registry.nlark.com/function-bind/1.1.1:
@@ -3346,7 +3345,6 @@ packages:
     resolution: {integrity: sha1-+8EUtgykKzDZ2vWFjkvWi77bZzU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/path-parse/download/path-parse-1.0.7.tgz}
     name: path-parse
     version: 1.0.7
-    dev: true
 
   registry.nlark.com/path-type/4.0.0:
     resolution: {integrity: sha1-hO0BwKe6OAr+CdkKjBgNzZ0DBDs=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/path-type/download/path-type-4.0.0.tgz}
@@ -3653,7 +3651,6 @@ packages:
     dependencies:
       is-core-module: registry.npmmirror.com/is-core-module/2.7.0
       path-parse: registry.nlark.com/path-parse/1.0.7
-    dev: true
 
   registry.nlark.com/restore-cursor/3.1.0:
     resolution: {integrity: sha1-OfZ8VLOnpYzqUjbZXPADQjljH34=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/restore-cursor/download/restore-cursor-3.1.0.tgz}
@@ -4812,7 +4809,7 @@ packages:
       eslint-visitor-keys: registry.nlark.com/eslint-visitor-keys/3.0.0
     dev: true
 
-  registry.npmmirror.com/@vitejs/plugin-vue/1.9.4_vite@2.6.13:
+  registry.npmmirror.com/@vitejs/plugin-vue/1.9.4_vite@2.5.10:
     resolution: {integrity: sha1-T0hIVDLLuYap+50lTcM84w3cy/o=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.9.4.tgz?cache=0&sync_timestamp=1635477969996&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40vitejs%2Fplugin-vue%2Fdownload%2F%40vitejs%2Fplugin-vue-1.9.4.tgz}
     id: registry.npmmirror.com/@vitejs/plugin-vue/1.9.4
     name: '@vitejs/plugin-vue'
@@ -4821,7 +4818,7 @@ packages:
     peerDependencies:
       vite: ^2.5.10
     dependencies:
-      vite: registry.npmmirror.com/vite/2.6.13_sass@1.43.4
+      vite: registry.npmmirror.com/vite/2.5.10
     dev: true
 
   registry.npmmirror.com/@volar/code-gen/0.28.10:
@@ -4935,7 +4932,7 @@ packages:
       '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.20
       estree-walker: registry.nlark.com/estree-walker/2.0.2
       magic-string: registry.nlark.com/magic-string/0.25.7
-      postcss: registry.npmmirror.com/postcss/8.3.6
+      postcss: registry.npmmirror.com/postcss/8.3.9
       source-map: registry.nlark.com/source-map/0.6.1
     dev: false
 
@@ -5214,6 +5211,7 @@ packages:
     resolution: {integrity: sha1-UZD7uHJ2JZqGrXAL/yxtb6o/ykA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/colorette/download/colorette-1.4.0.tgz?cache=0&sync_timestamp=1633673609067&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcolorette%2Fdownload%2Fcolorette-1.4.0.tgz}
     name: colorette
     version: 1.4.0
+    dev: true
 
   registry.npmmirror.com/commander/2.20.3:
     resolution: {integrity: sha1-/UhehMA+tIgcIHIrpIA16FMa6zM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/commander/download/commander-2.20.3.tgz}
@@ -5298,190 +5296,13 @@ packages:
       unbox-primitive: registry.nlark.com/unbox-primitive/1.0.1
     dev: true
 
-  registry.npmmirror.com/esbuild-android-arm64/0.13.4:
-    resolution: {integrity: sha1-UXiiDSt6unQaMcGWCfnmezRplrk=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-android-arm64/download/esbuild-android-arm64-0.13.4.tgz}
-    name: esbuild-android-arm64
-    version: 0.13.4
-    cpu: [arm64]
-    os: [android]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-darwin-64/0.13.4:
-    resolution: {integrity: sha1-ej5myOEnG2UFQbJe7WXITzVkpp0=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-darwin-64/download/esbuild-darwin-64-0.13.4.tgz}
-    name: esbuild-darwin-64
-    version: 0.13.4
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-darwin-arm64/0.13.4:
-    resolution: {integrity: sha1-eT/spgMrKlfvKR65stM3aNYKSdY=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-darwin-arm64/download/esbuild-darwin-arm64-0.13.4.tgz}
-    name: esbuild-darwin-arm64
-    version: 0.13.4
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-freebsd-64/0.13.4:
-    resolution: {integrity: sha1-KUrsPCz0tB+2kAIS/Jwz3Y+7tKI=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-freebsd-64/download/esbuild-freebsd-64-0.13.4.tgz}
-    name: esbuild-freebsd-64
-    version: 0.13.4
-    cpu: [x64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-freebsd-arm64/0.13.4:
-    resolution: {integrity: sha1-Cf5mx1HBL5uXaXax2D895ZTLJ4c=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-freebsd-arm64/download/esbuild-freebsd-arm64-0.13.4.tgz}
-    name: esbuild-freebsd-arm64
-    version: 0.13.4
-    cpu: [arm64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-linux-32/0.13.4:
-    resolution: {integrity: sha1-qfB5PXvMnO9PT/pDmMUlh3+6WDk=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-linux-32/download/esbuild-linux-32-0.13.4.tgz}
-    name: esbuild-linux-32
-    version: 0.13.4
-    cpu: [ia32]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-linux-64/0.13.4:
-    resolution: {integrity: sha1-wNC0ydYuO7+L3yzs43QDqm1g/C4=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-linux-64/download/esbuild-linux-64-0.13.4.tgz}
-    name: esbuild-linux-64
-    version: 0.13.4
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-linux-arm/0.13.4:
-    resolution: {integrity: sha1-GGzZuIhawTK5lTpKCv5mgWjevRA=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-linux-arm/download/esbuild-linux-arm-0.13.4.tgz}
-    name: esbuild-linux-arm
-    version: 0.13.4
-    cpu: [arm]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-linux-arm64/0.13.4:
-    resolution: {integrity: sha1-EpLZe/pkoI0Sco+KeDe/kndsd5s=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-linux-arm64/download/esbuild-linux-arm64-0.13.4.tgz}
-    name: esbuild-linux-arm64
-    version: 0.13.4
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-linux-mips64le/0.13.4:
-    resolution: {integrity: sha1-QgSb9yvFhoF7SlHMnjIUjRPl6Ac=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-linux-mips64le/download/esbuild-linux-mips64le-0.13.4.tgz}
-    name: esbuild-linux-mips64le
-    version: 0.13.4
-    cpu: [mips64el]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-linux-ppc64le/0.13.4:
-    resolution: {integrity: sha1-rfHOLvIwJ1fEODiH2mrE3SW+nU8=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-linux-ppc64le/download/esbuild-linux-ppc64le-0.13.4.tgz}
-    name: esbuild-linux-ppc64le
-    version: 0.13.4
-    cpu: [ppc64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-openbsd-64/0.13.4:
-    resolution: {integrity: sha1-HIEiEBiYxSogyHhpNc8+t6Gbg7Q=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-openbsd-64/download/esbuild-openbsd-64-0.13.4.tgz}
-    name: esbuild-openbsd-64
-    version: 0.13.4
-    cpu: [x64]
-    os: [openbsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-sunos-64/0.13.4:
-    resolution: {integrity: sha1-TslfqhSmDylf5IW+v/7/9Ahzkzc=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-sunos-64/download/esbuild-sunos-64-0.13.4.tgz}
-    name: esbuild-sunos-64
-    version: 0.13.4
-    cpu: [x64]
-    os: [sunos]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-windows-32/0.13.4:
-    resolution: {integrity: sha1-MYLDgEh7eXsE0OwsgMKUVmaGkIA=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-windows-32/download/esbuild-windows-32-0.13.4.tgz}
-    name: esbuild-windows-32
-    version: 0.13.4
-    cpu: [ia32]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-windows-64/0.13.4:
-    resolution: {integrity: sha1-uemV+S2B9DOgTzNhHmA+gvkjLmk=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-windows-64/download/esbuild-windows-64-0.13.4.tgz}
-    name: esbuild-windows-64
-    version: 0.13.4
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild-windows-arm64/0.13.4:
-    resolution: {integrity: sha1-+yOVMvB7dk0Vj0zHhxeO9Mb621w=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-windows-arm64/download/esbuild-windows-arm64-0.13.4.tgz}
-    name: esbuild-windows-arm64
-    version: 0.13.4
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  registry.npmmirror.com/esbuild/0.13.4:
-    resolution: {integrity: sha1-zi3rVsT7Ngk4MRy/xn+ORnu2hBs=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild/download/esbuild-0.13.4.tgz?cache=0&sync_timestamp=1635405534525&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fesbuild%2Fdownload%2Fesbuild-0.13.4.tgz}
+  registry.npmmirror.com/esbuild/0.12.29:
+    resolution: {integrity: sha1-vmAtt8TceJRKnb3g0eoZ02wfiC0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild/download/esbuild-0.12.29.tgz}
     name: esbuild
-    version: 0.13.4
+    version: 0.12.29
     hasBin: true
     requiresBuild: true
-    optionalDependencies:
-      esbuild-android-arm64: registry.npmmirror.com/esbuild-android-arm64/0.13.4
-      esbuild-darwin-64: registry.npmmirror.com/esbuild-darwin-64/0.13.4
-      esbuild-darwin-arm64: registry.npmmirror.com/esbuild-darwin-arm64/0.13.4
-      esbuild-freebsd-64: registry.npmmirror.com/esbuild-freebsd-64/0.13.4
-      esbuild-freebsd-arm64: registry.npmmirror.com/esbuild-freebsd-arm64/0.13.4
-      esbuild-linux-32: registry.npmmirror.com/esbuild-linux-32/0.13.4
-      esbuild-linux-64: registry.npmmirror.com/esbuild-linux-64/0.13.4
-      esbuild-linux-arm: registry.npmmirror.com/esbuild-linux-arm/0.13.4
-      esbuild-linux-arm64: registry.npmmirror.com/esbuild-linux-arm64/0.13.4
-      esbuild-linux-mips64le: registry.npmmirror.com/esbuild-linux-mips64le/0.13.4
-      esbuild-linux-ppc64le: registry.npmmirror.com/esbuild-linux-ppc64le/0.13.4
-      esbuild-openbsd-64: registry.npmmirror.com/esbuild-openbsd-64/0.13.4
-      esbuild-sunos-64: registry.npmmirror.com/esbuild-sunos-64/0.13.4
-      esbuild-windows-32: registry.npmmirror.com/esbuild-windows-32/0.13.4
-      esbuild-windows-64: registry.npmmirror.com/esbuild-windows-64/0.13.4
-      esbuild-windows-arm64: registry.npmmirror.com/esbuild-windows-arm64/0.13.4
-    dev: true
+    dev: false
 
   registry.npmmirror.com/eslint-module-utils/2.7.0:
     resolution: {integrity: sha1-npfBJogRNAElmznZYOah8J+WZDU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/eslint-module-utils/download/eslint-module-utils-2.7.0.tgz}
@@ -5687,7 +5508,6 @@ packages:
     version: 2.7.0
     dependencies:
       has: registry.nlark.com/has/1.0.3
-    dev: true
 
   registry.npmmirror.com/is-glob/4.0.3:
     resolution: {integrity: sha1-ZPYeQsu7LuwgcanawLKLoeZdUIQ=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-glob/download/is-glob-4.0.3.tgz}
@@ -5873,21 +5693,12 @@ packages:
       - eslint
     dev: false
 
-  registry.npmmirror.com/nanoid/3.1.25:
-    resolution: {integrity: sha1-CcoydHwOVD8OGBS303k0d/nI4VI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nanoid/download/nanoid-3.1.25.tgz}
-    name: nanoid
-    version: 3.1.25
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-    dev: false
-
   registry.npmmirror.com/nanoid/3.1.29:
     resolution: {integrity: sha1-IU+y16M+GlvvR1e3ed+utqTlrrQ=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nanoid/download/nanoid-3.1.29.tgz?cache=0&sync_timestamp=1634176297559&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fnanoid%2Fdownload%2Fnanoid-3.1.29.tgz}
     name: nanoid
     version: 3.1.29
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-    dev: true
 
   registry.npmmirror.com/npm-run-path/4.0.1:
     resolution: {integrity: sha1-t+zR5e1T2o43pV4cImnguX7XSOo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/npm-run-path/download/npm-run-path-4.0.1.tgz}
@@ -5955,7 +5766,6 @@ packages:
     resolution: {integrity: sha1-VwZw95NkaFHRuhNZlpYqutWHhZ8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/picocolors/download/picocolors-0.2.1.tgz}
     name: picocolors
     version: 0.2.1
-    dev: true
 
   registry.npmmirror.com/pinia/2.0.0_typescript@4.4.4+vue@3.2.20:
     resolution: {integrity: sha1-asd696T/LiyHpZZ7WqK+jgSGjzg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pinia/download/pinia-2.0.0.tgz}
@@ -5987,17 +5797,6 @@ packages:
       find-up: registry.npmmirror.com/find-up/2.1.0
     dev: true
 
-  registry.npmmirror.com/postcss/8.3.6:
-    resolution: {integrity: sha1-JzDddql5afN/U7mmCWGXvjEcxOo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/postcss/download/postcss-8.3.6.tgz}
-    name: postcss
-    version: 8.3.6
-    engines: {node: ^10 || ^12 || >=14}
-    dependencies:
-      colorette: registry.npmmirror.com/colorette/1.4.0
-      nanoid: registry.npmmirror.com/nanoid/3.1.25
-      source-map-js: registry.nlark.com/source-map-js/0.6.2
-    dev: false
-
   registry.npmmirror.com/postcss/8.3.9:
     resolution: {integrity: sha1-mHVMqgbE7p61nMSL0HO7a9NDfDE=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/postcss/download/postcss-8.3.9.tgz}
     name: postcss
@@ -6007,7 +5806,6 @@ packages:
       nanoid: registry.npmmirror.com/nanoid/3.1.29
       picocolors: registry.npmmirror.com/picocolors/0.2.1
       source-map-js: registry.nlark.com/source-map-js/0.6.2
-    dev: true
 
   registry.npmmirror.com/pretty-format/26.6.2:
     resolution: {integrity: sha1-41wnBfFMt/4v6U+geDRbREEg/JM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pretty-format/download/pretty-format-26.6.2.tgz?cache=0&sync_timestamp=1634626978157&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpretty-format%2Fdownload%2Fpretty-format-26.6.2.tgz}
@@ -6036,15 +5834,15 @@ packages:
       type-fest: registry.npmmirror.com/type-fest/0.8.1
     dev: true
 
-  registry.npmmirror.com/rollup/2.58.0:
-    resolution: {integrity: sha1-pkOYM2Xnv39bfGKoMxuYO3xMZ/s=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rollup/download/rollup-2.58.0.tgz}
+  registry.npmmirror.com/rollup/2.59.0:
+    resolution: {integrity: sha1-EIxhsPoKN+vI0fFk8oFiIFbw21k=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rollup/download/rollup-2.59.0.tgz}
     name: rollup
-    version: 2.58.0
+    version: 2.59.0
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
       fsevents: registry.nlark.com/fsevents/2.3.2
-    dev: true
+    dev: false
 
   registry.npmmirror.com/rxjs/6.6.7:
     resolution: {integrity: sha1-kKwBisq/SRv2UEQjXVhjxNq4BMk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rxjs/download/rxjs-6.6.7.tgz}
@@ -6158,7 +5956,7 @@ packages:
     hasBin: true
     dev: true
 
-  registry.npmmirror.com/unplugin-icons/0.12.17_ffe6ba4676d23562dbecd516d3abe553:
+  registry.npmmirror.com/unplugin-icons/0.12.17_1eae5c0bb2742054245c1d4b923e348d:
     resolution: {integrity: sha1-MJ/FE9d5mi+epQmh84oB3t8inzQ=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-icons/download/unplugin-icons-0.12.17.tgz}
     id: registry.npmmirror.com/unplugin-icons/0.12.17
     name: unplugin-icons
@@ -6185,7 +5983,7 @@ packages:
       debug: registry.nlark.com/debug/4.3.2
       kolorist: registry.nlark.com/kolorist/1.5.0
       local-pkg: registry.npmmirror.com/local-pkg/0.4.0
-      unplugin: registry.npmmirror.com/unplugin/0.2.19_vite@2.6.13
+      unplugin: registry.npmmirror.com/unplugin/0.2.19_vite@2.5.10
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -6193,7 +5991,7 @@ packages:
       - webpack
     dev: true
 
-  registry.npmmirror.com/unplugin-vue-components/0.17.0_vite@2.6.13+vue@3.2.20:
+  registry.npmmirror.com/unplugin-vue-components/0.17.0_vite@2.5.10+vue@3.2.20:
     resolution: {integrity: sha1-/f5OjITtdeLCb5mJGe2cktue1ts=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-vue-components/download/unplugin-vue-components-0.17.0.tgz}
     id: registry.npmmirror.com/unplugin-vue-components/0.17.0
     name: unplugin-vue-components
@@ -6218,7 +6016,7 @@ packages:
       magic-string: registry.nlark.com/magic-string/0.25.7
       minimatch: registry.nlark.com/minimatch/3.0.4
       resolve: registry.nlark.com/resolve/1.20.0
-      unplugin: registry.npmmirror.com/unplugin/0.2.16_vite@2.6.13
+      unplugin: registry.npmmirror.com/unplugin/0.2.16_vite@2.5.10
       vue: registry.npmmirror.com/vue/3.2.20
     transitivePeerDependencies:
       - rollup
@@ -6227,7 +6025,7 @@ packages:
       - webpack
     dev: true
 
-  registry.npmmirror.com/unplugin/0.2.16_vite@2.6.13:
+  registry.npmmirror.com/unplugin/0.2.16_vite@2.5.10:
     resolution: {integrity: sha1-bzTp9QaMo+ySo2sBb0e1rYu4dco=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin/download/unplugin-0.2.16.tgz?cache=0&sync_timestamp=1635478018592&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Funplugin%2Fdownload%2Funplugin-0.2.16.tgz}
     id: registry.npmmirror.com/unplugin/0.2.16
     name: unplugin
@@ -6244,11 +6042,11 @@ packages:
       webpack:
         optional: true
     dependencies:
-      vite: registry.npmmirror.com/vite/2.6.13_sass@1.43.4
+      vite: registry.npmmirror.com/vite/2.5.10
       webpack-virtual-modules: registry.nlark.com/webpack-virtual-modules/0.4.3
     dev: true
 
-  registry.npmmirror.com/unplugin/0.2.19_vite@2.6.13:
+  registry.npmmirror.com/unplugin/0.2.19_vite@2.5.10:
     resolution: {integrity: sha1-8WmbNurvFL6Uz16zur/hysN75no=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin/download/unplugin-0.2.19.tgz?cache=0&sync_timestamp=1635478018592&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Funplugin%2Fdownload%2Funplugin-0.2.19.tgz}
     id: registry.npmmirror.com/unplugin/0.2.19
     name: unplugin
@@ -6265,11 +6063,11 @@ packages:
       webpack:
         optional: true
     dependencies:
-      vite: registry.npmmirror.com/vite/2.6.13_sass@1.43.4
+      vite: registry.npmmirror.com/vite/2.5.10
       webpack-virtual-modules: registry.nlark.com/webpack-virtual-modules/0.4.3
     dev: true
 
-  registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.6.13:
+  registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.5.10:
     resolution: {integrity: sha1-AUtEEmpy1FnNRgvRVoAMIl0STL4=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-html/download/vite-plugin-html-2.1.1.tgz}
     id: registry.npmmirror.com/vite-plugin-html/2.1.1
     name: vite-plugin-html
@@ -6283,10 +6081,10 @@ packages:
       ejs: registry.nlark.com/ejs/3.1.6
       fs-extra: registry.nlark.com/fs-extra/10.0.0
       html-minifier-terser: registry.nlark.com/html-minifier-terser/5.1.1
-      vite: registry.npmmirror.com/vite/2.6.13_sass@1.43.4
+      vite: registry.npmmirror.com/vite/2.5.10
     dev: true
 
-  registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.6.13:
+  registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.5.10:
     resolution: {integrity: sha1-owH9VUQlBCtf2uxWK9EaWg/L8Xg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-windicss/download/vite-plugin-windicss-1.4.12.tgz}
     id: registry.npmmirror.com/vite-plugin-windicss/1.4.12
     name: vite-plugin-windicss
@@ -6297,39 +6095,26 @@ packages:
       '@windicss/plugin-utils': registry.npmmirror.com/@windicss/plugin-utils/1.4.12
       chalk: registry.nlark.com/chalk/4.1.2
       debug: registry.nlark.com/debug/4.3.2
-      vite: registry.npmmirror.com/vite/2.6.13_sass@1.43.4
+      vite: registry.npmmirror.com/vite/2.5.10
       windicss: registry.npmmirror.com/windicss/3.2.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  registry.npmmirror.com/vite/2.6.13_sass@1.43.4:
-    resolution: {integrity: sha1-FrPshaZtW0YawpqQOHTUNX+a9DI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite/download/vite-2.6.13.tgz?cache=0&sync_timestamp=1635502698474&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fvite%2Fdownload%2Fvite-2.6.13.tgz}
-    id: registry.npmmirror.com/vite/2.6.13
+  registry.npmmirror.com/vite/2.5.10:
+    resolution: {integrity: sha1-xZjjtafhlW/8Uus7NCDRd/wu0qU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite/download/vite-2.5.10.tgz}
     name: vite
-    version: 2.6.13
+    version: 2.5.10
     engines: {node: '>=12.2.0'}
     hasBin: true
-    peerDependencies:
-      less: '*'
-      sass: '*'
-      stylus: '*'
-    peerDependenciesMeta:
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
     dependencies:
-      esbuild: registry.npmmirror.com/esbuild/0.13.4
+      esbuild: registry.npmmirror.com/esbuild/0.12.29
       postcss: registry.npmmirror.com/postcss/8.3.9
       resolve: registry.nlark.com/resolve/1.20.0
-      rollup: registry.npmmirror.com/rollup/2.58.0
-      sass: registry.npmmirror.com/sass/1.43.4
+      rollup: registry.npmmirror.com/rollup/2.59.0
     optionalDependencies:
       fsevents: registry.nlark.com/fsevents/2.3.2
-    dev: true
+    dev: false
 
   registry.npmmirror.com/vooks/0.2.10_vue@3.2.20:
     resolution: {integrity: sha1-Jlb0wCV1jtl+3EqVhMnMFez/tws=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vooks/download/vooks-0.2.10.tgz}
