@@ -20,8 +20,5 @@ export default defineConfig({
   build: {
     brotliSize: false,
     sourcemap: false
-  },
-  server: {
-    strictPort: true
   }
 });

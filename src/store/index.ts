@@ -7,4 +7,4 @@ export function setupStore(app: App) {
   app.use(store);
 }
 
-export { useThemeStore, useAppStore, useAuthStore } from './modules';
+export * from './modules';
