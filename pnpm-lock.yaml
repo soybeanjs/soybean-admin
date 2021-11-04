@@ -71,7 +71,6 @@ dependencies:
   naive-ui: registry.npmmirror.com/naive-ui/2.20.1_eslint@8.1.0+vue@3.2.20
   pinia: registry.npmmirror.com/pinia/2.0.0_typescript@4.4.4+vue@3.2.20
   qs: 6.10.1
-  vite: registry.npmmirror.com/vite/2.5.10
   vue: registry.npmmirror.com/vue/3.2.20
   vue-router: registry.nlark.com/vue-router/4.0.11_vue@3.2.20
 
@@ -116,6 +115,7 @@ devDependencies:
   typescript: registry.npmmirror.com/typescript/4.4.4
   unplugin-icons: registry.npmmirror.com/unplugin-icons/0.12.17_1eae5c0bb2742054245c1d4b923e348d
   unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.17.0_vite@2.5.10+vue@3.2.20
+  vite: registry.npmmirror.com/vite/2.5.10
   vite-plugin-html: registry.npmmirror.com/vite-plugin-html/2.1.1_vite@2.5.10
   vite-plugin-windicss: registry.npmmirror.com/vite-plugin-windicss/1.4.12_vite@2.5.10
   vue-tsc: registry.npmmirror.com/vue-tsc/0.28.10_typescript@4.4.4
@@ -2175,6 +2175,7 @@ packages:
     version: 2.3.2
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     requiresBuild: true
+    dev: true
     optional: true
 
   registry.nlark.com/function-bind/1.1.1:
@@ -3345,6 +3346,7 @@ packages:
     resolution: {integrity: sha1-+8EUtgykKzDZ2vWFjkvWi77bZzU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/path-parse/download/path-parse-1.0.7.tgz}
     name: path-parse
     version: 1.0.7
+    dev: true
 
   registry.nlark.com/path-type/4.0.0:
     resolution: {integrity: sha1-hO0BwKe6OAr+CdkKjBgNzZ0DBDs=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/path-type/download/path-type-4.0.0.tgz}
@@ -3651,6 +3653,7 @@ packages:
     dependencies:
       is-core-module: registry.npmmirror.com/is-core-module/2.7.0
       path-parse: registry.nlark.com/path-parse/1.0.7
+    dev: true
 
   registry.nlark.com/restore-cursor/3.1.0:
     resolution: {integrity: sha1-OfZ8VLOnpYzqUjbZXPADQjljH34=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/restore-cursor/download/restore-cursor-3.1.0.tgz}
@@ -5302,7 +5305,7 @@ packages:
     version: 0.12.29
     hasBin: true
     requiresBuild: true
-    dev: false
+    dev: true
 
   registry.npmmirror.com/eslint-module-utils/2.7.0:
     resolution: {integrity: sha1-npfBJogRNAElmznZYOah8J+WZDU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/eslint-module-utils/download/eslint-module-utils-2.7.0.tgz}
@@ -5508,6 +5511,7 @@ packages:
     version: 2.7.0
     dependencies:
       has: registry.nlark.com/has/1.0.3
+    dev: true
 
   registry.npmmirror.com/is-glob/4.0.3:
     resolution: {integrity: sha1-ZPYeQsu7LuwgcanawLKLoeZdUIQ=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-glob/download/is-glob-4.0.3.tgz}
@@ -5842,7 +5846,7 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: registry.nlark.com/fsevents/2.3.2
-    dev: false
+    dev: true
 
   registry.npmmirror.com/rxjs/6.6.7:
     resolution: {integrity: sha1-kKwBisq/SRv2UEQjXVhjxNq4BMk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rxjs/download/rxjs-6.6.7.tgz}
@@ -6114,7 +6118,7 @@ packages:
       rollup: registry.npmmirror.com/rollup/2.59.0
     optionalDependencies:
       fsevents: registry.nlark.com/fsevents/2.3.2
-    dev: false
+    dev: true
 
   registry.npmmirror.com/vooks/0.2.10_vue@3.2.20:
     resolution: {integrity: sha1-Jlb0wCV1jtl+3EqVhMnMFez/tws=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vooks/download/vooks-0.2.10.tgz}
