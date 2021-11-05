@@ -27,5 +27,5 @@ function transformVersionData(tuple: [string, string]): VersionInfo {
 
 export const packageVersion: PackageVersion = {
   dependencies: Object.entries(versionWithType.dependencies).map(item => transformVersionData(item)),
-  devDependencies: Object.entries(versionWithType.dependencies).map(item => transformVersionData(item))
+  devDependencies: Object.entries(versionWithType.devDependencies).map(item => transformVersionData(item))
 };
