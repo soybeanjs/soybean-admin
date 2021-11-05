@@ -2,7 +2,7 @@
   <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" responsive="screen">
     <n-grid-item span="s:24 m:16">
       <n-card :bordered="false" class="rounded-16px shadow-sm">
-        <div class="flex h-360px">
+        <div class="flex w-full h-360px">
           <div class="w-200px h-full py-12px">
             <h3 class="text-16px font-bold">Dashboard</h3>
             <p class="text-[#aaa]">Overview Of Lasted Month</p>
@@ -16,7 +16,9 @@
             <p class="text-[#aaa]">Current Month Sales</p>
             <n-button class="mt-24px" type="primary">Last Month Summary</n-button>
           </div>
-          <div ref="lineRef" class="flex-1 h-full"></div>
+          <div class="flex-1-hidden h-full">
+            <div ref="lineRef" class="wh-full"></div>
+          </div>
         </div>
       </n-card>
     </n-grid-item>
