@@ -11,8 +11,8 @@
 
 <script setup lang="ts">
 import { NDescriptions, NDescriptionsItem } from 'naive-ui';
-import { packageVersion } from '@/utils';
+import { packageJson } from '@/utils';
 
-const dependencies = packageVersion.devDependencies;
+const dependencies = packageJson.devDependencies;
 </script>
 <style scoped></style>
