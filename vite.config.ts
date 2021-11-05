@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import path from 'path';
-import { viteEnv, plugins } from './build';
+import { viteEnv, plugins, define } from './build';
 
 export default defineConfig({
   base: viteEnv.VITE_BASE_URL,
@@ -9,6 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
+  define,
   css: {
     preprocessorOptions: {
       scss: {

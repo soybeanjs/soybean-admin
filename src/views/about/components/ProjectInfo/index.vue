@@ -6,7 +6,7 @@
         <n-tag type="primary">1.0.0</n-tag>
       </n-descriptions-item>
       <n-descriptions-item label="最后编译时间">
-        <n-tag type="primary">2021-11-05</n-tag>
+        <n-tag type="primary">{{ lastestBuildTime }}</n-tag>
       </n-descriptions-item>
       <n-descriptions-item label="Github地址">
         <a class="g_text-primary" href="https://github.com/honghuangdc/soybean-admin" target="_blank">Github地址</a>
@@ -20,5 +20,7 @@
 
 <script setup lang="ts">
 import { NDescriptions, NDescriptionsItem, NTag } from 'naive-ui';
+
+const lastestBuildTime = PROJECT_BUILD_TIME;
 </script>
 <style scoped></style>

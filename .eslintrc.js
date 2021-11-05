@@ -7,7 +7,8 @@ module.exports = {
     defineProps: 'readonly',
     defineEmits: 'readonly',
     defineExpose: 'readonly',
-    withDefaults: 'readonly'
+    withDefaults: 'readonly',
+    PROJECT_BUILD_TIME: 'readonly'
   },
   parser: 'vue-eslint-parser',
   parserOptions: {

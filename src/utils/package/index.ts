@@ -1,5 +1,5 @@
 import type { VersionInfo } from '@/interface';
-import version from './version.json';
+import packageJson from '../../../package.json';
 
 interface Version {
   dependencies: {
@@ -8,6 +8,7 @@ interface Version {
   devDependencies: {
     [key: string]: string;
   };
+  [key: string]: any;
 }
 
 interface PackageVersion {
@@ -15,7 +16,7 @@ interface PackageVersion {
   devDependencies: VersionInfo[];
 }
 
-const versionWithType = version as Version;
+const versionWithType = packageJson as Version;
 
 function transformVersionData(tuple: [string, string]): VersionInfo {
   const [name, version] = tuple;
