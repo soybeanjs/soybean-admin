@@ -1,6 +1,5 @@
 <template>
-  <shadow-card class="p-18px !rounded-4px">
-    <h3 class="pb-18px text-16px font-semibold">项目信息</h3>
+  <n-card title="项目信息" :bordered="false" size="small" class="rounded-16px shadow-sm">
     <n-descriptions label-placement="left" bordered size="small" :column="2">
       <n-descriptions-item label="版本">
         <n-tag type="primary">{{ version }}</n-tag>
@@ -15,11 +14,11 @@
         <a class="g_text-primary" href="https://soybean.pro" target="_blank">预览地址</a>
       </n-descriptions-item>
     </n-descriptions>
-  </shadow-card>
+  </n-card>
 </template>
 
 <script setup lang="ts">
-import { NDescriptions, NDescriptionsItem, NTag } from 'naive-ui';
+import { NCard, NDescriptions, NDescriptionsItem, NTag } from 'naive-ui';
 import { packageJson } from '@/utils';
 
 const { version } = packageJson;

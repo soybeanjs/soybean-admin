@@ -1,20 +1,18 @@
 <template>
   <n-grid cols="s:1 m:2 l:4" responsive="screen" :x-gap="16" :y-gap="16">
     <n-grid-item v-for="item in cardData" :key="item.id">
-      <shadow-card class="h-100px">
-        <gradient-bg :start-color="item.colors[0]" :end-color="item.colors[1]">
-          <h3 class="text-16px">{{ item.title }}</h3>
-          <div class="flex justify-between pt-12px">
-            <component :is="item.icon" class="text-32px" />
-            <count-to
-              :prefix="item.unit"
-              :start-value="1"
-              :end-value="item.value"
-              class="text-30px text-white dark:text-dark"
-            />
-          </div>
-        </gradient-bg>
-      </shadow-card>
+      <gradient-bg class="h-100px" :start-color="item.colors[0]" :end-color="item.colors[1]">
+        <h3 class="text-16px">{{ item.title }}</h3>
+        <div class="flex justify-between pt-12px">
+          <component :is="item.icon" class="text-32px" />
+          <count-to
+            :prefix="item.unit"
+            :start-value="1"
+            :end-value="item.value"
+            class="text-30px text-white dark:text-dark"
+          />
+        </div>
+      </gradient-bg>
     </n-grid-item>
   </n-grid>
 </template>
@@ -24,7 +22,7 @@ import type { VNodeChild } from 'vue';
 import { NGrid, NGridItem } from 'naive-ui';
 import { BarChartOutlined, MoneyCollectOutlined, TrademarkOutlined } from '@vicons/antd';
 import { DocumentDownload } from '@vicons/carbon';
-import { ShadowCard, CountTo } from '@/components';
+import { CountTo } from '@/components';
 import { dynamicIconRender } from '@/utils';
 import { GradientBg } from './components';
 

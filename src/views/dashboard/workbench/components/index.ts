@@ -1,3 +1,4 @@
-import HeaderInfo from './HeaderInfo/index.vue';
+import WorkbenchHeader from './WorkbenchHeader/index.vue';
+import WorkbenchMain from './WorkbenchMain/index.vue';
 
-export { HeaderInfo };
+export { WorkbenchHeader, WorkbenchMain };

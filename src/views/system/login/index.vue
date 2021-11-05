@@ -1,19 +1,21 @@
 <template>
   <div class="login-bg relative flex-center wh-full">
-    <shadow-card class="w-400px p-40px !rounded-20px z-10">
-      <header class="flex-y-center justify-between">
-        <div class="w-70px h-70px rounded-35px overflow-hidden">
-          <system-logo class="wh-full" :fill="true" :color="theme.themeColor" />
-        </div>
-        <n-gradient-text type="primary" :size="28">{{ title }}</n-gradient-text>
-      </header>
-      <main class="pt-24px">
-        <div v-for="item in modules" v-show="module === item.key" :key="item.key">
-          <h3 class="text-18px g_text-primary font-medium">{{ item.label }}</h3>
-          <component :is="item.component" />
-        </div>
-      </main>
-    </shadow-card>
+    <n-card :bordered="false" size="large" class="z-20 !w-auto rounded-20px shadow-sm">
+      <div class="w-400px">
+        <header class="flex-y-center justify-between">
+          <div class="w-70px h-70px rounded-35px overflow-hidden">
+            <system-logo class="wh-full" :fill="true" :color="theme.themeColor" />
+          </div>
+          <n-gradient-text type="primary" :size="28">{{ title }}</n-gradient-text>
+        </header>
+        <main class="pt-24px">
+          <div v-for="item in modules" v-show="module === item.key" :key="item.key">
+            <h3 class="text-18px g_text-primary font-medium">{{ item.label }}</h3>
+            <component :is="item.component" />
+          </div>
+        </main>
+      </div>
+    </n-card>
     <login-bg :theme-color="theme.themeColor" />
   </div>
 </template>
@@ -21,8 +23,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import type { Component, PropType } from 'vue';
-import { NGradientText } from 'naive-ui';
-import { ShadowCard, SystemLogo, LoginBg } from '@/components';
+import { NCard, NGradientText } from 'naive-ui';
+import { SystemLogo, LoginBg } from '@/components';
 import { useAppTitle } from '@/hooks';
 import { EnumLoginModule } from '@/enum';
 import { addColorAlpha } from '@/utils';

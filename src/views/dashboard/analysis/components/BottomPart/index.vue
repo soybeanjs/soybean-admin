@@ -1,24 +1,27 @@
 <template>
   <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" responsive="screen">
     <n-grid-item span="s:24 m:8">
-      <shadow-card class="h-400px p-18px">
-        <n-timeline>
-          <n-timeline-item v-for="item in timelines" :key="item.type" v-bind="item" />
-        </n-timeline>
-      </shadow-card>
+      <n-card title="时间线" :bordered="false" class="rounded-16px shadow-sm">
+        <div class="h-360px">
+          <n-timeline>
+            <n-timeline-item v-for="item in timelines" :key="item.type" v-bind="item" />
+          </n-timeline>
+        </div>
+      </n-card>
     </n-grid-item>
     <n-grid-item span="s:24 m:16">
-      <shadow-card class="h-400px p-18px">
-        <n-data-table size="small" :columns="columns" :data="tableData" />
-      </shadow-card>
+      <n-card title="表格" :bordered="false" class="rounded-16px shadow-sm">
+        <div class="h-360px">
+          <n-data-table size="small" :columns="columns" :data="tableData" />
+        </div>
+      </n-card>
     </n-grid-item>
   </n-grid>
 </template>
 
 <script setup lang="ts">
 import { h } from 'vue';
-import { NGrid, NGridItem, NTimeline, NTimelineItem, NDataTable, NTag } from 'naive-ui';
-import { ShadowCard } from '@/components';
+import { NGrid, NGridItem, NCard, NTimeline, NTimelineItem, NDataTable, NTag } from 'naive-ui';
 
 interface TimelineData {
   type: 'default' | 'info' | 'success' | 'warning' | 'error';

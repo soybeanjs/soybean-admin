@@ -1,36 +1,38 @@
 <template>
   <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" responsive="screen">
     <n-grid-item span="s:24 m:16">
-      <shadow-card class="flex h-360px p-18px">
-        <div class="w-200px h-full py-12px">
-          <h3 class="text-16px font-bold">Dashboard</h3>
-          <p class="text-[#aaa]">Overview Of Lasted Month</p>
-          <h3 class="pt-36px text-24px font-bold">
-            <count-to prefix="$" :start-value="0" :end-value="7754" />
-          </h3>
-          <p class="text-[#aaa]">Current Month Earnings</p>
-          <h3 class="pt-36px text-24px font-bold">
-            <count-to :start-value="0" :end-value="1234" />
-          </h3>
-          <p class="text-[#aaa]">Current Month Sales</p>
-          <n-button class="mt-24px" type="primary">Last Month Summary</n-button>
+      <n-card :bordered="false" class="rounded-16px shadow-sm">
+        <div class="flex h-360px">
+          <div class="w-200px h-full py-12px">
+            <h3 class="text-16px font-bold">Dashboard</h3>
+            <p class="text-[#aaa]">Overview Of Lasted Month</p>
+            <h3 class="pt-36px text-24px font-bold">
+              <count-to prefix="$" :start-value="0" :end-value="7754" />
+            </h3>
+            <p class="text-[#aaa]">Current Month Earnings</p>
+            <h3 class="pt-36px text-24px font-bold">
+              <count-to :start-value="0" :end-value="1234" />
+            </h3>
+            <p class="text-[#aaa]">Current Month Sales</p>
+            <n-button class="mt-24px" type="primary">Last Month Summary</n-button>
+          </div>
+          <div ref="lineRef" class="flex-1 h-full"></div>
         </div>
-        <div ref="lineRef" class="flex-1 h-full"></div>
-      </shadow-card>
+      </n-card>
     </n-grid-item>
     <n-grid-item span="s:24 m:8">
-      <shadow-card class="h-360px">
-        <div ref="pieRef" class="wh-full"></div>
-      </shadow-card>
+      <n-card :bordered="false" class="rounded-16px shadow-sm">
+        <div ref="pieRef" class="w-full h-360px"></div>
+      </n-card>
     </n-grid-item>
   </n-grid>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { NGrid, NGridItem, NButton } from 'naive-ui';
+import { NGrid, NGridItem, NCard, NButton } from 'naive-ui';
 import { Line, Pie } from '@antv/g2plot';
-import { ShadowCard, CountTo } from '@/components';
+import { CountTo } from '@/components';
 import data from './data.json';
 
 const lineRef = ref<HTMLElement | null>(null);
@@ -83,11 +85,9 @@ function renderPieChart() {
       }
     },
     label: {
-      type: 'spider',
-      offset: '8%',
+      type: 'inner',
       autoRotate: false,
-      formatter: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
-      style: { fontSize: 18 }
+      formatter: ({ percent }) => `${(percent * 100).toFixed(0)}%`
     },
     statistic: undefined,
     pieStyle: {
