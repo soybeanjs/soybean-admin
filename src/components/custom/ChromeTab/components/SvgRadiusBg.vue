@@ -11,17 +11,11 @@
         <rect width="100%" height="100%" x="0"></rect>
       </clipPath>
     </defs>
-    <svg width="50%" height="100%">
-      <use xlink:href="#geometry-left" width="214" height="36" :fill="foregorund"></use>
-    </svg>
-    <svg width="50%" height="100%">
+    <svg width="52%" height="100%">
       <use xlink:href="#geometry-left" width="214" height="36" :fill="fill"></use>
     </svg>
     <g transform="scale(-1, 1)">
-      <svg width="50%" height="100%" x="-100%" y="0">
-        <use xlink:href="#geometry-right" width="214" height="36" :fill="foregorund"></use>
-      </svg>
-      <svg width="50%" height="100%" x="-100%" y="0">
+      <svg width="52%" height="100%" x="-100%" y="0">
         <use xlink:href="#geometry-right" width="214" height="36" :fill="fill"></use>
       </svg>
     </g>
@@ -30,34 +24,33 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { addColorAlpha } from '@/utils';
+import { mixColor } from '@/utils';
+
+interface Props {
+  /** 激活状态 */
+  isActive?: boolean;
+  /** 鼠标悬浮状态 */
+  isHover?: boolean;
+  /** 主题颜色 */
+  primaryColor?: string;
+  /** 暗黑模式 */
+  darkMode?: boolean;
+}
 
 /** 填充的背景颜色： [默认颜色, 暗黑主题颜色] */
 type FillColor = [string, string];
 
-const props = defineProps({
-  isActive: {
-    type: Boolean,
-    default: false
-  },
-  isHover: {
-    type: Boolean,
-    default: false
-  },
-  primaryColor: {
-    type: String,
-    default: '#409EFF'
-  },
-  darkMode: {
-    type: Boolean,
-    default: false
-  }
+const props = withDefaults(defineProps<Props>(), {
+  isActive: false,
+  isHover: false,
+  primaryColor: '#409EFF',
+  darkMode: false
 });
 
 const defaultColor: FillColor = ['#fff', '#18181c'];
 const hoverColor: FillColor = ['#dee1e6', '#3f3c37'];
+const mixColors: FillColor = ['#ffffff', '#000000'];
 
-const foregorund = computed(() => defaultColor[Number(props.darkMode)]);
 const fill = computed(() => {
   const index = Number(props.darkMode);
   let color = defaultColor[index];
@@ -65,8 +58,8 @@ const fill = computed(() => {
     color = hoverColor[index];
   }
   if (props.isActive) {
-    const alpha = props.darkMode ? 0.15 : 0.1;
-    color = addColorAlpha(props.primaryColor, alpha);
+    const alpha = props.darkMode ? 0.1 : 0.15;
+    color = mixColor(mixColors[index], props.primaryColor, alpha);
   }
   return color;
 });

@@ -25,15 +25,16 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
-  startColor: {
-    type: String,
-    default: '#28aff0'
-  },
-  endColor: {
-    type: String,
-    default: '#120fc4'
-  }
+interface Props {
+  /** 过渡的开始颜色 */
+  startColor?: string;
+  /** 过渡的结束颜色 */
+  endColor?: string;
+}
+
+withDefaults(defineProps<Props>(), {
+  startColor: '#28aff0',
+  endColor: '#120fc4'
 });
 </script>
 <style scoped></style>

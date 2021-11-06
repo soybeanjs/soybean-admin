@@ -38,11 +38,13 @@ import { menus } from '@/router';
 import { GlobalMenuOption } from '@/interface';
 import { GlobalLogo } from '../../../common';
 
-defineProps({
-  zIndex: {
-    type: Number,
-    default: 0
-  }
+interface Props {
+  /** 层级z-index */
+  zIndex?: number;
+}
+
+withDefaults(defineProps<Props>(), {
+  zIndex: 0
 });
 
 const theme = useThemeStore();

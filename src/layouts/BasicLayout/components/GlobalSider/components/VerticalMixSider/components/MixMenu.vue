@@ -17,30 +17,24 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType, VNodeChild } from 'vue';
+import type { VNodeChild } from 'vue';
 import { useBoolean } from '@/hooks';
 
-const props = defineProps({
-  routeName: {
-    type: String,
-    required: true
-  },
-  label: {
-    type: String,
-    default: ''
-  },
-  icon: {
-    type: Function as PropType<() => VNodeChild>,
-    required: true
-  },
-  activeRouteName: {
-    type: String,
-    required: true
-  },
-  isMini: {
-    type: Boolean,
-    default: false
-  }
+interface Props {
+  /** 路由名称 */
+  routeName: string;
+  /** 路由名称文本 */
+  label: string;
+  /** 路由图标 */
+  icon: VNodeChild;
+  /** 当前激活状态的理由名称 */
+  activeRouteName: string;
+  /** mini尺寸的路由 */
+  isMini?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isMini: false
 });
 
 const { bool: isHover, setTrue, setFalse } = useBoolean();

@@ -41,21 +41,25 @@ function generateBreadcrumb() {
 
 /** 递归匹配路由获取面包屑数据 */
 function recursionBreadcrumb(routeMatched: RouteLocationMatched[]) {
-  return routeMatched.map(item => {
-    const routeName = item.name as RoutePathKey;
-    const breadcrumItem: Breadcrumb = {
-      key: routeName,
-      label: (item.meta?.title as string) || '',
-      disabled: item.path === EnumRoutePath.root,
-      routeName,
-      hasChildren: false
-    };
-    if (item.children && item.children.length) {
-      breadcrumItem.hasChildren = true;
-      breadcrumItem.children = recursionBreadcrumb(item.children as RouteLocationMatched[]);
+  const list: Breadcrumb[] = [];
+  routeMatched.forEach(item => {
+    if (!item.meta?.isNotMenu) {
+      const routeName = item.name as RoutePathKey;
+      const breadcrumItem: Breadcrumb = {
+        key: routeName,
+        label: (item.meta?.title as string) || '',
+        disabled: item.path === EnumRoutePath.root,
+        routeName,
+        hasChildren: false
+      };
+      if (item.children && item.children.length) {
+        breadcrumItem.hasChildren = true;
+        breadcrumItem.children = recursionBreadcrumb(item.children as RouteLocationMatched[]);
+      }
+      list.push(breadcrumItem);
     }
-    return breadcrumItem;
   });
+  return list;
 }
 
 function dropdownSelect(optionKey: string) {

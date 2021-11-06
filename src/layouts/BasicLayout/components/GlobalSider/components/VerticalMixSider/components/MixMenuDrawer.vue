@@ -15,7 +15,7 @@
     :style="{ width: showDrawer ? theme.menuStyle.width + 'px' : '0px' }"
   >
     <header class="header-height flex-y-center justify-between">
-      <h2 class="pl-8px text-16px g_text-primary font-bold">{{ title }}</h2>
+      <h2 class="g_text-primary pl-8px text-16px font-bold">{{ title }}</h2>
       <div class="px-8px text-16px text-gray-600 cursor-pointer" @click="toggleFixedMixMenu">
         <icon-mdi:pin-off v-if="app.menu.fixedMix" />
         <icon-mdi:pin v-else />
@@ -39,15 +39,15 @@ import { useAppTitle } from '@/hooks';
 import { menus } from '@/router';
 import type { GlobalMenuOption } from '@/interface';
 
-const props = defineProps({
-  visible: {
-    type: Boolean,
-    default: false
-  },
-  activeRouteName: {
-    type: String,
-    required: true
-  }
+interface Props {
+  /** 菜单抽屉可见性 */
+  visible?: boolean;
+  /** 激活状态的路由名称 */
+  activeRouteName: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  visible: false
 });
 
 const router = useRouter();

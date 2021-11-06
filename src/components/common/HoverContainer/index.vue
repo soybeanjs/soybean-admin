@@ -15,23 +15,21 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue';
 import { NTooltip } from 'naive-ui';
 import type { FollowerPlacement } from 'vueuc';
 
-defineProps({
-  showTooltip: {
-    type: Boolean,
-    default: true
-  },
-  placement: {
-    type: String as PropType<FollowerPlacement>,
-    default: 'bottom'
-  },
-  content: {
-    type: String,
-    default: ''
-  }
+interface Props {
+  /** 是否显示tooltip */
+  showTooltip?: boolean;
+  /** tooltip的位置 */
+  placement?: FollowerPlacement;
+  /** tooltip显示文本 */
+  content?: string;
+}
+withDefaults(defineProps<Props>(), {
+  showTooltip: true,
+  placement: 'bottom',
+  content: ''
 });
 </script>
 <style scoped></style>

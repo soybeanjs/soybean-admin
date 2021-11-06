@@ -1,17 +1,5 @@
-export {
-  isNumber,
-  isString,
-  isBoolean,
-  isNull,
-  isUndefined,
-  isObject,
-  isArray,
-  isDate,
-  isRegExp,
-  isSet,
-  isMap
-} from './typeof';
+export * from './typeof';
 
-export { brightenColor, darkenColor, addColorAlpha } from './color';
+export * from './color';
 
-export { dynamicIconRender } from './icon';
+export * from './icon';

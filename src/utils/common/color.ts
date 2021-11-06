@@ -26,3 +26,13 @@ export function darkenColor(color: string, deep: number = 0.5) {
 export function addColorAlpha(color: string, alpha: number) {
   return chroma(color).alpha(alpha).hex();
 }
+
+/**
+ * 颜色混合
+ * @param firstColor - 第一个颜色
+ * @param secondColor - 第二个颜色
+ * @param ratio - 第二个颜色占比
+ */
+export function mixColor(firstColor: string, secondColor: string, ratio: number) {
+  return chroma.mix(firstColor, secondColor, ratio).hex();
+}

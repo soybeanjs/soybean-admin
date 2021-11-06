@@ -15,19 +15,19 @@
 <script lang="ts" setup>
 import { useBoolean } from '@/hooks';
 
-defineProps({
-  isPrimary: {
-    type: Boolean,
-    default: false
-  },
-  primaryColor: {
-    type: String,
-    default: '#409EFF'
-  },
-  defaultColor: {
-    type: String,
-    default: '#9ca3af'
-  }
+interface Props {
+  /** 激活状态 */
+  isPrimary?: boolean;
+  /** 主题颜色 */
+  primaryColor?: string;
+  /** 默认颜色 */
+  defaultColor?: string;
+}
+
+withDefaults(defineProps<Props>(), {
+  isPrimary: false,
+  primaryColor: '#409EFF',
+  defaultColor: '#9ca3af'
 });
 
 const { bool: isHover, setTrue, setFalse } = useBoolean();

@@ -10,11 +10,13 @@ import { computed } from 'vue';
 import { useThemeStore } from '@/store';
 import { DefaultSider, VerticalMixSider } from './components';
 
-const props = defineProps({
-  zIndex: {
-    type: Number,
-    default: 0
-  }
+interface Props {
+  /** 层级z-index */
+  zIndex?: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  zIndex: 0
 });
 
 const theme = useThemeStore();

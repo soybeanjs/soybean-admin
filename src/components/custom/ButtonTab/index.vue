@@ -5,11 +5,10 @@
       flex-center
       h-30px
       pl-14px
-      border-1px
+      border-1px border-[#e5e7eb]
+      dark:border-[#ffffff3d]
       rounded-2px
       cursor-pointer
-      border-[#e5e7eb]
-      dark:border-[#ffffff3d]
     "
     :class="[closable ? 'pr-6px' : 'pr-14px']"
     :style="buttonStyle"
@@ -31,25 +30,27 @@ import { useBoolean } from '@/hooks';
 import { IconClose } from '@/components';
 import { addColorAlpha } from '@/utils';
 
-const props = defineProps({
-  isActive: {
-    type: Boolean,
-    default: false
-  },
-  primaryColor: {
-    type: String,
-    default: '#409EFF'
-  },
-  closable: {
-    type: Boolean,
-    default: true
-  },
-  darkMode: {
-    type: Boolean,
-    default: false
-  }
+interface Props {
+  /** 激活状态 */
+  isActive?: boolean;
+  /** 主题颜色 */
+  primaryColor?: string;
+  /** 是否显示关闭图标 */
+  closable?: boolean;
+  /** 暗黑模式 */
+  darkMode?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isActive: false,
+  primaryColor: '#409EFF',
+  closable: true,
+  darkMode: false
 });
-const emit = defineEmits(['close']);
+const emit = defineEmits<{
+  /** 点击关闭图标 */
+  (e: 'close'): void;
+}>();
 
 const { bool: isHover, setTrue, setFalse } = useBoolean();
 

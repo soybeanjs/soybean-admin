@@ -43,11 +43,13 @@ import {
 import { GlobalLogo } from '../common';
 import HeaderMenu from './components/HeaderMenu.vue';
 
-defineProps({
-  zIndex: {
-    type: Number,
-    default: 0
-  }
+interface Props {
+  /** 层级z-index */
+  zIndex?: number;
+}
+
+withDefaults(defineProps<Props>(), {
+  zIndex: 0
 });
 
 const theme = useThemeStore();

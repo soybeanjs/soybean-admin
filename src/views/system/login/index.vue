@@ -22,15 +22,20 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { Component, PropType } from 'vue';
+import type { Component } from 'vue';
 import { NCard, NGradientText } from 'naive-ui';
 import { SystemLogo, LoginBg } from '@/components';
 import { useAppTitle } from '@/hooks';
 import { EnumLoginModule } from '@/enum';
-import { addColorAlpha } from '@/utils';
+import { mixColor } from '@/utils';
 import type { LoginModuleType } from '@/interface';
 import { PwdLogin, CodeLogin, Register, ResetPwd, BindWechat } from './components';
 import { useThemeStore } from '@/store';
+
+interface Props {
+  /** 登录模块分类 */
+  module?: LoginModuleType;
+}
 
 interface LoginModule {
   key: LoginModuleType;
@@ -38,11 +43,8 @@ interface LoginModule {
   component: Component;
 }
 
-defineProps({
-  module: {
-    type: String as PropType<LoginModuleType>,
-    default: 'pwd-login'
-  }
+withDefaults(defineProps<Props>(), {
+  module: 'pwd-login'
 });
 
 const theme = useThemeStore();
@@ -56,7 +58,7 @@ const modules: LoginModule[] = [
   { key: 'bind-wechat', label: EnumLoginModule['bind-wechat'], component: BindWechat }
 ];
 
-const bgColor = computed(() => addColorAlpha(theme.themeColor, 0.1));
+const bgColor = computed(() => mixColor('#ffffff', theme.themeColor, 0.3));
 </script>
 <style scoped>
 .login-bg {

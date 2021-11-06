@@ -25,7 +25,7 @@ function hasChildren(route: RouteRecordRaw) {
 }
 
 /** 获取被缓存的路由 */
-export default function getCacheRoutes(routes: RouteRecordRaw[]) {
+export function getCacheRoutes(routes: RouteRecordRaw[]) {
   const cacheNames: string[] = [];
   routes.forEach(route => {
     const isCache = isKeepAlive(route);

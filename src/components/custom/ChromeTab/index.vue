@@ -30,26 +30,27 @@ import { useBoolean } from '@/hooks';
 import IconClose from '../IconClose/index.vue';
 import { SvgRadiusBg } from './components';
 
-defineProps({
-  isActive: {
-    type: Boolean,
-    default: false
-  },
-  primaryColor: {
-    type: String,
-    default: '#409EFF'
-  },
-  closable: {
-    type: Boolean,
-    default: true
-  },
-  darkMode: {
-    type: Boolean,
-    default: false
-  }
-});
+interface Props {
+  /** 激活状态 */
+  isActive?: boolean;
+  /** 主题颜色 */
+  primaryColor?: string;
+  /** 是否显示关闭图标 */
+  closable?: boolean;
+  /** 暗黑模式 */
+  darkMode?: boolean;
+}
 
-const emit = defineEmits(['close']);
+withDefaults(defineProps<Props>(), {
+  isActive: false,
+  primaryColor: '#409EFF',
+  closable: true,
+  darkMode: false
+});
+const emit = defineEmits<{
+  /** 点击关闭图标 */
+  (e: 'close'): void;
+}>();
 
 const { bool: isHover, setTrue, setFalse } = useBoolean();
 

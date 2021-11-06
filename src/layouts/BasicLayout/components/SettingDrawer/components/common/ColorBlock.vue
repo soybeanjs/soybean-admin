@@ -11,15 +11,13 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-const props = defineProps({
-  color: {
-    type: String,
-    required: true
-  },
-  checked: {
-    type: Boolean,
-    default: false
-  }
+interface Props {
+  color: string;
+  checked?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  checked: false
 });
 
 const whiteColors = ['#ffffff', '#fff', 'rgb(255,255,255)'];

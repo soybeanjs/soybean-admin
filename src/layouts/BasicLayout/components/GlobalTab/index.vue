@@ -24,11 +24,13 @@ import { useThemeStore, useAppStore } from '@/store';
 import { BetterScroll } from '@/components';
 import { MultiTab, ReloadButton } from './components';
 
-defineProps({
-  zIndex: {
-    type: Number,
-    default: 0
-  }
+interface Props {
+  /** 层级z-index */
+  zIndex?: number;
+}
+
+withDefaults(defineProps<Props>(), {
+  zIndex: 0
 });
 
 const route = useRoute();

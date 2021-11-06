@@ -1,28 +1,30 @@
 <template>
   <div ref="scrollbar" class="wh-full text-left">
-    <div ref="scrollbarContent" class="inline-block" :class="{ 'h-full': !options.scrollY }">
+    <div ref="scrollbarContent" class="inline-block" :class="{ 'h-full': !isScrollY }">
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import type { PropType } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import BScroll from '@better-scroll/core';
 import type { Options } from '@better-scroll/core';
 import { useElementSize } from '@vueuse/core';
 
-const props = defineProps({
-  options: {
-    type: Object as PropType<Options>,
-    required: true
-  }
+interface Props {
+  /** better-scroll的配置: https://better-scroll.github.io/docs/zh-CN/guide/base-scroll-options.html */
+  options?: Options;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  options: undefined
 });
 
 const scrollbar = ref<HTMLElement | null>(null);
 const bsInstance = ref<BScroll | null>(null);
 const scrollbarContent = ref<HTMLElement | null>(null);
+const isScrollY = computed(() => Boolean(props.options?.scrollY));
 
 function initBetterScroll() {
   bsInstance.value = new BScroll(scrollbar.value!, props.options);

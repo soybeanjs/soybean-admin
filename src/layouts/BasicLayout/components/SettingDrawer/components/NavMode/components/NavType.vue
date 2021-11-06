@@ -17,25 +17,24 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { PropType } from 'vue';
 import { NTooltip } from 'naive-ui';
 import type { FollowerPlacement } from 'vueuc';
 import { EnumNavMode } from '@/enum';
 import type { NavMode } from '@/interface';
 
-const props = defineProps({
-  mode: {
-    type: String as PropType<NavMode>,
-    default: 'vertical'
-  },
-  checked: {
-    type: Boolean,
-    default: false
-  },
-  primaryColor: {
-    type: String,
-    default: '#409EFF'
-  }
+interface Props {
+  /** 导航模式 */
+  mode?: NavMode;
+  /** 选中状态 */
+  checked?: boolean;
+  /** 主题颜色 */
+  primaryColor?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  mode: 'vertical',
+  checked: false,
+  primaryColor: '#409EFF'
 });
 
 const config = new Map<NavMode, { placement: FollowerPlacement; menuClass: string; mainClass: string }>([

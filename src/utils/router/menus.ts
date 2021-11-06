@@ -19,7 +19,7 @@ function addPartialProps(menuItem: GlobalMenuOption, icon?: Component, children?
   return item;
 }
 
-export default function transformRouteToMenu(routes: CustomRoute[]) {
+export function transformRouteToMenu(routes: CustomRoute[]) {
   const globalMenu: GlobalMenuOption[] = [];
   routes.forEach(route => {
     const { name, path, meta } = route;

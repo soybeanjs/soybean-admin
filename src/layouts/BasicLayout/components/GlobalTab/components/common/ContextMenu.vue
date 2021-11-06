@@ -21,35 +21,33 @@ import { ROUTE_HOME } from '@/router';
 import { useReloadInject } from '@/context';
 import { dynamicIconRender } from '@/utils';
 
+interface Props {
+  /** 右键菜单可见性 */
+  visible?: boolean;
+  /** 当前是否是路由首页 */
+  isRouteHome?: boolean;
+  /** 当前路由路径 */
+  currentPath?: string;
+  /** 鼠标x坐标 */
+  x: number;
+  /** 鼠标y坐标 */
+  y: number;
+}
+
 type DropdownKey = 'reload-current' | 'close-current' | 'close-other' | 'close-all';
 type Option = DropdownOption & {
   key: DropdownKey;
 };
 
-const props = defineProps({
-  visible: {
-    type: Boolean,
-    default: false
-  },
-  isRouteHome: {
-    type: Boolean,
-    default: false
-  },
-  currentPath: {
-    type: String,
-    default: ''
-  },
-  x: {
-    type: Number,
-    required: true
-  },
-  y: {
-    type: Number,
-    required: true
-  }
+const props = withDefaults(defineProps<Props>(), {
+  visible: false,
+  isRouteHome: false,
+  currentPath: ''
 });
 
-const emit = defineEmits(['update:visible']);
+const emit = defineEmits<{
+  (e: 'update:visible', visible: boolean): void;
+}>();
 
 const app = useAppStore();
 const { removeMultiTab, clearMultiTab } = useAppStore();

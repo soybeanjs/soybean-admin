@@ -6,85 +6,54 @@ import { ref, computed, onMounted, watch, watchEffect } from 'vue';
 import { useTransition, TransitionPresets } from '@vueuse/core';
 import { isNumber } from '@/utils';
 
-const props = defineProps({
-  startValue: {
-    type: Number,
-    default: 0
-  },
-  endValue: {
-    type: Number,
-    default: 2021
-  },
-  duration: {
-    type: Number,
-    default: 1500
-  },
-  autoplay: {
-    type: Boolean,
-    default: true
-  },
-  decimals: {
-    type: Number,
-    default: 0,
-    validator(value: number) {
-      return value >= 0;
-    }
-  },
-  prefix: {
-    type: String,
-    default: ''
-  },
-  suffix: {
-    type: String,
-    default: ''
-  },
-  separator: {
-    type: String,
-    default: ','
-  },
-  decimal: {
-    type: String,
-    default: '.'
-  },
-  useEasing: {
-    type: Boolean,
-    default: true
-  },
-  transition: {
-    type: String,
-    default: 'linear'
-  }
-});
-const emit = defineEmits(['on-started', 'on-finished']);
-
-const source = ref(props.startValue);
-const disabled = ref(false);
-let outputValue = useTransition(source);
-const value = computed(() => formatNumber(outputValue.value));
-
-watchEffect(() => {
-  source.value = props.startValue;
-});
-watch([() => props.startValue, () => props.endValue], () => {
-  if (props.autoplay) {
-    start();
-  }
-});
-onMounted(() => {
-  if (props.autoplay) {
-    start();
-  }
-});
-
-function start() {
-  run();
-  source.value = props.endValue;
+interface Props {
+  /** 初始值 */
+  startValue?: number;
+  /** 结束值 */
+  endValue?: number;
+  /** 动画时长 */
+  duration?: number;
+  /** 自动动画 */
+  autoplay?: boolean;
+  /** 进制 */
+  decimals?: number;
+  /** 前缀 */
+  prefix?: string;
+  /** 后缀 */
+  suffix?: string;
+  /** 分割符号 */
+  separator?: string;
+  /** 小数点 */
+  decimal?: string;
+  /** 使用缓冲动画函数 */
+  useEasing?: boolean;
+  /** 缓冲动画函数类型 */
+  transition?: string;
 }
 
-// function reset() {
-//   source.value = props.startValue;
-//   run();
-// }
+const props = withDefaults(defineProps<Props>(), {
+  startValue: 0,
+  endValue: 2021,
+  duration: 1500,
+  autoplay: true,
+  decimals: 0,
+  prefix: '',
+  suffix: '',
+  separator: ',',
+  decimal: '.',
+  useEasing: true,
+  transition: 'linear'
+});
+
+const emit = defineEmits<{
+  (e: 'on-started'): void;
+  (e: 'on-finished'): void;
+}>();
+
+const source = ref(props.startValue);
+let outputValue = useTransition(source);
+const value = computed(() => formatNumber(outputValue.value));
+const disabled = ref(false);
 
 function run() {
   outputValue = useTransition(source, {
@@ -94,6 +63,11 @@ function run() {
     onFinished: () => emit('on-finished'),
     ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {})
   });
+}
+
+function start() {
+  run();
+  source.value = props.endValue;
 }
 
 function formatNumber(num: number | string) {
@@ -115,4 +89,18 @@ function formatNumber(num: number | string) {
   }
   return prefix + x1 + x2 + suffix;
 }
+
+watch([() => props.startValue, () => props.endValue], () => {
+  if (props.autoplay) {
+    start();
+  }
+});
+watchEffect(() => {
+  source.value = props.startValue;
+});
+onMounted(() => {
+  if (props.autoplay) {
+    start();
+  }
+});
 </script>

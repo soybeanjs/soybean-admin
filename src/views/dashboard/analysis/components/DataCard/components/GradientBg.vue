@@ -9,9 +9,9 @@ import { computed } from 'vue';
 
 interface Props {
   /** 渐变开始的颜色 */
-  startColor: string;
+  startColor?: string;
   /** 渐变结束的颜色 */
-  endColor: string;
+  endColor?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {

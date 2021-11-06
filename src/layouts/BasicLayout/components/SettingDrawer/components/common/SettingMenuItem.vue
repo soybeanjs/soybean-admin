@@ -6,11 +6,11 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
-  label: {
-    type: String,
-    default: ''
-  }
-});
+interface Props {
+  /** 文本 */
+  label: string;
+}
+
+defineProps<Props>();
 </script>
 <style scoped></style>
