@@ -9,12 +9,15 @@
 
 #### 二、多个图标动态渲染
 
-1.确定图标名字，如：'mdi:emoticon'
-2.引入Icon组件：
-`import { Icon } from '@iconify/vue';`
-3.动态渲染 
+1. 确定图标名字，如：'mdi:emoticon'
 
-`<Icon icon="mdi:emoticon" />`
+2. 引入Icon组件：
+
+   `import { Icon } from '@iconify/vue';`
+
+3. 动态渲染
+
+    `<Icon icon="mdi:emoticon" />`
 
 *ps：Icon组件属性 https://docs.iconify.design/icon-components/vue/*
 
@@ -32,7 +35,7 @@
 
 4. 动态渲染
 
-`() => h(Icon, { icon: 'mdi:emoticon', style: { color: '#f00', fontSize: '16px' } })`
+   `() => h(Icon, { icon: 'mdi:emoticon', style: { color: '#f00', fontSize: '16px' } })`
 
 *ps：@/uitls已封装好了函数：iconifyRender*
 
