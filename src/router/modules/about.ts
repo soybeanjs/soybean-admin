@@ -1,4 +1,3 @@
-import { BookInformation24Regular } from '@vicons/fluent';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { ROUTE_NAME_MAP, setRouterCacheName, setSingleRoute } from '@/utils';
@@ -14,7 +13,7 @@ const ABOUT: CustomRoute = setSingleRoute(BasicLayout, {
   meta: {
     requiresAuth: true,
     title: EnumRouteTitle.about,
-    icon: BookInformation24Regular
+    icon: 'fluent:book-information-24-regular'
   }
 });
 

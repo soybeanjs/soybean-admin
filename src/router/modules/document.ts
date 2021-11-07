@@ -1,4 +1,3 @@
-import { Document } from '@vicons/carbon';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout } from '@/layouts';
@@ -19,7 +18,7 @@ const DOCUMENT: CustomRoute = {
   meta: {
     requiresAuth: true,
     title: EnumRouteTitle.document,
-    icon: Document
+    icon: 'carbon:document'
   },
   children: [
     {

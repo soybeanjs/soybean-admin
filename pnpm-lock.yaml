@@ -11,14 +11,6 @@ specifiers:
   '@types/qs': ^6.9.7
   '@typescript-eslint/eslint-plugin': ^5.3.0
   '@typescript-eslint/parser': ^5.3.0
-  '@vicons/antd': ^0.11.0
-  '@vicons/carbon': ^0.11.0
-  '@vicons/fa': ^0.11.0
-  '@vicons/fluent': ^0.11.0
-  '@vicons/ionicons4': ^0.11.0
-  '@vicons/ionicons5': ^0.11.0
-  '@vicons/material': ^0.11.0
-  '@vicons/tabler': ^0.11.0
   '@vitejs/plugin-vue': ^1.9.4
   '@vue/compiler-sfc': ^3.2.21
   '@vue/eslint-config-prettier': ^6.0.0
@@ -85,14 +77,6 @@ devDependencies:
   '@types/qs': registry.nlark.com/@types/qs/6.9.7
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.3.0_f8873316f48f7781ccc3e081fc76e214
   '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.3.0_eslint@8.1.0+typescript@4.4.4
-  '@vicons/antd': registry.nlark.com/@vicons/antd/0.11.0
-  '@vicons/carbon': registry.nlark.com/@vicons/carbon/0.11.0
-  '@vicons/fa': registry.nlark.com/@vicons/fa/0.11.0
-  '@vicons/fluent': registry.nlark.com/@vicons/fluent/0.11.0
-  '@vicons/ionicons4': registry.nlark.com/@vicons/ionicons4/0.11.0
-  '@vicons/ionicons5': registry.nlark.com/@vicons/ionicons5/0.11.0
-  '@vicons/material': registry.nlark.com/@vicons/material/0.11.0
-  '@vicons/tabler': registry.nlark.com/@vicons/tabler/0.11.0
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/1.9.4_vite@2.5.10
   '@vue/compiler-sfc': registry.npmmirror.com/@vue/compiler-sfc/3.2.21
   '@vue/eslint-config-prettier': 6.0.0_91df2dbc49a694d3127d896fd063ef53
@@ -901,54 +885,6 @@ packages:
     resolution: {integrity: sha1-O5ziSJkZ2eT+pDm3aRarw0st8Sk=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/yargs-parser/download/@types/yargs-parser-20.2.1.tgz}
     name: '@types/yargs-parser'
     version: 20.2.1
-
-  registry.nlark.com/@vicons/antd/0.11.0:
-    resolution: {integrity: sha1-PSiVLQKK7XEtymHLgdvbEUVMVUI=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vicons/antd/download/@vicons/antd-0.11.0.tgz}
-    name: '@vicons/antd'
-    version: 0.11.0
-    dev: true
-
-  registry.nlark.com/@vicons/carbon/0.11.0:
-    resolution: {integrity: sha1-UQ4B6IOnOx1DQ6PrHRAUFEZGOr4=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vicons/carbon/download/@vicons/carbon-0.11.0.tgz}
-    name: '@vicons/carbon'
-    version: 0.11.0
-    dev: true
-
-  registry.nlark.com/@vicons/fa/0.11.0:
-    resolution: {integrity: sha1-3GeAslt5Q3NOfHXXTfL0RDsFcq4=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vicons/fa/download/@vicons/fa-0.11.0.tgz}
-    name: '@vicons/fa'
-    version: 0.11.0
-    dev: true
-
-  registry.nlark.com/@vicons/fluent/0.11.0:
-    resolution: {integrity: sha1-hPPNolVTnLlvRcicFgHiiS15gm8=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vicons/fluent/download/@vicons/fluent-0.11.0.tgz}
-    name: '@vicons/fluent'
-    version: 0.11.0
-    dev: true
-
-  registry.nlark.com/@vicons/ionicons4/0.11.0:
-    resolution: {integrity: sha1-pg9erWYdRz8XEDrQBRzoKtdxu+Y=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vicons/ionicons4/download/@vicons/ionicons4-0.11.0.tgz}
-    name: '@vicons/ionicons4'
-    version: 0.11.0
-    dev: true
-
-  registry.nlark.com/@vicons/ionicons5/0.11.0:
-    resolution: {integrity: sha1-VBhb+lcqCd9wCU2xlU8ov78TY+0=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vicons/ionicons5/download/@vicons/ionicons5-0.11.0.tgz}
-    name: '@vicons/ionicons5'
-    version: 0.11.0
-    dev: true
-
-  registry.nlark.com/@vicons/material/0.11.0:
-    resolution: {integrity: sha1-LCCRIfP/akZFD0loOX32wwCN+NE=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vicons/material/download/@vicons/material-0.11.0.tgz}
-    name: '@vicons/material'
-    version: 0.11.0
-    dev: true
-
-  registry.nlark.com/@vicons/tabler/0.11.0:
-    resolution: {integrity: sha1-nrBXnADKowQMLBz55cDHa6EgT7M=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vicons/tabler/download/@vicons/tabler-0.11.0.tgz}
-    name: '@vicons/tabler'
-    version: 0.11.0
-    dev: true
 
   registry.nlark.com/JSONStream/1.3.5:
     resolution: {integrity: sha1-MgjB8I06TZkmGrZPkjArwV4RHKA=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/JSONStream/download/JSONStream-1.3.5.tgz}

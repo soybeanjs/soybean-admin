@@ -4,7 +4,7 @@
       <gradient-bg class="h-100px" :start-color="item.colors[0]" :end-color="item.colors[1]">
         <h3 class="text-16px">{{ item.title }}</h3>
         <div class="flex justify-between pt-12px">
-          <component :is="item.icon" class="text-32px" />
+          <Icon :icon="item.icon" class="text-32px" />
           <count-to
             :prefix="item.unit"
             :start-value="1"
@@ -18,12 +18,9 @@
 </template>
 
 <script setup lang="ts">
-import type { VNodeChild } from 'vue';
 import { NGrid, NGridItem } from 'naive-ui';
-import { BarChartOutlined, MoneyCollectOutlined, TrademarkOutlined } from '@vicons/antd';
-import { DocumentDownload } from '@vicons/carbon';
+import { Icon } from '@iconify/vue';
 import { CountTo } from '@/components';
-import { dynamicIconRender } from '@/utils';
 import { GradientBg } from './components';
 
 interface CardData {
@@ -32,7 +29,7 @@ interface CardData {
   value: number;
   unit: string;
   colors: [string, string];
-  icon: () => VNodeChild;
+  icon: string;
 }
 
 const cardData: CardData[] = [
@@ -42,7 +39,7 @@ const cardData: CardData[] = [
     value: 1000000,
     unit: '',
     colors: ['#ec4786', '#b955a4'],
-    icon: dynamicIconRender(BarChartOutlined)
+    icon: 'ant-design:bar-chart-outlined'
   },
   {
     id: 'amount',
@@ -50,7 +47,7 @@ const cardData: CardData[] = [
     value: 234567.89,
     unit: '$',
     colors: ['#865ec0', '#5144b4'],
-    icon: dynamicIconRender(MoneyCollectOutlined)
+    icon: 'ant-design:money-collect-outlined'
   },
   {
     id: 'download',
@@ -58,7 +55,7 @@ const cardData: CardData[] = [
     value: 666666,
     unit: '',
     colors: ['#56cdf3', '#719de3'],
-    icon: dynamicIconRender(DocumentDownload)
+    icon: 'carbon:document-download'
   },
   {
     id: 'trade',
@@ -66,7 +63,7 @@ const cardData: CardData[] = [
     value: 999999,
     unit: '',
     colors: ['#fcbc25', '#f68057'],
-    icon: dynamicIconRender(TrademarkOutlined)
+    icon: 'ant-design:trademark-circle-outlined'
   }
 ];
 </script>

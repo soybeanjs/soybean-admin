@@ -1,4 +1,3 @@
-import { Dashboard } from '@vicons/carbon';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout } from '@/layouts';
@@ -15,7 +14,7 @@ const DASHBOARD: CustomRoute = {
   redirect: { name: ROUTE_NAME_MAP.get('dashboard_analysis') },
   meta: {
     title: EnumRouteTitle.dashboard,
-    icon: Dashboard
+    icon: 'carbon:dashboard'
   },
   children: [
     ROUTE_HOME,

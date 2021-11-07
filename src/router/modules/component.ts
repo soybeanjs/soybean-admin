@@ -1,4 +1,3 @@
-import { AppStore24Regular } from '@vicons/fluent';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout } from '@/layouts';
@@ -17,7 +16,7 @@ const COMPONENT: CustomRoute = {
   meta: {
     requiresAuth: true,
     title: EnumRouteTitle.component,
-    icon: AppStore24Regular
+    icon: 'fluent:app-store-24-regular'
   },
   children: [
     {

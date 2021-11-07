@@ -9,11 +9,10 @@
 
 <script lang="ts" setup>
 import { NDropdown, useDialog } from 'naive-ui';
-import { UserAvatar, Logout } from '@vicons/carbon';
-import { dynamicIconRender, resetAuthStorage } from '@/utils';
 import { HoverContainer } from '@/components';
-import avatar from '@/assets/svg/avatar/avatar01.svg';
 import { useRouterChange } from '@/hooks';
+import { iconifyRender, resetAuthStorage } from '@/utils';
+import avatar from '@/assets/svg/avatar/avatar01.svg';
 
 type DropdownKey = 'user-center' | 'logout';
 
@@ -24,7 +23,7 @@ const options = [
   {
     label: '用户中心',
     key: 'user-center',
-    icon: dynamicIconRender(UserAvatar)
+    icon: iconifyRender('carbon:user-avatar')
   },
   {
     type: 'divider',
@@ -33,7 +32,7 @@ const options = [
   {
     label: '退出登录',
     key: 'logout',
-    icon: dynamicIconRender(Logout)
+    icon: iconifyRender('carbon:logout')
   }
 ];
 

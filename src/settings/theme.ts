@@ -66,7 +66,7 @@ const defaultThemeSettings: ThemeSettings = {
   },
   crumbsStyle: {
     visible: true,
-    showIcon: false
+    showIcon: true
   },
   pageStyle: {
     animate: true,

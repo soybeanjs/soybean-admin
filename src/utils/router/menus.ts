@@ -1,6 +1,5 @@
-import type { Component } from 'vue';
 import type { CustomRoute, GlobalMenuOption } from '@/interface';
-import { dynamicIconRender } from '@/utils';
+import { iconifyRender } from '@/utils';
 
 /** 判断路由是否作为菜单 */
 function asMenu(route: CustomRoute) {
@@ -8,10 +7,10 @@ function asMenu(route: CustomRoute) {
 }
 
 /** 给菜单添加可选属性 */
-function addPartialProps(menuItem: GlobalMenuOption, icon?: Component, children?: GlobalMenuOption[]) {
+function addPartialProps(menuItem: GlobalMenuOption, icon?: string, children?: GlobalMenuOption[]) {
   const item = { ...menuItem };
   if (icon) {
-    Object.assign(item, { icon: dynamicIconRender(icon) });
+    Object.assign(item, { icon: iconifyRender(icon) });
   }
   if (children) {
     Object.assign(item, { children });

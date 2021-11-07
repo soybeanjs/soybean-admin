@@ -15,6 +15,7 @@ export default defineConfig({
     'wh-full': 'w-full h-full',
     'center-layout': 'w-1280px mx-auto px-15px',
     'flex-center': 'flex justify-center items-center',
+    'flex-col-center': 'flex flex-col justify-center items-center',
     'flex-x-center': 'flex justify-center',
     'flex-y-center': 'flex items-center',
     'inline-flex-center': 'inline-flex justify-center items-center',

@@ -1,4 +1,3 @@
-import { Menu } from '@vicons/carbon';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout, BasicChildLayout } from '@/layouts';
@@ -14,7 +13,7 @@ const MULTI_MENU: CustomRoute = {
   redirect: { name: ROUTE_NAME_MAP.get('multi-menu_first') },
   meta: {
     title: EnumRouteTitle['multi-menu'],
-    icon: Menu
+    icon: 'carbon:menu'
   },
   children: [
     {

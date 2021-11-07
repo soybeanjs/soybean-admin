@@ -1,4 +1,3 @@
-import type { Component } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import { EnumRoutePath, EnumLoginModule } from '@/enum';
@@ -14,7 +13,7 @@ interface RouteMeta {
   /** 不作为菜单 */
   isNotMenu?: boolean;
   /** 菜单和面包屑对应的图标 */
-  icon?: Component;
+  icon?: string;
   /** 路由作为菜单时的排序 */
   order?: number;
 }

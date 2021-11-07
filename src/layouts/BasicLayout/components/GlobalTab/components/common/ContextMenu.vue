@@ -14,12 +14,11 @@
 import { computed, watch } from 'vue';
 import { NDropdown } from 'naive-ui';
 import type { DropdownOption } from 'naive-ui';
-import { ReloadOutlined, CloseOutlined, ColumnWidthOutlined, MinusOutlined } from '@vicons/antd';
 import { useAppStore } from '@/store';
+import { useReloadInject } from '@/context';
 import { useBoolean } from '@/hooks';
 import { ROUTE_HOME } from '@/router';
-import { useReloadInject } from '@/context';
-import { dynamicIconRender } from '@/utils';
+import { iconifyRender } from '@/utils';
 
 interface Props {
   /** 右键菜单可见性 */
@@ -59,23 +58,23 @@ const options = computed<Option[]>(() => [
     label: '重新加载',
     key: 'reload-current',
     disabled: props.currentPath !== app.multiTab.activeRoute,
-    icon: dynamicIconRender(ReloadOutlined)
+    icon: iconifyRender('ant-design:reload-outlined')
   },
   {
     label: '关闭标签页',
     key: 'close-current',
     disabled: props.currentPath === ROUTE_HOME.path,
-    icon: dynamicIconRender(CloseOutlined)
+    icon: iconifyRender('ant-design:close-outlined')
   },
   {
     label: '关闭其他标签页',
     key: 'close-other',
-    icon: dynamicIconRender(ColumnWidthOutlined)
+    icon: iconifyRender('ant-design:column-width-outlined')
   },
   {
     label: '关闭全部标签页',
     key: 'close-all',
-    icon: dynamicIconRender(MinusOutlined)
+    icon: iconifyRender('ant-design:minus-outlined')
   }
 ]);
 

@@ -3,9 +3,23 @@
     <template v-for="breadcrumb in breadcrumbList" :key="breadcrumb.key">
       <n-breadcrumb-item>
         <n-dropdown v-if="breadcrumb.hasChildren" :options="breadcrumb.children" @select="dropdownSelect">
-          <span>{{ breadcrumb.label }}</span>
+          <span>
+            <Icon
+              v-if="theme.crumbsStyle.showIcon && breadcrumb.iconName"
+              :icon="breadcrumb.iconName"
+              class="inline-block mr-4px text-16px"
+            />
+            <span>{{ breadcrumb.label }}</span>
+          </span>
         </n-dropdown>
-        <span v-else>{{ breadcrumb.label }}</span>
+        <template v-else>
+          <Icon
+            v-if="theme.crumbsStyle.showIcon && breadcrumb.iconName"
+            :icon="breadcrumb.iconName"
+            class="inline-block mr-4px text-16px"
+          />
+          <span>{{ breadcrumb.label }}</span>
+        </template>
       </n-breadcrumb-item>
     </template>
   </n-breadcrumb>
@@ -14,10 +28,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import type { RouteLocationMatched } from 'vue-router';
 import { NBreadcrumb, NBreadcrumbItem, NDropdown } from 'naive-ui';
 import type { DropdownOption } from 'naive-ui';
-import type { RouteLocationMatched } from 'vue-router';
+import { Icon } from '@iconify/vue';
 import { EnumRoutePath } from '@/enum';
+import { useThemeStore } from '@/store';
 import type { RoutePathKey } from '@/interface';
 
 type Breadcrumb = DropdownOption & {
@@ -26,9 +42,11 @@ type Breadcrumb = DropdownOption & {
   disabled: boolean;
   routeName: RoutePathKey;
   hasChildren: boolean;
+  iconName?: string;
   children?: Breadcrumb[];
 };
 
+const theme = useThemeStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -52,6 +70,9 @@ function recursionBreadcrumb(routeMatched: RouteLocationMatched[]) {
         routeName,
         hasChildren: false
       };
+      if (item.meta?.icon) {
+        breadcrumItem.iconName = item.meta.icon as string;
+      }
       if (item.children && item.children.length) {
         breadcrumItem.hasChildren = true;
         breadcrumItem.children = recursionBreadcrumb(item.children as RouteLocationMatched[]);

@@ -1,4 +1,3 @@
-import { ExceptionOutlined } from '@vicons/antd';
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout } from '@/layouts';
@@ -19,7 +18,7 @@ const EXCEPTION: CustomRoute = {
   meta: {
     requiresAuth: true,
     title: EnumRouteTitle.exception,
-    icon: ExceptionOutlined
+    icon: 'ant-design:exception-outlined'
   },
   children: [
     {
