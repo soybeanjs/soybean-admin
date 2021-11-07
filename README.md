@@ -28,25 +28,22 @@ Soybean Admin 是一个基于 Vue3、Vite、Naive UI、TypeScript 的中后台�
 
 ## 目录规范
 
-```
+```javascript
 soybean-admin
-├── README.md                  //项目说明文档
 ├── build                      //vite构建相关配置和插件
+│   ├── define                 //定义的全局常量，通过vite构建时注入
 │   ├── env                    //.env环境文件内容加载插件
 │   └── plugins                //构建插件
 │       ├── html.ts            //html插件(注入变量，压缩代码等)
 │       ├── iconify.ts         //iconify图标插件
-│       └── vue.ts             //vue相关vite插件
-├── commitlint.config.js       //commitlint提交规范插件配置
-├── index.html
-├── package.json
-├── pnpm-lock.yaml             //npm包管理器pnpm依赖锁定文件
+│       ├── visualizer.ts      //构建的依赖大小占比分析插件
+│       ├── vue.ts             //vue相关vite插件
+│       └── windicss.ts        //css框架插件
+├── doc                        //项目相关说明文档
 ├── public                     //公共目录
 │   ├── resource               //资源文件夹(不会被打包)
 │   └── favicon.ico
 ├── src
-│   ├── App.vue                //vue文件入口
-│   ├── AppProvider.vue        //配置naive UI的vue文件(国际化,loadingBar、message等组件)
 │   ├── assets                 //静态资源
 │   ├── components             //全局组件
 │   │   ├── business           //业务相关组件
@@ -72,7 +69,6 @@ soybean-admin
 │   ├── layouts                //布局组件
 │   │   ├── BasicLayout        //基本布局组件(包含全局头部、侧边栏、底部等)
 │   │   └── BlankLayout        //空白布局组件
-│   ├── main.ts                //项目入口ts文件
 │   ├── plugins                //插件
 │   │   └── dark-mode.ts       //windicss暗黑模式插件
 │   ├── router                 //vue路由
@@ -96,22 +92,36 @@ soybean-admin
 │   ├── utils                  //全局工具函数
 │   │   ├── auth
 │   │   ├── common
+│   │   ├── package
+│   │   ├── router
 │   │   └── storage
-│   └── views                  //页面
-│       ├── dashboard
-│       └── system
-├── tsconfig.json              //TS配置
-├── vite.config.ts             //vite配置
-├── windi.config.ts            //windicss框架配置
+│   ├── views                  //页面
+│   │   ├── about
+│   │   ├── component
+│   │   ├── dashboard
+│   │   ├── document
+│   │   ├── multi-menu
+│   │   └── system
+│   ├── App.vue                //vue文件入口
+│   ├── AppProvider.vue        //配置naive UI的vue文件(国际化,loadingBar、message等组件)
+│   └── main.ts                //项目入口ts文件
 ├── .cz-config.js              //git cz提交配置
 ├── .editorconfig              //统一编辑器配置
 ├── .env                       //环境文件
 ├── .env.development           //环境文件(开发模式)
 ├── .env.production            //环境文件(生产模式)
-├── .env.staging                //环境文件(自定义staging模式)
+├── .env.staging               //环境文件(自定义staging模式)
 ├── .eslintignore              //忽略eslint检查的配置文件
 ├── .eslintrc.js               //eslint配置文件
 ├── .gitignore                 //忽略git提交的配置文件
 ├── .husky                     //git commit提交钩子，提交前检查代码格式和提交commit内容的格式
-└── .prettierrc.js             //prettier代码格式插件配置
+├── .prettierrc.js             //prettier代码格式插件配置
+├── commitlint.config.js       //commitlint提交规范插件配置
+├── index.html
+├── package.json
+├── pnpm-lock.yaml             //npm包管理器pnpm依赖锁定文件
+├── README.md                  //项目介绍文档
+├── tsconfig.json              //TS配置
+├── vite.config.ts             //vite配置
+└── windi.config.ts            //windicss框架配置
 ```
