@@ -23,7 +23,7 @@
     </header>
     <div class="flex-1-hidden">
       <n-scrollbar>
-        <n-menu :value="activeKey" :options="childMenus" @update:value="handleUpdateMenu" />
+        <n-menu :value="activeKey" :options="childMenus" :indent="18" @update:value="handleUpdateMenu" />
       </n-scrollbar>
     </div>
   </div>

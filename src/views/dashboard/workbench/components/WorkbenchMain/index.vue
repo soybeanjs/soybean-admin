@@ -137,9 +137,9 @@ const shortcuts: Shortcuts[] = [
   { id: 0, label: '主控台', icon: 'mdi:desktop-mac-dashboard', iconColor: '#409eff' },
   { id: 1, label: '系统管理', icon: 'ic:outline-settings', iconColor: '#7238d1' },
   { id: 2, label: '权限管理', icon: 'mdi:family-tree', iconColor: '#f56c6c' },
-  { id: 3, label: '组件', icon: 'ion:layers', iconColor: '#8aca6b' },
+  { id: 3, label: '组件', icon: 'fluent:app-store-24-filled', iconColor: '#19a2f1' },
   { id: 4, label: '表格', icon: 'mdi:table-large', iconColor: '#fab251' },
-  { id: 5, label: '图表', icon: 'mdi:chart-areaspline', iconColor: '#1890ff' }
+  { id: 5, label: '图表', icon: 'mdi:chart-areaspline', iconColor: '#8aca6b' }
 ];
 </script>
 <style scoped></style>

@@ -20,6 +20,7 @@
           :collapsed-icon-size="22"
           :options="menus"
           :expanded-keys="expandedKeys"
+          :indent="18"
           @update:value="handleUpdateMenu"
           @update:expanded-keys="handleUpdateExpandedKeys"
         />
