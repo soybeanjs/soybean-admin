@@ -110,6 +110,37 @@ const appStore = defineStore({
       router.push(activePath);
       this.setActiveMultiTab(activePath);
     },
+    /** 删除左边多页签 */
+    clearLeftMultiTab(fullPath: string) {
+      const { routes } = this.multiTab;
+      const currentIndex = routes.findIndex(route => route.fullPath === fullPath);
+      const activeIndex = this.activeMultiTabIndex;
+      if (currentIndex > -1) {
+        const remain = [ROUTE_HOME.path, ...routes.slice(currentIndex).map(v => v.fullPath)];
+        const updateRoutes = routes.filter(v => remain.includes(v.fullPath));
+        this.multiTab.routes = updateRoutes;
+        if (activeIndex < currentIndex) {
+          const activePath = updateRoutes[updateRoutes.length - 1].fullPath;
+          router.push(activePath);
+          this.setActiveMultiTab(activePath);
+        }
+      }
+    },
+    /** 删除右边多页签 */
+    clearRightMultiTab(fullPath: string) {
+      const { routes } = this.multiTab;
+      const currentIndex = routes.findIndex(route => route.fullPath === fullPath);
+      const activeIndex = this.activeMultiTabIndex;
+      if (currentIndex > -1) {
+        const remain = [ROUTE_HOME.path, ...routes.slice(0, currentIndex + 1).map(v => v.fullPath)];
+        const updateRoutes = routes.filter(v => remain.includes(v.fullPath));
+        this.multiTab.routes = updateRoutes;
+        if (activeIndex > currentIndex) {
+          router.push(fullPath);
+          this.setActiveMultiTab(fullPath);
+        }
+      }
+    },
     /** 点击单个页签tab */
     handleClickTab(fullPath: string) {
       if (this.multiTab.activeRoute !== fullPath) {

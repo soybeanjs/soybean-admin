@@ -33,7 +33,7 @@ interface Props {
   y: number;
 }
 
-type DropdownKey = 'reload-current' | 'close-current' | 'close-other' | 'close-all';
+type DropdownKey = 'reload-current' | 'close-current' | 'close-other' | 'close-left' | 'close-right' | 'close-all';
 type Option = DropdownOption & {
   key: DropdownKey;
 };
@@ -49,7 +49,7 @@ const emit = defineEmits<{
 }>();
 
 const app = useAppStore();
-const { removeMultiTab, clearMultiTab } = useAppStore();
+const { removeMultiTab, clearMultiTab, clearLeftMultiTab, clearRightMultiTab } = useAppStore();
 const { handleReload } = useReloadInject();
 const { bool: dropdownVisible, setTrue: show, setFalse: hide } = useBoolean(props.visible);
 
@@ -72,6 +72,16 @@ const options = computed<Option[]>(() => [
     icon: iconifyRender('ant-design:column-width-outlined')
   },
   {
+    label: '关闭左边标签页',
+    key: 'close-left',
+    icon: iconifyRender('mdi:format-horizontal-align-left')
+  },
+  {
+    label: '关闭右边标签页',
+    key: 'close-right',
+    icon: iconifyRender('mdi:format-horizontal-align-right')
+  },
+  {
     label: '关闭全部标签页',
     key: 'close-all',
     icon: iconifyRender('ant-design:minus-outlined')
@@ -88,13 +98,25 @@ const actionMap = new Map<DropdownKey, () => void>([
   [
     'close-current',
     () => {
-      removeMultiTab(app.multiTab.activeRoute);
+      removeMultiTab(props.currentPath);
     }
   ],
   [
     'close-other',
     () => {
       clearMultiTab([props.currentPath]);
+    }
+  ],
+  [
+    'close-left',
+    () => {
+      clearLeftMultiTab(props.currentPath);
+    }
+  ],
+  [
+    'close-right',
+    () => {
+      clearRightMultiTab(props.currentPath);
     }
   ],
   [
