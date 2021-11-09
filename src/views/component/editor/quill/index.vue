@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <n-card title="富文本插件" class="shadow-sm rounded-16px">
-      <div ref="domRef"></div>
-      <template #footer>
-        <github-link link="https://github.com/wangeditor-team/wangEditor" />
-      </template>
-    </n-card>
-  </div>
+	<div>
+		<n-card title="富文本插件" class="shadow-sm rounded-16px">
+			<div ref="domRef" class="dark:bg-dark"></div>
+			<template #footer>
+				<github-link link="https://github.com/wangeditor-team/wangEditor" />
+			</template>
+		</n-card>
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -19,17 +19,24 @@ const editor = ref<WangEditor | null>(null);
 const domRef = ref<HTMLElement | null>(null);
 
 function renderWangEditor() {
-  editor.value = new WangEditor(domRef.value);
-  setEditorConfig();
-  editor.value.create();
+	editor.value = new WangEditor(domRef.value);
+	setEditorConfig();
+	editor.value.create();
 }
 
 function setEditorConfig() {
-  editor.value!.config.zIndex = 10;
+	editor.value!.config.zIndex = 10;
 }
 
 onMounted(() => {
-  renderWangEditor();
+	renderWangEditor();
 });
 </script>
-<style scoped></style>
+<style scoped>
+:deep(.w-e-text-container) {
+	background: inherit;
+}
+:deep(.w-e-toolbar) {
+	background: inherit !important;
+}
+</style>
