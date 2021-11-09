@@ -8,7 +8,8 @@ module.exports = {
     defineEmits: 'readonly',
     defineExpose: 'readonly',
     withDefaults: 'readonly',
-    PROJECT_BUILD_TIME: 'readonly'
+    PROJECT_BUILD_TIME: 'readonly',
+    BMapGL: 'readonly'
   },
   parser: 'vue-eslint-parser',
   parserOptions: {

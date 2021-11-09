@@ -28,7 +28,7 @@ export default function useRouterChange(inSetup: boolean = true) {
    * @param module - 展示的登录模块
    * @param redirectUrl - 重定向地址
    */
-  function toLogin(module: LoginModuleType = 'pwd-login', redirectUrl?: LoginRedirect) {
+  function toLogin(module: LoginModuleType = 'pwd-login', redirectUrl: LoginRedirect = 'current') {
     const routeLocation: RouteLocationRaw = {
       path: EnumRoutePath.login,
       query: { module }
