@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@amap/amap-jsapi-types': ^0.0.8
   '@antv/g2plot': ^2.3.39
   '@better-scroll/core': ^2.4.2
   '@commitlint/cli': ^14.1.0
@@ -74,6 +75,7 @@ dependencies:
   wangeditor: registry.npmmirror.com/wangeditor/4.7.9
 
 devDependencies:
+  '@amap/amap-jsapi-types': registry.npmmirror.com/@amap/amap-jsapi-types/0.0.8
   '@commitlint/cli': registry.npmmirror.com/@commitlint/cli/14.1.0
   '@commitlint/config-conventional': registry.npmmirror.com/@commitlint/config-conventional/14.1.0
   '@iconify/json': registry.npmmirror.com/@iconify/json/1.1.425
@@ -4496,6 +4498,12 @@ packages:
     name: yocto-queue
     version: 0.1.0
     engines: {node: '>=10'}
+    dev: true
+
+  registry.npmmirror.com/@amap/amap-jsapi-types/0.0.8:
+    resolution: {integrity: sha1-WoB+J/M/5Am+TI7L3nO4w1wctlA=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@amap/amap-jsapi-types/download/@amap/amap-jsapi-types-0.0.8.tgz}
+    name: '@amap/amap-jsapi-types'
+    version: 0.0.8
     dev: true
 
   registry.npmmirror.com/@antfu/install-pkg/0.1.0:

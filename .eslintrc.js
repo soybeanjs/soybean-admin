@@ -9,6 +9,7 @@ module.exports = {
     defineExpose: 'readonly',
     withDefaults: 'readonly',
     PROJECT_BUILD_TIME: 'readonly',
+    AMap: 'readonly',
     BMap: 'readonly'
   },
   parser: 'vue-eslint-parser',
