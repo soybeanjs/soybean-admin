@@ -9,7 +9,7 @@ module.exports = {
     defineExpose: 'readonly',
     withDefaults: 'readonly',
     PROJECT_BUILD_TIME: 'readonly',
-    BMapGL: 'readonly'
+    BMap: 'readonly'
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -34,6 +34,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'no-use-before-define': 'off',
     'vue/multi-word-component-names': 0,
+    'max-classes-per-file': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-inferrable-types': 0,
     '@typescript-eslint/ban-ts-ignore': 'off',
