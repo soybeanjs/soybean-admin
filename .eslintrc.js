@@ -10,7 +10,8 @@ module.exports = {
     withDefaults: 'readonly',
     PROJECT_BUILD_TIME: 'readonly',
     AMap: 'readonly',
-    BMap: 'readonly'
+    BMap: 'readonly',
+    TMap: 'readonly'
   },
   parser: 'vue-eslint-parser',
   parserOptions: {

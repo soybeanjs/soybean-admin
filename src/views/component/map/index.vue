@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-hidden">
     <n-card title="地图插件" class="h-full shadow-sm rounded-16px">
       <n-tabs type="line" class="flex-col-stretch h-full" pane-class="flex-1-hidden">
         <n-tab-pane v-for="item in maps" :key="item.id" :name="item.id" :tab="item.label">
