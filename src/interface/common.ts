@@ -18,13 +18,23 @@ interface RouteMeta {
   order?: number;
 }
 
+/** 路由配置 */
 export type CustomRoute = RouteRecordRaw & { meta: RouteMeta };
 
+/** 路由路径 */
 export type RoutePathKey = keyof typeof EnumRoutePath;
 
+/** 菜单项配置 */
 export type GlobalMenuOption = MenuOption & {
   routeName: string;
   routePath: string;
 };
 
+/** 登录模块 */
 export type LoginModuleType = keyof typeof EnumLoginModule;
+
+/** npm依赖包版本信息 */
+export interface VersionInfo {
+  name: string;
+  version: string;
+}

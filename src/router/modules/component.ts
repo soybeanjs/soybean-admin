@@ -1,6 +1,6 @@
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
-import { BasicLayout, BasicChildLayout } from '@/layouts';
+import { BasicLayout, RouterViewLayout } from '@/layouts';
 import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
 import ComponentMap from '@/views/component/map/index.vue';
 import ComponentVideo from '@/views/component/video/index.vue';
@@ -46,7 +46,7 @@ const COMPONENT: CustomRoute = {
     {
       name: ROUTE_NAME_MAP.get('component_editor'),
       path: EnumRoutePath.component_editor,
-      component: BasicChildLayout,
+      component: RouterViewLayout,
       redirect: { name: ROUTE_NAME_MAP.get('component_editor_quill') },
       meta: {
         requiresAuth: true,

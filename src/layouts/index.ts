@@ -1,5 +1,5 @@
 import BasicLayout from './BasicLayout/index.vue';
-import BasicChildLayout from './BasicChildLayout/index.vue';
 import BlankLayout from './BlankLayout/index.vue';
+import RouterViewLayout from './RouterViewLayout/index.vue';
 
-export { BasicLayout, BasicChildLayout, BlankLayout };
+export { BasicLayout, BlankLayout, RouterViewLayout };
