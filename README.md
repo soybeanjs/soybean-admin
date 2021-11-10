@@ -1,13 +1,13 @@
 <div align="center">
   <a href="https://github.com/honghuangdc/soybean-admin">
     <img alt="SoybeanAdmin Logo" width="200" height="200" src="https://s3.bmp.ovh/imgs/2021/09/088571214c76b1e5.png">
-  </a>
-	<br />
-	<br />
-  <img src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/license.svg" />
+  </a><br /><br />
 	<h1>Soybean Admin</h1>
   <br />
 </div>
+
+[![license](https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/license.svg)](LICENSE)
+
 
 
 ## 简介
@@ -99,11 +99,8 @@ pnpm i -g commitizen
 支持现代浏览器, 不支持 IE
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-
 | :-: | :-: | :-: | :-: | :-: |
-
 | not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
-
 ## 开源作者
 
 [@Soybean](https://github.com/honghuangdc)
