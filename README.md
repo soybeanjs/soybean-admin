@@ -4,7 +4,7 @@
   </a>
 	<br />
 	<br />
-  [![license](https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/license.svg)](LICENSE)
+  <img src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/license.svg" />
 	<h1>Soybean Admin</h1>
   <br />
 </div>
