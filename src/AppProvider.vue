@@ -51,9 +51,15 @@ const primaryWithAlpha = computed(() => {
 });
 
 // 操作系统的暗黑模式
-watch(osDark, newValue => {
-  handleDarkMode(newValue);
-});
+watch(
+  osDark,
+  newValue => {
+    handleDarkMode(newValue);
+  },
+  {
+    immediate: true
+  }
+);
 </script>
 <style>
 /* 全局与主题颜色相关 */
