@@ -1,7 +1,7 @@
 <template>
   <div>
     <n-card title="富文本插件" class="shadow-sm rounded-16px">
-      <div ref="domRef" class="dark:bg-dark"></div>
+      <div ref="domRef" class="bg-white dark:bg-dark"></div>
       <template #footer>
         <github-link link="https://github.com/wangeditor-team/wangEditor" />
       </template>
