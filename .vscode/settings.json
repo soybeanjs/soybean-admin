@@ -56,5 +56,12 @@
 	},
 	"workbench.productIconTheme": "fluent-icons",
 	"vue3snippets.enable-compile-vue-file-on-did-save-code": false,
-	"editor.formatOnSave": false
+	"editor.formatOnSave": false,
+	"material-icon-theme.activeIconPack": "angular",
+	"material-icon-theme.files.associations": {},
+	"material-icon-theme.folders.associations": {
+		"enum": "typescript",
+		"store": "context",
+		"business": "core",
+	}
 }
