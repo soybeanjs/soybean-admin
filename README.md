@@ -105,16 +105,6 @@ pnpm i -g commitizen
 
 [@Soybean](https://github.com/honghuangdc)
 
-## 捐赠
-
-如果你觉得这个项目对您有帮助，你可以帮作者买一杯咖啡表示支持!
-
-<p style="background:#fff;" align="center">
-  <img src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/wechat-pay.JPG" style="display:inline-block;width:40%;height: auto" />
-  <img src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/ali-pay.JPG" style="display:inline-block;width:40%;height: auto" />
-
-</p>
-
 ## 交流
 
 `Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群使用问题欢迎在群内提问。
