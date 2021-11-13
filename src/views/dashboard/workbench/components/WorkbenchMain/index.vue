@@ -60,6 +60,7 @@ interface Technology {
   name: string;
   description: string;
   author: string;
+  site: string;
   icon: string;
   iconColor?: string;
 }
@@ -83,6 +84,7 @@ const technology: Technology[] = [
     name: 'Vue',
     description: '一套用于构建用户界面的渐进式框架',
     author: '尤雨溪 - Evan You',
+    site: 'https://v3.cn.vuejs.org/',
     icon: 'vscode-icons:file-type-vue'
   },
   {
@@ -90,6 +92,7 @@ const technology: Technology[] = [
     name: 'TypeScript',
     description: 'JavaScript类型的超集，它可以编译成纯JavaScript',
     author: '微软 - Microsoft',
+    site: 'https://www.typescriptlang.org/',
     icon: 'vscode-icons:file-type-typescript-official'
   },
   {
@@ -97,6 +100,7 @@ const technology: Technology[] = [
     name: 'Vite',
     description: '下一代前端开发与构建工具',
     author: '尤雨溪 - Evan You',
+    site: 'https://vitejs.cn/',
     icon: 'vscode-icons:file-type-vite'
   },
   {
@@ -104,6 +108,7 @@ const technology: Technology[] = [
     name: 'NaiveUI',
     description: '一个 Vue 3 组件库',
     author: '图森未来 - TuSimple',
+    site: 'https://www.naiveui.com/zh-CN/os-theme',
     icon: 'mdi:alpha-n-box-outline',
     iconColor: '#5fbc22'
   },
@@ -112,6 +117,7 @@ const technology: Technology[] = [
     name: 'WindiCSS',
     description: '下一代实用优先的CSS框架',
     author: 'Windicss',
+    site: 'https://windicss.org/',
     icon: 'file-icons:windi',
     iconColor: '#48b0f1'
   },
@@ -120,6 +126,7 @@ const technology: Technology[] = [
     name: 'Pinia',
     description: 'vue状态管理框架，支持vue2、vue3',
     author: 'Posva',
+    site: 'https://pinia.esm.dev/',
     icon: 'mdi:fruit-pineapple',
     iconColor: '#fecf48'
   }
