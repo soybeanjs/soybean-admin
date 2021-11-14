@@ -9,7 +9,7 @@
     :item-style="{ paddingTop: '0px', paddingBottom: '0px' }"
   >
     <div class="flex-1-hidden h-full">
-      <better-scroll :options="{ scrollX: true, scrollY: false }">
+      <better-scroll :options="{ scrollX: true, scrollY: false, click: true }">
         <multi-tab />
       </better-scroll>
     </div>
