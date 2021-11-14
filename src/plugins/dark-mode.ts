@@ -7,15 +7,19 @@ export default function setupWindicssDarkMode() {
   const DARK_CLASS = 'dark';
 
   function getHtmlElement() {
-    return document.querySelector('html')!;
+    return document.querySelector('html');
   }
   function addDarkClass() {
     const html = getHtmlElement();
-    html.classList.add(DARK_CLASS);
+    if (html) {
+      html.classList.add(DARK_CLASS);
+    }
   }
   function removeDarkClass() {
     const html = getHtmlElement();
-    html.classList.remove(DARK_CLASS);
+    if (html) {
+      html.classList.remove(DARK_CLASS);
+    }
   }
 
   watch(
@@ -26,6 +30,7 @@ export default function setupWindicssDarkMode() {
       } else {
         removeDarkClass();
       }
-    }
+    },
+    { immediate: true }
   );
 }

@@ -7,6 +7,7 @@ import useRouteProps from './useRouteProps';
 import useBoolean from './useBoolean';
 import useLoading from './useLoading';
 import useScrollBehavior from './useScrollBehavior';
+import useIsMobile from './useIsMobile';
 
 export {
   useAppTitle,
@@ -17,5 +18,6 @@ export {
   useRouteProps,
   useBoolean,
   useLoading,
-  useScrollBehavior
+  useScrollBehavior,
+  useIsMobile
 };

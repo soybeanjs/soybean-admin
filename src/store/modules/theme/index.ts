@@ -33,6 +33,11 @@ const themeStore = defineStore({
       const { hover: warningColorHover, pressed: warningColorPressed } = getHoverAndPressedColor(warningColor);
       const { hover: errorColorHover, pressed: errorColorPressed } = getHoverAndPressedColor(errorColor);
 
+      const primaryColorSuppl = primaryColor;
+      const infoColorSuppl = infoColor;
+      const successColorSuppl = infoColor;
+      const warningColorSuppl = warningColor;
+      const errorColorSuppl = errorColor;
       const colorLoading = primaryColor;
 
       return {
@@ -40,23 +45,23 @@ const themeStore = defineStore({
           primaryColor,
           primaryColorHover,
           primaryColorPressed,
-          primaryColorSuppl: primaryColor,
+          primaryColorSuppl,
           infoColor,
           infoColorHover,
           infoColorPressed,
-          infoColorSuppl: infoColor,
+          infoColorSuppl,
           successColor,
           successColorHover,
           successColorPressed,
-          successColorSuppl: infoColor,
+          successColorSuppl,
           warningColor,
           warningColorHover,
           warningColorPressed,
-          warningColorSuppl: warningColor,
+          warningColorSuppl,
           errorColor,
           errorColorHover,
           errorColorPressed,
-          errorColorSuppl: errorColor
+          errorColorSuppl
         },
         LoadingBar: {
           colorLoading
@@ -73,6 +78,9 @@ const themeStore = defineStore({
     isVerticalNav(): boolean {
       const { mode } = this.navStyle;
       return mode === 'vertical' || mode === 'vertical-mix';
+    },
+    pageAnimateType(): AnimateType | '' {
+      return this.pageStyle.animate ? this.pageStyle.animateType : '';
     }
   },
   actions: {
@@ -91,10 +99,6 @@ const themeStore = defineStore({
     /** 设置导航栏模式 */
     setNavMode(mode: NavMode) {
       this.navStyle.mode = mode;
-    },
-    /** 切割菜单(顶部混合模式horizontal-mix) */
-    handleSplitMenu(isSplit: boolean) {
-      this.menuStyle.splitMenu = isSplit;
     },
     /** 更改菜单展开的宽度 */
     handleMenuWidth(width: number | null) {

@@ -72,8 +72,6 @@ interface MenuStyle {
   mixWidth: number;
   /** 混合菜单折叠时的宽度 */
   mixCollapsedWidth: number;
-  /** 分割菜单 */
-  splitMenu: boolean;
   /** 水平模式的菜单的位置 */
   horizontalPosition: HorizontalMenuPosition;
   /** 水平模式的菜单的位置列表 */

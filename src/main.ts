@@ -3,9 +3,14 @@ import App from './App.vue';
 import AppProvider from './AppProvider.vue';
 import { setupStore } from './store';
 import { setupRouter } from './router';
-import { setupWindicssDarkMode } from './plugins';
-import 'virtual:windi.css';
-import './styles/css/global.css';
+import { setupAssets, setupWindicssDarkMode } from './plugins';
+
+function setupPlugins() {
+  /** 引入静态资源 */
+  setupAssets();
+  // 配置windicss暗黑主题
+  setupWindicssDarkMode();
+}
 
 async function setupApp() {
   const appProvider = createApp(AppProvider);
@@ -22,9 +27,7 @@ async function setupApp() {
 
   // 路由准备就绪后挂载APP实例
   app.mount('#app', true);
-
-  // 配置windicss暗黑主题
-  setupWindicssDarkMode();
 }
 
+setupPlugins();
 setupApp();

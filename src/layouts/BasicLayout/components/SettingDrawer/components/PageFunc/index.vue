@@ -1,9 +1,6 @@
 <template>
   <n-divider title-placement="center">界面功能</n-divider>
   <n-space vertical size="large">
-    <setting-menu-item label="分割菜单">
-      <n-switch :value="theme.menuStyle.splitMenu" @update:value="handleSplitMenu" />
-    </setting-menu-item>
     <setting-menu-item label="顶部菜单位置">
       <n-select
         class="w-120px"
@@ -34,7 +31,7 @@
       />
     </setting-menu-item>
     <setting-menu-item label="固定头部和多页签">
-      <n-switch :value="splitMenu" :disabled="disabledSplitMenu" @update:value="handleFixedHeaderAndTab" />
+      <n-switch :value="theme.fixedHeaderAndTab" :disabled="isHorizontalMix" @update:value="handleFixedHeaderAndTab" />
     </setting-menu-item>
     <setting-menu-item label="头部高度">
       <n-input-number
@@ -65,7 +62,6 @@ import { SettingMenuItem } from '../common';
 
 const theme = useThemeStore();
 const {
-  handleSplitMenu,
   handleHorizontalMenuPosition,
   handleFixedHeaderAndTab,
   handleHeaderHeight,
@@ -74,8 +70,7 @@ const {
   handleMixMenuWidth
 } = useThemeStore();
 
-const disabledSplitMenu = computed(() => theme.navStyle.mode === 'horizontal-mix');
-const splitMenu = computed(() => theme.fixedHeaderAndTab || disabledSplitMenu.value);
+const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
 const disabledMenuWidth = computed(() => {
   const { mode } = theme.navStyle;
   return mode !== 'vertical' && mode !== 'horizontal-mix';

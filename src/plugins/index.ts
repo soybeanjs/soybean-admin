@@ -1,3 +1,4 @@
+import setupAssets from './assets';
 import setupWindicssDarkMode from './dark-mode';
 
-export { setupWindicssDarkMode };
+export { setupAssets, setupWindicssDarkMode };

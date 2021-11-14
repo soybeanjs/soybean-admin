@@ -4,7 +4,7 @@
     :class="{ 'overflow-hidden': routeProps.fullPage }"
   >
     <router-view v-slot="{ Component, route }">
-      <transition :name="theme.pageStyle.animateType" mode="out-in" appear>
+      <transition :name="theme.pageAnimateType" mode="out-in" appear>
         <keep-alive :include="cacheRoutes">
           <component :is="Component" v-if="reload" :key="route.fullPath" class="flex-1" />
         </keep-alive>

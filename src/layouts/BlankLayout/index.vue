@@ -2,7 +2,7 @@
   <n-scrollbar ref="scrollbar" class="h-full" :x-scrollable="true" :content-class="routeProps.fullPage ? 'h-full' : ''">
     <div class="inline-block wh-full bg-[#F6F9F8]">
       <router-view v-slot="{ Component, route: itemRoute }">
-        <transition :name="theme.pageStyle.animateType" mode="out-in" appear>
+        <transition :name="theme.pageAnimateType" mode="out-in" appear>
           <keep-alive :include="cacheRoutes">
             <component
               :is="Component"

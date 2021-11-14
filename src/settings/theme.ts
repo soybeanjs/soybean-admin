@@ -42,7 +42,6 @@ const defaultThemeSettings: ThemeSettings = {
     collapsedWidth: 64,
     mixWidth: 80,
     mixCollapsedWidth: 48,
-    splitMenu: false,
     horizontalPosition: 'flex-start',
     horizontalPositionList: [
       { value: 'flex-start', label: EnumHorizontalMenuPosition['flex-start'] },
