@@ -33,6 +33,7 @@ import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { NLayoutSider, NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
+import { useIsMobile } from '@/hooks/common';
 import { useThemeStore, useAppStore } from '@/store';
 import { menus } from '@/router';
 import { GlobalMenuOption } from '@/interface';
@@ -51,6 +52,7 @@ const theme = useThemeStore();
 const app = useAppStore();
 const router = useRouter();
 const route = useRoute();
+const { isMobile } = useIsMobile();
 const { handleMenuCollapse } = useAppStore();
 
 const inverted = computed(() => {
@@ -64,6 +66,19 @@ const menuWidth = computed(() => {
   const modeWidth = mode === 'vertical-mix' ? mixWidth : width;
   return collapsed ? collapsedWidth : modeWidth;
 });
+
+watch(
+  isMobile,
+  val => {
+    /** 未折叠 */
+    if (!app.menu.collapsed) {
+      handleMenuCollapse(val);
+    }
+  },
+  {
+    immediate: true
+  }
+);
 
 const activeKey = computed(() => route.name as string);
 const expandedKeys = ref<string[]>(getExpendedKeys());
