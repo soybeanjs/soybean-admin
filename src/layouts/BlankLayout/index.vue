@@ -1,5 +1,5 @@
 <template>
-  <n-scrollbar ref="scrollbar" class="h-full" :x-scrollable="true" :content-class="routeProps.fullPage ? 'h-full' : ''">
+  <n-scrollbar ref="scrollbar" class="h-full" :content-class="routeProps.fullPage ? 'h-full' : ''">
     <div class="inline-block wh-full bg-[#F6F9F8]">
       <router-view v-slot="{ Component, route: itemRoute }">
         <transition :name="theme.pageAnimateType" mode="out-in" appear>

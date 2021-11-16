@@ -1,13 +1,10 @@
 <template>
-  <p>
-    <span>github地址：</span>
-    <a class="text-blue-500" :href="link" target="_blank">
-      {{ link }}
-    </a>
-  </p>
+  <web-site-link label="github地址：" :link="link" />
 </template>
 
 <script setup lang="ts">
+import WebSiteLink from '../WebSiteLink/index.vue';
+
 interface Props {
   /** github链接 */
   link: string;

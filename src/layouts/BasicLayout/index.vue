@@ -1,21 +1,16 @@
 <template>
   <n-layout class="h-full" has-sider>
-    <global-sider v-if="theme.isVerticalNav" :z-index="3" />
-    <global-header v-if="isHorizontalMix" :z-index="4" />
+    <global-sider v-if="theme.isVerticalNav" :z-index="13" />
+    <global-header v-if="isHorizontalMix" :z-index="14" />
     <div class="flex-1-hidden flex h-full">
-      <global-sider v-if="isHorizontalMix" :z-index="3" />
-      <n-scrollbar
-        ref="scrollbar"
-        class="h-full"
-        :x-scrollable="true"
-        :content-class="routeProps.fullPage ? 'h-full' : ''"
-      >
+      <global-sider v-if="isHorizontalMix" :z-index="13" />
+      <n-scrollbar ref="scrollbar" class="h-full" :content-class="routeProps.fullPage ? 'h-full' : ''">
         <div
           class="inline-flex-col-stretch w-full"
           :class="[{ 'content-padding': isHorizontalMix }, routeProps.fullPage ? 'h-full' : 'min-h-100vh']"
         >
-          <global-header v-if="!isHorizontalMix" :z-index="2" />
-          <global-tab v-if="theme.multiTabStyle.visible" :z-index="1" />
+          <global-header v-if="!isHorizontalMix" :z-index="12" />
+          <global-tab v-if="theme.multiTabStyle.visible" :z-index="11" />
           <global-content />
           <global-footer />
         </div>
