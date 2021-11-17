@@ -7,14 +7,12 @@ import ComponentVideo from '@/views/component/video/index.vue';
 import EditorQuill from '@/views/component/editor/quill/index.vue';
 import EditorMarkdown from '@/views/component/editor/markdown/index.vue';
 import ComponentSwiper from '@/views/component/swiper/index.vue';
-import ComponentCopy from '@/views/component/copy/index.vue';
 
 setRouterCacheName(ComponentMap, ROUTE_NAME_MAP.get('component_map'));
 setRouterCacheName(ComponentVideo, ROUTE_NAME_MAP.get('component_video'));
 setRouterCacheName(EditorQuill, ROUTE_NAME_MAP.get('component_editor_quill'));
 setRouterCacheName(EditorMarkdown, ROUTE_NAME_MAP.get('component_editor_markdown'));
 setRouterCacheName(ComponentSwiper, ROUTE_NAME_MAP.get('component_swiper'));
-setRouterCacheName(ComponentSwiper, ROUTE_NAME_MAP.get('component_copy'));
 
 const COMPONENT: CustomRoute = {
   name: ROUTE_NAME_MAP.get('component'),
@@ -87,15 +85,6 @@ const COMPONENT: CustomRoute = {
       meta: {
         requiresAuth: true,
         title: EnumRouteTitle.component_swiper
-      }
-    },
-    {
-      name: ROUTE_NAME_MAP.get('component_copy'),
-      path: EnumRoutePath.component_copy,
-      component: ComponentCopy,
-      meta: {
-        requiresAuth: true,
-        title: EnumRouteTitle.component_copy
       }
     }
   ]
