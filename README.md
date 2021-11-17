@@ -110,6 +110,13 @@ pnpm i -g commitizen
 `Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群使用问题欢迎在群内提问。
 
 - QQ 群 `711301266`
+
+  <div style="text-align:left;">
+    <img src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/qq_qrcode.JPG" style="width:200px" />
+  </div>
+
+  
+
 - 本人微信号：honghuangdc，欢迎来技术交流。
 
 ## License
