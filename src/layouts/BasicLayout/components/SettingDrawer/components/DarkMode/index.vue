@@ -3,10 +3,10 @@
   <div class="flex-center">
     <n-switch :value="theme.darkMode" @update:value="handleDarkMode">
       <template #checked>
-        <icon-mdi-white-balance-sunny class="text-14px g_text-primary" />
+        <icon-mdi-white-balance-sunny class="text-14px text-primary" />
       </template>
       <template #unchecked>
-        <icon-mdi-moon-waning-crescent class="text-14px g_text-primary" />
+        <icon-mdi-moon-waning-crescent class="text-14px text-primary" />
       </template>
     </n-switch>
   </div>

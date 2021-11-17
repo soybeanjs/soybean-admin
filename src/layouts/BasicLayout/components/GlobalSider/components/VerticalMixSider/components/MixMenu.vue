@@ -2,7 +2,7 @@
   <div class="mb-6px px-4px cursor-pointer" @mouseenter="setTrue" @mouseleave="setFalse">
     <div
       class="flex-center flex-col py-12px rounded-2px"
-      :class="{ 'g_text-primary g_bg-primary_active': isActive, 'g_text-primary': isHover }"
+      :class="{ 'text-primary bg-primary-active': isActive, 'text-primary': isHover }"
     >
       <component :is="icon" :class="[isMini ? 'text-16px' : 'text-20px']" />
       <p

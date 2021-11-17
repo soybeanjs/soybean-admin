@@ -15,7 +15,7 @@
     :style="{ width: showDrawer ? theme.menuStyle.width + 'px' : '0px' }"
   >
     <header class="header-height flex-y-center justify-between">
-      <h2 class="g_text-primary pl-8px text-16px font-bold">{{ title }}</h2>
+      <h2 class="text-primary pl-8px text-16px font-bold">{{ title }}</h2>
       <div class="px-8px text-16px text-gray-600 cursor-pointer" @click="toggleFixedMixMenu">
         <icon-mdi:pin-off v-if="app.menu.fixedMix" />
         <icon-mdi:pin v-else />

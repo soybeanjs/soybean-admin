@@ -4,7 +4,7 @@
       <n-space :vertical="true" :size="16">
         <n-card title="项目主要技术栈" :bordered="false" size="small" class="shadow-sm rounded-16px">
           <template #header-extra>
-            <a class="g_text-primary" href="javascript:;">更多技术栈</a>
+            <a class="text-primary" href="javascript:;">更多技术栈</a>
           </template>
           <n-grid :item-responsive="true" responsive="screen" cols="m:2 l:3" :x-gap="8" :y-gap="8">
             <n-grid-item v-for="item in technology" :key="item.id">
@@ -14,7 +14,7 @@
         </n-card>
         <n-card title="动态" :bordered="false" size="small" class="shadow-sm rounded-16px">
           <template #header-extra>
-            <a class="g_text-primary" href="javascript:;">更多动态</a>
+            <a class="text-primary" href="javascript:;">更多动态</a>
           </template>
           <n-list>
             <n-list-item v-for="item in activity" :key="item.id">

@@ -3,16 +3,9 @@ import type { GlobalThemeOverrides } from 'naive-ui';
 import { themeSettings, defaultThemeSettings } from '@/settings';
 import { store } from '@/store';
 import type { ThemeSettings, NavMode, MultiTabMode, AnimateType, HorizontalMenuPosition } from '@/interface';
-import { addColorAlpha } from '@/utils';
-import { getHoverAndPressedColor } from './helpers';
+import { getThemeColors } from './helpers';
 
 type ThemeState = ThemeSettings;
-
-interface relativeThemeColor {
-  hover: string;
-  pressed: string;
-  shallow: string;
-}
 
 const themeStore = defineStore({
   id: 'theme-store',
@@ -23,56 +16,27 @@ const themeStore = defineStore({
     /** naive UI主题配置 */
     themeOverrids(): GlobalThemeOverrides {
       const {
-        themeColor: primaryColor,
-        otherColor: { info: infoColor, success: successColor, warning: warningColor, error: errorColor }
+        themeColor,
+        otherColor: { info, success, warning, error }
       } = this;
 
-      const { hover: primaryColorHover, pressed: primaryColorPressed } = getHoverAndPressedColor(primaryColor);
-      const { hover: infoColorHover, pressed: infoColorPressed } = getHoverAndPressedColor(infoColor);
-      const { hover: successColorHover, pressed: successColorPressed } = getHoverAndPressedColor(successColor);
-      const { hover: warningColorHover, pressed: warningColorPressed } = getHoverAndPressedColor(warningColor);
-      const { hover: errorColorHover, pressed: errorColorPressed } = getHoverAndPressedColor(errorColor);
+      const themeColors = getThemeColors([
+        ['primary', themeColor],
+        ['info', info],
+        ['success', success],
+        ['warning', warning],
+        ['error', error]
+      ]);
 
-      const primaryColorSuppl = primaryColor;
-      const infoColorSuppl = infoColor;
-      const successColorSuppl = infoColor;
-      const warningColorSuppl = warningColor;
-      const errorColorSuppl = errorColor;
-      const colorLoading = primaryColor;
+      const colorLoading = themeColor;
 
       return {
         common: {
-          primaryColor,
-          primaryColorHover,
-          primaryColorPressed,
-          primaryColorSuppl,
-          infoColor,
-          infoColorHover,
-          infoColorPressed,
-          infoColorSuppl,
-          successColor,
-          successColorHover,
-          successColorPressed,
-          successColorSuppl,
-          warningColor,
-          warningColorHover,
-          warningColorPressed,
-          warningColorSuppl,
-          errorColor,
-          errorColorHover,
-          errorColorPressed,
-          errorColorSuppl
+          ...themeColors
         },
         LoadingBar: {
           colorLoading
         }
-      };
-    },
-    relativeThemeColor(): relativeThemeColor {
-      const shallow = addColorAlpha(this.themeColor, 0.1);
-      return {
-        ...getHoverAndPressedColor(this.themeColor),
-        shallow
       };
     },
     isVerticalNav(): boolean {
@@ -91,6 +55,10 @@ const themeStore = defineStore({
     /** 设置暗黑模式 */
     handleDarkMode(isDark: boolean) {
       this.darkMode = isDark;
+    },
+    /** 切换暗黑模式 */
+    toggleDarkMode() {
+      this.darkMode = !this.darkMode;
     },
     /** 设置系统主题颜色 */
     setThemeColor(color: string) {
