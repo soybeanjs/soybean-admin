@@ -52,7 +52,8 @@ export default defineConfig({
         'error-pressed': 'var(--error-color-pressed)',
         'error-active': 'var(--error-color-active)',
         light: '#ffffff',
-        dark: '#18181c'
+        dark: '#18181c',
+        'deep-dark': '#101014'
       },
       transitionProperty: ['width', 'height', 'background', 'background-color']
     }

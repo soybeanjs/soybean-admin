@@ -19,6 +19,8 @@ export interface ThemeSettings {
   multiTabStyle: MultiTabStyle;
   /** 面包屑样式 */
   crumbsStyle: CrumbsStyle;
+  /** 底部样式 */
+  footerStyle: FooterStyle;
   /** 页面样式 */
   pageStyle: PageStyle;
   /** 固定头部和多页签 */
@@ -103,6 +105,11 @@ interface CrumbsStyle {
   visible: boolean;
   /** 显示图标 */
   showIcon: boolean;
+}
+
+interface FooterStyle {
+  /** 底部高度 */
+  height: number;
 }
 
 export type AnimateType = keyof typeof EnumAnimate;

@@ -67,6 +67,9 @@ const defaultThemeSettings: ThemeSettings = {
     visible: true,
     showIcon: true
   },
+  footerStyle: {
+    height: 48
+  },
   pageStyle: {
     animate: true,
     animateType: 'fade-slide',

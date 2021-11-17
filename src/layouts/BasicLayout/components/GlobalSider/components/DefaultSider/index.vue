@@ -6,6 +6,7 @@
     :collapsed="app.menu.collapsed"
     :collapsed-width="theme.menuStyle.collapsedWidth"
     :width="menuWidth"
+    :native-scrollbar="false"
     @collapse="handleMenuCollapse(true)"
     @expand="handleMenuCollapse(false)"
   >
