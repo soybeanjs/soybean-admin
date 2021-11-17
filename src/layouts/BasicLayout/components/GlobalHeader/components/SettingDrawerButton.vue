@@ -1,5 +1,5 @@
 <template>
-  <hover-container class="w-40px h-full" placement="bottom-end" content="项目配置" @click="openSettingDrawer">
+  <hover-container class="w-40px h-full" tooltip-content="项目配置" placement="bottom-end" @click="openSettingDrawer">
     <icon-mdi-light-cog class="text-16px" />
   </hover-container>
 </template>
