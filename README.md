@@ -5,7 +5,6 @@
 	<h1>Soybean Admin</h1>
   <br />
 </div>
-
 [![license](https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/license.svg)](LICENSE)
 
 
@@ -40,7 +39,11 @@ Soybean Admin 是一个基于 Vue3、Vite、Naive UI、TypeScript 的免费中�
 
 </p>
 
+### 代码仓库
 
+**github**：https://github.com/honghuangdc/soybean-admin
+
+**gitee**：https://gitee.com/honghuangdc/soybean-admin
 
 ### 使用 Gitpod
 
