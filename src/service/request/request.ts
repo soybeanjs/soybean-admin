@@ -7,7 +7,7 @@ type ResponseFail = [any, null];
 
 /**
  * 封装各个请求方法及结果处理的类
- * @author Soybean(曹理斌) 2021-03-15
+ * @author Soybean<honghuangdc@gmail.com> 2021-03-15
  * @class Request
  */
 class Request {

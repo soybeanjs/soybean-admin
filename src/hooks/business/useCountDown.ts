@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue';
-import useBoolean from '../common/useBoolean';
+import { useBoolean } from '../common';
 
 /**
  * 倒计时
@@ -9,10 +9,10 @@ export default function useCountDown(second: number) {
   if (second <= 0 && second % 1 !== 0) {
     throw Error('倒计时的时间应该为一个正整数！');
   }
+  const { bool: isComplete, setTrue, setFalse } = useBoolean(false);
+
   const counts = ref(0);
   const isCounting = computed(() => Boolean(counts.value));
-  // 完成一轮倒计时
-  const { bool: isComplete, setTrue, setFalse } = useBoolean(false);
 
   let intervalId: any;
 

@@ -36,13 +36,14 @@ import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton, useNotification }
 import type { FormInst, FormRules } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
 import { useAuthStore } from '@/store';
-import { useRouterChange, useRouteQuery, useLoading } from '@/hooks';
+import { useRouterPush, useRouteQuery } from '@/composables';
+import { useLoading } from '@/hooks';
 import { setToken } from '@/utils';
 import { OtherLogin } from './components';
 
 const notification = useNotification();
 const auth = useAuthStore();
-const { toHome, toCurrentLogin, toLoginRedirectUrl } = useRouterChange();
+const { toHome, toCurrentLogin, toLoginRedirectUrl } = useRouterPush();
 const { loginRedirectUrl } = useRouteQuery();
 const { loading, startLoading, endLoading } = useLoading();
 

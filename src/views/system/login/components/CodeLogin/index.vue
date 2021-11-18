@@ -23,10 +23,11 @@
 import { reactive, ref } from 'vue';
 import { NForm, NFormItem, NInput, NSpace, NButton, useMessage } from 'naive-ui';
 import type { FormInst } from 'naive-ui';
-import { useRouterChange, useSmsCode } from '@/hooks';
+import { useRouterPush } from '@/composables';
+import { useSmsCode } from '@/hooks';
 
 const message = useMessage();
-const { toCurrentLogin } = useRouterChange();
+const { toCurrentLogin } = useRouterPush();
 const { label, isCounting, start } = useSmsCode();
 
 const formRef = ref<(HTMLElement & FormInst) | null>(null);

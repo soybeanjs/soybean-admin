@@ -1,52 +1,52 @@
 import type { CustomRoute } from '@/interface';
-import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout } from '@/layouts';
-import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
+import { setRouterCacheName } from '@/utils';
 import FeatCopy from '@/views/feat/copy/index.vue';
 import FeatIcon from '@/views/feat/icon/index.vue';
 import FeatPrint from '@/views/feat/print/index.vue';
+import { routeName, routePath, routeTitle } from '../const';
 
-setRouterCacheName(FeatCopy, ROUTE_NAME_MAP.get('feat_copy'));
-setRouterCacheName(FeatIcon, ROUTE_NAME_MAP.get('feat_icon'));
-setRouterCacheName(FeatPrint, ROUTE_NAME_MAP.get('feat_print'));
+setRouterCacheName(FeatCopy, routeName('feat_copy'));
+setRouterCacheName(FeatIcon, routeName('feat_icon'));
+setRouterCacheName(FeatPrint, routeName('feat_print'));
 
 const FEAT: CustomRoute = {
-  name: ROUTE_NAME_MAP.get('feat'),
-  path: EnumRoutePath.feat,
+  name: routeName('feat'),
+  path: routePath('feat'),
   component: BasicLayout,
-  redirect: { name: ROUTE_NAME_MAP.get('feat_copy') },
+  redirect: { name: routeName('feat_copy') },
   meta: {
     requiresAuth: true,
-    title: EnumRouteTitle.feat,
+    title: routeTitle('feat'),
     icon: 'ic:round-repeat'
   },
   children: [
     {
-      name: ROUTE_NAME_MAP.get('feat_copy'),
-      path: EnumRoutePath.feat_copy,
+      name: routeName('feat_copy'),
+      path: routePath('feat_copy'),
       component: FeatCopy,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.feat_copy,
+        title: routeTitle('feat_copy'),
         fullPage: true
       }
     },
     {
-      name: ROUTE_NAME_MAP.get('feat_icon'),
-      path: EnumRoutePath.feat_icon,
+      name: routeName('feat_icon'),
+      path: routePath('feat_icon'),
       component: FeatIcon,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.feat_icon
+        title: routeTitle('feat_icon')
       }
     },
     {
-      name: ROUTE_NAME_MAP.get('feat_print'),
-      path: EnumRoutePath.feat_print,
+      name: routeName('feat_print'),
+      path: routePath('feat_print'),
       component: FeatPrint,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.feat_print
+        title: routeTitle('feat_print')
       }
     }
   ]

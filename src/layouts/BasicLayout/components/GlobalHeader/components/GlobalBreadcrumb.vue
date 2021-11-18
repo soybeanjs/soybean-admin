@@ -32,15 +32,15 @@ import type { RouteLocationMatched } from 'vue-router';
 import { NBreadcrumb, NBreadcrumbItem, NDropdown } from 'naive-ui';
 import type { DropdownOption } from 'naive-ui';
 import { Icon } from '@iconify/vue';
-import { EnumRoutePath } from '@/enum';
+import { routePath } from '@/router';
 import { useThemeStore } from '@/store';
-import type { RoutePathKey } from '@/interface';
+import type { RouteKey } from '@/interface';
 
 type Breadcrumb = DropdownOption & {
   key: string;
   label: string;
   disabled: boolean;
-  routeName: RoutePathKey;
+  routeName: RouteKey;
   hasChildren: boolean;
   iconName?: string;
   children?: Breadcrumb[];
@@ -62,11 +62,11 @@ function recursionBreadcrumb(routeMatched: RouteLocationMatched[]) {
   const list: Breadcrumb[] = [];
   routeMatched.forEach(item => {
     if (!item.meta?.isNotMenu) {
-      const routeName = item.name as RoutePathKey;
+      const routeName = item.name as RouteKey;
       const breadcrumItem: Breadcrumb = {
         key: routeName,
         label: (item.meta?.title as string) || '',
-        disabled: item.path === EnumRoutePath.root,
+        disabled: item.path === routePath('root'),
         routeName,
         hasChildren: false
       };
@@ -84,7 +84,7 @@ function recursionBreadcrumb(routeMatched: RouteLocationMatched[]) {
 }
 
 function dropdownSelect(optionKey: string) {
-  const key = optionKey as RoutePathKey;
+  const key = optionKey as RouteKey;
   router.push({ name: key });
 }
 </script>

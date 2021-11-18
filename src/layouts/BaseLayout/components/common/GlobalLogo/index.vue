@@ -3,6 +3,7 @@
     href="/"
     class="
       flex-center
+      w-full
       nowrap-hidden
       bg-light
       dark:bg-dark
@@ -11,6 +12,7 @@
       ease-in-out
       cursor-pointer
     "
+    :style="{ height: headerHeight }"
   >
     <system-logo class="w-32px h-32px" :color="theme.themeColor" />
     <h2 v-show="showTitle" class="text-primary pl-8px text-16px font-bold">{{ title }}</h2>
@@ -20,7 +22,7 @@
 <script lang="ts" setup>
 import { SystemLogo } from '@/components';
 import { useThemeStore } from '@/store';
-import { useAppTitle } from '@/hooks';
+import { useAppTitle, useLayoutConfig } from '@/composables';
 
 interface Props {
   /** 显示名字 */
@@ -31,5 +33,6 @@ defineProps<Props>();
 
 const theme = useThemeStore();
 const title = useAppTitle();
+const { headerHeight } = useLayoutConfig();
 </script>
 <style scoped></style>

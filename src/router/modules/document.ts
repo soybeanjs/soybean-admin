@@ -1,54 +1,54 @@
 import type { CustomRoute } from '@/interface';
-import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout } from '@/layouts';
-import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
+import { setRouterCacheName } from '@/utils';
 import DocumentVue from '@/views/document/vue/index.vue';
 import DocumentVite from '@/views/document/vite/index.vue';
 import DocumentNaive from '@/views/document/naive/index.vue';
+import { routeName, routePath, routeTitle } from '../const';
 
-setRouterCacheName(DocumentVue, ROUTE_NAME_MAP.get('document_vue'));
-setRouterCacheName(DocumentVite, ROUTE_NAME_MAP.get('document_vite'));
-setRouterCacheName(DocumentNaive, ROUTE_NAME_MAP.get('document_naive'));
+setRouterCacheName(DocumentVue, routeName('document_vue'));
+setRouterCacheName(DocumentVite, routeName('document_vite'));
+setRouterCacheName(DocumentNaive, routeName('document_naive'));
 
 const DOCUMENT: CustomRoute = {
-  name: ROUTE_NAME_MAP.get('document'),
-  path: EnumRoutePath.document,
+  name: routeName('document'),
+  path: routePath('document'),
   component: BasicLayout,
-  redirect: { name: ROUTE_NAME_MAP.get('document_vue') },
+  redirect: { name: routeName('document_vue') },
   meta: {
     requiresAuth: true,
-    title: EnumRouteTitle.document,
+    title: routeTitle('document'),
     icon: 'carbon:document'
   },
   children: [
     {
-      name: ROUTE_NAME_MAP.get('document_vue'),
-      path: EnumRoutePath.document_vue,
+      name: routeName('document_vue'),
+      path: routePath('document_vue'),
       component: DocumentVue,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.document_vue,
+        title: routeTitle('document_vue'),
         fullPage: true,
         keepAlive: true
       }
     },
     {
-      name: ROUTE_NAME_MAP.get('document_vite'),
-      path: EnumRoutePath.document_vite,
+      name: routeName('document_vite'),
+      path: routePath('document_vite'),
       component: DocumentVite,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.document_vite,
+        title: routeTitle('document_vite'),
         fullPage: true
       }
     },
     {
-      name: ROUTE_NAME_MAP.get('document_naive'),
-      path: EnumRoutePath.document_naive,
+      name: routeName('document_naive'),
+      path: routePath('document_naive'),
       component: DocumentNaive,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.document_naive,
+        title: routeTitle('document_naive'),
         fullPage: true
       }
     }

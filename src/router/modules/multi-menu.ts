@@ -1,40 +1,41 @@
 import type { CustomRoute } from '@/interface';
-import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout, RouterViewLayout } from '@/layouts';
-import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
+import { setRouterCacheName } from '@/utils';
 import MultiMenuFirstSecond from '@/views/multi-menu/first/second/index.vue';
+import { routeName, routePath, routeTitle } from '../const';
 
-setRouterCacheName(MultiMenuFirstSecond, ROUTE_NAME_MAP.get('multi-menu_first_second'));
+setRouterCacheName(MultiMenuFirstSecond, routeName('multi-menu_first_second'));
 
 const MULTI_MENU: CustomRoute = {
-  name: ROUTE_NAME_MAP.get('multi-menu'),
-  path: EnumRoutePath['multi-menu'],
+  name: routeName('multi-menu'),
+  path: routePath('multi-menu'),
   component: BasicLayout,
-  redirect: { name: ROUTE_NAME_MAP.get('multi-menu_first') },
+  redirect: { name: routeName('multi-menu_first') },
   meta: {
-    title: EnumRouteTitle['multi-menu'],
+    title: routeTitle('multi-menu'),
     icon: 'carbon:menu'
   },
   children: [
     {
-      name: ROUTE_NAME_MAP.get('multi-menu_first'),
-      path: EnumRoutePath['multi-menu_first'],
+      name: routeName('multi-menu_first'),
+      path: routePath('multi-menu_first'),
       component: RouterViewLayout,
-      redirect: { name: ROUTE_NAME_MAP.get('multi-menu_first_second') },
+      redirect: { name: routeName('multi-menu_first_second') },
       meta: {
         keepAlive: true,
         requiresAuth: true,
-        title: EnumRouteTitle['multi-menu_first']
+        title: routeTitle('multi-menu_first_second')
       },
       children: [
         {
-          name: ROUTE_NAME_MAP.get('multi-menu_first_second'),
-          path: EnumRoutePath['multi-menu_first_second'],
+          name: routeName('multi-menu_first_second'),
+          path: routePath('multi-menu_first_second'),
           component: MultiMenuFirstSecond,
           meta: {
             keepAlive: true,
             requiresAuth: true,
-            title: EnumRouteTitle['multi-menu_first_second']
+            title: routeTitle('multi-menu_first_second'),
+            fullPage: true
           }
         }
       ]

@@ -25,7 +25,7 @@ import { computed } from 'vue';
 import type { Component } from 'vue';
 import { NCard, NGradientText } from 'naive-ui';
 import { SystemLogo, LoginBg } from '@/components';
-import { useAppTitle } from '@/hooks';
+import { useAppTitle } from '@/composables';
 import { EnumLoginModule } from '@/enum';
 import { mixColor } from '@/utils';
 import type { LoginModuleType } from '@/interface';

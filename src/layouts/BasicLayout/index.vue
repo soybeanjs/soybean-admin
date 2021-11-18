@@ -4,7 +4,7 @@
     <global-header v-if="isHorizontalMix" :z-index="14" />
     <div class="flex-1-hidden flex h-full">
       <global-sider v-if="isHorizontalMix" :z-index="13" />
-      <n-scrollbar ref="scrollbar" class="h-full" :content-class="routeProps.fullPage ? 'h-full' : ''">
+      <n-scrollbar class="h-full" :content-class="routeProps.fullPage ? 'h-full' : ''">
         <div
           class="inline-flex-col-stretch w-full"
           :class="[{ 'content-padding': isHorizontalMix }, routeProps.fullPage ? 'h-full' : 'min-h-100vh']"
@@ -21,16 +21,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 import { NLayout, NScrollbar } from 'naive-ui';
 import { useThemeStore } from '@/store';
-import { useRouteProps, useScrollBehavior } from '@/hooks';
+import { useRouteProps } from '@/composables';
 import { GlobalSider, GlobalHeader, GlobalTab, GlobalContent, GlobalFooter, SettingDrawer } from './components';
 
-const route = useRoute();
 const theme = useThemeStore();
-const { scrollbar, resetScrollBehavior } = useScrollBehavior();
 const routeProps = useRouteProps();
 
 const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
@@ -42,13 +39,6 @@ const headerAndMultiTabHeight = computed(() => {
   } = theme;
   return `${hHeight + mHeight}px`;
 });
-
-watch(
-  () => route.name,
-  () => {
-    resetScrollBehavior();
-  }
-);
 </script>
 <style scoped>
 :deep(.n-scrollbar-rail) {

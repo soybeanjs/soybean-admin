@@ -9,7 +9,7 @@
 import { computed } from 'vue';
 import { SystemLogo } from '@/components';
 import { useAppStore, useThemeStore } from '@/store';
-import { useAppTitle } from '@/hooks';
+import { useAppTitle } from '@/composables';
 
 const app = useAppStore();
 const theme = useThemeStore();

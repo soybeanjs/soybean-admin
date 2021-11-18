@@ -35,7 +35,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
-import { useAppTitle } from '@/hooks';
+import { useAppTitle } from '@/composables';
 import { menus } from '@/router';
 import type { GlobalMenuOption } from '@/interface';
 

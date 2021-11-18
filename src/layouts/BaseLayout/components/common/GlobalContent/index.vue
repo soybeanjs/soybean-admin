@@ -15,7 +15,7 @@ import { computed } from 'vue';
 import { useThemeStore } from '@/store';
 import { useReloadInject } from '@/context';
 import { cacheRoutes } from '@/router';
-import { useRouteProps } from '@/hooks';
+import { useRouteProps } from '@/composables';
 
 const theme = useThemeStore();
 const { reload } = useReloadInject();

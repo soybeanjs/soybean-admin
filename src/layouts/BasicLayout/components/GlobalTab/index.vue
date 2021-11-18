@@ -1,8 +1,19 @@
 <template>
   <div v-if="fixedHeaderAndTab && theme.navStyle.mode !== 'horizontal-mix'" class="multi-tab-height w-full"></div>
   <div
-    class="multi-tab flex-center justify-between w-full pl-10px"
-    :class="[theme.darkMode ? 'bg-[#18181c]' : 'bg-white', { 'multi-tab-top absolute': fixedHeaderAndTab }]"
+    class="
+      multi-tab
+      flex-center
+      justify-between
+      w-full
+      pl-10px
+      bg-light
+      dark:bg-dark
+      transition-backgorund-color
+      duration-300
+      ease-in-out
+    "
+    :class="{ 'multi-tab-top absolute': fixedHeaderAndTab }"
     :style="{ zIndex }"
     :align="'center'"
     justify="space-between"

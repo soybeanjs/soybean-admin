@@ -1,18 +1,19 @@
 import type { CustomRoute } from '@/interface';
-import { EnumRoutePath, EnumRouteTitle } from '@/enum';
-import { ROUTE_NAME_MAP, setRouterCacheName, setSingleRoute } from '@/utils';
+import { setRouterCacheName, setSingleRoute } from '@/utils';
 import { BasicLayout } from '@/layouts';
 import About from '@/views/about/index.vue';
+import { getRouteConst } from '../const';
 
-setRouterCacheName(About, ROUTE_NAME_MAP.get('about'));
+const { name, path, title } = getRouteConst('about');
+setRouterCacheName(About, name);
 
 const ABOUT: CustomRoute = setSingleRoute(BasicLayout, {
-  name: ROUTE_NAME_MAP.get('about'),
-  path: EnumRoutePath.about,
+  name,
+  path,
   component: About,
   meta: {
     requiresAuth: true,
-    title: EnumRouteTitle.about,
+    title,
     icon: 'fluent:book-information-24-regular'
   }
 });

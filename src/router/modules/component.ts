@@ -1,90 +1,90 @@
 import type { CustomRoute } from '@/interface';
-import { EnumRoutePath, EnumRouteTitle } from '@/enum';
 import { BasicLayout, RouterViewLayout } from '@/layouts';
-import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
+import { setRouterCacheName } from '@/utils';
 import ComponentMap from '@/views/component/map/index.vue';
 import ComponentVideo from '@/views/component/video/index.vue';
 import EditorQuill from '@/views/component/editor/quill/index.vue';
 import EditorMarkdown from '@/views/component/editor/markdown/index.vue';
 import ComponentSwiper from '@/views/component/swiper/index.vue';
+import { routeName, routePath, routeTitle } from '../const';
 
-setRouterCacheName(ComponentMap, ROUTE_NAME_MAP.get('component_map'));
-setRouterCacheName(ComponentVideo, ROUTE_NAME_MAP.get('component_video'));
-setRouterCacheName(EditorQuill, ROUTE_NAME_MAP.get('component_editor_quill'));
-setRouterCacheName(EditorMarkdown, ROUTE_NAME_MAP.get('component_editor_markdown'));
-setRouterCacheName(ComponentSwiper, ROUTE_NAME_MAP.get('component_swiper'));
+setRouterCacheName(ComponentMap, routeName('component_map'));
+setRouterCacheName(ComponentVideo, routeName('component_video'));
+setRouterCacheName(EditorQuill, routeName('component_editor_quill'));
+setRouterCacheName(EditorMarkdown, routeName('component_editor_markdown'));
+setRouterCacheName(ComponentSwiper, routeName('component_swiper'));
 
 const COMPONENT: CustomRoute = {
-  name: ROUTE_NAME_MAP.get('component'),
-  path: EnumRoutePath.component,
+  name: routeName('component'),
+  path: routePath('component'),
   component: BasicLayout,
-  redirect: { name: ROUTE_NAME_MAP.get('component_map') },
+  redirect: { name: routeName('component_map') },
   meta: {
     requiresAuth: true,
-    title: EnumRouteTitle.component,
+    title: routeTitle('component'),
     icon: 'fluent:app-store-24-regular'
   },
   children: [
     {
-      name: ROUTE_NAME_MAP.get('component_map'),
-      path: EnumRoutePath.component_map,
+      name: routeName('component_map'),
+      path: routePath('component_map'),
       component: ComponentMap,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.component_map,
+        title: routeTitle('component_map'),
         fullPage: true
       }
     },
     {
-      name: ROUTE_NAME_MAP.get('component_video'),
-      path: EnumRoutePath.component_video,
+      name: routeName('component_video'),
+      path: routePath('component_video'),
       component: ComponentVideo,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.component_video,
+        title: routeTitle('component_video'),
         fullPage: true
       }
     },
     {
-      name: ROUTE_NAME_MAP.get('component_editor'),
-      path: EnumRoutePath.component_editor,
+      name: routeName('component_editor'),
+      path: routePath('component_editor'),
       component: RouterViewLayout,
-      redirect: { name: ROUTE_NAME_MAP.get('component_editor_quill') },
+      redirect: { name: routeName('component_editor_quill') },
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.component_editor,
+        title: routeTitle('component_editor'),
         fullPage: true
       },
       children: [
         {
-          name: ROUTE_NAME_MAP.get('component_editor_quill'),
-          path: EnumRoutePath.component_editor_quill,
+          name: routeName('component_editor_quill'),
+          path: routePath('component_editor_quill'),
           component: EditorQuill,
           meta: {
             requiresAuth: true,
-            title: EnumRouteTitle.component_editor_quill,
+            title: routeTitle('component_editor_quill'),
             fullPage: true
           }
         },
         {
-          name: ROUTE_NAME_MAP.get('component_editor_markdown'),
-          path: EnumRoutePath.component_editor_markdown,
+          name: routeName('component_editor_markdown'),
+          path: routePath('component_editor_markdown'),
           component: EditorMarkdown,
           meta: {
             requiresAuth: true,
-            title: EnumRouteTitle.component_editor_markdown,
+            title: routeTitle('component_editor_markdown'),
             fullPage: true
           }
         }
       ]
     },
     {
-      name: ROUTE_NAME_MAP.get('component_swiper'),
-      path: EnumRoutePath.component_swiper,
+      name: routeName('component_swiper'),
+      path: routePath('component_swiper'),
       component: ComponentSwiper,
       meta: {
         requiresAuth: true,
-        title: EnumRouteTitle.component_swiper
+        title: routeTitle('component_swiper')
       }
     }
   ]

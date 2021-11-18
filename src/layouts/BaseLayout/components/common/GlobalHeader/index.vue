@@ -1,12 +1,12 @@
 <template>
-  <div class="global-header flex-y-center w-full">
+  <div class="global-header flex-y-center w-full" :style="{ height: headerHeight }">
     <global-logo v-if="showLogo" :show-title="true" class="h-full" :style="{ width: theme.menuStyle.width + 'px' }" />
-    <div class="flex-1-hidden flex-y-center h-full">
+    <div v-if="!showMenu" class="flex-1-hidden flex-y-center h-full">
       <menu-collapse v-if="showMenuCollape" />
       <global-breadcrumb v-if="theme.crumbsStyle.visible" />
     </div>
     <div
-      v-if="showMenu"
+      v-else
       class="flex-1-hidden flex-y-center h-full"
       :style="{ justifyContent: theme.menuStyle.horizontalPosition }"
     >
@@ -24,6 +24,7 @@
 
 <script lang="ts" setup>
 import { useThemeStore } from '@/store';
+import { useLayoutConfig } from '@/composables';
 import {
   HeaderMenu,
   GlobalBreadcrumb,
@@ -48,6 +49,7 @@ interface Props {
 defineProps<Props>();
 
 const theme = useThemeStore();
+const { headerHeight } = useLayoutConfig();
 
 const showSettingButton = import.meta.env.DEV || import.meta.env.VITE_HTTP_ENV === 'STAGING';
 </script>

@@ -18,26 +18,15 @@
 </template>
 
 <script lang="ts" setup>
-import { watch } from 'vue';
-import { useRoute } from 'vue-router';
 import { NScrollbar } from 'naive-ui';
-import { useRouteProps, useScrollBehavior } from '@/hooks';
 import { useThemeStore } from '@/store';
 import { useReloadInject } from '@/context';
 import { cacheRoutes } from '@/router';
+import { useRouteProps } from '@/composables';
 
 const theme = useThemeStore();
 const { reload } = useReloadInject();
 
-const route = useRoute();
-const { scrollbar, resetScrollBehavior } = useScrollBehavior();
 const routeProps = useRouteProps();
-
-watch(
-  () => route.name,
-  () => {
-    resetScrollBehavior();
-  }
-);
 </script>
 <style scoped></style>

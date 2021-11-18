@@ -1,5 +1,5 @@
 <template>
-  <div class="multi-tab flex-center w-full pl-16px">
+  <div class="multi-tab flex-center w-full pl-16px" :style="{ height: multiTabHeight }">
     <div class="flex-1-hidden h-full">
       <better-scroll :options="{ scrollX: true, scrollY: false, click: true }">
         <multi-tab />
@@ -13,11 +13,13 @@
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAppStore } from '@/store';
+import { useLayoutConfig } from '@/composables';
 import { BetterScroll } from '@/components';
 import { MultiTab, ReloadButton } from './components';
 
 const route = useRoute();
 const { initMultiTab, addMultiTab, setActiveMultiTab } = useAppStore();
+const { multiTabHeight } = useLayoutConfig();
 
 function init() {
   initMultiTab();

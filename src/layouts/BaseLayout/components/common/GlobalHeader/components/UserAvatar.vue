@@ -10,13 +10,13 @@
 <script lang="ts" setup>
 import { NDropdown, useDialog } from 'naive-ui';
 import { HoverContainer } from '@/components';
-import { useRouterChange } from '@/hooks';
+import { useRouterPush } from '@/composables';
 import { iconifyRender, resetAuthStorage } from '@/utils';
 import avatar from '@/assets/svg/avatar/avatar01.svg';
 
 type DropdownKey = 'user-center' | 'logout';
 
-const { toLogin } = useRouterChange();
+const { toLogin } = useRouterPush();
 const dialog = useDialog();
 
 const options = [
