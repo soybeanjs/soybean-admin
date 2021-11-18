@@ -55,7 +55,7 @@ export default defineConfig({
         dark: '#18181c',
         'deep-dark': '#101014'
       },
-      transitionProperty: ['width', 'height', 'background', 'background-color']
+      transitionProperty: ['width', 'height', 'background', 'background-color', 'border-color', 'fill']
     }
   },
   variants: {},

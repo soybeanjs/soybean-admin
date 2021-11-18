@@ -8,6 +8,9 @@
       border-1px border-[#e5e7eb]
       dark:border-[#ffffff3d]
       rounded-2px
+      transition-border-color
+      duration-300
+      ease-in-out
       cursor-pointer
     "
     :class="[closable ? 'pr-6px' : 'pr-14px']"

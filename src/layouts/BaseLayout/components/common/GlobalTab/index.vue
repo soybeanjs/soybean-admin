@@ -1,5 +1,5 @@
 <template>
-  <div class="multi-tab flex-center w-full pl-16px bg-light dark:bg-dark">
+  <div class="multi-tab flex-center w-full pl-16px">
     <div class="flex-1-hidden h-full">
       <better-scroll :options="{ scrollX: true, scrollY: false, click: true }">
         <multi-tab />

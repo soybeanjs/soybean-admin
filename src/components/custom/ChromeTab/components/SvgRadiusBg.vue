@@ -12,11 +12,23 @@
       </clipPath>
     </defs>
     <svg width="52%" height="100%">
-      <use xlink:href="#geometry-left" width="214" height="36" :fill="fill"></use>
+      <use
+        xlink:href="#geometry-left"
+        width="214"
+        height="36"
+        :fill="fill"
+        class="transition-fill duration-300 ease-in-out"
+      ></use>
     </svg>
     <g transform="scale(-1, 1)">
       <svg width="52%" height="100%" x="-100%" y="0">
-        <use xlink:href="#geometry-right" width="214" height="36" :fill="fill"></use>
+        <use
+          xlink:href="#geometry-right"
+          width="214"
+          height="36"
+          :fill="fill"
+          class="transition-fill duration-300 ease-in-out"
+        ></use>
       </svg>
     </g>
   </svg>

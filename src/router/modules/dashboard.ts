@@ -1,6 +1,6 @@
 import type { CustomRoute } from '@/interface';
 import { EnumRoutePath, EnumRouteTitle } from '@/enum';
-import { BasicLayout } from '@/layouts';
+import { BaseLayout } from '@/layouts';
 import { ROUTE_NAME_MAP, setRouterCacheName } from '@/utils';
 import { ROUTE_HOME } from '../routes';
 import DashboardWorkbench from '@/views/dashboard/workbench/index.vue';
@@ -10,7 +10,7 @@ setRouterCacheName(DashboardWorkbench, ROUTE_NAME_MAP.get('dashboard_workbench')
 const DASHBOARD: CustomRoute = {
   name: ROUTE_NAME_MAP.get('dashboard'),
   path: EnumRoutePath.dashboard,
-  component: BasicLayout,
+  component: BaseLayout,
   redirect: { name: ROUTE_NAME_MAP.get('dashboard_analysis') },
   meta: {
     title: EnumRouteTitle.dashboard,
