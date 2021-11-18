@@ -40,6 +40,7 @@ specifiers:
   pinia: ^2.0.3
   postinstall-postinstall: ^2.1.0
   prettier: ^2.4.1
+  print-js: ^1.6.0
   qs: ^6.10.1
   rollup-plugin-visualizer: ^5.5.2
   sass: ^1.43.4
@@ -70,6 +71,7 @@ dependencies:
   form-data: 4.0.0
   naive-ui: registry.npmmirror.com/naive-ui/2.20.3_eslint@8.2.0+vue@3.2.20
   pinia: registry.npmmirror.com/pinia/2.0.3_typescript@4.4.4+vue@3.2.20
+  print-js: 1.6.0
   qs: 6.10.1
   swiper: registry.npmmirror.com/swiper/7.2.0
   vditor: registry.npmmirror.com/vditor/3.8.7
@@ -121,6 +123,23 @@ devDependencies:
   windicss: registry.npmmirror.com/windicss/3.2.1
 
 packages:
+
+  /@commitlint/load/14.1.0:
+    resolution: {integrity: sha512-p+HbgjhkqLsnxyjOUdEYHztHCp8n2oLVUJTmRPuP5FXLNevh6Gwmxf+NYC2J0sgD084aV2CFi3qu1W4yHWIknA==}
+    engines: {node: '>=v12'}
+    requiresBuild: true
+    dependencies:
+      '@commitlint/execute-rule': registry.npmmirror.com/@commitlint/execute-rule/14.0.0
+      '@commitlint/resolve-extends': registry.npmmirror.com/@commitlint/resolve-extends/14.1.0
+      '@commitlint/types': registry.npmmirror.com/@commitlint/types/14.0.0
+      '@endemolshinegroup/cosmiconfig-typescript-loader': registry.nlark.com/@endemolshinegroup/cosmiconfig-typescript-loader/3.0.2_3fdcc7bc724bd900a681b5e9457ed94a
+      chalk: registry.nlark.com/chalk/4.1.2
+      cosmiconfig: registry.nlark.com/cosmiconfig/7.0.1
+      lodash: registry.nlark.com/lodash/4.17.21
+      resolve-from: registry.nlark.com/resolve-from/5.0.0
+      typescript: registry.npmmirror.com/typescript/4.4.4
+    dev: true
+    optional: true
 
   /@vue/eslint-config-prettier/6.0.0_5ef9ff6669b626527300390dc84546fb:
     resolution: {integrity: sha1-rVkSswj0rkaEWOAqKwXbC50kZwA=, tarball: '@vue/eslint-config-prettier/download/@vue/eslint-config-prettier-6.0.0.tgz'}
@@ -238,6 +257,14 @@ packages:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=, tarball: fs.realpath/download/fs.realpath-1.0.0.tgz}
     dev: true
 
+  /fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /get-intrinsic/1.1.1:
     resolution: {integrity: sha1-FfWfN2+FXERpY5SPDSTNNje0q8Y=, tarball: get-intrinsic/download/get-intrinsic-1.1.1.tgz}
     dependencies:
@@ -270,6 +297,11 @@ packages:
       is-windows: 1.0.2
       which: registry.nlark.com/which/1.3.1
     dev: true
+
+  /graceful-fs/4.2.8:
+    resolution: {integrity: sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==}
+    requiresBuild: true
+    optional: true
 
   /homedir-polyfill/1.0.3:
     resolution: {integrity: sha1-dDKYzvTlrz4ZQWH7rcwhUdOgWOg=, tarball: homedir-polyfill/download/homedir-polyfill-1.0.3.tgz}
@@ -318,7 +350,7 @@ packages:
   /jsonfile/4.0.0:
     resolution: {integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=, tarball: jsonfile/download/jsonfile-4.0.0.tgz}
     optionalDependencies:
-      graceful-fs: registry.npmmirror.com/graceful-fs/4.2.8
+      graceful-fs: 4.2.8
     dev: true
 
   /lodash.map/4.6.0:
@@ -375,6 +407,10 @@ packages:
     dependencies:
       fast-diff: 1.2.0
     dev: true
+
+  /print-js/1.6.0:
+    resolution: {integrity: sha512-BfnOIzSKbqGRtO4o0rnj/K3681BSd2QUrsIZy/+WdCIugjIswjmx3lDEZpXB2ruGf9d4b3YNINri81+J0FsBWg==}
+    dev: false
 
   /qs/6.10.1:
     resolution: {integrity: sha1-STFIL6jWR6Wqt5nFJx0hM7mB+2o=, tarball: qs/download/qs-6.10.1.tgz}
@@ -467,6 +503,12 @@ packages:
     dependencies:
       os-tmpdir: 1.0.2
     dev: true
+
+  /uglify-to-browserify/1.0.2:
+    resolution: {integrity: sha1-bgkk1r2mta/jSeOabWMoUKD4grc=}
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /universalify/0.1.2:
     resolution: {integrity: sha1-tkb2m+OULavOzJ1mOcgNwQXvqmY=, tarball: universalify/download/universalify-0.1.2.tgz}
@@ -1088,7 +1130,7 @@ packages:
       normalize-path: registry.nlark.com/normalize-path/3.0.0
       readdirp: registry.nlark.com/readdirp/3.6.0
     optionalDependencies:
-      fsevents: registry.npmmirror.com/fsevents/2.3.2
+      fsevents: 2.3.2
     dev: true
 
   registry.nlark.com/chroma-js/2.1.2:
@@ -1323,7 +1365,7 @@ packages:
       longest: 2.0.1
       word-wrap: 1.2.3
     optionalDependencies:
-      '@commitlint/load': registry.npmmirror.com/@commitlint/load/14.1.0
+      '@commitlint/load': 14.1.0
     dev: true
 
   registry.nlark.com/cz-conventional-changelog/3.3.0:
@@ -1339,7 +1381,7 @@ packages:
       longest: 2.0.1
       word-wrap: 1.2.3
     optionalDependencies:
-      '@commitlint/load': registry.npmmirror.com/@commitlint/load/14.1.0
+      '@commitlint/load': 14.1.0
     dev: true
 
   registry.nlark.com/cz-customizable/6.3.0:
@@ -2717,7 +2759,7 @@ packages:
     name: jsonfile
     version: 4.0.0
     optionalDependencies:
-      graceful-fs: registry.npmmirror.com/graceful-fs/4.2.8
+      graceful-fs: 4.2.8
 
   registry.nlark.com/jsonfile/6.1.0:
     resolution: {integrity: sha1-vFWyY0eTxnnsZAMJTrE2mKbsCq4=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/jsonfile/download/jsonfile-6.1.0.tgz}
@@ -2726,7 +2768,7 @@ packages:
     dependencies:
       universalify: registry.nlark.com/universalify/2.0.0
     optionalDependencies:
-      graceful-fs: registry.npmmirror.com/graceful-fs/4.2.8
+      graceful-fs: 4.2.8
     dev: true
 
   registry.nlark.com/jsonparse/1.3.1:
@@ -4148,14 +4190,6 @@ packages:
     name: type
     version: 2.5.0
     dev: false
-
-  registry.nlark.com/uglify-to-browserify/1.0.2:
-    resolution: {integrity: sha1-bgkk1r2mta/jSeOabWMoUKD4grc=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/uglify-to-browserify/download/uglify-to-browserify-1.0.2.tgz}
-    name: uglify-to-browserify
-    version: 1.0.2
-    requiresBuild: true
-    dev: false
-    optional: true
 
   registry.nlark.com/unbox-primitive/1.0.1:
     resolution: {integrity: sha1-CF4hViXsMWJXTciFmr7nilmxRHE=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/unbox-primitive/download/unbox-primitive-1.0.1.tgz}
@@ -5961,16 +5995,6 @@ packages:
       path-exists: registry.nlark.com/path-exists/4.0.0
     dev: true
 
-  registry.npmmirror.com/fsevents/2.3.2:
-    resolution: {integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fsevents/download/fsevents-2.3.2.tgz}
-    name: fsevents
-    version: 2.3.2
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   registry.npmmirror.com/generate-source-map/0.0.5:
     resolution: {integrity: sha1-8SVfMWU8sCMeZxOn3IN1r08zpQk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/generate-source-map/download/generate-source-map-0.0.5.tgz}
     name: generate-source-map
@@ -6462,7 +6486,7 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: registry.npmmirror.com/fsevents/2.3.2
+      fsevents: 2.3.2
     dev: true
 
   registry.npmmirror.com/rw/1.3.3:
@@ -6687,7 +6711,7 @@ packages:
       source-map: registry.nlark.com/source-map/0.5.7
       yargs: registry.npmmirror.com/yargs/3.10.0
     optionalDependencies:
-      uglify-to-browserify: registry.nlark.com/uglify-to-browserify/1.0.2
+      uglify-to-browserify: 1.0.2
     dev: false
 
   registry.npmmirror.com/unidragger/2.3.1:
@@ -6850,7 +6874,7 @@ packages:
       resolve: registry.nlark.com/resolve/1.20.0
       rollup: registry.npmmirror.com/rollup/2.59.0
     optionalDependencies:
-      fsevents: registry.npmmirror.com/fsevents/2.3.2
+      fsevents: 2.3.2
     dev: true
 
   registry.npmmirror.com/vooks/0.2.10_vue@3.2.20:
