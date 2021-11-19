@@ -20,13 +20,13 @@ async function setupApp() {
   setupStore(app);
 
   // 优先挂载一下 appProvider 解决路由守卫，Axios中可使用，LoadingBar，Dialog，Message 等之类组件
-  appProvider.mount('#appProvider', true);
+  appProvider.mount('#appProvider');
 
   // 挂载路由
   await setupRouter(app);
 
   // 路由准备就绪后挂载APP实例
-  app.mount('#app', true);
+  app.mount('#app');
 }
 
 setupPlugins();

@@ -1,5 +1,5 @@
 import type { CustomRoute } from '@/interface';
-import { BasicLayout } from '@/layouts';
+import { BaseLayout } from '@/layouts';
 import { setRouterCacheName } from '@/utils';
 import DashboardWorkbench from '@/views/dashboard/workbench/index.vue';
 import { ROUTE_HOME } from '../routes';
@@ -10,7 +10,7 @@ setRouterCacheName(DashboardWorkbench, routeName('dashboard_workbench'));
 const DASHBOARD: CustomRoute = {
   name: routeName('dashboard'),
   path: routePath('dashboard'),
-  component: BasicLayout,
+  component: BaseLayout,
   redirect: { name: routeName('dashboard_analysis') },
   meta: {
     title: routeTitle('dashboard_analysis'),

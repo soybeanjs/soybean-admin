@@ -22,12 +22,14 @@ export default function createRouterGuide(router: Router) {
   });
 }
 
+type RouterAction = [boolean, () => void];
+
 function handleRouterAction(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
   const token = getToken();
   const isLogin = Boolean(token);
   const needLogin = Boolean(to.meta?.requiresAuth);
 
-  const routerAction: [boolean, () => void][] = [
+  const routerAction: RouterAction[] = [
     // 已登录状态跳转登录页，跳转至首页
     [
       isLogin && to.name === routeName('login'),
@@ -60,9 +62,9 @@ function handleRouterAction(to: RouteLocationNormalized, from: RouteLocationNorm
   ];
 
   routerAction.some(item => {
-    const flag = item[0];
+    const [flag, callback] = item;
     if (flag) {
-      item[1]();
+      callback();
     }
     return flag;
   });

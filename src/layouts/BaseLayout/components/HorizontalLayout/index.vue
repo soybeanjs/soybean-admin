@@ -1,18 +1,18 @@
 <template>
-  <n-layout class="h-full">
+  <n-layout class="h-full" :native-scrollbar="false">
+    <n-layout-header :inverted="headerInverted" :position="headerPosition" class="z-11">
+      <global-header :show-logo="true" :show-menu-collape="false" :show-menu="true" class="relative z-2" />
+      <global-tab v-if="theme.multiTabStyle.visible" />
+    </n-layout-header>
+    <header-placeholder />
     <n-layout-content
       :native-scrollbar="false"
       :content-style="{ height: routeProps.fullPage ? '100%' : 'auto' }"
       class="bg-[#f6f9f8] dark:bg-deep-dark"
     >
-      <n-layout-header :inverted="headerInverted" :position="headerPosition" class="z-11">
-        <global-header :show-logo="true" :show-menu-collape="false" :show-menu="true" class="relative z-2" />
-        <global-tab v-if="theme.multiTabStyle.visible" />
-      </n-layout-header>
-      <header-placeholder />
       <global-content />
-      <global-footer />
     </n-layout-content>
+    <global-footer />
   </n-layout>
 </template>
 
