@@ -5,6 +5,7 @@
 	<h1>Soybean Admin</h1>
   <br />
 </div>
+
 [![license](https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/license.svg)](LICENSE)
 
 
