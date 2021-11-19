@@ -20,7 +20,7 @@
     :item-style="{ paddingTop: '0px', paddingBottom: '0px' }"
   >
     <div class="flex-1-hidden h-full">
-      <better-scroll :options="{ scrollX: true, scrollY: false, click: true }">
+      <better-scroll :options="{ scrollX: true, scrollY: false, click: isMobile }">
         <multi-tab />
       </better-scroll>
     </div>
@@ -34,6 +34,7 @@ import { useRoute } from 'vue-router';
 import { useThemeStore, useAppStore } from '@/store';
 import { BetterScroll } from '@/components';
 import { MultiTab, ReloadButton } from './components';
+import { useIsMobile } from '@/composables';
 
 interface Props {
   /** 层级z-index */
@@ -46,6 +47,7 @@ withDefaults(defineProps<Props>(), {
 
 const route = useRoute();
 const theme = useThemeStore();
+const isMobile = useIsMobile();
 const { initMultiTab, addMultiTab, setActiveMultiTab } = useAppStore();
 
 const fixedHeaderAndTab = computed(() => theme.fixedHeaderAndTab || theme.navStyle.mode === 'horizontal-mix');
