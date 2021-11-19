@@ -3,7 +3,7 @@
     class="h-full"
     :locale="zhCN"
     :date-locale="dateZhCN"
-    :theme="dark"
+    :theme="naiveTheme"
     :theme-overrides="theme.themeOverrids"
   >
     <n-element class="h-full">
@@ -22,7 +22,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, watch } from 'vue';
 import {
   NConfigProvider,
   NElement,
@@ -30,30 +29,14 @@ import {
   NDialogProvider,
   NNotificationProvider,
   NMessageProvider,
-  darkTheme,
   zhCN,
   dateZhCN
 } from 'naive-ui';
-import { useDark } from '@vueuse/core';
 import { AppProviderContent } from '@/components';
 import { useThemeStore } from '@/store';
+import { useDarkMode } from '@/composables';
 
-const osDark = useDark();
 const theme = useThemeStore();
-const { handleDarkMode } = useThemeStore();
-
-/** 系统暗黑模式 */
-const dark = computed(() => (theme.darkMode ? darkTheme : undefined));
-
-// 操作系统的暗黑模式
-watch(
-  osDark,
-  newValue => {
-    handleDarkMode(newValue);
-  },
-  {
-    immediate: true
-  }
-);
+const { naiveTheme } = useDarkMode();
 </script>
 <style></style>
