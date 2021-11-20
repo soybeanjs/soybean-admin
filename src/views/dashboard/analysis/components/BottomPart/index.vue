@@ -109,7 +109,7 @@ const tableData: TableData[] = [
     name: 'Soybean',
     age: 25,
     address: 'China Shenzhen',
-    tags: ['handsome', 'peogrammer']
+    tags: ['handsome', 'programmer']
   },
   {
     key: 4,

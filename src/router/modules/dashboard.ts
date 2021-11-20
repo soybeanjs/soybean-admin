@@ -13,7 +13,7 @@ const DASHBOARD: CustomRoute = {
   component: BasicLayout,
   redirect: { name: routeName('dashboard_analysis') },
   meta: {
-    title: routeTitle('dashboard_analysis'),
+    title: routeTitle('dashboard'),
     icon: 'carbon:dashboard'
   },
   children: [

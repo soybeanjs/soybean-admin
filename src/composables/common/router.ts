@@ -50,6 +50,8 @@ export function useRouterPush(inSetup: boolean = true) {
     if (route) {
       const { query } = route;
       router.push({ path: routePath('login'), query: { ...query, module } });
+    } else {
+      throw Error('该函数必须在setup里面调用！');
     }
   }
 

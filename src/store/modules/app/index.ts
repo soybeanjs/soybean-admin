@@ -1,16 +1,23 @@
-import { defineStore } from 'pinia';
 import { nextTick } from 'vue';
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
+import type { ScrollbarInst } from 'naive-ui';
+import { defineStore } from 'pinia';
 import { store } from '@/store';
 import { router, ROUTE_HOME } from '@/router';
 
 /** app状态 */
 interface AppState {
+  layout: LayoutState;
   menu: MenuState;
   multiTab: MultiTab;
   /** 重新加载标记 */
   reloadFlag: boolean;
   settingDrawer: SettingDrawer;
+}
+
+/** 布局状态 */
+interface LayoutState {
+  scrollbar: ScrollbarInst | null;
 }
 
 /** 菜单状态 */
@@ -21,16 +28,15 @@ interface MenuState {
   fixedMix: boolean;
 }
 
-type MultiTabRoute = Partial<RouteLocationNormalizedLoaded> & {
-  path: string;
-  fullPath: string;
-};
-
 /** 多页签 */
 interface MultiTab {
   routes: MultiTabRoute[];
   activeRoute: string;
 }
+type MultiTabRoute = Partial<RouteLocationNormalizedLoaded> & {
+  path: string;
+  fullPath: string;
+};
 
 /** 项目配置抽屉的状态 */
 interface SettingDrawer {
@@ -41,6 +47,9 @@ interface SettingDrawer {
 const appStore = defineStore({
   id: 'app-store',
   state: (): AppState => ({
+    layout: {
+      scrollbar: null
+    },
     menu: {
       collapsed: false,
       fixedMix: false
@@ -61,6 +70,19 @@ const appStore = defineStore({
     }
   },
   actions: {
+    /** 设置scrollbar的实例 */
+    setScrollbarInstance(scrollbar: ScrollbarInst) {
+      this.layout.scrollbar = scrollbar;
+    },
+    /**
+     * 重置滚动条行为
+     */
+    resetScrollBehavior() {
+      const { scrollbar } = this.layout;
+      setTimeout(() => {
+        scrollbar?.scrollTo({ left: 0, top: 0 });
+      }, 250);
+    },
     /** 折叠/展开菜单 */
     handleMenuCollapse(collapsed: boolean) {
       this.menu.collapsed = collapsed;
@@ -184,6 +206,7 @@ const appStore = defineStore({
       this.reloadFlag = false;
       nextTick(() => {
         this.reloadFlag = true;
+        this.resetScrollBehavior();
       });
     },
     /** 打开配置抽屉 */

@@ -5,7 +5,6 @@ import type { RouteKey } from '@/interface';
 
 /**
  * 路由属性
- * @description - 必须要在setup里面调用
  */
 export function useRouteProps() {
   const route = useRoute();
@@ -29,7 +28,6 @@ export function useRouteProps() {
 
 /**
  * 路由查询参数
- * @description - 必须要在setup里面调用
  */
 export function useRouteQuery() {
   const route = useRoute();
@@ -58,6 +56,20 @@ export function routeNameWatcher(callback: (name: RouteKey) => void) {
     () => route.name,
     newValue => {
       callback(newValue as RouteKey);
+    }
+  );
+}
+
+/**
+ * 路由全路径变化后的回调
+ * @param callback
+ */
+export function routeFullPathWatcher(callback: (fullPath: string) => void) {
+  const route = useRoute();
+  watch(
+    () => route.fullPath,
+    newValue => {
+      callback(newValue);
     }
   );
 }
