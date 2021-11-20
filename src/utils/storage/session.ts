@@ -8,7 +8,7 @@ export function getSession<T>(key: string) {
   if (json) {
     return JSON.parse(json) as T;
   }
-  return json;
+  return null;
 }
 
 export function removeSession(key: string) {

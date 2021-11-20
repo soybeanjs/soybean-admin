@@ -104,6 +104,10 @@ const themeStore = defineStore({
     handleMultiTabMode(mode: MultiTabMode) {
       this.multiTabStyle.mode = mode;
     },
+    /** 设置多页签缓存 */
+    handleSetMultiTabCache(isCache: boolean) {
+      this.multiTabStyle.isCache = isCache;
+    },
     /** 设置面包屑的显示 */
     handleCrumbsVisible(visible: boolean) {
       this.crumbsStyle.visible = visible;

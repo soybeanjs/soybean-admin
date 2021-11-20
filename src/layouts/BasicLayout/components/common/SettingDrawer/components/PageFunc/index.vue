@@ -51,13 +51,25 @@
         @update:value="handleMultiTabHeight"
       />
     </setting-menu-item>
+    <setting-menu-item label="多页签缓存">
+      <n-switch :value="theme.multiTabStyle.isCache" @update:value="handleSetMultiTabCache" />
+    </setting-menu-item>
+    <setting-menu-item label="清空多页签缓存">
+      <n-popconfirm placement="top-end" @positive-click="handleRemoveTabRouteCache">
+        <template #trigger>
+          <n-button type="primary" size="small">清空</n-button>
+        </template>
+        确定要清空多页签缓存吗？
+      </n-popconfirm>
+    </setting-menu-item>
   </n-space>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { NDivider, NSpace, NSwitch, NSelect, NInputNumber } from 'naive-ui';
-import { useThemeStore } from '@/store';
+import { NDivider, NSpace, NSwitch, NSelect, NInputNumber, NButton, NPopconfirm, useMessage } from 'naive-ui';
+import { useThemeStore, useAppStore } from '@/store';
+import { clearTabRoutes } from '@/utils';
 import { SettingMenuItem } from '../common';
 
 const theme = useThemeStore();
@@ -67,8 +79,11 @@ const {
   handleHeaderHeight,
   handleMultiTabHeight,
   handleMenuWidth,
-  handleMixMenuWidth
+  handleMixMenuWidth,
+  handleSetMultiTabCache
 } = useThemeStore();
+const { initMultiTab } = useAppStore();
+const message = useMessage();
 
 const isHorizontalMix = computed(() => theme.navStyle.mode === 'horizontal-mix');
 const disabledMenuWidth = computed(() => {
@@ -77,5 +92,11 @@ const disabledMenuWidth = computed(() => {
 });
 
 const disabledMixMenuWidth = computed(() => theme.navStyle.mode !== 'vertical-mix');
+
+function handleRemoveTabRouteCache() {
+  clearTabRoutes();
+  initMultiTab();
+  message.success('操作成功！');
+}
 </script>
 <style scoped></style>

@@ -96,6 +96,8 @@ interface MultiTabStyle {
   bgColor: string;
   /** 多页签模式 */
   mode: MultiTabMode;
+  /** 开启多页签缓存 */
+  isCache: boolean;
   /** 多页签模式列表 */
   modeList: MultiTabModeList[];
 }

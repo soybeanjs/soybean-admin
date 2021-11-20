@@ -58,6 +58,7 @@ const defaultThemeSettings: ThemeSettings = {
     visible: true,
     bgColor: '#fff',
     mode: 'chrome',
+    isCache: true,
     modeList: [
       { value: 'button', label: EnumMultiTabMode.button },
       { value: 'chrome', label: EnumMultiTabMode.chrome }

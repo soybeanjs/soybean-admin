@@ -1,3 +1,4 @@
+import type { RouteLocationNormalizedLoaded } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
 
@@ -5,6 +6,16 @@ import { EnumLoginModule } from '@/enum';
 export type GlobalMenuOption = MenuOption & {
   routeName: string;
   routePath: string;
+};
+
+/** 多页签 */
+export interface MultiTab {
+  routes: MultiTabRoute[];
+  activeRoute: string;
+}
+export type MultiTabRoute = Partial<RouteLocationNormalizedLoaded> & {
+  path: string;
+  fullPath: string;
 };
 
 /** 登录模块 */

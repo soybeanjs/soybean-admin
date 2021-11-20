@@ -18,6 +18,7 @@ function addPartialProps(menuItem: GlobalMenuOption, icon?: string, children?: G
   return item;
 }
 
+/** 将路由转换成菜单 */
 export function transformRouteToMenu(routes: CustomRoute[]) {
   const globalMenu: GlobalMenuOption[] = [];
   routes.forEach(route => {

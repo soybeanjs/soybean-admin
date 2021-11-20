@@ -2,8 +2,11 @@ import { nextTick } from 'vue';
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
 import type { ScrollbarInst } from 'naive-ui';
 import { defineStore } from 'pinia';
-import { store } from '@/store';
 import { router, ROUTE_HOME } from '@/router';
+import { store, useThemeStore } from '@/store';
+import { getTabRouteStorage } from '@/utils';
+import type { MultiTab, MultiTabRoute } from '@/interface';
+import { getHomeTabRoute, isInTabRoutes } from './helpers';
 
 /** app状态 */
 interface AppState {
@@ -27,16 +30,6 @@ interface MenuState {
   /** 混合菜单vertical-mix是否固定二级菜单 */
   fixedMix: boolean;
 }
-
-/** 多页签 */
-interface MultiTab {
-  routes: MultiTabRoute[];
-  activeRoute: string;
-}
-type MultiTabRoute = Partial<RouteLocationNormalizedLoaded> & {
-  path: string;
-  fullPath: string;
-};
 
 /** 项目配置抽屉的状态 */
 interface SettingDrawer {
@@ -74,9 +67,7 @@ const appStore = defineStore({
     setScrollbarInstance(scrollbar: ScrollbarInst) {
       this.layout.scrollbar = scrollbar;
     },
-    /**
-     * 重置滚动条行为
-     */
+    /** 重置滚动条行为 */
     resetScrollBehavior() {
       const { scrollbar } = this.layout;
       setTimeout(() => {
@@ -95,14 +86,10 @@ const appStore = defineStore({
     toggleMenu() {
       this.menu.collapsed = !this.menu.collapsed;
     },
-    /** 判断页签路由是否存在某个路由 */
-    getIndexInTabRoutes(fullPath: string) {
-      return this.multiTab.routes.findIndex(item => item.fullPath === fullPath);
-    },
     /** 添加多页签的数据 */
     addMultiTab(route: RouteLocationNormalizedLoaded) {
       const { fullPath } = route;
-      const isExist = this.getIndexInTabRoutes(fullPath) > -1;
+      const isExist = isInTabRoutes(this.multiTab.routes, fullPath);
       if (!isExist) {
         this.multiTab.routes.push({ ...route });
       }
@@ -174,28 +161,19 @@ const appStore = defineStore({
     setActiveMultiTab(fullPath: string) {
       this.multiTab.activeRoute = fullPath;
     },
-    /** 获取路由首页信息 */
-    getHomeTabRoute(route: RouteLocationNormalizedLoaded) {
-      const { name, path, meta } = ROUTE_HOME;
-      const isHome = route.name === ROUTE_HOME.name;
-      const home: MultiTabRoute = {
-        name,
-        path,
-        fullPath: path,
-        meta
-      };
-      if (isHome) {
-        Object.assign(home, route);
-      }
-      return home;
-    },
     /** 初始化多页签数据 */
     initMultiTab() {
+      const theme = useThemeStore();
       const { currentRoute } = router;
       const isHome = currentRoute.value.name === ROUTE_HOME.name;
-      const home = this.getHomeTabRoute(currentRoute.value);
-      const routes = [home];
-      if (!isHome) {
+      const home = getHomeTabRoute(currentRoute.value);
+      const routes: MultiTabRoute[] = theme.multiTabStyle.isCache ? getTabRouteStorage() : [];
+      const hasHome = isInTabRoutes(routes, home.fullPath);
+      const hasCurrent = isInTabRoutes(routes, currentRoute.value.fullPath);
+      if (!hasHome) {
+        routes.unshift(home);
+      }
+      if (!isHome && !hasCurrent) {
         routes.push(currentRoute.value);
       }
       this.multiTab.routes = routes;

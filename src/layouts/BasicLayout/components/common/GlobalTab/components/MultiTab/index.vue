@@ -40,10 +40,12 @@
 
 <script setup lang="ts">
 import { reactive, nextTick } from 'vue';
+import { useEventListener } from '@vueuse/core';
 import { useThemeStore, useAppStore } from '@/store';
 import { ROUTE_HOME } from '@/router';
 import { ChromeTab, ButtonTab } from '@/components';
 import { useBoolean } from '@/hooks';
+import { setTabRouteStorage } from '@/utils';
 import { ContextMenu } from './components';
 
 const theme = useThemeStore();
@@ -69,5 +71,10 @@ function handleContextMenu(e: MouseEvent, fullPath: string) {
     showDropdown();
   });
 }
+
+/** 页面离开时缓存多页签数据 */
+useEventListener(window, 'beforeunload', () => {
+  setTabRouteStorage(app.multiTab.routes);
+});
 </script>
 <style scoped></style>
