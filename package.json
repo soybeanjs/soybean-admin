@@ -1,7 +1,14 @@
 {
   "name": "soybean-admin",
-  "version": "1.0.0",
+  "version": "0.0.2",
+  "author": {
+    "name": "Soybean",
+    "email": "honghuangdc@gmail.com",
+    "url": "https://github.com/honghuangdc"
+  },
   "scripts": {
+    "release": "standard-version",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "dev": "vite",
     "dev:prod": "vite --mode production",
     "dev:staging": "vite --mode staging",
@@ -16,6 +23,11 @@
   },
   "lint-staged": {
     "*.{vue,js,jsx,ts,tsx}": "eslint --fix"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    }
   },
   "dependencies": {
     "@antv/g2plot": "^2.3.40",
@@ -79,9 +91,12 @@
     "vueuc": "^0.4.15",
     "windicss": "^3.2.1"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-customizable"
-    }
+  "homepage": "https://github.com/honghuangdc/soybean-admin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/honghuangdc/soybean-admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/honghuangdc/soybean-admin/issues"
   }
 }
