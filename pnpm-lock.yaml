@@ -6,7 +6,7 @@ specifiers:
   '@better-scroll/core': ^2.4.2
   '@commitlint/cli': ^15.0.0
   '@commitlint/config-conventional': ^15.0.0
-  '@iconify/json': ^1.1.430
+  '@iconify/json': ^1.1.431
   '@iconify/vue': ^3.1.1
   '@types/bmapgl': ^0.0.4
   '@types/chroma-js': ^2.1.3
@@ -17,7 +17,7 @@ specifiers:
   '@vue/compiler-sfc': ^3.2.22
   '@vue/eslint-config-prettier': ^6.0.0
   '@vue/eslint-config-typescript': ^9.1.0
-  '@vueuse/core': ^6.9.1
+  '@vueuse/core': ^6.9.2
   axios: ^0.24.0
   chroma-js: ^2.1.2
   clipboard: ^2.0.8
@@ -37,7 +37,7 @@ specifiers:
   lint-staged: ^12.0.3
   naive-ui: ^2.20.3
   patch-package: ^6.4.7
-  pinia: ^2.0.3
+  pinia: ^2.0.4
   postinstall-postinstall: ^2.1.0
   prettier: ^2.4.1
   print-js: ^1.6.0
@@ -63,14 +63,14 @@ specifiers:
 dependencies:
   '@antv/g2plot': registry.npmmirror.com/@antv/g2plot/2.3.40
   '@better-scroll/core': registry.npmmirror.com/@better-scroll/core/2.4.2
-  '@vueuse/core': registry.npmmirror.com/@vueuse/core/6.9.1_vue@3.2.22
+  '@vueuse/core': registry.npmmirror.com/@vueuse/core/6.9.2_vue@3.2.22
   axios: registry.npmmirror.com/axios/0.24.0
   chroma-js: registry.nlark.com/chroma-js/2.1.2
   clipboard: registry.nlark.com/clipboard/2.0.8
   dayjs: registry.nlark.com/dayjs/1.10.7
   form-data: 4.0.0
   naive-ui: registry.npmmirror.com/naive-ui/2.20.3_eslint@8.2.0+vue@3.2.22
-  pinia: registry.npmmirror.com/pinia/2.0.3_typescript@4.5.2+vue@3.2.22
+  pinia: registry.npmmirror.com/pinia/2.0.4_typescript@4.5.2+vue@3.2.22
   print-js: 1.6.0
   qs: 6.10.1
   swiper: registry.npmmirror.com/swiper/7.3.0
@@ -84,7 +84,7 @@ devDependencies:
   '@amap/amap-jsapi-types': registry.npmmirror.com/@amap/amap-jsapi-types/0.0.8
   '@commitlint/cli': registry.npmmirror.com/@commitlint/cli/15.0.0
   '@commitlint/config-conventional': registry.npmmirror.com/@commitlint/config-conventional/15.0.0
-  '@iconify/json': registry.npmmirror.com/@iconify/json/1.1.430
+  '@iconify/json': registry.npmmirror.com/@iconify/json/1.1.431
   '@iconify/vue': registry.npmmirror.com/@iconify/vue/3.1.1_vue@3.2.22
   '@types/bmapgl': registry.npmmirror.com/@types/bmapgl/0.0.4
   '@types/chroma-js': registry.nlark.com/@types/chroma-js/2.1.3
@@ -4802,10 +4802,10 @@ packages:
     version: 1.2.0
     dev: true
 
-  registry.npmmirror.com/@iconify/json/1.1.430:
-    resolution: {integrity: sha512-fYp7teLlIWBwhKH7/ubQpemgJEnrwrFnUgBUSA90gquwaxkgWq6HJSV+B3zF11qjBbV8G9Oi4L6Jn5VKTgMw2w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify/json/download/@iconify/json-1.1.430.tgz}
+  registry.npmmirror.com/@iconify/json/1.1.431:
+    resolution: {integrity: sha512-1MUc0zUBqMKgUiBokGLq0SAsv0IdqUjlqLU90dHzqo8HNhkz2xPwyAx/jguQdm4Ap98KE5tApAic6h3yQUzrRw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify/json/download/@iconify/json-1.1.431.tgz}
     name: '@iconify/json'
-    version: 1.1.430
+    version: 1.1.431
     dev: true
 
   registry.npmmirror.com/@iconify/types/1.0.10:
@@ -5218,11 +5218,11 @@ packages:
     name: '@vue/shared'
     version: 3.2.22
 
-  registry.npmmirror.com/@vueuse/core/6.9.1_vue@3.2.22:
-    resolution: {integrity: sha512-msa36DxnnbIu41bUTvfSudF6TL4wo0+Yrpw6yr1bFtwtYTOo8GZXYWPKyvXUVGhBBqrTVNTqsTtD0eXXHJ3roA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/download/@vueuse/core-6.9.1.tgz}
-    id: registry.npmmirror.com/@vueuse/core/6.9.1
+  registry.npmmirror.com/@vueuse/core/6.9.2_vue@3.2.22:
+    resolution: {integrity: sha512-FRwl4ccSFuHZBHLGgS9TMv/+Dd6XFaL4o9nph2qtgQIV+z29RBFokw08XjHfykiENRzB01MjYHJ7iRUnsIFQXg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/download/@vueuse/core-6.9.2.tgz}
+    id: registry.npmmirror.com/@vueuse/core/6.9.2
     name: '@vueuse/core'
-    version: 6.9.1
+    version: 6.9.2
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
@@ -5232,16 +5232,16 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared/6.9.1_vue@3.2.22
+      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared/6.9.2_vue@3.2.22
       vue: registry.npmmirror.com/vue/3.2.22
       vue-demi: registry.npmmirror.com/vue-demi/0.11.4_vue@3.2.22
     dev: false
 
-  registry.npmmirror.com/@vueuse/shared/6.9.1_vue@3.2.22:
-    resolution: {integrity: sha512-nQh+ayxkeCKUU9MZjyQpE7KfOb18e/QOHolOE2ZK5dpoHzCZK7MSXzgDtvb9omGkgK0mjXlLSJsVdGhG+QW7Aw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/download/@vueuse/shared-6.9.1.tgz}
-    id: registry.npmmirror.com/@vueuse/shared/6.9.1
+  registry.npmmirror.com/@vueuse/shared/6.9.2_vue@3.2.22:
+    resolution: {integrity: sha512-lAiMh6XROs0kSKVd0Yb/6GKoQMxC1fYrFDi6opvQWISPtcqRNluRrQxLUZ3WTI78ovtoKRLktjhkFAtydcfFDg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/download/@vueuse/shared-6.9.2.tgz}
+    id: registry.npmmirror.com/@vueuse/shared/6.9.2
     name: '@vueuse/shared'
-    version: 6.9.1
+    version: 6.9.2
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
@@ -6244,13 +6244,13 @@ packages:
     name: picocolors
     version: 0.2.1
 
-  registry.npmmirror.com/pinia/2.0.3_typescript@4.5.2+vue@3.2.22:
-    resolution: {integrity: sha512-jNq+eVCAbFQS/uOiqskSRsKsFzLcQpgegcpjI8eAzU3QOwmsdLLHZBE1dvy802jecRC3FPPJSlj1MISF/sRV2w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pinia/download/pinia-2.0.3.tgz}
-    id: registry.npmmirror.com/pinia/2.0.3
+  registry.npmmirror.com/pinia/2.0.4_typescript@4.5.2+vue@3.2.22:
+    resolution: {integrity: sha512-nAc2f9HmOcBbWRlnGDuBGedM1G6uFAR10FnJWP1/dgm1I2tM5jbgKL/3IgynP4mBnPCy//ky7g0WpCZl5Mmxsg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pinia/download/pinia-2.0.4.tgz}
+    id: registry.npmmirror.com/pinia/2.0.4
     name: pinia
-    version: 2.0.3
+    version: 2.0.4
     peerDependencies:
-      '@vue/composition-api': ^1.3.3
+      '@vue/composition-api': ^1.4.0
       typescript: ^4.4.4
       vue: ^2.6.14 || ^3.2.0
     peerDependenciesMeta:
