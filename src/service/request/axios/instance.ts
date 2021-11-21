@@ -1,9 +1,7 @@
 import axios from 'axios';
-import qs from 'qs';
-import type { AxiosRequestConfig, AxiosInstance } from 'axios';
-import { ContentType } from '@/enum';
+import type { AxiosRequestConfig, AxiosInstance, CancelTokenStatic } from 'axios';
 import { getToken } from '@/utils';
-import { transformFile, errorHandler } from '../utils';
+import { transformRequestData, handleResponseError } from '../helpers';
 
 export interface StatusConfig {
   /** 表明请求状态的属性key */
@@ -16,54 +14,47 @@ export interface StatusConfig {
 
 /**
  * 封装axios请求类
- * @author Soybean(曹理斌) 2021-03-13
- * @class CustomAxiosInstance
+ * @author Soybean<honghuangdc@gmail.com> 2021-03-13
  */
 export default class CustomAxiosInstance {
   instance: AxiosInstance;
 
-  constructor(
-    axiosConfig: AxiosRequestConfig,
-    statusConfig: StatusConfig = {
-      statusKey: 'code',
-      msgKey: 'message',
-      successCode: 200
-    }
-  ) {
+  cancelToken: CancelTokenStatic;
+
+  private statusConfig: StatusConfig = {
+    statusKey: 'code',
+    msgKey: 'message',
+    successCode: 200
+  };
+
+  constructor(axiosConfig: AxiosRequestConfig) {
     this.instance = axios.create(axiosConfig);
-    this.setInterceptor(statusConfig);
+    this.cancelToken = axios.CancelToken;
+    this.setInterceptor();
   }
 
   /** 设置请求拦截器 */
-  setInterceptor(statusConfig: StatusConfig): void {
+  setInterceptor(): void {
     this.instance.interceptors.request.use(
       async config => {
         const handleConfig = { ...config };
         if (handleConfig.headers) {
-          // form类型转换
-          if (handleConfig.headers['Content-Type'] === ContentType.formUrlencoded) {
-            handleConfig.data = qs.stringify(handleConfig.data);
-          }
-          // 文件类型转换
-          if (handleConfig?.headers['Content-Type'] === ContentType.formData) {
-            const key = Object.keys(handleConfig.data)[0];
-            const file = handleConfig.data[key];
-            handleConfig.data = await transformFile(file, key);
-          }
+          // 数据转换
+          handleConfig.data = await transformRequestData(handleConfig.data, handleConfig.headers['Content-Type']);
           // 设置token
           handleConfig.headers.Authorization = getToken();
         }
         return handleConfig;
       },
       error => {
-        errorHandler(error);
+        handleResponseError(error);
         return Promise.reject(error);
       }
     );
     this.instance.interceptors.response.use(
       response => {
         const { status, data } = response;
-        const { statusKey, msgKey, successCode } = statusConfig;
+        const { statusKey, msgKey, successCode } = this.statusConfig;
         if (status === 200 || status < 300 || status === 304) {
           const responseData = data as any;
           if (responseData[statusKey] === successCode) {
@@ -73,11 +64,11 @@ export default class CustomAxiosInstance {
           return Promise.reject(responseData[msgKey]);
         }
         const error = { response };
-        errorHandler(error);
+        handleResponseError(error);
         return Promise.reject(error);
       },
       error => {
-        errorHandler(error);
+        handleResponseError(error);
         return Promise.reject(error);
       }
     );

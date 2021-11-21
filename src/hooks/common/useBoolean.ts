@@ -3,20 +3,22 @@ import { ref } from 'vue';
 export default function useBoolean(initValue: boolean = false) {
   const bool = ref(initValue);
 
+  function setBool(value: boolean) {
+    bool.value = value;
+  }
   function setTrue() {
-    bool.value = true;
+    setBool(true);
   }
-
   function setFalse() {
-    bool.value = false;
+    setBool(false);
   }
-
   function toggle() {
-    bool.value = !bool.value;
+    setBool(!bool.value);
   }
 
   return {
     bool,
+    setBool,
     setTrue,
     setFalse,
     toggle
