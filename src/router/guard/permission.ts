@@ -1,5 +1,5 @@
 import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
-import { routeName } from '@/router';
+import { router, routeName } from '@/router';
 import { getToken, getLoginRedirectUrl } from '@/utils';
 
 type RouterAction = [boolean, () => void];
@@ -33,7 +33,7 @@ export function handlePagePermission(
     [
       !isLogin && needLogin,
       () => {
-        const redirectUrl = getLoginRedirectUrl();
+        const redirectUrl = getLoginRedirectUrl(router);
         next({ name: routeName('login'), query: { redirectUrl } });
       }
     ],

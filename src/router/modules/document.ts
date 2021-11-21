@@ -1,14 +1,9 @@
 import type { CustomRoute } from '@/interface';
 import { BasicLayout } from '@/layouts';
-import { setRouterCacheName } from '@/utils';
 import DocumentVue from '@/views/document/vue/index.vue';
 import DocumentVite from '@/views/document/vite/index.vue';
 import DocumentNaive from '@/views/document/naive/index.vue';
-import { routeName, routePath, routeTitle } from '../const';
-
-setRouterCacheName(DocumentVue, routeName('document_vue'));
-setRouterCacheName(DocumentVite, routeName('document_vite'));
-setRouterCacheName(DocumentNaive, routeName('document_naive'));
+import { routeName, routePath, routeTitle } from '../constant';
 
 const DOCUMENT: CustomRoute = {
   name: routeName('document'),
@@ -18,7 +13,8 @@ const DOCUMENT: CustomRoute = {
   meta: {
     requiresAuth: true,
     title: routeTitle('document'),
-    icon: 'carbon:document'
+    icon: 'carbon:document',
+    order: 2
   },
   children: [
     {

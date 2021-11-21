@@ -1,14 +1,9 @@
 import type { CustomRoute } from '@/interface';
 import { BasicLayout } from '@/layouts';
-import { setRouterCacheName } from '@/utils';
 import FeatCopy from '@/views/feat/copy/index.vue';
 import FeatIcon from '@/views/feat/icon/index.vue';
 import FeatPrint from '@/views/feat/print/index.vue';
-import { routeName, routePath, routeTitle } from '../const';
-
-setRouterCacheName(FeatCopy, routeName('feat_copy'));
-setRouterCacheName(FeatIcon, routeName('feat_icon'));
-setRouterCacheName(FeatPrint, routeName('feat_print'));
+import { routeName, routePath, routeTitle } from '../constant';
 
 const FEAT: CustomRoute = {
   name: routeName('feat'),
@@ -18,7 +13,8 @@ const FEAT: CustomRoute = {
   meta: {
     requiresAuth: true,
     title: routeTitle('feat'),
-    icon: 'ic:round-repeat'
+    icon: 'ic:round-repeat',
+    order: 4
   },
   children: [
     {

@@ -1,3 +1,3 @@
-export * from './const';
+export * from './constant';
 export * from './routes';
 export * from './setup';

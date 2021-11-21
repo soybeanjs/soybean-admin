@@ -1,14 +1,9 @@
 import type { CustomRoute } from '@/interface';
 import { BasicLayout } from '@/layouts';
-import { setRouterCacheName } from '@/utils';
 import Exception403 from '@/views/system/exception/403.vue';
 import Exception404 from '@/views/system/exception/404.vue';
 import Exception500 from '@/views/system/exception/500.vue';
-import { routeName, routePath, routeTitle } from '../const';
-
-setRouterCacheName(Exception404, routeName('exception_404'));
-setRouterCacheName(Exception403, routeName('exception_403'));
-setRouterCacheName(Exception500, routeName('exception_500'));
+import { routeName, routePath, routeTitle } from '../constant';
 
 const EXCEPTION: CustomRoute = {
   name: routeName('exception'),
@@ -18,7 +13,8 @@ const EXCEPTION: CustomRoute = {
   meta: {
     requiresAuth: true,
     title: routeTitle('exception'),
-    icon: 'ant-design:exception-outlined'
+    icon: 'ant-design:exception-outlined',
+    order: 5
   },
   children: [
     {

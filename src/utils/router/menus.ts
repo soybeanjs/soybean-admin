@@ -1,5 +1,5 @@
 import type { CustomRoute, GlobalMenuOption } from '@/interface';
-import { iconifyRender } from '@/utils';
+import { iconifyRender } from '../common';
 
 /** 判断路由是否作为菜单 */
 function asMenu(route: CustomRoute) {

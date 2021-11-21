@@ -1,10 +1,7 @@
 import type { CustomRoute } from '@/interface';
 import { BasicLayout, RouterViewLayout } from '@/layouts';
-import { setRouterCacheName } from '@/utils';
 import MultiMenuFirstSecond from '@/views/multi-menu/first/second/index.vue';
-import { routeName, routePath, routeTitle } from '../const';
-
-setRouterCacheName(MultiMenuFirstSecond, routeName('multi-menu_first_second'));
+import { routeName, routePath, routeTitle } from '../constant';
 
 const MULTI_MENU: CustomRoute = {
   name: routeName('multi-menu'),
@@ -13,7 +10,8 @@ const MULTI_MENU: CustomRoute = {
   redirect: { name: routeName('multi-menu_first') },
   meta: {
     title: routeTitle('multi-menu'),
-    icon: 'carbon:menu'
+    icon: 'carbon:menu',
+    order: 6
   },
   children: [
     {

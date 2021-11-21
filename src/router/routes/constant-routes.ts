@@ -5,7 +5,8 @@ import Login from '@/views/system/login/index.vue';
 import NoPermission from '@/views/system/exception/403.vue';
 import NotFound from '@/views/system/exception/404.vue';
 import ServiceError from '@/views/system/exception/500.vue';
-import { routeName, routePath, routeTitle } from '../const';
+import { routeName, routePath, routeTitle } from '../constant';
+import { ROUTE_HOME_NAME } from './route-home';
 
 /**
  * 固定不变的路由
@@ -13,8 +14,14 @@ import { routeName, routePath, routeTitle } from '../const';
  */
 const constantRoutes: RouteRecordRaw[] = [
   {
-    name: 'single_',
-    path: '/single_',
+    name: routeName('root'),
+    path: routePath('root'),
+    redirect: { name: ROUTE_HOME_NAME }
+  },
+  {
+    // 名称、路由随意，不在路由声明里面，只是为各个页面充当传递BlankLayout的桥梁，因此访问该路由时重定向到404
+    name: 'constant-single_',
+    path: '/constant-single_',
     component: BlankLayout,
     redirect: { name: routeName('not-found') },
     meta: {

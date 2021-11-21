@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 
 /** 路由描述 */
-interface RouteMeta {
+export interface CustomRouteMeta {
   /** 路由名称 */
   title?: string;
   /** 缓存页面 */
@@ -12,12 +12,15 @@ interface RouteMeta {
   isNotMenu?: boolean;
   /** 菜单和面包屑对应的图标 */
   icon?: string;
-  /** 路由作为菜单时的排序 */
+  /** 导入的路由模块排序，可用于菜单的排序 */
   order?: number;
 }
 
 /** 路由配置 */
-export type CustomRoute = RouteRecordRaw & { meta: RouteMeta };
+export type CustomRoute = RouteRecordRaw & { meta: CustomRouteMeta };
+
+/** 导入的路由模块 */
+export type ImportedRouteModules = Record<string, { default: CustomRoute; [key: string]: any }>;
 
 /** 路由声明的key */
 export type RouteKey =

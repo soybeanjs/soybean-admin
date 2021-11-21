@@ -1,18 +1,11 @@
 import type { CustomRoute } from '@/interface';
 import { BasicLayout, RouterViewLayout } from '@/layouts';
-import { setRouterCacheName } from '@/utils';
 import ComponentMap from '@/views/component/map/index.vue';
 import ComponentVideo from '@/views/component/video/index.vue';
 import EditorQuill from '@/views/component/editor/quill/index.vue';
 import EditorMarkdown from '@/views/component/editor/markdown/index.vue';
 import ComponentSwiper from '@/views/component/swiper/index.vue';
-import { routeName, routePath, routeTitle } from '../const';
-
-setRouterCacheName(ComponentMap, routeName('component_map'));
-setRouterCacheName(ComponentVideo, routeName('component_video'));
-setRouterCacheName(EditorQuill, routeName('component_editor_quill'));
-setRouterCacheName(EditorMarkdown, routeName('component_editor_markdown'));
-setRouterCacheName(ComponentSwiper, routeName('component_swiper'));
+import { routeName, routePath, routeTitle } from '../constant';
 
 const COMPONENT: CustomRoute = {
   name: routeName('component'),
@@ -22,7 +15,8 @@ const COMPONENT: CustomRoute = {
   meta: {
     requiresAuth: true,
     title: routeTitle('component'),
-    icon: 'fluent:app-store-24-regular'
+    icon: 'fluent:app-store-24-regular',
+    order: 3
   },
   children: [
     {
