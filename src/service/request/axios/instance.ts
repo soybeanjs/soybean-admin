@@ -1,9 +1,9 @@
 import axios from 'axios';
-import type { AxiosRequestConfig, AxiosInstance, CancelTokenStatic } from 'axios';
+import type { AxiosRequestConfig, AxiosInstance, AxiosError, CancelTokenStatic } from 'axios';
 import { getToken } from '@/utils';
-import { transformRequestData, handleResponseError } from '../helpers';
+import { transformRequestData, handleAxiosError, handleResponseError } from '../helpers';
 
-export interface StatusConfig {
+interface StatusConfig {
   /** 表明请求状态的属性key */
   statusKey: string;
   /** 请求信息的属性key */
@@ -34,7 +34,7 @@ export default class CustomAxiosInstance {
   }
 
   /** 设置请求拦截器 */
-  setInterceptor(): void {
+  setInterceptor() {
     this.instance.interceptors.request.use(
       async config => {
         const handleConfig = { ...config };
@@ -46,8 +46,8 @@ export default class CustomAxiosInstance {
         }
         return handleConfig;
       },
-      error => {
-        handleResponseError(error);
+      (error: AxiosError) => {
+        handleAxiosError(error);
         return Promise.reject(error);
       }
     );
@@ -64,11 +64,11 @@ export default class CustomAxiosInstance {
           return Promise.reject(responseData[msgKey]);
         }
         const error = { response };
-        handleResponseError(error);
+        handleResponseError(response);
         return Promise.reject(error);
       },
-      error => {
-        handleResponseError(error);
+      (error: AxiosError) => {
+        handleAxiosError(error);
         return Promise.reject(error);
       }
     );

@@ -1,50 +1,48 @@
-const ERROR_STATUS = {
-  400: '400: 请求出现语法错误',
-  401: '401: 用户未授权~',
-  403: '403: 服务器拒绝访问~',
-  404: '404: 请求的资源不存在~',
-  405: '405: 请求方法未允许~',
-  408: '408: 网络请求超时~',
-  500: '500: 服务器内部错误~',
-  501: '501: 服务器未实现请求功能~',
-  502: '502: 错误网关~',
-  503: '503: 服务不可用~',
-  504: '504: 网关超时~',
-  505: '505: http版本不支持该请求~'
-};
+import type { AxiosError, AxiosResponse } from 'axios';
+import { DEFAULT_REQUEST_ERROR_MSG, ERROR_STATUS, NETWORK_ERROR_MSG } from '../config';
 
 type ErrorStatus = keyof typeof ERROR_STATUS;
 
-type ErrorMsg = [boolean, string];
 /**
  * 获取请求失败的错误
  * @param error
  */
-export function getFailRequestErrorMsg(error: any) {
-  const errorAction: ErrorMsg[] = [
-    [!window.navigator.onLine || error.message === 'Network Error', '网络不可用~'],
-    [error.code === 'ECONNABORTED' && error.message.includes('timeout'), '网络连接超时~'],
-    [error.response, ERROR_STATUS[error.response.status as ErrorStatus]]
-  ];
-  let errorMsg = '请求错误~';
-  errorAction.some(item => {
-    const [flag, msg] = item;
-    if (flag) {
-      errorMsg = msg;
-    }
-    return flag;
-  });
-  return errorMsg;
+export function getFailRequestErrorMsg(error: AxiosError) {
+  if (!window.navigator.onLine || error.message === 'Network Error') {
+    return NETWORK_ERROR_MSG;
+  }
+  if (error.code === 'ECONNABORTED') {
+    return error.message;
+  }
+  if (error.response) {
+    const errorCode: ErrorStatus = error.response.status as ErrorStatus;
+    const msg = ERROR_STATUS[errorCode] || DEFAULT_REQUEST_ERROR_MSG;
+    return msg;
+  }
+  return DEFAULT_REQUEST_ERROR_MSG;
 }
 
 /**
  * 处理请求失败的错误
  * @param error - 错误
  */
-export function handleResponseError(error: any) {
+export function handleAxiosError(error: AxiosError) {
   const { $message: Message } = window;
 
   const msg = getFailRequestErrorMsg(error);
 
   Message?.error(msg);
+}
+
+/**
+ * 处理请求成功后的错误
+ * @param response - 请求的响应
+ */
+export function handleResponseError(response: AxiosResponse) {
+  if (!window.navigator.onLine) {
+    return NETWORK_ERROR_MSG;
+  }
+  const errorCode: ErrorStatus = response.status as ErrorStatus;
+  const msg = ERROR_STATUS[errorCode] || DEFAULT_REQUEST_ERROR_MSG;
+  return msg;
 }

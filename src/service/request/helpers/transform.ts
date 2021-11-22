@@ -3,6 +3,11 @@ import FormData from 'form-data';
 import { isArray } from '@/utils';
 import { ContentType } from '@/enum';
 
+/**
+ * 请求数据的转换
+ * @param requestData - 请求数据
+ * @param contentType - 请求头的Content-Type
+ */
 export async function transformRequestData(requestData: any, contentType?: string) {
   // application/json类型不处理
   let data = requestData;
@@ -27,6 +32,7 @@ export async function transformRequestData(requestData: any, contentType?: strin
 async function transformFile(file: File[] | File, key: string) {
   const formData = new FormData();
   if (isArray(file)) {
+    // 多文件
     await Promise.all(
       (file as File[]).map(item => {
         formData.append(key, item);
@@ -34,6 +40,7 @@ async function transformFile(file: File[] | File, key: string) {
       })
     );
   } else {
+    // 单文件
     await formData.append(key, file);
   }
   return formData;
