@@ -1,12 +1,21 @@
 /** 请求超时时间 */
 export const REQUEST_TIMEOUT = 60 * 1000;
 
-/** 默认的请求错误文本 */
+/** 错误信息的显示时间 */
+export const ERROR_MSG_DURATION = 3 * 1000;
+
+/** 兜底的请求错误code */
+export const DEFAULT_REQUEST_ERROR_CODE = 'DEFAULT';
+/** 兜底的请求错误文本 */
 export const DEFAULT_REQUEST_ERROR_MSG = '请求错误~';
 
+/** 请求超时的错误code(为固定值：ECONNABORTED) */
+export const REQUEST_TIMEOUT_CODE = 'ECONNABORTED';
 /** 请求超时的错误文本 */
 export const REQUEST_TIMEOUT_MSG = '请求超时~';
 
+/** 网络不可用的code */
+export const NETWORK_ERROR_CODE = 'NETWORK_ERROR';
 /** 网络不可用的错误文本 */
 export const NETWORK_ERROR_MSG = '网络不可用~';
 
@@ -25,3 +34,6 @@ export const ERROR_STATUS = {
   504: '504: 网关超时~',
   505: '505: http版本不支持该请求~'
 };
+
+/** 不弹出错误信息的code */
+export const NO_ERROR_MSG_CODE: (string | number)[] = [];

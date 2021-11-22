@@ -1,31 +1,19 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosInstance, AxiosError, CancelTokenStatic } from 'axios';
 import { getToken } from '@/utils';
-import { transformRequestData, handleAxiosError, handleResponseError } from '../helpers';
-
-interface StatusConfig {
-  /** 表明请求状态的属性key */
-  statusKey: string;
-  /** 请求信息的属性key */
-  msgKey: string;
-  /** 成功状态的状态码 */
-  successCode: string | number;
-}
+import type { BackendServiceResult } from '@/interface';
+import { transformRequestData, handleAxiosError, handleResponseError, handleBackendError } from '../helpers';
 
 /**
  * 封装axios请求类
- * @author Soybean<honghuangdc@gmail.com> 2021-03-13
+ * @author Soybean<honghuangdc@gmail.com>
  */
 export default class CustomAxiosInstance {
   instance: AxiosInstance;
 
-  cancelToken: CancelTokenStatic;
+  private backendSuccessCode = 200;
 
-  private statusConfig: StatusConfig = {
-    statusKey: 'code',
-    msgKey: 'message',
-    successCode: 200
-  };
+  cancelToken: CancelTokenStatic;
 
   constructor(axiosConfig: AxiosRequestConfig) {
     this.instance = axios.create(axiosConfig);
@@ -40,35 +28,34 @@ export default class CustomAxiosInstance {
         const handleConfig = { ...config };
         if (handleConfig.headers) {
           // 数据转换
-          handleConfig.data = await transformRequestData(handleConfig.data, handleConfig.headers['Content-Type']);
+          const contentType = handleConfig.headers['Content-Type'];
+          handleConfig.data = await transformRequestData(handleConfig.data, contentType);
           // 设置token
           handleConfig.headers.Authorization = getToken();
         }
         return handleConfig;
       },
-      (error: AxiosError) => {
-        handleAxiosError(error);
+      (axiosError: AxiosError) => {
+        const error = handleAxiosError(axiosError);
         return Promise.reject(error);
       }
     );
     this.instance.interceptors.response.use(
       response => {
-        const { status, data } = response;
-        const { statusKey, msgKey, successCode } = this.statusConfig;
+        const { status } = response;
         if (status === 200 || status < 300 || status === 304) {
-          const responseData = data as any;
-          if (responseData[statusKey] === successCode) {
-            return Promise.resolve(responseData.data);
+          const backendServiceResult = response.data as BackendServiceResult;
+          if (backendServiceResult.code === this.backendSuccessCode) {
+            return Promise.resolve(backendServiceResult.data);
           }
-          window.$message?.error(responseData[msgKey]);
-          return Promise.reject(responseData[msgKey]);
+          const error = handleBackendError(backendServiceResult);
+          return Promise.reject(error);
         }
-        const error = { response };
-        handleResponseError(response);
+        const error = handleResponseError(response);
         return Promise.reject(error);
       },
-      (error: AxiosError) => {
-        handleAxiosError(error);
+      (axiosError: AxiosError) => {
+        const error = handleAxiosError(axiosError);
         return Promise.reject(error);
       }
     );
