@@ -15,8 +15,7 @@ export default class Request {
   static successHandler<ResponseData>(response: AxiosResponse) {
     const successResult: CustomSuccessRequestResult<ResponseData> = {
       data: response as unknown as ResponseData,
-      error: null,
-      networkStatus: window.navigator.onLine
+      error: null
     };
 
     return successResult;
@@ -25,8 +24,7 @@ export default class Request {
   static failHandler(error: RequestServiceError) {
     const failResult: CustomFailRequestResult = {
       data: null,
-      error,
-      networkStatus: window.navigator.onLine
+      error
     };
 
     return failResult;

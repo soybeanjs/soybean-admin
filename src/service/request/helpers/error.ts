@@ -34,7 +34,7 @@ export function handleAxiosError(axiosError: AxiosError) {
     // 请求不成功的错误
     const errorCode: ErrorStatus = axiosError.response.status as ErrorStatus;
     const msg = ERROR_STATUS[errorCode] || DEFAULT_REQUEST_ERROR_MSG;
-    Object.assign(error, { code: errorCode, msg });
+    Object.assign(error, { code: errorCode || DEFAULT_REQUEST_ERROR_CODE, msg });
   }
 
   showErrorMsg(error);

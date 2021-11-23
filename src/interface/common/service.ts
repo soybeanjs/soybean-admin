@@ -32,8 +32,6 @@ export interface CustomSuccessRequestResult<ResponseData> {
   error: null;
   /** 请求数据 */
   data: ResponseData;
-  /** 网络状态 */
-  networkStatus: boolean;
 }
 
 /** 自定义的请求失败结果 */
@@ -42,8 +40,6 @@ export interface CustomFailRequestResult {
   error: RequestServiceError;
   /** 请求数据 */
   data: null;
-  /** 网络状态 */
-  networkStatus: boolean;
 }
 
 /** 自定义的请求结果 */

@@ -14,13 +14,11 @@ export function resultMiddleware<MiddlewareData>(
   const hasError = errorIndex > -1;
   const successResult: CustomSuccessRequestResult<MiddlewareData> = {
     data: resultHandler(...requests.map(item => item.data)),
-    error: null,
-    networkStatus: window.navigator.onLine
+    error: null
   };
   const failResult: CustomFailRequestResult = {
     data: null,
-    error: requests[errorIndex].error!,
-    networkStatus: window.navigator.onLine
+    error: requests[errorIndex].error!
   };
   return hasError ? failResult : successResult;
 }
