@@ -1,7 +1,7 @@
 <template>
   <div class="login-bg relative flex-center wh-full">
     <n-card :bordered="false" size="large" class="z-20 !w-auto rounded-20px shadow-sm">
-      <div class="w-400px">
+      <div class="w-360px">
         <header class="flex-y-center justify-between">
           <div class="w-70px h-70px rounded-35px overflow-hidden">
             <system-logo class="wh-full" :fill="true" :color="theme.themeColor" />

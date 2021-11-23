@@ -62,7 +62,10 @@
 	"material-icon-theme.folders.associations": {
 		"enum": "typescript",
 		"store": "context",
+		"composable": "hook",
 		"composables": "hook",
-		"business": "core",
+		"directive": "tools",
+		"directives": "tools",
+		"business": "core"
 	}
 }
