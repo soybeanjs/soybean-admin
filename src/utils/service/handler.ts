@@ -6,7 +6,7 @@ type ResultHandler<T> = (...arg: any) => T;
  * @param resultHandler - 处理函数
  * @param requests - 请求结果
  */
-export function resultMiddleware<MiddlewareData>(
+export function requestMiddleware<MiddlewareData>(
   resultHandler: ResultHandler<MiddlewareData>,
   requests: CustomRequestResult<any>[]
 ) {

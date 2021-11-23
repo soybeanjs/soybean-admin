@@ -1,11 +1,12 @@
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
 import type { RequestServiceError, CustomSuccessRequestResult, CustomFailRequestResult } from '@/interface';
+import CustomAxiosInstance from './instance';
 
 /**
  * 封装各个请求方法及结果处理的类
  * @author Soybean<honghuangdc@gmail.com>
  */
-export default class Request {
+export class Request {
   instance: AxiosInstance;
 
   constructor(instance: AxiosInstance) {
@@ -57,4 +58,9 @@ export default class Request {
       .then(res => Request.successHandler<ResponseData>(res))
       .catch(Request.failHandler);
   }
+}
+
+export function createRequest(axiosConfig: AxiosRequestConfig) {
+  const customInstance = new CustomAxiosInstance(axiosConfig);
+  return new Request(customInstance.instance);
 }

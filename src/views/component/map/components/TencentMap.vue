@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useScriptTag } from '@vueuse/core';
-import { TENCENT_MAP_SDK_URL } from '@/settings';
+import { TENCENT_MAP_SDK_URL } from '@/config';
 
 const { load } = useScriptTag(TENCENT_MAP_SDK_URL);
 

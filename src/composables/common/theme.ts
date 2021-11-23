@@ -12,6 +12,24 @@ export function useDarkMode() {
   /** naive-ui暗黑主题 */
   const naiveTheme = computed(() => (theme.darkMode ? darkTheme : undefined));
 
+  // windicss 暗黑模式
+  const DARK_CLASS = 'dark';
+  function getHtmlElement() {
+    return document.querySelector('html');
+  }
+  function addDarkClass() {
+    const html = getHtmlElement();
+    if (html) {
+      html.classList.add(DARK_CLASS);
+    }
+  }
+  function removeDarkClass() {
+    const html = getHtmlElement();
+    if (html) {
+      html.classList.remove(DARK_CLASS);
+    }
+  }
+
   // 监听操作系统主题模式
   watch(
     osDark,
@@ -21,6 +39,18 @@ export function useDarkMode() {
     {
       immediate: true
     }
+  );
+  // 监听主题的暗黑模式
+  watch(
+    () => theme.darkMode,
+    newValue => {
+      if (newValue) {
+        addDarkClass();
+      } else {
+        removeDarkClass();
+      }
+    },
+    { immediate: true }
   );
 
   return {

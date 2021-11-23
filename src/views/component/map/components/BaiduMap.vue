@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useScriptTag } from '@vueuse/core';
-import { BAIDU_MAP_SDK_URL } from '@/settings';
+import { BAIDU_MAP_SDK_URL } from '@/config';
 
 const { load } = useScriptTag(BAIDU_MAP_SDK_URL);
 

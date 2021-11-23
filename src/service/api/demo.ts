@@ -1,5 +1,6 @@
+import { requestMiddleware } from '@/utils';
 import type { ResponseDictionary, Dictionary } from '@/interface';
-import { request, resultMiddleware } from '../request';
+import { request } from '../request';
 import { fecthDictionaryMiddleware } from '../middleware';
 
 // 接口示例
@@ -23,5 +24,5 @@ export async function fetchDictionaryWithMiddleware(keyword: string) {
     indiCatorName: keyword
   });
 
-  return resultMiddleware<Dictionary[]>(fecthDictionaryMiddleware, [res]);
+  return requestMiddleware<Dictionary[]>(fecthDictionaryMiddleware, [res]);
 }

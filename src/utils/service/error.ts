@@ -8,7 +8,7 @@ import {
   REQUEST_TIMEOUT_CODE,
   REQUEST_TIMEOUT_MSG,
   ERROR_STATUS
-} from '../config';
+} from '@/config';
 import { showErrorMsg } from './msg';
 
 type ErrorStatus = keyof typeof ERROR_STATUS;

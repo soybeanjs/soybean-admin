@@ -1,8 +1,7 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosInstance, AxiosError, CancelTokenStatic } from 'axios';
-import { getToken } from '@/utils';
+import { getToken, transformRequestData, handleAxiosError, handleResponseError, handleBackendError } from '@/utils';
 import type { BackendServiceResult } from '@/interface';
-import { transformRequestData, handleAxiosError, handleResponseError, handleBackendError } from '../helpers';
 
 /**
  * 封装axios请求类

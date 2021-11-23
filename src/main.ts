@@ -3,13 +3,11 @@ import App from './App.vue';
 import AppProvider from './AppProvider.vue';
 import { setupStore } from './store';
 import { setupRouter } from './router';
-import { setupAssets, setupWindicssDarkMode } from './plugins';
+import { setupAssets } from './plugins';
 
 function setupPlugins() {
   /** 引入静态资源 */
   setupAssets();
-  // 配置windicss暗黑主题
-  setupWindicssDarkMode();
 }
 
 async function setupApp() {
