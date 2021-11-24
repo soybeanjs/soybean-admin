@@ -45,7 +45,7 @@ import {
   SpacePlaceholder,
   GlobalLogo,
   GlobalMenu
-} from '../common';
+} from '@/layouts/common';
 
 const theme = useThemeStore();
 const app = useAppStore();

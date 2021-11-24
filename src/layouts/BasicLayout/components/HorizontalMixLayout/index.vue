@@ -39,7 +39,7 @@
 import { NLayout, NLayoutContent, NLayoutSider, NLayoutHeader, NScrollbar } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
 import { useLayoutConfig } from '@/composables';
-import { GlobalHeader, GlobalContent, GlobalFooter, GlobalTab, GlobalMenu, SpacePlaceholder } from '../common';
+import { GlobalHeader, GlobalContent, GlobalFooter, GlobalTab, GlobalMenu, SpacePlaceholder } from '@/layouts/common';
 
 const theme = useThemeStore();
 const app = useAppStore();

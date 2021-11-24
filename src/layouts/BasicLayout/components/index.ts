@@ -4,4 +4,3 @@ import HorizontalLayout from './HorizontalLayout/index.vue';
 import HorizontalMixLayout from './HorizontalMixLayout/index.vue';
 
 export { VerticalLayout, VerticalMixLayout, HorizontalLayout, HorizontalMixLayout };
-export * from './common';

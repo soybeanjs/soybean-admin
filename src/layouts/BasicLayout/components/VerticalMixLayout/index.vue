@@ -21,7 +21,7 @@
 import { NLayout, NLayoutContent, NLayoutHeader } from 'naive-ui';
 import { useThemeStore } from '@/store';
 import { useLayoutConfig } from '@/composables';
-import { MixSider, GlobalHeader, GlobalContent, GlobalFooter, GlobalTab, SpacePlaceholder } from '../common';
+import { MixSider, GlobalHeader, GlobalContent, GlobalFooter, GlobalTab, SpacePlaceholder } from '@/layouts/common';
 
 const theme = useThemeStore();
 const { headerInverted, headerPosition, globalSiderClassAndStyle, scrollbarContentStyle, scrollbar } =

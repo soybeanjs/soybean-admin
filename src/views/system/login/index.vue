@@ -58,7 +58,11 @@ const modules: LoginModule[] = [
   { key: 'bind-wechat', label: EnumLoginModule['bind-wechat'], component: BindWechat }
 ];
 
-const bgColor = computed(() => mixColor('#ffffff', theme.themeColor, 0.3));
+const bgColor = computed(() => {
+  const COLOR_WHITE = '#ffffff';
+  const ratio = theme.darkMode ? 0.6 : 0.3;
+  return mixColor(COLOR_WHITE, theme.themeColor, ratio);
+});
 </script>
 <style scoped>
 .login-bg {

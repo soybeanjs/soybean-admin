@@ -1,12 +1,13 @@
 <template>
-  <div class="flex-center w-40px h-40px text-14px hover:text-primary cursor-pointer" @click="toggleDarkMode">
+  <hover-container class="w-40px h-full text-14px text-[#999] hover:text-primary" @click="toggleDarkMode">
     <icon-mdi-moon-waning-crescent v-if="dark" />
     <icon-mdi-white-balance-sunny v-else />
-  </div>
+  </hover-container>
 </template>
 
 <script lang="ts" setup>
 import { watch } from 'vue';
+import { HoverContainer } from '../../common';
 import { useBoolean } from '@/hooks';
 
 interface Props {

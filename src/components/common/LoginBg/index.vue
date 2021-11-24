@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const COLOR_WHITE = '#ffffff';
-const stopColor = computed(() => mixColor(COLOR_WHITE, props.themeColor, 0.7));
+const stopColor = computed(() => {
+  return mixColor(COLOR_WHITE, props.themeColor, 0.7);
+});
 </script>
 <style scoped></style>

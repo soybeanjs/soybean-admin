@@ -7,7 +7,8 @@
 import type { Component } from 'vue';
 import { useThemeStore } from '@/store';
 import type { NavMode } from '@/interface';
-import { VerticalLayout, VerticalMixLayout, HorizontalLayout, HorizontalMixLayout, SettingDrawer } from './components';
+import { VerticalLayout, VerticalMixLayout, HorizontalLayout, HorizontalMixLayout } from './components';
+import { SettingDrawer } from '../common';
 
 type LayoutComponent = {
   [key in NavMode]: Component;
