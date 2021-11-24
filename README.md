@@ -1,14 +1,8 @@
-<div align="center">
-  <a href="https://github.com/honghuangdc/soybean-admin">
-    <img alt="SoybeanAdmin Logo" width="200" height="200" src="https://s3.bmp.ovh/imgs/2021/09/088571214c76b1e5.png">
-  </a><br /><br />
-	<h1>Soybean Admin</h1>
-  <br />
-</div>
+![SoybeanAdmin](https://i.loli.net/2021/11/24/x5lLfuSnEawBAgi.png)
 
-[![license](https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/license.svg)](LICENSE)
+# Soybean Admin
 
-
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 ## 简介
 
@@ -26,19 +20,21 @@ Soybean Admin 是一个基于 Vue3、Vite、Naive UI、TypeScript 的免费中�
 
 - [soybean-admin](https://soybean.pro/)
 
-<p align="center">
+## 文档
 
-​    <img alt="SoybeanAdmin" width="100%" src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/02.png">
+- [项目文档](https://docs.soybean.pro)
 
-​    <img alt="SoybeanAdmin" width="100%" src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/03.png">
 
-​    <img alt="SoybeanAdmin" width="100%" src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/01.png">
+## 项目示例图
+![](https://i.loli.net/2021/11/24/pIhTKP7fdCqbVHl.png)
 
-<img alt="SoybeanAdmin" width="100%" src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/04.png">
+![](https://i.loli.net/2021/11/24/gxRwsLnKi6IVp7C.png)
 
-<img alt="SoybeanAdmin" width="100%" src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/05.png">
+![](https://i.loli.net/2021/11/24/UmVfjSJbxH6iYc2.png)
 
-</p>
+![](https://i.loli.net/2021/11/24/Uot1bcfGXiF726T.png)
+
+![](https://i.loli.net/2021/11/24/WzOIvlgJZaUtGm7.png)
 
 ### 代码仓库
 
@@ -51,10 +47,6 @@ Soybean Admin 是一个基于 Vue3、Vite、Naive UI、TypeScript 的免费中�
 在 Gitpod（适用于 GitHub 的免费在线开发环境）中打开项目，并立即开始编码.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/honghuangdc/soybean-admin)
-
-## 文档
-
-[项目文档](https://docs.soybean.pro)
 
 ## 安装使用
 
@@ -117,7 +109,7 @@ pnpm i -g commitizen
 - QQ 群 `711301266`
 
   <div style="text-align:left;">
-    <img src="https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/qq_qrcode.JPG" style="width:200px" />
+    <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
   </div>
 
 
