@@ -1,8 +1,8 @@
 <template>
   <div class="multi-tab flex-center w-full pl-16px" :style="{ height: multiTabHeight }">
-    <div class="flex-1-hidden h-full">
-      <better-scroll :options="{ scrollX: true, scrollY: false, click: isMobile }">
-        <multi-tab />
+    <div ref="bsWrapperRef" class="flex-1-hidden h-full">
+      <better-scroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: isMobile }">
+        <multi-tab @scroll="handleScroll" />
       </better-scroll>
     </div>
     <reload-button />
@@ -10,16 +10,30 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useElementBounding } from '@vueuse/core';
 import { useAppStore } from '@/store';
 import { useLayoutConfig, routeFullPathWatcher, useIsMobile } from '@/composables';
 import { BetterScroll } from '@/components';
+import type { ExposeBetterScroll } from '@/interface';
 import { MultiTab, ReloadButton } from './components';
 
 const route = useRoute();
 const { initMultiTab, addMultiTab, setActiveMultiTab } = useAppStore();
 const { multiTabHeight } = useLayoutConfig();
 const isMobile = useIsMobile();
+
+const bsWrapperRef = ref<HTMLElement | null>(null);
+const { width: bsWrapperWidth, left: bsWrapperLeft } = useElementBounding(bsWrapperRef);
+
+const bsScroll = ref<ExposeBetterScroll | null>(null);
+
+function handleScroll(clientX: number) {
+  const currentX = clientX - bsWrapperLeft.value;
+  const deltaX = currentX - bsWrapperWidth.value / 2;
+  bsWrapperRef.value?.scrollBy({ left: deltaX, behavior: 'smooth' });
+}
 
 function init() {
   initMultiTab();

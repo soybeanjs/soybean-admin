@@ -1,13 +1,14 @@
 <template>
   <div v-if="theme.multiTabStyle.mode === 'chrome'" class="flex items-end h-full">
     <chrome-tab
-      v-for="item in app.multiTab.routes"
+      v-for="(item, index) in app.multiTab.routes"
       :key="item.path"
       :is-active="app.multiTab.activeRoute === item.fullPath"
       :primary-color="theme.themeColor"
       :closable="item.name !== ROUTE_HOME.name"
       :dark-mode="theme.darkMode"
-      @click="handleClickTab(item.fullPath)"
+      :is-last="index === app.multiTab.routes.length - 1"
+      @click="handleClickChromeTab($event, item.fullPath)"
       @close="removeMultiTab(item.fullPath)"
       @contextmenu="handleContextMenu($event, item.fullPath)"
     >
@@ -48,6 +49,12 @@ import { useBoolean } from '@/hooks';
 import { setTabRouteStorage } from '@/utils';
 import { ContextMenu } from './components';
 
+interface Emits {
+  (e: 'scroll', clientX: number): void;
+}
+
+const emit = defineEmits<Emits>();
+
 const theme = useThemeStore();
 const app = useAppStore();
 const { removeMultiTab, handleClickTab } = useAppStore();
@@ -60,6 +67,11 @@ const dropdownConfig = reactive({
 });
 function setDropdownConfig(x: number, y: number, currentPath: string) {
   Object.assign(dropdownConfig, { x, y, currentPath });
+}
+
+function handleClickChromeTab(e: MouseEvent, fullPath: string) {
+  emit('scroll', e.clientX);
+  handleClickTab(fullPath);
 }
 
 function handleContextMenu(e: MouseEvent, fullPath: string) {

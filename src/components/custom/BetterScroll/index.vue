@@ -41,5 +41,7 @@ watch([() => width.value, () => height.value], () => {
 onMounted(() => {
   initBetterScroll();
 });
+
+defineExpose({ bsInstance });
 </script>
 <style scoped></style>

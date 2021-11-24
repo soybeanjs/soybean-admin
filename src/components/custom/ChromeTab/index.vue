@@ -1,7 +1,7 @@
 <template>
   <div
-    class="relative flex-y-center h-34px px-24px cursor-pointer -mr-18px"
-    :class="{ 'z-10': isActive, 'z-9': isHover }"
+    class="relative flex-y-center h-34px px-24px cursor-pointer"
+    :class="{ '-mr-18px': !isLast, 'z-10': isActive, 'z-9': isHover }"
     @mouseenter="setTrue"
     @mouseleave="setFalse"
   >
@@ -39,14 +39,18 @@ interface Props {
   closable?: boolean;
   /** 暗黑模式 */
   darkMode?: boolean;
+  /** 是否是最后一个 */
+  isLast: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   isActive: false,
   primaryColor: '#409EFF',
   closable: true,
-  darkMode: false
+  darkMode: false,
+  isLast: false
 });
+
 const emit = defineEmits<{
   /** 点击关闭图标 */
   (e: 'close'): void;
