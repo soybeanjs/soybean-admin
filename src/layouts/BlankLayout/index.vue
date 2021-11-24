@@ -1,6 +1,6 @@
 <template>
   <n-scrollbar ref="scrollbar" class="h-full" :content-class="routeProps.fullPage ? 'h-full' : ''">
-    <div class="inline-block wh-full bg-[#f6f9f8]">
+    <div class="inline-block wh-full bg-[#f6f9f8] dark:bg-dark">
       <router-view v-slot="{ Component, route: itemRoute }">
         <transition :name="theme.pageAnimateType" mode="out-in" appear>
           <keep-alive :include="cacheRoutes">

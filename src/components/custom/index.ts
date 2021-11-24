@@ -5,5 +5,6 @@ import ChromeTab from './ChromeTab/index.vue';
 import BetterScroll from './BetterScroll/index.vue';
 import WebSiteLink from './WebSiteLink/index.vue';
 import GithubLink from './GithubLink/index.vue';
+import ThemeSwitch from './ThemeSwitch/index.vue';
 
-export { CountTo, IconClose, ButtonTab, ChromeTab, BetterScroll, WebSiteLink, GithubLink };
+export { CountTo, IconClose, ButtonTab, ChromeTab, BetterScroll, WebSiteLink, GithubLink, ThemeSwitch };

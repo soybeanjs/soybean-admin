@@ -55,4 +55,5 @@ export type RouteKey =
   | 'exception_403'
   | 'exception_404'
   | 'exception_500'
-  | 'about';
+  | 'about'
+  | 'website';

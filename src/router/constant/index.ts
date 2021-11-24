@@ -258,6 +258,14 @@ const routeConstMap = new Map<RouteKey, RouteConst>([
       path: '/about',
       title: '关于'
     }
+  ],
+  [
+    'website',
+    {
+      name: 'website',
+      path: '/website',
+      title: '网址导航'
+    }
   ]
 ]);
 
