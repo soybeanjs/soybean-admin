@@ -14,17 +14,15 @@ import { useElementSize } from '@vueuse/core';
 
 interface Props {
   /** better-scroll的配置: https://better-scroll.github.io/docs/zh-CN/guide/base-scroll-options.html */
-  options?: Options;
+  options: Options;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  options: undefined
-});
+const props = defineProps<Props>();
 
 const scrollbar = ref<HTMLElement | null>(null);
 const bsInstance = ref<BScroll | null>(null);
 const scrollbarContent = ref<HTMLElement | null>(null);
-const isScrollY = computed(() => Boolean(props.options?.scrollY));
+const isScrollY = computed(() => Boolean(props.options.scrollY));
 
 function initBetterScroll() {
   bsInstance.value = new BScroll(scrollbar.value!, props.options);

@@ -6,8 +6,8 @@
     @mouseleave="setFalse"
   >
     <transition name="transition-opacity">
-      <icon-carbon-close-filled v-if="isHover" key="hover" class="absolute" />
-      <icon-carbon-close v-else key="unhover" class="absolute" />
+      <icon-mdi:close-circle v-if="isHover" key="hover" class="absolute" />
+      <icon-mdi:close v-else key="unhover" class="absolute" />
     </transition>
   </div>
 </template>
