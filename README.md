@@ -1,6 +1,7 @@
-![SoybeanAdmin](https://i.loli.net/2021/11/24/x5lLfuSnEawBAgi.png)
-
-# Soybean Admin
+<div style="text-align:center">
+	<img src="https://i.loli.net/2021/11/24/x5lLfuSnEawBAgi.png"/>
+	<h1>Soybean Admin</h1>
+</div>
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
@@ -24,6 +25,11 @@ Soybean Admin 是一个基于 Vue3、Vite、Naive UI、TypeScript 的免费中�
 
 - [项目文档](https://docs.soybean.pro)
 
+### 代码仓库
+
+- [github](https://github.com/honghuangdc/soybean-admin)
+
+- [gitee](https://gitee.com/honghuangdc/soybean-admin)
 
 ## 项目示例图
 ![](https://i.loli.net/2021/11/24/pIhTKP7fdCqbVHl.png)
@@ -35,12 +41,6 @@ Soybean Admin 是一个基于 Vue3、Vite、Naive UI、TypeScript 的免费中�
 ![](https://i.loli.net/2021/11/24/Uot1bcfGXiF726T.png)
 
 ![](https://i.loli.net/2021/11/24/WzOIvlgJZaUtGm7.png)
-
-### 代码仓库
-
-**github**：https://github.com/honghuangdc/soybean-admin
-
-**gitee**：https://gitee.com/honghuangdc/soybean-admin
 
 ### 使用 Gitpod
 
@@ -108,7 +108,7 @@ pnpm i -g commitizen
 
 - QQ 群 `711301266`
 
-  <div style="text-align:left;">
+  <div style="text-align:left">
     <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
   </div>
 
