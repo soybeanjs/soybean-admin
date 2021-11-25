@@ -1,5 +1,5 @@
 <template>
-  <div v-if="theme.multiTabStyle.mode === 'chrome'" class="flex items-end h-full">
+  <div v-if="theme.multiTabStyle.mode === 'chrome'" ref="chromeTabRef" class="flex items-end h-full">
     <chrome-tab
       v-for="(item, index) in app.multiTab.routes"
       :key="item.path"
@@ -8,7 +8,7 @@
       :closable="item.name !== ROUTE_HOME.name"
       :dark-mode="theme.darkMode"
       :is-last="index === app.multiTab.routes.length - 1"
-      @click="handleClickChromeTab($event, item.fullPath)"
+      @click="handleClickTab(item.fullPath)"
       @close="removeMultiTab(item.fullPath)"
       @contextmenu="handleContextMenu($event, item.fullPath)"
     >
@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, nextTick } from 'vue';
+import { ref, reactive, nextTick, watch } from 'vue';
 import { useEventListener } from '@vueuse/core';
 import { useThemeStore, useAppStore } from '@/store';
 import { ROUTE_HOME } from '@/router';
@@ -69,11 +69,22 @@ function setDropdownConfig(x: number, y: number, currentPath: string) {
   Object.assign(dropdownConfig, { x, y, currentPath });
 }
 
-function handleClickChromeTab(e: MouseEvent, fullPath: string) {
-  emit('scroll', e.clientX);
-  handleClickTab(fullPath);
+// 获取当前激活的tab的clientX
+const chromeTabRef = ref<HTMLElement | null>(null);
+async function getActiveChromeTabClientX() {
+  await nextTick();
+  const index = app.activeMultiTabIndex;
+  if (chromeTabRef.value) {
+    const activeTabElement = chromeTabRef.value.children[index];
+    const { x, width } = activeTabElement.getBoundingClientRect();
+    const clientX = x + width;
+    setTimeout(() => {
+      emit('scroll', clientX);
+    }, 50);
+  }
 }
 
+// 右键菜单
 function handleContextMenu(e: MouseEvent, fullPath: string) {
   e.preventDefault();
   const { clientX, clientY } = e;
@@ -88,5 +99,15 @@ function handleContextMenu(e: MouseEvent, fullPath: string) {
 useEventListener(window, 'beforeunload', () => {
   setTabRouteStorage(app.multiTab.routes);
 });
+
+watch(
+  () => app.activeMultiTabIndex,
+  () => {
+    getActiveChromeTabClientX();
+  },
+  {
+    immediate: true
+  }
+);
 </script>
 <style scoped></style>

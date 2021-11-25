@@ -1,5 +1,5 @@
 <template>
-  <div ref="scrollbar" class="wh-full text-left">
+  <div ref="scrollbar" class="h-full text-left">
     <div ref="scrollbarContent" class="inline-block" :class="{ 'h-full': !isScrollY }">
       <slot></slot>
     </div>

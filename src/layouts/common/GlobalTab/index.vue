@@ -32,7 +32,12 @@ const bsScroll = ref<ExposeBetterScroll | null>(null);
 function handleScroll(clientX: number) {
   const currentX = clientX - bsWrapperLeft.value;
   const deltaX = currentX - bsWrapperWidth.value / 2;
-  bsWrapperRef.value?.scrollBy({ left: deltaX, behavior: 'smooth' });
+  if (bsScroll.value) {
+    const { maxScrollX, x: leftX } = bsScroll.value.bsInstance;
+    const rightX = maxScrollX - leftX;
+    const update = deltaX > 0 ? Math.max(-deltaX, rightX) : Math.min(-deltaX, -leftX);
+    bsScroll.value?.bsInstance.scrollBy(update, 0, 300);
+  }
 }
 
 function init() {
