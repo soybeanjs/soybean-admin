@@ -1,5 +1,5 @@
 <template>
-  <div v-if="theme.multiTabStyle.mode === 'chrome'" ref="chromeTabRef" class="flex items-end h-full">
+  <div v-if="theme.multiTabStyle.mode === 'chrome'" ref="tabRef" class="flex items-end h-full">
     <chrome-tab
       v-for="(item, index) in app.multiTab.routes"
       :key="item.path"
@@ -15,7 +15,7 @@
       {{ item.meta?.title }}
     </chrome-tab>
   </div>
-  <div v-if="theme.multiTabStyle.mode === 'button'" class="flex-y-center h-full">
+  <div v-if="theme.multiTabStyle.mode === 'button'" ref="tabRef" class="flex-y-center h-full">
     <button-tab
       v-for="item in app.multiTab.routes"
       :key="item.path"
@@ -70,12 +70,12 @@ function setDropdownConfig(x: number, y: number, currentPath: string) {
 }
 
 // 获取当前激活的tab的clientX
-const chromeTabRef = ref<HTMLElement | null>(null);
+const tabRef = ref<HTMLElement | null>(null);
 async function getActiveChromeTabClientX() {
   await nextTick();
   const index = app.activeMultiTabIndex;
-  if (chromeTabRef.value) {
-    const activeTabElement = chromeTabRef.value.children[index];
+  if (tabRef.value) {
+    const activeTabElement = tabRef.value.children[index];
     const { x, width } = activeTabElement.getBoundingClientRect();
     const clientX = x + width;
     setTimeout(() => {
