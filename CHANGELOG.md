@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/honghuangdc/soybean-admin/compare/v0.0.3...v0.0.4) (2021-11-25)
+
+
+### Features
+
+* **components:** 添加多页签Tab点击后自动往中间滚动 ([8ce627a](https://github.com/honghuangdc/soybean-admin/commit/8ce627a397ee2605d967e7f9c8aa558b99fca22d))
+* **projects:** 新增网址导航页面 ([32aa5ee](https://github.com/honghuangdc/soybean-admin/commit/32aa5ee75af80c2f959b74573d5c44c452d2715c))
+* **storage:** local存储增加有效期 ([e6c9b35](https://github.com/honghuangdc/soybean-admin/commit/e6c9b35ab402df7d9ebb82306131fc30d0a8b893))
+
+
+### Bug Fixes
+
+* **components:** 修复多页签按钮风格的tab滚动问题 ([c429cd0](https://github.com/honghuangdc/soybean-admin/commit/c429cd0293dbfbf6b6df539857c276d3218de754))
+* **components:** 修复多页签Tab自动滚动问题 ([20aa39f](https://github.com/honghuangdc/soybean-admin/commit/20aa39f14ed0239f02118b62a6aa4706b1f9dd21))
+* **projects:** 添加西瓜视频实例在onUnMounted的销毁，多页签居中距离精确 ([738964a](https://github.com/honghuangdc/soybean-admin/commit/738964a76975dc3cb1f3206eb13a7612b92f1aed))
+* **projects:** 修复打包构建时图标错误 ([93f9aa9](https://github.com/honghuangdc/soybean-admin/commit/93f9aa9584be803704cf0ff54c8da0f84b71c408))
+* **types:** 添加dotEnv类型的非空判断 ([cff11d9](https://github.com/honghuangdc/soybean-admin/commit/cff11d91758a470ad6ff33888ed24747b2cc0c03))
+
 ### [0.0.3](https://github.com/honghuangdc/soybean-admin/compare/v0.0.2...v0.0.3) (2021-11-23)
 
 ### 0.0.2 (2021-11-21)
