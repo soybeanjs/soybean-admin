@@ -71,13 +71,13 @@ function setDropdownConfig(x: number, y: number, currentPath: string) {
 
 // 获取当前激活的tab的clientX
 const tabRef = ref<HTMLElement | null>(null);
-async function getActiveChromeTabClientX() {
+async function getActiveTabClientX() {
   await nextTick();
   const index = app.activeMultiTabIndex;
   if (tabRef.value) {
     const activeTabElement = tabRef.value.children[index];
     const { x, width } = activeTabElement.getBoundingClientRect();
-    const clientX = x + width;
+    const clientX = x + width / 2;
     setTimeout(() => {
       emit('scroll', clientX);
     }, 50);
@@ -103,7 +103,7 @@ useEventListener(window, 'beforeunload', () => {
 watch(
   () => app.activeMultiTabIndex,
   () => {
-    getActiveChromeTabClientX();
+    getActiveTabClientX();
   },
   {
     immediate: true

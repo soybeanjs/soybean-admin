@@ -7,24 +7,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { NCard } from 'naive-ui';
 import Player from 'xgplayer';
 
 const domRef = ref<HTMLElement | null>(null);
+const player = ref<Player | null>(null);
 
 function renderXgPlayer() {
   const url = 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4';
-  const player = new Player({
+  player.value = new Player({
     el: domRef.value!,
     url,
     playbackRate: [0.5, 0.75, 1, 1.5, 2]
   });
-  return player;
+}
+function destroyXgPlayer() {
+  player.value?.destroy();
 }
 
 onMounted(() => {
   renderXgPlayer();
+});
+onUnmounted(() => {
+  destroyXgPlayer();
 });
 </script>
 <style scoped></style>
