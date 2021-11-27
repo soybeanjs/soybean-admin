@@ -1,17 +1,6 @@
 <template>
   <div
-    class="
-      drawer-shadow
-      absolute-lt
-      flex-col-stretch
-      h-full
-      overflow-hidden
-      bg-white
-      dark:bg-dark
-      transition-width
-      duration-300
-      ease-in-out
-    "
+    class="drawer-shadow absolute-lt flex-col-stretch h-full overflow-hidden bg-white dark:bg-dark transition-width duration-300 ease-in-out"
     :style="{ width: showDrawer ? theme.menuStyle.width + 'px' : '0px' }"
   >
     <header class="header-height flex-y-center justify-between">

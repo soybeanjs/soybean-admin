@@ -1,20 +1,6 @@
 <template>
   <div
-    class="
-      fixed
-      flex-center
-      top-240px
-      right-14px
-      z-10000
-      w-48px
-      h-48px
-      bg-primary
-      rounded-4px
-      cursor-pointer
-      transition-right
-      duration-300
-      ease-in-out
-    "
+    class="fixed flex-center top-240px right-14px z-10000 w-48px h-48px bg-primary rounded-4px cursor-pointer transition-right duration-300 ease-in-out"
     :class="{ '!right-330px': app.settingDrawer.visible }"
     @click="handleClickButton"
   >
