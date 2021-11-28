@@ -1,11 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts';
-import DocumentVue from '@/views/document/vue/index.vue';
-import DocumentVite from '@/views/document/vite/index.vue';
-import DocumentNaive from '@/views/document/naive/index.vue';
+import { DocumentVue, DocumentVite, DocumentNaive } from '@/views';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const DOCUMENT: RouteRecordRaw = {
+const document: RouteRecordRaw = {
   name: routeName('document'),
   path: routePath('document'),
   component: BasicLayout,
@@ -51,4 +49,4 @@ const DOCUMENT: RouteRecordRaw = {
   ]
 };
 
-export default DOCUMENT;
+export default document;

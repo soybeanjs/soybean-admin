@@ -1,11 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts';
-import Exception403 from '@/views/system/exception/403.vue';
-import Exception404 from '@/views/system/exception/404.vue';
-import Exception500 from '@/views/system/exception/500.vue';
+import { NoPermission, NotFound, ServiceError } from '@/views';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const EXCEPTION: RouteRecordRaw = {
+const exception: RouteRecordRaw = {
   name: routeName('exception'),
   path: routePath('exception'),
   component: BasicLayout,
@@ -20,7 +18,7 @@ const EXCEPTION: RouteRecordRaw = {
     {
       name: routeName('exception_403'),
       path: routePath('exception_403'),
-      component: Exception403,
+      component: NoPermission,
       meta: {
         requiresAuth: true,
         title: routeTitle('exception_403'),
@@ -30,7 +28,7 @@ const EXCEPTION: RouteRecordRaw = {
     {
       name: routeName('exception_404'),
       path: routePath('exception_404'),
-      component: Exception404,
+      component: NotFound,
       meta: {
         requiresAuth: true,
         title: routeTitle('exception_404'),
@@ -40,7 +38,7 @@ const EXCEPTION: RouteRecordRaw = {
     {
       name: routeName('exception_500'),
       path: routePath('exception_500'),
-      component: Exception500,
+      component: ServiceError,
       meta: {
         requiresAuth: true,
         title: routeTitle('exception_500'),
@@ -50,4 +48,4 @@ const EXCEPTION: RouteRecordRaw = {
   ]
 };
 
-export default EXCEPTION;
+export default exception;

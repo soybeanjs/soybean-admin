@@ -32,16 +32,22 @@ const activeKey = computed(() => route.name as string);
 const expandedKeys = ref<string[]>(getExpendedKeys());
 
 function getExpendedKeys() {
-  const keys: string[] = [];
-  route.matched.forEach(item => {
-    if (item.children && item.children.length) {
-      keys.push(item.name as string);
-    }
-  });
+  const keys = menus.map(menu => getActiveKeysInMenus(menu)).flat();
   return keys;
 }
 
-function handleUpdateMenu(key: string, item: MenuOption) {
+function getActiveKeysInMenus(menu: GlobalMenuOption) {
+  const keys: string[] = [];
+  if (activeKey.value.includes(menu.routeName)) {
+    keys.push(menu.routeName);
+  }
+  if (menu.children) {
+    keys.push(...menu.children.map(item => getActiveKeysInMenus(item as GlobalMenuOption)).flat());
+  }
+  return keys;
+}
+
+function handleUpdateMenu(_key: string, item: MenuOption) {
   const menuItem = item as GlobalMenuOption;
   router.push(menuItem.routePath);
 }

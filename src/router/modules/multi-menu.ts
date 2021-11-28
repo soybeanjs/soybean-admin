@@ -3,7 +3,7 @@ import { BasicLayout } from '@/layouts';
 import MultiMenuFirstSecond from '@/views/multi-menu/first/second/index.vue';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const MULTI_MENU: RouteRecordRaw = {
+const multiMenu: RouteRecordRaw = {
   name: routeName('multi-menu'),
   path: routePath('multi-menu'),
   component: BasicLayout,
@@ -38,4 +38,4 @@ const MULTI_MENU: RouteRecordRaw = {
   ]
 };
 
-export default MULTI_MENU;
+export default multiMenu;

@@ -108,91 +108,107 @@ const routeConstMap = new Map<RouteKey, RouteConst>([
     }
   ],
   [
-    'component',
+    'plugin',
     {
-      name: 'component',
-      path: '/component',
-      title: '组件插件'
+      name: 'plugin',
+      path: '/plugins',
+      title: '插件示例'
     }
   ],
   [
-    'component_map',
+    'plugin_map',
     {
-      name: 'component_map',
-      path: '/component/map',
-      title: '地图插件'
+      name: 'plugin_map',
+      path: '/plugin/map',
+      title: '地图'
     }
   ],
   [
-    'component_video',
+    'plugin_video',
     {
-      name: 'component_video',
-      path: '/component/video',
-      title: '视频插件'
+      name: 'plugin_video',
+      path: '/plugin/video',
+      title: '视频'
     }
   ],
   [
-    'component_editor',
+    'plugin_editor',
     {
-      name: 'component_editor',
-      path: '/component/editor',
+      name: 'plugin_editor',
+      path: '/plugin/editor',
       title: '编辑器'
     }
   ],
   [
-    'component_editor_quill',
+    'plugin_editor_quill',
     {
-      name: 'component_editor_quill',
-      path: '/component/editor/quill',
+      name: 'plugin_editor_quill',
+      path: '/plugin/editor/quill',
       title: '富文本编辑器'
     }
   ],
   [
-    'component_editor_markdown',
+    'plugin_editor_markdown',
     {
-      name: 'component_editor_markdown',
-      path: '/component/editor/markdown',
+      name: 'plugin_editor_markdown',
+      path: '/plugin/editor/markdown',
       title: 'markdown编辑器'
     }
   ],
   [
-    'component_swiper',
+    'plugin_swiper',
     {
-      name: 'component_swiper',
-      path: '/component/swiper',
+      name: 'plugin_swiper',
+      path: '/plugin/swiper',
       title: 'Swiper插件'
     }
   ],
   [
-    'feat',
+    'plugin_copy',
     {
-      name: 'feat',
-      path: '/feat',
-      title: '功能示例'
-    }
-  ],
-  [
-    'feat_copy',
-    {
-      name: 'feat_copy',
-      path: '/feat/copy',
+      name: 'plugin_copy',
+      path: '/plugin/copy',
       title: '剪贴板'
     }
   ],
   [
-    'feat_icon',
+    'plugin_icon',
     {
-      name: 'feat_icon',
-      path: '/feat/icon',
+      name: 'plugin_icon',
+      path: '/plugin/icon',
       title: '图标'
     }
   ],
   [
-    'feat_print',
+    'plugin_print',
     {
-      name: 'feat_print',
-      path: '/feat/print',
+      name: 'plugin_print',
+      path: '/plugin/print',
       title: '打印'
+    }
+  ],
+  [
+    'component',
+    {
+      name: 'component',
+      path: '/component',
+      title: '组件示例'
+    }
+  ],
+  [
+    'component_button',
+    {
+      name: 'component_button',
+      path: '/component/button',
+      title: '按钮'
+    }
+  ],
+  [
+    'component_card',
+    {
+      name: 'component_card',
+      path: '/component/card',
+      title: '卡片'
     }
   ],
   [

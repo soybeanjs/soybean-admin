@@ -1,12 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { setSingleRoute } from '@/utils';
 import { BasicLayout } from '@/layouts';
-import About from '@/views/about/index.vue';
+import { About } from '@/views';
 import { getRouteConst, routeName } from '../constant';
 
 const { name, path, title } = getRouteConst('about');
 
-const ABOUT: RouteRecordRaw = setSingleRoute({
+const about: RouteRecordRaw = setSingleRoute({
   route: {
     name,
     path,
@@ -26,4 +26,4 @@ const ABOUT: RouteRecordRaw = setSingleRoute({
   notFoundName: routeName('not-found')
 });
 
-export default ABOUT;
+export default about;

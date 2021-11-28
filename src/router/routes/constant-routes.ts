@@ -1,10 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { BlankLayout } from '@/layouts';
 import type { LoginModuleType } from '@/interface';
-import Login from '@/views/system/login/index.vue';
-import NoPermission from '@/views/system/exception/403.vue';
-import NotFound from '@/views/system/exception/404.vue';
-import ServiceError from '@/views/system/exception/500.vue';
+import { Login, NoPermission, NotFound, ServiceError } from '@/views';
 import { routeName, routePath, routeTitle } from '../constant';
 import { ROUTE_HOME_NAME } from './route-home';
 
