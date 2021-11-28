@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/honghuangdc/soybean-admin/compare/v0.0.4...v0.0.5) (2021-11-28)
+
+
+### Features
+
+* **projects:** 新增组件页面：按钮、卡片示例 ([bdc39af](https://github.com/honghuangdc/soybean-admin/commit/bdc39aff1b05845cbcfcab8d40620d7b8ba52d13))
+
+
+### Bug Fixes
+
+* **components:** 修复HorizontalLayout布局 ([9fb641f](https://github.com/honghuangdc/soybean-admin/commit/9fb641f71e74e054c84cda8e18969d1168ef2903))
+
 ### [0.0.4](https://github.com/honghuangdc/soybean-admin/compare/v0.0.3...v0.0.4) (2021-11-25)
 
 
