@@ -6,5 +6,5 @@ export default [
   Components({
     resolvers: [IconsResolver({ componentPrefix: 'icon' })]
   }),
-  Icons()
+  Icons({ scale: 1, defaultClass: 'inline-block' })
 ];
