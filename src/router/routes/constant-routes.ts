@@ -19,12 +19,13 @@ const constantRoutes: RouteRecordRaw[] = [
     redirect: { name: ROUTE_HOME_NAME }
   },
   {
-    // 名称、路由随意，不在路由声明里面，只是为各个页面充当传递BlankLayout的桥梁，因此访问该路由时重定向到404
+    // 名称、路径随意，不在路由声明里面，只是为各个子路由充当应用BlankLayout布局的桥梁，因此访问该路由时重定向到404
     name: 'constant-single_',
     path: '/constant-single_',
     component: BlankLayout,
     redirect: { name: routeName('not-found') },
     meta: {
+      title: 'constant-single_',
       keepAlive: true
     },
     children: [

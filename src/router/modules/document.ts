@@ -1,11 +1,11 @@
-import type { CustomRoute } from '@/interface';
+import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts';
 import DocumentVue from '@/views/document/vue/index.vue';
 import DocumentVite from '@/views/document/vite/index.vue';
 import DocumentNaive from '@/views/document/naive/index.vue';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const DOCUMENT: CustomRoute = {
+const DOCUMENT: RouteRecordRaw = {
   name: routeName('document'),
   path: routePath('document'),
   component: BasicLayout,

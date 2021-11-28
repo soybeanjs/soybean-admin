@@ -69,7 +69,7 @@ const activeParentRouteName = ref(getActiveRouteName());
 
 function getActiveRouteName() {
   let name = '';
-  const menuMatched = route.matched.filter(item => !item.meta.isNotMenu);
+  const menuMatched = route.matched.filter(item => !item.meta?.notAsMenu);
   if (menuMatched.length) {
     name = menuMatched[0].name as string;
   }

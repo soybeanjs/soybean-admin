@@ -61,7 +61,7 @@ function generateBreadcrumb() {
 function recursionBreadcrumb(routeMatched: RouteLocationMatched[]) {
   const list: Breadcrumb[] = [];
   routeMatched.forEach(item => {
-    if (!item.meta?.isNotMenu) {
+    if (!item.meta?.notAsMenu) {
       const routeName = item.name as RouteKey;
       const breadcrumItem: Breadcrumb = {
         key: routeName,

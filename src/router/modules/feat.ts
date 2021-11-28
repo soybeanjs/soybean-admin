@@ -1,11 +1,11 @@
-import type { CustomRoute } from '@/interface';
+import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts';
 import FeatCopy from '@/views/feat/copy/index.vue';
 import FeatIcon from '@/views/feat/icon/index.vue';
 import FeatPrint from '@/views/feat/print/index.vue';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const FEAT: CustomRoute = {
+const FEAT: RouteRecordRaw = {
   name: routeName('feat'),
   path: routePath('feat'),
   component: BasicLayout,

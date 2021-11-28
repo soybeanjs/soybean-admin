@@ -1,6 +1,13 @@
 import type { Component } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 
+/** 给需要缓存的页面组件设置名称 */
+function setComponentName(component?: Component, name?: string) {
+  if (component && name) {
+    Object.assign(component, { name });
+  }
+}
+
 function getCacheName(route: RouteRecordRaw, isCache: boolean) {
   const cacheNames: string[] = [];
   const hasChild = hasChildren(route);
@@ -24,13 +31,6 @@ function isKeepAlive(route: RouteRecordRaw) {
 }
 function hasChildren(route: RouteRecordRaw) {
   return Boolean(route.children && route.children.length);
-}
-
-/** 给需要缓存的页面组件设置名称 */
-export function setComponentName(component?: Component, name?: string) {
-  if (component && name) {
-    Object.assign(component, { name });
-  }
 }
 
 /** 获取被缓存的路由 */

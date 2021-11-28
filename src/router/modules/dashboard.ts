@@ -1,10 +1,10 @@
-import type { CustomRoute } from '@/interface';
+import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts';
 import DashboardAnalysis from '@/views/dashboard/analysis/index.vue';
 import DashboardWorkbench from '@/views/dashboard/workbench/index.vue';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const DASHBOARD: CustomRoute = {
+const DASHBOARD: RouteRecordRaw = {
   name: routeName('dashboard'),
   path: routePath('dashboard'),
   component: BasicLayout,

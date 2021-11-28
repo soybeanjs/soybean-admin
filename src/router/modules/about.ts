@@ -1,4 +1,4 @@
-import type { CustomRoute } from '@/interface';
+import type { RouteRecordRaw } from 'vue-router';
 import { setSingleRoute } from '@/utils';
 import { BasicLayout } from '@/layouts';
 import About from '@/views/about/index.vue';
@@ -6,19 +6,21 @@ import { getRouteConst, routeName } from '../constant';
 
 const { name, path, title } = getRouteConst('about');
 
-const ABOUT: CustomRoute = setSingleRoute({
+const ABOUT: RouteRecordRaw = setSingleRoute({
   route: {
     name,
     path,
     component: About,
     meta: {
-      requiresAuth: true,
       title,
+      requiresAuth: true,
+      keepAlive: true,
       icon: 'fluent:book-information-24-regular'
     }
   },
   container: BasicLayout,
-  meta: {
+  containerMeta: {
+    title,
     order: 7
   },
   notFoundName: routeName('not-found')

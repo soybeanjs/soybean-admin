@@ -1,11 +1,11 @@
-import type { CustomRoute } from '@/interface';
+import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts';
 import Exception403 from '@/views/system/exception/403.vue';
 import Exception404 from '@/views/system/exception/404.vue';
 import Exception500 from '@/views/system/exception/500.vue';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const EXCEPTION: CustomRoute = {
+const EXCEPTION: RouteRecordRaw = {
   name: routeName('exception'),
   path: routePath('exception'),
   component: BasicLayout,

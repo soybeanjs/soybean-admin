@@ -1,4 +1,4 @@
-import type { CustomRoute } from '@/interface';
+import type { RouteRecordRaw } from 'vue-router';
 import { setSingleRoute } from '@/utils';
 import { BlankLayout } from '@/layouts';
 import Website from '@/views/website/index.vue';
@@ -6,7 +6,7 @@ import { getRouteConst, routeName } from '../constant';
 
 const { name, path, title } = getRouteConst('website');
 
-const WEBSITE: CustomRoute = setSingleRoute({
+const WEBSITE: RouteRecordRaw = setSingleRoute({
   route: {
     name,
     path,
@@ -14,11 +14,12 @@ const WEBSITE: CustomRoute = setSingleRoute({
     meta: {
       title,
       icon: 'codicon:remote-explorer',
-      isNotMenu: true
+      notAsMenu: true
     }
   },
   container: BlankLayout,
-  meta: {
+  containerMeta: {
+    title,
     order: 8
   },
   notFoundName: routeName('not-found')

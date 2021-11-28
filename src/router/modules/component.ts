@@ -1,5 +1,5 @@
-import type { CustomRoute } from '@/interface';
-import { BasicLayout, RouterViewLayout } from '@/layouts';
+import type { RouteRecordRaw } from 'vue-router';
+import { BasicLayout } from '@/layouts';
 import ComponentMap from '@/views/component/map/index.vue';
 import ComponentVideo from '@/views/component/video/index.vue';
 import EditorQuill from '@/views/component/editor/quill/index.vue';
@@ -7,7 +7,7 @@ import EditorMarkdown from '@/views/component/editor/markdown/index.vue';
 import ComponentSwiper from '@/views/component/swiper/index.vue';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const COMPONENT: CustomRoute = {
+const COMPONENT: RouteRecordRaw = {
   name: routeName('component'),
   path: routePath('component'),
   component: BasicLayout,
@@ -42,12 +42,9 @@ const COMPONENT: CustomRoute = {
     {
       name: routeName('component_editor'),
       path: routePath('component_editor'),
-      component: RouterViewLayout,
       redirect: { name: routeName('component_editor_quill') },
       meta: {
-        requiresAuth: true,
-        title: routeTitle('component_editor'),
-        fullPage: true
+        title: routeTitle('component_editor')
       },
       children: [
         {

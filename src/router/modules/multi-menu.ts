@@ -1,9 +1,9 @@
-import type { CustomRoute } from '@/interface';
-import { BasicLayout, RouterViewLayout } from '@/layouts';
+import type { RouteRecordRaw } from 'vue-router';
+import { BasicLayout } from '@/layouts';
 import MultiMenuFirstSecond from '@/views/multi-menu/first/second/index.vue';
 import { routeName, routePath, routeTitle } from '../constant';
 
-const MULTI_MENU: CustomRoute = {
+const MULTI_MENU: RouteRecordRaw = {
   name: routeName('multi-menu'),
   path: routePath('multi-menu'),
   component: BasicLayout,
@@ -17,12 +17,9 @@ const MULTI_MENU: CustomRoute = {
     {
       name: routeName('multi-menu_first'),
       path: routePath('multi-menu_first'),
-      component: RouterViewLayout,
       redirect: { name: routeName('multi-menu_first_second') },
       meta: {
-        keepAlive: true,
-        requiresAuth: true,
-        title: routeTitle('multi-menu_first_second')
+        title: routeTitle('multi-menu_first')
       },
       children: [
         {
@@ -30,9 +27,9 @@ const MULTI_MENU: CustomRoute = {
           path: routePath('multi-menu_first_second'),
           component: MultiMenuFirstSecond,
           meta: {
-            keepAlive: true,
-            requiresAuth: true,
             title: routeTitle('multi-menu_first_second'),
+            requiresAuth: true,
+            keepAlive: true,
             fullPage: true
           }
         }
