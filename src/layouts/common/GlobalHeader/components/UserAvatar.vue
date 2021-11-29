@@ -46,7 +46,7 @@ function handleDropdown(optionKey: string) {
       negativeText: '取消',
       onPositiveClick: () => {
         resetAuthStorage();
-        toLogin('pwd-login', 'current');
+        toLogin();
       }
     });
   }

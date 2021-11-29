@@ -9,10 +9,8 @@
           <n-gradient-text type="primary" :size="28">{{ title }}</n-gradient-text>
         </header>
         <main class="pt-24px">
-          <div v-for="item in modules" v-show="module === item.key" :key="item.key">
-            <h3 class="text-18px text-primary font-medium">{{ item.label }}</h3>
-            <component :is="item.component" />
-          </div>
+          <h3 class="text-18px text-primary font-medium">{{ activeModule.label }}</h3>
+          <component :is="activeModule.component" />
         </main>
       </div>
     </n-card>
@@ -34,7 +32,7 @@ import { useThemeStore } from '@/store';
 
 interface Props {
   /** 登录模块分类 */
-  module?: LoginModuleType;
+  module: LoginModuleType;
 }
 
 interface LoginModule {
@@ -43,9 +41,7 @@ interface LoginModule {
   component: Component;
 }
 
-withDefaults(defineProps<Props>(), {
-  module: 'pwd-login'
-});
+const props = defineProps<Props>();
 
 const theme = useThemeStore();
 const title = useAppTitle();
@@ -57,6 +53,15 @@ const modules: LoginModule[] = [
   { key: 'reset-pwd', label: EnumLoginModule['reset-pwd'], component: ResetPwd },
   { key: 'bind-wechat', label: EnumLoginModule['bind-wechat'], component: BindWechat }
 ];
+
+const activeModule = computed(() => {
+  const active: LoginModule = { ...modules[0] };
+  const findItem = modules.find(item => item.key === props.module);
+  if (findItem) {
+    Object.assign(active, findItem);
+  }
+  return active;
+});
 
 const bgColor = computed(() => {
   const COLOR_WHITE = '#ffffff';

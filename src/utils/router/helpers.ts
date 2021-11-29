@@ -1,6 +1,6 @@
 import type { Component } from 'vue';
 import type { Router, RouteRecordRaw, RouteMeta } from 'vue-router';
-import type { ImportedRouteModules } from '@/interface';
+import type { ImportedRouteModules, LoginModuleType } from '@/interface';
 
 interface SingleRouteConfig {
   /** 路由 */
@@ -106,4 +106,10 @@ export function getLoginRedirectUrl(router: Router) {
   const path = router.currentRoute.value.fullPath as string;
   const redirectUrl = path === '/' ? undefined : path;
   return redirectUrl;
+}
+
+/** 获取登录模块的正则字符串 */
+export function getLoginModuleRegExp() {
+  const modules: LoginModuleType[] = ['pwd-login', 'code-login', 'register', 'reset-pwd', 'bind-wechat'];
+  return modules.join('|');
 }

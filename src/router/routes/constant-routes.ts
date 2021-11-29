@@ -2,6 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import { BlankLayout } from '@/layouts';
 import type { LoginModuleType } from '@/interface';
 import { Login, NoPermission, NotFound, ServiceError } from '@/views';
+import { getLoginModuleRegExp } from '@/utils';
 import { routeName, routePath, routeTitle } from '../constant';
 import { ROUTE_HOME_NAME } from './route-home';
 
@@ -29,10 +30,10 @@ const constantRoutes: RouteRecordRaw[] = [
       // 登录
       {
         name: routeName('login'),
-        path: routePath('login'),
+        path: `${routePath('login')}/:module(${getLoginModuleRegExp()})?`,
         component: Login,
         props: route => {
-          const moduleType: LoginModuleType = (route.query?.module as LoginModuleType) || 'pwd-login';
+          const moduleType = (route.params.module as LoginModuleType) || 'pwd-login';
           return {
             module: moduleType
           };

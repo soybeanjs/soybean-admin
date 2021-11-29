@@ -2,8 +2,8 @@
   <div>
     <n-card title="按钮" class="h-full shadow-sm rounded-16px">
       <n-grid cols="s:1 m:2" responsive="screen" :x-gap="16" :y-gap="16">
-        <n-grid-item v-for="item in buttonExample" :key="item.id" class="h-180px">
-          <n-card :title="item.label" class="h-full">
+        <n-grid-item v-for="item in buttonExample" :key="item.id">
+          <n-card :title="item.label" class="min-h-180px">
             <p v-if="item.desc" class="pb-16px">{{ item.desc }}</p>
             <n-space>
               <n-button

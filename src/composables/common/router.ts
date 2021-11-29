@@ -1,6 +1,7 @@
+import { unref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
-import { router as globalRouter, routePath } from '@/router';
+import { router as globalRouter, routeName } from '@/router';
 import type { LoginModuleType } from '@/interface';
 
 /**
@@ -9,7 +10,7 @@ import type { LoginModuleType } from '@/interface';
  */
 export function useRouterPush(inSetup: boolean = true) {
   const router = inSetup ? useRouter() : globalRouter;
-  const route = inSetup ? useRoute() : null;
+  const route = inSetup ? useRoute() : unref(globalRouter.currentRoute);
 
   /** 跳转首页 */
   function toHome() {
@@ -24,35 +25,31 @@ export function useRouterPush(inSetup: boolean = true) {
   /**
    * 跳转登录页面(通过vue路由)
    * @param module - 展示的登录模块
-   * @param redirectUrl - 重定向地址
+   * @param redirect - 重定向地址(登录成功后跳转的地址)
    */
-  function toLogin(module: LoginModuleType = 'pwd-login', redirectUrl: LoginRedirect = 'current') {
+  function toLogin(module: LoginModuleType = 'pwd-login', redirect: LoginRedirect = 'current') {
     const routeLocation: RouteLocationRaw = {
-      path: routePath('login'),
-      query: { module }
+      name: routeName('login'),
+      params: { module }
     };
-    if (redirectUrl) {
-      let url = redirectUrl;
-      if (redirectUrl === 'current') {
+    if (redirect) {
+      let url = redirect;
+      if (redirect === 'current') {
         url = router.currentRoute.value.fullPath;
       }
-      routeLocation.query!.redirectUrl = url;
+      Object.assign(routeLocation, { query: { redirect: url } });
     }
     router.push(routeLocation);
   }
 
   /**
-   * 登陆页跳转登陆页
+   * 登陆页跳转登陆页(登录模块切换)
    * @param module - 展示的登录模块
    * @param query - 查询参数
    */
   function toCurrentLogin(module: LoginModuleType) {
-    if (route) {
-      const { query } = route;
-      router.push({ path: routePath('login'), query: { ...query, module } });
-    } else {
-      throw Error('该函数必须在setup里面调用！');
-    }
+    const { query } = route;
+    router.push({ name: routeName('login'), params: { module }, query: { ...query } });
   }
 
   /** 登录后跳转重定向的地址 */

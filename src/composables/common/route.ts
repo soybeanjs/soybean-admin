@@ -36,7 +36,7 @@ export function useRouteQuery() {
   const loginRedirectUrl = computed(() => {
     let url: string | undefined;
     if (route.name === routeName('login')) {
-      url = (route.query?.redirectUrl as string) || '';
+      url = (route.query?.redirect as string) || '';
     }
     return url;
   });

@@ -1,6 +1,6 @@
 import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
-import { router, routeName } from '@/router';
-import { getToken, getLoginRedirectUrl } from '@/utils';
+import { routeName } from '@/router';
+import { getToken } from '@/utils';
 
 type RouterAction = [boolean, () => void];
 
@@ -33,8 +33,8 @@ export function handlePagePermission(
     [
       !isLogin && needLogin,
       () => {
-        const redirectUrl = getLoginRedirectUrl(router);
-        next({ name: routeName('login'), query: { redirectUrl } });
+        const redirect = to.fullPath;
+        next({ name: routeName('login'), query: { redirect } });
       }
     ],
     // 登录状态进入需要登录权限的页面,直接通行
