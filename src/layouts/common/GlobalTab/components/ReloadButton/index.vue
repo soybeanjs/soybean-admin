@@ -1,6 +1,6 @@
 <template>
   <hover-container class="w-64px h-full" tooltip-content="重新加载" placement="bottom-end" @click="handleRefresh">
-    <icon-mdi-refresh class="text-16px" :class="{ 'reload-animation': loading }" />
+    <icon-mdi-refresh class="text-18px" :class="{ 'reload-animation': loading }" />
   </hover-container>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <hover-container class="w-40px" content-class="hover:text-primary" tooltip-content="主题模式" @click="toggleDarkMode">
-    <icon-mdi-moon-waning-crescent v-if="theme.darkMode" class="text-14px" />
-    <icon-mdi-white-balance-sunny v-else class="text-14px" />
+    <icon-mdi-moon-waning-crescent v-if="theme.darkMode" class="text-18px" />
+    <icon-mdi-white-balance-sunny v-else class="text-18px" />
   </hover-container>
 </template>
 

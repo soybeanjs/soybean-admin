@@ -19,8 +19,4 @@ import { GlobalHeader, GlobalContent, GlobalFooter, GlobalTab, SpacePlaceholder 
 const theme = useThemeStore();
 const { headerInverted, headerPosition, scrollbarContentStyle, scrollbar } = useLayoutConfig();
 </script>
-<style scoped>
-.global-sider {
-  box-shadow: var(--global-sider-shadow);
-}
-</style>
+<style scoped></style>
