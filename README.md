@@ -1,4 +1,4 @@
-<div style="text-align:center">
+<div align="center">
 	<img src="https://i.loli.net/2021/11/24/x5lLfuSnEawBAgi.png"/>
 	<h1>Soybean Admin</h1>
 </div>
