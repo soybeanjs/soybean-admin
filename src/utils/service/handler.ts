@@ -12,13 +12,16 @@ export function requestMiddleware<MiddlewareData>(
 ) {
   const errorIndex = requests.findIndex(item => item.error !== null);
   const hasError = errorIndex > -1;
+  if (hasError) {
+    const failResult: CustomFailRequestResult = {
+      data: null,
+      error: requests[errorIndex].error!
+    };
+    return failResult;
+  }
   const successResult: CustomSuccessRequestResult<MiddlewareData> = {
     data: resultHandler(...requests.map(item => item.data)),
     error: null
   };
-  const failResult: CustomFailRequestResult = {
-    data: null,
-    error: requests[errorIndex].error!
-  };
-  return hasError ? failResult : successResult;
+  return successResult;
 }
