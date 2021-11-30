@@ -22,7 +22,9 @@ export function showErrorMsg(error: RequestServiceError) {
   if (!NO_ERROR_MSG_CODE.includes(error.code)) {
     if (!hasErrorMsg(error)) {
       addErrorMsg(error);
-      window.$message?.error(error.msg, { duration: ERROR_MSG_DURATION });
+      if (error.msg) {
+        window.$message?.error(error.msg, { duration: ERROR_MSG_DURATION });
+      }
       setTimeout(() => {
         removeErrorMsg(error);
       }, ERROR_MSG_DURATION);
