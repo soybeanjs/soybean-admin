@@ -43,7 +43,7 @@ import { OtherLogin } from './components';
 
 const notification = useNotification();
 const auth = useAuthStore();
-const { toHome, toCurrentLogin, toLoginRedirectUrl } = useRouterPush();
+const { routerPush, toHome, toCurrentLogin } = useRouterPush();
 const { loginRedirectUrl } = useRouteQuery();
 const { loading, startLoading, endLoading } = useLoading();
 
@@ -77,7 +77,7 @@ function handleSubmit(e: MouseEvent) {
         endLoading();
         setToken('temp-token');
         if (loginRedirectUrl.value) {
-          toLoginRedirectUrl(loginRedirectUrl.value);
+          routerPush(loginRedirectUrl.value);
         } else {
           toHome();
         }
