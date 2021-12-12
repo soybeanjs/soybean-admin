@@ -4,6 +4,7 @@ import AppProvider from './AppProvider.vue';
 import { setupStore } from './store';
 import { setupRouter } from './router';
 import { setupAssets } from './plugins';
+import { setupDirectives } from './directives';
 
 function setupPlugins() {
   /** 引入静态资源 */
@@ -19,6 +20,9 @@ async function setupApp() {
 
   // 优先挂载一下 appProvider 解决路由守卫，Axios中可使用，LoadingBar，Dialog，Message 等之类组件
   appProvider.mount('#appProvider');
+
+  // 挂载自定义vue指令
+  setupDirectives(app);
 
   // 挂载路由
   await setupRouter(app);

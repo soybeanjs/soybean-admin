@@ -23,7 +23,7 @@ import { computed } from 'vue';
 import type { Component } from 'vue';
 import { NCard, NGradientText } from 'naive-ui';
 import { SystemLogo, LoginBg } from '@/components';
-import { useAppTitle } from '@/composables';
+import { useAppInfo } from '@/composables';
 import { EnumLoginModule } from '@/enum';
 import { mixColor } from '@/utils';
 import type { LoginModuleType } from '@/interface';
@@ -44,7 +44,7 @@ interface LoginModule {
 const props = defineProps<Props>();
 
 const theme = useThemeStore();
-const title = useAppTitle();
+const { title } = useAppInfo();
 
 const modules: LoginModule[] = [
   { key: 'pwd-login', label: EnumLoginModule['pwd-login'], component: PwdLogin },

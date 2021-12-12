@@ -5,8 +5,8 @@ export default [
   minifyHtml(),
   injectHtml({
     injectData: {
-      title: viteEnv.VITE_APP_TITLE,
-      appName: viteEnv.VITE_APP_TITLE_LABEL
+      appName: viteEnv.VITE_APP_NAME,
+      appTitle: viteEnv.VITE_APP_TITLE
     }
   })
 ];

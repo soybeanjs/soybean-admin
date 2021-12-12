@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { SystemLogo } from '@/components';
 import { useThemeStore } from '@/store';
-import { useAppTitle, useLayoutConfig } from '@/composables';
+import { useAppInfo, useLayoutConfig } from '@/composables';
 
 interface Props {
   /** 显示名字 */
@@ -18,7 +18,7 @@ interface Props {
 defineProps<Props>();
 
 const theme = useThemeStore();
-const title = useAppTitle();
+const { title } = useAppInfo();
 const { headerHeight } = useLayoutConfig();
 </script>
 <style scoped></style>

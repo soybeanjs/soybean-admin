@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
-import { removeToken } from '@/utils';
+import { clearAuthStorage, getToken, getUserInfo } from '@/utils';
 import type { UserInfo } from '@/interface';
 
 interface AuthState {
@@ -16,12 +16,8 @@ const authStore = defineStore({
   /** 状态 */
   state: (): AuthState => {
     return {
-      token: '',
-      userInfo: {
-        userId: '',
-        userName: 'Soybean',
-        userPhone: ''
-      }
+      token: getToken(),
+      userInfo: getUserInfo()
     };
   },
   getters: {
@@ -29,10 +25,20 @@ const authStore = defineStore({
     isLogin: state => Boolean(state.token)
   },
   actions: {
+    /** 设置Auth状态 */
+    setAuthState(data: Partial<AuthState>) {
+      Object.assign(this, data);
+    },
     /** 重置auth状态 */
     resetAuthState() {
-      removeToken();
+      clearAuthStorage();
       this.$reset();
+    },
+    /** 判断用户权益是否变更 */
+    getIsAuthChange() {
+      const token = getToken();
+      const tokenChange = token !== this.token;
+      return tokenChange;
     }
   }
 });

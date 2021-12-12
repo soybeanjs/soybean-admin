@@ -24,7 +24,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
-import { useAppTitle } from '@/composables';
+import { useAppInfo } from '@/composables';
 import { menus } from '@/router';
 import type { GlobalMenuOption } from '@/interface';
 
@@ -44,7 +44,7 @@ const route = useRoute();
 const theme = useThemeStore();
 const app = useAppStore();
 const { toggleFixedMixMenu } = useAppStore();
-const title = useAppTitle();
+const { title } = useAppInfo();
 
 const childMenus = computed(() => {
   const children: MenuOption[] = [];

@@ -11,8 +11,17 @@
           <n-button size="large" :disabled="isCounting" @click="handleSmsCode">{{ label }}</n-button>
         </div>
       </n-form-item>
+      <n-form-item path="imgCode">
+        <n-input v-model:value="model.imgCode" placeholder="验证码,点击图片刷新" />
+        <div class="pl-8px">
+          <image-verify v-model:code="imgCode" />
+        </div>
+      </n-form-item>
       <n-space :vertical="true" size="large">
-        <n-button type="primary" size="large" :block="true" :round="true" @click="handleSubmit">确定</n-button>
+        <login-agreement v-model:value="agreement" />
+        <n-button type="primary" size="large" :block="true" :round="true" :loading="loading" @click="handleSubmit">
+          确定
+        </n-button>
         <n-button size="large" :block="true" :round="true" @click="toCurrentLogin('pwd-login')">返回</n-button>
       </n-space>
     </n-form>
@@ -21,35 +30,34 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { NForm, NFormItem, NInput, NSpace, NButton, useMessage } from 'naive-ui';
+import { NForm, NFormItem, NInput, NSpace, NButton } from 'naive-ui';
 import type { FormInst } from 'naive-ui';
-import { useRouterPush } from '@/composables';
-import { useSmsCode } from '@/hooks';
+import { ImageVerify } from '@/components';
+import { useRouterPush, useLogin } from '@/composables';
+import { useSmsCode, useAgreement } from '@/hooks';
+import { formRules, getImgCodeRule } from '@/utils';
+import { LoginAgreement } from '../common';
 
-const message = useMessage();
 const { toCurrentLogin } = useRouterPush();
-const { label, isCounting, start } = useSmsCode();
+const { loading, login } = useLogin();
+const { label, isCounting, getSmsCode } = useSmsCode();
+const { agreement, isAgree } = useAgreement();
 
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
   phone: '',
-  code: ''
+  code: '',
+  imgCode: ''
 });
+const imgCode = ref('');
 const rules = {
-  phone: {
-    required: true,
-    trigger: ['blur', 'input'],
-    message: '请输入手机号'
-  },
-  code: {
-    required: true,
-    trigger: ['blur', 'input'],
-    message: '请输入验证码'
-  }
+  phone: formRules.phone,
+  code: formRules.code,
+  imgCode: getImgCodeRule(imgCode)
 };
 
 function handleSmsCode() {
-  start();
+  getSmsCode(model.phone);
 }
 
 function handleSubmit(e: MouseEvent) {
@@ -58,9 +66,9 @@ function handleSubmit(e: MouseEvent) {
 
   formRef.value.validate(errors => {
     if (!errors) {
-      message.success('验证成功');
-    } else {
-      message.error('验证失败');
+      if (!isAgree()) return;
+      const { phone, code } = model;
+      login({ phone, pwdOrCode: code, type: 'sms' });
     }
   });
 }

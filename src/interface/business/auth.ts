@@ -1,3 +1,11 @@
+/** 登录token */
+export interface LoginToken {
+  /** token */
+  token: string;
+  /** 刷新token(用户token到期后换取新的token) */
+  refreshToken: string;
+}
+
 /** 用户信息 */
 export interface UserInfo {
   /** 用户id */

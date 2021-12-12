@@ -1,4 +1,5 @@
 import { computed, watch } from 'vue';
+import type { WatchOptions } from 'vue';
 import { useRoute } from 'vue-router';
 import { routeName } from '@/router';
 import type { RouteKey } from '@/interface';
@@ -33,7 +34,7 @@ export function useRouteQuery() {
   const route = useRoute();
 
   /** 登录跳转链接 */
-  const loginRedirectUrl = computed(() => {
+  const loginRedirect = computed(() => {
     let url: string | undefined;
     if (route.name === routeName('login')) {
       url = (route.query?.redirect as string) || '';
@@ -42,7 +43,7 @@ export function useRouteQuery() {
   });
 
   return {
-    loginRedirectUrl
+    loginRedirect
   };
 }
 
@@ -50,13 +51,14 @@ export function useRouteQuery() {
  * 路由名称变化后的回调
  * @param callback
  */
-export function routeNameWatcher(callback: (name: RouteKey) => void) {
+export function routeNameWatcher(callback: (name: RouteKey) => void, options?: WatchOptions) {
   const route = useRoute();
   watch(
     () => route.name,
     newValue => {
       callback(newValue as RouteKey);
-    }
+    },
+    options
   );
 }
 
@@ -64,12 +66,29 @@ export function routeNameWatcher(callback: (name: RouteKey) => void) {
  * 路由全路径变化后的回调
  * @param callback
  */
-export function routeFullPathWatcher(callback: (fullPath: string) => void) {
+export function routeFullPathWatcher(callback: (fullPath: string) => void, options?: WatchOptions) {
   const route = useRoute();
   watch(
     () => route.fullPath,
     newValue => {
       callback(newValue);
-    }
+    },
+    options
+  );
+}
+
+/**
+ * 路由路径变化后的回调
+ * @param callback - 回调函数
+ * @param options - 监听配置
+ */
+export function routePathWatcher(callback: (path: string) => void, options?: WatchOptions) {
+  const route = useRoute();
+  watch(
+    () => route.path,
+    newValue => {
+      callback(newValue);
+    },
+    options
   );
 }

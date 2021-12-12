@@ -21,9 +21,14 @@ export function useRouterPush(inSetup: boolean = true) {
     if (newTab) {
       const routerData = router.resolve(to);
       window.open(routerData.href, '_blank');
-      return;
+    } else {
+      router.push(to);
     }
-    router.push(to);
+  }
+
+  /** 返回上一级路由 */
+  function routerBack() {
+    router.go(-1);
   }
 
   /**
@@ -46,7 +51,7 @@ export function useRouterPush(inSetup: boolean = true) {
    * @param redirect - 重定向地址(登录成功后跳转的地址)
    * @param newTab - 在新的浏览器标签打开
    */
-  function toLogin(module: LoginModuleType = 'code-login', redirect: LoginRedirect = 'current', newTab = false) {
+  function toLogin(module: LoginModuleType = 'pwd-login', redirect: LoginRedirect = 'current', newTab = false) {
     const routeLocation: RouteLocationRaw = {
       name: routeName('login'),
       params: { module }
@@ -71,10 +76,24 @@ export function useRouterPush(inSetup: boolean = true) {
     routerPush({ name: routeName('login'), params: { module }, query: { ...query } }, newTab);
   }
 
+  /**
+   * 登录成功后跳转重定向的地址
+   * @param redirect - 重定向地址
+   */
+  function toLoginRedirect(redirect?: string) {
+    if (redirect) {
+      routerPush(redirect);
+    } else {
+      toHome();
+    }
+  }
+
   return {
     routerPush,
+    routerBack,
     toHome,
     toLogin,
-    toCurrentLogin
+    toCurrentLogin,
+    toLoginRedirect
   };
 }

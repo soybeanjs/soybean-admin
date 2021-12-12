@@ -1,17 +1,8 @@
 <template>
-  <div class="flex-center flex-col wh-full">
-    <exception-svg type="500" :color="theme.themeColor" />
-    <router-link to="/">
-      <n-button type="primary">回到首页</n-button>
-    </router-link>
-  </div>
+  <exception-base type="500" />
 </template>
 
 <script lang="ts" setup>
-import { NButton } from 'naive-ui';
-import { ExceptionSvg } from '@/components';
-import { useThemeStore } from '@/store';
-
-const theme = useThemeStore();
+import { ExceptionBase } from './components';
 </script>
 <style scoped></style>

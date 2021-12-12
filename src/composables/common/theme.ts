@@ -57,3 +57,30 @@ export function useDarkMode() {
     naiveTheme
   };
 }
+
+/** 更改html样式 */
+export function useHtmlStyle() {
+  const HIDE_SCROLL_CLASS = 'overflow-hidden';
+
+  function getHtmlElement() {
+    return document.querySelector('html');
+  }
+
+  function handleHideScroll() {
+    const html = getHtmlElement();
+    if (html) {
+      html.classList.add(HIDE_SCROLL_CLASS);
+    }
+  }
+  function handleAutoScroll() {
+    const html = getHtmlElement();
+    if (html) {
+      html.classList.remove(HIDE_SCROLL_CLASS);
+    }
+  }
+
+  return {
+    handleHideScroll,
+    handleAutoScroll
+  };
+}
