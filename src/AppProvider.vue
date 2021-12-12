@@ -18,9 +18,16 @@
 import { NConfigProvider, NElement, zhCN, dateZhCN } from 'naive-ui';
 import { NaiveProvider } from '@/components';
 import { useThemeStore } from '@/store';
-import { useDarkMode } from '@/composables';
+import { useDarkMode, useGlobalEvent } from '@/composables';
 
 const theme = useThemeStore();
 const { naiveTheme } = useDarkMode();
+const { initGlobalEventListener } = useGlobalEvent();
+
+function init() {
+  initGlobalEventListener();
+}
+
+init();
 </script>
 <style></style>

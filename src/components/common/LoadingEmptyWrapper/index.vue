@@ -6,19 +6,19 @@
         <n-spin :show="true" :size="loadingSize" />
       </div>
       <div v-show="isEmpty" class="absolute-center">
-        <div class="relative text-primary" :class="emptyNetworkClass">
-          <svg-empty-data />
-          <p class="absolute left-0 bottom-[20%] w-full text-center">{{ emptyDesc }}</p>
+        <div class="relative" :class="emptyNetworkClass">
+          <svg-empty-data class="text-primary" />
+          <p class="absolute-lb w-full text-center">{{ emptyDesc }}</p>
         </div>
       </div>
       <div v-show="!network" class="absolute-center">
         <div
-          class="relative text-primary"
+          class="relative"
           :class="[{ 'cursor-pointer': showNetworkReload }, emptyNetworkClass]"
           @click="handleReload"
         >
-          <svg-network-error />
-          <p class="absolute-lb bottom-[20%] w-full text-center">{{ networkErrorDesc }}</p>
+          <svg-network-error class="text-primary" />
+          <p class="absolute-lb w-full text-center">{{ networkErrorDesc }}</p>
         </div>
       </div>
     </div>

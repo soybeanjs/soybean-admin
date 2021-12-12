@@ -212,6 +212,14 @@ const routeConstMap = new Map<RouteKey, RouteConst>([
     }
   ],
   [
+    'component_table',
+    {
+      name: 'component_table',
+      path: '/component/table',
+      title: '表格'
+    }
+  ],
+  [
     'multi-menu',
     {
       name: 'multi-menu',

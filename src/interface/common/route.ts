@@ -31,6 +31,7 @@ export type RouteKey =
   | 'component'
   | 'component_button'
   | 'component_card'
+  | 'component_table'
   | 'multi-menu'
   | 'multi-menu_first'
   | 'multi-menu_first_second'
