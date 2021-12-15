@@ -23,7 +23,8 @@ export default defineConfig(({ mode }) => {
     plugins,
     server: {
       host: '0.0.0.0',
-      port: 3100
+      port: 3100,
+      open: true
     },
     build: {
       brotliSize: false,

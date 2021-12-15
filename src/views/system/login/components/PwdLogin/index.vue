@@ -7,13 +7,7 @@
       <n-form-item path="pwd">
         <n-input v-model:value="model.pwd" type="password" show-password-on="click" placeholder="请输入密码" />
       </n-form-item>
-      <n-form-item path="imgCode">
-        <n-input v-model:value="model.imgCode" placeholder="验证码,点击图片刷新" />
-        <div class="pl-8px">
-          <image-verify v-model:code="imgCode" />
-        </div>
-      </n-form-item>
-      <n-space :vertical="true" size="large">
+      <n-space :vertical="true" :size="24">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="rememberMe">记住我</n-checkbox>
           <span class="text-primary cursor-pointer" @click="toCurrentLogin('reset-pwd')">忘记密码？</span>
@@ -42,10 +36,9 @@ import { reactive, ref } from 'vue';
 import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton } from 'naive-ui';
 import type { FormInst, FormRules } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
-import { ImageVerify } from '@/components';
 import { useRouterPush, useLogin } from '@/composables';
 import { useAgreement } from '@/hooks';
-import { formRules, getImgCodeRule } from '@/utils';
+import { formRules } from '@/utils';
 import { OtherLogin } from './components';
 import { LoginAgreement } from '../common';
 
@@ -56,14 +49,11 @@ const { agreement, isAgree } = useAgreement();
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
   phone: '15170283876',
-  pwd: 'a123456789',
-  imgCode: ''
+  pwd: 'a123456789'
 });
-const imgCode = ref('');
 const rules: FormRules = {
   phone: formRules.phone,
-  pwd: formRules.pwd,
-  imgCode: getImgCodeRule(imgCode)
+  pwd: formRules.pwd
 };
 const rememberMe = ref(false);
 

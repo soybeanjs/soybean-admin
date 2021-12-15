@@ -18,7 +18,7 @@
         </div>
       </n-form-item>
       <n-space :vertical="true" size="large">
-        <login-agreement v-model:value="agreement" />
+        <login-agreement v-model:value="agreement" class="pb-12px" />
         <n-button type="primary" size="large" :block="true" :round="true" :loading="loading" @click="handleSubmit">
           确定
         </n-button>
