@@ -4,5 +4,6 @@ import LoginBg from './LoginBg/index.vue';
 import BannerSvg from './BannerSvg/index.vue';
 import HoverContainer from './HoverContainer/index.vue';
 import LoadingEmptyWrapper from './LoadingEmptyWrapper/index.vue';
+import IconSelect from './IconSelect/index.vue';
 
-export { NaiveProvider, SystemLogo, LoginBg, BannerSvg, HoverContainer, LoadingEmptyWrapper };
+export { NaiveProvider, SystemLogo, LoginBg, BannerSvg, HoverContainer, LoadingEmptyWrapper, IconSelect };
