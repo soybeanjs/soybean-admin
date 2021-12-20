@@ -108,6 +108,14 @@ const routeConstMap = new Map<RouteKey, RouteConst>([
     }
   ],
   [
+    'document_project',
+    {
+      name: 'document_project',
+      path: 'https://docs.soybean.pro/',
+      title: '项目文档（外链）'
+    }
+  ],
+  [
     'plugin',
     {
       name: 'plugin',

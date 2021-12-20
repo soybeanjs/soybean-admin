@@ -47,3 +47,10 @@ export function transformRouteToMenu(routes: RouteRecordRaw[]) {
   });
   return globalMenu;
 }
+
+/** 判断路由是否为Url链接 */
+export function isUrl(path: string): boolean {
+  const reg =
+    /(((^https?:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
+  return reg.test(path);
+}

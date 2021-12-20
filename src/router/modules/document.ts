@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { BasicLayout } from '@/layouts';
+import { BasicLayout, BlankLayout } from '@/layouts';
 import { DocumentVue, DocumentVite, DocumentNaive } from '@/views';
 import { routeName, routePath, routeTitle } from '../constant';
 
@@ -43,6 +43,16 @@ const document: RouteRecordRaw = {
       meta: {
         requiresAuth: true,
         title: routeTitle('document_naive'),
+        fullPage: true
+      }
+    },
+    {
+      name: routeName('document_project'),
+      path: routePath('document_project'),
+      component: BlankLayout,
+      meta: {
+        requiresAuth: true,
+        title: routeTitle('document_project'),
         fullPage: true
       }
     }
