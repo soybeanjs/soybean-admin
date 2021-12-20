@@ -18,6 +18,7 @@ export type RouteKey =
   | 'document_vue'
   | 'document_vite'
   | 'document_naive'
+  | 'document_project'
   | 'plugin'
   | 'plugin_map'
   | 'plugin_video'

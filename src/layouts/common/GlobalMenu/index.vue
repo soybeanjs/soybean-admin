@@ -22,6 +22,7 @@ import type { MenuOption } from 'naive-ui';
 import { useThemeStore, useAppStore } from '@/store';
 import { menus } from '@/router';
 import { GlobalMenuOption } from '@/interface';
+import { isUrl } from '@/utils';
 
 const theme = useThemeStore();
 const app = useAppStore();
@@ -49,7 +50,11 @@ function getActiveKeysInMenus(menu: GlobalMenuOption) {
 
 function handleUpdateMenu(_key: string, item: MenuOption) {
   const menuItem = item as GlobalMenuOption;
-  router.push(menuItem.routePath);
+  if (isUrl(menuItem.routePath)) {
+    window.open(menuItem.routePath, '__blank');
+  } else {
+    router.push(menuItem.routePath);
+  }
 }
 
 function handleUpdateExpandedKeys(keys: string[]) {
