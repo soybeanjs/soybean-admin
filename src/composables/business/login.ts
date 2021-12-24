@@ -1,6 +1,6 @@
 import { useAuthStore } from '@/store';
 import { useLoading } from '@/hooks';
-import { setToken, setRefreshToken, setUserInfo, log } from '@/utils';
+import { setToken, setRefreshToken, setUserInfo, consoleLog } from '@/utils';
 import type { LoginToken, UserInfo } from '@/interface';
 import { useRouterPush, useRouteQuery } from '../common';
 
@@ -20,7 +20,7 @@ export function useLogin() {
    * @returns 是否登录成功
    */
   async function login(param: { phone: string; pwdOrCode: string; type: 'pwd' | 'sms' }) {
-    log(param); // 打印参数(接入接口后去除)
+    consoleLog(param); // 打印参数(接入接口后去除)
 
     startLoading();
     // 1.这里调用登录接口获取token和refreshToken
