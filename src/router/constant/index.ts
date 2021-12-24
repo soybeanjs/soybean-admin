@@ -220,6 +220,14 @@ const routeConstMap = new Map<RouteKey, RouteConst>([
     }
   ],
   [
+    'component_modal',
+    {
+      name: 'component_modal',
+      path: '/component/modal',
+      title: '弹窗'
+    }
+  ],
+  [
     'component_table',
     {
       name: 'component_table',

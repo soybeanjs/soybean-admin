@@ -1,7 +1,11 @@
 <template>
   <div v-if="reloadFlag" class="relative">
     <slot></slot>
-    <div v-show="showPlaceholder" class="absolute-lt w-full h-full" :class="placeholderClass">
+    <div
+      v-show="showPlaceholder"
+      class="absolute-lt w-full h-full border-[var(--border-color)] border-1px dark:bg-dark"
+      :class="placeholderClass"
+    >
       <div v-show="loading" class="absolute-center">
         <n-spin :show="true" :size="loadingSize" />
       </div>

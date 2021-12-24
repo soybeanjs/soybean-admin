@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts';
-import { ComponentButton, ComponentCard, ComponentTable } from '@/views';
+import { ComponentButton, ComponentCard, ComponentModal, ComponentTable } from '@/views';
 import { routeName, routePath, routeTitle } from '../constant';
 
 const component: RouteRecordRaw = {
@@ -30,6 +30,16 @@ const component: RouteRecordRaw = {
       component: ComponentCard,
       meta: {
         title: routeTitle('component_card'),
+        requiresAuth: true,
+        keepAlive: true
+      }
+    },
+    {
+      name: routeName('component_modal'),
+      path: routePath('component_modal'),
+      component: ComponentModal,
+      meta: {
+        title: routeTitle('component_modal'),
         requiresAuth: true,
         keepAlive: true
       }

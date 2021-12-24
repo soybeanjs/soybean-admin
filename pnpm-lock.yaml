@@ -10,6 +10,7 @@ specifiers:
   '@iconify/vue': ^3.1.1
   '@types/bmapgl': ^0.0.5
   '@types/chroma-js': ^2.1.3
+  '@types/lodash-es': ^4.17.5
   '@types/qs': ^6.9.7
   '@typescript-eslint/eslint-plugin': ^5.8.0
   '@typescript-eslint/parser': ^5.8.0
@@ -35,6 +36,7 @@ specifiers:
   form-data: ^4.0.0
   husky: ^7.0.4
   lint-staged: ^12.1.3
+  lodash-es: ^4.17.21
   naive-ui: ^2.23.1
   patch-package: ^6.4.7
   pinia: ^2.0.8
@@ -88,6 +90,7 @@ devDependencies:
   '@iconify/vue': registry.npmmirror.com/@iconify/vue/3.1.1_vue@3.2.26
   '@types/bmapgl': registry.npmmirror.com/@types/bmapgl/0.0.5
   '@types/chroma-js': registry.npmmirror.com/@types/chroma-js/2.1.3
+  '@types/lodash-es': registry.npmmirror.com/@types/lodash-es/4.17.5
   '@types/qs': registry.npmmirror.com/@types/qs/6.9.7
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.8.0_836011a006f4f5d67178564baf2b6d34
   '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.8.0_eslint@8.5.0+typescript@4.5.4
@@ -107,6 +110,7 @@ devDependencies:
   eslint-plugin-vue: registry.npmmirror.com/eslint-plugin-vue/8.2.0_eslint@8.5.0
   husky: registry.npmmirror.com/husky/7.0.4
   lint-staged: registry.npmmirror.com/lint-staged/12.1.3
+  lodash-es: registry.nlark.com/lodash-es/4.17.21
   patch-package: registry.npmmirror.com/patch-package/6.4.7
   postinstall-postinstall: registry.npmmirror.com/postinstall-postinstall/2.1.0
   prettier: registry.npmmirror.com/prettier/2.5.1
@@ -2073,7 +2077,6 @@ packages:
     resolution: {integrity: sha1-Q+YmxG5lkbd1C+srUBFzkMYJ4+4=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/lodash-es/download/lodash-es-4.17.21.tgz}
     name: lodash-es
     version: 4.17.21
-    dev: false
 
   registry.nlark.com/lodash.get/4.4.2:
     resolution: {integrity: sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/lodash.get/download/lodash.get-4.4.2.tgz}
@@ -3877,7 +3880,7 @@ packages:
     dev: true
 
   registry.npmmirror.com/@commitlint/load/15.0.0:
-    resolution: {integrity: sha512-Ak1YPeOhvxmY3ioe0o6m1yLGvUAYb4BdfGgShU8jiTCmU3Mnmms0Xh/kfQz8AybhezCC3AmVTyBLaBZxOHR8kg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@commitlint/load/download/@commitlint/load-15.0.0.tgz?cache=0&sync_timestamp=1637131952207&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40commitlint%2Fload%2Fdownload%2F%40commitlint%2Fload-15.0.0.tgz}
+    resolution: {integrity: sha512-Ak1YPeOhvxmY3ioe0o6m1yLGvUAYb4BdfGgShU8jiTCmU3Mnmms0Xh/kfQz8AybhezCC3AmVTyBLaBZxOHR8kg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@commitlint/load/download/@commitlint/load-15.0.0.tgz}
     name: '@commitlint/load'
     version: 15.0.0
     engines: {node: '>=v12'}
@@ -4122,13 +4125,11 @@ packages:
     version: 4.17.5
     dependencies:
       '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.178
-    dev: false
 
   registry.npmmirror.com/@types/lodash/4.14.178:
     resolution: {integrity: sha512-0d5Wd09ItQWH1qFbEyQ7oTQ3GZrMfth5JkbN3EvTKLXcHLRDSXeLnlvlOn0wvxVIwK5o2M8JzP/OWz7T3NRsbw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash/download/@types/lodash-4.14.178.tgz}
     name: '@types/lodash'
     version: 4.14.178
-    dev: false
 
   registry.npmmirror.com/@types/minimist/1.2.2:
     resolution: {integrity: sha1-7nceK6Sz3Fs3KTXVSf2WF780W4w=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/minimist/download/@types/minimist-1.2.2.tgz}

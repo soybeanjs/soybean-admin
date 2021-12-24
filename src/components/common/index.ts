@@ -5,5 +5,6 @@ import BannerSvg from './BannerSvg/index.vue';
 import HoverContainer from './HoverContainer/index.vue';
 import LoadingEmptyWrapper from './LoadingEmptyWrapper/index.vue';
 import IconSelect from './IconSelect/index.vue';
+import Modal from './Modal/index.vue';
 
-export { NaiveProvider, SystemLogo, LoginBg, BannerSvg, HoverContainer, LoadingEmptyWrapper, IconSelect };
+export { NaiveProvider, SystemLogo, LoginBg, BannerSvg, HoverContainer, LoadingEmptyWrapper, IconSelect, Modal };
