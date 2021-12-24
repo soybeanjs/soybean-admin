@@ -11,7 +11,7 @@ export default function useModal() {
     if (modalInstance) {
       return modalInstance;
     }
-    const container = document.createElement('template');
+    const container = document.createElement('div');
     const VNode = createVNode(Modal);
     VNode.appContext = appContext;
     render(VNode, container);

@@ -18,13 +18,19 @@
           <n-button @click="handleShow">来吧</n-button>
         </n-card>
       </n-grid-item>
+      <n-grid-item>
+        <n-card title="渲染一个组件" class="min-h-180px">
+          <n-button @click="handleRender">来吧</n-button>
+        </n-card>
+      </n-grid-item>
     </n-grid>
   </n-card>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, h } from 'vue';
 import { NCard, NGrid, NGridItem, NModal, NButton } from 'naive-ui';
+import { ComponentTable } from '@/views';
 import { useModal } from '@/hooks';
 
 const visible = ref(false);
@@ -47,6 +53,19 @@ function handleShow() {
     },
     onNegativeClick: () => {},
     negativeText: '算了'
+  });
+}
+
+function handleRender() {
+  showModal({
+    title: '渲染个组件试试',
+    content: () => h(ComponentTable),
+    maskClosable: true,
+    preset: 'card',
+    bordered: false,
+    overlayStyle: {
+      width: '600px'
+    }
   });
 }
 </script>
