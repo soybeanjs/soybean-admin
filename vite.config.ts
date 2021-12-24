@@ -22,6 +22,9 @@ export default defineConfig(({ mode }) => {
     },
     plugins,
     server: {
+      fs: {
+        strict: false
+      },
       host: '0.0.0.0',
       port: 3100,
       open: true

@@ -20,13 +20,7 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: ['vue', '@typescript-eslint'],
-  extends: [
-    'plugin:vue/vue3-recommended',
-    'airbnb-base',
-    '@vue/typescript/recommended',
-    'plugin:prettier/recommended',
-    '@vue/prettier/@typescript-eslint'
-  ],
+  extends: ['plugin:vue/vue3-recommended', 'airbnb-base', '@vue/typescript/recommended', 'plugin:prettier/recommended'],
   rules: {
     'no-unused-vars': 'off',
     'import/extensions': 'off',
