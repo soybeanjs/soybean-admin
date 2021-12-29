@@ -13,6 +13,7 @@
       <header-menu />
     </div>
     <div class="flex justify-end h-full">
+      <global-search />
       <github-site />
       <full-screen />
       <theme-mode />
@@ -34,6 +35,7 @@ import {
   GithubSite
 } from './components';
 import GlobalLogo from '../GlobalLogo/index.vue';
+import GlobalSearch from '../GlobalSearch/index.vue';
 
 interface Props {
   /** 显示logo */

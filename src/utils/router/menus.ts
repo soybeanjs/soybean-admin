@@ -48,6 +48,20 @@ export function transformRouteToMenu(routes: RouteRecordRaw[]) {
   return globalMenu;
 }
 
+/** 将路由转换成菜单列表 */
+export function transformRouteToList(routes: RouteRecordRaw[], treeMap: RouteRecordRaw[] = []) {
+  if (routes && routes.length === 0) return [];
+  return routes.reduce((acc, cur) => {
+    if (!cur.meta?.notAsMenu) {
+      acc.push(cur);
+    }
+    if (cur.children && cur.children.length > 0) {
+      transformRouteToList(cur.children, treeMap);
+    }
+    return acc;
+  }, treeMap);
+}
+
 /** 判断路由是否为Url链接 */
 export function isUrl(path: string): boolean {
   const reg =

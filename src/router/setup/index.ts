@@ -18,4 +18,4 @@ export async function setupRouter(app: App) {
 }
 
 export { default as cacheRoutes } from './cache';
-export { default as menus } from './menus';
+export { menusList, menus } from './menus';
