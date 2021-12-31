@@ -71,7 +71,9 @@ watch(show, async val => {
 
 /** 查询 */
 function search() {
-  resultOptions.value = menusList.filter(menu => keyword.value && menu.meta?.title.includes(keyword.value.trim()));
+  resultOptions.value = menusList.filter(
+    menu => keyword.value && menu.meta?.title.toLocaleLowerCase().includes(keyword.value.toLocaleLowerCase().trim())
+  );
   if (resultOptions.value?.length > 0) {
     activePath.value = resultOptions.value[0].path;
   } else {
@@ -80,9 +82,12 @@ function search() {
 }
 
 function handleClose() {
-  resultOptions.value = [];
-  keyword.value = '';
   show.value = false;
+  /** 延时处理防止用户看到某些操作 */
+  setTimeout(() => {
+    resultOptions.value = [];
+    keyword.value = '';
+  }, 200);
 }
 
 /** key up */
