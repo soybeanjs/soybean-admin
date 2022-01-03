@@ -15,6 +15,7 @@ specifiers:
   '@vue/eslint-config-typescript': ^10.0.0
   '@vueuse/core': ^7.5.1
   axios: ^0.24.0
+  colord: ^2.9.2
   commitizen: ^4.2.4
   cross-env: ^7.0.3
   crypto-js: ^4.1.1
@@ -30,6 +31,7 @@ specifiers:
   form-data: ^4.0.0
   husky: ^7.0.4
   lint-staged: ^12.1.4
+  lodash-es: ^4.17.21
   mockjs: ^1.1.0
   naive-ui: ^2.23.2
   patch-package: ^6.4.7
@@ -55,9 +57,11 @@ specifiers:
 dependencies:
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/7.5.1_vue@3.2.26
   axios: registry.npmmirror.com/axios/0.24.0
+  colord: registry.npmmirror.com/colord/2.9.2
   crypto-js: registry.npmmirror.com/crypto-js/4.1.1
   dayjs: registry.npmmirror.com/dayjs/1.10.7
   form-data: registry.nlark.com/form-data/4.0.0
+  lodash-es: registry.npmmirror.com/lodash-es/4.17.21
   naive-ui: registry.npmmirror.com/naive-ui/2.23.2_vue@3.2.26
   pinia: registry.npmmirror.com/pinia/2.0.9_typescript@4.5.4+vue@3.2.26
   qs: registry.npmmirror.com/qs/6.10.2
@@ -4216,6 +4220,12 @@ packages:
     engines: {node: '>=7.0.0'}
     dependencies:
       color-name: registry.nlark.com/color-name/1.1.4
+
+  registry.npmmirror.com/colord/2.9.2:
+    resolution: {integrity: sha512-Uqbg+J445nc1TKn4FoDPS6ZZqAvEDnwrH42yo8B40JSOgSLxMZ/gt3h4nmCtPLQeXhjJJkqBx7SCY35WnIixaQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/colord/download/colord-2.9.2.tgz}
+    name: colord
+    version: 2.9.2
+    dev: false
 
   registry.npmmirror.com/colorette/2.0.16:
     resolution: {integrity: sha1-cTua+E/bAAE58EVGvUqT9ipQhdo=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/colorette/download/colorette-2.0.16.tgz?cache=0&sync_timestamp=1633673609067&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcolorette%2Fdownload%2Fcolorette-2.0.16.tgz}

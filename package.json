@@ -23,9 +23,11 @@
   "dependencies": {
     "@vueuse/core": "^7.5.1",
     "axios": "^0.24.0",
+    "colord": "^2.9.2",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.10.7",
     "form-data": "^4.0.0",
+    "lodash-es": "^4.17.21",
     "naive-ui": "^2.23.2",
     "pinia": "^2.0.9",
     "qs": "^6.10.2",
