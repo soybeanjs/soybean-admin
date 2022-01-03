@@ -1,24 +1,17 @@
 import type { Router } from 'vue-router';
 import { useTitle } from '@vueuse/core';
-import { useRouteStore } from '@/store';
+import { handlePagePermission } from './permission';
 
 /**
  * 路由守卫函数
  * @param router - 路由实例
  */
 export function createRouterGuide(router: Router) {
-  const routeStore = useRouteStore();
-  const { initDynamicRoute } = useRouteStore();
-
   router.beforeEach(async (to, from, next) => {
-    if (!routeStore.isAddedDynamicRoute) {
-      await initDynamicRoute(router);
-      next();
-      return;
-    }
     // 开始 loadingBar
     window.$loadingBar?.start();
-    next();
+    // 页面跳转权限处理
+    await handlePagePermission(to, from, next, router);
   });
   router.afterEach(to => {
     // 设置document title

@@ -17,9 +17,15 @@ interface RouteStore {
   isAddedDynamicRoute: Ref<boolean>;
   /** 初始化动态路由 */
   initDynamicRoute(router: Router): Promise<void>;
-  /** 获取路由名称(优先使用) */
+  /**
+   * 获取路由名称
+   * @description getRouteName 和 getRoutePath 优先使用 getRouteName
+   */
   getRouteName(key: AuthRoute.RouteKey): AuthRoute.RouteKey;
-  /** 获取路由路径 */
+  /**
+   * 获取路由路径
+   * @description getRouteName 和 getRoutePath 优先使用 getRouteName
+   */
   getRoutePath(key: AuthRoute.RouteKey): AuthRoute.RoutePath<''> | undefined;
   /** 获取路由路径 */
   getRouteTitle(key: AuthRoute.RouteKey): string | undefined;
