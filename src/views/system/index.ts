@@ -1,6 +1,6 @@
-import Login from './login/index.vue';
-import NoPermission from './exception/403.vue';
-import NotFound from './exception/404.vue';
-import ServiceError from './exception/500.vue';
+const Login = () => import('./login/index.vue');
+const NoPermission = () => import('./exception/403.vue');
+const NotFound = () => import('./exception/404.vue');
+const ServiceError = () => import('./exception/500.vue');
 
 export { Login, NoPermission, NotFound, ServiceError };

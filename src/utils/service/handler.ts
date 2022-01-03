@@ -1,27 +1,15 @@
-import { CustomRequestResult, CustomSuccessRequestResult, CustomFailRequestResult } from '@/interface';
-
-type ResultHandler<T> = (...arg: any) => T;
-/**
- * 对请求的结果数据进行格式化的处理
- * @param resultHandler - 处理函数
- * @param requests - 请求结果
- */
-export function requestMiddleware<MiddlewareData>(
-  resultHandler: ResultHandler<MiddlewareData>,
-  requests: CustomRequestResult<any>[]
-) {
-  const errorIndex = requests.findIndex(item => item.error !== null);
-  const hasError = errorIndex > -1;
-  if (hasError) {
-    const failResult: CustomFailRequestResult = {
-      data: null,
-      error: requests[errorIndex].error!
+/** 统一失败和成功的请求结果的数据类型 */
+export async function handleServiceResult<T = any>(error: Service.RequestError | null, data: any) {
+  if (error) {
+    const fail: Service.FailedResult = {
+      error,
+      data: null
     };
-    return failResult;
+    return fail;
   }
-  const successResult: CustomSuccessRequestResult<MiddlewareData> = {
-    data: resultHandler(...requests.map(item => item.data)),
-    error: null
+  const success: Service.SuccessResult<T> = {
+    error: null,
+    data
   };
-  return successResult;
+  return success;
 }

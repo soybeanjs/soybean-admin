@@ -1,7 +1,7 @@
 import qs from 'qs';
 import FormData from 'form-data';
-import { isArray } from '@/utils';
 import { ContentType } from '@/enum';
+import { isArray } from '../common';
 
 /**
  * 请求数据的转换

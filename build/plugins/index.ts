@@ -1,10 +1,17 @@
+import type { ConfigEnv, PluginOption } from 'vite';
 import vue from './vue';
 import html from './html';
 import iconify from './iconify';
 import windicss from './windicss';
-import visualizer from './visualizer';
 import mock from './mock';
+import visualizer from './visualizer';
 
-const plugins = [vue, ...html, ...iconify, windicss, visualizer, mock];
+export function setupVitePlugins(configEnv: ConfigEnv): (PluginOption | PluginOption[])[] {
+  const plugins = [vue, ...html(configEnv), ...iconify, windicss, mock];
 
-export default plugins;
+  if (configEnv.command === 'build') {
+    plugins.push(visualizer);
+  }
+
+  return plugins;
+}

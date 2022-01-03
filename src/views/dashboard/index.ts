@@ -1,4 +1,4 @@
-import DashboardAnalysis from './analysis/index.vue';
-import DashboardWorkbench from './workbench/index.vue';
+const DashboardAnalysis = () => import('./analysis/index.vue');
+const DashboardWorkbench = () => import('./workbench/index.vue');
 
 export { DashboardAnalysis, DashboardWorkbench };

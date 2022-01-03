@@ -1,3 +1,3 @@
-import MultiMenuFirstSecond from './first/second/index.vue';
+const MultiMenuFirstSecond = () => import('./first/second/index.vue');
 
 export { MultiMenuFirstSecond };

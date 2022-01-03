@@ -1,3 +1,3 @@
-import About from './index.vue';
+const About = () => import('./index.vue');
 
 export { About };

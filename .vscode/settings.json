@@ -54,14 +54,15 @@
 	"[markdown]": {
 		"editor.defaultFormatter": "yzhang.markdown-all-in-one"
 	},
-	"workbench.productIconTheme": "fluent-icons",
 	"vue3snippets.enable-compile-vue-file-on-did-save-code": false,
 	"editor.formatOnSave": false,
 	"material-icon-theme.activeIconPack": "angular",
 	"material-icon-theme.files.associations": {},
 	"material-icon-theme.folders.associations": {
 		"enum": "typescript",
+		"enums": "typescript",
 		"store": "context",
+		"stores": "context",
 		"composable": "hook",
 		"composables": "hook",
 		"directive": "tools",

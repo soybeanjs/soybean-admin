@@ -1,13 +1,9 @@
 <template>
-  <n-space :vertical="true" :size="16">
-    <top-chart />
-    <data-card />
-    <bottom-part />
-  </n-space>
+  <div>
+    <h3>DashboardAnalysis</h3>
+    <router-link to="/about">about</router-link>
+  </div>
 </template>
 
-<script lang="ts" setup>
-import { NSpace } from 'naive-ui';
-import { TopChart, DataCard, BottomPart } from './components';
-</script>
+<script setup lang="ts"></script>
 <style scoped></style>

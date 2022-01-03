@@ -1,8 +1,6 @@
 <template>
-  <exception-base type="403" />
+  <div></div>
 </template>
 
-<script lang="ts" setup>
-import { ExceptionBase } from './components';
-</script>
+<script setup lang="ts"></script>
 <style scoped></style>

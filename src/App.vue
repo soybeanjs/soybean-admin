@@ -1,13 +1,6 @@
 <template>
-  <app-provider>
-    <router-view />
-  </app-provider>
+  <router-view />
 </template>
 
-<script lang="ts" setup>
-import { fetchTestMock } from '@/service';
-import AppProvider from './AppProvider.vue';
-
-fetchTestMock();
-</script>
-<style></style>
+<script setup lang="ts"></script>
+<style scoped></style>

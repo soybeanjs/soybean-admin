@@ -1,11 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { transformMultiDegreeRoutes } from '@/utils';
-import customRoutes from '../modules';
-import constantRoutes from './constant-routes';
-
-const transformRoutes = transformMultiDegreeRoutes(customRoutes);
+import { transformAuthRouteToVueRoute } from '@/utils';
+import constantRoutes from './constant';
 
 /** 所有路由 */
-export const routes: RouteRecordRaw[] = [...transformRoutes, ...constantRoutes];
+export const routes: RouteRecordRaw[] = constantRoutes.map(item => transformAuthRouteToVueRoute(item));
 
-export { ROUTE_HOME } from './route-home';
+export { constantRoutes };

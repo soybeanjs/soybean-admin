@@ -1,11 +1,6 @@
 <template>
-  <n-space :vertical="true" :size="16">
-    <workbench-header />
-    <workbench-main />
-  </n-space>
+  <div>DashboardWorkbench</div>
 </template>
-<script lang="ts" setup>
-import { NSpace } from 'naive-ui';
-import { WorkbenchHeader, WorkbenchMain } from './components';
-</script>
+
+<script setup lang="ts"></script>
 <style scoped></style>

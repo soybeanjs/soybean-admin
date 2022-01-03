@@ -1,7 +1,14 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosInstance, AxiosError, CancelTokenStatic } from 'axios';
-import { getToken, transformRequestData, handleAxiosError, handleResponseError, handleBackendError } from '@/utils';
-import type { BackendServiceResult } from '@/interface';
+import { REQUEST_TIMEOUT } from '@/config';
+import {
+  getToken,
+  transformRequestData,
+  handleAxiosError,
+  handleResponseError,
+  handleBackendError,
+  handleServiceResult
+} from '@/utils';
 
 /**
  * 封装axios请求类
@@ -15,7 +22,11 @@ export default class CustomAxiosInstance {
   cancelToken: CancelTokenStatic;
 
   constructor(axiosConfig: AxiosRequestConfig) {
-    this.instance = axios.create(axiosConfig);
+    const defaultConfig: AxiosRequestConfig = {
+      timeout: REQUEST_TIMEOUT
+    };
+    Object.assign(defaultConfig, axiosConfig);
+    this.instance = axios.create(defaultConfig);
     this.cancelToken = axios.CancelToken;
     this.setInterceptor();
   }
@@ -36,26 +47,26 @@ export default class CustomAxiosInstance {
       },
       (axiosError: AxiosError) => {
         const error = handleAxiosError(axiosError);
-        return Promise.reject(error);
+        return handleServiceResult(error, null);
       }
     );
     this.instance.interceptors.response.use(
       response => {
         const { status } = response;
         if (status === 200 || status < 300 || status === 304) {
-          const backendServiceResult = response.data as BackendServiceResult;
-          if (backendServiceResult.code === this.backendSuccessCode) {
-            return Promise.resolve(backendServiceResult.data);
+          const backend = response.data as Service.BackendServiceResult;
+          if (backend.code === this.backendSuccessCode) {
+            return handleServiceResult(null, backend.data);
           }
-          const error = handleBackendError(backendServiceResult);
-          return Promise.reject(error);
+          const error = handleBackendError(backend);
+          return handleServiceResult(error, null);
         }
         const error = handleResponseError(response);
-        return Promise.reject(error);
+        return handleServiceResult(error, null);
       },
       (axiosError: AxiosError) => {
         const error = handleAxiosError(axiosError);
-        return Promise.reject(error);
+        return handleServiceResult(error, null);
       }
     );
   }

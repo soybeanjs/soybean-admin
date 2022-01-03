@@ -1,8 +1,15 @@
-import { consoleLog } from '@/utils';
 import { mockRequest } from '../request';
+import { userRoutesMiddleware } from '../middleware';
 
-/** 测试mock数据 */
-export async function fetchTestMock() {
-  const { data } = await mockRequest.get('/api/getUser');
-  consoleLog('data: ', data);
+/**
+ * 获取用户路由数据
+ * @param userId - 用户id
+ * @description 后端根据用户id查询到对应的角色类型，并将路由筛选出对应角色的路由数据返回前端
+ */
+export async function fetchUserRoutes(userId: string = 'soybean') {
+  const { data } = await mockRequest<ApiRoute.ResponseRoute>(
+    { url: '/getUserRoutes', method: 'post', data: { userId } },
+    false
+  );
+  return userRoutesMiddleware(data);
 }

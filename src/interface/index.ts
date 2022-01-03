@@ -1,2 +1,3 @@
-export * from './common';
-export * from './business';
+export interface TestType {
+  name: string;
+}

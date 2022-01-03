@@ -1,48 +1,31 @@
+import { ref, computed, reactive } from 'vue';
+import type { Ref, ComputedRef } from 'vue';
 import { defineStore } from 'pinia';
-import { store } from '@/store';
-import { clearAuthStorage, getToken, getUserInfo } from '@/utils';
-import type { UserInfo } from '@/interface';
+import { getUserInfo, getToken } from '@/utils';
 
-interface AuthState {
-  /** 用户token */
-  token: string;
+interface AuthStore {
   /** 用户信息 */
-  userInfo: UserInfo;
+  userInfo: Auth.UserInfo;
+  /** 用户token */
+  token: Ref<string>;
+  /** 是否登录 */
+  isLogin: ComputedRef<boolean>;
+  /** 用户角色 */
+  role: Ref<Auth.RoleType>;
 }
 
-const authStore = defineStore({
-  /** 区分不通状态的唯一标识 */
-  id: 'auth-store',
-  /** 状态 */
-  state: (): AuthState => {
-    return {
-      token: getToken(),
-      userInfo: getUserInfo()
-    };
-  },
-  getters: {
-    /** 是否登录 */
-    isLogin: state => Boolean(state.token)
-  },
-  actions: {
-    /** 设置Auth状态 */
-    setAuthState(data: Partial<AuthState>) {
-      Object.assign(this, data);
-    },
-    /** 重置auth状态 */
-    resetAuthState() {
-      clearAuthStorage();
-      this.$reset();
-    },
-    /** 判断用户权益是否变更 */
-    getIsAuthChange() {
-      const token = getToken();
-      const tokenChange = token !== this.token;
-      return tokenChange;
-    }
-  }
+export const useAuthStore = defineStore('auth-store', () => {
+  const userInfo: Auth.UserInfo = reactive(getUserInfo());
+  const token = ref(getToken());
+  const isLogin = computed(() => Boolean(token.value));
+  const role = ref<Auth.RoleType>('super');
+
+  const authStore: AuthStore = {
+    userInfo,
+    token,
+    isLogin,
+    role
+  };
+
+  return authStore;
 });
-
-export default function useAuthStore() {
-  return authStore(store);
-}

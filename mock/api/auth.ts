@@ -1,11 +1,10 @@
 import type { MockMethod } from 'vite-plugin-mock';
-import type { BackendServiceResult } from '@/interface';
 
-export default [
+const apis: MockMethod[] = [
   {
-    url: '/api/getUser',
+    url: '/mock/getUser',
     method: 'get',
-    response: (): BackendServiceResult => {
+    response: (): Service.BackendServiceResult => {
       return {
         code: 200,
         message: 'ok',
@@ -13,4 +12,6 @@ export default [
       };
     }
   }
-] as MockMethod[];
+];
+
+export default apis;

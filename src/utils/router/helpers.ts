@@ -1,115 +1,121 @@
-import type { Component } from 'vue';
-import type { Router, RouteRecordRaw, RouteMeta } from 'vue-router';
-import type { ImportedRouteModules, LoginModuleType } from '@/interface';
+import type { RouteRecordRaw } from 'vue-router';
+import { Layout } from '@/layouts';
+import { consoleError } from '../common';
+import { getViewComponent } from './component';
 
-interface SingleRouteConfig {
-  /** 路由 */
-  route: RouteRecordRaw;
-  /** 路由容器 */
-  container: Component;
-  /** 路由容器的描述 */
-  containerMeta: RouteMeta;
-  /** 404路由的名称 */
-  notFoundName: string;
-}
+type ComponentAction = {
+  [key in AuthRoute.RouteComponent]: () => void;
+};
 
-/** 设置单个路由 */
-export function setSingleRoute(config: SingleRouteConfig) {
-  const { route, container, containerMeta, notFoundName } = config;
-  const routeItem: RouteRecordRaw = {
-    name: `${route.name as string}_`,
-    path: `${route.path}_`,
-    component: container,
-    redirect: { name: notFoundName },
-    meta: {
-      notAsMenu: true,
-      ...containerMeta,
-      title: `${containerMeta.title}-container`
-    },
-    children: [route]
+/** 将权限路由类型转换成vue路由类型 */
+export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
+  const { name, path } = item;
+  const itemRoute: Partial<RouteRecordRaw> = {
+    name,
+    path,
+    meta: item.meta
   };
+  if (hasRedirect(item)) {
+    itemRoute.redirect = item.redirect;
+  }
+  if (hasComponent(item)) {
+    const action: ComponentAction = {
+      layout() {
+        itemRoute.component = Layout;
+      },
+      blank() {
+        itemRoute.component = Layout;
+        if (itemRoute.meta) {
+          itemRoute.meta.blankLayout = true;
+        }
+      },
+      multi() {},
+      self() {
+        itemRoute.component = getViewComponent(item.name);
+      }
+    };
+    try {
+      action[item.component!]();
+    } catch {
+      consoleError('路由组件解析失败: ', item);
+    }
+  }
+  if (isSingleRoute(item)) {
+    itemRoute.children = [
+      {
+        path: '',
+        component: getViewComponent(item.name)
+      }
+    ];
+  } else if (hasChildren(item)) {
+    itemRoute.children = item.children!.map(child => transformAuthRouteToVueRoute(child));
+  }
 
-  return routeItem;
+  return itemRoute as RouteRecordRaw;
 }
 
-/** 处理导入的路由模块 */
-export function transformRouteModules(routeModules: ImportedRouteModules) {
-  const modules = Object.keys(routeModules).map(key => {
-    return routeModules[key].default;
-  });
-  const constantRoutes: RouteRecordRaw[] = modules.sort(
-    (next, pre) => Number(next.meta?.order) - Number(pre.meta?.order)
-  );
-  return constantRoutes;
+function hasComponent(item: AuthRoute.Route) {
+  return Boolean(item.component);
+}
+
+function hasRedirect(item: AuthRoute.Route) {
+  return Boolean(item.redirect);
+}
+
+function hasChildren(item: AuthRoute.Route) {
+  return Boolean(item.children && item.children.length);
+}
+
+function isSingleRoute(item: AuthRoute.Route) {
+  return Boolean(item.meta.single);
 }
 
 /**
- * 获取路由的首页
+ * 根据路由key获取AuthRoute数据
+ * @param key - 路由key
  * @param routes - 路由
- * @param routeHomeName - 路由首页名称
  */
-export function getRouteHome(routes: RouteRecordRaw[], routeHomeName: string) {
-  let routeHome: RouteRecordRaw;
-  function hasChildren(route: RouteRecordRaw) {
-    return Boolean(route.children && route.children.length);
+export function findAuthRouteByKey(key: AuthRoute.RouteKey, routes: AuthRoute.Route[]) {
+  const paths = getRouteKeyPathsByKey(key);
+  const route = recursiveFindRouteByPaths(paths, routes);
+
+  return route;
+}
+
+/**
+ * 根据路由key的paths获递归取路由
+ * @param paths - 路由key的路径
+ * @param routes - 路由
+ */
+function recursiveFindRouteByPaths(
+  paths: AuthRoute.RouteKey[],
+  routes: AuthRoute.Route[]
+): AuthRoute.Route | undefined {
+  const item = routes.find(route => paths.length && route.name === paths[0]);
+
+  if (item && hasComponent(item)) {
+    return recursiveFindRouteByPaths(paths.slice(1), item.children!);
   }
-  function getRouteHomeByRoute(route: RouteRecordRaw) {
-    if (routeHome) return;
-    const hasChild = hasChildren(route);
-    if (!hasChild) {
-      if (route.name === routeHomeName) {
-        routeHome = route;
-      }
+  return item;
+}
+
+/**
+ * 根据路由key获取从第一级路由到当前路由key的paths
+ * @param key - 路由key
+ */
+function getRouteKeyPathsByKey(key: AuthRoute.RouteKey) {
+  const splitMark: AuthRoute.RouteSplitMark = '_';
+  const keys = key.split(splitMark);
+  const keyPaths: AuthRoute.RouteKey[] = [];
+
+  keys.forEach((itemKey, index) => {
+    if (index === 0) {
+      keyPaths.push(itemKey as AuthRoute.RouteKey);
     } else {
-      getRouteHomeByRoutes(route.children as RouteRecordRaw[]);
+      const concatKey = keyPaths[index - 1] + splitMark + itemKey;
+      keyPaths.push(concatKey as AuthRoute.RouteKey);
     }
-  }
-  function getRouteHomeByRoutes(_routes: RouteRecordRaw[]) {
-    _routes.some(item => {
-      getRouteHomeByRoute(item as RouteRecordRaw);
-      return routeHome !== undefined;
-    });
-  }
-  getRouteHomeByRoutes(routes);
-  return routeHome!;
-}
+  });
 
-/**
- * 将多层级路由转换成二级路由
- * @param routes - 路由
- */
-export function transformMultiDegreeRoutes(routes: RouteRecordRaw[]) {
-  function hasComponent(route: RouteRecordRaw) {
-    return Boolean(route.component);
-  }
-  function hasChildren(route: RouteRecordRaw) {
-    return Boolean(route.children && route.children.length);
-  }
-
-  function upDimension(route: RouteRecordRaw): RouteRecordRaw[] {
-    if (hasChildren(route)) {
-      const updateRoute = { ...route };
-      if (!hasComponent(route)) {
-        return updateRoute.children!;
-      }
-      updateRoute.children = updateRoute.children?.map(item => upDimension(item)).flat();
-      return [updateRoute];
-    }
-    return [route];
-  }
-
-  return routes.map(item => upDimension(item)).flat();
-}
-
-/** 获取登录后的重定向地址 */
-export function getLoginRedirectUrl(router: Router) {
-  const path = router.currentRoute.value.fullPath as string;
-  const redirectUrl = path === '/' ? undefined : path;
-  return redirectUrl;
-}
-
-/** 获取登录模块的正则字符串 */
-export function getLoginModuleRegExp() {
-  const modules: LoginModuleType[] = ['pwd-login', 'code-login', 'register', 'reset-pwd', 'bind-wechat'];
-  return modules.join('|');
+  return keyPaths;
 }
