@@ -1,5 +1,8 @@
-import { colord } from 'colord';
+import { colord, extend } from 'colord';
+import mixPlugin from 'colord/plugins/mix';
 import type { HsvColor } from 'colord';
+
+extend([mixPlugin]);
 
 type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
@@ -113,4 +116,23 @@ function getValue(hsv: HsvColor, i: number, isLight: boolean) {
     value = 100;
   }
   return value;
+}
+
+/**
+ * 给颜色加透明度
+ * @param color - 颜色
+ * @param alpha - 透明度(0 - 1)
+ */
+export function addColorAlpha(color: string, alpha: number) {
+  return colord(color).alpha(alpha).toHex();
+}
+
+/**
+ * 颜色混合
+ * @param firstColor - 第一个颜色
+ * @param secondColor - 第二个颜色
+ * @param ratio - 第二个颜色占比
+ */
+export function mixColor(firstColor: string, secondColor: string, ratio: number) {
+  return colord(firstColor).mix(secondColor, ratio).toHex();
 }

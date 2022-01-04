@@ -24,7 +24,7 @@ declare namespace AuthRoute {
     : `/${Key}`;
 
   /** 路由路径 */
-  type RoutePath<Key extends string = ''> =
+  type RoutePath<Key extends string = string> =
     | '/'
     | Exclude<KeyToPath<RouteKey>, '/root' | '/redirect'>
     | Key
@@ -66,11 +66,11 @@ declare namespace AuthRoute {
   };
 
   /** 单个路由的类型结构(后端返回此类型结构的路由) */
-  interface Route {
+  interface Route<T extends string = ''> {
     /** 路由名称(路由唯一标识) */
     name: RouteKey;
     /** 路由路径 */
-    path: RoutePath;
+    path: RoutePath<T>;
     /** 路由重定向 */
     redirect?: RoutePath;
     /**

@@ -1,5 +1,4 @@
-import { colord } from 'colord';
-import { getColorPalette } from '@/utils';
+import { getColorPalette, addColorAlpha } from '@/utils';
 
 type ColorType = 'primary' | 'info' | 'success' | 'warning' | 'error';
 
@@ -23,7 +22,7 @@ export function getThemeColors(colors: [ColorType, string][]) {
     { scene: 'Suppl', handler: color => color },
     { scene: 'Hover', handler: color => getColorPalette(color, 5) },
     { scene: 'Pressed', handler: color => getColorPalette(color, 7) },
-    { scene: 'Active', handler: color => colord(color).alpha(0.1).toHex() }
+    { scene: 'Active', handler: color => addColorAlpha(color, 0.1) }
   ];
 
   const themeColor: ThemeColor = {};

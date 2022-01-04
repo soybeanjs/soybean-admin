@@ -1,3 +1,1 @@
-export interface TestType {
-  name: string;
-}
+export * from './enum';

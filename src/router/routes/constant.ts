@@ -1,3 +1,5 @@
+// import { getLoginModuleRegExp } from '@/utils';
+
 /** 固定的路由 */
 const constantRoutes: AuthRoute.Route[] = [
   {

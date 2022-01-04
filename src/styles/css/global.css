@@ -1,1 +1,5 @@
 @import './scrollbar.css';
+
+html, body, #app {
+	height: 100%;
+}
