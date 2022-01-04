@@ -40,12 +40,18 @@ export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
       consoleError('路由组件解析失败: ', item);
     }
   }
+
+  if (hasProps(item) && !isSingleRoute(item)) {
+    (itemRoute as any).props = item.props;
+  }
+
   if (isSingleRoute(item)) {
     itemRoute.children = [
       {
         path: '',
         name: item.name,
-        component: getViewComponent(item.name)
+        component: getViewComponent(item.name),
+        props: hasProps(item) ? item.props : undefined
       }
     ];
   } else if (hasChildren(item)) {
@@ -65,6 +71,10 @@ function hasRedirect(item: AuthRoute.Route) {
 
 function hasChildren(item: AuthRoute.Route) {
   return Boolean(item.children && item.children.length);
+}
+
+function hasProps(item: AuthRoute.Route) {
+  return Boolean(item.props);
 }
 
 function isSingleRoute(item: AuthRoute.Route) {

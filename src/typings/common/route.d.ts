@@ -24,7 +24,7 @@ declare namespace AuthRoute {
     : `/${Key}`;
 
   /** 路由路径 */
-  type RoutePath<Key extends string = string> =
+  type RoutePath<Key extends string = '' | LoginPath> =
     | '/'
     | Exclude<KeyToPath<RouteKey>, '/root' | '/redirect'>
     | Key
@@ -65,8 +65,11 @@ declare namespace AuthRoute {
     order?: number;
   };
 
+  /** 登录路由路径 */
+  type LoginPath = `/login/:module(${string})?`;
+
   /** 单个路由的类型结构(后端返回此类型结构的路由) */
-  interface Route<T extends string = ''> {
+  interface Route<T extends string = '' | LoginPath> {
     /** 路由名称(路由唯一标识) */
     name: RouteKey;
     /** 路由路径 */
@@ -85,5 +88,7 @@ declare namespace AuthRoute {
     children?: Route[];
     /** 路由描述 */
     meta: RouteMeta;
+    /** 属性 */
+    props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
   }
 }

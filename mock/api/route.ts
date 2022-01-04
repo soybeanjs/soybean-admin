@@ -73,7 +73,7 @@ const routes: AuthRoute.Route[] = [
 
 const routeHome: AuthRoute.RoutePath = '/dashboard/analysis';
 
-const data: ApiRoute.ResponseRoute = {
+const data: ApiRoute.Route = {
   routes,
   home: routeHome
 };

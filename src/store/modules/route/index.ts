@@ -26,7 +26,7 @@ interface RouteStore {
    * 获取路由路径
    * @description getRouteName 和 getRoutePath 优先使用 getRouteName
    */
-  getRoutePath(key: AuthRoute.RouteKey): AuthRoute.RoutePath<''> | undefined;
+  getRoutePath(key: AuthRoute.RouteKey): AuthRoute.RoutePath | undefined;
   /** 获取路由路径 */
   getRouteTitle(key: AuthRoute.RouteKey): string | undefined;
 }

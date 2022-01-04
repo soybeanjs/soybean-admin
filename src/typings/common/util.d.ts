@@ -12,6 +12,4 @@ declare namespace Util {
   type UnionToTuple<T, U = T> = [T] extends [never]
     ? []
     : [LastInUnion<T>, ...UnionToTuple<Exclude<U, LastInUnion<T>>>];
-
-  type Inter = UnionToTuple<'1' | '2'>;
 }

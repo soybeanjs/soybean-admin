@@ -15,7 +15,7 @@ export async function handlePagePermission(
 
   const permissions = to.meta.permissions || [];
   const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
-  const hasPermission = !permissions.length || permissions.includes(auth.role);
+  const hasPermission = !permissions.length || permissions.includes(auth.userInfo.userRole);
 
   if (!route.isAddedDynamicRoute) {
     // 添加动态路由

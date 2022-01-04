@@ -37,3 +37,27 @@ export function getThemeColors(colors: [ColorType, string][]) {
 
   return themeColor;
 }
+
+/** windicss 暗黑模式 */
+export function handleWindicssDarkMode() {
+  const DARK_CLASS = 'dark';
+  function getHtmlElement() {
+    return document.querySelector('html');
+  }
+  function addDarkClass() {
+    const html = getHtmlElement();
+    if (html) {
+      html.classList.add(DARK_CLASS);
+    }
+  }
+  function removeDarkClass() {
+    const html = getHtmlElement();
+    if (html) {
+      html.classList.remove(DARK_CLASS);
+    }
+  }
+  return {
+    addDarkClass,
+    removeDarkClass
+  };
+}

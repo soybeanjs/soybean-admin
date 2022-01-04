@@ -1,4 +1,5 @@
-// import { getLoginModuleRegExp } from '@/utils';
+import { getLoginModuleRegExp } from '@/utils';
+import type { LoginModuleKey } from '@/interface';
 
 /** 固定的路由 */
 const constantRoutes: AuthRoute.Route[] = [
@@ -12,8 +13,14 @@ const constantRoutes: AuthRoute.Route[] = [
   },
   {
     name: 'login',
-    path: '/login',
+    path: `/login/:module(${getLoginModuleRegExp()})?`,
     component: 'blank',
+    props: route => {
+      const moduleType = (route.params.module as LoginModuleKey) || 'pwd-login';
+      return {
+        module: moduleType
+      };
+    },
     meta: {
       title: '登录',
       single: true

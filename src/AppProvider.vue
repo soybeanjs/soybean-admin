@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme-overrides="theme.naiveThemeOverrides" class="h-full">
+  <n-config-provider :theme="theme.naiveTheme" :theme-overrides="theme.naiveThemeOverrides" class="h-full">
     <slot></slot>
   </n-config-provider>
 </template>
