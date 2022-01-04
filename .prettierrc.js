@@ -15,5 +15,13 @@ module.exports = {
   requireConfig: false, // Require a 'prettierconfig' to format prettier
   stylelintIntegration: false, //不让prettier使用stylelint的代码格式进行校验
   trailingComma: 'none', // 在对象或数组最后一个元素后面是否加逗号（在ES5中加尾逗号）
-  tslintIntegration: false // 不让prettier使用tslint的代码格式进行校验
-}
+  tslintIntegration: false, // 不让prettier使用tslint的代码格式进行校验
+  overrides: [
+    {
+      files: '*.html',
+      options: {
+        parser: 'html'
+      }
+    }
+  ]
+};

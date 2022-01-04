@@ -4,10 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title><%= appName %></title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="appProvider" style="display: none"></div>
+    <div id="app">
+      <div class="fixed-center flex-col">
+        <div id="loadingLogo" class="w-128px h-128px text-primary"></div>
+        <div class="w-56px h-56px my-36px">
+          <div class="relative h-full animate-spin">
+            <div class="absolute-lt init-loading-spin"></div>
+            <div class="absolute-lb init-loading-spin animate-delay-500"></div>
+            <div class="absolute-rt init-loading-spin animate-delay-1000"></div>
+            <div class="absolute-rb init-loading-spin animate-delay-1500"></div>
+          </div>
+        </div>
+        <h2 class="text-28px font-medium text-[#646464]"><%= appTitle %></h2>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

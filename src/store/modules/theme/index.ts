@@ -25,8 +25,6 @@ interface ThemeStore {
   otherColor: ComputedRef<OtherColor>;
   /** naiveUI的主题配置 */
   naiveThemeOverrides: ComputedRef<GlobalThemeOverrides>;
-  /** 添加css vars至html */
-  addThemeCssVarsToRoot(): void;
 }
 
 type ThemeVarsKeys = keyof Exclude<GlobalThemeOverrides['common'], undefined>;
@@ -64,23 +62,30 @@ export const useThemeStore = defineStore('theme-store', () => {
     };
   });
 
-  function addThemeCssVarsToRoot() {
-    const updatedThemeVars = { ...themeVars.value };
-    Object.assign(updatedThemeVars, naiveThemeOverrides.value.common);
+  /** 添加css vars至html */
+  function addThemeCssVarsToHtml() {
+    if (document.documentElement.style.cssText) return;
+
+    const updatedThemeVars = { ...themeVars.value, ...naiveThemeOverrides.value.common };
     const keys = Object.keys(updatedThemeVars) as ThemeVarsKeys[];
     const style: string[] = [];
     keys.forEach(key => {
       style.push(`--${kebabCase(key)}: ${updatedThemeVars[key]}`);
     });
     const styleStr = style.join(';');
-    document.documentElement.style.cssText += styleStr;
+    document.documentElement.style.cssText = styleStr;
   }
+
+  function init() {
+    addThemeCssVarsToHtml();
+  }
+
+  init();
 
   const themeStore: ThemeStore = {
     themeColor,
     otherColor,
-    naiveThemeOverrides,
-    addThemeCssVarsToRoot
+    naiveThemeOverrides
   };
 
   return themeStore;

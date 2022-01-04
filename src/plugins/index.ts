@@ -1,3 +1,4 @@
 import setupAssets from './assets';
+import setupInitSvgLogo from './logo';
 
-export { setupAssets };
+export { setupAssets, setupInitSvgLogo };

@@ -39,7 +39,8 @@ export default defineConfig({
     'fixed-br': 'fixed-rb',
     'fixed-center': 'fixed left-0 top-0 flex-center wh-full',
     'nowrap-hidden': 'whitespace-nowrap overflow-hidden',
-    'ellipsis-text': 'nowrap-hidden overflow-ellipsis'
+    'ellipsis-text': 'nowrap-hidden overflow-ellipsis',
+    'init-loading-spin': 'w-16px h-16px bg-primary rounded-8px animate-pulse'
   },
   theme: {
     extend: {

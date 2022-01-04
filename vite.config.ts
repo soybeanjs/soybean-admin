@@ -28,6 +28,10 @@ export default defineConfig(configEnv => {
       host: '0.0.0.0',
       port: 3200,
       open: true
+    },
+    build: {
+      brotliSize: false,
+      sourcemap: false
     }
   };
 });
