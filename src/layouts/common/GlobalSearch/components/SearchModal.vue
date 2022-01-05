@@ -6,6 +6,7 @@
     preset="card"
     footer-style="padding: 0; margin: 0"
     class="w-630px fixed top-50px left-1/2 transform -translate-x-1/2"
+    @after-leave="handleClose"
   >
     <n-input ref="inputRef" v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
       <template #prefix>
@@ -116,6 +117,8 @@ function handleDown() {
 
 /** key enter */
 function handleEnter() {
+  const { length } = resultOptions.value;
+  if (length === 0 || activePath.value === '') return;
   if (isUrl(activePath.value)) {
     window.open(activePath.value, '__blank');
   } else {
