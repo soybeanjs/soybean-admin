@@ -50,6 +50,7 @@ export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
       itemRoute.children = [
         {
           path: '',
+          name: item.name,
           component: getViewComponent('redirect-not-found')
         }
       ];
