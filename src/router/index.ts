@@ -1,6 +1,6 @@
 import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { routes, constantRoutes } from './routes';
+import { routes } from './routes';
 import { createRouterGuide } from './guard';
 
 export const router = createRouter({
@@ -15,4 +15,4 @@ export async function setupRouter(app: App) {
   await router.isReady();
 }
 
-export { constantRoutes };
+export * from './routes';

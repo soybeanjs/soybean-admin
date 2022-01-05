@@ -18,7 +18,7 @@
     <n-form-item path="confirmPwd">
       <n-input v-model:value="model.confirmPwd" placeholder="确认密码" />
     </n-form-item>
-    <n-space :vertical="true" size="large">
+    <n-space :vertical="true" :size="18">
       <login-agreement v-model:value="agreement" />
       <n-button type="primary" size="large" :block="true" :round="true" @click="handleSubmit">确定</n-button>
       <n-button size="large" :block="true" :round="true" @click="toLoginModule('pwd-login')">返回</n-button>

@@ -13,8 +13,8 @@ const constantRoutes: AuthRoute.Route[] = [
   },
   {
     name: 'login',
-    path: `/login/:module(${getLoginModuleRegExp()})?`,
-    component: 'blank',
+    path: '/login',
+    component: 'self',
     props: route => {
       const moduleType = (route.params.module as LoginModuleKey) || 'pwd-login';
       return {
@@ -23,45 +23,45 @@ const constantRoutes: AuthRoute.Route[] = [
     },
     meta: {
       title: '登录',
-      single: true,
-      singleOriginPath: '/login'
+      dynamicPath: `/login/:module(${getLoginModuleRegExp()})?`,
+      singleLayout: 'blank'
     }
   },
   {
     name: 'no-permission',
     path: '/no-permission',
-    component: 'blank',
+    component: 'self',
     meta: {
       title: '无权限',
-      single: true
+      singleLayout: 'blank'
     }
   },
   {
     name: 'not-found',
     path: '/not-found',
-    component: 'blank',
+    component: 'self',
     meta: {
       title: '未找到',
-      single: true
+      singleLayout: 'blank'
     }
   },
   {
     name: 'service-error',
     path: '/service-error',
-    component: 'blank',
+    component: 'self',
     meta: {
       title: '服务器错误',
-      single: true
+      singleLayout: 'blank'
     }
   },
   // 匹配无效的路径重定向not-found的页面
   {
-    name: 'redirect-not-found',
+    name: 'not-found-page',
     path: '/:pathMatch(.*)*',
     component: 'blank',
     meta: {
       title: '未找到',
-      single: true
+      singleLayout: 'blank'
     }
   }
 ];

@@ -18,7 +18,7 @@
         <image-verify v-model:code="imgCode" />
       </div>
     </n-form-item>
-    <n-space :vertical="true" size="large">
+    <n-space :vertical="true" :size="18">
       <n-button
         type="primary"
         size="large"

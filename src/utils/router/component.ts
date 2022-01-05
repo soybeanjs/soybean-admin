@@ -30,7 +30,7 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     'dashboard_workbench',
     'about',
     'multi-menu_first_second',
-    'redirect-not-found'
+    'not-found-page'
   ];
 
   const key = keys.includes(routeKey as ViewComponentKey) ? (routeKey as ViewComponentKey) : 'not-found';
@@ -44,7 +44,7 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     dashboard_workbench: DashboardWorkbench,
     about: About,
     'multi-menu_first_second': MultiMenuFirstSecond,
-    'redirect-not-found': NotFound
+    'not-found-page': NotFound
   };
 
   return () => setViewComponentName(viewComponent[key], key) as Promise<Component>;

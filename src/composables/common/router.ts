@@ -1,8 +1,6 @@
-import { unref } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
-import { router as globalRouter } from '@/router';
-import { useRouteStore } from '@/store';
+import { router as globalRouter, routeName } from '@/router';
 import { LoginModuleKey } from '@/interface';
 
 /**
@@ -10,10 +8,8 @@ import { LoginModuleKey } from '@/interface';
  * @param inSetup - 是否在vue页面/组件的setup里面调用，在axios里面无法使用useRouter和useRoute
  */
 export function useRouterPush(inSetup: boolean = true) {
-  const { getRouteName } = useRouteStore();
-
   const router = inSetup ? useRouter() : globalRouter;
-  const route = inSetup ? useRoute() : unref(globalRouter.currentRoute);
+  const route = globalRouter.currentRoute;
 
   /**
    * 路由跳转
@@ -39,7 +35,7 @@ export function useRouterPush(inSetup: boolean = true) {
    * @param newTab - 在新的浏览器标签打开
    */
   function toHome(newTab = false) {
-    routerPush(getRouteName('root'), newTab);
+    routerPush({ name: routeName('root') }, newTab);
   }
 
   /**
@@ -50,10 +46,10 @@ export function useRouterPush(inSetup: boolean = true) {
   function toLogin(loginModule?: LoginModuleKey, redirectUrl?: string) {
     const module: LoginModuleKey = loginModule || 'pwd-login';
     const routeLocation: RouteLocationRaw = {
-      name: getRouteName('login'),
+      name: routeName('login'),
       params: { module }
     };
-    const redirect = redirectUrl || route.fullPath;
+    const redirect = redirectUrl || route.value.fullPath;
     Object.assign(routeLocation, { query: { redirect } });
     routerPush(routeLocation);
   }
@@ -63,17 +59,17 @@ export function useRouterPush(inSetup: boolean = true) {
    * @param module - 切换后的登录模块
    */
   function toLoginModule(module: LoginModuleKey) {
-    const { query } = route;
-    routerPush({ name: getRouteName('login'), params: { module }, query });
+    const { query } = route.value;
+    routerPush({ name: routeName('login'), params: { module }, query });
   }
 
   /**
    * 登录成功后跳转重定向的地址
-   * @param redirect - 重定向地址
    */
-  function toLoginRedirect(redirect?: string) {
-    if (redirect) {
-      routerPush(redirect);
+  function toLoginRedirect() {
+    const { query } = route.value;
+    if (query?.redirect) {
+      routerPush(query.redirect as string);
     } else {
       toHome();
     }

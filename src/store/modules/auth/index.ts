@@ -2,7 +2,7 @@ import { ref, computed, reactive, unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import { defineStore } from 'pinia';
 import { router as globalRouter } from '@/router';
-import { useRouterPush, useRouteQuery } from '@/composables';
+import { useRouterPush } from '@/composables';
 import { useLoading } from '@/hooks';
 import { fetchLogin, fetchUserInfo } from '@/service';
 import { getUserInfo, getToken, setUserInfo, setToken, setRefreshToken, clearAuthStorage } from '@/utils';
@@ -32,7 +32,6 @@ interface AuthStore {
 
 export const useAuthStore = defineStore('auth-store', () => {
   const { toLogin, toLoginRedirect } = useRouterPush(false);
-  const { loginRedirect } = useRouteQuery(false);
   const { loading: loginLoding, startLoading: startLoginLoading, endLoading: endLoginLoading } = useLoading();
 
   const userInfo: Auth.UserInfo = reactive(getUserInfo());
@@ -82,7 +81,7 @@ export const useAuthStore = defineStore('auth-store', () => {
       handleSetToken(token);
       handleSetUserInfo(data);
       // 3. 跳转登录后的地址
-      toLoginRedirect(loginRedirect.value);
+      toLoginRedirect();
       // 4.登录成功弹出欢迎提示
       window.$notification?.success({
         title: '登录成功!',

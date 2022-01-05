@@ -2,10 +2,10 @@ import { ref } from 'vue';
 import type { Ref } from 'vue';
 import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
-import { constantRoutes } from '@/router';
 import { useBoolean } from '@/hooks';
 import { fetchUserRoutes } from '@/service';
-import { findAuthRouteByKey } from '@/utils';
+import { transformAuthRouteToMenu, transformAuthRouteToVueRoute } from '@/utils';
+import type { GlobalMenuOption } from '@/interface';
 
 /** 路由状态 */
 interface RouteStore {
@@ -17,18 +17,6 @@ interface RouteStore {
   isAddedDynamicRoute: Ref<boolean>;
   /** 初始化动态路由 */
   initDynamicRoute(router: Router): Promise<void>;
-  /**
-   * 获取路由名称
-   * @description getRouteName 和 getRoutePath 优先使用 getRouteName
-   */
-  getRouteName(key: AuthRoute.RouteKey): AuthRoute.RouteKey;
-  /**
-   * 获取路由路径
-   * @description getRouteName 和 getRoutePath 优先使用 getRouteName
-   */
-  getRoutePath(key: AuthRoute.RouteKey): AuthRoute.RoutePath | undefined;
-  /** 获取路由路径 */
-  getRouteTitle(key: AuthRoute.RouteKey): string | undefined;
 }
 
 export const useRouteStore = defineStore('route-store', () => {
@@ -37,37 +25,32 @@ export const useRouteStore = defineStore('route-store', () => {
     routes.value = data;
   }
 
-  const { bool: isAddedDynamicRoute, setTrue: setAddedDynamicRoute } = useBoolean();
-  async function initDynamicRoute(router: Router) {
-    const routes = await fetchUserRoutes();
-    routes.forEach(route => {
-      router.addRoute(route);
-    });
-    setAddedDynamicRoute();
+  const menus = ref<GlobalMenuOption[]>([]) as Ref<GlobalMenuOption[]>;
+  function getMenus(data: AuthRoute.Route[]) {
+    const transform = transformAuthRouteToMenu(data);
+    menus.value = transform;
   }
 
-  function getRouteName(key: AuthRoute.RouteKey) {
-    return key;
-  }
-  function getRoutePath(key: AuthRoute.RouteKey) {
-    const allRoutes = [...constantRoutes, ...routes.value];
-    const item = findAuthRouteByKey(key, allRoutes);
-    return item?.path;
-  }
-  function getRouteTitle(key: AuthRoute.RouteKey) {
-    const allRoutes = [...constantRoutes, ...routes.value];
-    const item = findAuthRouteByKey(key, allRoutes);
-    return item?.meta?.title;
+  const { bool: isAddedDynamicRoute, setTrue: setAddedDynamicRoute } = useBoolean();
+  async function initDynamicRoute(router: Router) {
+    const { data } = await fetchUserRoutes();
+    if (data) {
+      getMenus(data.routes);
+
+      const vueRoutes = data.routes.map(route => transformAuthRouteToVueRoute(route));
+      vueRoutes.forEach(route => {
+        router.addRoute(route);
+      });
+
+      setAddedDynamicRoute();
+    }
   }
 
   const routeStore: RouteStore = {
     routes,
     setRoutes,
     isAddedDynamicRoute,
-    initDynamicRoute,
-    getRouteName,
-    getRoutePath,
-    getRouteTitle
+    initDynamicRoute
   };
 
   return routeStore;

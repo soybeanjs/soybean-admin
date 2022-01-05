@@ -1,14 +1,17 @@
 /** 权限路由相关类型 */
 declare namespace AuthRoute {
+  /** 多级路由分割符号 */
+  type RouteSplitMark = '_';
+
   /** 路由的key */
   type RouteKey =
     // 固定的路由
-    | 'root'
+    | 'root' // 根路由
     | 'login'
     | 'not-found'
     | 'no-permission'
     | 'service-error'
-    | 'redirect-not-found' // 重定向not-found
+    | 'not-found-page' // 捕获无效path的路由
     // 自定义路由
     | 'dashboard'
     | 'dashboard_analysis'
@@ -18,17 +21,12 @@ declare namespace AuthRoute {
     | 'multi-menu_first_second'
     | 'about';
 
-  /** 路由路径 */
-  type RoutePath<Key extends string = '' | LoginPath> =
+  /** 路由的path */
+  type RoutePath =
     | '/'
-    | Exclude<KeyToPath<RouteKey>, '/root' | '/redirect'>
+    | Exclude<KeyToPath<RouteKey>, '/root' | 'not-found-page'>
     | SingleRouteParentPath
-    | Key
-    | '/:path(.*)*'
     | '/:pathMatch(.*)*';
-
-  /** 多级路由分割符号 */
-  type RouteSplitMark = '_';
 
   /**
    * 路由的组件
@@ -43,6 +41,10 @@ declare namespace AuthRoute {
   type RouteMeta = {
     /** 路由标题(可用来作document.title或者菜单的名称) */
     title: string;
+    /** 路由的动态路径 */
+    dynamicPath?: PathToDynamicPath<'/login'>;
+    /** 作为单独路由的父级路由布局组件 */
+    singleLayout?: Extract<RouteComponent, 'layout' | 'blank'>;
     /** 需要登录权限 */
     requiresAuth?: boolean;
     /** 哪些类型的用户有权限才能访问的路由 */
@@ -55,23 +57,16 @@ declare namespace AuthRoute {
     icon?: string;
     /** 是否在菜单中隐藏 */
     hide?: boolean;
-    /** 是否作为单独的路由(作为菜单时只有自身，没有子菜单) */
-    single?: boolean;
-    /** 作为单独的路由且path为动态path的原始path */
-    singleOriginPath?: SingleRoutePath;
     /** 路由顺序，可用于菜单的排序 */
     order?: number;
   };
 
-  /** 登录路由路径 */
-  type LoginPath = `/login/:module(${string})?`;
-
   /** 单个路由的类型结构(后端返回此类型结构的路由) */
-  interface Route<T extends string = '' | LoginPath> {
+  interface Route {
     /** 路由名称(路由唯一标识) */
     name: RouteKey;
     /** 路由路径 */
-    path: RoutePath<T>;
+    path: RoutePath;
     /** 路由重定向 */
     redirect?: RoutePath;
     /**
@@ -86,30 +81,41 @@ declare namespace AuthRoute {
     children?: Route[];
     /** 路由描述 */
     meta: RouteMeta;
-    /** 属性 */
+    /** 路由属性 */
     props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type GetMultiRouteParentKey<Key extends string> = Key extends `${infer Left}_${infer Right}` ? Left : never;
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type GetSingleRouteKey<Key extends string> = Key extends `${infer Left}_${infer Right}` ? never : Key;
-
-  /** 单独一级路由的key (单独路由需要添加一个父路由用于应用布局组件) */
+  /** 单独一级路由的key (单独路由需要添加一个父级路由用于应用布局组件) */
   type SingleRouteKey = Exclude<
     GetSingleRouteKey<RouteKey>,
-    GetMultiRouteParentKey<RouteKey> | 'root' | 'redirect-not-found'
+    GetMultiRouteParentKey<RouteKey> | 'root' | 'not-found-page'
   >;
-
-  /** 单独路由需要添加一个父路由用于应用布局组件 */
+  /** 单独路由父级路由key */
   type SingleRouteParentKey = `${SingleRouteKey}-parent`;
 
+  /** 单独路由path */
+  type SingleRoutePath = KeyToPath<SingleRouteKey>;
+
+  /** 单独路由父级路由path */
+  type SingleRouteParentPath = KeyToPath<SingleRouteParentKey>;
+
   /** 路由key转换路由path */
-  type KeyToPath<Key extends string> = Key extends `${infer Left}_${infer Right}`
+  type KeyToPath<Key extends RouteKey> = Key extends `${infer Left}_${infer Right}`
     ? KeyToPath<`${Left}/${Right}`>
     : `/${Key}`;
 
-  type SingleRoutePath = KeyToPath<SingleRouteKey>;
-  type SingleRouteParentPath = KeyToPath<SingleRouteParentKey>;
+  /** 路由path转换动态路径 */
+  type PathToDynamicPath<Path extends RoutePath> =
+    | `${Path}/:module`
+    | `${Path}/:module(${string})`
+    | `${Path}/:module(${string})?`;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type GetSingleRouteKey<Key extends RouteKey> = Key extends `${infer Left}${RouteSplitMark}${infer Right}`
+    ? never
+    : Key;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type GetMultiRouteParentKey<Key extends RouteKey> = Key extends `${infer Left}${RouteSplitMark}${infer Right}`
+    ? Left
+    : never;
 }

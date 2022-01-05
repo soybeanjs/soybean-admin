@@ -1,5 +1,4 @@
 import { mockRequest } from '../request';
-import { userRoutesMiddleware } from '../middleware';
 
 /**
  * 获取验证码
@@ -33,7 +32,6 @@ export function fetchUserInfo() {
  * @param userId - 用户id
  * @description 后端根据用户id查询到对应的角色类型，并将路由筛选出对应角色的路由数据返回前端
  */
-export async function fetchUserRoutes(userId: string = 'soybean') {
-  const { data } = await mockRequest.post<ApiRoute.Route>('/getUserRoutes', { userId });
-  return userRoutesMiddleware(data);
+export function fetchUserRoutes(userId: string = 'soybean') {
+  return mockRequest.post<ApiRoute.Route>('/getUserRoutes', { userId });
 }

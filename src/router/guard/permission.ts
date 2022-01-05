@@ -1,4 +1,5 @@
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
+import { routeName } from '@/router';
 import { useAuthStore, useRouteStore } from '@/store';
 import { exeStrategyActions } from '@/utils';
 
@@ -11,7 +12,7 @@ export async function handlePagePermission(
 ) {
   const auth = useAuthStore();
   const route = useRouteStore();
-  const { initDynamicRoute, getRouteName } = useRouteStore();
+  const { initDynamicRoute } = useRouteStore();
 
   const permissions = to.meta.permissions || [];
   const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
@@ -21,19 +22,25 @@ export async function handlePagePermission(
     // 添加动态路由
     await initDynamicRoute(router);
 
-    if (to.name === getRouteName('redirect-not-found')) {
-      // 动态路由没有加载导致重定向到了redirect-not-found，等待动态路由加载好了，回到重定向之前的路由
+    if (to.name === routeName('not-found-page')) {
+      // 动态路由没有加载导致被not-found-page路由捕获，等待动态路由加载好了，回到之前的路由
       next({ path: to.fullPath, replace: true, query: to.query });
       return;
     }
   }
 
+  // 动态路由已经加载，仍然未找到，重定向到not-found
+  if (to.name === routeName('not-found-page')) {
+    next({ name: routeName('not-found'), replace: true });
+    return;
+  }
+
   const actions: Common.StrategyAction[] = [
     // 已登录状态跳转登录页，跳转至首页
     [
-      auth.isLogin && to.name === getRouteName('login'),
+      auth.isLogin && to.name === routeName('login'),
       () => {
-        next({ name: getRouteName('root') });
+        next({ name: routeName('root') });
       }
     ],
     // 不需要登录权限的页面直接通行
@@ -48,7 +55,7 @@ export async function handlePagePermission(
       !auth.isLogin && needLogin,
       () => {
         const redirect = to.fullPath;
-        next({ name: getRouteName('login'), query: { redirect } });
+        next({ name: routeName('login'), query: { redirect } });
       }
     ],
     // 登录状态进入需要登录权限的页面，有权限直接通行
@@ -62,7 +69,7 @@ export async function handlePagePermission(
       // 登录状态进入需要登录权限的页面，无权限，重定向到无权限页面
       auth.isLogin && needLogin && !hasPermission,
       () => {
-        next({ name: getRouteName('no-permission') });
+        next({ name: routeName('no-permission') });
       }
     ]
   ];

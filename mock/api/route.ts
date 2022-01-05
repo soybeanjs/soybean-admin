@@ -19,7 +19,7 @@ const routes: AuthRoute.Route[] = [
         path: '/dashboard/workbench',
         component: 'self',
         meta: {
-          title: '分析页',
+          title: '工作台',
           permissions: ['super', 'admin']
         }
       }
@@ -33,12 +33,12 @@ const routes: AuthRoute.Route[] = [
   {
     name: 'about',
     path: '/about',
-    component: 'layout',
+    component: 'self',
     meta: {
       title: '关于',
+      singleLayout: 'layout',
       permissions: ['super', 'admin', 'test'],
-      icon: 'fluent:book-information-24-regular',
-      single: true
+      icon: 'fluent:book-information-24-regular'
     }
   },
   {
