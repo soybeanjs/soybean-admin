@@ -9,11 +9,11 @@ type ComponentAction = {
 
 /** 将权限路由类型转换成vue路由类型 */
 export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
-  const { name, path } = item;
+  const { name, path, meta } = item;
   const itemRoute: Partial<RouteRecordRaw> = {
     name,
     path,
-    meta: item.meta
+    meta
   };
   if (hasRedirect(item)) {
     itemRoute.redirect = item.redirect;
@@ -41,21 +41,40 @@ export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
     }
   }
 
-  if (hasProps(item) && !isSingleRoute(item)) {
+  if (hasProps(item)) {
     (itemRoute as any).props = item.props;
   }
 
   if (isSingleRoute(item)) {
-    itemRoute.children = [
-      {
-        path: '',
-        name: item.name,
-        component: getViewComponent(item.name),
-        props: hasProps(item) ? item.props : undefined
-      }
-    ];
-  } else if (hasChildren(item)) {
-    itemRoute.children = item.children!.map(child => transformAuthRouteToVueRoute(child));
+    if (item.name === 'redirect-not-found') {
+      itemRoute.children = [
+        {
+          path: '',
+          component: getViewComponent('redirect-not-found')
+        }
+      ];
+      return itemRoute as RouteRecordRaw;
+    }
+    const singleRoute = {
+      ...itemRoute
+    };
+    Object.assign(singleRoute, { component: getViewComponent(item.name) });
+
+    const singlePath = (
+      hasSingleOriginPath(item) ? item.meta.singleOriginPath : item.path
+    ) as AuthRoute.SingleRoutePath;
+    const parenPath = `${singlePath}-parent` as AuthRoute.SingleRouteParentPath;
+
+    const parentRoute: Partial<RouteRecordRaw> = {
+      path: parenPath,
+      component: itemRoute.component,
+      redirect: singlePath,
+      children: [singleRoute as RouteRecordRaw]
+    };
+    return parentRoute as RouteRecordRaw;
+  }
+  if (hasChildren(item)) {
+    itemRoute.children = item.children!.map(child => transformAuthRouteToVueRoute(child)) as RouteRecordRaw[];
   }
 
   return itemRoute as RouteRecordRaw;
@@ -79,6 +98,10 @@ function hasProps(item: AuthRoute.Route) {
 
 function isSingleRoute(item: AuthRoute.Route) {
   return Boolean(item.meta.single);
+}
+
+function hasSingleOriginPath(item: AuthRoute.Route) {
+  return Boolean(item.meta.singleOriginPath);
 }
 
 /**

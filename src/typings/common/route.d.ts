@@ -18,15 +18,11 @@ declare namespace AuthRoute {
     | 'multi-menu_first_second'
     | 'about';
 
-  /** 路由Key转换路由Path */
-  type KeyToPath<Key extends string> = Key extends `${infer Left}_${infer Right}`
-    ? KeyToPath<`${Left}/${Right}`>
-    : `/${Key}`;
-
   /** 路由路径 */
   type RoutePath<Key extends string = '' | LoginPath> =
     | '/'
     | Exclude<KeyToPath<RouteKey>, '/root' | '/redirect'>
+    | SingleRouteParentPath
     | Key
     | '/:path(.*)*'
     | '/:pathMatch(.*)*';
@@ -61,6 +57,8 @@ declare namespace AuthRoute {
     hide?: boolean;
     /** 是否作为单独的路由(作为菜单时只有自身，没有子菜单) */
     single?: boolean;
+    /** 作为单独的路由且path为动态path的原始path */
+    singleOriginPath?: SingleRoutePath;
     /** 路由顺序，可用于菜单的排序 */
     order?: number;
   };
@@ -91,4 +89,27 @@ declare namespace AuthRoute {
     /** 属性 */
     props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type GetMultiRouteParentKey<Key extends string> = Key extends `${infer Left}_${infer Right}` ? Left : never;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type GetSingleRouteKey<Key extends string> = Key extends `${infer Left}_${infer Right}` ? never : Key;
+
+  /** 单独一级路由的key (单独路由需要添加一个父路由用于应用布局组件) */
+  type SingleRouteKey = Exclude<
+    GetSingleRouteKey<RouteKey>,
+    GetMultiRouteParentKey<RouteKey> | 'root' | 'redirect-not-found'
+  >;
+
+  /** 单独路由需要添加一个父路由用于应用布局组件 */
+  type SingleRouteParentKey = `${SingleRouteKey}-parent`;
+
+  /** 路由key转换路由path */
+  type KeyToPath<Key extends string> = Key extends `${infer Left}_${infer Right}`
+    ? KeyToPath<`${Left}/${Right}`>
+    : `/${Key}`;
+
+  type SingleRoutePath = KeyToPath<SingleRouteKey>;
+  type SingleRouteParentPath = KeyToPath<SingleRouteParentKey>;
 }

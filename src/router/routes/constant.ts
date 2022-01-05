@@ -1,5 +1,5 @@
 import { getLoginModuleRegExp } from '@/utils';
-import type { LoginModuleKey } from '@/interface';
+import { LoginModuleKey } from '@/interface';
 
 /** 固定的路由 */
 const constantRoutes: AuthRoute.Route[] = [
@@ -23,7 +23,8 @@ const constantRoutes: AuthRoute.Route[] = [
     },
     meta: {
       title: '登录',
-      single: true
+      single: true,
+      singleOriginPath: '/login'
     }
   },
   {

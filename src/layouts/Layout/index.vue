@@ -1,7 +1,9 @@
 <template>
   <div class="h-full">
     <router-view v-slot="{ Component }">
-      <component :is="Component" />
+      <transition name="fade-slide" mode="out-in" appear>
+        <component :is="Component" />
+      </transition>
     </router-view>
   </div>
 </template>

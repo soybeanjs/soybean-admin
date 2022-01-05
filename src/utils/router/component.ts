@@ -47,7 +47,7 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     'redirect-not-found': NotFound
   };
 
-  return () => setViewComponentName(viewComponent[key], key);
+  return () => setViewComponentName(viewComponent[key], key) as Promise<Component>;
 }
 
 /** 给页面组件设置名称 */

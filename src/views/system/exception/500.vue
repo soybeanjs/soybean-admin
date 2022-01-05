@@ -1,5 +1,5 @@
 <template>
-  <div>NotFound</div>
+  <div>500</div>
 </template>
 
 <script setup lang="ts"></script>

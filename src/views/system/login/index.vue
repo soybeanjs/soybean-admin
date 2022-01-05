@@ -16,7 +16,7 @@
         <main class="pt-24px">
           <h3 class="text-18px text-primary font-medium">{{ activeModule.label }}</h3>
           <div class="pt-24px">
-            <transition>
+            <transition name="fade-slide" mode="out-in" appear>
               <component :is="activeModule.component" />
             </transition>
           </div>

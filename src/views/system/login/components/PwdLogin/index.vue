@@ -9,7 +9,7 @@
     <n-space :vertical="true" :size="24">
       <div class="flex-y-center justify-between">
         <n-checkbox v-model:checked="rememberMe">记住我</n-checkbox>
-        <n-button :text="true">忘记密码？</n-button>
+        <n-button :text="true" @click="toLoginModule('reset-pwd')">忘记密码？</n-button>
       </div>
       <n-button
         type="primary"
