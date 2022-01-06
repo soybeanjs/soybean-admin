@@ -1,11 +1,12 @@
 import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { routes } from './routes';
+import { transformAuthRoutesToVueRoutes } from '@/utils';
+import { constantRoutes } from './routes';
 import { createRouterGuide } from './guard';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
+  routes: transformAuthRoutesToVueRoutes(constantRoutes),
   scrollBehavior: () => ({ left: 0, top: 0 })
 });
 
