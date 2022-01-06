@@ -4,7 +4,7 @@ import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useBoolean } from '@/hooks';
 import { fetchUserRoutes } from '@/service';
-import { transformAuthRouteToMenu, transformAuthRouteToVueRoute } from '@/utils';
+import { transformAuthRouteToMenu, transformAuthRoutesToVueRoutes } from '@/utils';
 import type { GlobalMenuOption } from '@/interface';
 
 /** 路由状态 */
@@ -37,7 +37,7 @@ export const useRouteStore = defineStore('route-store', () => {
     if (data) {
       getMenus(data.routes);
 
-      const vueRoutes = data.routes.map(route => transformAuthRouteToVueRoute(route));
+      const vueRoutes = transformAuthRoutesToVueRoutes(data.routes);
       vueRoutes.forEach(route => {
         router.addRoute(route);
       });

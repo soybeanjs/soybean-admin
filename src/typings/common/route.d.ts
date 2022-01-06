@@ -59,6 +59,8 @@ declare namespace AuthRoute {
     hide?: boolean;
     /** 路由顺序，可用于菜单的排序 */
     order?: number;
+    /** 表示是否是多级路由的中间级路由(用于转换路由数据时筛选多级路由的标识，定义路由时不用填写) */
+    multi?: boolean;
   };
 
   /** 单个路由的类型结构(后端返回此类型结构的路由) */

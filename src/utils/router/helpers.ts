@@ -7,8 +7,21 @@ type ComponentAction = {
   [key in AuthRoute.RouteComponent]: () => void;
 };
 
-/** 将权限路由类型转换成vue路由类型 */
-export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
+/**
+ * 将权限路由转换成vue路由
+ * @param routes - 权限路由
+ */
+export function transformAuthRoutesToVueRoutes(routes: AuthRoute.Route[]) {
+  return routes.map(route => transformAuthRouteToVueRoute(route)).flat(1);
+}
+
+/**
+ * 将单个权限路由转换成vue路由
+ * @param route - 权限路由
+ */
+function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
+  const resultRoute: RouteRecordRaw[] = [];
+
   const itemRoute = { ...item } as RouteRecordRaw;
 
   if (hasDynamicPath(item)) {
@@ -29,7 +42,8 @@ export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
       multi() {
         // 多级路由一定有子路由
         if (hasChildren(item)) {
-          Object.assign(itemRoute, { component: Layout });
+          Object.assign(itemRoute, { meta: { ...itemRoute.meta, multi: true } });
+          delete itemRoute.component;
         } else {
           consoleError('多级路由缺少子路由: ', item);
         }
@@ -74,16 +88,32 @@ export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
         children: [itemRoute]
       };
 
-      return parentRoute;
+      return [parentRoute];
     }
   }
 
   if (hasChildren(item)) {
-    itemRoute.redirect = item.children![0].path;
-    itemRoute.children = item.children!.map(child => transformAuthRouteToVueRoute(child));
-  }
+    const children = item.children!.map(child => transformAuthRouteToVueRoute(child)).flat();
 
-  return itemRoute;
+    // 找出第一个不为多级路由中间级的子路由路径作为重定向路径
+    const redirectPath: AuthRoute.RoutePath = (children.find(item => !item.meta?.multi)?.path ||
+      '/') as AuthRoute.RoutePath;
+    if (redirectPath === '/') {
+      consoleError('该多级路由没有有效的子路径', item);
+    }
+
+    if (item.component === 'multi') {
+      // 多级路由，将子路由提取出来变成同级
+      resultRoute.push(...children);
+      delete itemRoute.children;
+    } else {
+      itemRoute.children = children;
+    }
+    itemRoute.redirect = redirectPath;
+  }
+  resultRoute.push(itemRoute);
+
+  return resultRoute;
 }
 
 function hasComponent(item: AuthRoute.Route) {
