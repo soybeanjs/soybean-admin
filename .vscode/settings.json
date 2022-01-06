@@ -9,6 +9,8 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
 	},
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.bracketPairs": "active",
 	"git.enableSmartCommit": true,
 	"path-intellisense.mappings": {
 		"@": "${workspaceFolder}/src",
