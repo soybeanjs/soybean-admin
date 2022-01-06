@@ -6,7 +6,7 @@ import { handlePagePermission } from './permission';
  * 路由守卫函数
  * @param router - 路由实例
  */
-export function createRouterGuide(router: Router) {
+export function createRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     // 开始 loadingBar
     window.$loadingBar?.start();

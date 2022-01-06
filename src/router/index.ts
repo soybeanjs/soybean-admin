@@ -2,7 +2,7 @@ import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { transformAuthRoutesToVueRoutes } from '@/utils';
 import { constantRoutes } from './routes';
-import { createRouterGuide } from './guard';
+import { createRouterGuard } from './guard';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +12,7 @@ export const router = createRouter({
 
 export async function setupRouter(app: App) {
   app.use(router);
-  createRouterGuide(router);
+  createRouterGuard(router);
   await router.isReady();
 }
 

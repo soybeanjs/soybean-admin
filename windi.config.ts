@@ -15,8 +15,8 @@ export default defineConfig({
     'i-flex-center': 'inline-flex justify-center items-center',
     'i-flex-x-center': 'inline-flex justify-center',
     'i-flex-y-center': 'inline-flex items-center',
-    'flex-col': 'flex flex-col',
-    'flex-col-stretch': 'flex-col items-stretch',
+    'b-flex-col': 'flex flex-col',
+    'flex-col-stretch': 'b-flex-col items-stretch',
     'i-flex-col': 'inline-flex flex-col',
     'i-flex-col-stretch': 'i-flex-col items-stretch',
     'flex-1-hidden': 'flex-1 overflow-hidden',
@@ -65,7 +65,8 @@ export default defineConfig({
         'error-hover': 'var(--error-color-hover)',
         'error-pressed': 'var(--error-color-pressed)',
         'error-active': 'var(--error-color-active)'
-      }
+      },
+      transitionProperty: ['padding-left']
     }
   },
   variants: {},
