@@ -38,6 +38,7 @@
       </div>
     </template>
   </soybean-layout>
+  <setting-drawer />
 </template>
 
 <script setup lang="ts">
@@ -46,7 +47,7 @@ import { NSpace, NButton, NSwitch, NRadioGroup, NRadio } from 'naive-ui';
 import { useElementSize } from '@vueuse/core';
 import { useBoolean } from '@/hooks';
 import { SoybeanLayout } from '@/package';
-import { GlobalContent } from '../common';
+import { SettingDrawer, GlobalContent } from '../common';
 
 type LayoutMode = 'vertical' | 'horizontal';
 

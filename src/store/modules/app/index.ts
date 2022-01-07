@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
-import { useReload } from '@/hooks';
+import { useReload, useBoolean } from '@/hooks';
 
 interface AppStore {
   /** 重载页面的标志 */
@@ -10,15 +10,35 @@ interface AppStore {
    * @param duration - 延迟时间(ms, 默认0)
    */
   handleReload(duration?: number): void;
+  /** 设置抽屉可见状态 */
+  settingDrawerVisible: Ref<boolean>;
+  /** 打开设置抽屉 */
+  openSettingDrawer(): void;
+  /** 关闭设置抽屉 */
+  closeSettingDrawer(): void;
+  /** 切换抽屉可见状态 */
+  toggleSettingdrawerVisible(): void;
 }
 
 export const useAppStore = defineStore('app-store', () => {
   // 重新加载页面
   const { reloadFlag, handleReload } = useReload();
 
+  // 设置抽屉
+  const {
+    bool: settingDrawerVisible,
+    setTrue: openSettingDrawer,
+    setFalse: closeSettingDrawer,
+    toggle: toggleSettingdrawerVisible
+  } = useBoolean();
+
   const appStore: AppStore = {
     reloadFlag,
-    handleReload
+    handleReload,
+    settingDrawerVisible,
+    openSettingDrawer,
+    closeSettingDrawer,
+    toggleSettingdrawerVisible
   };
 
   return appStore;
