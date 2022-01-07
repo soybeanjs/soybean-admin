@@ -3,10 +3,9 @@ import type { Ref, ComputedRef } from 'vue';
 import { defineStore } from 'pinia';
 import { useThemeVars, darkTheme, useOsTheme } from 'naive-ui';
 import type { GlobalThemeOverrides, GlobalTheme } from 'naive-ui';
-import { kebabCase } from 'lodash-es';
 import { useBoolean } from '@/hooks';
 import { getColorPalette } from '@/utils';
-import { getThemeColors, handleWindicssDarkMode } from './helpers';
+import { getNaiveThemeOverrides, addThemeCssVarsToHtml, handleWindicssDarkMode } from './helpers';
 
 interface OtherColor {
   /** 信息 */
@@ -38,8 +37,6 @@ interface ThemeStore {
   naiveTheme: ComputedRef<BuiltInGlobalTheme | undefined>;
 }
 
-type ThemeVarsKeys = keyof Exclude<GlobalThemeOverrides['common'], undefined>;
-
 export const useThemeStore = defineStore('theme-store', () => {
   const themeVars = useThemeVars();
   const { bool: darkMode, setBool: setDarkMode, toggle: toggleDarkMode } = useBoolean();
@@ -53,27 +50,9 @@ export const useThemeStore = defineStore('theme-store', () => {
     error: '#f5222d'
   }));
 
-  const naiveThemeOverrides = computed<GlobalThemeOverrides>(() => {
-    const { info, success, warning, error } = otherColor.value;
-    const themeColors = getThemeColors([
-      ['primary', themeColor.value],
-      ['info', info],
-      ['success', success],
-      ['warning', warning],
-      ['error', error]
-    ]);
-
-    const colorLoading = themeColor.value;
-
-    return {
-      common: {
-        ...themeColors
-      },
-      LoadingBar: {
-        colorLoading
-      }
-    };
-  });
+  const naiveThemeOverrides = computed<GlobalThemeOverrides>(() =>
+    getNaiveThemeOverrides({ primary: themeColor.value, ...otherColor.value })
+  );
 
   /** naive-ui暗黑主题 */
   const naiveTheme = computed(() => (darkMode.value ? darkTheme : undefined));
@@ -81,22 +60,14 @@ export const useThemeStore = defineStore('theme-store', () => {
   /** 操作系统暗黑主题 */
   const osTheme = useOsTheme();
 
-  /** 添加css vars至html */
-  function addThemeCssVarsToHtml() {
-    if (document.documentElement.style.cssText) return;
-
+  /** 初始化css vars, 并添加至html */
+  function initThemeCssVars() {
     const updatedThemeVars = { ...themeVars.value, ...naiveThemeOverrides.value.common };
-    const keys = Object.keys(updatedThemeVars) as ThemeVarsKeys[];
-    const style: string[] = [];
-    keys.forEach(key => {
-      style.push(`--${kebabCase(key)}: ${updatedThemeVars[key]}`);
-    });
-    const styleStr = style.join(';');
-    document.documentElement.style.cssText = styleStr;
+    addThemeCssVarsToHtml(updatedThemeVars);
   }
 
   function init() {
-    addThemeCssVarsToHtml();
+    initThemeCssVars();
   }
 
   init();

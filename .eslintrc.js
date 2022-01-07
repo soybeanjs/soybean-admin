@@ -122,6 +122,11 @@ module.exports = {
             position: 'before'
           },
           {
+            pattern: '@/**',
+            group: 'internal',
+            position: 'before'
+          },
+          {
             pattern: '@/interface',
             group: 'internal',
             position: 'before'

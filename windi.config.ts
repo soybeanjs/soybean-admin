@@ -40,6 +40,7 @@ export default defineConfig({
     'fixed-center': 'fixed left-0 top-0 flex-center wh-full',
     'nowrap-hidden': 'whitespace-nowrap overflow-hidden',
     'ellipsis-text': 'nowrap-hidden overflow-ellipsis',
+    'transition-base': 'transition-all duration-300 ease-in-out',
     'init-loading-spin': 'w-16px h-16px bg-primary rounded-8px animate-pulse'
   },
   theme: {
