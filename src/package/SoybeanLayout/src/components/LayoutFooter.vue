@@ -1,7 +1,7 @@
 <template>
-  <header class="soybean-layout__footer" :style="style">
+  <footer class="soybean-layout__footer" :style="style">
     <slot></slot>
-  </header>
+  </footer>
 </template>
 
 <script setup lang="ts">

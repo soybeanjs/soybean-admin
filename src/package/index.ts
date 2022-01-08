@@ -1,3 +1,3 @@
-import SoybeanLayout from './SoybeanLayout/index.vue';
+import SoybeanLayout from './SoybeanLayout';
 
 export { SoybeanLayout };

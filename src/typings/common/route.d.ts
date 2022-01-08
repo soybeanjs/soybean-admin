@@ -30,12 +30,12 @@ declare namespace AuthRoute {
 
   /**
    * 路由的组件
-   * - layout - 基础布局，具有公共部分的布局
+   * - basic - 基础布局，具有公共部分的布局
    * - blank - 空白布局
    * - multi - 多级路由布局(三级路由或三级以上时，除第一级路由和最后一级路由，其余的采用该布局)
    * - self - 作为子路由，使用自身的布局(作为最后一级路由，没有子路由)
    */
-  type RouteComponent = 'layout' | 'blank' | 'multi' | 'self';
+  type RouteComponent = 'basic' | 'blank' | 'multi' | 'self';
 
   /** 路由描述 */
   type RouteMeta = {
@@ -44,15 +44,13 @@ declare namespace AuthRoute {
     /** 路由的动态路径 */
     dynamicPath?: PathToDynamicPath<'/login'>;
     /** 作为单独路由的父级路由布局组件 */
-    singleLayout?: Extract<RouteComponent, 'layout' | 'blank'>;
+    singleLayout?: Extract<RouteComponent, 'basic' | 'blank'>;
     /** 需要登录权限 */
     requiresAuth?: boolean;
     /** 哪些类型的用户有权限才能访问的路由 */
     permissions?: Auth.RoleType[];
     /** 缓存页面 */
     keepAlive?: boolean;
-    /** 是否是空白布局 */
-    blankLayout?: boolean;
     /** 菜单和面包屑对应的图标 */
     icon?: string;
     /** 是否在菜单中隐藏 */
@@ -73,7 +71,7 @@ declare namespace AuthRoute {
     redirect?: RoutePath;
     /**
      * 路由组件
-     * - layout: 基础布局，具有公共部分的布局
+     * - basic: 基础布局，具有公共部分的布局
      * - blank: 空白布局
      * - multi: 多级路由布局(三级路由或三级以上时，除第一级路由和最后一级路由，其余的采用该布局)
      * - self: 作为子路由，使用自身的布局(作为最后一级路由，没有子路由)

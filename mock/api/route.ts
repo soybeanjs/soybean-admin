@@ -4,7 +4,7 @@ const routes: AuthRoute.Route[] = [
   {
     name: 'dashboard',
     path: '/dashboard',
-    component: 'layout',
+    component: 'basic',
     children: [
       {
         name: 'dashboard_analysis',
@@ -36,7 +36,7 @@ const routes: AuthRoute.Route[] = [
     component: 'self',
     meta: {
       title: '关于',
-      singleLayout: 'layout',
+      singleLayout: 'basic',
       permissions: ['super', 'admin', 'test'],
       icon: 'fluent:book-information-24-regular'
     }
@@ -44,7 +44,7 @@ const routes: AuthRoute.Route[] = [
   {
     name: 'multi-menu',
     path: '/multi-menu',
-    component: 'layout',
+    component: 'basic',
     children: [
       {
         name: 'multi-menu_first',

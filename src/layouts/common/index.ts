@@ -1,4 +1,8 @@
 import SettingDrawer from './SettingDrawer/index.vue';
+import GlobalHeader from './GlobalHeader/index.vue';
+import GlobalTab from './GlobalTab/index.vue';
+import GlobalSider from './GlobalSider/index.vue';
 import GlobalContent from './GlobalContent/index.vue';
+import GlobalFooter from './GlobalFooter/index.vue';
 
-export { SettingDrawer, GlobalContent };
+export { SettingDrawer, GlobalHeader, GlobalTab, GlobalSider, GlobalContent, GlobalFooter };

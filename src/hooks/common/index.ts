@@ -3,5 +3,6 @@ import useBoolean from './useBoolean';
 import useLoading from './useLoading';
 import useLoadingEmpty from './useLoadingEmpty';
 import useReload from './useReload';
+import useModalVisible from './useModalVisible';
 
-export { useContext, useBoolean, useLoading, useLoadingEmpty, useReload };
+export { useContext, useBoolean, useLoading, useLoadingEmpty, useReload, useModalVisible };

@@ -1,7 +1,7 @@
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { routeName } from '@/router';
 import { useAuthStore, useRouteStore } from '@/store';
-import { exeStrategyActions } from '@/utils';
+import { exeStrategyActions, getToken } from '@/utils';
 
 /** 处理路由页面的权限 */
 export async function handlePagePermission(
@@ -14,6 +14,7 @@ export async function handlePagePermission(
   const route = useRouteStore();
   const { initDynamicRoute } = useRouteStore();
 
+  const isLogin = Boolean(getToken());
   const permissions = to.meta.permissions || [];
   const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
   const hasPermission = !permissions.length || permissions.includes(auth.userInfo.userRole);
@@ -38,7 +39,7 @@ export async function handlePagePermission(
   const actions: Common.StrategyAction[] = [
     // 已登录状态跳转登录页，跳转至首页
     [
-      auth.isLogin && to.name === routeName('login'),
+      isLogin && to.name === routeName('login'),
       () => {
         next({ name: routeName('root') });
       }
@@ -52,7 +53,7 @@ export async function handlePagePermission(
     ],
     // 未登录状态进入需要登录权限的页面
     [
-      !auth.isLogin && needLogin,
+      !isLogin && needLogin,
       () => {
         const redirect = to.fullPath;
         next({ name: routeName('login'), query: { redirect } });
@@ -60,14 +61,14 @@ export async function handlePagePermission(
     ],
     // 登录状态进入需要登录权限的页面，有权限直接通行
     [
-      auth.isLogin && needLogin && hasPermission,
+      isLogin && needLogin && hasPermission,
       () => {
         next();
       }
     ],
     [
       // 登录状态进入需要登录权限的页面，无权限，重定向到无权限页面
-      auth.isLogin && needLogin && !hasPermission,
+      isLogin && needLogin && !hasPermission,
       () => {
         next({ name: routeName('no-permission') });
       }

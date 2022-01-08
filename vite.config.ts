@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'url';
 import { defineConfig, loadEnv } from 'vite';
-import { setupVitePlugins } from './build';
+import { setupVitePlugins, define } from './build';
 
 export default defineConfig(configEnv => {
   const viteEnv = loadEnv(configEnv.mode, `.env.${configEnv.mode}`);
@@ -13,6 +13,7 @@ export default defineConfig(configEnv => {
         '~': fileURLToPath(new URL('./', import.meta.url))
       }
     },
+    define,
     plugins: setupVitePlugins(configEnv),
     css: {
       preprocessorOptions: {

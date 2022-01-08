@@ -41,6 +41,7 @@ export default defineConfig({
     'nowrap-hidden': 'whitespace-nowrap overflow-hidden',
     'ellipsis-text': 'nowrap-hidden overflow-ellipsis',
     'transition-base': 'transition-all duration-300 ease-in-out',
+    // 'dark-transition': "",
     'init-loading-spin': 'w-16px h-16px bg-primary rounded-8px animate-pulse'
   },
   theme: {
@@ -66,6 +67,14 @@ export default defineConfig({
         'error-hover': 'var(--error-color-hover)',
         'error-pressed': 'var(--error-color-pressed)',
         'error-active': 'var(--error-color-active)'
+      },
+      backgroundColor: {
+        dark: '#18181c',
+        'dark-base': '#101014'
+      },
+      textColor: {
+        'black-base': '#333639',
+        'white-base': 'rgba(255, 255, 255, 0.82)'
       },
       transitionProperty: ['padding-left']
     }

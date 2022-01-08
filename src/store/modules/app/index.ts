@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
-import { useReload, useBoolean } from '@/hooks';
+import { useReload, useModalVisible, useBoolean } from '@/hooks';
 
 interface AppStore {
   /** 重载页面的标志 */
@@ -18,6 +18,14 @@ interface AppStore {
   closeSettingDrawer(): void;
   /** 切换抽屉可见状态 */
   toggleSettingdrawerVisible(): void;
+  /** 侧边栏折叠状态 */
+  siderCollapse: Ref<boolean>;
+  /** 设置侧边栏折叠状态 */
+  setSiderCollapse(collapse: boolean): void;
+  /** vertical-mix模式下 侧边栏的固定状态 */
+  mixSiderFixed: Ref<boolean>;
+  /** 设置 vertical-mix模式下 侧边栏的固定状态 */
+  setMixSiderIsFixed(isFixed: boolean): void;
 }
 
 export const useAppStore = defineStore('app-store', () => {
@@ -26,11 +34,17 @@ export const useAppStore = defineStore('app-store', () => {
 
   // 设置抽屉
   const {
-    bool: settingDrawerVisible,
-    setTrue: openSettingDrawer,
-    setFalse: closeSettingDrawer,
-    toggle: toggleSettingdrawerVisible
-  } = useBoolean();
+    visible: settingDrawerVisible,
+    openModal: openSettingDrawer,
+    closeModal: closeSettingDrawer,
+    toggleModal: toggleSettingdrawerVisible
+  } = useModalVisible();
+
+  // 侧边栏的折叠状态
+  const { bool: siderCollapse, setBool: setSiderCollapse } = useBoolean();
+
+  // vertical-mix模式下 侧边栏的固定状态
+  const { bool: mixSiderFixed, setBool: setMixSiderIsFixed } = useBoolean();
 
   const appStore: AppStore = {
     reloadFlag,
@@ -38,7 +52,11 @@ export const useAppStore = defineStore('app-store', () => {
     settingDrawerVisible,
     openSettingDrawer,
     closeSettingDrawer,
-    toggleSettingdrawerVisible
+    toggleSettingdrawerVisible,
+    siderCollapse,
+    setSiderCollapse,
+    mixSiderFixed,
+    setMixSiderIsFixed
   };
 
   return appStore;

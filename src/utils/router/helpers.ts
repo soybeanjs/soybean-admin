@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { Layout } from '@/layouts';
+import { BasicLayout, BlankLayout } from '@/layouts';
 import { consoleError } from '../common';
 import { getViewComponent } from './component';
 
@@ -30,14 +30,11 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
 
   if (hasComponent(item)) {
     const action: ComponentAction = {
-      layout() {
-        itemRoute.component = Layout;
+      basic() {
+        itemRoute.component = BasicLayout;
       },
       blank() {
-        itemRoute.component = Layout;
-        if (itemRoute.meta) {
-          itemRoute.meta.blankLayout = true;
-        }
+        itemRoute.component = BlankLayout;
       },
       multi() {
         // 多级路由一定有子路由
@@ -77,13 +74,11 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
     } else {
       const parentPath = `${itemRoute.path}-parent` as AuthRoute.SingleRouteParentPath;
 
-      if (item.meta.singleLayout === 'blank') {
-        itemRoute.meta!.blankLayout = true;
-      }
+      const layout = item.meta.singleLayout === 'basic' ? BasicLayout : BlankLayout;
 
       const parentRoute: RouteRecordRaw = {
         path: parentPath,
-        component: Layout,
+        component: layout,
         redirect: item.path,
         children: [itemRoute]
       };

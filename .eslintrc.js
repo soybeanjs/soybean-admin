@@ -57,6 +57,11 @@ module.exports = {
             position: 'before'
           },
           {
+            pattern: '@/settings',
+            group: 'internal',
+            position: 'before'
+          },
+          {
             pattern: '@/enum',
             group: 'internal',
             position: 'before'
