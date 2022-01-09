@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[120%]">
+  <div>
     <h3>DashboardAnalysis</h3>
     <router-link to="/about">about</router-link>
     <router-link to="/dashboard/workbench">workbench</router-link>

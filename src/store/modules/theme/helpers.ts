@@ -63,14 +63,27 @@ type ThemeVars = Exclude<GlobalThemeOverrides['common'], undefined>;
 type ThemeVarsKeys = keyof ThemeVars;
 
 /** 添加css vars至html */
-export function addThemeCssVarsToHtml(themeVars: ThemeVars) {
+export function addThemeCssVarsToHtml(themeVars: ThemeVars, action: 'add' | 'update' = 'add') {
   const keys = Object.keys(themeVars) as ThemeVarsKeys[];
   const style: string[] = [];
   keys.forEach(key => {
     style.push(`--${kebabCase(key)}: ${themeVars[key]}`);
   });
   const styleStr = style.join(';');
-  document.documentElement.style.cssText = styleStr;
+  if (action === 'add') {
+    document.documentElement.style.cssText = styleStr;
+  } else {
+    document.documentElement.style.cssText += styleStr;
+  }
+}
+
+/**
+ * 根据主题颜色更新css vars
+ * @param primaryColor
+ */
+export function updateThemeCssVarsByPrimary(primaryColor: string) {
+  const themeColor = getThemeColors([['primary', primaryColor]]);
+  addThemeCssVarsToHtml(themeColor, 'update');
 }
 
 /** windicss 暗黑模式 */

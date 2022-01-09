@@ -1,4 +1,4 @@
-import { EnumThemeTabMode, EnumThemeHorizontalMenuPosition, EnumThemeAnimateMode } from '@/enum';
+import { EnumThemeLayoutMode, EnumThemeTabMode, EnumThemeHorizontalMenuPosition, EnumThemeAnimateMode } from '@/enum';
 import type { ThemeLayoutMode, ThemeTabMode, ThemeHorizontalMenuPosition, ThemeAnimateMode } from './enum';
 
 /** 主题相关类型 */
@@ -37,6 +37,12 @@ interface ThemeLayout {
   minWidth: number;
   /** 布局模式 */
   mode: ThemeLayoutMode;
+  /** 布局模式列表 */
+  modeList: ThemeLayoutModeList[];
+}
+interface ThemeLayoutModeList {
+  value: ThemeLayoutMode;
+  label: EnumThemeLayoutMode;
 }
 
 /** 其他主题颜色 */

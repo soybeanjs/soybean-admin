@@ -4,7 +4,7 @@ import { useOsTheme } from 'naive-ui';
 import { useElementSize } from '@vueuse/core';
 import { objectAssign } from '@/utils';
 import type { ThemeSetting, ThemeLayoutMode, ThemeTabMode, ThemeAnimateMode } from '@/interface';
-import { handleWindicssDarkMode } from './helpers';
+import { handleWindicssDarkMode, updateThemeCssVarsByPrimary } from './helpers';
 
 export interface LayoutFunc {
   /** 设置布局最小宽度 */
@@ -247,6 +247,19 @@ export function setupHiddenScroll(minWidthOfLayout: ComputedRef<number>) {
     }
   });
 
+  onUnmounted(() => {
+    stopHandle();
+  });
+}
+
+/**
+ * 监听主题颜色的变化
+ * @param themeColor
+ */
+export function themeColorWatcher(themeColor: Ref<string>) {
+  const stopHandle = watch(themeColor, newValue => {
+    updateThemeCssVarsByPrimary(newValue);
+  });
   onUnmounted(() => {
     stopHandle();
   });

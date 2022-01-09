@@ -1,14 +1,15 @@
-import { EnumThemeTabMode, EnumThemeHorizontalMenuPosition, EnumThemeAnimateMode } from '@/enum';
+import { EnumThemeLayoutMode, EnumThemeTabMode, EnumThemeHorizontalMenuPosition, EnumThemeAnimateMode } from '@/enum';
 import type { ThemeSetting } from '@/interface';
 
 const themeColorList = [
-  '#409EFF',
-  '#2d8cf0',
-  '#0960bd',
+  '#1890ff',
   '#009688',
   '#536dfe',
+  '#409EFF',
   '#ff5c93',
+  '#0960bd',
   '#ee4f12',
+  '#2d8cf0',
   '#0096c7',
   '#9c27b0',
   '#ff9800',
@@ -18,7 +19,7 @@ const themeColorList = [
   '#171010',
   '#78DEC7',
   '#1768AC',
-  '#FB9300',
+  '#fadb14',
   '#FC5404'
 ];
 
@@ -26,15 +27,21 @@ const defaultThemeSetting: ThemeSetting = {
   darkMode: false,
   layout: {
     minWidth: 900,
-    mode: 'vertical'
+    mode: 'vertical',
+    modeList: [
+      { value: 'vertical', label: EnumThemeLayoutMode.vertical },
+      { value: 'vertical-mix', label: EnumThemeLayoutMode['vertical-mix'] },
+      { value: 'horizontal', label: EnumThemeLayoutMode.horizontal },
+      { value: 'horizontal-mix', label: EnumThemeLayoutMode['horizontal-mix'] }
+    ]
   },
   themeColor: themeColorList[0],
   themeColorList,
   otherColor: {
     info: '#2080f0',
-    success: '#67C23A',
-    warning: '#E6A23C',
-    error: '#F56C6C'
+    success: '#52c41a',
+    warning: '#faad14',
+    error: '#f5222d'
   },
   fixedHeaderAndTab: true,
   showReload: true,

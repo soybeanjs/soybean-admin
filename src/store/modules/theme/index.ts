@@ -17,7 +17,8 @@ import {
   usePageFunc,
   osThemeWatcher,
   setupWindicssDarkMode,
-  setupHiddenScroll
+  setupHiddenScroll,
+  themeColorWatcher
 } from './hooks';
 import type { LayoutFunc, HeaderFunc, TabFunc, SiderFunc, FooterFunc, PageFunc } from './hooks';
 
@@ -169,6 +170,7 @@ export const useThemeStore = defineStore('theme-store', () => {
     handleAdaptOsTheme();
     setupWindicssDarkMode(darkMode);
     setupHiddenScroll(computed(() => layout.minWidth));
+    themeColorWatcher(themeColor);
   }
 
   init();
