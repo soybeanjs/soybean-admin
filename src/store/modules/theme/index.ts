@@ -67,6 +67,8 @@ interface ThemeStore extends LayoutFunc, HeaderFunc, TabFunc, SiderFunc, FooterF
   naiveThemeOverrides: ComputedRef<GlobalThemeOverrides>;
   /** naive-ui暗黑主题 */
   naiveTheme: ComputedRef<BuiltInGlobalTheme | undefined>;
+  /** 重置状态 */
+  resetThemeStore(): void;
 }
 
 export const useThemeStore = defineStore('theme-store', () => {
@@ -148,6 +150,11 @@ export const useThemeStore = defineStore('theme-store', () => {
   );
   const naiveTheme = computed(() => (darkMode.value ? darkTheme : undefined));
 
+  /** 重置theme状态 */
+  function resetThemeStore() {
+    setDarkMode(false);
+  }
+
   /** 初始化css vars, 并添加至html */
   function initThemeCssVars() {
     const updatedThemeVars = { ...naiveThemeOverrides.value.common };
@@ -214,7 +221,8 @@ export const useThemeStore = defineStore('theme-store', () => {
     setPageIsAnimate,
     setPageAnimateMode,
     naiveThemeOverrides,
-    naiveTheme
+    naiveTheme,
+    resetThemeStore
   };
 
   return themeStore;

@@ -32,7 +32,6 @@ interface AuthStore {
 
 export const useAuthStore = defineStore('auth-store', () => {
   const { toLogin, toLoginRedirect } = useRouterPush(false);
-  const { loading: loginLoding, startLoading: startLoginLoading, endLoading: endLoginLoading } = useLoading();
 
   const userInfo: Auth.UserInfo = reactive(getUserInfo());
   function handleSetUserInfo(data: Auth.UserInfo) {
@@ -46,12 +45,18 @@ export const useAuthStore = defineStore('auth-store', () => {
 
   const isLogin = computed(() => Boolean(token.value));
 
+  const { loading: loginLoding, startLoading: startLoginLoading, endLoading: endLoginLoading } = useLoading();
+
+  function resetStore() {
+    handleSetUserInfo(getUserInfo());
+    handleSetToken(getToken());
+  }
+
   function resetAuthStore(pushRoute: boolean = true) {
-    const auth = useAuthStore();
     const route = unref(globalRouter.currentRoute);
 
     clearAuthStorage();
-    auth.$reset();
+    resetStore();
 
     if (pushRoute && route.meta.requiresAuth) {
       toLogin();

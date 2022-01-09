@@ -1,0 +1,52 @@
+<template>
+  <n-divider title-placement="center">界面显示</n-divider>
+  <n-space vertical size="large">
+    <setting-menu label="面包屑">
+      <n-switch :value="theme.header.crumb.visible" @update:value="setHeaderCrumbVisible" />
+    </setting-menu>
+    <setting-menu label="面包屑图标">
+      <n-switch :value="theme.header.crumb.showIcon" @update:value="setHeaderCrumbIconVisible" />
+    </setting-menu>
+    <setting-menu label="多页签">
+      <n-switch :value="theme.tab.visible" @update:value="setTabVisible" />
+    </setting-menu>
+    <setting-menu label="多页签风格">
+      <n-select
+        class="w-120px"
+        size="small"
+        :value="theme.tab.mode"
+        :options="theme.tab.modeList"
+        @update:value="setTabMode"
+      />
+    </setting-menu>
+    <setting-menu label="页面切换动画">
+      <n-switch :value="theme.page.animate" @update:value="setPageIsAnimate" />
+    </setting-menu>
+    <setting-menu label="页面切换动画类型">
+      <n-select
+        class="w-120px"
+        size="small"
+        :value="theme.page.animateMode"
+        :options="theme.page.animateModeList"
+        @update:value="setPageAnimateMode"
+      />
+    </setting-menu>
+  </n-space>
+</template>
+
+<script lang="ts" setup>
+import { NDivider, NSpace, NSwitch, NSelect } from 'naive-ui';
+import { useThemeStore } from '@/store';
+import SettingMenu from '../SettingMenu/index.vue';
+
+const theme = useThemeStore();
+const {
+  setHeaderCrumbVisible,
+  setHeaderCrumbIconVisible,
+  setTabVisible,
+  setTabMode,
+  setPageIsAnimate,
+  setPageAnimateMode
+} = useThemeStore();
+</script>
+<style scoped></style>

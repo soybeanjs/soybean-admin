@@ -15,6 +15,7 @@ specifiers:
   '@vue/eslint-config-typescript': ^10.0.0
   '@vueuse/core': ^7.5.3
   axios: ^0.24.0
+  clipboard: ^2.0.8
   colord: ^2.9.2
   commitizen: ^4.2.4
   cross-env: ^7.0.3
@@ -57,6 +58,7 @@ specifiers:
 dependencies:
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/7.5.3_vue@3.2.26
   axios: registry.npmmirror.com/axios/0.24.0
+  clipboard: registry.npmmirror.com/clipboard/2.0.8
   colord: registry.npmmirror.com/colord/2.9.2
   crypto-js: registry.npmmirror.com/crypto-js/4.1.1
   dayjs: registry.npmmirror.com/dayjs/1.10.7
@@ -711,6 +713,12 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: false
 
+  registry.nlark.com/delegate/3.2.0:
+    resolution: {integrity: sha1-tmtxwxWFIuirV0T3INjKDCr1kWY=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/delegate/download/delegate-3.2.0.tgz}
+    name: delegate
+    version: 3.2.0
+    dev: false
+
   registry.nlark.com/detect-file/1.0.0:
     resolution: {integrity: sha1-8NZtA2cqglyxtzvbP+YjEMjlUrc=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/detect-file/download/detect-file-1.0.0.tgz}
     name: detect-file
@@ -1257,6 +1265,14 @@ packages:
       merge2: registry.nlark.com/merge2/1.4.1
       slash: registry.nlark.com/slash/3.0.0
     dev: true
+
+  registry.nlark.com/good-listener/1.2.2:
+    resolution: {integrity: sha1-1TswzfkxPf+33JoNR3CWqm0UXFA=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/good-listener/download/good-listener-1.2.2.tgz}
+    name: good-listener
+    version: 1.2.2
+    dependencies:
+      delegate: registry.nlark.com/delegate/3.2.0
+    dev: false
 
   registry.nlark.com/hard-rejection/2.1.0:
     resolution: {integrity: sha1-HG7aXBaFxjlCdm15u0Cudzzs2IM=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/hard-rejection/download/hard-rejection-2.1.0.tgz}
@@ -2471,6 +2487,12 @@ packages:
     version: 2.1.2
     dev: true
 
+  registry.nlark.com/select/1.1.2:
+    resolution: {integrity: sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/select/download/select-1.1.2.tgz}
+    name: select
+    version: 1.1.2
+    dev: false
+
   registry.nlark.com/semver/5.7.1:
     resolution: {integrity: sha1-qVT5Ma66UI0we78Gnv8MAclhFvc=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/semver/download/semver-5.7.1.tgz?cache=0&sync_timestamp=1631500167672&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fsemver%2Fdownload%2Fsemver-5.7.1.tgz}
     name: semver
@@ -2744,6 +2766,12 @@ packages:
     dependencies:
       readable-stream: registry.nlark.com/readable-stream/3.6.0
     dev: true
+
+  registry.nlark.com/tiny-emitter/2.1.0:
+    resolution: {integrity: sha1-HRpW7fxRxD6GPLtTgqcjMONVVCM=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/tiny-emitter/download/tiny-emitter-2.1.0.tgz}
+    name: tiny-emitter
+    version: 2.1.0
+    dev: false
 
   registry.nlark.com/tmp/0.0.33:
     resolution: {integrity: sha1-bTQzWIl2jSGyvNoKonfO07G/rfk=, registry: http://registry.npm.taobao.org/, tarball: https://registry.nlark.com/tmp/download/tmp-0.0.33.tgz}
@@ -4226,6 +4254,16 @@ packages:
       slice-ansi: registry.nlark.com/slice-ansi/5.0.0
       string-width: registry.npmmirror.com/string-width/5.0.1
     dev: true
+
+  registry.npmmirror.com/clipboard/2.0.8:
+    resolution: {integrity: sha512-Y6WO0unAIQp5bLmk1zdThRhgJt/x3ks6f30s3oE3H1mgIEU33XyQjEf8gsf6DxC7NPX8Y1SsNWjUjL/ywLnnbQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/clipboard/download/clipboard-2.0.8.tgz}
+    name: clipboard
+    version: 2.0.8
+    dependencies:
+      good-listener: registry.nlark.com/good-listener/1.2.2
+      select: registry.nlark.com/select/1.1.2
+      tiny-emitter: registry.nlark.com/tiny-emitter/2.1.0
+    dev: false
 
   registry.npmmirror.com/color-convert/1.9.3:
     resolution: {integrity: sha1-u3GFBpDh8TZWfeYp0tVHHe2kweg=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/color-convert/download/color-convert-1.9.3.tgz}

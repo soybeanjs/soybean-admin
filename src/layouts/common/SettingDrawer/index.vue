@@ -4,6 +4,9 @@
       <dark-mode />
       <layout-mode />
       <theme-color-select />
+      <page-func />
+      <page-view />
+      <theme-config />
     </n-drawer-content>
   </n-drawer>
   <drawer-button />
@@ -12,7 +15,7 @@
 <script setup lang="ts">
 import { NDrawer, NDrawerContent } from 'naive-ui';
 import { useAppStore } from '@/store';
-import { DrawerButton, DarkMode, LayoutMode, ThemeColorSelect } from './components';
+import { DrawerButton, DarkMode, LayoutMode, ThemeColorSelect, PageFunc, PageView, ThemeConfig } from './components';
 
 const app = useAppStore();
 </script>
