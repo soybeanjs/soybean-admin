@@ -8,11 +8,11 @@
     :sider-visible="siderVisible"
     :sider-width="siderWidth"
     :sider-collapsed-width="siderCollapsedWidth"
-    :sider-collapse="false"
+    :sider-collapse="app.siderCollapse"
     :fixed-footer="theme.footer.fixed"
   >
     <template #header>
-      <global-header />
+      <global-header v-bind="headerProps" />
     </template>
     <template #tab>
       <global-tab />
@@ -29,41 +29,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useAppStore, useThemeStore } from '@/store';
+import { useBasicLayout } from '@/composables';
 import { SoybeanLayout } from '@/package';
 import { SettingDrawer, GlobalHeader, GlobalTab, GlobalSider, GlobalContent, GlobalFooter } from '../common';
 
 const app = useAppStore();
 const theme = useThemeStore();
 
-const siderVisible = computed(() => theme.layout.mode !== 'horizontal');
-
-type LayoutMode = 'vertical' | 'horizontal';
-const mode = computed(() => {
-  const vertical: LayoutMode = 'vertical';
-  const horizontal: LayoutMode = 'horizontal';
-  return theme.layout.mode.includes(vertical) ? vertical : horizontal;
-});
-
-const siderWidth = computed(() => {
-  const { width, mixWidth, mixChildMenuWidth } = theme.sider;
-  const isVerticalMix = theme.layout.mode === 'vertical-mix';
-  let w = isVerticalMix ? mixWidth : width;
-  if (isVerticalMix && app.mixSiderFixed) {
-    w += mixChildMenuWidth;
-  }
-  return w;
-});
-
-const siderCollapsedWidth = computed(() => {
-  const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = theme.sider;
-  const isVerticalMix = theme.layout.mode === 'vertical-mix';
-  let w = isVerticalMix ? mixCollapsedWidth : collapsedWidth;
-  if (isVerticalMix && app.mixSiderFixed) {
-    w += mixChildMenuWidth;
-  }
-  return w;
-});
+const { mode, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
 </script>
 <style scoped></style>

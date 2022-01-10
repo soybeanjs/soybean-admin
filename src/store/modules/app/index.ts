@@ -20,6 +20,8 @@ interface AppStore {
   toggleSettingdrawerVisible(): void;
   /** 侧边栏折叠状态 */
   siderCollapse: Ref<boolean>;
+  /** 折叠/展开 侧边栏折叠状态 */
+  toggleSiderCollapse(): void;
   /** 设置侧边栏折叠状态 */
   setSiderCollapse(collapse: boolean): void;
   /** vertical-mix模式下 侧边栏的固定状态 */
@@ -41,7 +43,7 @@ export const useAppStore = defineStore('app-store', () => {
   } = useModalVisible();
 
   // 侧边栏的折叠状态
-  const { bool: siderCollapse, setBool: setSiderCollapse } = useBoolean();
+  const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean();
 
   // vertical-mix模式下 侧边栏的固定状态
   const { bool: mixSiderFixed, setBool: setMixSiderIsFixed } = useBoolean();
@@ -55,6 +57,7 @@ export const useAppStore = defineStore('app-store', () => {
     toggleSettingdrawerVisible,
     siderCollapse,
     setSiderCollapse,
+    toggleSiderCollapse,
     mixSiderFixed,
     setMixSiderIsFixed
   };

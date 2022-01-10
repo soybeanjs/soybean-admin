@@ -1,9 +1,32 @@
 <template>
-  <dark-mode-container class="global-header flex-y-center h-full"></dark-mode-container>
+  <dark-mode-container class="global-header flex-y-center h-full">
+    <global-logo v-if="showLogo" :show-title="true" class="h-full" :style="{ width: theme.sider.width + 'px' }" />
+    <div v-if="!showHeaderMenu" class="flex-1-hidden flex-y-center h-full">
+      <menu-collapse v-if="showMenuCollape" />
+      <!-- <global-breadcrumb v-if="theme.header.crumb.visible" /> -->
+    </div>
+  </dark-mode-container>
 </template>
 
 <script setup lang="ts">
 import { DarkModeContainer } from '@/components';
+import { useThemeStore } from '@/store';
+import type { GlobalHeaderProps } from '@/interface';
+import GlobalLogo from '../GlobalLogo/index.vue';
+import { MenuCollapse } from './components';
+
+interface Props {
+  /** 显示logo */
+  showLogo: GlobalHeaderProps['showLogo'];
+  /** 显示头部菜单 */
+  showHeaderMenu: GlobalHeaderProps['showHeaderMenu'];
+  /** 显示菜单折叠按钮 */
+  showMenuCollape: GlobalHeaderProps['showMenuCollape'];
+}
+
+defineProps<Props>();
+
+const theme = useThemeStore();
 </script>
 <style scoped>
 .global-header {
