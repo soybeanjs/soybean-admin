@@ -1,11 +1,13 @@
 import type { App } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 import { transformAuthRoutesToVueRoutes } from '@/utils';
 import { constantRoutes } from './routes';
 import { createRouterGuard } from './guard';
 
+const createHistoryFunc = import.meta.env.VITE_IS_VERCEL === '1' ? createWebHashHistory : createWebHistory;
+
 export const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createHistoryFunc(import.meta.env.BASE_URL),
   routes: transformAuthRoutesToVueRoutes(constantRoutes),
   scrollBehavior: () => ({ left: 0, top: 0 })
 });

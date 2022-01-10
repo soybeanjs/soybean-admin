@@ -7,6 +7,7 @@
     "typecheck": "vue-tsc --noEmit",
     "build": "npm run typecheck && cross-env VITE_HTTP_ENV=prod vite build",
     "build:test": "npm run typecheck && cross-env VITE_HTTP_ENV=test vite build",
+		"build:vercel": "npm run typecheck && cross-env VITE_HTTP_ENV=prod VITE_IS_VERCEL=1 vite build",
     "preview": "vite preview --port 5050",
     "lint": "eslint --fix ./ --ext .vue,.js,jsx,.ts,tsx",
     "prepare": "husky install",
