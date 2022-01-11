@@ -3,13 +3,11 @@
     <global-logo v-if="showLogo" :show-title="true" class="h-full" :style="{ width: theme.sider.width + 'px' }" />
     <div v-if="!showHeaderMenu" class="flex-1-hidden flex-y-center h-full">
       <menu-collapse v-if="showMenuCollape" />
-      <!-- <global-breadcrumb v-if="theme.header.crumb.visible" /> -->
+      <global-breadcrumb v-if="theme.header.crumb.visible" />
     </div>
-    <div
-      v-else
-      class="flex-1-hidden flex-y-center h-full"
-      :style="{ justifyContent: theme.menu.horizontalPosition }"
-    ></div>
+    <div v-else class="flex-1-hidden flex-y-center h-full" :style="{ justifyContent: theme.menu.horizontalPosition }">
+      <header-menu />
+    </div>
     <div class="flex justify-end h-full">
       <github-site />
       <full-screen />
@@ -24,7 +22,15 @@ import { DarkModeContainer } from '@/components';
 import { useThemeStore } from '@/store';
 import type { GlobalHeaderProps } from '@/interface';
 import GlobalLogo from '../GlobalLogo/index.vue';
-import { MenuCollapse, GithubSite, FullScreen, ThemeMode, UserAvatar } from './components';
+import {
+  MenuCollapse,
+  GlobalBreadcrumb,
+  HeaderMenu,
+  GithubSite,
+  FullScreen,
+  ThemeMode,
+  UserAvatar
+} from './components';
 
 interface Props {
   /** 显示logo */

@@ -54,7 +54,7 @@ export const constantRoutes: AuthRoute.Route[] = [
       singleLayout: 'blank'
     }
   },
-  // 匹配无效的路径重定向not-found的页面
+  // 匹配无效路径的路由
   {
     name: 'not-found-page',
     path: '/:pathMatch(.*)*',
