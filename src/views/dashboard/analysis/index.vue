@@ -1,10 +1,13 @@
 <template>
-  <div>
-    <h3>DashboardAnalysis</h3>
-    <router-link to="/about">about</router-link>
-    <router-link to="/dashboard/workbench">workbench</router-link>
-  </div>
+  <n-space :vertical="true" :size="16">
+    <top-chart />
+    <data-card />
+    <bottom-part />
+  </n-space>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import { NSpace } from 'naive-ui';
+import { TopChart, DataCard, BottomPart } from './components';
+</script>
 <style scoped></style>

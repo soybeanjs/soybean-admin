@@ -30,7 +30,7 @@ interface ThemeStore extends LayoutFunc, HeaderFunc, TabFunc, SiderFunc, FooterF
   /** 设置暗黑模式 */
   setDarkMode(dark: boolean): void;
   /** 切换/关闭 暗黑模式 */
-  toggleDarkMode(dark: boolean): void;
+  toggleDarkMode(): void;
   /** 布局样式 */
   layout: ThemeSetting['layout'];
   /** 主题颜色 */

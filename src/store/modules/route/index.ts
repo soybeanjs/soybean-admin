@@ -17,6 +17,8 @@ interface RouteStore {
   isAddedDynamicRoute: Ref<boolean>;
   /** 初始化动态路由 */
   initDynamicRoute(router: Router): Promise<void>;
+  /** 菜单 */
+  menus: Ref<GlobalMenuOption[]>;
 }
 
 export const useRouteStore = defineStore('route-store', () => {
@@ -50,7 +52,8 @@ export const useRouteStore = defineStore('route-store', () => {
     routes,
     setRoutes,
     isAddedDynamicRoute,
-    initDynamicRoute
+    initDynamicRoute,
+    menus
   };
 
   return routeStore;

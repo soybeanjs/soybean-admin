@@ -78,7 +78,7 @@ const defaultThemeSetting: ThemeSetting = {
     ]
   },
   footer: {
-    fixed: true,
+    fixed: false,
     height: 48
   },
   page: {

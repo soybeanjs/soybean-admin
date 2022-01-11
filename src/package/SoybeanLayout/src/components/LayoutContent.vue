@@ -1,5 +1,5 @@
 <template>
-  <main class="soybean-layout__main" :style="style">
+  <main :style="style" class="soybean-layout__main">
     <slot></slot>
   </main>
 </template>

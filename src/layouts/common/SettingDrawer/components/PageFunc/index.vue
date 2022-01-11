@@ -52,6 +52,9 @@
         @update:value="handleSetNumber($event, setMixSiderWidth)"
       />
     </setting-menu>
+    <setting-menu label="固定底部">
+      <n-switch :value="theme.footer.fixed" @update:value="setFooterIsFixed" />
+    </setting-menu>
   </n-space>
 </template>
 
@@ -68,7 +71,8 @@ const {
   setTabHeight,
   setSiderWidth,
   setMixSiderWidth,
-  setTabIsCache
+  setTabIsCache,
+  setFooterIsFixed
 } = useThemeStore();
 
 function handleSetNumber(value: number | null, callback: (value: number) => void) {

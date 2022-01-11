@@ -20,7 +20,7 @@
             <n-list-item v-for="item in activity" :key="item.id">
               <template #prefix>
                 <div class="w-48px h-48px">
-                  <img src="@/assets/svg/avatar/avatar01.svg" alt="" class="wh-full" />
+                  <img src="@/assets/svg/common/avatar01.svg" alt="" class="wh-full" />
                 </div>
               </template>
               <n-thing :title="item.content" :description="item.time" />

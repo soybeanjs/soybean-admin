@@ -27,7 +27,8 @@ const routes: AuthRoute.Route[] = [
     meta: {
       title: '仪表盘',
       requiresAuth: true,
-      icon: 'carbon:dashboard'
+      icon: 'carbon:dashboard',
+      order: 1
     }
   },
   {
@@ -38,7 +39,8 @@ const routes: AuthRoute.Route[] = [
       title: '关于',
       singleLayout: 'basic',
       permissions: ['super', 'admin', 'test'],
-      icon: 'fluent:book-information-24-regular'
+      icon: 'fluent:book-information-24-regular',
+      order: 7
     }
   },
   {
@@ -66,12 +68,20 @@ const routes: AuthRoute.Route[] = [
       }
     ],
     meta: {
-      title: '多级菜单'
+      title: '多级菜单',
+      icon: 'carbon:menu',
+      order: 6
     }
   }
 ];
 
 const routeHome: AuthRoute.RoutePath = '/dashboard/analysis';
+
+function sortRoutes() {
+  routes.sort((next, pre) => Number(next.meta?.order) - Number(pre.meta?.order));
+}
+
+sortRoutes();
 
 const data: ApiRoute.Route = {
   routes,
