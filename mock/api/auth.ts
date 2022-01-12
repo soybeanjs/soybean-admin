@@ -58,6 +58,35 @@ const apis: MockMethod[] = [
         }
       };
     }
+  },
+  {
+    url: '/mock/testToken',
+    method: 'post',
+    response: (option: any): Service.BackendServiceResult<true | null> => {
+      if (option.headers?.authorization !== token.token) {
+        return {
+          code: 66666,
+          message: 'token 失效',
+          data: null
+        };
+      }
+      return {
+        code: 200,
+        message: 'ok',
+        data: true
+      };
+    }
+  },
+  {
+    url: '/mock/updateToken',
+    method: 'post',
+    response: (): Service.BackendServiceResult<string> => {
+      return {
+        code: 200,
+        message: 'ok',
+        data: token.token
+      };
+    }
   }
 ];
 

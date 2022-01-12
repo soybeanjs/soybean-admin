@@ -17,7 +17,8 @@
 			"~/*": ["./*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+		"noEmit": true
   },
   "include": ["vite.config.*", "src/typings/*.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*.ts", "build/**/*.ts", ".env-config.ts"],
 	"exclude": ["/dist/**", "node_modules"]

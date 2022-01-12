@@ -35,3 +35,11 @@ export function fetchUserInfo() {
 export function fetchUserRoutes(userId: string = 'soybean') {
   return mockRequest.post<ApiRoute.Route>('/getUserRoutes', { userId });
 }
+
+export function fetchTestToken() {
+  return mockRequest.post('/testToken', { userName: 'Soybean' });
+}
+
+export function fetchUpdateToken(refreshToken: string) {
+  return mockRequest.post('/updateToken', { refreshToken });
+}

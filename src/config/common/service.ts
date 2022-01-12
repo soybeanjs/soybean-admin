@@ -41,3 +41,6 @@ export const ERROR_STATUS = {
 
 /** 不弹出错误信息的code */
 export const NO_ERROR_MSG_CODE: (string | number)[] = [];
+
+/** token失效需要刷新token的接口 */
+export const REFRESH_TOKEN_CODE: (string | number)[] = [66666];

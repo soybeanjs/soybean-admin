@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosInstance, AxiosError, CancelTokenStatic } from 'axios';
-import { REQUEST_TIMEOUT } from '@/config';
+import { REQUEST_TIMEOUT, REFRESH_TOKEN_CODE } from '@/config';
 import {
   getToken,
   transformRequestData,
@@ -9,6 +9,7 @@ import {
   handleBackendError,
   handleServiceResult
 } from '@/utils';
+import { refreshToken } from './helpers';
 
 /**
  * 封装axios请求类
@@ -51,13 +52,23 @@ export default class CustomAxiosInstance {
       }
     );
     this.instance.interceptors.response.use(
-      response => {
+      async response => {
         const { status } = response;
         if (status === 200 || status < 300 || status === 304) {
           const backend = response.data as Service.BackendServiceResult;
+          // 请求成功
           if (backend.code === this.backendSuccessCode) {
             return handleServiceResult(null, backend.data);
           }
+
+          // token失效, 刷新token
+          if (REFRESH_TOKEN_CODE.includes(backend.code)) {
+            const config = await refreshToken(response.config);
+            if (config) {
+              return this.instance.request(config);
+            }
+          }
+
           const error = handleBackendError(backend);
           return handleServiceResult(error, null);
         }
