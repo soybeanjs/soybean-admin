@@ -13,6 +13,5 @@ export type GlobalBreadcrumb = DropdownOption & {
   disabled: boolean;
   routeName: string;
   hasChildren: boolean;
-  iconName?: string;
   children?: GlobalBreadcrumb[];
 };

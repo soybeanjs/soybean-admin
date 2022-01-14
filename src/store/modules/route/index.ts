@@ -9,10 +9,6 @@ import type { GlobalMenuOption } from '@/interface';
 
 /** 路由状态 */
 interface RouteStore {
-  /** 动态路由 */
-  routes: Ref<AuthRoute.Route[]>;
-  /** 设置动态路由数据 */
-  setRoutes(data: AuthRoute.Route[]): void;
   /** 是否添加过动态路由 */
   isAddedDynamicRoute: Ref<boolean>;
   /** 初始化动态路由 */
@@ -22,11 +18,6 @@ interface RouteStore {
 }
 
 export const useRouteStore = defineStore('route-store', () => {
-  const routes = ref<AuthRoute.Route[]>([]);
-  function setRoutes(data: AuthRoute.Route[]) {
-    routes.value = data;
-  }
-
   const menus = ref<GlobalMenuOption[]>([]) as Ref<GlobalMenuOption[]>;
   function getMenus(data: AuthRoute.Route[]) {
     const transform = transformAuthRouteToMenu(data);
@@ -49,8 +40,6 @@ export const useRouteStore = defineStore('route-store', () => {
   }
 
   const routeStore: RouteStore = {
-    routes,
-    setRoutes,
     isAddedDynamicRoute,
     initDynamicRoute,
     menus
