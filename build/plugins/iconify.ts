@@ -4,6 +4,7 @@ import Components from 'unplugin-vue-components/vite'; // 从指定目录自动�
 
 export default [
   Components({
+    dts: false,
     resolvers: [IconsResolver({ componentPrefix: 'icon' })]
   }),
   Icons({ scale: 1, defaultClass: 'inline-block' })

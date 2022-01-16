@@ -3,7 +3,7 @@
     <dark-mode-switch
       :dark="theme.darkMode"
       class="absolute left-48px top-24px z-3 text-20px"
-      @update:dark="setDarkMode"
+      @update:dark="theme.setDarkMode"
     />
     <n-card :bordered="false" size="large" class="z-4 !w-auto rounded-20px shadow-sm">
       <div class="w-360px">
@@ -53,7 +53,6 @@ interface LoginModule {
 const props = defineProps<Props>();
 
 const theme = useThemeStore();
-const { setDarkMode } = useThemeStore();
 const { title } = useAppInfo();
 
 const modules: LoginModule[] = [

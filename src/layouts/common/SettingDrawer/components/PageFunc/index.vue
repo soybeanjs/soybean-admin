@@ -2,7 +2,7 @@
   <n-divider title-placement="center">界面功能</n-divider>
   <n-space vertical size="large">
     <setting-menu label="固定头部和多页签">
-      <n-switch :value="theme.fixedHeaderAndTab" @update:value="setIsFixedHeaderAndTab" />
+      <n-switch :value="theme.fixedHeaderAndTab" @update:value="theme.setIsFixedHeaderAndTab" />
     </setting-menu>
     <setting-menu label="顶部菜单位置">
       <n-select
@@ -10,7 +10,7 @@
         size="small"
         :value="theme.menu.horizontalPosition"
         :options="theme.menu.horizontalPositionList"
-        @update:value="setHorizontalMenuPosition"
+        @update:value="theme.setHorizontalMenuPosition"
       />
     </setting-menu>
     <setting-menu label="头部高度">
@@ -19,7 +19,7 @@
         size="small"
         :value="theme.header.height"
         :step="1"
-        @update:value="handleSetNumber($event, setHeaderHeight)"
+        @update:value="theme.setHeaderHeight"
       />
     </setting-menu>
     <setting-menu label="多页签高度">
@@ -28,11 +28,11 @@
         size="small"
         :value="theme.tab.height"
         :step="1"
-        @update:value="handleSetNumber($event, setTabHeight)"
+        @update:value="theme.setTabHeight"
       />
     </setting-menu>
     <setting-menu label="多页签缓存">
-      <n-switch :value="theme.tab.isCache" @update:value="setTabIsCache" />
+      <n-switch :value="theme.tab.isCache" @update:value="theme.setTabIsCache" />
     </setting-menu>
     <setting-menu label="侧边栏展开宽度">
       <n-input-number
@@ -40,7 +40,7 @@
         size="small"
         :value="theme.sider.width"
         :step="10"
-        @update:value="handleSetNumber($event, setSiderWidth)"
+        @update:value="theme.setSiderWidth"
       />
     </setting-menu>
     <setting-menu label="左侧混合侧边栏展开宽度">
@@ -49,11 +49,11 @@
         size="small"
         :value="theme.sider.mixWidth"
         :step="5"
-        @update:value="handleSetNumber($event, setMixSiderWidth)"
+        @update:value="theme.setMixSiderWidth"
       />
     </setting-menu>
     <setting-menu label="固定底部">
-      <n-switch :value="theme.footer.fixed" @update:value="setFooterIsFixed" />
+      <n-switch :value="theme.footer.fixed" @update:value="theme.setFooterIsFixed" />
     </setting-menu>
   </n-space>
 </template>
@@ -64,21 +64,5 @@ import { useThemeStore } from '@/store';
 import SettingMenu from '../SettingMenu/index.vue';
 
 const theme = useThemeStore();
-const {
-  setHorizontalMenuPosition,
-  setIsFixedHeaderAndTab,
-  setHeaderHeight,
-  setTabHeight,
-  setSiderWidth,
-  setMixSiderWidth,
-  setTabIsCache,
-  setFooterIsFixed
-} = useThemeStore();
-
-function handleSetNumber(value: number | null, callback: (value: number) => void) {
-  if (value !== null) {
-    callback(value);
-  }
-}
 </script>
 <style scoped></style>

@@ -5,7 +5,7 @@ import { fetchUpdateToken } from '../api';
 
 /**
  * 刷新token
- * token失效时的请求配置
+ * @param axiosConfig - token失效时的请求配置
  */
 export async function refreshToken(axiosConfig: AxiosRequestConfig) {
   const { resetAuthStore } = useAuthStore();
@@ -21,6 +21,6 @@ export async function refreshToken(axiosConfig: AxiosRequestConfig) {
     return config;
   }
 
-  resetAuthStore(true);
+  resetAuthStore();
   return null;
 }

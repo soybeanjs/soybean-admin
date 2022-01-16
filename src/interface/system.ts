@@ -1,9 +1,14 @@
-import type { MenuOption, DropdownOption } from 'naive-ui';
+import type { VNodeChild } from 'vue';
+import type { DropdownOption } from 'naive-ui';
 
 /** 菜单项配置 */
-export type GlobalMenuOption = MenuOption & {
+export type GlobalMenuOption = {
+  key: string;
+  label: string;
   routeName: string;
   routePath: string;
+  icon?: () => VNodeChild;
+  children?: GlobalMenuOption[];
 };
 
 /** 面包屑 */

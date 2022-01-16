@@ -1,50 +1,18 @@
-import { computed, watch, onUnmounted } from 'vue';
-import type { ComputedRef } from 'vue';
+import { watch, onUnmounted } from 'vue';
 import useBoolean from './useBoolean';
-
-interface ScrollBodyStyle {
-  overflow: string;
-  paddingRight: string;
-}
+import useBodyScroll from './useBodyScroll';
 
 /**
  * 使用弹窗
  * @param hideScroll - 关闭html滚动条
- * @param duration - 显示滚动条的延迟时间
  */
-export default function useModalVisible(hideScroll = true, duration = 300) {
+export default function useModalVisible(hideScroll = true) {
   const { bool: visible, setTrue: openModal, setFalse: closeModal, toggle: toggleModal } = useBoolean();
+  const { scrollBodyHandler } = useBodyScroll();
 
-  const defaultStyle: ScrollBodyStyle = {
-    overflow: '',
-    paddingRight: ''
-  };
-  function getInitBodyStyle() {
-    if (hideScroll) {
-      const { overflow, paddingRight } = document.body.style;
-      Object.assign(defaultStyle, { overflow, paddingRight });
-    }
-  }
-  function setScrollBodyStyle() {
-    document.body.style.paddingRight = `${window.innerWidth - document.body.clientWidth}px`;
-    document.body.style.overflow = 'hidden';
-  }
-  function resetScrollBodyStyle() {
-    document.body.style.overflow = defaultStyle.overflow;
-    document.body.style.paddingRight = defaultStyle.paddingRight;
-  }
-
-  function modalVisibleWatcher(visible: ComputedRef<boolean>) {
+  function modalVisibleWatcher() {
     const stopHandle = watch(visible, async newValue => {
-      if (hideScroll) {
-        if (newValue) {
-          setScrollBodyStyle();
-        } else {
-          setTimeout(() => {
-            resetScrollBodyStyle();
-          }, duration);
-        }
-      }
+      scrollBodyHandler(newValue);
     });
 
     onUnmounted(() => {
@@ -52,18 +20,14 @@ export default function useModalVisible(hideScroll = true, duration = 300) {
     });
   }
 
-  function init() {
-    getInitBodyStyle();
-    modalVisibleWatcher(computed(() => visible.value));
+  if (hideScroll) {
+    modalVisibleWatcher();
   }
-
-  init();
 
   return {
     visible,
     openModal,
     closeModal,
-    toggleModal,
-    modalVisibleWatcher
+    toggleModal
   };
 }

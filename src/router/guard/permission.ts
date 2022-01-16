@@ -12,7 +12,6 @@ export async function handlePagePermission(
 ) {
   const auth = useAuthStore();
   const route = useRouteStore();
-  const { initDynamicRoute } = useRouteStore();
 
   const isLogin = Boolean(getToken());
   const permissions = to.meta.permissions || [];
@@ -21,7 +20,7 @@ export async function handlePagePermission(
 
   if (!route.isAddedDynamicRoute) {
     // 添加动态路由
-    await initDynamicRoute(router);
+    await route.initDynamicRoute(router);
 
     if (to.name === routeName('not-found-page')) {
       // 动态路由没有加载导致被not-found-page路由捕获，等待动态路由加载好了，回到之前的路由

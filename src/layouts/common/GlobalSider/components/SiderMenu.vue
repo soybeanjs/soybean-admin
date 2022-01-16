@@ -44,7 +44,7 @@ function getActiveKeysInMenus(menu: GlobalMenuOption) {
     keys.push(menu.routeName);
   }
   if (menu.children) {
-    keys.push(...menu.children.map(item => getActiveKeysInMenus(item as GlobalMenuOption)).flat());
+    keys.push(...menu.children.map(item => getActiveKeysInMenus(item as GlobalMenuOption)).flat(1));
   }
   return keys;
 }

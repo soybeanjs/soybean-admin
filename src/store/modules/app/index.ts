@@ -1,66 +1,63 @@
-import type { Ref } from 'vue';
+import { nextTick } from 'vue';
 import { defineStore } from 'pinia';
-import { useReload, useModalVisible, useBoolean } from '@/hooks';
 
-interface AppStore {
-  /** 重载页面的标志 */
-  reloadFlag: Ref<boolean>;
-  /**
-   * 触发重载页面
-   * @param duration - 延迟时间(ms, 默认0)
-   */
-  handleReload(duration?: number): void;
-  /** 设置抽屉可见状态 */
-  settingDrawerVisible: Ref<boolean>;
-  /** 打开设置抽屉 */
-  openSettingDrawer(): void;
-  /** 关闭设置抽屉 */
-  closeSettingDrawer(): void;
-  /** 切换抽屉可见状态 */
-  toggleSettingdrawerVisible(): void;
+interface AppState {
+  /** 重载页面(控制页面的显示) */
+  reloadFlag: boolean;
+  /** 项目配置的抽屉可见状态 */
+  settingDrawerVisible: boolean;
   /** 侧边栏折叠状态 */
-  siderCollapse: Ref<boolean>;
-  /** 折叠/展开 侧边栏折叠状态 */
-  toggleSiderCollapse(): void;
-  /** 设置侧边栏折叠状态 */
-  setSiderCollapse(collapse: boolean): void;
+  siderCollapse: boolean;
   /** vertical-mix模式下 侧边栏的固定状态 */
-  mixSiderFixed: Ref<boolean>;
-  /** 设置 vertical-mix模式下 侧边栏的固定状态 */
-  setMixSiderIsFixed(isFixed: boolean): void;
+  mixSiderFixed: boolean;
 }
 
-export const useAppStore = defineStore('app-store', () => {
-  // 重新加载页面
-  const { reloadFlag, handleReload } = useReload();
-
-  // 设置抽屉
-  const {
-    visible: settingDrawerVisible,
-    openModal: openSettingDrawer,
-    closeModal: closeSettingDrawer,
-    toggleModal: toggleSettingdrawerVisible
-  } = useModalVisible();
-
-  // 侧边栏的折叠状态
-  const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean();
-
-  // vertical-mix模式下 侧边栏的固定状态
-  const { bool: mixSiderFixed, setBool: setMixSiderIsFixed } = useBoolean();
-
-  const appStore: AppStore = {
-    reloadFlag,
-    handleReload,
-    settingDrawerVisible,
-    openSettingDrawer,
-    closeSettingDrawer,
-    toggleSettingdrawerVisible,
-    siderCollapse,
-    setSiderCollapse,
-    toggleSiderCollapse,
-    mixSiderFixed,
-    setMixSiderIsFixed
-  };
-
-  return appStore;
+export const useAppStore = defineStore('app-store', {
+  state: (): AppState => ({
+    reloadFlag: true,
+    settingDrawerVisible: false,
+    siderCollapse: false,
+    mixSiderFixed: false
+  }),
+  actions: {
+    /**
+     * 重载页面
+     * @param duration - 重载的延迟时间(ms)
+     */
+    async reloadPage(duration = 0) {
+      this.reloadFlag = false;
+      await nextTick();
+      if (duration) {
+        setTimeout(() => {
+          this.reloadFlag = true;
+        }, duration);
+      } else {
+        this.reloadFlag = true;
+      }
+    },
+    /** 打开设置抽屉 */
+    openSettingDrawer() {
+      this.settingDrawerVisible = true;
+    },
+    /** 关闭设置抽屉 */
+    closeSettingDrawer() {
+      this.settingDrawerVisible = false;
+    },
+    /** 切换抽屉可见状态 */
+    toggleSettingdrawerVisible() {
+      this.settingDrawerVisible = !this.settingDrawerVisible;
+    },
+    /** 设置侧边栏折叠状态 */
+    setSiderCollapse(collapse: boolean) {
+      this.siderCollapse = collapse;
+    },
+    /** 折叠/展开 侧边栏折叠状态 */
+    toggleSiderCollapse() {
+      this.siderCollapse = !this.siderCollapse;
+    },
+    /** 设置 vertical-mix模式下 侧边栏的固定状态 */
+    setMixSiderIsFixed(isFixed: boolean) {
+      this.mixSiderFixed = isFixed;
+    }
+  }
 });

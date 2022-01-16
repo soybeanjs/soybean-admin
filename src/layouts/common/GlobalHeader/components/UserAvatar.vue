@@ -45,7 +45,7 @@ function handleDropdown(optionKey: string) {
       positiveText: '确定',
       negativeText: '取消',
       onPositiveClick: () => {
-        auth.resetAuthStore(true);
+        auth.resetAuthStore();
       }
     });
   }

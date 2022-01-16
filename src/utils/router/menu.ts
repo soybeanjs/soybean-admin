@@ -22,7 +22,7 @@ function addPartialProps(menuItem: GlobalMenuOption, icon?: string, children?: G
  * 将权限路由转换成菜单
  * @param routes - 路由
  */
-export function transformAuthRouteToMenu(routes: AuthRoute.Route[]) {
+export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuOption[] {
   const globalMenu: GlobalMenuOption[] = [];
   routes.forEach(route => {
     const { name, path, meta } = route;
