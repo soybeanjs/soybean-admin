@@ -1,18 +1,16 @@
 <template>
-  <dark-mode-container class="global-sider flex-col-stretch h-full">
-    <global-logo :show-title="!app.siderCollapse" :style="{ height: theme.header.height + 'px' }" />
-    <sider-menu class="flex-1-hidden" />
-  </dark-mode-container>
+  <vertical-sider v-if="!isVerticalMix" class="global-sider" />
+  <vertical-mix-sider v-else class="global-sider" />
 </template>
 
 <script setup lang="ts">
-import { DarkModeContainer } from '@/components';
-import { useAppStore, useThemeStore } from '@/store';
-import GlobalLogo from '../GlobalLogo/index.vue';
-import { SiderMenu } from './components';
+import { computed } from 'vue';
+import { useThemeStore } from '@/store';
+import { VerticalSider, VerticalMixSider } from './components';
 
-const app = useAppStore();
 const theme = useThemeStore();
+
+const isVerticalMix = computed(() => theme.layout.mode === 'vertical-mix');
 </script>
 <style scoped>
 .global-sider {

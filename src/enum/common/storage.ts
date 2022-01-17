@@ -1,4 +1,6 @@
 export enum EnumStorageKey {
+  /** 主题颜色 */
+  'theme-color' = '__THEME_COLOR__',
   /** 用户token */
   'token' = '__TOKEN__',
   /** 用户刷新token */

@@ -12,13 +12,13 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
 		"importHelpers": true,
+		"skipLibCheck": true,
+		"noEmit": true,
     "paths": {
       "@/*": ["src/*"],
 			"~/*": ["./*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "skipLibCheck": true,
-		"noEmit": true
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": ["vite.config.*", "src/typings/*.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*.ts", "build/**/*.ts", ".env-config.ts"],
 	"exclude": ["/dist/**", "node_modules"]

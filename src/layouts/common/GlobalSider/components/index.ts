@@ -1,3 +1,4 @@
-import SiderMenu from './SiderMenu.vue';
+import VerticalSider from './VerticalSider/index.vue';
+import VerticalMixSider from './VerticalMixSider/index.vue';
 
-export { SiderMenu };
+export { VerticalSider, VerticalMixSider };

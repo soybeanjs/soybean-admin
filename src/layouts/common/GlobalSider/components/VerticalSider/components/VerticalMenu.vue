@@ -1,11 +1,11 @@
 <template>
-  <n-scrollbar>
+  <n-scrollbar class="flex-1-hidden">
     <n-menu
       :value="activeKey"
       :collapsed="app.siderCollapse"
       :collapsed-width="theme.sider.collapsedWidth"
       :collapsed-icon-size="22"
-      :options="menus"
+      :options="routeStore.menus"
       :expanded-keys="expandedKeys"
       :indent="18"
       @update:value="handleUpdateMenu"
@@ -21,6 +21,7 @@ import { NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { useAppStore, useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
+import { getActiveKeyPathsOfMenus } from '@/utils';
 import type { GlobalMenuOption } from '@/interface';
 
 const route = useRoute();
@@ -29,25 +30,8 @@ const theme = useThemeStore();
 const routeStore = useRouteStore();
 const { routerPush } = useRouterPush();
 
-const menus = computed(() => routeStore.menus as GlobalMenuOption[]);
 const activeKey = computed(() => route.name as string);
 const expandedKeys = ref<string[]>([]);
-
-function getExpendedKeys() {
-  const keys = menus.value.map(menu => getActiveKeysInMenus(menu)).flat();
-  return keys;
-}
-
-function getActiveKeysInMenus(menu: GlobalMenuOption) {
-  const keys: string[] = [];
-  if (activeKey.value.includes(menu.routeName)) {
-    keys.push(menu.routeName);
-  }
-  if (menu.children) {
-    keys.push(...menu.children.map(item => getActiveKeysInMenus(item as GlobalMenuOption)).flat(1));
-  }
-  return keys;
-}
 
 function handleUpdateMenu(_key: string, item: MenuOption) {
   const menuItem = item as GlobalMenuOption;
@@ -61,7 +45,7 @@ function handleUpdateExpandedKeys(keys: string[]) {
 watch(
   () => route.name,
   () => {
-    expandedKeys.value = getExpendedKeys();
+    expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, routeStore.menus);
   },
   { immediate: true }
 );

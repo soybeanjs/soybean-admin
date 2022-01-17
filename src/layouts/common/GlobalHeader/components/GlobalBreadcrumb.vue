@@ -4,7 +4,11 @@
       <n-breadcrumb-item>
         <n-dropdown v-if="breadcrumb.hasChildren" :options="breadcrumb.children" @select="dropdownSelect">
           <span>
-            <component :is="breadcrumb.icon" v-if="theme.header.crumb.showIcon" class="inline-block mr-4px text-16px" />
+            <component
+              :is="breadcrumb.icon"
+              v-if="theme.header.crumb.showIcon"
+              class="inline-block align-text-bottom mr-4px text-16px"
+            />
             <span>{{ breadcrumb.label }}</span>
           </span>
         </n-dropdown>

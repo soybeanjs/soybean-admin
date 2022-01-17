@@ -58,6 +58,10 @@ export const useAppStore = defineStore('app-store', {
     /** 设置 vertical-mix模式下 侧边栏的固定状态 */
     setMixSiderIsFixed(isFixed: boolean) {
       this.mixSiderFixed = isFixed;
+    },
+    /** 设置 vertical-mix模式下 侧边栏的固定状态 */
+    toggleMixSiderFixed() {
+      this.mixSiderFixed = !this.mixSiderFixed;
     }
   }
 });
