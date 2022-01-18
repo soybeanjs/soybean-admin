@@ -3,24 +3,28 @@ import type { ThemeSetting } from '@/interface';
 
 const themeColorList = [
   '#1890ff',
-  '#009688',
-  '#536dfe',
-  '#409EFF',
-  '#ff5c93',
-  '#0960bd',
-  '#ee4f12',
+  '#007AFF',
   '#2d8cf0',
+  '#409EFF',
+  '#536dfe',
+  '#5856D6',
   '#0096c7',
-  '#9c27b0',
-  '#ff9800',
-  '#FF3D68',
   '#00C1D4',
+  '#009688',
+  '#5AC8FA',
+  '#34C759',
   '#71EFA3',
-  '#171010',
   '#78DEC7',
-  '#1768AC',
+  '#FC5404',
+  '#ee4f12',
+  '#FF9500',
   '#fadb14',
-  '#FC5404'
+  '#FFCC00',
+  '#FF3B30',
+  '#FF2D55',
+  '#ff5c93',
+  '#9c27b0',
+  '#AF52DE'
 ];
 
 const defaultThemeSetting: ThemeSetting = {

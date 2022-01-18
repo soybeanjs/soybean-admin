@@ -1,8 +1,8 @@
 <template>
   <div class="mb-6px px-4px cursor-pointer" @mouseenter="setTrue" @mouseleave="setFalse">
     <div
-      class="flex-center flex-col py-12px rounded-2px"
-      :class="{ 'text-primary bg-primary-active': isActive, 'text-primary': isHover }"
+      class="flex-center flex-col py-12px rounded-2px bg-transparent transition-colors duration-300 ease-in-out"
+      :class="{ 'text-primary !bg-primary-active': isActive, 'text-primary': isHover }"
     >
       <component :is="icon" :class="[isMini ? 'text-16px' : 'text-20px']" />
       <p

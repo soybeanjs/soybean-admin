@@ -3,7 +3,7 @@ import { defineConfig } from 'windicss/helpers';
 export default defineConfig({
   extract: {
     include: ['src/**/*.{vue,html,jsx,tsx}', 'public/**/*.{html}', './*.html'],
-    exclude: ['node_modules', '.git']
+    exclude: ['node_modules', '.git', './stats.html']
   },
   darkMode: 'class',
   shortcuts: {
@@ -74,7 +74,16 @@ export default defineConfig({
         'black-base': '#333639',
         'white-base': 'rgba(255, 255, 255, 0.82)'
       },
-      transitionProperty: ['padding-left']
+      transitionProperty: [
+        'width',
+        'height',
+        'background',
+        'background-color',
+        'padding-left',
+        'border-color',
+        'right',
+        'fill'
+      ]
     }
   },
   variants: {},
