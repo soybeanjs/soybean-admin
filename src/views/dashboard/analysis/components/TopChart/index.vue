@@ -126,4 +126,4 @@ onMounted(() => {
   renderPieChart();
 });
 </script>
-<style scoped></style>
+<style></style>

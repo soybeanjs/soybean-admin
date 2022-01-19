@@ -75,18 +75,18 @@ const routes: AuthRoute.Route[] = [
   }
 ];
 
-const routeHome: AuthRoute.RoutePath = '/dashboard/analysis';
+function dataMiddleware(data: AuthRoute.Route[]): ApiRoute.Route {
+  const routeHomeName: AuthRoute.RouteKey = 'dashboard_analysis';
 
-function sortRoutes() {
-  routes.sort((next, pre) => Number(next.meta?.order) - Number(pre.meta?.order));
+  function sortRoutes(sorts: AuthRoute.Route[]) {
+    return sorts.sort((next, pre) => Number(next.meta?.order) - Number(pre.meta?.order));
+  }
+
+  return {
+    routes: sortRoutes(data),
+    home: routeHomeName
+  };
 }
-
-sortRoutes();
-
-const data: ApiRoute.Route = {
-  routes,
-  home: routeHome
-};
 
 const apis: MockMethod[] = [
   {
@@ -96,7 +96,7 @@ const apis: MockMethod[] = [
       return {
         code: 200,
         message: 'ok',
-        data
+        data: dataMiddleware(routes)
       };
     }
   }

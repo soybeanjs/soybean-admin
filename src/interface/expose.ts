@@ -1,3 +1,5 @@
-export interface ExposeLayoutMixMenu {
-  resetFirstDegreeMenus(): void;
+import BScroll from '@better-scroll/core';
+
+export interface ExposeBetterScroll {
+  instance: BScroll;
 }
