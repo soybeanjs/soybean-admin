@@ -1,6 +1,6 @@
 {
   "name": "soybean-admin-thin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "dev": "cross-env VITE_HTTP_ENV=test vite",
     "dev:prod": "cross-env VITE_HTTP_ENV=prod vite",
@@ -9,6 +9,8 @@
     "build:test": "npm run typecheck && cross-env VITE_HTTP_ENV=test vite build",
     "build:vercel": "npm run typecheck && cross-env VITE_HTTP_ENV=prod VITE_IS_VERCEL=1 vite build",
     "preview": "vite preview --port 5050",
+    "release": "standard-version",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "lint": "eslint --fix ./ --ext .vue,.js,jsx,.ts,tsx",
     "prepare": "husky install",
     "postinstall": "patch-package"
