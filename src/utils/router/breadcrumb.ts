@@ -36,14 +36,16 @@ function getBreadcrumbMenu(activeKey: string, menus: GlobalMenuOption[]) {
  */
 function getBreadcrumbMenuItem(activeKey: string, menu: GlobalMenuOption) {
   const breadcrumbMenu: GlobalMenuOption[] = [];
-  if (activeKey.includes(menu.routeName)) {
+  if (activeKey === menu.routeName) {
     breadcrumbMenu.push(menu);
   }
-  if (menu.children && menu.children.length) {
+  if (activeKey.includes(menu.routeName) && menu.children && menu.children.length) {
+    breadcrumbMenu.push(menu);
     breadcrumbMenu.push(
       ...menu.children.map(item => getBreadcrumbMenuItem(activeKey, item as GlobalMenuOption)).flat(1)
     );
   }
+
   return breadcrumbMenu;
 }
 

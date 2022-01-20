@@ -16,7 +16,7 @@ import { useThemeStore } from '@/store';
 
 const theme = useThemeStore();
 
-const copyRef = ref<HTMLElement | null>(null);
+const copyRef = ref<HTMLElement>();
 const dataClipboardText = ref(getClipboardText());
 
 function getClipboardText() {
@@ -29,7 +29,8 @@ function handleResetConfig() {
 }
 
 function clipboardEventListener() {
-  const copy = new Clipboard(copyRef.value!);
+  if (!copyRef.value) return;
+  const copy = new Clipboard(copyRef.value);
   copy.on('success', () => {
     window.$dialog?.success({
       title: '操作成功',

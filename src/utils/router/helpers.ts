@@ -24,10 +24,17 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
 
   const itemRoute = { ...item } as RouteRecordRaw;
 
+  // 动态path
   if (hasDynamicPath(item)) {
     Object.assign(itemRoute, { path: item.meta.dynamicPath });
   }
 
+  // 外链路由
+  if (hasHref(item)) {
+    Object.assign(itemRoute, { component: getViewComponent('not-found-page') });
+  }
+
+  // 路由组件
   if (hasComponent(item)) {
     const action: ComponentAction = {
       basic() {
@@ -87,6 +94,7 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
     }
   }
 
+  // 子路由
   if (hasChildren(item)) {
     const children = item.children!.map(child => transformAuthRouteToVueRoute(child)).flat();
 
@@ -106,9 +114,18 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
     }
     itemRoute.redirect = redirectPath;
   }
+
   resultRoute.push(itemRoute);
 
   return resultRoute;
+}
+
+function hasHref(item: AuthRoute.Route) {
+  return Boolean(item.meta.href);
+}
+
+function hasDynamicPath(item: AuthRoute.Route) {
+  return Boolean(item.meta.dynamicPath);
 }
 
 function hasComponent(item: AuthRoute.Route) {
@@ -117,10 +134,6 @@ function hasComponent(item: AuthRoute.Route) {
 
 function hasChildren(item: AuthRoute.Route) {
   return Boolean(item.children && item.children.length);
-}
-
-function hasDynamicPath(item: AuthRoute.Route) {
-  return Boolean(item.meta.dynamicPath);
 }
 
 function isSingleRoute(item: AuthRoute.Route) {

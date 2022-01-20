@@ -16,9 +16,21 @@ declare namespace AuthRoute {
     | 'dashboard'
     | 'dashboard_analysis'
     | 'dashboard_workbench'
+    | 'document'
+    | 'document_vue'
+    | 'document_vue-new'
+    | 'document_vite'
+    | 'document_naive'
+    | 'document_project'
     | 'multi-menu'
     | 'multi-menu_first'
     | 'multi-menu_first_second'
+    | 'multi-menu_first_second-new'
+    | 'multi-menu_first_second-new_third'
+    | 'exception'
+    | 'exception_403'
+    | 'exception_404'
+    | 'exception_500'
     | 'about';
 
   /** 路由的path */
@@ -53,6 +65,8 @@ declare namespace AuthRoute {
     keepAlive?: boolean;
     /** 菜单和面包屑对应的图标 */
     icon?: string;
+    /** 外链链接 */
+    href?: string;
     /** 是否在菜单中隐藏 */
     hide?: boolean;
     /** 路由顺序，可用于菜单的排序 */

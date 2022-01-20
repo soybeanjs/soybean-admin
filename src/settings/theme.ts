@@ -67,7 +67,7 @@ const defaultThemeSetting: ThemeSetting = {
     isCache: true
   },
   sider: {
-    width: 200,
+    width: 220,
     collapsedWidth: 64,
     mixWidth: 80,
     mixCollapsedWidth: 48,

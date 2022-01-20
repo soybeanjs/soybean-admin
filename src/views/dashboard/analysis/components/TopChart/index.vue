@@ -37,13 +37,14 @@ import { Line, Pie } from '@antv/g2plot';
 import { CountTo } from '@/components';
 import data from './data.json';
 
-const lineRef = ref<HTMLElement | null>(null);
-const line = ref<Line | null>(null);
-const pieRef = ref<HTMLElement | null>(null);
-const pie = ref<Pie | null>(null);
+const lineRef = ref<HTMLElement>();
+const line = ref<Line>();
+const pieRef = ref<HTMLElement>();
+const pie = ref<Pie>();
 
 function renderLineChart() {
-  line.value = new Line(lineRef.value!, {
+  if (!lineRef.value) return;
+  line.value = new Line(lineRef.value, {
     data,
     autoFit: true,
     xField: 'date',

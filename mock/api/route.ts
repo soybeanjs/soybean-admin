@@ -32,6 +32,58 @@ const routes: AuthRoute.Route[] = [
     }
   },
   {
+    name: 'document',
+    path: '/document',
+    component: 'basic',
+    children: [
+      {
+        name: 'document_vue',
+        path: '/document/vue',
+        component: 'self',
+        meta: {
+          title: 'vue文档'
+        }
+      },
+      {
+        name: 'document_vue-new',
+        path: '/document/vue-new',
+        component: 'self',
+        meta: {
+          title: 'vue文档(新版)'
+        }
+      },
+      {
+        name: 'document_vite',
+        path: '/document/vite',
+        component: 'self',
+        meta: {
+          title: 'vite文档'
+        }
+      },
+      {
+        name: 'document_naive',
+        path: '/document/naive',
+        component: 'self',
+        meta: {
+          title: 'naive文档'
+        }
+      },
+      {
+        name: 'document_project',
+        path: '/document/project',
+        meta: {
+          title: '项目文档(外链)',
+          href: 'https://docs.soybean.pro/'
+        }
+      }
+    ],
+    meta: {
+      title: '文档',
+      icon: 'carbon:document',
+      order: 2
+    }
+  },
+  {
     name: 'about',
     path: '/about',
     component: 'self',
@@ -41,6 +93,42 @@ const routes: AuthRoute.Route[] = [
       permissions: ['super', 'admin', 'test'],
       icon: 'fluent:book-information-24-regular',
       order: 7
+    }
+  },
+  {
+    name: 'exception',
+    path: '/exception',
+    component: 'basic',
+    children: [
+      {
+        name: 'exception_403',
+        path: '/exception/403',
+        component: 'self',
+        meta: {
+          title: '异常页403'
+        }
+      },
+      {
+        name: 'exception_404',
+        path: '/exception/404',
+        component: 'self',
+        meta: {
+          title: '异常页404'
+        }
+      },
+      {
+        name: 'exception_500',
+        path: '/exception/500',
+        component: 'self',
+        meta: {
+          title: '异常页500'
+        }
+      }
+    ],
+    meta: {
+      title: '异常页',
+      icon: 'ant-design:exception-outlined',
+      order: 5
     }
   },
   {
@@ -59,6 +147,24 @@ const routes: AuthRoute.Route[] = [
             component: 'self',
             meta: {
               title: '二级菜单'
+            }
+          },
+          {
+            name: 'multi-menu_first_second-new',
+            path: '/multi-menu/first/second-new',
+            component: 'multi',
+            children: [
+              {
+                name: 'multi-menu_first_second-new_third',
+                path: '/multi-menu/first/second-new/third',
+                component: 'self',
+                meta: {
+                  title: '三级菜单'
+                }
+              }
+            ],
+            meta: {
+              title: '二级菜单(有子菜单)'
             }
           }
         ],

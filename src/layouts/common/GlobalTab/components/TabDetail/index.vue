@@ -1,5 +1,5 @@
 <template>
-  <div ref="tabRef" class="flex items-end h-full" :class="[isChromeMode ? 'flex items-end' : 'flex-y-center']">
+  <div ref="tabRef" class="h-full" :class="[isChromeMode ? 'flex items-end' : 'flex-y-center']">
     <component
       :is="activeComponent"
       v-for="(item, index) in tab.tabs"

@@ -6,12 +6,27 @@ import {
   ServiceError,
   DashboardAnalysis,
   DashboardWorkbench,
+  DocumentVue,
+  DocumentVueNew,
+  DocumentVite,
+  DocumentNaive,
   About,
-  MultiMenuFirstSecond
+  MultiMenuFirstSecond,
+  MultiMenuFirstSecondNewThird
 } from '@/views';
 
 /** 需要用到自身vue组件的页面 */
-type ViewComponentKey = Exclude<AuthRoute.RouteKey, 'root' | 'dashboard' | 'multi-menu' | 'multi-menu_first'>;
+type ViewComponentKey = Exclude<
+  AuthRoute.RouteKey,
+  | 'root'
+  | 'dashboard'
+  | 'document'
+  | 'document_project'
+  | 'multi-menu'
+  | 'multi-menu_first'
+  | 'multi-menu_first_second-new'
+  | 'exception'
+>;
 
 type ViewComponent = {
   [key in ViewComponentKey]: () => Promise<Component>;
@@ -28,8 +43,16 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     'service-error',
     'dashboard_analysis',
     'dashboard_workbench',
+    'document_vue',
+    'document_vue-new',
+    'document_vite',
+    'document_naive',
     'about',
     'multi-menu_first_second',
+    'multi-menu_first_second-new_third',
+    'exception_403',
+    'exception_404',
+    'exception_500',
     'not-found-page'
   ];
 
@@ -42,9 +65,17 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     'service-error': ServiceError,
     dashboard_analysis: DashboardAnalysis,
     dashboard_workbench: DashboardWorkbench,
-    about: About,
+    document_vue: DocumentVue,
+    'document_vue-new': DocumentVueNew,
+    document_vite: DocumentVite,
+    document_naive: DocumentNaive,
     'multi-menu_first_second': MultiMenuFirstSecond,
-    'not-found-page': NotFound
+    'multi-menu_first_second-new_third': MultiMenuFirstSecondNewThird,
+    'not-found-page': NotFound,
+    exception_403: NoPermission,
+    exception_404: NotFound,
+    exception_500: ServiceError,
+    about: About
   };
 
   return () => setViewComponentName(viewComponent[key], key) as Promise<Component>;

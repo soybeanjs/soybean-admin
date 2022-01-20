@@ -19,7 +19,7 @@
       :z-index="tabZIndex"
       :top="headerHeight"
       :height="tabHeight"
-      :padding-left="tabPaddingLeft"
+      :padding-left="siderWidth"
       :style="headerAndTabTransform"
     >
       <slot name="tab"></slot>
@@ -147,7 +147,6 @@ const siderWidth = computed(() => {
 
 // 各子组件的属性
 const headerPaddingLeft = computed(() => (isVertical.value ? siderWidth.value : 0));
-const tabPaddingLeft = computed(() => (isVertical.value ? siderWidth.value : 0));
 const siderPaddingTop = computed(() => (!isVertical.value && props.headerVisible ? props.headerHeight : 0));
 const contentPaddingTop = computed(() => {
   let height = 0;

@@ -39,11 +39,7 @@
           </n-grid>
         </n-card>
         <n-card title="创意" :bordered="false" size="small" class="shadow-sm rounded-16px">
-          <n-carousel :autoplay="true" :show-arrow="true">
-            <!-- <banner-svg type="1" />
-            <banner-svg type="2" />
-            <banner-svg type="3" /> -->
-          </n-carousel>
+          <svg-banner class="text-primary" />
         </n-card>
       </n-space>
     </n-grid-item>
@@ -51,8 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import { NGrid, NGridItem, NSpace, NCard, NList, NListItem, NThing, NCarousel } from 'naive-ui';
-// import { BannerSvg } from '@/components';
+import { NGrid, NGridItem, NSpace, NCard, NList, NListItem, NThing } from 'naive-ui';
+import { SvgBanner } from '@/components';
 import { TechnologyCard, ShortcutsCard } from './components';
 
 interface Technology {

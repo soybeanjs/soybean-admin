@@ -18,8 +18,8 @@ export async function handlePagePermission(
   const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
   const hasPermission = !permissions.length || permissions.includes(auth.userInfo.userRole);
 
+  // 初始化动态路由
   if (!route.isAddedDynamicRoute) {
-    // 添加动态路由
     await route.initDynamicRoute(router);
 
     if (to.name === routeName('not-found-page')) {
@@ -32,6 +32,13 @@ export async function handlePagePermission(
   // 动态路由已经加载，仍然未找到，重定向到not-found
   if (to.name === routeName('not-found-page')) {
     next({ name: routeName('not-found'), replace: true });
+    return;
+  }
+
+  // 外链路由, 从新标签打开，返回上一个路由
+  if (to.meta.href) {
+    window.open(to.meta.href);
+    next({ path: from.fullPath, replace: true, query: from.query });
     return;
   }
 
