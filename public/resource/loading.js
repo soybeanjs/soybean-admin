@@ -34,8 +34,8 @@ function initSvgLogo(id) {
 
 function addThemeColorCssVars() {
   const key = '__THEME_COLOR__';
-  const themeColor = '#1890ff';
-  const cssVars = window.localStorage.getItem(key) || `--primary-color: ${themeColor}`;
+  const themeColor = window.localStorage.getItem(key) || '#1890ff';
+  const cssVars = `--primary-color: ${themeColor}`;
   document.documentElement.style.cssText = cssVars;
 }
 

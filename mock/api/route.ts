@@ -12,8 +12,7 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '分析页',
-          requiresAuth: true,
-          keepAlive: true
+          requiresAuth: true
         }
       },
       {
@@ -98,7 +97,6 @@ const routes: AuthRoute.Route[] = [
       title: '关于',
       requiresAuth: true,
       singleLayout: 'basic',
-      keepAlive: true,
       permissions: ['super', 'admin', 'test'],
       icon: 'fluent:book-information-24-regular',
       order: 7

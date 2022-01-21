@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia';
 import { darkTheme } from 'naive-ui';
-import { cloneDeep } from 'lodash-es';
-import { themeSetting } from '@/settings';
 import type {
   ThemeSetting,
   ThemeLayoutMode,
@@ -9,12 +7,12 @@ import type {
   ThemeHorizontalMenuPosition,
   ThemeAnimateMode
 } from '@/interface';
-import { getNaiveThemeOverrides, addThemeCssVarsToHtml } from './helpers';
+import { getThemeSettings, getNaiveThemeOverrides, addThemeCssVarsToHtml } from './helpers';
 
 type ThemeState = ThemeSetting;
 
 export const useThemeStore = defineStore('theme-store', {
-  state: (): ThemeState => cloneDeep(themeSetting),
+  state: (): ThemeState => getThemeSettings(),
   getters: {
     /** naiveUI的主题配置 */
     naiveThemeOverrides(state) {

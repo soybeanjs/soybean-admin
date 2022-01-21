@@ -36,6 +36,7 @@ const style = computed(() => {
 <style scoped>
 .soybean-layout__main {
   flex-grow: 1;
+  width: 100%;
   transition-property: padding-left;
 }
 </style>

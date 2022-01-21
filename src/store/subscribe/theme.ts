@@ -1,7 +1,7 @@
 import { watch, onUnmounted } from 'vue';
 import { useOsTheme } from 'naive-ui';
 import { useElementSize } from '@vueuse/core';
-import { EnumStorageKey } from '@/enum';
+import { setThemeColor } from '@/utils';
 import { useThemeStore } from '../modules';
 
 /** 订阅theme store */
@@ -14,7 +14,7 @@ export default function subscribeThemeStore() {
   const stopThemeColor = watch(
     () => theme.themeColor,
     newValue => {
-      window.localStorage.setItem(EnumStorageKey['theme-color'], `--primary-color: ${newValue};`);
+      setThemeColor(newValue);
     },
     { immediate: true }
   );

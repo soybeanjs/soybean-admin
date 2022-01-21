@@ -136,3 +136,11 @@ export function addColorAlpha(color: string, alpha: number) {
 export function mixColor(firstColor: string, secondColor: string, ratio: number) {
   return colord(firstColor).mix(secondColor, ratio).toHex();
 }
+
+/**
+ * 是否是白颜色
+ * @param color - 颜色
+ */
+export function isWhiteColor(color: string) {
+  return colord(color).isEqual('#ffffff');
+}

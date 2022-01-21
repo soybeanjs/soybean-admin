@@ -1,6 +1,7 @@
 <template>
   <soybean-layout
     :mode="mode"
+    :min-width="theme.layout.minWidth"
     :fixed-header-and-tab="theme.fixedHeaderAndTab"
     :header-height="theme.header.height"
     :tab-visible="theme.tab.visible"

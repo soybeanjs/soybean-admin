@@ -13,6 +13,8 @@ export interface ThemeSetting {
   themeColorList: string[];
   /** 其他颜色 */
   otherColor: ThemeOtherColor;
+  /** 是否自定义info的颜色(默认取比主题色深一级的颜色) */
+  isCustomizeInfoColor: boolean;
   /** 固定头部和多页签 */
   fixedHeaderAndTab: boolean;
   /** 显示重载按钮 */

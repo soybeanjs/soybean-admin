@@ -5,13 +5,17 @@
       <color-checkbox :color="color" :checked="color === theme.themeColor" @click="theme.setThemeColor(color)" />
     </n-grid-item>
   </n-grid>
-  <n-button :block="true" :type="otherColorBtnType" class="mt-12px" @click="openModal">更多颜色</n-button>
+  <n-space :vertical="true" class="pt-12px">
+    <n-color-picker :value="theme.themeColor" :show-alpha="false" @update-value="theme.setThemeColor" />
+    <n-button :block="true" :type="otherColorBtnType" @click="openModal">更多颜色</n-button>
+  </n-space>
   <color-modal :visible="visible" @close="closeModal" />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { NDivider, NGrid, NGridItem, NButton } from 'naive-ui';
+import { NDivider, NGrid, NGridItem, NSpace, NButton, NColorPicker } from 'naive-ui';
+import { isInTraditionColors } from '@/settings';
 import { useThemeStore } from '@/store';
 import { useBoolean } from '@/hooks';
 import { ColorCheckbox, ColorModal } from './components';
@@ -20,7 +24,7 @@ const theme = useThemeStore();
 
 const { bool: visible, setTrue: openModal, setFalse: closeModal } = useBoolean();
 
-const isInOther = computed(() => !theme.themeColorList.includes(theme.themeColor));
+const isInOther = computed(() => isInTraditionColors(theme.themeColor));
 const otherColorBtnType = computed(() => (isInOther.value ? 'primary' : 'default'));
 </script>
 <style scoped></style>

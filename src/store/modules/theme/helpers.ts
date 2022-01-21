@@ -1,6 +1,16 @@
 import type { GlobalThemeOverrides } from 'naive-ui';
-import { kebabCase } from 'lodash-es';
-import { getColorPalette, addColorAlpha } from '@/utils';
+import { cloneDeep, kebabCase } from 'lodash-es';
+import { themeSetting } from '@/settings';
+import { getThemeColor, getColorPalette, addColorAlpha } from '@/utils';
+
+/** 获取主题配置 */
+export function getThemeSettings() {
+  const themeColor = getThemeColor() || themeSetting.themeColor;
+  const info = themeSetting.isCustomizeInfoColor ? themeSetting.otherColor.info : getColorPalette(themeColor, 7);
+  const otherColor = { ...themeSetting.otherColor, info };
+  const setting = cloneDeep({ ...themeSetting, themeColor, otherColor });
+  return setting;
+}
 
 type ColorType = 'primary' | 'info' | 'success' | 'warning' | 'error';
 type ColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active';
@@ -38,7 +48,10 @@ function getThemeColors(colors: [ColorType, string][]) {
 
 /** 获取naive的主题颜色 */
 export function getNaiveThemeOverrides(colors: Record<ColorType, string>): GlobalThemeOverrides {
-  const { primary, info, success, warning, error } = colors;
+  const { primary, success, warning, error } = colors;
+
+  const info = themeSetting.isCustomizeInfoColor ? colors.info : getColorPalette(primary, 7);
+
   const themeColors = getThemeColors([
     ['primary', primary],
     ['info', info],
@@ -70,7 +83,7 @@ export function addThemeCssVarsToHtml(themeVars: ThemeVars) {
     style.push(`--${kebabCase(key)}: ${themeVars[key]}`);
   });
   const styleStr = style.join(';');
-  document.documentElement.style.cssText = styleStr;
+  document.documentElement.style.cssText += styleStr;
 }
 
 /** windicss 暗黑模式 */
