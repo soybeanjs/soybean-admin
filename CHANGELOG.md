@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/honghuangdc/soybean-admin/compare/v0.1.1...v0.1.2) (2022-01-21)
+
+
+### Features
+
+* **projects:** 添加缓存主题色 ([3709297](https://github.com/honghuangdc/soybean-admin/commit/37092974d37b2e661d4cbf9d27c89b5e99119cd7))
+* **projects:** 添加页面缓存、记录在tab中的缓存页面的滚动条位置 ([1d63a83](https://github.com/honghuangdc/soybean-admin/commit/1d63a838226df4f48e7f2a15b5a05d4b496d3c69))
+
 ### [0.1.1](https://github.com/honghuangdc/soybean-admin/compare/v0.0.5...v0.1.1) (2022-01-20)
 
 
