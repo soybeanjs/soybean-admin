@@ -23,6 +23,10 @@ export const useTabStore = defineStore('tab-store', {
       path: '/',
       meta: {
         title: 'root'
+      },
+      scrollPosition: {
+        left: 0,
+        top: 0
       }
     },
     activeTab: ''
@@ -131,6 +135,32 @@ export const useTabStore = defineStore('tab-store', {
         this.setActiveTab(path);
         routerPush(path);
       }
+    },
+    /**
+     * 记录tab滚动位置
+     * @param path - 路由path
+     * @param position - tab当前页的滚动位置
+     */
+    recordTabScrollPosition(path: string, position: { left: number; top: number }) {
+      const index = getIndexInTabRoutes(this.tabs, path);
+      if (index > -1) {
+        this.tabs[index].scrollPosition = position;
+      }
+    },
+    /**
+     * 获取tab滚动位置
+     * @param path - 路由path
+     */
+    getTabScrollPosition(path: string) {
+      const position = {
+        left: 0,
+        top: 0
+      };
+      const index = getIndexInTabRoutes(this.tabs, path);
+      if (index > -1) {
+        Object.assign(position, this.tabs[index].scrollPosition);
+      }
+      return position;
     },
     /** 初始化Tab状态 */
     iniTabStore(currentRoute: RouteLocationNormalizedLoaded) {

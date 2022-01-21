@@ -1,4 +1,6 @@
 import type { Component } from 'vue';
+import { EnumLayoutComponentName } from '@/enum';
+import { BasicLayout, BlankLayout } from '@/layouts';
 import {
   Login,
   NoPermission,
@@ -14,6 +16,21 @@ import {
   MultiMenuFirstSecond,
   MultiMenuFirstSecondNewThird
 } from '@/views';
+import type { LayoutComponentName } from '@/interface';
+
+type LayoutComponent = Record<LayoutComponentName, () => Promise<Component>>;
+
+/**
+ * 获取页面导入的vue文件(懒加载的方式)
+ * @param layoutType - 布局类型
+ */
+export function getLayoutComponent(layoutType: LayoutComponentName) {
+  const layoutComponent: LayoutComponent = {
+    basic: BasicLayout,
+    blank: BlankLayout
+  };
+  return () => setViewComponentName(layoutComponent[layoutType], EnumLayoutComponentName[layoutType]);
+}
 
 /** 需要用到自身vue组件的页面 */
 type ViewComponentKey = Exclude<
@@ -28,12 +45,11 @@ type ViewComponentKey = Exclude<
   | 'exception'
 >;
 
-type ViewComponent = {
-  [key in ViewComponentKey]: () => Promise<Component>;
-};
+type ViewComponent = Record<ViewComponentKey, () => Promise<Component>>;
 
 /**
  * 获取页面导入的vue文件(懒加载的方式)
+ * @param routeKey - 路由key
  */
 export function getViewComponent(routeKey: AuthRoute.RouteKey) {
   const keys: ViewComponentKey[] = [

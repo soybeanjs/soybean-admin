@@ -11,7 +11,9 @@ const routes: AuthRoute.Route[] = [
         path: '/dashboard/analysis',
         component: 'self',
         meta: {
-          title: '分析页'
+          title: '分析页',
+          requiresAuth: true,
+          keepAlive: true
         }
       },
       {
@@ -20,13 +22,13 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '工作台',
+          requiresAuth: true,
           permissions: ['super', 'admin']
         }
       }
     ],
     meta: {
       title: '仪表盘',
-      requiresAuth: true,
       icon: 'carbon:dashboard',
       order: 1
     }
@@ -41,7 +43,8 @@ const routes: AuthRoute.Route[] = [
         path: '/document/vue',
         component: 'self',
         meta: {
-          title: 'vue文档'
+          title: 'vue文档',
+          requiresAuth: true
         }
       },
       {
@@ -49,7 +52,8 @@ const routes: AuthRoute.Route[] = [
         path: '/document/vue-new',
         component: 'self',
         meta: {
-          title: 'vue文档(新版)'
+          title: 'vue文档(新版)',
+          requiresAuth: true
         }
       },
       {
@@ -57,7 +61,8 @@ const routes: AuthRoute.Route[] = [
         path: '/document/vite',
         component: 'self',
         meta: {
-          title: 'vite文档'
+          title: 'vite文档',
+          requiresAuth: true
         }
       },
       {
@@ -65,7 +70,8 @@ const routes: AuthRoute.Route[] = [
         path: '/document/naive',
         component: 'self',
         meta: {
-          title: 'naive文档'
+          title: 'naive文档',
+          requiresAuth: true
         }
       },
       {
@@ -73,6 +79,7 @@ const routes: AuthRoute.Route[] = [
         path: '/document/project',
         meta: {
           title: '项目文档(外链)',
+          requiresAuth: true,
           href: 'https://docs.soybean.pro/'
         }
       }
@@ -89,7 +96,9 @@ const routes: AuthRoute.Route[] = [
     component: 'self',
     meta: {
       title: '关于',
+      requiresAuth: true,
       singleLayout: 'basic',
+      keepAlive: true,
       permissions: ['super', 'admin', 'test'],
       icon: 'fluent:book-information-24-regular',
       order: 7
@@ -105,7 +114,8 @@ const routes: AuthRoute.Route[] = [
         path: '/exception/403',
         component: 'self',
         meta: {
-          title: '异常页403'
+          title: '异常页403',
+          requiresAuth: true
         }
       },
       {
@@ -113,7 +123,8 @@ const routes: AuthRoute.Route[] = [
         path: '/exception/404',
         component: 'self',
         meta: {
-          title: '异常页404'
+          title: '异常页404',
+          requiresAuth: true
         }
       },
       {
@@ -121,7 +132,8 @@ const routes: AuthRoute.Route[] = [
         path: '/exception/500',
         component: 'self',
         meta: {
-          title: '异常页500'
+          title: '异常页500',
+          requiresAuth: true
         }
       }
     ],
@@ -146,7 +158,8 @@ const routes: AuthRoute.Route[] = [
             path: '/multi-menu/first/second',
             component: 'self',
             meta: {
-              title: '二级菜单'
+              title: '二级菜单',
+              requiresAuth: true
             }
           },
           {
@@ -159,7 +172,8 @@ const routes: AuthRoute.Route[] = [
                 path: '/multi-menu/first/second-new/third',
                 component: 'self',
                 meta: {
-                  title: '三级菜单'
+                  title: '三级菜单',
+                  requiresAuth: true
                 }
               }
             ],

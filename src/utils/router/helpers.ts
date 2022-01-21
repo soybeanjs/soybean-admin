@@ -1,15 +1,13 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { BasicLayout, BlankLayout } from '@/layouts';
 import { consoleError } from '../common';
-import { getViewComponent } from './component';
+import { getLayoutComponent, getViewComponent } from './component';
 
-type ComponentAction = {
-  [key in AuthRoute.RouteComponent]: () => void;
-};
+type ComponentAction = Record<AuthRoute.RouteComponent, () => void>;
 
 /**
  * 将权限路由转换成vue路由
  * @param routes - 权限路由
+ * @description 所有多级路由都会被转换成二级路由
  */
 export function transformAuthRoutesToVueRoutes(routes: AuthRoute.Route[]) {
   return routes.map(route => transformAuthRouteToVueRoute(route)).flat(1);
@@ -38,10 +36,10 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
   if (hasComponent(item)) {
     const action: ComponentAction = {
       basic() {
-        itemRoute.component = BasicLayout;
+        itemRoute.component = getLayoutComponent('basic');
       },
       blank() {
-        itemRoute.component = BlankLayout;
+        itemRoute.component = getLayoutComponent('blank');
       },
       multi() {
         // 多级路由一定有子路由
@@ -81,7 +79,7 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
     } else {
       const parentPath = `${itemRoute.path}-parent` as AuthRoute.SingleRouteParentPath;
 
-      const layout = item.meta.singleLayout === 'basic' ? BasicLayout : BlankLayout;
+      const layout = item.meta.singleLayout === 'basic' ? getLayoutComponent('basic') : getLayoutComponent('blank');
 
       const parentRoute: RouteRecordRaw = {
         path: parentPath,
@@ -120,22 +118,42 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
   return resultRoute;
 }
 
+/**
+ * 是否有外链
+ * @param item - 权限路由
+ */
 function hasHref(item: AuthRoute.Route) {
   return Boolean(item.meta.href);
 }
 
+/**
+ * 是否有动态路由path
+ * @param item - 权限路由
+ */
 function hasDynamicPath(item: AuthRoute.Route) {
   return Boolean(item.meta.dynamicPath);
 }
 
+/**
+ * 是否有路由组件
+ * @param item - 权限路由
+ */
 function hasComponent(item: AuthRoute.Route) {
   return Boolean(item.component);
 }
 
+/**
+ * 是否有子路由
+ * @param item - 权限路由
+ */
 function hasChildren(item: AuthRoute.Route) {
   return Boolean(item.children && item.children.length);
 }
 
+/**
+ * 是否是单层级路由
+ * @param item - 权限路由
+ */
 function isSingleRoute(item: AuthRoute.Route) {
   return Boolean(item.meta.singleLayout);
 }

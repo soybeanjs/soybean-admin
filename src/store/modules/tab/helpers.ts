@@ -9,7 +9,11 @@ export function getTabRouteByVueRoute(route: RouteRecordNormalized | RouteLocati
   const tabRoute: GlobalTabRoute = {
     name: route.name,
     path: route.path,
-    meta: route.meta
+    meta: route.meta,
+    scrollPosition: {
+      left: 0,
+      top: 0
+    }
   };
   return tabRoute;
 }

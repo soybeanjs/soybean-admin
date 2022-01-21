@@ -23,9 +23,7 @@ interface Props {
   type: ExceptionType;
 }
 
-type ExceptionComponent = {
-  [key in ExceptionType]: Component;
-};
+type ExceptionComponent = Record<ExceptionType, Component>;
 
 const props = defineProps<Props>();
 

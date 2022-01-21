@@ -23,4 +23,10 @@ export type GlobalBreadcrumb = DropdownOption & {
 };
 
 /** 多页签Tab的路由 */
-export type GlobalTabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'>;
+export interface GlobalTabRoute extends Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> {
+  /** 滚动的位置 */
+  scrollPosition: {
+    left: number;
+    top: number;
+  };
+}

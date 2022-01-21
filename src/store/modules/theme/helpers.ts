@@ -37,7 +37,7 @@ function getThemeColors(colors: [ColorType, string][]) {
 }
 
 /** 获取naive的主题颜色 */
-export function getNaiveThemeOverrides(colors: { [key in ColorType]: string }): GlobalThemeOverrides {
+export function getNaiveThemeOverrides(colors: Record<ColorType, string>): GlobalThemeOverrides {
   const { primary, info, success, warning, error } = colors;
   const themeColors = getThemeColors([
     ['primary', primary],

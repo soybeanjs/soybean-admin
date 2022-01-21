@@ -33,13 +33,14 @@ interface Props {
 
 const props = defineProps<Props>();
 
-type LayoutConfig = {
-  [key in ThemeLayoutMode]: {
+type LayoutConfig = Record<
+  ThemeLayoutMode,
+  {
     placement: FollowerPlacement;
     menuClass: string;
     mainClass: string;
-  };
-};
+  }
+>;
 
 const layoutConfig: LayoutConfig = {
   vertical: {

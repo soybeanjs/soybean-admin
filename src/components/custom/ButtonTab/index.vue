@@ -51,7 +51,7 @@ const { bool: isHover, setTrue, setFalse } = useBoolean();
 const isIconActive = computed(() => props.isActive || isHover.value);
 
 const buttonStyle = computed(() => {
-  const style: { [key: string]: string } = {};
+  const style: Record<string, string> = {};
   if (isIconActive.value) {
     style.color = props.primaryColor;
     style.borderColor = addColorAlpha(props.primaryColor, 0.3);

@@ -9,12 +9,8 @@ export interface PkgVersionInfo {
 interface Package {
   name: string;
   version: string;
-  dependencies: {
-    [key: string]: string;
-  };
-  devDependencies: {
-    [key: string]: string;
-  };
+  dependencies: Record<string, string>;
+  devDependencies: Record<string, string>;
   [key: string]: any;
 }
 

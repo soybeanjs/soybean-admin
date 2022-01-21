@@ -1,12 +1,13 @@
 /** 请求环境配置 */
-type ServiceEnv = {
-  [key in Service.HttpEnv]: {
+type ServiceEnv = Record<
+  Service.HttpEnv,
+  {
     /** 请求环境 */
     env: Service.HttpEnv;
     /** 请求地址 */
     url: string;
-  };
-};
+  }
+>;
 
 /** 请求的环境 */
 export const serviceEnv: ServiceEnv = {

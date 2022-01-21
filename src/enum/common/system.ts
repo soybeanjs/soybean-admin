@@ -1,3 +1,9 @@
+/** 布局组件的名称 */
+export enum EnumLayoutComponentName {
+  basic = 'basic-layout',
+  blank = 'blank-layout'
+}
+
 /** 登录模块 */
 export enum EnumLoginModule {
   'pwd-login' = '账密登录',
