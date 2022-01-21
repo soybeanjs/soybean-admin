@@ -16,9 +16,10 @@ interface RequestParam {
 /**
  * 创建请求
  * @param axiosConfig - axios配置
+ * @param backendConfig - 后端接口字段配置
  */
-export function createRequest(axiosConfig: AxiosRequestConfig) {
-  const customInstance = new CustomAxiosInstance(axiosConfig);
+export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: Service.BackendResultConfig) {
+  const customInstance = new CustomAxiosInstance(axiosConfig, backendConfig);
 
   /**
    * 异步promise请求
@@ -98,9 +99,10 @@ type RequestResultHook<T = any> = {
 /**
  * 创建hooks请求
  * @param axiosConfig - axios配置
+ * @param backendConfig - 后端接口字段配置
  */
-export function createHookRequest(axiosConfig: AxiosRequestConfig) {
-  const customInstance = new CustomAxiosInstance(axiosConfig);
+export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig?: Service.BackendResultConfig) {
+  const customInstance = new CustomAxiosInstance(axiosConfig, backendConfig);
 
   /**
    * hooks请求

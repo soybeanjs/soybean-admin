@@ -23,14 +23,16 @@ declare namespace Service {
     msg: string;
   }
 
-  /** 后端接口返回的数据的类型 */
-  interface BackendServiceResult<T = any> {
-    /** 状态码 */
-    code: string | number;
-    /** 接口数据 */
-    data: T;
-    /** 接口消息 */
-    message: string;
+  /** 后端接口返回的数据结构配置 */
+  interface BackendResultConfig {
+    /** 表示后端请求状态码的属性字段 */
+    codeKey: string;
+    /** 表示后端请求数据的属性字段 */
+    dataKey: string;
+    /** 表示后端消息的属性字段 */
+    msgKey: string;
+    /** 后端业务上定义的成功请求的状态 */
+    successCode: number | string;
   }
 
   /** 自定义的请求成功结果 */
@@ -51,4 +53,14 @@ declare namespace Service {
 
   /** 自定义的请求结果 */
   type RequestResult<T = any> = SuccessResult<T> | FailedResult;
+
+  /** mock示例接口类型：后端接口返回的数据的类型 */
+  interface MockServiceResult<T = any> {
+    /** 状态码 */
+    code: string | number;
+    /** 接口数据 */
+    data: T;
+    /** 接口消息 */
+    message: string;
+  }
 }

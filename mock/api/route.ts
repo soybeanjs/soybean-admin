@@ -210,7 +210,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/getUserRoutes',
     method: 'post',
-    response: (): Service.BackendServiceResult => {
+    response: (): Service.MockServiceResult => {
       return {
         code: 200,
         message: 'ok',

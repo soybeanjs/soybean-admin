@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { setupAssets } from '@/plugins';
 import { setupRouter } from '@/router';
 import { setupStore } from '@/store';
+import { setupDirectives } from '@/directives';
 import App from './App.vue';
 
 async function setupApp() {
@@ -12,6 +13,9 @@ async function setupApp() {
 
   // 挂载pinia状态
   setupStore(app);
+
+  // 挂载自定义vue指令
+  setupDirectives(app);
 
   // 挂载路由
   await setupRouter(app);

@@ -10,7 +10,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/getSmsCode',
     method: 'post',
-    response: (): Service.BackendServiceResult<boolean> => {
+    response: (): Service.MockServiceResult<boolean> => {
       return {
         code: 200,
         message: 'ok',
@@ -22,7 +22,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/loginByPwd',
     method: 'post',
-    response: (): Service.BackendServiceResult<ApiAuth.Token> => {
+    response: (): Service.MockServiceResult<ApiAuth.Token> => {
       return {
         code: 200,
         message: 'ok',
@@ -34,7 +34,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/loginByCode',
     method: 'post',
-    response: (): Service.BackendServiceResult<ApiAuth.Token> => {
+    response: (): Service.MockServiceResult<ApiAuth.Token> => {
       return {
         code: 200,
         message: 'ok',
@@ -46,7 +46,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/getUserInfo',
     method: 'get',
-    response: (): Service.BackendServiceResult<ApiAuth.UserInfo> => {
+    response: (): Service.MockServiceResult<ApiAuth.UserInfo> => {
       return {
         code: 200,
         message: 'ok',
@@ -62,7 +62,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/testToken',
     method: 'post',
-    response: (option: any): Service.BackendServiceResult<true | null> => {
+    response: (option: any): Service.MockServiceResult<true | null> => {
       if (option.headers?.authorization !== token.token) {
         return {
           code: 66666,
@@ -80,7 +80,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/updateToken',
     method: 'post',
-    response: (): Service.BackendServiceResult<string> => {
+    response: (): Service.MockServiceResult<string> => {
       return {
         code: 200,
         message: 'ok',

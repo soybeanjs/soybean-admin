@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { AxiosRequestConfig, AxiosInstance, AxiosError, CancelTokenStatic } from 'axios';
+import type { AxiosRequestConfig, AxiosInstance, AxiosError } from 'axios';
 import { REQUEST_TIMEOUT, REFRESH_TOKEN_CODE } from '@/config';
 import {
   getToken,
@@ -18,17 +18,28 @@ import { refreshToken } from './helpers';
 export default class CustomAxiosInstance {
   instance: AxiosInstance;
 
-  private backendSuccessCode = 200;
+  backendConfig: Service.BackendResultConfig;
 
-  cancelToken: CancelTokenStatic;
-
-  constructor(axiosConfig: AxiosRequestConfig) {
+  /**
+   *
+   * @param axiosConfig - axios配置
+   * @param backendSuccessCode - 后端业务上定义的成功请求的状态码
+   */
+  constructor(
+    axiosConfig: AxiosRequestConfig,
+    backendConfig: Service.BackendResultConfig = {
+      codeKey: 'code',
+      dataKey: 'data',
+      msgKey: 'message',
+      successCode: 200
+    }
+  ) {
+    this.backendConfig = backendConfig;
     const defaultConfig: AxiosRequestConfig = {
       timeout: REQUEST_TIMEOUT
     };
     Object.assign(defaultConfig, axiosConfig);
     this.instance = axios.create(defaultConfig);
-    this.cancelToken = axios.CancelToken;
     this.setInterceptor();
   }
 
@@ -55,21 +66,22 @@ export default class CustomAxiosInstance {
       async response => {
         const { status } = response;
         if (status === 200 || status < 300 || status === 304) {
-          const backend = response.data as Service.BackendServiceResult;
+          const backend = response.data;
+          const { codeKey, dataKey, successCode } = this.backendConfig;
           // 请求成功
-          if (backend.code === this.backendSuccessCode) {
-            return handleServiceResult(null, backend.data);
+          if (backend[codeKey] === successCode) {
+            return handleServiceResult(null, backend[dataKey]);
           }
 
           // token失效, 刷新token
-          if (REFRESH_TOKEN_CODE.includes(backend.code)) {
+          if (REFRESH_TOKEN_CODE.includes(backend[codeKey])) {
             const config = await refreshToken(response.config);
             if (config) {
               return this.instance.request(config);
             }
           }
 
-          const error = handleBackendError(backend);
+          const error = handleBackendError(backend, this.backendConfig);
           return handleServiceResult(error, null);
         }
         const error = handleResponseError(response);
