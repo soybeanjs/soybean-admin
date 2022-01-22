@@ -1,7 +1,7 @@
 import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { fetchUserRoutes } from '@/service';
-import { transformAuthRouteToMenu, transformAuthRoutesToVueRoutes, getCacheRoutes } from '@/utils';
+import { getUserInfo, transformAuthRouteToMenu, transformAuthRoutesToVueRoutes, getCacheRoutes } from '@/utils';
 import type { GlobalMenuOption } from '@/interface';
 import { useTabStore } from '../tab';
 
@@ -31,7 +31,9 @@ export const useRouteStore = defineStore('route-store', {
     async initDynamicRoute(router: Router) {
       const { initHomeTab } = useTabStore();
 
-      const { data } = await fetchUserRoutes();
+      const { userId } = getUserInfo();
+      if (!userId) return;
+      const { data } = await fetchUserRoutes(userId);
       if (data) {
         this.routeHomeName = data.home;
         this.menus = transformAuthRouteToMenu(data.routes);
