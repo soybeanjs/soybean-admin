@@ -1,39 +1,19 @@
 import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { routeName } from '@/router';
-import { useAuthStore, useRouteStore } from '@/store';
+import { useAuthStore } from '@/store';
 import { exeStrategyActions, getToken } from '@/utils';
+import { createDynamicRouteGuard } from './dynamic';
 
 /** 处理路由页面的权限 */
-export async function handlePagePermission(
+export async function createPermissionGuard(
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
   router: Router
 ) {
-  const auth = useAuthStore();
-  const route = useRouteStore();
-
-  const isLogin = Boolean(getToken());
-  const permissions = to.meta.permissions || [];
-  const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
-  const hasPermission = !permissions.length || permissions.includes(auth.userInfo.userRole);
-
-  // 初始化动态路由
-  if (!route.isAddedDynamicRoute) {
-    await route.initDynamicRoute(router);
-
-    if (to.name === routeName('not-found-page')) {
-      // 动态路由没有加载导致被not-found-page路由捕获，等待动态路由加载好了，回到之前的路由
-      next({ path: to.fullPath, replace: true, query: to.query });
-      return;
-    }
-  }
-
-  // 动态路由已经加载，仍然未找到，重定向到not-found
-  if (to.name === routeName('not-found-page')) {
-    next({ name: routeName('not-found'), replace: true });
-    return;
-  }
+  // 动态路由
+  const permission = await createDynamicRouteGuard(to, from, next, router);
+  if (!permission) return;
 
   // 外链路由, 从新标签打开，返回上一个路由
   if (to.meta.href) {
@@ -41,6 +21,12 @@ export async function handlePagePermission(
     next({ path: from.fullPath, replace: true, query: from.query });
     return;
   }
+
+  const auth = useAuthStore();
+  const isLogin = Boolean(getToken());
+  const permissions = to.meta.permissions || [];
+  const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
+  const hasPermission = !permissions.length || permissions.includes(auth.userInfo.userRole);
 
   const actions: Common.StrategyAction[] = [
     // 已登录状态跳转登录页，跳转至首页
