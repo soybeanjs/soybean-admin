@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.1](https://github.com/honghuangdc/soybean-admin/compare/v0.1.3...v0.9.1) (2022-01-23)
+
+
+### Features
+
+* **projects:** 新版重构完成 ([68b4230](https://github.com/honghuangdc/soybean-admin/commit/68b42304d5964246775c7a82dcc1406c5db7a4e4))
+
 ### [0.1.3](https://github.com/honghuangdc/soybean-admin/compare/v0.1.2...v0.1.3) (2022-01-23)
 
 

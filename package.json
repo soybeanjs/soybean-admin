@@ -1,6 +1,6 @@
 {
   "name": "soybean-admin",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "scripts": {
     "dev": "cross-env VITE_HTTP_ENV=test vite",
     "dev:prod": "cross-env VITE_HTTP_ENV=prod vite",
