@@ -1,3 +1,4 @@
+import LoadingEmptyWrapper from './LoadingEmptyWrapper/index.vue';
 import LoginAgreement from './LoginAgreement/index.vue';
 
-export { LoginAgreement };
+export { LoadingEmptyWrapper, LoginAgreement };

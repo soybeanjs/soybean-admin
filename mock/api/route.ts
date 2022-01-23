@@ -90,16 +90,42 @@ const routes: AuthRoute.Route[] = [
     }
   },
   {
-    name: 'about',
-    path: '/about',
-    component: 'self',
+    name: 'component',
+    path: '/component',
+    component: 'basic',
+    children: [
+      {
+        name: 'component_button',
+        path: '/component/button',
+        component: 'self',
+        meta: {
+          title: '按钮',
+          requiresAuth: true
+        }
+      },
+      {
+        name: 'component_card',
+        path: '/component/card',
+        component: 'self',
+        meta: {
+          title: '卡片',
+          requiresAuth: true
+        }
+      },
+      {
+        name: 'component_table',
+        path: '/component/table',
+        component: 'self',
+        meta: {
+          title: '表格',
+          requiresAuth: true
+        }
+      }
+    ],
     meta: {
-      title: '关于',
-      requiresAuth: true,
-      singleLayout: 'basic',
-      permissions: ['super', 'admin', 'test'],
-      icon: 'fluent:book-information-24-regular',
-      order: 7
+      title: '组件示例',
+      icon: 'fluent:app-store-24-regular',
+      order: 4
     }
   },
   {
@@ -189,6 +215,19 @@ const routes: AuthRoute.Route[] = [
       title: '多级菜单',
       icon: 'carbon:menu',
       order: 6
+    }
+  },
+  {
+    name: 'about',
+    path: '/about',
+    component: 'self',
+    meta: {
+      title: '关于',
+      requiresAuth: true,
+      singleLayout: 'basic',
+      permissions: ['super', 'admin', 'test'],
+      icon: 'fluent:book-information-24-regular',
+      order: 7
     }
   }
 ];

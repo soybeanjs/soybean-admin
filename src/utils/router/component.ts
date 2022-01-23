@@ -12,9 +12,12 @@ import {
   DocumentVueNew,
   DocumentVite,
   DocumentNaive,
-  About,
+  ComponentButton,
+  ComponentCard,
+  ComponentTable,
   MultiMenuFirstSecond,
-  MultiMenuFirstSecondNewThird
+  MultiMenuFirstSecondNewThird,
+  About
 } from '@/views';
 import type { LayoutComponentName } from '@/interface';
 
@@ -39,6 +42,7 @@ type ViewComponentKey = Exclude<
   | 'dashboard'
   | 'document'
   | 'document_project'
+  | 'component'
   | 'multi-menu'
   | 'multi-menu_first'
   | 'multi-menu_first_second-new'
@@ -63,12 +67,15 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     'document_vue-new',
     'document_vite',
     'document_naive',
-    'about',
-    'multi-menu_first_second',
-    'multi-menu_first_second-new_third',
+    'component_button',
+    'component_card',
+    'component_table',
     'exception_403',
     'exception_404',
     'exception_500',
+    'multi-menu_first_second',
+    'multi-menu_first_second-new_third',
+    'about',
     'not-found-page'
   ];
 
@@ -85,13 +92,16 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     'document_vue-new': DocumentVueNew,
     document_vite: DocumentVite,
     document_naive: DocumentNaive,
-    'multi-menu_first_second': MultiMenuFirstSecond,
-    'multi-menu_first_second-new_third': MultiMenuFirstSecondNewThird,
-    'not-found-page': NotFound,
+    component_button: ComponentButton,
+    component_card: ComponentCard,
+    component_table: ComponentTable,
     exception_403: NoPermission,
     exception_404: NotFound,
     exception_500: ServiceError,
-    about: About
+    'multi-menu_first_second': MultiMenuFirstSecond,
+    'multi-menu_first_second-new_third': MultiMenuFirstSecondNewThird,
+    about: About,
+    'not-found-page': NotFound
   };
 
   return () => setViewComponentName(viewComponent[key], key) as Promise<Component>;

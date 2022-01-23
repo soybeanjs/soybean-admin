@@ -22,15 +22,19 @@ declare namespace AuthRoute {
     | 'document_vite'
     | 'document_naive'
     | 'document_project'
+    | 'component'
+    | 'component_button'
+    | 'component_card'
+    | 'component_table'
+    | 'exception'
+    | 'exception_403'
+    | 'exception_404'
+    | 'exception_500'
     | 'multi-menu'
     | 'multi-menu_first'
     | 'multi-menu_first_second'
     | 'multi-menu_first_second-new'
     | 'multi-menu_first_second-new_third'
-    | 'exception'
-    | 'exception_403'
-    | 'exception_404'
-    | 'exception_500'
     | 'about';
 
   /** 路由的path */
@@ -55,20 +59,20 @@ declare namespace AuthRoute {
     title: string;
     /** 路由的动态路径 */
     dynamicPath?: PathToDynamicPath<'/login'>;
-    /** 作为单独路由的父级路由布局组件 */
+    /** 作为单级路由的父级路由布局组件 */
     singleLayout?: Extract<RouteComponent, 'basic' | 'blank'>;
     /** 需要登录权限 */
     requiresAuth?: boolean;
-    /** 哪些类型的用户有权限才能访问的路由 */
+    /** 哪些类型的用户有权限才能访问的路由(空的话则表示不需要权限) */
     permissions?: Auth.RoleType[];
     /** 缓存页面 */
     keepAlive?: boolean;
     /** 菜单和面包屑对应的图标 */
     icon?: string;
-    /** 外链链接 */
-    href?: string;
     /** 是否在菜单中隐藏 */
     hide?: boolean;
+    /** 外链链接 */
+    href?: string;
     /** 路由顺序，可用于菜单的排序 */
     order?: number;
     /** 表示是否是多级路由的中间级路由(用于转换路由数据时筛选多级路由的标识，定义路由时不用填写) */
@@ -102,13 +106,10 @@ declare namespace AuthRoute {
   /** 单独一级路由的key (单独路由需要添加一个父级路由用于应用布局组件) */
   type SingleRouteKey = Exclude<
     GetSingleRouteKey<RouteKey>,
-    GetMultiRouteParentKey<RouteKey> | 'root' | 'not-found-page'
+    GetRouteFirstParentKey<RouteKey> | 'root' | 'not-found-page'
   >;
   /** 单独路由父级路由key */
   type SingleRouteParentKey = `${SingleRouteKey}-parent`;
-
-  /** 单独路由path */
-  type SingleRoutePath = KeyToPath<SingleRouteKey>;
 
   /** 单独路由父级路由path */
   type SingleRouteParentPath = KeyToPath<SingleRouteParentKey>;
@@ -124,12 +125,12 @@ declare namespace AuthRoute {
     | `${Path}/:module(${string})`
     | `${Path}/:module(${string})?`;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type GetSingleRouteKey<Key extends RouteKey> = Key extends `${infer Left}${RouteSplitMark}${infer Right}`
-    ? never
-    : Key;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type GetMultiRouteParentKey<Key extends RouteKey> = Key extends `${infer Left}${RouteSplitMark}${infer Right}`
+  /** 获取一级路由(包括有子路由的一级路由) */
+  type GetSingleRouteKey<Key extends RouteKey> =
+    Key extends `${infer IgnoredLeft}${RouteSplitMark}${infer IgnoredRight}` ? never : Key;
+
+  /** 获取子路由的一级父路由 */
+  type GetRouteFirstParentKey<Key extends RouteKey> = Key extends `${infer Left}${RouteSplitMark}${infer IgnoredRight}`
     ? Left
     : never;
 }
