@@ -1,21 +1,22 @@
 <div align="center">
 	<img src="https://i.loli.net/2021/11/24/x5lLfuSnEawBAgi.png"/>
-	<h1>Soybean Admin Thin</h1>
+	<h1>Soybean Admin</h1>
 </div>
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 ## 简介
 
-Soybean Admin Thin 是Soybean Admin的精简版。
+Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中后台模版，它使用了最新的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于mock实现的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
 
 ## 特性
 
 - **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发, 使用高效率的npm包管理器pnpm
 - **TypeScript**: 应用程序级 JavaScript 的语言
-- **主题**：丰富可配置的主题
+- **主题**：丰富可配置的主题、暗黑模式，基于windicss的动态主题颜色
 - **代码规范**：丰富的规范插件及极高的代码规范
-- **路由配置**：简易的路由配置
+- **权限路由**：简易的路由配置、基于mock的动态路由能快速实现后端动态路由
+- **请求函数**：完善的请求函数封装，提供Promise和hooks两种请求函数
 
 ## 预览
 
@@ -32,15 +33,15 @@ Soybean Admin Thin 是Soybean Admin的精简版。
 - [gitee](https://gitee.com/honghuangdc/soybean-admin)
 
 ## 项目示例图
-![](https://i.loli.net/2021/11/24/pIhTKP7fdCqbVHl.png)
+![](https://s2.loli.net/2022/01/24/ovK6Oyqr7gIMu2n.png)
 
-![](https://i.loli.net/2021/11/24/gxRwsLnKi6IVp7C.png)
+![](https://s2.loli.net/2022/01/24/O8loxYhMySHwGfJ.png)
 
-![](https://i.loli.net/2021/11/24/UmVfjSJbxH6iYc2.png)
+![](https://s2.loli.net/2022/01/24/HKwpJ7Ab6j8fVvk.png)
 
-![](https://i.loli.net/2021/11/24/Uot1bcfGXiF726T.png)
+![](https://s2.loli.net/2022/01/24/bqJRSDZHBv3jsif.png)
 
-![](https://i.loli.net/2021/11/24/WzOIvlgJZaUtGm7.png)
+![](https://s2.loli.net/2022/01/24/wXpHeau6UrSTWdF.png)
 
 ### 使用 Gitpod
 
@@ -108,7 +109,7 @@ pnpm i -g commitizen
 
 - 微信交流群：
   <div style="text-align:left">
-    <img src="https://s2.loli.net/2021/12/29/m65oExs7yHcPbKZ.jpg" style="width:200px" />
+    <img src="https://s2.loli.net/2022/01/24/uX8KaGt7W2jbw6V.jpg" style="width:200px" />
   </div>
 
 - QQ 群 `711301266`

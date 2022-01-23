@@ -15,6 +15,14 @@ import {
   ComponentButton,
   ComponentCard,
   ComponentTable,
+  PluginMap,
+  PluginVideo,
+  PluginEditorQuill,
+  PluginEditorMarkdown,
+  PluginSwiper,
+  PluginCopy,
+  PluginIcon,
+  PluginPrint,
   MultiMenuFirstSecond,
   MultiMenuFirstSecondNewThird,
   About
@@ -43,6 +51,8 @@ type ViewComponentKey = Exclude<
   | 'document'
   | 'document_project'
   | 'component'
+  | 'plugin'
+  | 'plugin_editor'
   | 'multi-menu'
   | 'multi-menu_first'
   | 'multi-menu_first_second-new'
@@ -70,6 +80,14 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     'component_button',
     'component_card',
     'component_table',
+    'plugin_map',
+    'plugin_video',
+    'plugin_editor_quill',
+    'plugin_editor_markdown',
+    'plugin_copy',
+    'plugin_icon',
+    'plugin_print',
+    'plugin_swiper',
     'exception_403',
     'exception_404',
     'exception_500',
@@ -95,6 +113,14 @@ export function getViewComponent(routeKey: AuthRoute.RouteKey) {
     component_button: ComponentButton,
     component_card: ComponentCard,
     component_table: ComponentTable,
+    plugin_map: PluginMap,
+    plugin_video: PluginVideo,
+    plugin_editor_quill: PluginEditorQuill,
+    plugin_editor_markdown: PluginEditorMarkdown,
+    plugin_copy: PluginCopy,
+    plugin_icon: PluginIcon,
+    plugin_print: PluginPrint,
+    plugin_swiper: PluginSwiper,
     exception_403: NoPermission,
     exception_404: NotFound,
     exception_500: ServiceError,
