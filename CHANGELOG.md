@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/honghuangdc/soybean-admin/compare/v0.1.2...v0.1.3) (2022-01-23)
+
+
+### Bug Fixes
+
+* **projects:** 修复未登录时会调用获取用户路由的接口 ([21bab1f](https://github.com/honghuangdc/soybean-admin/commit/21bab1f7c30611fe59dc91c7a73050ccb49a4658))
+* **projects:** 修复路由守卫的动态路由逻辑 ([b61b0ce](https://github.com/honghuangdc/soybean-admin/commit/b61b0ce25fdcbaf29ca64cbcc467e12faa947625))
+
 ### [0.1.2](https://github.com/honghuangdc/soybean-admin/compare/v0.1.1...v0.1.2) (2022-01-21)
 
 
