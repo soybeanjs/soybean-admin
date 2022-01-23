@@ -32,7 +32,16 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 - [gitee](https://gitee.com/honghuangdc/soybean-admin)
 
+### 温馨提示(老用户)
+
+旧版代码在old分支，等main分支稳定下来，再删除old分支。
+
+如果不是第一次进预览地址 soybean.pro，新版的发布会导致有缓存，退出用户，重新登录即可。
+
+thin分支相对于main分支少了插件示例，其他都一样，后面会适当精简一些代码。
+
 ## 项目示例图
+
 ![](https://s2.loli.net/2022/01/24/ovK6Oyqr7gIMu2n.png)
 
 ![](https://s2.loli.net/2022/01/24/O8loxYhMySHwGfJ.png)
