@@ -18,7 +18,7 @@ export default defineConfig(configEnv => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "${fileURLToPath(new URL('./src', import.meta.url))}/styles/scss/global.scss" as *;`
+          additionalData: `@use "./src/styles/scss/global.scss" as *;`
         }
       }
     },
