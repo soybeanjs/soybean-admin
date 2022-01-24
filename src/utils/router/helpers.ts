@@ -13,6 +13,20 @@ export function transformAuthRoutesToVueRoutes(routes: AuthRoute.Route[]) {
   return routes.map(route => transformAuthRouteToVueRoute(route)).flat(1);
 }
 
+/** 将路由转换成菜单列表 */
+export function transformRouteToList(routes: AuthRoute.Route[], treeMap: AuthRoute.Route[] = []) {
+  if (routes && routes.length === 0) return [];
+  return routes.reduce((acc, cur) => {
+    if (!cur.meta?.hide) {
+      acc.push(cur);
+    }
+    if (cur.children && cur.children.length > 0) {
+      transformRouteToList(cur.children, treeMap);
+    }
+    return acc;
+  }, treeMap);
+}
+
 /**
  * 将单个权限路由转换成vue路由
  * @param route - 权限路由
