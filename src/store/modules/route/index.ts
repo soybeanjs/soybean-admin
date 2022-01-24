@@ -1,7 +1,13 @@
 import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { fetchUserRoutes } from '@/service';
-import { getUserInfo, transformAuthRouteToMenu, transformAuthRoutesToVueRoutes, getCacheRoutes } from '@/utils';
+import {
+  getUserInfo,
+  transformAuthRouteToMenu,
+  transformAuthRoutesToVueRoutes,
+  transformRouteToList,
+  getCacheRoutes
+} from '@/utils';
 import type { GlobalMenuOption } from '@/interface';
 import { useTabStore } from '../tab';
 
@@ -12,6 +18,7 @@ interface RouteState {
   routeHomeName: AuthRoute.RouteKey;
   /** 菜单 */
   menus: GlobalMenuOption[];
+  menusList: AuthRoute.Route[];
   /** 缓存的路由名称 */
   cacheRoutes: string[];
 }
@@ -21,6 +28,7 @@ export const useRouteStore = defineStore('route-store', {
     isAddedDynamicRoute: false,
     routeHomeName: 'dashboard_analysis',
     menus: [],
+    menusList: [],
     cacheRoutes: []
   }),
   actions: {
@@ -37,6 +45,7 @@ export const useRouteStore = defineStore('route-store', {
       if (data) {
         this.routeHomeName = data.home;
         this.menus = transformAuthRouteToMenu(data.routes);
+        this.menusList = transformRouteToList(data.routes);
 
         const vueRoutes = transformAuthRoutesToVueRoutes(data.routes);
         vueRoutes.forEach(route => {

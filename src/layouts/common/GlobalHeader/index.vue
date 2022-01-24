@@ -9,6 +9,7 @@
       <header-menu />
     </div>
     <div class="flex justify-end h-full">
+      <global-search />
       <github-site />
       <full-screen />
       <theme-mode />
@@ -22,6 +23,7 @@ import { DarkModeContainer } from '@/components';
 import { useThemeStore } from '@/store';
 import type { GlobalHeaderProps } from '@/interface';
 import GlobalLogo from '../GlobalLogo/index.vue';
+import GlobalSearch from '../GlobalSearch/index.vue';
 import {
   MenuCollapse,
   GlobalBreadcrumb,
