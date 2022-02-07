@@ -1,4 +1,4 @@
-import { useBreakpoints, breakpointsTailwind } from '@vueuse/core';
+import UAParser from 'ua-parser-js';
 
 interface AppInfo {
   /** 项目名称 */
@@ -20,9 +20,9 @@ export function useAppInfo(): AppInfo {
   };
 }
 
-/** 是否是移动端 */
-export function useIsMobile() {
-  const breakpoints = useBreakpoints(breakpointsTailwind);
-  const isMobile = breakpoints.smaller('lg');
-  return isMobile;
+/** 获取设备信息 */
+export function useDeviceInfo() {
+  const parser = new UAParser();
+  const result = parser.getResult();
+  return result;
 }

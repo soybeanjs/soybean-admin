@@ -30,8 +30,9 @@ function initBetterScroll() {
 }
 
 // 滚动元素发生变化，刷新BS
+const { width: wrapWidth } = useElementSize(bsWrap);
 const { width, height } = useElementSize(bsContent);
-watch([() => width.value, () => height.value], () => {
+watch([() => wrapWidth.value, () => width.value, () => height.value], () => {
   if (instance.value) {
     instance.value.refresh();
   }
