@@ -118,7 +118,7 @@ pnpm i -g commitizen
 
 - 微信交流群：
   <div style="text-align:left">
-    <img src="https://s2.loli.net/2022/01/24/uX8KaGt7W2jbw6V.jpg" style="width:200px" />
+    <img src="https://s2.loli.net/2022/02/07/hJWkOUAjpCQNwdf.jpg" style="width:200px" />
   </div>
 
 - QQ 群 `711301266`
