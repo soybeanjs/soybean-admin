@@ -1,6 +1,6 @@
 <template>
-  <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" responsive="screen">
-    <n-grid-item span="s:24 m:8">
+  <n-grid :x-gap="16" :y-gap="16" :item-responsive="true">
+    <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="时间线" :bordered="false" class="rounded-16px shadow-sm">
         <div class="h-360px">
           <n-timeline>
@@ -9,7 +9,7 @@
         </div>
       </n-card>
     </n-grid-item>
-    <n-grid-item span="s:24 m:16">
+    <n-grid-item span="0:24 640:24 1024:16">
       <n-card title="表格" :bordered="false" class="rounded-16px shadow-sm">
         <div class="h-360px">
           <n-data-table size="small" :columns="columns" :data="tableData" />

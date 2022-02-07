@@ -1,6 +1,6 @@
 <template>
-  <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" responsive="screen">
-    <n-grid-item span="s:24 m:16">
+  <n-grid :x-gap="16" :y-gap="16" :item-responsive="true">
+    <n-grid-item span="0:24 640:24 1024:16">
       <n-card :bordered="false" class="rounded-16px shadow-sm">
         <div class="flex w-full h-360px">
           <div class="w-200px h-full py-12px">
@@ -22,7 +22,7 @@
         </div>
       </n-card>
     </n-grid-item>
-    <n-grid-item span="s:24 m:8">
+    <n-grid-item span="0:24 640:24 1024:8">
       <n-card :bordered="false" class="rounded-16px shadow-sm">
         <div ref="pieRef" class="w-full h-360px"></div>
       </n-card>

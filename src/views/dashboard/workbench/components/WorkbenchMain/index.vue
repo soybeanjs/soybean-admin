@@ -1,6 +1,6 @@
 <template>
-  <n-grid :item-responsive="true" responsive="screen" :x-gap="16" :y-gap="16">
-    <n-grid-item span="s:24 m:16">
+  <n-grid :item-responsive="true" :x-gap="16" :y-gap="16">
+    <n-grid-item span="0:24 640:24 1024:16">
       <n-space :vertical="true" :size="16">
         <n-card title="项目主要技术栈" :bordered="false" size="small" class="shadow-sm rounded-16px">
           <template #header-extra>
@@ -29,7 +29,7 @@
         </n-card>
       </n-space>
     </n-grid-item>
-    <n-grid-item span="s:24 m:8">
+    <n-grid-item span="0:24 640:24 1024:8">
       <n-space :vertical="true" :size="16">
         <n-card title="快捷操作" :bordered="false" size="small" class="shadow-sm rounded-16px">
           <n-grid :item-responsive="true" responsive="screen" cols="m:2 l:3" :x-gap="8" :y-gap="8">
