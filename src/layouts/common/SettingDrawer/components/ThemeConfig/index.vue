@@ -1,7 +1,8 @@
 <template>
   <n-divider title-placement="center">主题配置</n-divider>
+  <textarea id="themeConfigCopyTarget" v-model="dataClipboardText" class="absolute opacity-0" />
   <n-space vertical>
-    <div ref="copyRef" :data-clipboard-text="dataClipboardText">
+    <div ref="copyRef" data-clipboard-target="#themeConfigCopyTarget">
       <n-button type="primary" :block="true">拷贝当前配置</n-button>
     </div>
     <n-button type="warning" :block="true" @click="handleResetConfig">重置当前配置</n-button>
@@ -17,6 +18,7 @@ import { useThemeStore } from '@/store';
 const theme = useThemeStore();
 
 const copyRef = ref<HTMLElement>();
+
 const dataClipboardText = ref(getClipboardText());
 
 function getClipboardText() {
@@ -29,8 +31,7 @@ function handleResetConfig() {
 }
 
 function clipboardEventListener() {
-  if (!copyRef.value) return;
-  const copy = new Clipboard(copyRef.value);
+  const copy = new Clipboard(copyRef.value!);
   copy.on('success', () => {
     window.$dialog?.success({
       title: '操作成功',

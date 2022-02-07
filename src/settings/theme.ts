@@ -1,5 +1,6 @@
 import { EnumThemeLayoutMode, EnumThemeTabMode, EnumThemeHorizontalMenuPosition, EnumThemeAnimateMode } from '@/enum';
 import type { ThemeSetting } from '@/interface';
+import jsonSetting from './theme.json';
 
 const themeColorList = [
   '#1890ff',
@@ -101,4 +102,4 @@ const defaultThemeSetting: ThemeSetting = {
   }
 };
 
-export const themeSetting = defaultThemeSetting;
+export const themeSetting = (jsonSetting as ThemeSetting) || defaultThemeSetting;

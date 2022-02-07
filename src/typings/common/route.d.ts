@@ -125,7 +125,7 @@ declare namespace AuthRoute {
   type SingleRouteParentPath = KeyToPath<SingleRouteParentKey>;
 
   /** 路由key转换路由path */
-  type KeyToPath<Key extends RouteKey> = Key extends `${infer Left}_${infer Right}`
+  type KeyToPath<Key extends string> = Key extends `${infer Left}_${infer Right}`
     ? KeyToPath<`${Left}/${Right}`>
     : `/${Key}`;
 

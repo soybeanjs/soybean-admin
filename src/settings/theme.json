@@ -1,0 +1,142 @@
+{
+	"darkMode": false,
+	"layout": {
+		"minWidth": 900,
+		"mode": "vertical",
+		"modeList": [
+			{
+				"value": "vertical",
+				"label": "左侧菜单模式"
+			},
+			{
+				"value": "vertical-mix",
+				"label": "左侧菜单混合模式"
+			},
+			{
+				"value": "horizontal",
+				"label": "顶部菜单模式"
+			},
+			{
+				"value": "horizontal-mix",
+				"label": "顶部菜单混合模式"
+			}
+		]
+	},
+	"themeColor": "#1890ff",
+	"themeColorList": [
+		"#1890ff",
+		"#409EFF",
+		"#2d8cf0",
+		"#007AFF",
+		"#5ac8fa",
+		"#5856D6",
+		"#536dfe",
+		"#9c27b0",
+		"#AF52DE",
+		"#0096c7",
+		"#00C1D4",
+		"#34C759",
+		"#43a047",
+		"#7cb342",
+		"#c0ca33",
+		"#78DEC7",
+		"#e53935",
+		"#d81b60",
+		"#f4511e",
+		"#fb8c00",
+		"#ffb300",
+		"#fdd835",
+		"#6d4c41",
+		"#546e7a"
+	],
+	"otherColor": {
+		"info": "#0099ad",
+		"success": "#52c41a",
+		"warning": "#faad14",
+		"error": "#f5222d"
+	},
+	"isCustomizeInfoColor": false,
+	"fixedHeaderAndTab": true,
+	"showReload": true,
+	"header": {
+		"height": 56,
+		"crumb": {
+			"visible": true,
+			"showIcon": true
+		}
+	},
+	"tab": {
+		"visible": true,
+		"height": 44,
+		"mode": "chrome",
+		"modeList": [
+			{
+				"value": "chrome",
+				"label": "谷歌风格"
+			},
+			{
+				"value": "button",
+				"label": "按钮风格"
+			}
+		],
+		"isCache": true
+	},
+	"sider": {
+		"width": 220,
+		"collapsedWidth": 64,
+		"mixWidth": 80,
+		"mixCollapsedWidth": 48,
+		"mixChildMenuWidth": 200
+	},
+	"menu": {
+		"horizontalPosition": "flex-start",
+		"horizontalPositionList": [
+			{
+				"value": "flex-start",
+				"label": "居左"
+			},
+			{
+				"value": "center",
+				"label": "居中"
+			},
+			{
+				"value": "flex-end",
+				"label": "居右"
+			}
+		]
+	},
+	"footer": {
+		"fixed": false,
+		"height": 48
+	},
+	"page": {
+		"animate": true,
+		"animateMode": "fade-slide",
+		"animateModeList": [
+			{
+				"value": "fade-slide",
+				"label": "滑动"
+			},
+			{
+				"value": "fade",
+				"label": "消退"
+			},
+			{
+				"value": "fade-bottom",
+				"label": "底部消退"
+			},
+			{
+				"value": "fade-scale",
+				"label": "缩放消退"
+			},
+			{
+				"value": "zoom-fade",
+				"label": "渐变"
+			},
+			{
+				"value": "zoom-out",
+				"label": "闪现"
+			}
+		]
+	}
+}
