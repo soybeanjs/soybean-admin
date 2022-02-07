@@ -124,7 +124,7 @@ pnpm i -g commitizen
 - QQ 群 `711301266`
 
   <div style="text-align:left">
-    <img src="https://s2.loli.net/2022/02/03/o6VDvEPHemNB7MR.jpg" style="width:200px" />
+    <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
   </div>
 
 - 本人微信号：honghuangdc，欢迎来技术交流，业务咨询。
