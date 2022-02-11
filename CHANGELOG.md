@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://github.com/honghuangdc/soybean-admin/compare/v0.9.1...v0.9.2) (2022-02-11)
+
+
+### Features
+
+* **projects:** 迁移全局搜索菜单功能 ([554d7fd](https://github.com/honghuangdc/soybean-admin/commit/554d7fd6114b9cf6df571c3cb02f4cb0cc6dcfd4))
+
+
+### Bug Fixes
+
+* **components:** 修复Tab在移动端设备无法点击的问题 ([2c9660f](https://github.com/honghuangdc/soybean-admin/commit/2c9660fdbf9a84e980db0aff5cd0aed0f75963ca))
+* **projects:** 修复分析页和工作台的布局问题 ([e93b94c](https://github.com/honghuangdc/soybean-admin/commit/e93b94cb2435a130bb1d94a703328af342cd24c9))
+* **projects:** 修复项目配置拷贝功能 ([a7a269d](https://github.com/honghuangdc/soybean-admin/commit/a7a269d6a61ccd25883e6bb69639d39e0260587d))
+* **projects:** vite配置修复 ([facc00e](https://github.com/honghuangdc/soybean-admin/commit/facc00e8b4998dc8bd338e3b63a652b4bfe2ed3e))
+
 ### [0.9.1](https://github.com/honghuangdc/soybean-admin/compare/v0.1.3...v0.9.1) (2022-01-23)
 
 
