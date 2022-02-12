@@ -22,6 +22,7 @@ export default defineConfig(configEnv => {
         }
       }
     },
+    assetsInclude: ['/public/**'],
     server: {
       fs: {
         strict: false
