@@ -18,6 +18,20 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 - **权限路由**：简易的路由配置、基于mock的动态路由能快速实现后端动态路由
 - **请求函数**：基于axios的完善的请求函数封装
 
+## 预览
+
+- [soybean-admin](https://soybean.pro/)
+
+## 文档
+
+- [项目文档](https://docs.soybean.pro)
+
+## 代码仓库
+
+- [github](https://github.com/honghuangdc/soybean-admin)
+
+- [gitee](https://gitee.com/honghuangdc/soybean-admin)
+
 ## 特性细节
 
 - **技术栈**：Vite2 + Vue3 + TypeScript + NaiveUI + Pinia + WindiCss + Axios + AntV + @vueuse + iconify
@@ -65,14 +79,14 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
     5. 请求参数转换：根据不同的Content-Type转换数据，利用qs序列化数据，支持单文件和多文件上传
 
-      		1. 封装的请求函数支持promise和hooks两种
+  6. 封装的请求函数支持promise和hooks两种, hooks的请求函数包含loading状态
 
 - **自定义组件**
 
   1. 布局组件soybean-layout：
      - 分为header、tab、sider、content、footer五个部分，除了content，其余都可以控制显示隐藏，且可以自定义过度动画
      - 支持vertical和horizontal两种模式，结合局部的现实隐藏，为该项目提供了4种布局模式
-     - 高性能组件，相比用UI组件构建的布局，该组件属于定制化，不用考虑很多因素
+     - 高性能组件，相比用UI组件构建的布局，该组件不用考虑很多因素，专注于当前的几种布局模式
   2. 多页签组件：ChromeTab和ButtonTab
      - 支持主题颜色及暗黑模式
      - ChromeTab类似于浏览器的标签，样式清新
@@ -81,20 +95,6 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
      - 支持现实加载状态、空状态和网络状态的组件
      - 支持主题颜色及暗黑模式
      - 图片文字大小通过属性配置
-
-## 预览
-
-- [soybean-admin](https://soybean.pro/)
-
-## 文档
-
-- [项目文档](https://docs.soybean.pro)
-
-### 代码仓库
-
-- [github](https://github.com/honghuangdc/soybean-admin)
-
-- [gitee](https://gitee.com/honghuangdc/soybean-admin)
 
 ## 项目示例图
 
@@ -108,7 +108,7 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 ![](https://s2.loli.net/2022/01/24/wXpHeau6UrSTWdF.png)
 
-![](https://s2.loli.net/2022/02/16/bWeIp5k1GXoRziM.png)
+![](https://s2.loli.net/2022/02/16/pBwF2gaxXnKZe3D.png)
 
 ![](https://s2.loli.net/2022/02/16/pfuxVEPsTJIXw5n.png)
 
@@ -172,7 +172,7 @@ pnpm i -g commitizen
 
 - 微信交流群：
   <div style="text-align:left">
-    <img src="https://s2.loli.net/2022/02/11/iHnBxkIDhR9Jpwy.jpg" style="width:200px" />
+    <img src="https://s2.loli.net/2022/02/16/YtbPSOcUf9xiGvZ.jpg" style="width:200px" />
   </div>
 
 - QQ 群 `711301266`
