@@ -5,6 +5,6 @@
 </template>
 
 <script setup lang="ts">
-const src = 'https://www.naiveui.com/zh-CN/os-theme/docs/introduction';
+const src = 'https://www.naiveui.com';
 </script>
 <style scoped></style>

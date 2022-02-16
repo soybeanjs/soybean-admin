@@ -5,6 +5,6 @@
 </template>
 
 <script setup lang="ts">
-const src = 'https://cn.vitejs.dev/';
+const src = 'https://vitejs.cn/';
 </script>
 <style scoped></style>
