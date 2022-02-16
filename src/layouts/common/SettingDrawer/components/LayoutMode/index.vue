@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { NDivider, NSpace } from 'naive-ui';
 import { useThemeStore } from '@/store';
 import { LayoutCheckbox } from './components';
 

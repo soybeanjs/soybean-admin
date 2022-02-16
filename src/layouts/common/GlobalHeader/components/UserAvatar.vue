@@ -8,7 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NDropdown, useDialog } from 'naive-ui';
 import { HoverContainer } from '@/components';
 import { useAuthStore } from '@/store';
 import { iconifyRender } from '@/utils';
@@ -17,7 +16,6 @@ import avatar from '@/assets/svg/common/avatar01.svg';
 type DropdownKey = 'user-center' | 'logout';
 
 const auth = useAuthStore();
-const dialog = useDialog();
 
 const options = [
   {
@@ -39,7 +37,7 @@ const options = [
 function handleDropdown(optionKey: string) {
   const key = optionKey as DropdownKey;
   if (key === 'logout') {
-    dialog.info({
+    window.$dialog?.info({
       title: '提示',
       content: '您确定要退出登录吗？',
       positiveText: '确定',

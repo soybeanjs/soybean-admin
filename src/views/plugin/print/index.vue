@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NCard, NButton } from 'naive-ui';
 import printJS from 'print-js';
 import { GithubLink } from '@/components';
 

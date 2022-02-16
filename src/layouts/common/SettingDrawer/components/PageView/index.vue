@@ -35,7 +35,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NDivider, NSpace, NSwitch, NSelect } from 'naive-ui';
 import { useThemeStore } from '@/store';
 import SettingMenu from '../SettingMenu/index.vue';
 

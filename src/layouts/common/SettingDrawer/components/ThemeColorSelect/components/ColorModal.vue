@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { NModal, NGradientText, NTabs, NTabPane, NGrid, NGridItem } from 'naive-ui';
 import { traditionColors } from '@/settings';
 import { useThemeStore } from '@/store';
 import ColorCheckbox from './ColorCheckbox.vue';

@@ -26,7 +26,6 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { NPopover, NInput, NEmpty } from 'naive-ui';
 import { Icon } from '@iconify/vue';
 import { useThemeStore } from '@/store';
 

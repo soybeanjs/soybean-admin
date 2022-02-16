@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { NDropdown } from 'naive-ui';
 import type { DropdownOption } from 'naive-ui';
 import { useAppStore, useTabStore } from '@/store';
 import { iconifyRender } from '@/utils';

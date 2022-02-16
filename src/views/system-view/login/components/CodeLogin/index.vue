@@ -36,7 +36,6 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { NForm, NFormItem, NInput, NSpace, NButton } from 'naive-ui';
 import type { FormInst } from 'naive-ui';
 import { ImageVerify } from '@/components';
 import { useAuthStore } from '@/store';

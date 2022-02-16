@@ -11,7 +11,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { NCard } from 'naive-ui';
 import WangEditor from 'wangeditor';
 import { GithubLink } from '@/components';
 

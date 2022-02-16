@@ -9,7 +9,5 @@
   </n-space>
 </template>
 
-<script lang="ts" setup>
-import { NSpace, NDivider, NButton } from 'naive-ui';
-</script>
+<script lang="ts" setup></script>
 <style scoped></style>

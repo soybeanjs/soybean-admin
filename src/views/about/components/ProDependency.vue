@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { NCard, NDescriptions, NDescriptionsItem } from 'naive-ui';
 import { pkgJson } from '../model';
 
 const { dependencies } = pkgJson;

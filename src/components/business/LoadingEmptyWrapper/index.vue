@@ -27,7 +27,6 @@
 
 <script setup lang="ts">
 import { computed, watch, nextTick, onUnmounted } from 'vue';
-import { NSpin } from 'naive-ui';
 import { NETWORK_ERROR_MSG } from '@/config';
 import { SvgEmptyData, SvgNetworkError } from '@/components';
 import { useBoolean } from '@/hooks';

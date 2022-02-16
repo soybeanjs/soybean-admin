@@ -16,7 +16,6 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { NTooltip } from 'naive-ui';
 import type { FollowerPlacement } from 'vueuc';
 
 interface Props {

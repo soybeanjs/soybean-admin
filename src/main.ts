@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { setupAssets } from '@/plugins';
+import { setupAssets, setupNaiveUI } from '@/plugins';
 import { setupRouter } from '@/router';
 import { setupStore } from '@/store';
 import { setupDirectives } from '@/directives';
@@ -16,6 +16,9 @@ async function setupApp() {
 
   // 挂载自定义vue指令
   setupDirectives(app);
+
+  // 按需引入naiveUI
+  setupNaiveUI(app);
 
   // 挂载路由
   await setupRouter(app);

@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import type { Component } from 'vue';
-import { NCard, NTabs, NTabPane } from 'naive-ui';
 import { GaodeMap, TencentMap } from './components';
 
 interface Map {

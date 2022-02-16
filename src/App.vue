@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { NConfigProvider, zhCN, dateZhCN } from 'naive-ui';
+import { zhCN, dateZhCN } from 'naive-ui';
 import { NaiveProvider } from '@/components';
 import { useThemeStore, subscribeStore } from '@/store';
 

@@ -30,7 +30,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Component } from 'vue';
-import { NCard, NGradientText } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
 import { SystemLogo, DarkModeSwitch } from '@/components';
 import { useThemeStore } from '@/store';

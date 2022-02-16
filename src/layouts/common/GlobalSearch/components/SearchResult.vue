@@ -22,7 +22,6 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { NScrollbar } from 'naive-ui';
 import { Icon } from '@iconify/vue';
 import { useThemeStore } from '@/store';
 import type { RouteList } from './types';

@@ -5,7 +5,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';

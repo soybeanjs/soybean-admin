@@ -18,7 +18,8 @@
       "@/*": ["src/*"],
 			"~/*": ["./*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+		"types": ["naive-ui/volar"]
   },
   "include": ["vite.config.*", "src/typings/*.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*.ts", "build/**/*.ts", ".env-config.ts"],
 	"exclude": ["/dist/**", "node_modules"]

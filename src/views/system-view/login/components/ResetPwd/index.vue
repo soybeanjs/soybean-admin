@@ -27,13 +27,11 @@
 
 <script lang="ts" setup>
 import { reactive, ref, toRefs } from 'vue';
-import { NForm, NFormItem, NInput, NSpace, NButton, useMessage } from 'naive-ui';
 import type { FormInst, FormRules } from 'naive-ui';
 import { useRouterPush } from '@/composables';
 import { useSmsCode } from '@/hooks';
 import { formRules, getConfirmPwdRule } from '@/utils';
 
-const message = useMessage();
 const { toLoginModule } = useRouterPush();
 const { label, isCounting, loading: smsLoading, start } = useSmsCode();
 
@@ -61,9 +59,9 @@ function handleSubmit(e: MouseEvent) {
 
   formRef.value.validate(errors => {
     if (!errors) {
-      message.success('验证成功');
+      window.$message?.success('验证成功');
     } else {
-      message.error('验证失败');
+      window.$message?.error('验证失败');
     }
   });
 }

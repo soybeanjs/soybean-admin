@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { NCard, NDescriptions, NDescriptionsItem, NTag } from 'naive-ui';
 import { pkgJson } from '../model';
 
 const { version } = pkgJson;

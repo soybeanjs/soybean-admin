@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { NCard, NSpace } from 'naive-ui';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import type { SwiperOptions } from 'swiper';

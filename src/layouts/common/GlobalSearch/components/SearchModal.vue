@@ -26,7 +26,6 @@
 <script lang="ts" setup>
 import { ref, shallowRef, computed, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
-import { NModal, NInput, NEmpty } from 'naive-ui';
 import { useDebounceFn, onKeyStroke } from '@vueuse/core';
 import { useRouteStore } from '@/store';
 import type { RouteList } from './types';

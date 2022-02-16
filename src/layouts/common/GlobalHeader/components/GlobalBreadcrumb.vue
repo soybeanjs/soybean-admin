@@ -24,7 +24,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { NBreadcrumb, NBreadcrumbItem, NDropdown } from 'naive-ui';
 import { routePath } from '@/router';
 import { useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';

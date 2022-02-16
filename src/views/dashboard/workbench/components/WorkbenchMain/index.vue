@@ -47,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-import { NGrid, NGridItem, NSpace, NCard, NList, NListItem, NThing } from 'naive-ui';
 import { SvgBanner } from '@/components';
 import { TechnologyCard, ShortcutsCard } from './components';
 

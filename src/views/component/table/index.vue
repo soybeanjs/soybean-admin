@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { NCard, NSpace, NButton, NDataTable } from 'naive-ui';
 import type { DataTableColumn } from 'naive-ui';
 import { LoadingEmptyWrapper } from '@/components';
 import { useLoadingEmpty } from '@/hooks';

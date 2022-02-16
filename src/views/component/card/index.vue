@@ -37,7 +37,5 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { NCard, NSpace } from 'naive-ui';
-</script>
+<script setup lang="ts"></script>
 <style scoped></style>

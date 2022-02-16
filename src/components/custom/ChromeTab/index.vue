@@ -25,7 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { NDivider } from 'naive-ui';
 import { useBoolean } from '@/hooks';
 import IconClose from '../IconClose/index.vue';
 import { SvgRadiusBg } from './components';

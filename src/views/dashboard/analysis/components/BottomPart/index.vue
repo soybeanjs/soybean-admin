@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { h } from 'vue';
-import { NGrid, NGridItem, NCard, NTimeline, NTimelineItem, NDataTable, NTag } from 'naive-ui';
+import { NTag } from 'naive-ui';
 
 interface TimelineData {
   type: 'default' | 'info' | 'success' | 'warning' | 'error';

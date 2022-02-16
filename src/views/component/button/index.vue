@@ -35,7 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import { NCard, NGrid, NGridItem, NSpace, NButton } from 'naive-ui';
 import type { ButtonProps } from 'naive-ui';
 import { Icon } from '@iconify/vue';
 import { useLoading } from '@/hooks';

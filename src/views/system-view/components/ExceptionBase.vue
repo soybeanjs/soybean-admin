@@ -12,7 +12,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import type { Component } from 'vue';
-import { NButton } from 'naive-ui';
 import { SvgNoPermission, SvgNotFound, SvgServiceError } from '@/components';
 import { routeName } from '@/router';
 

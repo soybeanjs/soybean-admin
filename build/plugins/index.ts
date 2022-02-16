@@ -7,7 +7,7 @@ import mock from './mock';
 import visualizer from './visualizer';
 
 export function setupVitePlugins(configEnv: ConfigEnv): (PluginOption | PluginOption[])[] {
-  const plugins = [vue, ...html(configEnv), ...iconify, windicss, mock];
+  const plugins = [vue, html(configEnv), ...iconify, windicss, mock];
 
   if (configEnv.command === 'build') {
     plugins.push(visualizer);

@@ -32,7 +32,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { NGrid, NGridItem, NCard, NButton } from 'naive-ui';
 import { Line, Pie } from '@antv/g2plot';
 import { CountTo } from '@/components';
 import data from './data.json';

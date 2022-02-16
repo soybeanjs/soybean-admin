@@ -28,7 +28,6 @@
 
 <script lang="ts" setup>
 import { reactive, ref, toRefs } from 'vue';
-import { NForm, NFormItem, NInput, NSpace, NButton } from 'naive-ui';
 import type { FormInst, FormRules } from 'naive-ui';
 import { LoginAgreement } from '@/components';
 import { useRouterPush } from '@/composables';

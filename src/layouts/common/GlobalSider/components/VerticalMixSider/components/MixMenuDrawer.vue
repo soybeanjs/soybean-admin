@@ -31,7 +31,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { DarkModeContainer } from '@/components';
 import { useAppStore, useThemeStore } from '@/store';

@@ -17,7 +17,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { NTooltip } from 'naive-ui';
 import type { FollowerPlacement } from 'vueuc';
 import { EnumThemeLayoutMode } from '@/enum';
 import type { ThemeLayoutMode } from '@/interface';

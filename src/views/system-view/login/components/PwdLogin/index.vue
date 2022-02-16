@@ -37,7 +37,6 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { NForm, NFormItem, NInput, NSpace, NCheckbox, NButton } from 'naive-ui';
 import type { FormInst, FormRules } from 'naive-ui';
 import { EnumLoginModule } from '@/enum';
 import { useAuthStore } from '@/store';

@@ -21,7 +21,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { NCard } from 'naive-ui';
 import { Icon } from '@iconify/vue';
 import { IconSelect, WebSiteLink } from '@/components';
 import { icons } from './icons';

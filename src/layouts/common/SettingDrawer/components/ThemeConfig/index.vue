@@ -11,7 +11,6 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue';
-import { NDivider, NSpace, NButton } from 'naive-ui';
 import Clipboard from 'clipboard';
 import { useThemeStore } from '@/store';
 

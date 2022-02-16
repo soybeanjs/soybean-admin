@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { NGrid, NGridItem } from 'naive-ui';
 import { Icon } from '@iconify/vue';
 import { CountTo } from '@/components';
 import { GradientBg } from './components';

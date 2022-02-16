@@ -16,7 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { NCard, NSpace, NStatistic } from 'naive-ui';
 import { useAuthStore } from '@/store';
 
 interface StatisticData {

@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NDivider, NSwitch } from 'naive-ui';
 import { useThemeStore } from '@/store';
 
 const theme = useThemeStore();

@@ -14,7 +14,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { NDivider, NGrid, NGridItem, NSpace, NButton, NColorPicker } from 'naive-ui';
 import { isInTraditionColors } from '@/settings';
 import { useThemeStore } from '@/store';
 import { useBoolean } from '@/hooks';

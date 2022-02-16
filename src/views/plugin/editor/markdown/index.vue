@@ -11,7 +11,6 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue';
-import { NCard } from 'naive-ui';
 import Vditor from 'vditor';
 import 'vditor/src/assets/scss/index.scss';
 import { GithubLink } from '@/components';

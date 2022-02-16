@@ -5,7 +5,6 @@
   </n-space>
 </template>
 <script lang="ts" setup>
-import { NSpace } from 'naive-ui';
 import { WorkbenchHeader, WorkbenchMain } from './components';
 </script>
 <style scoped></style>

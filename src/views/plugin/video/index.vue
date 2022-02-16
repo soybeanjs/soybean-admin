@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { NCard } from 'naive-ui';
 import Player from 'xgplayer';
 
 const domRef = ref<HTMLElement>();

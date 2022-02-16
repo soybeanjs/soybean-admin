@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import { NSpace } from 'naive-ui';
 import { ProjectIntroduction, ProjectInfo, ProDependency, DevDependency } from './components';
 </script>
 <style scoped></style>

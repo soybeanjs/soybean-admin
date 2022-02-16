@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { NCheckbox, NButton } from 'naive-ui';
 
 interface Props {
   /** 是否勾选 */

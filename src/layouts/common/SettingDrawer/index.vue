@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { NDrawer, NDrawerContent } from 'naive-ui';
 import { useAppStore } from '@/store';
 import { DrawerButton, DarkMode, LayoutMode, ThemeColorSelect, PageFunc, PageView, ThemeConfig } from './components';
 

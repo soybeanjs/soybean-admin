@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { NScrollbar, NMenu } from 'naive-ui';
 import type { MenuOption } from 'naive-ui';
 import { useAppStore, useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
