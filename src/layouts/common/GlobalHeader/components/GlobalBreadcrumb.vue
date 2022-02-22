@@ -13,7 +13,11 @@
           </span>
         </n-dropdown>
         <template v-else>
-          <component :is="breadcrumb.icon" v-if="theme.header.crumb.showIcon" class="inline-block mr-4px text-16px" />
+          <component
+            :is="breadcrumb.icon"
+            v-if="theme.header.crumb.showIcon"
+            class="inline-block align-text-bottom mr-4px text-16px"
+          />
           <span>{{ breadcrumb.label }}</span>
         </template>
       </n-breadcrumb-item>

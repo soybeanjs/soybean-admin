@@ -1,5 +1,5 @@
 <template>
-  <soybean-layout
+  <soybean-admin-layout
     :mode="mode"
     :min-width="theme.layout.minWidth"
     :fixed-header-and-tab="theme.fixedHeaderAndTab"
@@ -25,14 +25,15 @@
     <template #footer>
       <global-footer />
     </template>
-  </soybean-layout>
+  </soybean-admin-layout>
   <setting-drawer />
 </template>
 
 <script setup lang="ts">
+import SoybeanAdminLayout from 'soybean-admin-layout';
+import 'soybean-admin-layout/dist/style.css';
 import { useAppStore, useThemeStore } from '@/store';
 import { useBasicLayout } from '@/composables';
-import { SoybeanLayout } from '@/package';
 import { SettingDrawer, GlobalHeader, GlobalTab, GlobalSider, GlobalContent, GlobalFooter } from '../common';
 
 const app = useAppStore();
