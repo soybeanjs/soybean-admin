@@ -52,7 +52,7 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   empty: false,
   loadingSize: 'medium',
-  placeholderClass: 'bg-white dark:bg-dark',
+  placeholderClass: 'bg-white dark:bg-dark transition-background-color duration-300 ease-in-out',
   emptyDesc: '暂无数据',
   emptyNetworkClass: 'w-320px h-320px text-16px text-[#666]',
   showNetworkReload: false
