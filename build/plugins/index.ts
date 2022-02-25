@@ -5,9 +5,10 @@ import iconify from './iconify';
 import windicss from './windicss';
 import mock from './mock';
 import visualizer from './visualizer';
+import svgSprite from './svgSprite';
 
 export function setupVitePlugins(configEnv: ConfigEnv): (PluginOption | PluginOption[])[] {
-  const plugins = [vue, html(configEnv), ...iconify, windicss, mock];
+  const plugins = [vue, html(configEnv), ...iconify, windicss, mock, svgSprite];
 
   if (configEnv.command === 'build') {
     plugins.push(visualizer);
