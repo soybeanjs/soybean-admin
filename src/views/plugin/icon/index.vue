@@ -20,7 +20,7 @@
       <div class="grid grid-cols-10">
         <template v-for="item in svgIcons" :key="item">
           <div class="mt-5px flex-x-center">
-            <svg-icon :name="item" />
+            <svg-icon :name="item" class="text-30px" />
           </div>
         </template>
       </div>
