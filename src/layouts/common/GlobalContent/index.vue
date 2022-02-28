@@ -4,7 +4,7 @@
     class="h-full bg-[#f6f9f8] dark:bg-[#101014] transition duration-300 ease-in-out"
   >
     <router-view v-slot="{ Component, route }">
-      <transition :name="theme.page.animateMode" mode="out-in" appear>
+      <transition :name="theme.page.animate ? theme.page.animateMode : undefined" mode="out-in" appear>
         <keep-alive :include="routeStore.cacheRoutes">
           <component :is="Component" v-if="app.reloadFlag" :key="route.path" />
         </keep-alive>
