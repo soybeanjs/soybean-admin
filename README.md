@@ -168,14 +168,14 @@ pnpm i -g commitizen
 
 ## 交流
 
-`Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群使用问题欢迎在群内提问。
+`Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和QQ交流群，使用问题欢迎在群内提问。
 
 - 微信交流群：
   <div style="text-align:left">
-    <img src="https://s2.loli.net/2022/02/24/GhIKM5aRLykU1P2.jpg" style="width:200px" />
+    <img src="https://s2.loli.net/2022/03/01/mvwx2URVBF9leT1.jpg" style="width:200px" />
   </div>
 
-- QQ 群 `711301266`
+- QQ交流群 `711301266`
 
   <div style="text-align:left">
     <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
