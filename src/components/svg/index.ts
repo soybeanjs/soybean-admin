@@ -4,6 +4,5 @@ import SvgServiceError from './SvgServiceError.vue';
 import SvgEmptyData from './SvgEmptyData.vue';
 import SvgNetworkError from './SvgNetworkError.vue';
 import SvgBanner from './SvgBanner.vue';
-import SvgIcon from './SvgIcon.vue';
 
-export { SvgNoPermission, SvgNotFound, SvgServiceError, SvgEmptyData, SvgNetworkError, SvgBanner, SvgIcon };
+export { SvgNoPermission, SvgNotFound, SvgServiceError, SvgEmptyData, SvgNetworkError, SvgBanner };
