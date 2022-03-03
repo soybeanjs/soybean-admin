@@ -31,7 +31,6 @@
 
 <script setup lang="ts">
 import SoybeanAdminLayout from 'soybean-admin-layout';
-import 'soybean-admin-layout/dist/style.css';
 import { useAppStore, useThemeStore } from '@/store';
 import { useBasicLayout } from '@/composables';
 import { SettingDrawer, GlobalHeader, GlobalTab, GlobalSider, GlobalContent, GlobalFooter } from '../common';
