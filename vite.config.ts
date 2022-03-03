@@ -6,7 +6,7 @@ export default defineConfig(configEnv => {
   const viteEnv = loadEnv(configEnv.mode, `.env.${configEnv.mode}`);
 
   return {
-    base: viteEnv.BASE_URL,
+    base: viteEnv.VITE_APP_BASE_URL,
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),

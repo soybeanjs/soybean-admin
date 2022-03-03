@@ -8,7 +8,7 @@ import { createRouterGuard } from './guard';
 const createHistoryFunc = import.meta.env.VITE_IS_VERCEL === '1' ? createWebHashHistory : createWebHistory;
 
 export const router = createRouter({
-  history: createHistoryFunc(import.meta.env.BASE_URL),
+  history: createHistoryFunc(import.meta.env.VITE_APP_BASE_URL),
   routes: transformAuthRoutesToVueRoutes(constantRoutes),
   scrollBehavior
 });

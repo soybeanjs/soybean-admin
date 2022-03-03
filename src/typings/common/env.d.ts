@@ -9,7 +9,7 @@ declare module '*.vue' {
 
 interface ImportMetaEnv {
   /** 项目基本地址 */
-  readonly BASE_URL: string;
+  readonly VITE_APP_BASE_URL: string;
   /** 项目名称 */
   readonly VITE_APP_NAME: string;
   /** 项目标题 */
