@@ -6,19 +6,15 @@
         <n-spin :show="true" :size="loadingSize" />
       </div>
       <div v-show="isEmpty" class="absolute-center">
-        <div class="relative" :class="emptyNetworkClass">
-          <svg-empty-data class="text-primary" />
-          <p class="absolute-lb w-full text-center">{{ emptyDesc }}</p>
+        <div class="relative">
+          <icon-custom-empty-data :class="iconClass" />
+          <p class="absolute-lb w-full text-center" :class="descClass">{{ emptyDesc }}</p>
         </div>
       </div>
       <div v-show="!network" class="absolute-center">
-        <div
-          class="relative"
-          :class="[{ 'cursor-pointer': showNetworkReload }, emptyNetworkClass]"
-          @click="handleReload"
-        >
-          <svg-network-error class="text-primary" />
-          <p class="absolute-lb w-full text-center">{{ networkErrorDesc }}</p>
+        <div class="relative" :class="{ 'cursor-pointer': showNetworkReload }" @click="handleReload">
+          <icon-custom-network-error :class="iconClass" />
+          <p class="absolute-lb w-full text-center" :class="descClass">{{ networkErrorDesc }}</p>
         </div>
       </div>
     </div>
@@ -28,7 +24,6 @@
 <script setup lang="ts">
 import { computed, watch, nextTick, onUnmounted } from 'vue';
 import { NETWORK_ERROR_MSG } from '@/config';
-import { SvgEmptyData, SvgNetworkError } from '@/components';
 import { useBoolean } from '@/hooks';
 
 interface Props {
@@ -42,8 +37,10 @@ interface Props {
   placeholderClass?: string;
   /** 空数据描述文本 */
   emptyDesc?: string;
-  /** 空数据和网络异常占位class */
-  emptyNetworkClass?: string;
+  /** 图标的class */
+  iconClass?: string;
+  /** 描述文本的class */
+  descClass?: string;
   /** 显示网络异常的重试点击按钮 */
   showNetworkReload?: boolean;
 }
@@ -54,7 +51,8 @@ const props = withDefaults(defineProps<Props>(), {
   loadingSize: 'medium',
   placeholderClass: 'bg-white dark:bg-dark transition-background-color duration-300 ease-in-out',
   emptyDesc: '暂无数据',
-  emptyNetworkClass: 'w-320px h-320px text-16px text-[#666]',
+  iconClass: 'text-320px text-primary',
+  descClass: 'text-16px text-[#666]',
   showNetworkReload: false
 });
 

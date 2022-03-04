@@ -9,7 +9,7 @@
       <div class="w-360px">
         <header class="flex-y-center justify-between">
           <div class="w-70px h-70px rounded-35px overflow-hidden">
-            <system-logo class="wh-full text-primary" :fill="true" />
+            <system-logo class="text-70px text-primary" :fill="true" />
           </div>
           <n-gradient-text type="primary" :size="28">{{ title }}</n-gradient-text>
         </header>

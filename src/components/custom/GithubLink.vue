@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import WebSiteLink from '../WebSiteLink/index.vue';
+import WebSiteLink from './WebSiteLink.vue';
 
 interface Props {
   /** github链接 */

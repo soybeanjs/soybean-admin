@@ -1,13 +1,9 @@
 <template>
-  <div>
-    <svg-fill-logo v-if="fill" />
-    <svg-logo v-else />
-  </div>
+  <icon-custom-logo-fill v-if="fill" />
+  <icon-custom-logo v-else />
 </template>
 
 <script lang="ts" setup>
-import { SvgLogo, SvgFillLogo } from './components';
-
 interface Props {
   /** logo是否填充 */
   fill?: boolean;

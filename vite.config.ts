@@ -3,18 +3,21 @@ import { defineConfig, loadEnv } from 'vite';
 import { setupVitePlugins, define } from './build';
 
 export default defineConfig(configEnv => {
-  const viteEnv = loadEnv(configEnv.mode, `.env.${configEnv.mode}`);
+  const viteEnv = loadEnv(configEnv.mode, `.env.${configEnv.mode}`) as ImportMetaEnv;
+
+  const srcPath = fileURLToPath(new URL('./src', import.meta.url));
+  const rootPath = fileURLToPath(new URL('./', import.meta.url));
 
   return {
-    base: viteEnv.VITE_APP_BASE_URL,
+    base: viteEnv.VITE_BASE_URL,
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-        '~': fileURLToPath(new URL('./', import.meta.url))
+        '@': srcPath,
+        '~': rootPath
       }
     },
     define,
-    plugins: setupVitePlugins(configEnv),
+    plugins: setupVitePlugins(configEnv, srcPath, viteEnv),
     css: {
       preprocessorOptions: {
         scss: {
@@ -22,7 +25,6 @@ export default defineConfig(configEnv => {
         }
       }
     },
-    assetsInclude: ['/public/**'],
     server: {
       fs: {
         strict: false

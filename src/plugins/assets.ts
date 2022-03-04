@@ -1,4 +1,3 @@
-import 'virtual:svg-icons-register';
 import 'virtual:windi.css';
 import 'swiper/css';
 import 'swiper/css/navigation';

@@ -1,7 +1,7 @@
 <template>
   <n-dropdown :options="options" @select="handleDropdown">
     <hover-container class="px-12px">
-      <img :src="avatar" class="w-32px h-32px" />
+      <icon-custom-avatar class="text-32px" />
       <span class="pl-8px text-16px font-medium">{{ auth.userInfo.userName }}</span>
     </hover-container>
   </n-dropdown>
@@ -11,7 +11,6 @@
 import { HoverContainer } from '@/components';
 import { useAuthStore } from '@/store';
 import { iconifyRender } from '@/utils';
-import avatar from '@/assets/svg/common/avatar01.svg';
 
 type DropdownKey = 'user-center' | 'logout';
 

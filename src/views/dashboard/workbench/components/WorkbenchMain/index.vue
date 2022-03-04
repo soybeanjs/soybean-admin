@@ -19,9 +19,7 @@
           <n-list>
             <n-list-item v-for="item in activity" :key="item.id">
               <template #prefix>
-                <div class="w-48px h-48px">
-                  <img src="@/assets/svg/common/avatar01.svg" alt="" class="wh-full" />
-                </div>
+                <icon-custom-avatar class="text-48px" />
               </template>
               <n-thing :title="item.content" :description="item.time" />
             </n-list-item>
@@ -39,7 +37,7 @@
           </n-grid>
         </n-card>
         <n-card title="创意" :bordered="false" size="small" class="shadow-sm rounded-16px">
-          <svg-banner class="text-primary" />
+          <icon-custom-banner class="text-400px text-primary" />
         </n-card>
       </n-space>
     </n-grid-item>
@@ -47,7 +45,6 @@
 </template>
 
 <script setup lang="ts">
-import { SvgBanner } from '@/components';
 import { TechnologyCard, ShortcutsCard } from './components';
 
 interface Technology {

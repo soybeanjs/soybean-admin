@@ -13,7 +13,7 @@
         >
           <Icon :icon="item.meta?.icon ?? 'mdi:bookmark-minus-outline'" />
           <span class="flex-1 ml-5px">{{ item.meta?.title }}</span>
-          <icon-ant-design:enter-outlined class="icon text-20px p-2px mr-3px" />
+          <icon-ant-design-enter-outlined class="icon text-20px p-2px mr-3px" />
         </div>
       </template>
     </div>
@@ -24,11 +24,11 @@
 import { computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useThemeStore } from '@/store';
-import type { RouteList } from './types';
+import type { SearchMenu } from '@/interface';
 
 interface Props {
   value: string;
-  options: RouteList[];
+  options: SearchMenu[];
 }
 
 interface Emits {
@@ -36,8 +36,11 @@ interface Emits {
   (e: 'enter'): void;
 }
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = defineProps<Props>();
+
 const emit = defineEmits<Emits>();
+
+const theme = useThemeStore();
 
 const active = computed({
   get() {
@@ -47,10 +50,9 @@ const active = computed({
     emit('update:value', val);
   }
 });
-const theme = useThemeStore();
 
 /** 鼠标移入 */
-async function handleMouse(item: RouteList) {
+async function handleMouse(item: SearchMenu) {
   active.value = item.path;
 }
 

@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, nextTick, watch } from 'vue';
 import { useEventListener } from '@vueuse/core';
-import { ChromeTab, ButtonTab } from '@/components';
+import { ChromeTab, ButtonTab } from 'soybean-admin-tab';
 import { useThemeStore, useTabStore } from '@/store';
 import { setTabRoutes } from '@/utils';
 import { ContextMenu } from './components';

@@ -13,10 +13,10 @@ type ServiceEnv = Record<
 export const serviceEnv: ServiceEnv = {
   test: {
     env: 'test',
-    url: 'http://120.76.42.91:18888'
+    url: 'http://www.baidu.com'
   },
   prod: {
     env: 'prod',
-    url: 'http://120.76.42.91:18888'
+    url: 'http://www.baidu.com'
   }
 };

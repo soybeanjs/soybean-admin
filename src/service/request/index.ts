@@ -1,9 +1,9 @@
 import { createRequest } from './request';
 import { serviceEnv } from '~/.env-config';
 
-const env = import.meta.env.VITE_HTTP_ENV || 'test';
+const { VITE_HTTP_ENV = 'test' } = import.meta.env;
 
-const { url } = serviceEnv[env];
+const { url } = serviceEnv[VITE_HTTP_ENV];
 
 export const request = createRequest({ baseURL: url });
 

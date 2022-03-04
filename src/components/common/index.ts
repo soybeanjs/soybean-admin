@@ -1,7 +1,7 @@
-import NaiveProvider from './NaiveProvider/index.vue';
-import SystemLogo from './SystemLogo/index.vue';
-import DarkModeSwitch from './DarkModeSwitch/index.vue';
-import DarkModeContainer from './DarkModeContainer/index.vue';
-import HoverContainer from './HoverContainer/index.vue';
+import NaiveProvider from './NaiveProvider.vue';
+import SystemLogo from './SystemLogo.vue';
+import DarkModeSwitch from './DarkModeSwitch.vue';
+import DarkModeContainer from './DarkModeContainer.vue';
+import HoverContainer from './HoverContainer.vue';
 
 export { NaiveProvider, SystemLogo, DarkModeSwitch, DarkModeContainer, HoverContainer };

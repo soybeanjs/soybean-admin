@@ -5,10 +5,10 @@ import {
   getUserInfo,
   transformAuthRouteToMenu,
   transformAuthRoutesToVueRoutes,
-  transformRouteToList,
+  transformAuthRoutesToSearchMenus,
   getCacheRoutes
 } from '@/utils';
-import type { GlobalMenuOption } from '@/interface';
+import type { GlobalMenuOption, SearchMenu } from '@/interface';
 import { useTabStore } from '../tab';
 
 interface RouteState {
@@ -18,7 +18,8 @@ interface RouteState {
   routeHomeName: AuthRoute.RouteKey;
   /** 菜单 */
   menus: GlobalMenuOption[];
-  menusList: AuthRoute.Route[];
+  /** 搜索的菜单 */
+  searchMenus: SearchMenu[];
   /** 缓存的路由名称 */
   cacheRoutes: string[];
 }
@@ -28,7 +29,7 @@ export const useRouteStore = defineStore('route-store', {
     isAddedDynamicRoute: false,
     routeHomeName: 'dashboard_analysis',
     menus: [],
-    menusList: [],
+    searchMenus: [],
     cacheRoutes: []
   }),
   actions: {
@@ -45,7 +46,7 @@ export const useRouteStore = defineStore('route-store', {
       if (data) {
         this.routeHomeName = data.home;
         this.menus = transformAuthRouteToMenu(data.routes);
-        this.menusList = transformRouteToList(data.routes);
+        this.searchMenus = transformAuthRoutesToSearchMenus(data.routes);
 
         const vueRoutes = transformAuthRoutesToVueRoutes(data.routes);
         vueRoutes.forEach(route => {

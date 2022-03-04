@@ -10,7 +10,7 @@
   >
     <n-input ref="inputRef" v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
       <template #prefix>
-        <icon-uil:search class="text-15px text-[#c2c2c2]" />
+        <icon-uil-search class="text-15px text-[#c2c2c2]" />
       </template>
     </n-input>
     <div class="mt-20px">
@@ -28,7 +28,7 @@ import { ref, shallowRef, computed, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDebounceFn, onKeyStroke } from '@vueuse/core';
 import { useRouteStore } from '@/store';
-import type { RouteList } from './types';
+import type { SearchMenu } from '@/interface';
 import SearchResult from './SearchResult.vue';
 import SearchFooter from './SearchFooter.vue';
 
@@ -41,15 +41,18 @@ interface Emits {
   (e: 'update:value', val: boolean): void;
 }
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = defineProps<Props>();
+
 const emit = defineEmits<Emits>();
 
 const router = useRouter();
 const routeStore = useRouteStore();
+
 const keyword = ref('');
 const activePath = ref('');
-const resultOptions = shallowRef<RouteList[]>([]);
-const inputRef = ref<HTMLInputElement | null>(null);
+const resultOptions = shallowRef<SearchMenu[]>([]);
+const inputRef = ref<HTMLInputElement>();
+
 const handleSearch = useDebounceFn(search, 300);
 
 const show = computed({
@@ -71,7 +74,7 @@ watch(show, async val => {
 
 /** 查询 */
 function search() {
-  resultOptions.value = routeStore.menusList.filter(
+  resultOptions.value = routeStore.searchMenus.filter(
     menu => keyword.value && menu.meta?.title.toLocaleLowerCase().includes(keyword.value.toLocaleLowerCase().trim())
   );
   if (resultOptions.value?.length > 0) {

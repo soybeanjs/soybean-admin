@@ -30,3 +30,6 @@ export interface GlobalTabRoute extends Pick<RouteLocationNormalizedLoaded, 'nam
     top: number;
   };
 }
+
+/** 搜索的菜单 */
+export type SearchMenu = AuthRoute.Route;

@@ -13,15 +13,19 @@ export function transformAuthRoutesToVueRoutes(routes: AuthRoute.Route[]) {
   return routes.map(route => transformAuthRouteToVueRoute(route)).flat(1);
 }
 
-/** 将路由转换成菜单列表 */
-export function transformRouteToList(routes: AuthRoute.Route[], treeMap: AuthRoute.Route[] = []) {
+/**
+ * 将权限路由转换成搜索的菜单数据
+ * @param routes - 权限路由
+ * @param treeMap
+ */
+export function transformAuthRoutesToSearchMenus(routes: AuthRoute.Route[], treeMap: AuthRoute.Route[] = []) {
   if (routes && routes.length === 0) return [];
   return routes.reduce((acc, cur) => {
     if (!cur.meta?.hide) {
       acc.push(cur);
     }
     if (cur.children && cur.children.length > 0) {
-      transformRouteToList(cur.children, treeMap);
+      transformAuthRoutesToSearchMenus(cur.children, treeMap);
     }
     return acc;
   }, treeMap);
