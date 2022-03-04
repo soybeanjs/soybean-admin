@@ -12,7 +12,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '分析页',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'icon-park-outline:analysis'
         }
       },
       {
@@ -22,7 +23,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '工作台',
           requiresAuth: true,
-          permissions: ['super', 'admin']
+          permissions: ['super', 'admin'],
+          icon: 'icon-park-outline:workbench'
         }
       }
     ],
@@ -43,7 +45,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: 'vue文档',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'mdi:vuejs'
         }
       },
       {
@@ -52,7 +55,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: 'vue文档(新版)',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'mdi:vuejs'
         }
       },
       {
@@ -61,7 +65,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: 'vite文档',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'simple-icons:vite'
         }
       },
       {
@@ -70,7 +75,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: 'naive文档',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'mdi:alpha-n-box-outline'
         }
       },
       {
@@ -79,6 +85,7 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '项目文档(外链)',
           requiresAuth: true,
+          icon: 'mdi:file-link-outline',
           href: 'https://docs.soybean.pro/'
         }
       }
@@ -100,7 +107,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '按钮',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'ic:baseline-radio-button-checked'
         }
       },
       {
@@ -109,7 +117,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '卡片',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'mdi:card-outline'
         }
       },
       {
@@ -118,7 +127,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '表格',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'mdi:table-large'
         }
       }
     ],
@@ -139,7 +149,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '地图',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'mdi:map'
         }
       },
       {
@@ -148,7 +159,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '视频',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'mdi:video'
         }
       },
       {
@@ -161,7 +173,9 @@ const routes: AuthRoute.Route[] = [
             path: '/plugin/editor/quill',
             component: 'self',
             meta: {
-              title: '富文本编辑器'
+              title: '富文本编辑器',
+              requiresAuth: true,
+              icon: 'mdi:file-document-edit-outline'
             }
           },
           {
@@ -169,13 +183,15 @@ const routes: AuthRoute.Route[] = [
             path: '/plugin/editor/markdown',
             component: 'self',
             meta: {
-              title: 'markdown编辑器'
+              title: 'markdown编辑器',
+              requiresAuth: true,
+              icon: 'ri:markdown-line'
             }
           }
         ],
         meta: {
           title: '编辑器',
-          requiresAuth: true
+          icon: 'icon-park-outline:editor'
         }
       },
       {
@@ -184,7 +200,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: 'Swiper插件',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'simple-icons:swiper'
         }
       },
       {
@@ -193,7 +210,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '剪贴板',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'mdi:clipboard-outline'
         }
       },
       {
@@ -202,7 +220,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '图标',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'ic:baseline-insert-emoticon'
         }
       },
       {
@@ -211,7 +230,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '打印',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'ic:baseline-local-printshop'
         }
       }
     ],
@@ -232,7 +252,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '异常页403',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'ic:baseline-block'
         }
       },
       {
@@ -241,7 +262,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '异常页404',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'ic:baseline-web-asset-off'
         }
       },
       {
@@ -250,7 +272,8 @@ const routes: AuthRoute.Route[] = [
         component: 'self',
         meta: {
           title: '异常页500',
-          requiresAuth: true
+          requiresAuth: true,
+          icon: 'ic:baseline-wifi-off'
         }
       }
     ],
@@ -276,7 +299,8 @@ const routes: AuthRoute.Route[] = [
             component: 'self',
             meta: {
               title: '二级菜单',
-              requiresAuth: true
+              requiresAuth: true,
+              icon: 'ic:outline-menu'
             }
           },
           {
@@ -290,17 +314,20 @@ const routes: AuthRoute.Route[] = [
                 component: 'self',
                 meta: {
                   title: '三级菜单',
-                  requiresAuth: true
+                  requiresAuth: true,
+                  icon: 'ic:outline-menu'
                 }
               }
             ],
             meta: {
-              title: '二级菜单(有子菜单)'
+              title: '二级菜单(有子菜单)',
+              icon: 'ic:outline-menu'
             }
           }
         ],
         meta: {
-          title: '一级菜单'
+          title: '一级菜单',
+          icon: 'ic:outline-menu'
         }
       }
     ],

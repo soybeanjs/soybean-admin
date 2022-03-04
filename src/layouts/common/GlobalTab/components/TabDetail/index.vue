@@ -13,6 +13,7 @@
       @close="tab.removeTab(item.path)"
       @contextmenu="handleContextMenu($event, item.path)"
     >
+      <Icon v-if="item.meta.icon" :icon="item.meta.icon" class="inline-block align-text-bottom mr-4px text-16px" />
       {{ item.meta.title }}
     </component>
   </div>
@@ -28,6 +29,7 @@
 import { ref, reactive, computed, nextTick, watch } from 'vue';
 import { useEventListener } from '@vueuse/core';
 import { ChromeTab, ButtonTab } from 'soybean-admin-tab';
+import { Icon } from '@iconify/vue';
 import { useThemeStore, useTabStore } from '@/store';
 import { setTabRoutes } from '@/utils';
 import { ContextMenu } from './components';
