@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosInstance, AxiosError } from 'axios';
-import { REQUEST_TIMEOUT, REFRESH_TOKEN_CODE } from '@/config';
+import { REFRESH_TOKEN_CODE } from '@/config';
 import {
   getToken,
   transformRequestData,
@@ -23,7 +23,7 @@ export default class CustomAxiosInstance {
   /**
    *
    * @param axiosConfig - axios配置
-   * @param backendSuccessCode - 后端业务上定义的成功请求的状态码
+   * @param backendConfig - 后端返回的数据配置
    */
   constructor(
     axiosConfig: AxiosRequestConfig,
@@ -35,11 +35,7 @@ export default class CustomAxiosInstance {
     }
   ) {
     this.backendConfig = backendConfig;
-    const defaultConfig: AxiosRequestConfig = {
-      timeout: REQUEST_TIMEOUT
-    };
-    Object.assign(defaultConfig, axiosConfig);
-    this.instance = axios.create(defaultConfig);
+    this.instance = axios.create(axiosConfig);
     this.setInterceptor();
   }
 

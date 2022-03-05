@@ -80,11 +80,11 @@ const apis: MockMethod[] = [
   {
     url: '/mock/updateToken',
     method: 'post',
-    response: (): Service.MockServiceResult<string> => {
+    response: (): Service.MockServiceResult<ApiAuth.Token> => {
       return {
         code: 200,
         message: 'ok',
-        data: token.token
+        data: token
       };
     }
   }

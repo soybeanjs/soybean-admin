@@ -36,10 +36,10 @@ export function fetchUserRoutes(userId: string) {
   return mockRequest.post<ApiRoute.Route>('/getUserRoutes', { userId });
 }
 
-export function fetchTestToken() {
-  return mockRequest.post('/testToken', { userName: 'Soybean' });
-}
-
+/**
+ * 刷新token
+ * @param refreshToken
+ */
 export function fetchUpdateToken(refreshToken: string) {
-  return mockRequest.post('/updateToken', { refreshToken });
+  return mockRequest.post<ApiAuth.Token>('/updateToken', { refreshToken });
 }
