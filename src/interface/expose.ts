@@ -1,4 +1,4 @@
-import BScroll from '@better-scroll/core';
+import type BScroll from '@better-scroll/core';
 
 export interface ExposeBetterScroll {
   instance: BScroll;

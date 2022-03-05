@@ -1,4 +1,9 @@
-import { EnumThemeLayoutMode, EnumThemeTabMode, EnumThemeHorizontalMenuPosition, EnumThemeAnimateMode } from '@/enum';
+import type {
+  EnumThemeLayoutMode,
+  EnumThemeTabMode,
+  EnumThemeHorizontalMenuPosition,
+  EnumThemeAnimateMode
+} from '@/enum';
 import type { ThemeLayoutMode, ThemeTabMode, ThemeHorizontalMenuPosition, ThemeAnimateMode } from './enum';
 
 /** 主题相关类型 */

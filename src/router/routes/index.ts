@@ -1,5 +1,5 @@
 import { getLoginModuleRegExp } from '@/utils';
-import { LoginModuleKey } from '@/interface';
+import type { LoginModuleKey } from '@/interface';
 
 /** 固定的路由 */
 export const constantRoutes: AuthRoute.Route[] = [

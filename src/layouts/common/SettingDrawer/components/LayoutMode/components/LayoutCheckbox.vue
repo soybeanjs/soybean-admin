@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { FollowerPlacement } from 'vueuc';
-import { EnumThemeLayoutMode } from '@/enum';
+import type { EnumThemeLayoutMode } from '@/enum';
 import type { ThemeLayoutMode } from '@/interface';
 
 interface Props {

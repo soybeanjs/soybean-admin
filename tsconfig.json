@@ -1,26 +1,24 @@
 {
-  "compilerOptions": {
-    "baseUrl": "./",
-    "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "isolatedModules": true,
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-		"importHelpers": true,
-		"skipLibCheck": true,
-		"noEmit": true,
-    "paths": {
-      "@/*": ["src/*"],
+	"extends": "@vue/tsconfig/tsconfig.web.json",
+	"include": [
+		"src/typings/**/*.d.ts",
+		"src/**/*",
+		"src/**/*.vue",
+		"vite.config.*",
+		"mock/**/*.ts",
+		"build/**/*.ts",
+		".env-config.ts",
+	],
+	"exclude": [
+		"/dist/**",
+		"node_modules"
+	],
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@/*": ["./src/*"],
 			"~/*": ["./*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+		},
 		"types": ["naive-ui/volar"]
-  },
-  "include": ["vite.config.*", "src/typings/**/*.d.ts", "src/**/*", "src/**/*.vue", "mock/**/*.ts", "build/**/*.ts", ".env-config.ts", "icons.d.ts"],
-	"exclude": ["/dist/**", "node_modules"]
+	}
 }

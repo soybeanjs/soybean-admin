@@ -1,7 +1,7 @@
 import { useRouter } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
 import { router as globalRouter, routeName } from '@/router';
-import { LoginModuleKey } from '@/interface';
+import type { LoginModuleKey } from '@/interface';
 
 /**
  * 路由跳转
