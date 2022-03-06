@@ -52,6 +52,7 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 - [ ] 示例页面完善
 - [ ] 表单、表格示例
+- [ ] 添加锁屏组件、全局Iframe组件
 - [ ] 用户角色切换示例、按钮级别权限指令
 - [ ] 性能优化(优化递归函数)
 - [ ] element-plus版本
