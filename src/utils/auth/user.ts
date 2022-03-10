@@ -31,7 +31,7 @@ export function removeRefreshToken() {
   removeLocal(EnumStorageKey['refresh-koken']);
 }
 
-/** 设置用户信息 */
+/** 获取用户信息 */
 export function getUserInfo() {
   const emptyInfo: Auth.UserInfo = {
     userId: '',
@@ -43,7 +43,7 @@ export function getUserInfo() {
   return userInfo;
 }
 
-/** 获取用户信息 */
+/** 设置用户信息 */
 export function setUserInfo(userInfo: Auth.UserInfo) {
   setLocal(EnumStorageKey['user-info'], userInfo);
 }
