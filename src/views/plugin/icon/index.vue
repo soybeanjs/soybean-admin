@@ -17,25 +17,18 @@
       </template>
     </n-card>
     <n-card title="SvgIcon 示例" class="mt-10px shadow-sm rounded-16px">
-      <div class="pb-12px text-16px">在src/assets下的svg文件，通过在template里面以 icon-custom-{文件名} 渲染</div>
+      <div class="pb-12px text-16px">
+        在src/assets/svg文件夹下的svg文件，通过在template里面以 icon-custom-{文件名} 直接渲染，动态渲染需要import组件
+      </div>
       <div class="grid grid-cols-10">
         <div class="mt-5px flex-x-center">
-          <icon-custom-activity class="text-30px" />
+          <icon-custom-activity class="text-40px text-success" />
         </div>
         <div class="mt-5px flex-x-center">
-          <icon-custom-at-sign class="text-30px text-primary" />
+          <icon-custom-cast class="text-20px text-error" />
         </div>
-        <div class="mt-5px flex-x-center">
-          <icon-custom-cast class="text-18px text-info" />
-        </div>
-        <div class="mt-5px flex-x-center">
-          <icon-custom-chrome class="text-48px text-success" />
-        </div>
-        <div class="mt-5px flex-x-center">
-          <icon-custom-copy class="text-30px text-error" />
-        </div>
-        <div class="mt-5px flex-x-center">
-          <icon-custom-wind class="text-30px text-warning" />
+        <div v-for="(item, index) in customIcons" :key="index" class="mt-5px flex-x-center">
+          <component :is="item" class="text-30px text-primary" />
         </div>
       </div>
     </n-card>
@@ -46,7 +39,15 @@
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import { icons } from './icons';
+import CustomActivity from '~icons/custom/activity';
+import CustomAtSign from '~icons/custom/at-sign';
+import CustomCast from '~icons/custom/cast';
+import CustomChrome from '~icons/custom/chrome';
+import CustomCopy from '~icons/custom/copy';
+import CustomWind from '~icons/custom/wind';
 
 const selectValue = ref('');
+
+const customIcons = [CustomActivity, CustomAtSign, CustomCast, CustomChrome, CustomCopy, CustomWind];
 </script>
 <style scoped></style>

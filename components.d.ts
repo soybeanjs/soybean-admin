@@ -13,11 +13,11 @@ declare module 'vue' {
     IconAntDesignCloseOutlined: typeof import('~icons/ant-design/close-outlined')['default'];
     IconAntDesignEnterOutlined: typeof import('~icons/ant-design/enter-outlined')['default'];
     IconAntDesignSettingOutlined: typeof import('~icons/ant-design/setting-outlined')['default'];
+    IconCustomActivity: typeof import('~icons/custom/activity')['default'];
     IconCustomAvatar: typeof import('~icons/custom/avatar')['default'];
-    IconCustomEmptyData: typeof import('~icons/custom/empty-data')['default'];
+    IconCustomCast: typeof import('~icons/custom/cast')['default'];
     IconCustomLogo: typeof import('~icons/custom/logo')['default'];
     IconCustomLogoFill: typeof import('~icons/custom/logo-fill')['default'];
-    IconCustomNetworkError: typeof import('~icons/custom/network-error')['default'];
     IconGridiconsFullscreen: typeof import('~icons/gridicons/fullscreen')['default'];
     IconGridiconsFullscreenExit: typeof import('~icons/gridicons/fullscreen-exit')['default'];
     IconIcOutlineCheck: typeof import('~icons/ic/outline-check')['default'];
