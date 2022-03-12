@@ -22,17 +22,18 @@ const vditor = ref<Vditor>();
 const domRef = ref<HTMLElement>();
 
 function renderVditor() {
-  vditor.value = new Vditor(domRef.value!, {
+  if (!domRef.value) return;
+  vditor.value = new Vditor(domRef.value, {
     minHeight: 400,
     theme: theme.darkMode ? 'dark' : 'classic',
     icon: 'material',
-    cache: { enable: false }
+    cache: { enable: false },
   });
 }
 
 const stopHandle = watch(
   () => theme.darkMode,
-  newValue => {
+  (newValue) => {
     const themeMode = newValue ? 'dark' : 'classic';
     vditor.value?.setTheme(themeMode);
   }

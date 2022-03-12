@@ -2,5 +2,5 @@
 export enum ContentType {
   json = 'application/json',
   formUrlencoded = 'application/x-www-form-urlencoded',
-  formData = 'multipart/form-data'
+  formData = 'multipart/form-data',
 }

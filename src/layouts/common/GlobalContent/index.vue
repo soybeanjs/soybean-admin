@@ -22,7 +22,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  showPadding: true
+  showPadding: true,
 });
 
 const app = useAppStore();

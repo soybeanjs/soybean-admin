@@ -22,21 +22,21 @@ export const useTabStore = defineStore('tab-store', {
       name: 'root',
       path: '/',
       meta: {
-        title: 'root'
+        title: 'root',
       },
       scrollPosition: {
         left: 0,
-        top: 0
-      }
+        top: 0,
+      },
     },
-    activeTab: ''
+    activeTab: '',
   }),
   getters: {
     /** 当前激活状态的页签索引 */
     activeTabIndex(state) {
       const { tabs, activeTab } = state;
-      return tabs.findIndex(tab => tab.path === activeTab);
-    }
+      return tabs.findIndex((tab) => tab.path === activeTab);
+    },
   },
   actions: {
     /**
@@ -53,7 +53,7 @@ export const useTabStore = defineStore('tab-store', {
      */
     initHomeTab(routeHomeName: string, router: Router) {
       const routes = router.getRoutes();
-      const findHome = routes.find(item => item.name === routeHomeName);
+      const findHome = routes.find((item) => item.name === routeHomeName);
       if (findHome) {
         this.homeTab = getTabRouteByVueRoute(findHome);
       }
@@ -75,7 +75,7 @@ export const useTabStore = defineStore('tab-store', {
       const { routerPush } = useRouterPush(false);
 
       const isActive = this.activeTab === path;
-      const updateTabs = this.tabs.filter(tab => tab.path !== path);
+      const updateTabs = this.tabs.filter((tab) => tab.path !== path);
       this.tabs = updateTabs;
       if (isActive && updateTabs.length) {
         const activePath = updateTabs[updateTabs.length - 1].path;
@@ -93,7 +93,7 @@ export const useTabStore = defineStore('tab-store', {
       const homePath = this.homeTab.path;
       const remain = [homePath, ...excludes];
       const hasActive = remain.includes(this.activeTab);
-      const updateTabs = this.tabs.filter(tab => remain.includes(tab.path));
+      const updateTabs = this.tabs.filter((tab) => remain.includes(tab.path));
       this.tabs = updateTabs;
       if (!hasActive && updateTabs.length) {
         const activePath = updateTabs[updateTabs.length - 1].path;
@@ -108,7 +108,7 @@ export const useTabStore = defineStore('tab-store', {
     clearLeftTab(path: string) {
       const index = getIndexInTabRoutes(this.tabs, path);
       if (index > -1) {
-        const excludes = this.tabs.slice(index).map(item => item.path);
+        const excludes = this.tabs.slice(index).map((item) => item.path);
         this.clearTab(excludes);
       }
     },
@@ -119,7 +119,7 @@ export const useTabStore = defineStore('tab-store', {
     clearRightTab(path: string) {
       const index = getIndexInTabRoutes(this.tabs, path);
       if (index > -1) {
-        const excludes = this.tabs.slice(0, index + 1).map(item => item.path);
+        const excludes = this.tabs.slice(0, index + 1).map((item) => item.path);
         this.clearTab(excludes);
       }
     },
@@ -154,7 +154,7 @@ export const useTabStore = defineStore('tab-store', {
     getTabScrollPosition(path: string) {
       const position = {
         left: 0,
-        top: 0
+        top: 0,
       };
       const index = getIndexInTabRoutes(this.tabs, path);
       if (index > -1) {
@@ -178,6 +178,6 @@ export const useTabStore = defineStore('tab-store', {
       }
       this.tabs = tabs;
       this.setActiveTab(currentRoute.path);
-    }
-  }
+    },
+  },
 });

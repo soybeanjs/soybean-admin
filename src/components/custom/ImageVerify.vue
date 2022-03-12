@@ -17,7 +17,7 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  code: ''
+  code: '',
 });
 
 const emit = defineEmits<Emits>();
@@ -26,11 +26,11 @@ const { domRef, imgCode, setImgCode, getImgCode } = useImageVerify();
 
 watch(
   () => props.code,
-  newValue => {
+  (newValue) => {
     setImgCode(newValue);
   }
 );
-watch(imgCode, newValue => {
+watch(imgCode, (newValue) => {
   emit('update:code', newValue);
 });
 

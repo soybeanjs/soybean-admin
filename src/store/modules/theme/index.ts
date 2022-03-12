@@ -5,7 +5,7 @@ import type {
   ThemeLayoutMode,
   ThemeTabMode,
   ThemeHorizontalMenuPosition,
-  ThemeAnimateMode
+  ThemeAnimateMode,
 } from '@/interface';
 import { getThemeSettings, getNaiveThemeOverrides, addThemeCssVarsToHtml } from './helpers';
 
@@ -17,13 +17,15 @@ export const useThemeStore = defineStore('theme-store', {
     /** naiveUI的主题配置 */
     naiveThemeOverrides(state) {
       const overrides = getNaiveThemeOverrides({ primary: state.themeColor, ...state.otherColor });
-      addThemeCssVarsToHtml(overrides.common!);
+      if (overrides.common) {
+        addThemeCssVarsToHtml(overrides.common);
+      }
       return overrides;
     },
     /** naive-ui暗黑主题 */
     naiveTheme(state) {
       return state.darkMode ? darkTheme : undefined;
-    }
+    },
   },
   actions: {
     /** 重置theme状态 */
@@ -133,6 +135,6 @@ export const useThemeStore = defineStore('theme-store', {
     /** 设置页面过渡动画类型 */
     setPageAnimateMode(mode: ThemeAnimateMode) {
       this.page.animateMode = mode;
-    }
-  }
+    },
+  },
 });

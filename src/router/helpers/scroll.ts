@@ -2,20 +2,20 @@ import type { RouterScrollBehavior } from 'vue-router';
 import { useTabStore } from '@/store';
 
 export const scrollBehavior: RouterScrollBehavior = (to, from) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const tab = useTabStore();
 
     if (to.hash) {
       resolve({
         el: to.hash,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
 
     const { left, top } = tab.getTabScrollPosition(to.path);
     const scrollPosition = {
       left,
-      top
+      top,
     };
     const { scrollLeft, scrollTop } = document.documentElement;
 

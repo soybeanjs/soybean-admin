@@ -12,14 +12,14 @@ const { load } = useScriptTag(GAODE_MAP_SDK_URL);
 const domRef = ref<HTMLDivElement>();
 
 async function renderBaiduMap() {
+  if (!domRef.value) return;
   await load(true);
-  const map = new AMap.Map(domRef.value!, {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const map = new AMap.Map(domRef.value, {
     zoom: 11,
     center: [114.05834626586915, 22.546789983033168],
-    viewMode: '3D'
+    viewMode: '3D',
   });
-
-  return map;
 }
 
 onMounted(() => {

@@ -9,8 +9,8 @@ import { fetchUpdateToken } from '../api';
  */
 export async function refreshToken(axiosConfig: AxiosRequestConfig) {
   const { resetAuthStore } = useAuthStore();
-  const refreshToken = getRefreshToken();
-  const { data } = await fetchUpdateToken(refreshToken);
+  const rToken = getRefreshToken();
+  const { data } = await fetchUpdateToken(rToken);
   if (data) {
     setToken(data.token);
     setRefreshToken(data.refreshToken);

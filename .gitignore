@@ -11,17 +11,20 @@ node_modules
 .DS_Store
 dist
 dist-ssr
+coverage
 *.local
+stats.html
 
 /cypress/videos/
 /cypress/screenshots/
 
 # Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 .idea
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-stats.html

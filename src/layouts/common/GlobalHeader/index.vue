@@ -31,7 +31,7 @@ import {
   GithubSite,
   FullScreen,
   ThemeMode,
-  UserAvatar
+  UserAvatar,
 } from './components';
 
 interface Props {

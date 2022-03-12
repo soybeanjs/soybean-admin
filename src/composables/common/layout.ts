@@ -19,23 +19,23 @@ export function useBasicLayout() {
     vertical: {
       showLogo: false,
       showHeaderMenu: false,
-      showMenuCollape: true
+      showMenuCollape: true,
     },
     'vertical-mix': {
       showLogo: false,
       showHeaderMenu: false,
-      showMenuCollape: false
+      showMenuCollape: false,
     },
     horizontal: {
       showLogo: true,
       showHeaderMenu: true,
-      showMenuCollape: false
+      showMenuCollape: false,
     },
     'horizontal-mix': {
       showLogo: true,
       showHeaderMenu: false,
-      showMenuCollape: true
-    }
+      showMenuCollape: true,
+    },
   };
 
   const headerProps = computed(() => layoutHeaderProps[theme.layout.mode]);
@@ -65,6 +65,6 @@ export function useBasicLayout() {
     headerProps,
     siderVisible,
     siderWidth,
-    siderCollapsedWidth
+    siderCollapsedWidth,
   };
 }

@@ -28,7 +28,7 @@ export const icons = [
   'ic:baseline-filter-7',
   'ic:baseline-filter-8',
   'ic:baseline-filter-9',
-  'ic:baseline-filter-9-plus'
+  'ic:baseline-filter-9-plus',
 ];
 
 // const assetsSvg = import.meta.glob('../../../assets/svg/*.svg');

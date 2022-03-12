@@ -52,13 +52,13 @@ const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
   phone: '',
   code: '',
-  imgCode: ''
+  imgCode: '',
 });
 const imgCode = ref('');
 const rules = {
   phone: formRules.phone,
   code: formRules.code,
-  imgCode: getImgCodeRule(imgCode)
+  imgCode: getImgCodeRule(imgCode),
 };
 
 function handleSmsCode() {
@@ -69,7 +69,7 @@ function handleSubmit(e: MouseEvent) {
   if (!formRef.value) return;
   e.preventDefault();
 
-  formRef.value.validate(errors => {
+  formRef.value.validate((errors) => {
     if (!errors) {
       const { phone, code } = model;
       login(phone, code, 'sms');

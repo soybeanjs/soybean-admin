@@ -61,10 +61,10 @@ const show = computed({
   },
   set(val: boolean) {
     emit('update:value', val);
-  }
+  },
 });
 
-watch(show, async val => {
+watch(show, async (val) => {
   if (val) {
     /** 自动聚焦 */
     await nextTick();
@@ -75,7 +75,7 @@ watch(show, async val => {
 /** 查询 */
 function search() {
   resultOptions.value = routeStore.searchMenus.filter(
-    menu => keyword.value && menu.meta?.title.toLocaleLowerCase().includes(keyword.value.toLocaleLowerCase().trim())
+    (menu) => keyword.value && menu.meta?.title.toLocaleLowerCase().includes(keyword.value.toLocaleLowerCase().trim())
   );
   if (resultOptions.value?.length > 0) {
     activePath.value = resultOptions.value[0].path;
@@ -97,7 +97,7 @@ function handleClose() {
 function handleUp() {
   const { length } = resultOptions.value;
   if (length === 0) return;
-  const index = resultOptions.value.findIndex(item => item.path === activePath.value);
+  const index = resultOptions.value.findIndex((item) => item.path === activePath.value);
   if (index === 0) {
     activePath.value = resultOptions.value[length - 1].path;
   } else {
@@ -109,7 +109,7 @@ function handleUp() {
 function handleDown() {
   const { length } = resultOptions.value;
   if (length === 0) return;
-  const index = resultOptions.value.findIndex(item => item.path === activePath.value);
+  const index = resultOptions.value.findIndex((item) => item.path === activePath.value);
   if (index + 1 === length) {
     activePath.value = resultOptions.value[0].path;
   } else {
@@ -121,8 +121,8 @@ function handleDown() {
 function handleEnter() {
   const { length } = resultOptions.value;
   if (length === 0 || activePath.value === '') return;
-  const item = resultOptions.value.find(item => item.path === activePath.value);
-  if (item?.meta?.href) {
+  const routeItem = resultOptions.value.find((item) => item.path === activePath.value);
+  if (routeItem?.meta?.href) {
     window.open(activePath.value, '__blank');
   } else {
     router.push(activePath.value);

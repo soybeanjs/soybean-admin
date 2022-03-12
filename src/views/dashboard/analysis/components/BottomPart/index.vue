@@ -43,43 +43,43 @@ const timelines: TimelineData[] = [
   { type: 'success', title: '成功', content: '哪里成功', time: '2021-10-10 20:46' },
   { type: 'error', title: '错误', content: '哪里错误', time: '2021-10-10 20:46' },
   { type: 'warning', title: '警告', content: '哪里警告', time: '2021-10-10 20:46' },
-  { type: 'info', title: '信息', content: '是的', time: '2021-10-10 20:46' }
+  { type: 'info', title: '信息', content: '是的', time: '2021-10-10 20:46' },
 ];
 
 const columns = [
   {
     title: 'Name',
-    key: 'name'
+    key: 'name',
   },
   {
     title: 'Age',
-    key: 'age'
+    key: 'age',
   },
   {
     title: 'Address',
-    key: 'address'
+    key: 'address',
   },
   {
     title: 'Tags',
     key: 'tags',
     render(row: TableData) {
-      const tags = row.tags.map(tagKey => {
+      const tags = row.tags.map((tagKey) => {
         return h(
           NTag,
           {
             style: {
-              marginRight: '6px'
+              marginRight: '6px',
             },
-            type: 'info'
+            type: 'info',
           },
           {
-            default: () => tagKey
+            default: () => tagKey,
           }
         );
       });
       return tags;
-    }
-  }
+    },
+  },
 ];
 
 const tableData: TableData[] = [
@@ -88,50 +88,50 @@ const tableData: TableData[] = [
     name: 'John Brown',
     age: 32,
     address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer']
+    tags: ['nice', 'developer'],
   },
   {
     key: 1,
     name: 'Jim Green',
     age: 42,
     address: 'London No. 1 Lake Park',
-    tags: ['wow']
+    tags: ['wow'],
   },
   {
     key: 2,
     name: 'Joe Black',
     age: 32,
     address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
+    tags: ['cool', 'teacher'],
   },
   {
     key: 3,
     name: 'Soybean',
     age: 25,
     address: 'China Shenzhen',
-    tags: ['handsome', 'programmer']
+    tags: ['handsome', 'programmer'],
   },
   {
     key: 4,
     name: 'John Brown',
     age: 32,
     address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer']
+    tags: ['nice', 'developer'],
   },
   {
     key: 5,
     name: 'Jim Green',
     age: 42,
     address: 'London No. 1 Lake Park',
-    tags: ['wow']
+    tags: ['wow'],
   },
   {
     key: 6,
     name: 'Joe Black',
     age: 32,
     address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }
+    tags: ['cool', 'teacher'],
+  },
 ];
 </script>
 <style scoped></style>

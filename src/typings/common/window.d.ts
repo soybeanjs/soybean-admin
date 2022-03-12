@@ -2,7 +2,7 @@ import type {
   LoadingBarProviderInst,
   DialogProviderInst,
   MessageProviderInst,
-  NotificationProviderInst
+  NotificationProviderInst,
 } from 'naive-ui';
 
 declare global {

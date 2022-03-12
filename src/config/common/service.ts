@@ -36,7 +36,7 @@ export const ERROR_STATUS = {
   503: '503: 服务不可用~',
   504: '504: 网关超时~',
   505: '505: http版本不支持该请求~',
-  [DEFAULT_REQUEST_ERROR_CODE]: DEFAULT_REQUEST_ERROR_MSG
+  [DEFAULT_REQUEST_ERROR_CODE]: DEFAULT_REQUEST_ERROR_MSG,
 };
 
 /** 不弹出错误信息的code */

@@ -40,13 +40,13 @@ const model = reactive({
   phone: '',
   code: '',
   pwd: '',
-  confirmPwd: ''
+  confirmPwd: '',
 });
 const rules: FormRules = {
   phone: formRules.phone,
   code: formRules.code,
   pwd: formRules.pwd,
-  confirmPwd: getConfirmPwdRule(toRefs(model).pwd)
+  confirmPwd: getConfirmPwdRule(toRefs(model).pwd),
 };
 
 function handleSmsCode() {
@@ -57,7 +57,7 @@ function handleSubmit(e: MouseEvent) {
   if (!formRef.value) return;
   e.preventDefault();
 
-  formRef.value.validate(errors => {
+  formRef.value.validate((errors) => {
     if (!errors) {
       window.$message?.success('验证成功');
     } else {

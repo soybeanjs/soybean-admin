@@ -13,7 +13,7 @@ export function createRouterGuard(router: Router) {
     // 页面跳转权限处理
     await createPermissionGuard(to, from, next, router);
   });
-  router.afterEach(to => {
+  router.afterEach((to) => {
     // 设置document title
     useTitle(to.meta.title);
     // 结束 loadingBar

@@ -30,18 +30,18 @@ const statisticData: StatisticData[] = [
   {
     id: 0,
     label: '项目数',
-    value: '25'
+    value: '25',
   },
   {
     id: 1,
     label: '待办',
-    value: '4/16'
+    value: '4/16',
   },
   {
     id: 2,
     label: '消息',
-    value: '12'
-  }
+    value: '12',
+  },
 ];
 </script>
 <style scoped></style>

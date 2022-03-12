@@ -64,7 +64,7 @@ const dropdown = reactive({
   visible: false,
   x: 0,
   y: 0,
-  currentPath: ''
+  currentPath: '',
 });
 function showDropdown() {
   dropdown.visible = true;
@@ -92,7 +92,7 @@ watch(
     getActiveTabClientX();
   },
   {
-    immediate: true
+    immediate: true,
   }
 );
 

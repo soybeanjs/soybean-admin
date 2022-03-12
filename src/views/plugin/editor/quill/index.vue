@@ -24,7 +24,9 @@ function renderWangEditor() {
 }
 
 function setEditorConfig() {
-  editor.value!.config.zIndex = 10;
+  if (editor.value?.config?.zIndex) {
+    editor.value.config.zIndex = 10;
+  }
 }
 
 onMounted(() => {

@@ -26,7 +26,7 @@ export default function useImageVerify(width = 152, height = 40) {
     domRef,
     imgCode,
     setImgCode,
-    getImgCode
+    getImgCode,
   };
 }
 

@@ -54,6 +54,6 @@ export default function useSmsCode() {
     start,
     isCounting,
     getSmsCode,
-    loading
+    loading,
   };
 }

@@ -18,7 +18,7 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  dark: false
+  dark: false,
 });
 
 const emit = defineEmits<Emits>();
@@ -29,7 +29,7 @@ const darkMode = computed({
   },
   set(newValue: boolean) {
     emit('update:dark', newValue);
-  }
+  },
 });
 
 function handleSwitch() {

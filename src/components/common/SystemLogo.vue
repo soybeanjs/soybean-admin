@@ -10,7 +10,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  fill: false
+  fill: false,
 });
 </script>
 <style scoped></style>

@@ -27,13 +27,13 @@ function transformVersionData(tuple: [string, string]): PkgVersionInfo {
   const [name, version] = tuple;
   return {
     name,
-    version
+    version,
   };
 }
 
 export const pkgJson: PkgJson = {
   name: pkgWithType.name,
   version: pkgWithType.version,
-  dependencies: Object.entries(pkgWithType.dependencies).map(item => transformVersionData(item)),
-  devDependencies: Object.entries(pkgWithType.devDependencies).map(item => transformVersionData(item))
+  dependencies: Object.entries(pkgWithType.dependencies).map((item) => transformVersionData(item)),
+  devDependencies: Object.entries(pkgWithType.devDependencies).map((item) => transformVersionData(item)),
 };

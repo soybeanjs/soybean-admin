@@ -7,7 +7,7 @@ import {
   handleAxiosError,
   handleResponseError,
   handleBackendError,
-  handleServiceResult
+  handleServiceResult,
 } from '@/utils';
 import { refreshToken } from './helpers';
 
@@ -31,7 +31,7 @@ export default class CustomAxiosInstance {
       codeKey: 'code',
       dataKey: 'data',
       msgKey: 'message',
-      successCode: 200
+      successCode: 200,
     }
   ) {
     this.backendConfig = backendConfig;
@@ -42,7 +42,7 @@ export default class CustomAxiosInstance {
   /** 设置请求拦截器 */
   setInterceptor() {
     this.instance.interceptors.request.use(
-      async config => {
+      async (config) => {
         const handleConfig = { ...config };
         if (handleConfig.headers) {
           // 数据转换
@@ -59,7 +59,7 @@ export default class CustomAxiosInstance {
       }
     );
     this.instance.interceptors.response.use(
-      async response => {
+      async (response) => {
         const { status } = response;
         if (status === 200 || status < 300 || status === 304) {
           const backend = response.data;

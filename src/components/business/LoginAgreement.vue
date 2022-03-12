@@ -23,7 +23,7 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  value: true
+  value: true,
 });
 
 const emit = defineEmits<Emits>();
@@ -34,7 +34,7 @@ const checked = computed({
   },
   set(newValue: boolean) {
     emit('update:value', newValue);
-  }
+  },
 });
 
 function handleClickProtocol() {

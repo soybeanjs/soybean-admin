@@ -7,7 +7,7 @@ import type { LoginModuleKey } from '@/interface';
  * 路由跳转
  * @param inSetup - 是否在vue页面/组件的setup里面调用，在axios里面无法使用useRouter和useRoute
  */
-export function useRouterPush(inSetup: boolean = true) {
+export function useRouterPush(inSetup = true) {
   const router = inSetup ? useRouter() : globalRouter;
   const route = globalRouter.currentRoute;
 
@@ -47,7 +47,7 @@ export function useRouterPush(inSetup: boolean = true) {
     const module: LoginModuleKey = loginModule || 'pwd-login';
     const routeLocation: RouteLocationRaw = {
       name: routeName('login'),
-      params: { module }
+      params: { module },
     };
     const redirect = redirectUrl || route.value.fullPath;
     Object.assign(routeLocation, { query: { redirect } });
@@ -81,6 +81,6 @@ export function useRouterPush(inSetup: boolean = true) {
     toHome,
     toLogin,
     toLoginModule,
-    toLoginRedirect
+    toLoginRedirect,
   };
 }

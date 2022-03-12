@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
   separator: ',',
   decimal: '.',
   useEasing: true,
-  transition: 'linear'
+  transition: 'linear',
 });
 
 const emit = defineEmits<{
@@ -61,7 +61,7 @@ function run() {
     duration: props.duration,
     onStarted: () => emit('on-started'),
     onFinished: () => emit('on-finished'),
-    ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {})
+    ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {}),
   });
 }
 

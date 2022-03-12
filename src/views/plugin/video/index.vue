@@ -14,11 +14,12 @@ const domRef = ref<HTMLElement>();
 const player = ref<Player>();
 
 function renderXgPlayer() {
+  if (!domRef.value) return;
   const url = 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4';
   player.value = new Player({
-    el: domRef.value!,
+    el: domRef.value,
     url,
-    playbackRate: [0.5, 0.75, 1, 1.5, 2]
+    playbackRate: [0.5, 0.75, 1, 1.5, 2],
   });
 }
 function destroyXgPlayer() {

@@ -2,7 +2,7 @@ import type {
   EnumThemeLayoutMode,
   EnumThemeTabMode,
   EnumThemeHorizontalMenuPosition,
-  EnumThemeAnimateMode
+  EnumThemeAnimateMode,
 } from '@/enum';
 import type { ThemeLayoutMode, ThemeTabMode, ThemeHorizontalMenuPosition, ThemeAnimateMode } from './enum';
 

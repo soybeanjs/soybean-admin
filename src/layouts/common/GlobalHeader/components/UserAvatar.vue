@@ -20,17 +20,17 @@ const options = [
   {
     label: '用户中心',
     key: 'user-center',
-    icon: iconifyRender('carbon:user-avatar')
+    icon: iconifyRender('carbon:user-avatar'),
   },
   {
     type: 'divider',
-    key: 'divider'
+    key: 'divider',
   },
   {
     label: '退出登录',
     key: 'logout',
-    icon: iconifyRender('carbon:logout')
-  }
+    icon: iconifyRender('carbon:logout'),
+  },
 ];
 
 function handleDropdown(optionKey: string) {
@@ -43,7 +43,7 @@ function handleDropdown(optionKey: string) {
       negativeText: '取消',
       onPositiveClick: () => {
         auth.resetAuthStore();
-      }
+      },
     });
   }
 }

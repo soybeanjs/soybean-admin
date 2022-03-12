@@ -10,7 +10,7 @@ interface ScrollBodyStyle {
 export default function useBodyScroll(duration = 300) {
   const defaultStyle: ScrollBodyStyle = {
     overflow: '',
-    paddingRight: ''
+    paddingRight: '',
   };
   function getInitBodyStyle() {
     const { overflow, paddingRight } = document.body.style;
@@ -42,6 +42,6 @@ export default function useBodyScroll(duration = 300) {
   getInitBodyStyle();
 
   return {
-    scrollBodyHandler
+    scrollBodyHandler,
   };
 }

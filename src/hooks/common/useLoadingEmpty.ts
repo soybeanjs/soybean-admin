@@ -9,6 +9,6 @@ export default function useLoadingEmpty(initLoading = false, initEmpty = false) 
     startLoading,
     endLoading,
     empty,
-    setEmpty
+    setEmpty,
   };
 }

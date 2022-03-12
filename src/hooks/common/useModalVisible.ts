@@ -11,7 +11,7 @@ export default function useModalVisible(hideScroll = true) {
   const { scrollBodyHandler } = useBodyScroll();
 
   function modalVisibleWatcher() {
-    const stopHandle = watch(visible, async newValue => {
+    const stopHandle = watch(visible, async (newValue) => {
       scrollBodyHandler(newValue);
     });
 
@@ -28,6 +28,6 @@ export default function useModalVisible(hideScroll = true) {
     visible,
     openModal,
     closeModal,
-    toggleModal
+    toggleModal,
   };
 }

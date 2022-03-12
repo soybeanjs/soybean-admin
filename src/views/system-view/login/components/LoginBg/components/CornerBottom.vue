@@ -34,7 +34,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   startColor: '#28aff0',
-  endColor: '#120fc4'
+  endColor: '#120fc4',
 });
 </script>
 <style scoped></style>

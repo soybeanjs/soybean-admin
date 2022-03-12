@@ -2,7 +2,7 @@ import { fileURLToPath } from 'url';
 import { defineConfig, loadEnv } from 'vite';
 import { setupVitePlugins, define } from './build';
 
-export default defineConfig(configEnv => {
+export default defineConfig((configEnv) => {
   const viteEnv = loadEnv(configEnv.mode, `.env.${configEnv.mode}`) as ImportMetaEnv;
 
   const srcPath = fileURLToPath(new URL('./src', import.meta.url));
@@ -13,29 +13,29 @@ export default defineConfig(configEnv => {
     resolve: {
       alias: {
         '@': srcPath,
-        '~': rootPath
-      }
+        '~': rootPath,
+      },
     },
     define,
     plugins: setupVitePlugins(configEnv, srcPath, viteEnv),
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "./src/styles/scss/global.scss" as *;`
-        }
-      }
+          additionalData: `@use "./src/styles/scss/global.scss" as *;`,
+        },
+      },
     },
     server: {
       fs: {
-        strict: false
+        strict: false,
       },
       host: '0.0.0.0',
       port: 3200,
-      open: true
+      open: true,
     },
     build: {
       brotliSize: false,
-      sourcemap: false
-    }
+      sourcemap: false,
+    },
   };
 });

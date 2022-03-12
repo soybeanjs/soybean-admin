@@ -13,7 +13,7 @@ type LayoutComponent = Record<LayoutComponentName, () => Promise<Component>>;
 export function getLayoutComponent(layoutType: LayoutComponentName) {
   const layoutComponent: LayoutComponent = {
     basic: BasicLayout,
-    blank: BlankLayout
+    blank: BlankLayout,
   };
   return () => setViewComponentName(layoutComponent[layoutType], EnumLayoutComponentName[layoutType]);
 }

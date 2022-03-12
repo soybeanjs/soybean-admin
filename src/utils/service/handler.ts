@@ -3,13 +3,13 @@ export async function handleServiceResult<T = any>(error: Service.RequestError |
   if (error) {
     const fail: Service.FailedResult = {
       error,
-      data: null
+      data: null,
     };
     return fail;
   }
   const success: Service.SuccessResult<T> = {
     error: null,
-    data
+    data,
   };
   return success;
 }

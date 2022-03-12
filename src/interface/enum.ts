@@ -4,7 +4,7 @@ import type {
   EnumThemeTabMode,
   EnumThemeHorizontalMenuPosition,
   EnumThemeAnimateMode,
-  EnumLoginModule
+  EnumLoginModule,
 } from '@/enum';
 
 /** 布局组件名称 */

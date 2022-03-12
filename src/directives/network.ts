@@ -18,7 +18,7 @@ export default function setupNetworkDirective(app: App) {
     unmounted(el: HTMLElement, binding) {
       if (binding.value === false) return;
       el.removeEventListener('click', listenerHandler);
-    }
+    },
   };
 
   app.directive('network', networkDirective);

@@ -10,5 +10,5 @@ export enum EnumDataType {
   date = '[object Date]',
   regexp = '[object RegExp]',
   set = '[object Set]',
-  map = '[object Map]'
+  map = '[object Map]',
 }

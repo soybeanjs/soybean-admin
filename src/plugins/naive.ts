@@ -45,7 +45,7 @@ import {
   NThing,
   NTimeline,
   NTimelineItem,
-  NTooltip
+  NTooltip,
 } from 'naive-ui';
 
 /** 按需引入naiveUI */
@@ -96,8 +96,8 @@ export default function setupNaiveUI(app: App) {
       NThing,
       NTimeline,
       NTimelineItem,
-      NTooltip
-    ]
+      NTooltip,
+    ],
   });
   app.use(naive);
 }

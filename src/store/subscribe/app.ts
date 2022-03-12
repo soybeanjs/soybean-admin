@@ -10,7 +10,7 @@ export default function subscribeAppStore() {
   // 弹窗打开时禁止滚动条
   const stopHandle = watch(
     () => app.settingDrawerVisible,
-    newValue => {
+    (newValue) => {
       scrollBodyHandler(newValue);
     }
   );

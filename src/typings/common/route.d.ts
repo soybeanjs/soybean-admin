@@ -136,11 +136,12 @@ declare namespace AuthRoute {
     | `${Path}/:module(${string})?`;
 
   /** 获取一级路由(包括有子路由的一级路由) */
-  type GetSingleRouteKey<Key extends RouteKey> =
-    Key extends `${infer IgnoredLeft}${RouteSplitMark}${infer IgnoredRight}` ? never : Key;
+  type GetSingleRouteKey<Key extends RouteKey> = Key extends `${infer _Left}${RouteSplitMark}${infer _Right}`
+    ? never
+    : Key;
 
   /** 获取子路由的一级父路由 */
-  type GetRouteFirstParentKey<Key extends RouteKey> = Key extends `${infer Left}${RouteSplitMark}${infer IgnoredRight}`
+  type GetRouteFirstParentKey<Key extends RouteKey> = Key extends `${infer Left}${RouteSplitMark}${infer _Right}`
     ? Left
     : never;
 }

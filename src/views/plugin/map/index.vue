@@ -22,7 +22,7 @@ interface Map {
 
 const maps: Map[] = [
   { id: 'gaode', label: '高德地图', component: GaodeMap },
-  { id: 'tencent', label: '腾讯地图', component: TencentMap }
+  { id: 'tencent', label: '腾讯地图', component: TencentMap },
 ];
 </script>
 <style scoped></style>

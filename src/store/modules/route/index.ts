@@ -6,7 +6,7 @@ import {
   transformAuthRouteToMenu,
   transformAuthRoutesToVueRoutes,
   transformAuthRoutesToSearchMenus,
-  getCacheRoutes
+  getCacheRoutes,
 } from '@/utils';
 import type { GlobalMenuOption, SearchMenu } from '@/interface';
 import { useTabStore } from '../tab';
@@ -30,7 +30,7 @@ export const useRouteStore = defineStore('route-store', {
     routeHomeName: 'dashboard_analysis',
     menus: [],
     searchMenus: [],
-    cacheRoutes: []
+    cacheRoutes: [],
   }),
   actions: {
     /**
@@ -49,7 +49,7 @@ export const useRouteStore = defineStore('route-store', {
         this.searchMenus = transformAuthRoutesToSearchMenus(data.routes);
 
         const vueRoutes = transformAuthRoutesToVueRoutes(data.routes);
-        vueRoutes.forEach(route => {
+        vueRoutes.forEach((route) => {
           router.addRoute(route);
         });
 
@@ -58,6 +58,6 @@ export const useRouteStore = defineStore('route-store', {
         initHomeTab(data.home, router);
         this.isAddedDynamicRoute = true;
       }
-    }
-  }
+    },
+  },
 });

@@ -34,7 +34,7 @@ async function transformFile(file: File[] | File, key: string) {
   if (isArray(file)) {
     // 多文件
     await Promise.all(
-      (file as File[]).map(item => {
+      (file as File[]).map((item) => {
         formData.append(key, item);
         return true;
       })

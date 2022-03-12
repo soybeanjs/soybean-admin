@@ -5,5 +5,5 @@ export default viteMockServe({
   injectCode: `
 		import { setupMockServer } from '../mock';
 		setupMockServer();
-	`
+	`,
 });

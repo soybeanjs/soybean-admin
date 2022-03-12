@@ -10,7 +10,7 @@ type ComponentAction = Record<AuthRoute.RouteComponent, () => void>;
  * @description 所有多级路由都会被转换成二级路由
  */
 export function transformAuthRoutesToVueRoutes(routes: AuthRoute.Route[]) {
-  return routes.map(route => transformAuthRouteToVueRoute(route)).flat(1);
+  return routes.map((route) => transformAuthRouteToVueRoute(route)).flat(1);
 }
 
 /**
@@ -70,10 +70,14 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
       },
       self() {
         itemRoute.component = getViewComponent(item.name);
-      }
+      },
     };
     try {
-      action[item.component!]();
+      if (item.component) {
+        action[item.component]();
+      } else {
+        consoleError('路由组件解析失败: ', item);
+      }
     } catch {
       consoleError('路由组件解析失败: ', item);
     }
@@ -91,8 +95,8 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
         {
           path: '',
           name: item.name,
-          component: getViewComponent('not-found-page')
-        }
+          component: getViewComponent('not-found-page'),
+        },
       ];
     } else {
       const parentPath = `${itemRoute.path}-parent` as AuthRoute.SingleRouteParentPath;
@@ -103,7 +107,7 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
         path: parentPath,
         component: layout,
         redirect: item.path,
-        children: [itemRoute]
+        children: [itemRoute],
       };
 
       return [parentRoute];
@@ -112,10 +116,10 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
 
   // 子路由
   if (hasChildren(item)) {
-    const children = item.children!.map(child => transformAuthRouteToVueRoute(child)).flat();
+    const children = (item.children as AuthRoute.Route[]).map((child) => transformAuthRouteToVueRoute(child)).flat();
 
     // 找出第一个不为多级路由中间级的子路由路径作为重定向路径
-    const redirectPath: AuthRoute.RoutePath = (children.find(item => !item.meta?.multi)?.path ||
+    const redirectPath: AuthRoute.RoutePath = (children.find((v) => !v.meta?.multi)?.path ||
       '/') as AuthRoute.RoutePath;
     if (redirectPath === '/') {
       consoleError('该多级路由没有有效的子路径', item);
