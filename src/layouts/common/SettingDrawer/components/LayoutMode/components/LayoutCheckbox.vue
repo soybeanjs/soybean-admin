@@ -19,11 +19,10 @@
 import { computed } from 'vue';
 import type { FollowerPlacement } from 'vueuc';
 import type { EnumThemeLayoutMode } from '@/enum';
-import type { ThemeLayoutMode } from '@/interface';
 
 interface Props {
   /** 布局模式 */
-  mode: ThemeLayoutMode;
+  mode: EnumType.ThemeLayoutMode;
   /** 布局模式文本 */
   label: EnumThemeLayoutMode;
   /** 选中状态 */
@@ -33,7 +32,7 @@ interface Props {
 const props = defineProps<Props>();
 
 type LayoutConfig = Record<
-  ThemeLayoutMode,
+  EnumType.ThemeLayoutMode,
   {
     placement: FollowerPlacement;
     menuClass: string;

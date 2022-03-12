@@ -1,5 +1,4 @@
 import type { RouteRecordNormalized, RouteLocationNormalizedLoaded } from 'vue-router';
-import type { GlobalTabRoute } from '@/interface';
 
 /**
  *	根据vue路由获取tab路由

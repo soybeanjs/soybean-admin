@@ -8,7 +8,6 @@ import { useRoute } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import { useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
-import type { GlobalMenuOption } from '@/interface';
 
 const route = useRoute();
 const routeStore = useRouteStore();

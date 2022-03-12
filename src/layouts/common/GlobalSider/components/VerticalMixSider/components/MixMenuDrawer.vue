@@ -36,7 +36,6 @@ import { DarkModeContainer } from '@/components';
 import { useAppStore, useThemeStore } from '@/store';
 import { useAppInfo, useRouterPush } from '@/composables';
 import { getActiveKeyPathsOfMenus } from '@/utils';
-import type { GlobalMenuOption } from '@/interface';
 
 interface Props {
   /** 菜单抽屉可见性 */

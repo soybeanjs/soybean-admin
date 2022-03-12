@@ -171,6 +171,7 @@ module.exports = {
         ignores: ['index'],
       },
     ],
+
     '@typescript-eslint/ban-types': [
       'error',
       {
@@ -180,6 +181,12 @@ module.exports = {
             fixWith: 'object',
           },
         },
+      },
+    ],
+    '@typescript-eslint/no-empty-interface': [
+      'error',
+      {
+        allowSingleExtends: true,
       },
     ],
     '@typescript-eslint/no-explicit-any': 'off',

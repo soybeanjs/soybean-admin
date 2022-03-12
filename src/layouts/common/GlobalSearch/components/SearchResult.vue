@@ -24,11 +24,10 @@
 import { computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useThemeStore } from '@/store';
-import type { SearchMenu } from '@/interface';
 
 interface Props {
   value: string;
-  options: SearchMenu[];
+  options: AuthRoute.Route[];
 }
 
 interface Emits {
@@ -52,7 +51,7 @@ const active = computed({
 });
 
 /** 鼠标移入 */
-async function handleMouse(item: SearchMenu) {
+async function handleMouse(item: AuthRoute.Route) {
   active.value = item.path;
 }
 

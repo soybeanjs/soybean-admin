@@ -1,5 +1,4 @@
 import { getLoginModuleRegExp } from '@/utils';
-import type { LoginModuleKey } from '@/interface';
 
 /** 固定的路由 */
 export const constantRoutes: AuthRoute.Route[] = [
@@ -16,7 +15,7 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/login',
     component: 'self',
     props: (route) => {
-      const moduleType = (route.params.module as LoginModuleKey) || 'pwd-login';
+      const moduleType = (route.params.module as EnumType.LoginModuleKey) || 'pwd-login';
       return {
         module: moduleType,
       };

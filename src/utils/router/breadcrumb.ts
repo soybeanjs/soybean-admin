@@ -1,5 +1,3 @@
-import type { GlobalMenuOption, GlobalBreadcrumb } from '@/interface';
-
 /**
  * 获取面包屑数据
  * @param activeKey - 当前页面路由的key

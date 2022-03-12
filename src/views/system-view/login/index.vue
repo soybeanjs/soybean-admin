@@ -35,16 +35,15 @@ import { SystemLogo, DarkModeSwitch } from '@/components';
 import { useThemeStore } from '@/store';
 import { useAppInfo } from '@/composables';
 import { getColorPalette, mixColor } from '@/utils';
-import type { LoginModuleKey } from '@/interface';
 import { LoginBg, PwdLogin, CodeLogin, Register, ResetPwd, BindWechat } from './components';
 
 interface Props {
   /** 登录模块分类 */
-  module: LoginModuleKey;
+  module: EnumType.LoginModuleKey;
 }
 
 interface LoginModule {
-  key: LoginModuleKey;
+  key: EnumType.LoginModuleKey;
   label: EnumLoginModule;
   component: Component;
 }

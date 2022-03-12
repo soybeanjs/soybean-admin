@@ -2,15 +2,14 @@ import type { Component } from 'vue';
 import { EnumLayoutComponentName } from '@/enum';
 import { BasicLayout, BlankLayout } from '@/layouts';
 import { views } from '@/views';
-import type { LayoutComponentName } from '@/interface';
 
-type LayoutComponent = Record<LayoutComponentName, () => Promise<Component>>;
+type LayoutComponent = Record<EnumType.LayoutComponentName, () => Promise<Component>>;
 
 /**
  * 获取页面导入的vue文件(懒加载的方式)
  * @param layoutType - 布局类型
  */
-export function getLayoutComponent(layoutType: LayoutComponentName) {
+export function getLayoutComponent(layoutType: EnumType.LayoutComponentName) {
   const layoutComponent: LayoutComponent = {
     basic: BasicLayout,
     blank: BlankLayout,

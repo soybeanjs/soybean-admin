@@ -28,7 +28,6 @@ import { ref, shallowRef, computed, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDebounceFn, onKeyStroke } from '@vueuse/core';
 import { useRouteStore } from '@/store';
-import type { SearchMenu } from '@/interface';
 import SearchResult from './SearchResult.vue';
 import SearchFooter from './SearchFooter.vue';
 
@@ -50,7 +49,7 @@ const routeStore = useRouteStore();
 
 const keyword = ref('');
 const activePath = ref('');
-const resultOptions = shallowRef<SearchMenu[]>([]);
+const resultOptions = shallowRef<AuthRoute.Route[]>([]);
 const inputRef = ref<HTMLInputElement>();
 
 const handleSearch = useDebounceFn(search, 300);

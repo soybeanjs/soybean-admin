@@ -21,7 +21,6 @@
 <script setup lang="ts">
 import { DarkModeContainer } from '@/components';
 import { useThemeStore } from '@/store';
-import type { GlobalHeaderProps } from '@/interface';
 import GlobalLogo from '../GlobalLogo/index.vue';
 import GlobalSearch from '../GlobalSearch/index.vue';
 import {

@@ -30,13 +30,3 @@ export const icons = [
   'ic:baseline-filter-9',
   'ic:baseline-filter-9-plus',
 ];
-
-// const assetsSvg = import.meta.glob('../../../assets/svg/*.svg');
-// const PATH_PREFFIX = '../../../assets/svg/';
-// const SUFFIX = '.svg';
-// const CUSTOM_ICONIFY_PREFFIX = 'custom-';
-
-// export const svgIcons = Object.keys(assetsSvg).map(key => {
-//   const svgKey = key.replace(PATH_PREFFIX, '').replace(SUFFIX, '');
-//   return CUSTOM_ICONIFY_PREFFIX + svgKey;
-// });

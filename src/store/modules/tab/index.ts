@@ -2,7 +2,6 @@ import type { Router, RouteLocationNormalizedLoaded } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useRouterPush } from '@/composables';
 import { getTabRoutes } from '@/utils';
-import type { GlobalTabRoute } from '@/interface';
 import { useThemeStore } from '../theme';
 import { getTabRouteByVueRoute, isInTabRoutes, getIndexInTabRoutes } from './helpers';
 

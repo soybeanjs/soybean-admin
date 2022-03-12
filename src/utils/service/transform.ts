@@ -1,6 +1,6 @@
 import qs from 'qs';
 import FormData from 'form-data';
-import { ContentType } from '@/enum';
+import { EnumContentType } from '@/enum';
 import { isArray } from '../common';
 
 /**
@@ -12,11 +12,11 @@ export async function transformRequestData(requestData: any, contentType?: strin
   // application/json类型不处理
   let data = requestData;
   // form类型转换
-  if (contentType === ContentType.formUrlencoded) {
+  if (contentType === EnumContentType.formUrlencoded) {
     data = qs.stringify(requestData);
   }
   // form-data类型转换
-  if (contentType === ContentType.formData) {
+  if (contentType === EnumContentType.formData) {
     const key = Object.keys(requestData)[0];
     const file = requestData.data[key];
     data = await transformFile(file, key);

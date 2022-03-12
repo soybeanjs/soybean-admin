@@ -1,4 +1,3 @@
-import type { GlobalMenuOption } from '@/interface';
 import { iconifyRender } from '../common';
 
 /** 路由不转换菜单 */

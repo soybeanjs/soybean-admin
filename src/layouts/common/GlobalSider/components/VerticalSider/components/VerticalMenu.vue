@@ -21,7 +21,6 @@ import type { MenuOption } from 'naive-ui';
 import { useAppStore, useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { getActiveKeyPathsOfMenus } from '@/utils';
-import type { GlobalMenuOption } from '@/interface';
 
 const route = useRoute();
 const app = useAppStore();

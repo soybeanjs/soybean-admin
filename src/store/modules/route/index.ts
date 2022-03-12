@@ -8,7 +8,6 @@ import {
   transformAuthRoutesToSearchMenus,
   getCacheRoutes,
 } from '@/utils';
-import type { GlobalMenuOption, SearchMenu } from '@/interface';
 import { useTabStore } from '../tab';
 
 interface RouteState {
@@ -19,7 +18,7 @@ interface RouteState {
   /** 菜单 */
   menus: GlobalMenuOption[];
   /** 搜索的菜单 */
-  searchMenus: SearchMenu[];
+  searchMenus: AuthRoute.Route[];
   /** 缓存的路由名称 */
   cacheRoutes: string[];
 }

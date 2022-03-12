@@ -1,5 +1,4 @@
 import { EnumStorageKey } from '@/enum';
-import type { GlobalTabRoute } from '@/interface';
 import { setLocal, getLocal } from '../storage';
 
 /** 缓存多页签数据 */

@@ -28,7 +28,6 @@ import { useAppStore, useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { useBoolean } from '@/hooks';
 import { GlobalLogo } from '@/layouts/common';
-import type { GlobalMenuOption } from '@/interface';
 import { MixMenuDetail, MixMenuDrawer, MixMenuCollapse } from './components';
 
 const route = useRoute();

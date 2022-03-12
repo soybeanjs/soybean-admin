@@ -1,15 +1,8 @@
 import { defineStore } from 'pinia';
 import { darkTheme } from 'naive-ui';
-import type {
-  ThemeSetting,
-  ThemeLayoutMode,
-  ThemeTabMode,
-  ThemeHorizontalMenuPosition,
-  ThemeAnimateMode,
-} from '@/interface';
 import { getThemeSettings, getNaiveThemeOverrides, addThemeCssVarsToHtml } from './helpers';
 
-type ThemeState = ThemeSetting;
+type ThemeState = Theme.Setting;
 
 export const useThemeStore = defineStore('theme-store', {
   state: (): ThemeState => getThemeSettings(),
@@ -45,7 +38,7 @@ export const useThemeStore = defineStore('theme-store', {
       this.layout.minWidth = minWidth;
     },
     /** 设置布局模式 */
-    setLayoutMode(mode: ThemeLayoutMode) {
+    setLayoutMode(mode: EnumType.ThemeLayoutMode) {
       this.layout.mode = mode;
     },
     /** 设置系统主题颜色 */
@@ -85,7 +78,7 @@ export const useThemeStore = defineStore('theme-store', {
       }
     },
     /** 设置多页签风格 */
-    setTabMode(mode: ThemeTabMode) {
+    setTabMode(mode: EnumType.ThemeTabMode) {
       this.tab.mode = mode;
     },
     /** 设置多页签缓存 */
@@ -117,7 +110,7 @@ export const useThemeStore = defineStore('theme-store', {
       this.sider.mixChildMenuWidth = width;
     },
     /** 设置水平模式的菜单的位置 */
-    setHorizontalMenuPosition(posiiton: ThemeHorizontalMenuPosition) {
+    setHorizontalMenuPosition(posiiton: EnumType.ThemeHorizontalMenuPosition) {
       this.menu.horizontalPosition = posiiton;
     },
     /** 设置底部是否固定 */
@@ -133,7 +126,7 @@ export const useThemeStore = defineStore('theme-store', {
       this.page.animate = animate;
     },
     /** 设置页面过渡动画类型 */
-    setPageAnimateMode(mode: ThemeAnimateMode) {
+    setPageAnimateMode(mode: EnumType.ThemeAnimateMode) {
       this.page.animateMode = mode;
     },
   },

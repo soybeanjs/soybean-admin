@@ -32,7 +32,6 @@ import { routePath } from '@/router';
 import { useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { getBreadcrumbByRouteKey } from '@/utils';
-import type { GlobalMenuOption } from '@/interface';
 
 const route = useRoute();
 const theme = useThemeStore();

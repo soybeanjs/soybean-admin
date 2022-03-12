@@ -16,7 +16,6 @@ import { useElementBounding } from '@vueuse/core';
 import { DarkModeContainer, BetterScroll } from '@/components';
 import { useThemeStore, useTabStore } from '@/store';
 import { useDeviceInfo } from '@/composables';
-import type { ExposeBetterScroll } from '@/interface';
 import { TabDetail, ReloadButton } from './components';
 
 const route = useRoute();
@@ -27,7 +26,7 @@ const deviceInfo = useDeviceInfo();
 const bsWrapper = ref<HTMLElement>();
 const { width: bsWrapperWidth, left: bsWrapperLeft } = useElementBounding(bsWrapper);
 
-const bsScroll = ref<ExposeBetterScroll>();
+const bsScroll = ref<Expose.BetterScroll>();
 
 const canClick = Boolean(deviceInfo.device.type);
 

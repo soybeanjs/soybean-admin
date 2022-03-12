@@ -1,8 +1,7 @@
 import { computed } from 'vue';
 import { useAppStore, useThemeStore } from '@/store';
-import type { ThemeLayoutMode, GlobalHeaderProps } from '@/interface';
 
-type LayoutHeaderProps = Record<ThemeLayoutMode, GlobalHeaderProps>;
+type LayoutHeaderProps = Record<EnumType.ThemeLayoutMode, GlobalHeaderProps>;
 
 export function useBasicLayout() {
   const app = useAppStore();

@@ -1,3 +1,9 @@
+/** 布局组件的名称 */
+export enum EnumLayoutComponentName {
+  basic = 'basic-layout',
+  blank = 'blank-layout',
+}
+
 /** 布局模式 */
 export enum EnumThemeLayoutMode {
   'vertical' = '左侧菜单模式',
