@@ -8,7 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-import { HoverContainer } from '@/components';
 import { useBoolean } from '@/hooks';
 import { SearchModal } from './components';
 

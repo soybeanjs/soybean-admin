@@ -45,7 +45,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
-import { IconSelect, WebSiteLink } from '@/components';
 import { icons } from './icons';
 
 const selectValue = ref('');

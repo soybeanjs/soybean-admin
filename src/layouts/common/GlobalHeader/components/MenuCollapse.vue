@@ -6,7 +6,6 @@
 </template>
 
 <script lang="ts" setup>
-import { HoverContainer } from '@/components';
 import { useAppStore } from '@/store';
 
 const app = useAppStore();

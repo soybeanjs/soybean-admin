@@ -12,7 +12,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import WangEditor from 'wangeditor';
-import { GithubLink } from '@/components';
 
 const editor = ref<WangEditor>();
 const domRef = ref<HTMLElement>();

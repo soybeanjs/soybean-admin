@@ -31,7 +31,6 @@
 import { computed } from 'vue';
 import type { Component } from 'vue';
 import { EnumLoginModule } from '@/enum';
-import { SystemLogo, DarkModeSwitch } from '@/components';
 import { useThemeStore } from '@/store';
 import { useAppInfo } from '@/composables';
 import { getColorPalette, mixColor } from '@/utils';

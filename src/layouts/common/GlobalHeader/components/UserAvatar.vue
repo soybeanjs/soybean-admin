@@ -8,7 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-import { HoverContainer } from '@/components';
 import { useAuthStore } from '@/store';
 import { iconifyRender } from '@/utils';
 

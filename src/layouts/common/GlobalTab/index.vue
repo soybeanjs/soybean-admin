@@ -13,7 +13,6 @@
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useElementBounding } from '@vueuse/core';
-import { DarkModeContainer, BetterScroll } from '@/components';
 import { useThemeStore, useTabStore } from '@/store';
 import { useDeviceInfo } from '@/composables';
 import { TabDetail, ReloadButton } from './components';

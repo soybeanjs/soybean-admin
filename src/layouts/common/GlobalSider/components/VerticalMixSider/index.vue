@@ -23,7 +23,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { DarkModeContainer } from '@/components';
 import { useAppStore, useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { useBoolean } from '@/hooks';

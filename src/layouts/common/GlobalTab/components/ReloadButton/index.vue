@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { HoverContainer } from '@/components';
 import { useAppStore } from '@/store';
 import { useLoading } from '@/hooks';
 

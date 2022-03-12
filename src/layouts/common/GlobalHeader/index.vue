@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { DarkModeContainer } from '@/components';
 import { useThemeStore } from '@/store';
 import GlobalLogo from '../GlobalLogo/index.vue';
 import GlobalSearch from '../GlobalSearch/index.vue';

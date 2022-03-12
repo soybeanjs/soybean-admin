@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
-import { CountTo } from '@/components';
 import { GradientBg } from './components';
 
 interface CardData {

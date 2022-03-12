@@ -33,7 +33,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Line, Pie } from '@antv/g2plot';
-import { CountTo } from '@/components';
 import data from './data.json';
 
 const lineRef = ref<HTMLElement>();

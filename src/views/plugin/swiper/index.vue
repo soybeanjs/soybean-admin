@@ -24,7 +24,6 @@
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import type { SwiperOptions } from 'swiper';
-import { WebSiteLink, GithubLink } from '@/components';
 
 type SwiperExampleOptions = Pick<
   SwiperOptions,

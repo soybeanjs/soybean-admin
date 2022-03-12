@@ -37,7 +37,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { ImageVerify } from '@/components';
 import { useAuthStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { useSmsCode } from '@/hooks';

@@ -7,7 +7,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { DarkModeContainer } from '@/components';
 import { useAppStore, useThemeStore } from '@/store';
 import { GlobalLogo } from '@/layouts/common';
 import { VerticalMenu } from './components';

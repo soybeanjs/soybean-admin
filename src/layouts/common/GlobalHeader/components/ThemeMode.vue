@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts" setup>
-import { HoverContainer, DarkModeSwitch } from '@/components';
 import { useThemeStore } from '@/store';
 
 const theme = useThemeStore();

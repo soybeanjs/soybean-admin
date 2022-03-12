@@ -16,7 +16,7 @@ export default defineConfig((configEnv) => {
     resolve: {
       alias: {
         '@': srcPath,
-        '~': rootPath,
+        '~/': rootPath,
       },
     },
     define,

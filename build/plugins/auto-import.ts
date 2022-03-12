@@ -1,6 +1,6 @@
-import Icons from 'unplugin-icons/vite'; // iconify图标
+import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
-import Components from 'unplugin-vue-components/vite'; // 从指定目录自动导入组件
+import Components from 'unplugin-vue-components/vite';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 
 export default (srcPath: string) => {

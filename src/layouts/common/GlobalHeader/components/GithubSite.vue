@@ -6,7 +6,5 @@
   </hover-container>
 </template>
 
-<script lang="ts" setup>
-import { HoverContainer } from '@/components';
-</script>
+<script lang="ts" setup></script>
 <style scoped></style>

@@ -32,7 +32,6 @@
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
-import { DarkModeContainer } from '@/components';
 import { useAppStore, useThemeStore } from '@/store';
 import { useAppInfo, useRouterPush } from '@/composables';
 import { getActiveKeyPathsOfMenus } from '@/utils';

@@ -7,7 +7,6 @@
 
 <script lang="ts" setup>
 import { useFullscreen } from '@vueuse/core';
-import { HoverContainer } from '@/components';
 
 const { isFullscreen, toggle } = useFullscreen();
 </script>

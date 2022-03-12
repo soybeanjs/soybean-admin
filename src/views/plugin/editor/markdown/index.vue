@@ -13,7 +13,6 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 import Vditor from 'vditor';
 import 'vditor/src/assets/scss/index.scss';
-import { GithubLink } from '@/components';
 import { useThemeStore } from '@/store';
 
 const theme = useThemeStore();

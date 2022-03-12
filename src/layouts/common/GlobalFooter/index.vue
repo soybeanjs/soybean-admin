@@ -4,7 +4,5 @@
   </dark-mode-container>
 </template>
 
-<script setup lang="ts">
-import { DarkModeContainer } from '@/components';
-</script>
+<script setup lang="ts"></script>
 <style scoped></style>

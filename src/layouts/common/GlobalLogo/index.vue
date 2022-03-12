@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import { SystemLogo } from '@/components';
 import { routePath } from '@/router';
 import { useAppInfo } from '@/composables';
 

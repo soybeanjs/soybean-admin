@@ -12,7 +12,6 @@
 
 <script lang="ts" setup>
 import printJS from 'print-js';
-import { GithubLink } from '@/components';
 
 function printTable() {
   printJS({

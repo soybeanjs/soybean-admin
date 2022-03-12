@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import type { DataTableColumn } from 'naive-ui';
-import { LoadingEmptyWrapper } from '@/components';
 import { useLoadingEmpty } from '@/hooks';
 import { getRandomInterger } from '@/utils';
 
