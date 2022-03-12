@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.3](https://github.com/honghuangdc/soybean-admin/compare/v0.9.2...v0.9.3) (2022-03-12)
+
+
+### Features
+
+* **components:** svgIcon,添加type,调整size方案 ([ce4e039](https://github.com/honghuangdc/soybean-admin/commit/ce4e039f48001b47a2933e807f5410a9573781b9))
+* **projects:** 引入soybean-admin-tab、去除vite-plugin-svg-icons，用unplugin-icons实现自定义svg的iconify写法、代码优化 ([a1a57a1](https://github.com/honghuangdc/soybean-admin/commit/a1a57a185ce5004888ca4e1611973665ee46980b))
+* **projects:** 新增子菜单图标和多页签图标 ([f5c56c3](https://github.com/honghuangdc/soybean-admin/commit/f5c56c355ce41157b20ed0a10272a28e6d8b2b49))
+* **projects:** 新增自定义svg图标动态渲染 ([f83c7b5](https://github.com/honghuangdc/soybean-admin/commit/f83c7b59b893ab6e210188e92c4177b3d01392ce))
+* **projects:** 添加naiveUI按需引入 ([a810ef8](https://github.com/honghuangdc/soybean-admin/commit/a810ef85b19e4b74f3ddb3c69d17c050e556ee90))
+* **projects:** 添加SvgIcon,配置vite plugin ([378d55a](https://github.com/honghuangdc/soybean-admin/commit/378d55ac0e11cdf115ce3cb8e281d60f7fc4ff7a))
+* **projects:** 添加全局组件自动引入注册 ([f5a043b](https://github.com/honghuangdc/soybean-admin/commit/f5a043b11a403927828ae922bdae411a4e5ae3c6))
+* **projects:** 添加网络代理 ([094dca9](https://github.com/honghuangdc/soybean-admin/commit/094dca961f608404352ac360f44496423d88dae8))
+* **projects:** 重构项目的TS类型架构，去除interface文件夹 ([8191490](https://github.com/honghuangdc/soybean-admin/commit/8191490f39fc011096edd77c3156eb4fe33d4e1c))
+
+
+### Bug Fixes
+
+* **components:** 修复组件LoadingEmptyWrapper适应暗黑模式 ([811b15e](https://github.com/honghuangdc/soybean-admin/commit/811b15e672c9d69e9c5789eb11ab2db7bd729f37))
+* **components:** 组件LoadingEmptyWrapper添加背景颜色动画过渡 ([7add5c2](https://github.com/honghuangdc/soybean-admin/commit/7add5c2edfcabadb77084179d464b849d880d5e6))
+* **projects:** 修复 BASE_URL 没有生效的问题 ([72d7dcf](https://github.com/honghuangdc/soybean-admin/commit/72d7dcfa5ee8dc6f3601f4d65c6aca9ad2cc5d5c))
+* **projects:** 修复页面切换动画开关不生效 ([9d4ed61](https://github.com/honghuangdc/soybean-admin/commit/9d4ed617fb80095e521d8063718283459711118f))
+* **projects:** 修复页面切换动画无变化 ([c4546bd](https://github.com/honghuangdc/soybean-admin/commit/c4546bdfa303f1e89c0d7ddd46b54e4ec5170096))
+
 ### [0.9.2](https://github.com/honghuangdc/soybean-admin/compare/v0.9.1...v0.9.2) (2022-02-11)
 
 
