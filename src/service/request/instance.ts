@@ -9,7 +9,7 @@ import {
   handleBackendError,
   handleServiceResult,
 } from '@/utils';
-import { refreshToken } from './helpers';
+import { handleRefreshToken } from './helpers';
 
 /**
  * 封装axios请求类
@@ -71,7 +71,7 @@ export default class CustomAxiosInstance {
 
           // token失效, 刷新token
           if (REFRESH_TOKEN_CODE.includes(backend[codeKey])) {
-            const config = await refreshToken(response.config);
+            const config = await handleRefreshToken(response.config);
             if (config) {
               return this.instance.request(config);
             }

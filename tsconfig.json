@@ -4,6 +4,7 @@
 		"src/typings/**/*.d.ts",
 		"src/**/*",
 		"src/**/*.vue",
+		"vite.config.*",
 		"mock/**/*.ts",
 		"build/**/*.ts",
 		".env-config.ts",
@@ -18,11 +19,6 @@
 			"@/*": ["./src/*"],
 			"~/*": ["./*"]
 		},
-		"types": ["naive-ui/volar"]
-	},
-	"references": [
-    {
-      "path": "./tsconfig.vite-config.json"
-    }
-  ]
+		"types": ["node","naive-ui/volar"]
+	}
 }

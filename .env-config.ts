@@ -1,22 +1,38 @@
 /** 请求环境配置 */
 type ServiceEnv = Record<
-  Service.HttpEnv,
+  EnvType,
   {
-    /** 请求环境 */
-    env: Service.HttpEnv;
     /** 请求地址 */
     url: string;
+    /** 代理地址 */
+    proxy: string;
   }
 >;
 
 /** 请求的环境 */
-export const serviceEnv: ServiceEnv = {
+const serviceEnvConfig: ServiceEnv = {
+  dev: {
+    url: 'http://localhost:8080',
+    proxy: '/api',
+  },
   test: {
-    env: 'test',
-    url: 'http://www.baidu.com',
+    url: 'http://localhost:8080',
+    proxy: '/api',
   },
   prod: {
-    env: 'prod',
-    url: 'http://www.baidu.com',
+    url: 'http://localhost:8080',
+    proxy: '/api',
   },
 };
+
+/**
+ * 获取环境配置
+ * @param env 环境描述
+ */
+export function getEnvConfig(env: ImportMetaEnv) {
+  const { VITE_ENV_TYPE = 'dev' } = env;
+  const envConfig = {
+    http: serviceEnvConfig[VITE_ENV_TYPE],
+  };
+  return envConfig;
+}

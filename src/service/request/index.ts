@@ -1,10 +1,9 @@
 import { createRequest } from './request';
-import { serviceEnv } from '~/.env-config';
+import { getEnvConfig } from '~/.env-config';
 
-const { VITE_HTTP_ENV = 'test' } = import.meta.env;
+const { http } = getEnvConfig(import.meta.env);
+const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'true';
 
-const { url } = serviceEnv[VITE_HTTP_ENV];
-
-export const request = createRequest({ baseURL: url });
+export const request = createRequest({ baseURL: isHttpProxy ? http.proxy : http.url });
 
 export const mockRequest = createRequest({ baseURL: '/mock' });
