@@ -9,7 +9,7 @@ export default defineConfig((configEnv) => {
     base: viteEnv.VITE_BASE_URL,
     resolve: {
       alias: {
-        '~/': vitePath.root,
+        '~': vitePath.root,
         '@': vitePath.src,
       },
     },
