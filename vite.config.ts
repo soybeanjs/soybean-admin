@@ -1,26 +1,20 @@
-import { fileURLToPath } from 'url';
 import { defineConfig, loadEnv } from 'vite';
-import { setupVitePlugins, define } from './build';
-import { getEnvConfig } from './.env-config';
+import { resolvePath, viteDefine, setupVitePlugins, createViteProxy } from './build';
 
 export default defineConfig((configEnv) => {
   const viteEnv = loadEnv(configEnv.mode, `.env.${configEnv.mode}`) as ImportMetaEnv;
-
-  const srcPath = fileURLToPath(new URL('./src', import.meta.url));
-  const rootPath = fileURLToPath(new URL('./', import.meta.url));
-
-  const { http } = getEnvConfig(viteEnv);
+  const vitePath = resolvePath('./', import.meta.url);
 
   return {
     base: viteEnv.VITE_BASE_URL,
     resolve: {
       alias: {
-        '@': srcPath,
-        '~/': rootPath,
+        '~/': vitePath.root,
+        '@': vitePath.src,
       },
     },
-    define,
-    plugins: setupVitePlugins(configEnv, srcPath, viteEnv),
+    define: viteDefine,
+    plugins: setupVitePlugins(configEnv, vitePath.src, viteEnv),
     css: {
       preprocessorOptions: {
         scss: {
@@ -29,23 +23,13 @@ export default defineConfig((configEnv) => {
       },
     },
     server: {
-      fs: {
-        strict: false,
-      },
       host: '0.0.0.0',
-      port: 3200,
+      port: Number(viteEnv.VITE_SERVER_PORT),
       open: true,
-      proxy: {
-        [http.proxy]: {
-          target: http.url,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(new RegExp(`^${http.proxy}`), ''),
-        },
-      },
+      proxy: createViteProxy(viteEnv),
     },
     build: {
       brotliSize: false,
-      sourcemap: false,
     },
   };
 });

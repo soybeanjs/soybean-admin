@@ -87,6 +87,12 @@ pnpm dev
 pnpm build
 ```
 
+::: warning 注意
+
+本地环境需要安装 pnpm 6.x 、Node.js 14.x 和 Git
+
+:::
+
 ## 如何贡献
 
 非常欢迎您的加入！[提一个 Issue](https://github.com/honghuangdc/soybean-admin/issues/new) 或者提交一个 Pull Request。
