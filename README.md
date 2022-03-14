@@ -50,16 +50,22 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 ## 开发计划
 
-- [ ] 示例页面完善
+- [ ] 添加前端静态路由
+- [ ] 最近功能的有关文档更新
+- [ ] 性能优化(优化递归函数)
+- [ ] 精简版(新分支thin)
+- [ ] 集成unocss替换windicss(新分支unocss)
 - [ ] 表单、表格示例
 - [ ] 添加锁屏组件、全局Iframe组件
 - [ ] 用户角色切换示例、按钮级别权限指令
-- [ ] 性能优化(优化递归函数)
-- [ ] element-plus版本
+- [ ] 示例页面完善
 - [ ] 其他UI版本
+- [ ] element-plus版本
 - [ ] soybean-admin cli工具(选择不同UI)
 - [ ] 前端可视化创建路由页面
-- [ ] soybean-admin 后台nodejs服务
+- [ ] soybean-admin 后台服务java版: [soybean-admin-java](https://github.com/honghuangdc/soybean-admin-java)
+- [ ] soybean-admin 后台服务go版: [soybean-admin-go](https://github.com/honghuangdc/soybean-admin-go)
+- [ ] soybean-admin 后台服务nodejs版: [soybean-admin-nestjs](https://github.com/honghuangdc/soybean-admin-nestjs)
 
 ## 安装使用
 
@@ -89,7 +95,7 @@ pnpm build
 
 ::: warning 注意
 
-本地环境需要安装 pnpm 6.x 、Node.js 14.x 和 Git
+**本地环境需要安装 pnpm 6.x 、Node.js 14.x 和 Git**
 
 :::
 
@@ -127,7 +133,7 @@ pnpm i -g commitizen
 
 - 微信交流群：
   <div style="text-align:left">
-    <img src="https://s2.loli.net/2022/03/06/4wokvQ7R5B62Ei1.jpg" style="width:200px" />
+    <img src="https://s2.loli.net/2022/03/15/3UlcmHP6RWV1jyX.jpg" style="width:200px" />
   </div>
 
 - QQ交流群 `711301266`
