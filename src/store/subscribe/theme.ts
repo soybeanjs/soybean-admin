@@ -28,6 +28,9 @@ export default function subscribeThemeStore() {
       } else {
         removeDarkClass();
       }
+    },
+    {
+      immediate: true,
     }
   );
 

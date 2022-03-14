@@ -35,11 +35,12 @@ export async function createDynamicRouteGuard(
       next({ path: to.fullPath, replace: true, query: to.query });
       return false;
     }
-    // 动态路由已经加载，仍然未找到，重定向到not-found
-    if (to.name === routeName('not-found-page')) {
-      next({ name: routeName('not-found'), replace: true });
-      return false;
-    }
+  }
+
+  // 动态路由已经加载，仍然未找到，重定向到not-found
+  if (to.name === routeName('not-found-page')) {
+    next({ name: routeName('not-found'), replace: true });
+    return false;
   }
 
   return true;
