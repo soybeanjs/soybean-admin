@@ -18,17 +18,17 @@ export function removeToken() {
 
 /** 获取refresh token */
 export function getRefreshToken() {
-  return getLocal<string>(EnumStorageKey['refresh-koken']) || '';
+  return getLocal<string>(EnumStorageKey['refresh-token']) || '';
 }
 
 /** 设置refresh token */
 export function setRefreshToken(token: string) {
-  setLocal(EnumStorageKey['refresh-koken'], token);
+  setLocal(EnumStorageKey['refresh-token'], token);
 }
 
 /** 去除refresh token */
 export function removeRefreshToken() {
-  removeLocal(EnumStorageKey['refresh-koken']);
+  removeLocal(EnumStorageKey['refresh-token']);
 }
 
 /** 获取用户信息 */
