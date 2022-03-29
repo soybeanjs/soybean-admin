@@ -18,7 +18,7 @@
 import { ref, onMounted } from 'vue';
 import type { DataTableColumn } from 'naive-ui';
 import { useLoadingEmpty } from '@/hooks';
-import { getRandomInterger } from '@/utils';
+import { getRandomInteger } from '@/utils';
 
 interface DataSource {
   name: string;
@@ -52,7 +52,7 @@ function createDataSource(): DataSource[] {
     .map((_item, index) => {
       return {
         name: `Name${index}`,
-        age: getRandomInterger(30, 20),
+        age: getRandomInteger(30, 20),
         address: '中国',
       };
     });

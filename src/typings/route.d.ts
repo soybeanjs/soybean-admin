@@ -73,7 +73,10 @@ declare namespace AuthRoute {
     singleLayout?: Extract<RouteComponent, 'basic' | 'blank'>;
     /** 需要登录权限 */
     requiresAuth?: boolean;
-    /** 哪些类型的用户有权限才能访问的路由(空的话则表示不需要权限) */
+    /**
+     * 哪些类型的用户有权限才能访问的路由(空的话则表示不需要权限)
+     * @description 后端动态路由数据不需要该属性，直接由后端根据用户角色返回对应权限的路由数据
+     */
     permissions?: Auth.RoleType[];
     /** 缓存页面 */
     keepAlive?: boolean;
@@ -89,7 +92,7 @@ declare namespace AuthRoute {
     multi?: boolean;
   };
 
-  /** 单个路由的类型结构(后端返回此类型结构的路由) */
+  /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
   interface Route {
     /** 路由名称(路由唯一标识) */
     name: RouteKey;
@@ -112,6 +115,9 @@ declare namespace AuthRoute {
     /** 路由属性 */
     props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
   }
+
+  /** 前端导入的路由模块 */
+  type RouteModule = Record<string, { default: AuthRoute.Route }>;
 
   /** 单独一级路由的key (单独路由需要添加一个父级路由用于应用布局组件) */
   type SingleRouteKey = Exclude<

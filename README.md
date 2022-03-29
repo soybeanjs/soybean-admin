@@ -50,14 +50,15 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 ## 开发计划
 
-- [ ] 添加前端静态路由
+- [x] 添加前端静态路由
+- [ ] 用户角色切换示例、按钮级别权限指令
 - [ ] 最近功能的有关文档更新
+- [ ] 引入ECharts替换AntV G2Plot
 - [ ] 性能优化(优化递归函数)
 - [ ] 精简版(新分支thin)
 - [ ] 集成unocss替换windicss(新分支unocss)
 - [ ] 表单、表格示例
 - [ ] 添加锁屏组件、全局Iframe组件
-- [ ] 用户角色切换示例、按钮级别权限指令
 - [ ] 示例页面完善
 - [ ] 其他UI版本
 - [ ] element-plus版本
@@ -133,7 +134,7 @@ pnpm i -g commitizen
 
 - 微信交流群：
   <div style="text-align:left">
-    <img src="https://s2.loli.net/2022/03/23/pNiaVoP6yIvtS5C.jpg" style="width:200px" />
+    <img src="https://s2.loli.net/2022/03/30/VpmnTMsgXJH72B9.jpg" style="width:200px" />
   </div>
 
 - QQ交流群 `711301266`

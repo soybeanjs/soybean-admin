@@ -21,3 +21,4 @@ export async function setupRouter(app: App) {
 }
 
 export * from './routes';
+export * from './modules';

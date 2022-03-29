@@ -7,7 +7,12 @@ declare module '*.vue' {
   export default component;
 }
 
-/** env环境类型 */
+/**
+ * env环境类型
+ * - dev: 后台开发环境
+ * - test: 后台测试环境
+ * - prod: 后台生产环境
+ */
 type EnvType = 'dev' | 'test' | 'prod';
 
 interface ImportMetaEnv {
@@ -21,6 +26,11 @@ interface ImportMetaEnv {
   readonly VITE_APP_DESC: string;
   /** 开发启动的服务端口号 */
   readonly VITE_SERVER_PORT: string;
+  /**
+   * 权限路由模式:
+   * - static - 前端声明的静态
+   * - dynamic - 后端返回的动态 */
+  readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic';
   /** vite环境类型 */
   readonly VITE_ENV_TYPE?: EnvType;
   /** 开启请求代理 */

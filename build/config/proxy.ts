@@ -3,7 +3,7 @@ import { getEnvConfig } from '../../.env-config';
 
 /**
  * 设置网络代理
- * @param viteEnv
+ * @param viteEnv - vite环境描述
  */
 export function createViteProxy(viteEnv: ImportMetaEnv) {
   const isOpenProxy = viteEnv.VITE_HTTP_PROXY === 'true';

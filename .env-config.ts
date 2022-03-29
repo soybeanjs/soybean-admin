@@ -9,7 +9,7 @@ type ServiceEnv = Record<
   }
 >;
 
-/** 请求的环境 */
+/** 环境配置 */
 const serviceEnvConfig: ServiceEnv = {
   dev: {
     url: 'http://localhost:8080',

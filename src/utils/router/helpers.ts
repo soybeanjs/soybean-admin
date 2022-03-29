@@ -33,7 +33,7 @@ export function transformAuthRoutesToSearchMenus(routes: AuthRoute.Route[], tree
 
 /**
  * 将单个权限路由转换成vue路由
- * @param route - 权限路由
+ * @param item - 单个权限路由
  */
 function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
   const resultRoute: RouteRecordRaw[] = [];

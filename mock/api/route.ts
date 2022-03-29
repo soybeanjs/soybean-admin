@@ -70,16 +70,6 @@ const routes: AuthRoute.Route[] = [
         },
       },
       {
-        name: 'document_naive',
-        path: '/document/naive',
-        component: 'self',
-        meta: {
-          title: 'naive文档',
-          requiresAuth: true,
-          icon: 'mdi:alpha-n-box-outline',
-        },
-      },
-      {
         name: 'document_project',
         path: '/document/project',
         meta: {
