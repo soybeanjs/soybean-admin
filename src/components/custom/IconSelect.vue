@@ -43,7 +43,7 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  emptyIcon: 'mdi:apps',
+  emptyIcon: 'mdi:apps'
 });
 
 const emit = defineEmits<Emits>();
@@ -51,7 +51,7 @@ const emit = defineEmits<Emits>();
 const theme = useThemeStore();
 
 const searchValue = ref('');
-const iconsList = computed(() => props.icons.filter((v) => v.includes(searchValue.value)));
+const iconsList = computed(() => props.icons.filter(v => v.includes(searchValue.value)));
 
 const modelValue = computed({
   get() {
@@ -59,7 +59,7 @@ const modelValue = computed({
   },
   set(val: string) {
     emit('update:value', val);
-  },
+  }
 });
 
 function handleChange(iconItem: string) {

@@ -7,24 +7,24 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/',
     redirect: '/dashboard/analysis',
     meta: {
-      title: 'Root',
-    },
+      title: 'Root'
+    }
   },
   {
     name: 'login',
     path: '/login',
     component: 'self',
-    props: (route) => {
+    props: route => {
       const moduleType = (route.params.module as EnumType.LoginModuleKey) || 'pwd-login';
       return {
-        module: moduleType,
+        module: moduleType
       };
     },
     meta: {
       title: '登录',
       dynamicPath: `/login/:module(${getLoginModuleRegExp()})?`,
-      singleLayout: 'blank',
-    },
+      singleLayout: 'blank'
+    }
   },
   {
     name: 'no-permission',
@@ -32,8 +32,8 @@ export const constantRoutes: AuthRoute.Route[] = [
     component: 'self',
     meta: {
       title: '无权限',
-      singleLayout: 'blank',
-    },
+      singleLayout: 'blank'
+    }
   },
   {
     name: 'not-found',
@@ -41,8 +41,8 @@ export const constantRoutes: AuthRoute.Route[] = [
     component: 'self',
     meta: {
       title: '未找到',
-      singleLayout: 'blank',
-    },
+      singleLayout: 'blank'
+    }
   },
   {
     name: 'service-error',
@@ -50,8 +50,8 @@ export const constantRoutes: AuthRoute.Route[] = [
     component: 'self',
     meta: {
       title: '服务器错误',
-      singleLayout: 'blank',
-    },
+      singleLayout: 'blank'
+    }
   },
   // 匹配无效路径的路由
   {
@@ -60,9 +60,9 @@ export const constantRoutes: AuthRoute.Route[] = [
     component: 'blank',
     meta: {
       title: '未找到',
-      singleLayout: 'blank',
-    },
-  },
+      singleLayout: 'blank'
+    }
+  }
 ];
 
 /** 路由名称 */

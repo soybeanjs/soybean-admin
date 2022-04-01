@@ -53,7 +53,7 @@ const props = withDefaults(defineProps<Props>(), {
   emptyDesc: '暂无数据',
   iconClass: 'text-320px text-primary',
   descClass: 'text-16px text-[#666]',
-  showNetworkReload: false,
+  showNetworkReload: false
 });
 
 // 网络状态
@@ -79,7 +79,7 @@ function handleReload() {
 
 const stopHandle = watch(
   () => props.loading,
-  (newValue) => {
+  newValue => {
     // 结束加载判断一下网络状态
     if (!newValue) {
       setNetwork(window.navigator.onLine);

@@ -85,7 +85,7 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
     get,
     post,
     put,
-    delete: handleDelete,
+    delete: handleDelete
   };
 }
 
@@ -138,7 +138,7 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
       data,
       error,
       loading,
-      network,
+      network
     };
   }
 
@@ -183,7 +183,7 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
     get,
     post,
     put,
-    delete: handleDelete,
+    delete: handleDelete
   };
 }
 

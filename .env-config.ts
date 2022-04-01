@@ -13,16 +13,16 @@ type ServiceEnv = Record<
 const serviceEnvConfig: ServiceEnv = {
   dev: {
     url: 'http://localhost:8080',
-    proxy: '/api',
+    proxy: '/api'
   },
   test: {
     url: 'http://localhost:8080',
-    proxy: '/api',
+    proxy: '/api'
   },
   prod: {
     url: 'http://localhost:8080',
-    proxy: '/api',
-  },
+    proxy: '/api'
+  }
 };
 
 /**
@@ -32,7 +32,7 @@ const serviceEnvConfig: ServiceEnv = {
 export function getEnvConfig(env: ImportMetaEnv) {
   const { VITE_ENV_TYPE = 'dev' } = env;
   const envConfig = {
-    http: serviceEnvConfig[VITE_ENV_TYPE],
+    http: serviceEnvConfig[VITE_ENV_TYPE]
   };
   return envConfig;
 }

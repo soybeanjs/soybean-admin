@@ -23,7 +23,7 @@ function addPartialProps(menuItem: GlobalMenuOption, icon?: string, children?: G
  */
 export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuOption[] {
   const globalMenu: GlobalMenuOption[] = [];
-  routes.forEach((route) => {
+  routes.forEach(route => {
     const { name, path, meta } = route;
     const routeName = name as string;
     let menuChildren: GlobalMenuOption[] | undefined;
@@ -35,7 +35,7 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuO
         key: routeName,
         label: meta.title,
         routeName,
-        routePath: path,
+        routePath: path
       },
       meta?.icon,
       menuChildren
@@ -55,7 +55,7 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuO
  * @param menus - 菜单数据
  */
 export function getActiveKeyPathsOfMenus(activeKey: string, menus: GlobalMenuOption[]) {
-  const keys = menus.map((menu) => getActiveKeyPathsOfMenu(activeKey, menu)).flat(1);
+  const keys = menus.map(menu => getActiveKeyPathsOfMenu(activeKey, menu)).flat(1);
   return keys;
 }
 
@@ -65,7 +65,7 @@ function getActiveKeyPathsOfMenu(activeKey: string, menu: GlobalMenuOption) {
     keys.push(menu.routeName);
   }
   if (menu.children) {
-    keys.push(...menu.children.map((item) => getActiveKeyPathsOfMenu(activeKey, item)).flat(1));
+    keys.push(...menu.children.map(item => getActiveKeyPathsOfMenu(activeKey, item)).flat(1));
   }
   return keys;
 }

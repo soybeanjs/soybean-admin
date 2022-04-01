@@ -17,7 +17,7 @@ export const useAppStore = defineStore('app-store', {
     reloadFlag: true,
     settingDrawerVisible: false,
     siderCollapse: false,
-    mixSiderFixed: false,
+    mixSiderFixed: false
   }),
   actions: {
     /**
@@ -65,6 +65,6 @@ export const useAppStore = defineStore('app-store', {
     /** 设置 vertical-mix模式下 侧边栏的固定状态 */
     toggleMixSiderFixed() {
       this.mixSiderFixed = !this.mixSiderFixed;
-    },
-  },
+    }
+  }
 });

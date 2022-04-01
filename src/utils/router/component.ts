@@ -12,7 +12,7 @@ type LayoutComponent = Record<EnumType.LayoutComponentName, () => Promise<Compon
 export function getLayoutComponent(layoutType: EnumType.LayoutComponentName) {
   const layoutComponent: LayoutComponent = {
     basic: BasicLayout,
-    blank: BlankLayout,
+    blank: BlankLayout
   };
   return () => setViewComponentName(layoutComponent[layoutType], EnumLayoutComponentName[layoutType]);
 }

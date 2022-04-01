@@ -21,6 +21,6 @@ export default function useBoolean(initValue = false) {
     setBool,
     setTrue,
     setFalse,
-    toggle,
+    toggle
   };
 }

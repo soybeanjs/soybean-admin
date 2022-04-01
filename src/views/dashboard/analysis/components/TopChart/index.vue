@@ -49,20 +49,20 @@ function renderLineChart() {
     yField: 'value',
     seriesField: 'type',
     lineStyle: {
-      lineWidth: 4,
+      lineWidth: 4
     },
     area: {
       style: {
-        fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
-      },
+        fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff'
+      }
     },
     smooth: true,
     animation: {
       appear: {
         animation: 'wave-in',
-        duration: 2000,
-      },
-    },
+        duration: 2000
+      }
+    }
   });
   line.value.render();
 }
@@ -72,7 +72,7 @@ function renderPieChart() {
     { type: '学习', value: 20 },
     { type: '娱乐', value: 10 },
     { type: '工作', value: 30 },
-    { type: '休息', value: 40 },
+    { type: '休息', value: 40 }
   ];
   pie.value = new Pie(pieRef.value, {
     appendPadding: 10,
@@ -83,21 +83,21 @@ function renderPieChart() {
     innerRadius: 0.65,
     meta: {
       value: {
-        formatter: (v) => `${v}%`,
-      },
+        formatter: v => `${v}%`
+      }
     },
     label: {
       type: 'inner',
       autoRotate: false,
-      formatter: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
+      formatter: ({ percent }) => `${(percent * 100).toFixed(0)}%`
     },
     statistic: undefined,
     pieStyle: {
-      radius: [20],
+      radius: [20]
     },
     color: ['#025DF4', '#DB6BCF', '#2498D1', '#FF745A', '#007E99', '#FFA8A8', '#2391FF'],
     legend: {
-      position: 'bottom',
+      position: 'bottom'
     },
     interactions: [
       { type: 'element-selected' },
@@ -107,15 +107,15 @@ function renderPieChart() {
         cfg: {
           start: [
             { trigger: 'element:mouseenter', action: 'pie-statistic:change' },
-            { trigger: 'legend-item:mouseenter', action: 'pie-statistic:change' },
+            { trigger: 'legend-item:mouseenter', action: 'pie-statistic:change' }
           ],
           end: [
             { trigger: 'element:mouseleave', action: 'pie-statistic:reset' },
-            { trigger: 'legend-item:mouseleave', action: 'pie-statistic:reset' },
-          ],
-        },
-      },
-    ],
+            { trigger: 'legend-item:mouseleave', action: 'pie-statistic:reset' }
+          ]
+        }
+      }
+    ]
   });
 
   pie.value.render();

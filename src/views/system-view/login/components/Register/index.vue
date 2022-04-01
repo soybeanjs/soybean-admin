@@ -41,13 +41,13 @@ const model = reactive({
   phone: '',
   code: '',
   pwd: '',
-  confirmPwd: '',
+  confirmPwd: ''
 });
 const rules: FormRules = {
   phone: formRules.phone,
   code: formRules.code,
   pwd: formRules.pwd,
-  confirmPwd: getConfirmPwdRule(toRefs(model).pwd),
+  confirmPwd: getConfirmPwdRule(toRefs(model).pwd)
 };
 
 const agreement = ref(false);
@@ -60,7 +60,7 @@ function handleSubmit(e: MouseEvent) {
   if (!formRef.value) return;
   e.preventDefault();
 
-  formRef.value.validate((errors) => {
+  formRef.value.validate(errors => {
     if (!errors) {
       if (!agreement.value) return;
       window.$message?.success('验证成功');

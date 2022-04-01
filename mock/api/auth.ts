@@ -2,7 +2,7 @@ import type { MockMethod } from 'vite-plugin-mock';
 
 const token: ApiAuth.Token = {
   token: '__TEMP_TOKEN__',
-  refreshToken: '__TEMP_REFRESH_TOKEN__',
+  refreshToken: '__TEMP_REFRESH_TOKEN__'
 };
 
 const apis: MockMethod[] = [
@@ -14,9 +14,9 @@ const apis: MockMethod[] = [
       return {
         code: 200,
         message: 'ok',
-        data: true,
+        data: true
       };
-    },
+    }
   },
   // 密码登录
   {
@@ -26,9 +26,9 @@ const apis: MockMethod[] = [
       return {
         code: 200,
         message: 'ok',
-        data: token,
+        data: token
       };
-    },
+    }
   },
   // 验证码登录
   {
@@ -38,9 +38,9 @@ const apis: MockMethod[] = [
       return {
         code: 200,
         message: 'ok',
-        data: token,
+        data: token
       };
-    },
+    }
   },
   // 获取用户信息(请求头携带token)
   {
@@ -54,10 +54,10 @@ const apis: MockMethod[] = [
           userId: '0',
           userName: 'Soybean',
           userPhone: '15170283876',
-          userRole: 'super',
-        },
+          userRole: 'super'
+        }
       };
-    },
+    }
   },
   {
     url: '/mock/testToken',
@@ -67,15 +67,15 @@ const apis: MockMethod[] = [
         return {
           code: 66666,
           message: 'token 失效',
-          data: null,
+          data: null
         };
       }
       return {
         code: 200,
         message: 'ok',
-        data: true,
+        data: true
       };
-    },
+    }
   },
   {
     url: '/mock/updateToken',
@@ -84,10 +84,10 @@ const apis: MockMethod[] = [
       return {
         code: 200,
         message: 'ok',
-        data: token,
+        data: token
       };
-    },
-  },
+    }
+  }
 ];
 
 export default apis;

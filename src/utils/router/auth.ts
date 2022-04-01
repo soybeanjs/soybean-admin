@@ -7,7 +7,7 @@
 export function filterAuthRoutesByUserPermission(routes: AuthRoute.Route[], permission: Auth.RoleType) {
   const filters: AuthRoute.Route[] = [];
 
-  routes.forEach((route) => {
+  routes.forEach(route => {
     filterAuthRouteByUserPermission(route, permission);
   });
   return filters;

@@ -8,14 +8,14 @@ export default (srcPath: string) => {
     Icons({
       compiler: 'vue3',
       customCollections: {
-        custom: FileSystemIconLoader(`${srcPath}/assets/svg`),
+        custom: FileSystemIconLoader(`${srcPath}/assets/svg`)
       },
       scale: 1,
-      defaultClass: 'inline-block',
+      defaultClass: 'inline-block'
     }),
     Components({
       dts: true,
-      resolvers: [IconsResolver({ customCollections: ['custom'], componentPrefix: 'icon' })],
-    }),
+      resolvers: [IconsResolver({ customCollections: ['custom'], componentPrefix: 'icon' })]
+    })
   ];
 };

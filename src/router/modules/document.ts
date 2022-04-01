@@ -10,8 +10,8 @@ const document: AuthRoute.Route = {
       meta: {
         title: 'vue文档',
         requiresAuth: true,
-        icon: 'mdi:vuejs',
-      },
+        icon: 'mdi:vuejs'
+      }
     },
     {
       name: 'document_vue-new',
@@ -20,8 +20,8 @@ const document: AuthRoute.Route = {
       meta: {
         title: 'vue文档(新版)',
         requiresAuth: true,
-        icon: 'mdi:vuejs',
-      },
+        icon: 'mdi:vuejs'
+      }
     },
     {
       name: 'document_vite',
@@ -30,8 +30,8 @@ const document: AuthRoute.Route = {
       meta: {
         title: 'vite文档',
         requiresAuth: true,
-        icon: 'simple-icons:vite',
-      },
+        icon: 'simple-icons:vite'
+      }
     },
     {
       name: 'document_project',
@@ -40,15 +40,15 @@ const document: AuthRoute.Route = {
         title: '项目文档(外链)',
         requiresAuth: true,
         icon: 'mdi:file-link-outline',
-        href: 'https://docs.soybean.pro/',
-      },
-    },
+        href: 'https://docs.soybean.pro/'
+      }
+    }
   ],
   meta: {
     title: '文档',
     icon: 'carbon:document',
-    order: 2,
-  },
+    order: 2
+  }
 };
 
 export default document;

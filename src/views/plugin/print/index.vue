@@ -17,21 +17,21 @@ function printTable() {
   printJS({
     printable: [
       { name: 'soybean', wechat: 'honghuangdc', remark: '欢迎来技术交流' },
-      { name: 'soybean', wechat: 'honghuangdc', remark: '欢迎来技术交流' },
+      { name: 'soybean', wechat: 'honghuangdc', remark: '欢迎来技术交流' }
     ],
     properties: ['name', 'wechat', 'remark'],
-    type: 'json',
+    type: 'json'
   });
 }
 function printImage() {
   printJS({
     printable: [
       'https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/qq_qrcode.JPG',
-      'https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/qq_qrcode.JPG',
+      'https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/qq_qrcode.JPG'
     ],
     type: 'image',
     header: 'Multiple Images',
-    imageStyle: 'width:100%;',
+    imageStyle: 'width:100%;'
   });
 }
 </script>

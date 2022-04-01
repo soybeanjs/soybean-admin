@@ -35,7 +35,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   icon: undefined,
-  isMini: false,
+  isMini: false
 });
 
 const { bool: isHover, setTrue, setFalse } = useBoolean();

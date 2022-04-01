@@ -57,12 +57,12 @@ const modules: LoginModule[] = [
   { key: 'code-login', label: EnumLoginModule['code-login'], component: CodeLogin },
   { key: 'register', label: EnumLoginModule.register, component: Register },
   { key: 'reset-pwd', label: EnumLoginModule['reset-pwd'], component: ResetPwd },
-  { key: 'bind-wechat', label: EnumLoginModule['bind-wechat'], component: BindWechat },
+  { key: 'bind-wechat', label: EnumLoginModule['bind-wechat'], component: BindWechat }
 ];
 
 const activeModule = computed(() => {
   const active: LoginModule = { ...modules[0] };
-  const findItem = modules.find((item) => item.key === props.module);
+  const findItem = modules.find(item => item.key === props.module);
   if (findItem) {
     Object.assign(active, findItem);
   }

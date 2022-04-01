@@ -47,6 +47,6 @@ export default function useCountDown(second: number) {
     isCounting,
     start,
     stop,
-    isComplete,
+    isComplete
   };
 }

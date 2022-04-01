@@ -17,7 +17,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  iconClass: 'text-14px',
+  iconClass: 'text-14px'
 });
 
 const whiteColors = ['#ffffff', '#fff', 'rgb(255,255,255)'];

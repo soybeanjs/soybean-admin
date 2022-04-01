@@ -46,7 +46,7 @@ export function useRouterPush(inSetup = true) {
     const module: EnumType.LoginModuleKey = loginModule || 'pwd-login';
     const routeLocation: RouteLocationRaw = {
       name: routeName('login'),
-      params: { module },
+      params: { module }
     };
     const redirect = redirectUrl || route.value.fullPath;
     Object.assign(routeLocation, { query: { redirect } });
@@ -80,6 +80,6 @@ export function useRouterPush(inSetup = true) {
     toHome,
     toLogin,
     toLoginModule,
-    toLoginRedirect,
+    toLoginRedirect
   };
 }

@@ -3,7 +3,7 @@ import { defineConfig } from 'windicss/helpers';
 export default defineConfig({
   extract: {
     include: ['src/**/*.{vue,html,jsx,tsx}', 'public/**/*.{html}', './*.html'],
-    exclude: ['node_modules', '.git', './stats.html'],
+    exclude: ['node_modules', '.git', './stats.html']
   },
   darkMode: 'class',
   shortcuts: {
@@ -40,7 +40,7 @@ export default defineConfig({
     'fixed-center': 'fixed left-0 top-0 flex-center wh-full',
     'nowrap-hidden': 'whitespace-nowrap overflow-hidden',
     'ellipsis-text': 'nowrap-hidden overflow-ellipsis',
-    'transition-base': 'transition-all duration-300 ease-in-out',
+    'transition-base': 'transition-all duration-300 ease-in-out'
   },
   theme: {
     extend: {
@@ -64,15 +64,15 @@ export default defineConfig({
         error: 'var(--error-color)',
         'error-hover': 'var(--error-color-hover)',
         'error-pressed': 'var(--error-color-pressed)',
-        'error-active': 'var(--error-color-active)',
+        'error-active': 'var(--error-color-active)'
       },
       backgroundColor: {
         dark: '#18181c',
-        'dark-base': '#101014',
+        'dark-base': '#101014'
       },
       textColor: {
         'black-base': '#333639',
-        'white-base': 'rgba(255, 255, 255, 0.82)',
+        'white-base': 'rgba(255, 255, 255, 0.82)'
       },
       transitionProperty: [
         'width',
@@ -82,10 +82,10 @@ export default defineConfig({
         'padding-left',
         'border-color',
         'right',
-        'fill',
-      ],
-    },
+        'fill'
+      ]
+    }
   },
   variants: {},
-  plugins: [],
+  plugins: []
 });

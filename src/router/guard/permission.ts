@@ -34,14 +34,14 @@ export async function createPermissionGuard(
       isLogin && to.name === routeName('login'),
       () => {
         next({ name: routeName('root') });
-      },
+      }
     ],
     // 不需要登录权限的页面直接通行
     [
       !needLogin,
       () => {
         next();
-      },
+      }
     ],
     // 未登录状态进入需要登录权限的页面
     [
@@ -49,22 +49,22 @@ export async function createPermissionGuard(
       () => {
         const redirect = to.fullPath;
         next({ name: routeName('login'), query: { redirect } });
-      },
+      }
     ],
     // 登录状态进入需要登录权限的页面，有权限直接通行
     [
       isLogin && needLogin && hasPermission,
       () => {
         next();
-      },
+      }
     ],
     [
       // 登录状态进入需要登录权限的页面，无权限，重定向到无权限页面
       isLogin && needLogin && !hasPermission,
       () => {
         next({ name: routeName('no-permission') });
-      },
-    ],
+      }
+    ]
   ];
 
   exeStrategyActions(actions);

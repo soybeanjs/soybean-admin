@@ -15,6 +15,6 @@ export default function useContext<T>(contextName = 'context') {
 
   return {
     useProvide,
-    useInject,
+    useInject
   };
 }

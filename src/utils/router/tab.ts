@@ -11,12 +11,12 @@ export function getTabRoutes() {
   const routes: GlobalTabRoute[] = [];
   const data = getLocal<GlobalTabRoute[]>(EnumStorageKey['tab-routes']);
   if (data) {
-    const defaultTabRoutes = data.map((item) => ({
+    const defaultTabRoutes = data.map(item => ({
       ...item,
       scrollPosition: {
         left: 0,
-        top: 0,
-      },
+        top: 0
+      }
     }));
     routes.push(...defaultTabRoutes);
   }

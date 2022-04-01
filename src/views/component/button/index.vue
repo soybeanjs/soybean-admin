@@ -63,40 +63,40 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: {},
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 1,
         props: { type: 'tertiary' },
-        label: 'Tertiary',
+        label: 'Tertiary'
       },
       {
         id: 2,
         props: { type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 3,
         props: { type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 4,
         props: { type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 5,
         props: { type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 6,
         props: { type: 'error' },
-        label: 'Error',
-      },
+        label: 'Error'
+      }
     ],
-    desc: '按钮的 type 分别为 default、primary、info、success、warning 和 error。',
+    desc: '按钮的 type 分别为 default、primary、info、success、warning 和 error。'
   },
   {
     id: 1,
@@ -105,74 +105,74 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: { strong: true, secondary: true },
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 1,
         props: { strong: true, secondary: true, type: 'tertiary' },
-        label: 'Tertiary',
+        label: 'Tertiary'
       },
       {
         id: 2,
         props: { strong: true, secondary: true, type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 3,
         props: { strong: true, secondary: true, type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 4,
         props: { strong: true, secondary: true, type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 5,
         props: { strong: true, secondary: true, type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 6,
         props: { strong: true, secondary: true, type: 'error' },
-        label: 'Error',
+        label: 'Error'
       },
       {
         id: 7,
         props: { strong: true, secondary: true, round: true },
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 8,
         props: { strong: true, secondary: true, round: true, type: 'tertiary' },
-        label: 'Tertiary',
+        label: 'Tertiary'
       },
       {
         id: 9,
         props: { strong: true, secondary: true, round: true, type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 10,
         props: { strong: true, secondary: true, round: true, type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 11,
         props: { strong: true, secondary: true, round: true, type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 12,
         props: { strong: true, secondary: true, round: true, type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 13,
         props: { strong: true, secondary: true, round: true, type: 'error' },
-        label: 'Error',
-      },
-    ],
+        label: 'Error'
+      }
+    ]
   },
   {
     id: 2,
@@ -181,64 +181,64 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: { tertiary: true },
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 1,
         props: { tertiary: true, type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 2,
         props: { tertiary: true, type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 3,
         props: { tertiary: true, type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 4,
         props: { tertiary: true, type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 5,
         props: { tertiary: true, type: 'error' },
-        label: 'Error',
+        label: 'Error'
       },
       {
         id: 6,
         props: { tertiary: true, round: true },
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 7,
         props: { tertiary: true, round: true, type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 8,
         props: { tertiary: true, round: true, type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 9,
         props: { tertiary: true, round: true, type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 10,
         props: { tertiary: true, round: true, type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 11,
         props: { tertiary: true, round: true, type: 'error' },
-        label: 'Error',
-      },
-    ],
+        label: 'Error'
+      }
+    ]
   },
   {
     id: 3,
@@ -247,64 +247,64 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: { quaternary: true },
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 1,
         props: { quaternary: true, type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 2,
         props: { quaternary: true, type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 3,
         props: { quaternary: true, type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 4,
         props: { quaternary: true, type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 5,
         props: { quaternary: true, type: 'error' },
-        label: 'Error',
+        label: 'Error'
       },
       {
         id: 6,
         props: { quaternary: true, round: true },
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 7,
         props: { quaternary: true, round: true, type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 8,
         props: { quaternary: true, round: true, type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 9,
         props: { quaternary: true, round: true, type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 10,
         props: { quaternary: true, round: true, type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 11,
         props: { quaternary: true, round: true, type: 'error' },
-        label: 'Error',
-      },
-    ],
+        label: 'Error'
+      }
+    ]
   },
   {
     id: 4,
@@ -313,39 +313,39 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: { dashed: true },
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 1,
         props: { dashed: true, type: 'tertiary' },
-        label: 'Tertiary',
+        label: 'Tertiary'
       },
       {
         id: 2,
         props: { dashed: true, type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 3,
         props: { dashed: true, type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 4,
         props: { dashed: true, type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 5,
         props: { dashed: true, type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 6,
         props: { dashed: true, type: 'error' },
-        label: 'Error',
-      },
-    ],
+        label: 'Error'
+      }
+    ]
   },
   {
     id: 5,
@@ -354,24 +354,24 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: { size: 'tiny', strong: true },
-        label: '小小',
+        label: '小小'
       },
       {
         id: 1,
         props: { size: 'small', strong: true },
-        label: '小',
+        label: '小'
       },
       {
         id: 2,
         props: { size: 'medium', strong: true },
-        label: '不小',
+        label: '不小'
       },
       {
         id: 3,
         props: { size: 'large', strong: true },
-        label: '不不小',
-      },
-    ],
+        label: '不不小'
+      }
+    ]
   },
   {
     id: 6,
@@ -381,9 +381,9 @@ const buttonExample: ButtonExample[] = [
         id: 0,
         props: { text: true },
         label: '那车头依然吐着烟',
-        icon: 'mdi:train',
-      },
-    ],
+        icon: 'mdi:train'
+      }
+    ]
   },
   {
     id: 7,
@@ -396,12 +396,12 @@ const buttonExample: ButtonExample[] = [
           tag: 'a',
           href: 'https://github.com/honghuangdc/soybean-admin',
           target: '_blank',
-          type: 'primary',
+          type: 'primary'
         },
-        label: 'soybean-admin',
-      },
+        label: 'soybean-admin'
+      }
     ],
-    desc: '你可以把按钮渲染成不同的标签，比如 a标签 。',
+    desc: '你可以把按钮渲染成不同的标签，比如 a标签 。'
   },
   {
     id: 8,
@@ -410,12 +410,12 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: {
-          disabled: true,
+          disabled: true
         },
-        label: '不许点',
-      },
+        label: '不许点'
+      }
     ],
-    desc: '按钮可以被禁用',
+    desc: '按钮可以被禁用'
   },
   {
     id: 9,
@@ -425,23 +425,23 @@ const buttonExample: ButtonExample[] = [
         id: 0,
         props: {
           secondary: true,
-          strong: true,
+          strong: true
         },
         label: '+100元',
-        icon: 'mdi:cash-100',
+        icon: 'mdi:cash-100'
       },
       {
         id: 0,
         props: {
           iconPlacement: 'right',
           secondary: true,
-          strong: true,
+          strong: true
         },
         label: '+100元',
-        icon: 'mdi:cash-100',
-      },
+        icon: 'mdi:cash-100'
+      }
     ],
-    desc: '在按钮上使用图标。',
+    desc: '在按钮上使用图标。'
   },
   {
     id: 10,
@@ -450,24 +450,24 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: {
-          circle: true,
+          circle: true
         },
-        icon: 'mdi:cash-100',
+        icon: 'mdi:cash-100'
       },
       {
         id: 1,
         props: {
-          round: true,
+          round: true
         },
-        label: '圆角',
+        label: '圆角'
       },
       {
         id: 2,
         props: {},
-        label: '方',
-      },
+        label: '方'
+      }
     ],
-    desc: '按钮拥有不同的形状。',
+    desc: '按钮拥有不同的形状。'
   },
   {
     id: 11,
@@ -476,40 +476,40 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: { ghost: true },
-        label: 'Default',
+        label: 'Default'
       },
       {
         id: 1,
         props: { ghost: true, type: 'tertiary' },
-        label: 'Tertiary',
+        label: 'Tertiary'
       },
       {
         id: 2,
         props: { ghost: true, type: 'primary' },
-        label: 'Primary',
+        label: 'Primary'
       },
       {
         id: 3,
         props: { ghost: true, type: 'info' },
-        label: 'Info',
+        label: 'Info'
       },
       {
         id: 4,
         props: { ghost: true, type: 'success' },
-        label: 'Success',
+        label: 'Success'
       },
       {
         id: 5,
         props: { ghost: true, type: 'warning' },
-        label: 'Warning',
+        label: 'Warning'
       },
       {
         id: 6,
         props: { ghost: true, type: 'error' },
-        label: 'Error',
-      },
+        label: 'Error'
+      }
     ],
-    desc: 'Ghost 按钮有透明的背景。',
+    desc: 'Ghost 按钮有透明的背景。'
   },
   {
     id: 12,
@@ -518,58 +518,58 @@ const buttonExample: ButtonExample[] = [
       {
         id: 0,
         props: {
-          color: '#8a2be2',
+          color: '#8a2be2'
         },
         label: '#8a2be2',
-        icon: 'ic:baseline-color-lens',
+        icon: 'ic:baseline-color-lens'
       },
       {
         id: 1,
         props: {
-          color: '#ff69b4',
+          color: '#ff69b4'
         },
         label: '#ff69b4',
-        icon: 'ic:baseline-color-lens',
+        icon: 'ic:baseline-color-lens'
       },
       {
         id: 2,
         props: {
           color: '#8a2be2',
-          ghost: true,
+          ghost: true
         },
         label: '#8a2be2',
-        icon: 'ic:baseline-color-lens',
+        icon: 'ic:baseline-color-lens'
       },
       {
         id: 3,
         props: {
           color: '#ff69b4',
-          ghost: true,
+          ghost: true
         },
         label: '#ff69b4',
-        icon: 'ic:baseline-color-lens',
+        icon: 'ic:baseline-color-lens'
       },
       {
         id: 4,
         props: {
           color: '#8a2be2',
-          text: true,
+          text: true
         },
         label: '#8a2be2',
-        icon: 'ic:baseline-color-lens',
+        icon: 'ic:baseline-color-lens'
       },
       {
         id: 5,
         props: {
           color: '#ff69b4',
-          text: true,
+          text: true
         },
         label: '#ff69b4',
-        icon: 'ic:baseline-color-lens',
-      },
+        icon: 'ic:baseline-color-lens'
+      }
     ],
-    desc: '这两个颜色看起来像毒蘑菇。',
-  },
+    desc: '这两个颜色看起来像毒蘑菇。'
+  }
 ];
 </script>
 <style scoped></style>

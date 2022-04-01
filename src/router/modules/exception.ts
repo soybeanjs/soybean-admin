@@ -10,8 +10,8 @@ const exception: AuthRoute.Route = {
       meta: {
         title: '异常页403',
         requiresAuth: true,
-        icon: 'ic:baseline-block',
-      },
+        icon: 'ic:baseline-block'
+      }
     },
     {
       name: 'exception_404',
@@ -20,8 +20,8 @@ const exception: AuthRoute.Route = {
       meta: {
         title: '异常页404',
         requiresAuth: true,
-        icon: 'ic:baseline-web-asset-off',
-      },
+        icon: 'ic:baseline-web-asset-off'
+      }
     },
     {
       name: 'exception_500',
@@ -30,15 +30,15 @@ const exception: AuthRoute.Route = {
       meta: {
         title: '异常页500',
         requiresAuth: true,
-        icon: 'ic:baseline-wifi-off',
-      },
-    },
+        icon: 'ic:baseline-wifi-off'
+      }
+    }
   ],
   meta: {
     title: '异常页',
     icon: 'ant-design:exception-outlined',
-    order: 5,
-  },
+    order: 5
+  }
 };
 
 export default exception;

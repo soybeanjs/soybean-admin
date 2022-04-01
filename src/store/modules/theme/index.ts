@@ -18,7 +18,7 @@ export const useThemeStore = defineStore('theme-store', {
     /** naive-ui暗黑主题 */
     naiveTheme(state) {
       return state.darkMode ? darkTheme : undefined;
-    },
+    }
   },
   actions: {
     /** 重置theme状态 */
@@ -128,6 +128,6 @@ export const useThemeStore = defineStore('theme-store', {
     /** 设置页面过渡动画类型 */
     setPageAnimateMode(mode: EnumType.ThemeAnimateMode) {
       this.page.animateMode = mode;
-    },
-  },
+    }
+  }
 });

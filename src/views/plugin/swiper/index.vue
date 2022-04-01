@@ -52,22 +52,22 @@ const swiperExample: SwiperExample[] = [
     id: 1,
     label: 'Navigation',
     options: {
-      navigation: true,
-    },
+      navigation: true
+    }
   },
   {
     id: 2,
     label: 'Pagination',
     options: {
-      pagination: true,
-    },
+      pagination: true
+    }
   },
   {
     id: 3,
     label: 'Pagination dynamic',
     options: {
-      pagination: { dynamicBullets: true },
-    },
+      pagination: { dynamicBullets: true }
+    }
   },
   {
     id: 4,
@@ -75,9 +75,9 @@ const swiperExample: SwiperExample[] = [
     options: {
       navigation: true,
       pagination: {
-        type: 'progressbar',
-      },
-    },
+        type: 'progressbar'
+      }
+    }
   },
   {
     id: 5,
@@ -85,20 +85,20 @@ const swiperExample: SwiperExample[] = [
     options: {
       navigation: true,
       pagination: {
-        type: 'fraction',
-      },
-    },
+        type: 'fraction'
+      }
+    }
   },
   {
     id: 6,
     label: 'Slides per view',
     options: {
       pagination: {
-        clickable: true,
+        clickable: true
       },
       slidesPerView: 3,
-      spaceBetween: 30,
-    },
+      spaceBetween: 30
+    }
   },
   {
     id: 7,
@@ -106,11 +106,11 @@ const swiperExample: SwiperExample[] = [
     options: {
       navigation: true,
       pagination: {
-        clickable: true,
+        clickable: true
       },
-      loop: true,
-    },
-  },
+      loop: true
+    }
+  }
 ];
 </script>
 <style scoped></style>

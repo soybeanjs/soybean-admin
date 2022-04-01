@@ -16,7 +16,7 @@ export function useAppInfo(): AppInfo {
   return {
     name,
     title,
-    desc,
+    desc
   };
 }
 

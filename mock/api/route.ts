@@ -13,8 +13,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '分析页',
           requiresAuth: true,
-          icon: 'icon-park-outline:analysis',
-        },
+          icon: 'icon-park-outline:analysis'
+        }
       },
       {
         name: 'dashboard_workbench',
@@ -24,15 +24,15 @@ const routes: AuthRoute.Route[] = [
           title: '工作台',
           requiresAuth: true,
           permissions: ['super', 'admin'],
-          icon: 'icon-park-outline:workbench',
-        },
-      },
+          icon: 'icon-park-outline:workbench'
+        }
+      }
     ],
     meta: {
       title: '仪表盘',
       icon: 'carbon:dashboard',
-      order: 1,
-    },
+      order: 1
+    }
   },
   {
     name: 'document',
@@ -46,8 +46,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: 'vue文档',
           requiresAuth: true,
-          icon: 'mdi:vuejs',
-        },
+          icon: 'mdi:vuejs'
+        }
       },
       {
         name: 'document_vue-new',
@@ -56,8 +56,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: 'vue文档(新版)',
           requiresAuth: true,
-          icon: 'mdi:vuejs',
-        },
+          icon: 'mdi:vuejs'
+        }
       },
       {
         name: 'document_vite',
@@ -66,8 +66,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: 'vite文档',
           requiresAuth: true,
-          icon: 'simple-icons:vite',
-        },
+          icon: 'simple-icons:vite'
+        }
       },
       {
         name: 'document_project',
@@ -76,15 +76,15 @@ const routes: AuthRoute.Route[] = [
           title: '项目文档(外链)',
           requiresAuth: true,
           icon: 'mdi:file-link-outline',
-          href: 'https://docs.soybean.pro/',
-        },
-      },
+          href: 'https://docs.soybean.pro/'
+        }
+      }
     ],
     meta: {
       title: '文档',
       icon: 'carbon:document',
-      order: 2,
-    },
+      order: 2
+    }
   },
   {
     name: 'component',
@@ -98,8 +98,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '按钮',
           requiresAuth: true,
-          icon: 'ic:baseline-radio-button-checked',
-        },
+          icon: 'ic:baseline-radio-button-checked'
+        }
       },
       {
         name: 'component_card',
@@ -108,8 +108,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '卡片',
           requiresAuth: true,
-          icon: 'mdi:card-outline',
-        },
+          icon: 'mdi:card-outline'
+        }
       },
       {
         name: 'component_table',
@@ -118,15 +118,15 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '表格',
           requiresAuth: true,
-          icon: 'mdi:table-large',
-        },
-      },
+          icon: 'mdi:table-large'
+        }
+      }
     ],
     meta: {
       title: '组件示例',
       icon: 'fluent:app-store-24-regular',
-      order: 3,
-    },
+      order: 3
+    }
   },
   {
     name: 'plugin',
@@ -140,8 +140,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '地图',
           requiresAuth: true,
-          icon: 'mdi:map',
-        },
+          icon: 'mdi:map'
+        }
       },
       {
         name: 'plugin_video',
@@ -150,8 +150,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '视频',
           requiresAuth: true,
-          icon: 'mdi:video',
-        },
+          icon: 'mdi:video'
+        }
       },
       {
         name: 'plugin_editor',
@@ -165,8 +165,8 @@ const routes: AuthRoute.Route[] = [
             meta: {
               title: '富文本编辑器',
               requiresAuth: true,
-              icon: 'mdi:file-document-edit-outline',
-            },
+              icon: 'mdi:file-document-edit-outline'
+            }
           },
           {
             name: 'plugin_editor_markdown',
@@ -175,14 +175,14 @@ const routes: AuthRoute.Route[] = [
             meta: {
               title: 'markdown编辑器',
               requiresAuth: true,
-              icon: 'ri:markdown-line',
-            },
-          },
+              icon: 'ri:markdown-line'
+            }
+          }
         ],
         meta: {
           title: '编辑器',
-          icon: 'icon-park-outline:editor',
-        },
+          icon: 'icon-park-outline:editor'
+        }
       },
       {
         name: 'plugin_swiper',
@@ -191,8 +191,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: 'Swiper插件',
           requiresAuth: true,
-          icon: 'simple-icons:swiper',
-        },
+          icon: 'simple-icons:swiper'
+        }
       },
       {
         name: 'plugin_copy',
@@ -201,8 +201,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '剪贴板',
           requiresAuth: true,
-          icon: 'mdi:clipboard-outline',
-        },
+          icon: 'mdi:clipboard-outline'
+        }
       },
       {
         name: 'plugin_icon',
@@ -211,8 +211,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '图标',
           requiresAuth: true,
-          icon: 'ic:baseline-insert-emoticon',
-        },
+          icon: 'ic:baseline-insert-emoticon'
+        }
       },
       {
         name: 'plugin_print',
@@ -221,15 +221,15 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '打印',
           requiresAuth: true,
-          icon: 'ic:baseline-local-printshop',
-        },
-      },
+          icon: 'ic:baseline-local-printshop'
+        }
+      }
     ],
     meta: {
       title: '插件示例',
       icon: 'clarity:plugin-line',
-      order: 4,
-    },
+      order: 4
+    }
   },
   {
     name: 'exception',
@@ -243,8 +243,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '异常页403',
           requiresAuth: true,
-          icon: 'ic:baseline-block',
-        },
+          icon: 'ic:baseline-block'
+        }
       },
       {
         name: 'exception_404',
@@ -253,8 +253,8 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '异常页404',
           requiresAuth: true,
-          icon: 'ic:baseline-web-asset-off',
-        },
+          icon: 'ic:baseline-web-asset-off'
+        }
       },
       {
         name: 'exception_500',
@@ -263,15 +263,15 @@ const routes: AuthRoute.Route[] = [
         meta: {
           title: '异常页500',
           requiresAuth: true,
-          icon: 'ic:baseline-wifi-off',
-        },
-      },
+          icon: 'ic:baseline-wifi-off'
+        }
+      }
     ],
     meta: {
       title: '异常页',
       icon: 'ant-design:exception-outlined',
-      order: 5,
-    },
+      order: 5
+    }
   },
   {
     name: 'multi-menu',
@@ -290,8 +290,8 @@ const routes: AuthRoute.Route[] = [
             meta: {
               title: '二级菜单',
               requiresAuth: true,
-              icon: 'ic:outline-menu',
-            },
+              icon: 'ic:outline-menu'
+            }
           },
           {
             name: 'multi-menu_first_second-new',
@@ -305,27 +305,27 @@ const routes: AuthRoute.Route[] = [
                 meta: {
                   title: '三级菜单',
                   requiresAuth: true,
-                  icon: 'ic:outline-menu',
-                },
-              },
+                  icon: 'ic:outline-menu'
+                }
+              }
             ],
             meta: {
               title: '二级菜单(有子菜单)',
-              icon: 'ic:outline-menu',
-            },
-          },
+              icon: 'ic:outline-menu'
+            }
+          }
         ],
         meta: {
           title: '一级菜单',
-          icon: 'ic:outline-menu',
-        },
-      },
+          icon: 'ic:outline-menu'
+        }
+      }
     ],
     meta: {
       title: '多级菜单',
       icon: 'carbon:menu',
-      order: 6,
-    },
+      order: 6
+    }
   },
   {
     name: 'about',
@@ -337,9 +337,9 @@ const routes: AuthRoute.Route[] = [
       singleLayout: 'basic',
       permissions: ['super', 'admin', 'test'],
       icon: 'fluent:book-information-24-regular',
-      order: 7,
-    },
-  },
+      order: 7
+    }
+  }
 ];
 
 function dataMiddleware(data: AuthRoute.Route[]): ApiRoute.Route {
@@ -351,7 +351,7 @@ function dataMiddleware(data: AuthRoute.Route[]): ApiRoute.Route {
 
   return {
     routes: sortRoutes(data),
-    home: routeHomeName,
+    home: routeHomeName
   };
 }
 
@@ -363,10 +363,10 @@ const apis: MockMethod[] = [
       return {
         code: 200,
         message: 'ok',
-        data: dataMiddleware(routes),
+        data: dataMiddleware(routes)
       };
-    },
-  },
+    }
+  }
 ];
 
 export default apis;

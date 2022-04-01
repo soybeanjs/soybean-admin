@@ -29,7 +29,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   tooltipContent: '',
   placement: 'bottom',
-  contentClass: '',
+  contentClass: ''
 });
 
 const showTooltip = computed(() => Boolean(props.tooltipContent));

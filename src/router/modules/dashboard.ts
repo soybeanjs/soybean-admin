@@ -10,8 +10,8 @@ const dashboard: AuthRoute.Route = {
       meta: {
         title: '分析页',
         requiresAuth: true,
-        icon: 'icon-park-outline:analysis',
-      },
+        icon: 'icon-park-outline:analysis'
+      }
     },
     {
       name: 'dashboard_workbench',
@@ -21,15 +21,15 @@ const dashboard: AuthRoute.Route = {
         title: '工作台',
         requiresAuth: true,
         permissions: ['super', 'admin'],
-        icon: 'icon-park-outline:workbench',
-      },
-    },
+        icon: 'icon-park-outline:workbench'
+      }
+    }
   ],
   meta: {
     title: '仪表盘',
     icon: 'carbon:dashboard',
-    order: 1,
-  },
+    order: 1
+  }
 };
 
 export default dashboard;

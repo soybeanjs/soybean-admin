@@ -24,6 +24,6 @@ export default function useReload() {
 
   return {
     reloadFlag,
-    handleReload,
+    handleReload
   };
 }

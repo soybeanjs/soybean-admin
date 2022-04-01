@@ -11,7 +11,7 @@ const history = VITE_HASH_ROUTE === 'true' ? createWebHashHistory(VITE_BASE_URL)
 export const router = createRouter({
   history,
   routes: transformAuthRoutesToVueRoutes(constantRoutes),
-  scrollBehavior,
+  scrollBehavior
 });
 
 export async function setupRouter(app: App) {

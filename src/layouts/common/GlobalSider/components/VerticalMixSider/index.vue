@@ -42,7 +42,7 @@ function setActiveParentRouteName(routeName: string) {
 }
 
 const firstDegreeMenus = computed(() =>
-  routeStore.menus.map((item) => {
+  routeStore.menus.map(item => {
     const { routeName, label } = item;
     const icon = item?.icon;
     const hasChildren = Boolean(item.children && item.children.length);
@@ -51,13 +51,13 @@ const firstDegreeMenus = computed(() =>
       routeName,
       label,
       icon,
-      hasChildren,
+      hasChildren
     };
   })
 );
 
 function getActiveParentRouteName() {
-  firstDegreeMenus.value.some((item) => {
+  firstDegreeMenus.value.some(item => {
     const routeName = route.name as string;
     const flag = routeName?.includes(item.routeName);
     if (flag) {
@@ -83,7 +83,7 @@ function resetFirstDegreeMenus() {
 
 const activeChildMenus = computed(() => {
   const menus: GlobalMenuOption[] = [];
-  routeStore.menus.some((item) => {
+  routeStore.menus.some(item => {
     const flag = item.routeName === activeParentRouteName.value && Boolean(item.children?.length);
     if (flag) {
       menus.push(...(item.children || []));

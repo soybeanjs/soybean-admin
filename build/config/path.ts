@@ -10,6 +10,6 @@ export function resolvePath(rootPath: string, basePath: string) {
 
   return {
     root,
-    src,
+    src
   };
 }

@@ -26,13 +26,13 @@ function renderVditor() {
     minHeight: 400,
     theme: theme.darkMode ? 'dark' : 'classic',
     icon: 'material',
-    cache: { enable: false },
+    cache: { enable: false }
   });
 }
 
 const stopHandle = watch(
   () => theme.darkMode,
-  (newValue) => {
+  newValue => {
     const themeMode = newValue ? 'dark' : 'classic';
     vditor.value?.setTheme(themeMode);
   }

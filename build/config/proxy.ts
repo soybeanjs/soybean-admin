@@ -15,8 +15,8 @@ export function createViteProxy(viteEnv: ImportMetaEnv) {
     [http.proxy]: {
       target: http.url,
       changeOrigin: true,
-      rewrite: (path) => path.replace(new RegExp(`^${http.proxy}`), ''),
-    },
+      rewrite: path => path.replace(new RegExp(`^${http.proxy}`), '')
+    }
   };
 
   return proxy;

@@ -32,16 +32,16 @@ const columns: DataTableColumn[] = [
   {
     title: 'Name',
     key: 'name',
-    align: 'center',
+    align: 'center'
   },
   {
     title: 'Age',
-    key: 'age',
+    key: 'age'
   },
   {
     title: 'Address',
-    key: 'address',
-  },
+    key: 'address'
+  }
 ];
 
 const dataSource = ref<DataSource[]>([]);
@@ -53,7 +53,7 @@ function createDataSource(): DataSource[] {
       return {
         name: `Name${index}`,
         age: getRandomInteger(30, 20),
-        address: '中国',
+        address: '中国'
       };
     });
 }

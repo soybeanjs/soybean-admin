@@ -2,7 +2,7 @@
 export enum EnumContentType {
   json = 'application/json',
   formUrlencoded = 'application/x-www-form-urlencoded',
-  formData = 'multipart/form-data',
+  formData = 'multipart/form-data'
 }
 
 /** 缓存的key */
@@ -16,7 +16,7 @@ export enum EnumStorageKey {
   /** 用户信息 */
   'user-info' = '__USER_INFO__',
   /** 多页签路由信息 */
-  'tab-routes' = '__TAB_ROUTES__',
+  'tab-routes' = '__TAB_ROUTES__'
 }
 
 /** 数据类型 */
@@ -31,5 +31,5 @@ export enum EnumDataType {
   date = '[object Date]',
   regexp = '[object RegExp]',
   set = '[object Set]',
-  map = '[object Map]',
+  map = '[object Map]'
 }

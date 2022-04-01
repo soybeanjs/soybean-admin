@@ -51,11 +51,11 @@ const { toLoginModule } = useRouterPush();
 const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
   phone: '15170283876',
-  pwd: 'abc123456',
+  pwd: 'abc123456'
 });
 const rules: FormRules = {
   phone: formRules.phone,
-  pwd: formRules.pwd,
+  pwd: formRules.pwd
 };
 const rememberMe = ref(false);
 
@@ -63,7 +63,7 @@ function handleSubmit(e: MouseEvent) {
   if (!formRef.value) return;
   e.preventDefault();
 
-  formRef.value.validate((errors) => {
+  formRef.value.validate(errors => {
     if (!errors) {
       const { phone, pwd } = model;
       login(phone, pwd, 'pwd');

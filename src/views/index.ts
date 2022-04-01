@@ -13,11 +13,11 @@ const ROUTE_KEY_SPLIT_MARK = '_';
 const SYSTEM_VIEW = 'system-view_';
 
 /** 过滤掉组件文件 */
-const viewKeys = Object.keys(importViews).filter((key) => !key.includes(COMPONENTS_KEY));
+const viewKeys = Object.keys(importViews).filter(key => !key.includes(COMPONENTS_KEY));
 
 function getViewComponent() {
   const components: ViewComponent = {};
-  viewKeys.forEach((key) => {
+  viewKeys.forEach(key => {
     const routeKey = key
       .replace(PREFIX, '')
       .replace(SUFFIX, '')

@@ -11,8 +11,8 @@ export function getTabRouteByVueRoute(route: RouteRecordNormalized | RouteLocati
     meta: route.meta,
     scrollPosition: {
       left: 0,
-      top: 0,
-    },
+      top: 0
+    }
   };
   return tabRoute;
 }
@@ -23,7 +23,7 @@ export function getTabRouteByVueRoute(route: RouteRecordNormalized | RouteLocati
  * @param path - 该页签的路径
  */
 export function getIndexInTabRoutes(tabs: GlobalTabRoute[], path: string) {
-  return tabs.findIndex((tab) => tab.path === path);
+  return tabs.findIndex(tab => tab.path === path);
 }
 
 /**

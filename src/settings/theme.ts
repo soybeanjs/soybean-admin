@@ -25,7 +25,7 @@ const themeColorList = [
   '#ffb300',
   '#fdd835',
   '#6d4c41',
-  '#546e7a',
+  '#546e7a'
 ];
 
 const defaultThemeSetting: Theme.Setting = {
@@ -37,8 +37,8 @@ const defaultThemeSetting: Theme.Setting = {
       { value: 'vertical', label: EnumThemeLayoutMode.vertical },
       { value: 'vertical-mix', label: EnumThemeLayoutMode['vertical-mix'] },
       { value: 'horizontal', label: EnumThemeLayoutMode.horizontal },
-      { value: 'horizontal-mix', label: EnumThemeLayoutMode['horizontal-mix'] },
-    ],
+      { value: 'horizontal-mix', label: EnumThemeLayoutMode['horizontal-mix'] }
+    ]
   },
   themeColor: themeColorList[0],
   themeColorList,
@@ -46,7 +46,7 @@ const defaultThemeSetting: Theme.Setting = {
     info: '#2080f0',
     success: '#52c41a',
     warning: '#faad14',
-    error: '#f5222d',
+    error: '#f5222d'
   },
   isCustomizeInfoColor: false,
   fixedHeaderAndTab: true,
@@ -55,8 +55,8 @@ const defaultThemeSetting: Theme.Setting = {
     height: 56,
     crumb: {
       visible: true,
-      showIcon: true,
-    },
+      showIcon: true
+    }
   },
   tab: {
     visible: true,
@@ -64,28 +64,28 @@ const defaultThemeSetting: Theme.Setting = {
     mode: 'chrome',
     modeList: [
       { value: 'chrome', label: EnumThemeTabMode.chrome },
-      { value: 'button', label: EnumThemeTabMode.button },
+      { value: 'button', label: EnumThemeTabMode.button }
     ],
-    isCache: true,
+    isCache: true
   },
   sider: {
     width: 220,
     collapsedWidth: 64,
     mixWidth: 80,
     mixCollapsedWidth: 48,
-    mixChildMenuWidth: 200,
+    mixChildMenuWidth: 200
   },
   menu: {
     horizontalPosition: 'flex-start',
     horizontalPositionList: [
       { value: 'flex-start', label: EnumThemeHorizontalMenuPosition['flex-start'] },
       { value: 'center', label: EnumThemeHorizontalMenuPosition.center },
-      { value: 'flex-end', label: EnumThemeHorizontalMenuPosition['flex-end'] },
-    ],
+      { value: 'flex-end', label: EnumThemeHorizontalMenuPosition['flex-end'] }
+    ]
   },
   footer: {
     fixed: false,
-    height: 48,
+    height: 48
   },
   page: {
     animate: true,
@@ -96,9 +96,9 @@ const defaultThemeSetting: Theme.Setting = {
       { value: 'fade-bottom', label: EnumThemeAnimateMode['fade-bottom'] },
       { value: 'fade-scale', label: EnumThemeAnimateMode['fade-scale'] },
       { value: 'zoom-fade', label: EnumThemeAnimateMode['zoom-fade'] },
-      { value: 'zoom-out', label: EnumThemeAnimateMode['zoom-out'] },
-    ],
-  },
+      { value: 'zoom-out', label: EnumThemeAnimateMode['zoom-out'] }
+    ]
+  }
 };
 
 export const themeSetting = (jsonSetting as Theme.Setting) || defaultThemeSetting;

@@ -29,7 +29,7 @@ const NaiveProviderContent = defineComponent({
   },
   render() {
     return h('div');
-  },
+  }
 });
 </script>
 <style scoped></style>

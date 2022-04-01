@@ -18,7 +18,7 @@ async function renderBaiduMap() {
   const map = new TMap.Map(domRef.value, {
     center: new TMap.LatLng(39.98412, 116.307484),
     zoom: 11,
-    viewMode: '3D',
+    viewMode: '3D'
   });
 }
 

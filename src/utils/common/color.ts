@@ -30,7 +30,7 @@ export function getColorPalette(color: string, index: ColorIndex) {
   const newHsv: HsvColor = {
     h: getHue(hsv, i, isLight),
     s: getSaturation(hsv, i, isLight),
-    v: getValue(hsv, i, isLight),
+    v: getValue(hsv, i, isLight)
   };
 
   return colord(newHsv).toHex();
@@ -42,7 +42,7 @@ export function getColorPalette(color: string, index: ColorIndex) {
  */
 export function getAllColorPalette(color: string) {
   const indexs: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  return indexs.map((index) => getColorPalette(color, index));
+  return indexs.map(index => getColorPalette(color, index));
 }
 
 /**

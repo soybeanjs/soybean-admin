@@ -10,8 +10,8 @@ const plugin: AuthRoute.Route = {
       meta: {
         title: '地图',
         requiresAuth: true,
-        icon: 'mdi:map',
-      },
+        icon: 'mdi:map'
+      }
     },
     {
       name: 'plugin_video',
@@ -20,8 +20,8 @@ const plugin: AuthRoute.Route = {
       meta: {
         title: '视频',
         requiresAuth: true,
-        icon: 'mdi:video',
-      },
+        icon: 'mdi:video'
+      }
     },
     {
       name: 'plugin_editor',
@@ -35,8 +35,8 @@ const plugin: AuthRoute.Route = {
           meta: {
             title: '富文本编辑器',
             requiresAuth: true,
-            icon: 'mdi:file-document-edit-outline',
-          },
+            icon: 'mdi:file-document-edit-outline'
+          }
         },
         {
           name: 'plugin_editor_markdown',
@@ -45,14 +45,14 @@ const plugin: AuthRoute.Route = {
           meta: {
             title: 'markdown编辑器',
             requiresAuth: true,
-            icon: 'ri:markdown-line',
-          },
-        },
+            icon: 'ri:markdown-line'
+          }
+        }
       ],
       meta: {
         title: '编辑器',
-        icon: 'icon-park-outline:editor',
-      },
+        icon: 'icon-park-outline:editor'
+      }
     },
     {
       name: 'plugin_swiper',
@@ -61,8 +61,8 @@ const plugin: AuthRoute.Route = {
       meta: {
         title: 'Swiper插件',
         requiresAuth: true,
-        icon: 'simple-icons:swiper',
-      },
+        icon: 'simple-icons:swiper'
+      }
     },
     {
       name: 'plugin_copy',
@@ -71,8 +71,8 @@ const plugin: AuthRoute.Route = {
       meta: {
         title: '剪贴板',
         requiresAuth: true,
-        icon: 'mdi:clipboard-outline',
-      },
+        icon: 'mdi:clipboard-outline'
+      }
     },
     {
       name: 'plugin_icon',
@@ -81,8 +81,8 @@ const plugin: AuthRoute.Route = {
       meta: {
         title: '图标',
         requiresAuth: true,
-        icon: 'ic:baseline-insert-emoticon',
-      },
+        icon: 'ic:baseline-insert-emoticon'
+      }
     },
     {
       name: 'plugin_print',
@@ -91,15 +91,15 @@ const plugin: AuthRoute.Route = {
       meta: {
         title: '打印',
         requiresAuth: true,
-        icon: 'ic:baseline-local-printshop',
-      },
-    },
+        icon: 'ic:baseline-local-printshop'
+      }
+    }
   ],
   meta: {
     title: '插件示例',
     icon: 'clarity:plugin-line',
-    order: 4,
-  },
+    order: 4
+  }
 };
 
 export default plugin;

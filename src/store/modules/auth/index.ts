@@ -18,13 +18,13 @@ export const useAuthStore = defineStore('auth-store', {
   state: (): AuthState => ({
     userInfo: getUserInfo(),
     token: getToken(),
-    loginLoding: false,
+    loginLoding: false
   }),
   getters: {
     /** 是否登录 */
     isLogin(state) {
       return Boolean(state.token);
-    },
+    }
   },
   actions: {
     /** 重置auth状态 */
@@ -67,7 +67,7 @@ export const useAuthStore = defineStore('auth-store', {
         window.$notification?.success({
           title: '登录成功!',
           content: `欢迎回来，${data.userName}!`,
-          duration: 3000,
+          duration: 3000
         });
       } else {
         // 不成功则重置状态
@@ -87,6 +87,6 @@ export const useAuthStore = defineStore('auth-store', {
         await this.loginByToken(data);
       }
       this.loginLoding = false;
-    },
-  },
+    }
+  }
 });

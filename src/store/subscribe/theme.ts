@@ -13,7 +13,7 @@ export default function subscribeThemeStore() {
 
   const stopThemeColor = watch(
     () => theme.themeColor,
-    (newValue) => {
+    newValue => {
       setThemeColor(newValue);
     },
     { immediate: true }
@@ -22,7 +22,7 @@ export default function subscribeThemeStore() {
   // 监听暗黑模式
   const stopDarkMode = watch(
     () => theme.darkMode,
-    (newValue) => {
+    newValue => {
       if (newValue) {
         addDarkClass();
       } else {
@@ -30,14 +30,14 @@ export default function subscribeThemeStore() {
       }
     },
     {
-      immediate: true,
+      immediate: true
     }
   );
 
   // 监听操作系统主题模式
   const stopOsTheme = watch(
     osTheme,
-    (newValue) => {
+    newValue => {
       const isDark = newValue === 'dark';
       theme.setDarkMode(isDark);
     },
@@ -45,7 +45,7 @@ export default function subscribeThemeStore() {
   );
 
   // 禁用横向滚动(页面切换时,过渡动画会产生水平方向的滚动条, 小于最小宽度时，不禁止)
-  const stopWidth = watch(width, (newValue) => {
+  const stopWidth = watch(width, newValue => {
     if (newValue < theme.layout.minWidth) {
       document.documentElement.style.overflowX = 'auto';
     } else {
@@ -72,6 +72,6 @@ function handleWindicssDarkMode() {
   }
   return {
     addDarkClass,
-    removeDarkClass,
+    removeDarkClass
   };
 }

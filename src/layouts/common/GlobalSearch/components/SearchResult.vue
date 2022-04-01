@@ -6,7 +6,7 @@
           class="bg-[#e5e7eb] dark:bg-dark h-56px mt-8px px-14px rounded-4px cursor-pointer flex-y-center justify-between"
           :style="{
             background: item.path === active ? theme.themeColor : '',
-            color: item.path === active ? '#fff' : '',
+            color: item.path === active ? '#fff' : ''
           }"
           @click="handleTo"
           @mouseenter="handleMouse(item)"
@@ -47,7 +47,7 @@ const active = computed({
   },
   set(val: string) {
     emit('update:value', val);
-  },
+  }
 });
 
 /** 鼠标移入 */

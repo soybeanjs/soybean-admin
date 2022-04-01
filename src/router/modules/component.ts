@@ -10,8 +10,8 @@ const component: AuthRoute.Route = {
       meta: {
         title: '按钮',
         requiresAuth: true,
-        icon: 'ic:baseline-radio-button-checked',
-      },
+        icon: 'ic:baseline-radio-button-checked'
+      }
     },
     {
       name: 'component_card',
@@ -20,8 +20,8 @@ const component: AuthRoute.Route = {
       meta: {
         title: '卡片',
         requiresAuth: true,
-        icon: 'mdi:card-outline',
-      },
+        icon: 'mdi:card-outline'
+      }
     },
     {
       name: 'component_table',
@@ -30,15 +30,15 @@ const component: AuthRoute.Route = {
       meta: {
         title: '表格',
         requiresAuth: true,
-        icon: 'mdi:table-large',
-      },
-    },
+        icon: 'mdi:table-large'
+      }
+    }
   ],
   meta: {
     title: '组件示例',
     icon: 'fluent:app-store-24-regular',
-    order: 3,
-  },
+    order: 3
+  }
 };
 
 export default component;

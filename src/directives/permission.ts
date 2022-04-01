@@ -9,7 +9,7 @@ export default function setupLoginDirective(app: App) {
       if (binding.value !== auth.userInfo.userRole) {
         el.remove();
       }
-    },
+    }
   };
 
   app.directive('login', loginDirective);

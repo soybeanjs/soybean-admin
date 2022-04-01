@@ -15,7 +15,7 @@ function sortRoutes(routes: AuthRoute.Route[]) {
 export function handleModuleRoutes(modules: AuthRoute.RouteModule) {
   const routes: AuthRoute.Route[] = [];
 
-  Object.keys(modules).forEach((key) => {
+  Object.keys(modules).forEach(key => {
     const item = modules[key].default;
     if (item) {
       routes.push(item);

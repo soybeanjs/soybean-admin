@@ -20,7 +20,7 @@ export default function setupLoginDirective(app: App) {
     unmounted(el: HTMLElement, binding) {
       if (binding.value === false) return;
       el.removeEventListener('click', listenerHandler);
-    },
+    }
   };
 
   app.directive('login', loginDirective);

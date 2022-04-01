@@ -1,5 +1,5 @@
 module.exports = { // https://prettier.io/docs/en/options.html
-  arrowParens: 'always',
+  arrowParens: 'avoid',
   bracketSameLine: false,
   bracketSpacing: true,
   embeddedLanguageFormatting: 'auto',
@@ -13,7 +13,7 @@ module.exports = { // https://prettier.io/docs/en/options.html
   semi: true,
   singleQuote: true,
   tabWidth: 2,
-  trailingComma: 'es5',
+  trailingComma: 'none',
   useTabs: false,
   vueIndentScriptAndStyle: false,
   overrides: [

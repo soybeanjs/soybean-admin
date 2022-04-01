@@ -33,11 +33,11 @@ const formRef = ref<(HTMLElement & FormInst) | null>(null);
 const model = reactive({
   phone: '',
   code: '',
-  imgCode: '',
+  imgCode: ''
 });
 const rules = {
   phone: formRules.phone,
-  code: formRules.code,
+  code: formRules.code
 };
 
 function handleSmsCode() {
@@ -48,7 +48,7 @@ function handleSubmit(e: MouseEvent) {
   if (!formRef.value) return;
   e.preventDefault();
 
-  formRef.value.validate((errors) => {
+  formRef.value.validate(errors => {
     if (!errors) {
       window.$message?.success('验证成功');
     } else {

@@ -36,7 +36,7 @@ function clipboardEventListener() {
     window.$dialog?.success({
       title: '操作成功',
       content: '复制成功,请替换 src/settings/theme.json的内容！',
-      positiveText: '确定',
+      positiveText: '确定'
     });
   });
 }

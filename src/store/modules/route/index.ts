@@ -7,7 +7,7 @@ import {
   transformAuthRouteToMenu,
   transformAuthRoutesToVueRoutes,
   transformAuthRoutesToSearchMenus,
-  getCacheRoutes,
+  getCacheRoutes
 } from '@/utils';
 import { useTabStore } from '../tab';
 
@@ -37,7 +37,7 @@ export const useRouteStore = defineStore('route-store', {
     routeHomeName: 'dashboard_analysis',
     menus: [],
     searchMenus: [],
-    cacheRoutes: [],
+    cacheRoutes: []
   }),
   actions: {
     /**
@@ -50,7 +50,7 @@ export const useRouteStore = defineStore('route-store', {
       this.searchMenus = transformAuthRoutesToSearchMenus(routes);
 
       const vueRoutes = transformAuthRoutesToVueRoutes(routes);
-      vueRoutes.forEach((route) => {
+      vueRoutes.forEach(route => {
         router.addRoute(route);
       });
 
@@ -95,6 +95,6 @@ export const useRouteStore = defineStore('route-store', {
 
       initHomeTab(this.routeHomeName, router);
       this.isInitedAuthRoute = true;
-    },
-  },
+    }
+  }
 });

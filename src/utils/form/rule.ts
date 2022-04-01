@@ -18,17 +18,17 @@ interface CustomFormRules {
 export const formRules: CustomFormRules = {
   phone: [
     { required: true, message: '请输入手机号码' },
-    { pattern: REGEXP_PHONE, message: '手机号码格式错误', trigger: 'input' },
+    { pattern: REGEXP_PHONE, message: '手机号码格式错误', trigger: 'input' }
   ],
   pwd: [
     { required: true, message: '请输入密码' },
-    { pattern: REGEXP_PWD, message: '密码为8-18位数字/字符/符号，至少2种组合', trigger: 'input' },
+    { pattern: REGEXP_PWD, message: '密码为8-18位数字/字符/符号，至少2种组合', trigger: 'input' }
   ],
   code: [
     { required: true, message: '请输入验证码' },
-    { pattern: REGEXP_CODE_SIX, message: '验证码格式错误', trigger: 'input' },
+    { pattern: REGEXP_CODE_SIX, message: '验证码格式错误', trigger: 'input' }
   ],
-  email: [{ pattern: REGEXP_EMAIL, message: '邮箱格式错误', trigger: 'blur' }],
+  email: [{ pattern: REGEXP_EMAIL, message: '邮箱格式错误', trigger: 'blur' }]
 };
 
 /** 获取确认密码的表单规则 */
@@ -43,8 +43,8 @@ export function getConfirmPwdRule(pwd: Ref<string>) {
         return Promise.resolve();
       },
       message: '输入的值与密码不一致',
-      trigger: 'input',
-    },
+      trigger: 'input'
+    }
   ];
   return confirmPwdRule;
 }
@@ -61,8 +61,8 @@ export function getImgCodeRule(imgCode: Ref<string>) {
         return Promise.resolve();
       },
       message: '验证码不正确',
-      trigger: 'blur',
-    },
+      trigger: 'blur'
+    }
   ];
   return imgCodeRule;
 }
