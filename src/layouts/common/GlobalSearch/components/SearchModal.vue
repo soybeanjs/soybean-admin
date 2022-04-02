@@ -5,7 +5,7 @@
     :closable="false"
     preset="card"
     footer-style="padding: 0; margin: 0"
-    class="w-630px fixed top-50px left-1/2 transform -translate-x-1/2"
+    class="w-630px fixed left-0 right-0 top-50px"
     @after-leave="handleClose"
   >
     <n-input ref="inputRef" v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
