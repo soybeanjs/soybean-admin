@@ -24,8 +24,6 @@ interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string;
   /** 项目描述 */
   readonly VITE_APP_DESC: string;
-  /** 开发启动的服务端口号 */
-  readonly VITE_SERVER_PORT: string;
   /**
    * 权限路由模式:
    * - static - 前端声明的静态
