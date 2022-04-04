@@ -1,6 +1,7 @@
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 
 export default (srcPath: string) => {
@@ -15,7 +16,7 @@ export default (srcPath: string) => {
     }),
     Components({
       dts: true,
-      resolvers: [IconsResolver({ customCollections: ['custom'], componentPrefix: 'icon' })]
+      resolvers: [NaiveUiResolver(), IconsResolver({ customCollections: ['custom'], componentPrefix: 'icon' })]
     })
   ];
 };
