@@ -23,6 +23,7 @@ type Adapter<T = any> = (...args: Service.RequestResult[]) => T;
  */
 export function adapterOfServiceResult<T extends Adapter>(adapter: T, ...args: TypeUtil.GetFunArgs<T>) {
   let result: Service.RequestResult | undefined;
+
   const hasError = args.some(item => {
     const flag = Boolean(item.error);
     if (flag) {
@@ -41,5 +42,5 @@ export function adapterOfServiceResult<T extends Adapter>(adapter: T, ...args: T
     };
   }
 
-  return result as TypeUtil.GetFunReturn<T>;
+  return result as Service.RequestResult<TypeUtil.GetFunReturn<T>>;
 }

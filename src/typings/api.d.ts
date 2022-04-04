@@ -21,3 +21,10 @@ declare namespace ApiRoute {
     home: AuthRoute.RouteKey;
   }
 }
+
+declare namespace ApiDemo {
+  interface DataWithAdapter {
+    dataId: string;
+    dataName: string;
+  }
+}

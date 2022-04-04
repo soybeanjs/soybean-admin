@@ -1,6 +1,9 @@
-import { request } from '../request';
+import { adapterOfServiceResult } from '@/utils';
+import { mockRequest } from '../request';
+import { adapterOfDataWithAdapter } from '../adapter';
 
-/** 测试请求代理 */
-export function fetchTestProxy() {
-  return request.get('/test');
+/** 带有适配器的请求(将请求结果进行数据处理) */
+export async function fetchDataWithAdapter() {
+  const res = await mockRequest.post<ApiDemo.DataWithAdapter>('/apiDemoWithAdapter');
+  return adapterOfServiceResult(adapterOfDataWithAdapter, res);
 }

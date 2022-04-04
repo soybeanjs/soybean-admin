@@ -21,3 +21,10 @@ declare namespace Auth {
     userRole: RoleType;
   }
 }
+
+declare namespace Demo {
+  interface DataWithAdapter {
+    id: string;
+    name: string;
+  }
+}

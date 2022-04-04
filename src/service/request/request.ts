@@ -29,7 +29,7 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
    * - data: 请求的body的data
    * - axiosConfig: axios配置
    */
-  async function asyncRequest<T = any>(param: RequestParam): Promise<Service.RequestResult<T>> {
+  async function asyncRequest<T>(param: RequestParam): Promise<Service.RequestResult<T>> {
     const { url } = param;
     const method = param.method || 'get';
     const { instance } = customInstance;
@@ -49,7 +49,7 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
    * @param url - 请求地址
    * @param config - axios配置
    */
-  function get<T = any>(url: string, config?: AxiosRequestConfig) {
+  function get<T>(url: string, config?: AxiosRequestConfig) {
     return asyncRequest<T>({ url, method: 'get', axiosConfig: config });
   }
 
@@ -59,7 +59,7 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
    * @param data - 请求的body的data
    * @param config - axios配置
    */
-  function post<T = any>(url: string, data?: any, config?: AxiosRequestConfig) {
+  function post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
     return asyncRequest<T>({ url, method: 'post', data, axiosConfig: config });
   }
   /**
@@ -68,7 +68,7 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
    * @param data - 请求的body的data
    * @param config - axios配置
    */
-  function put<T = any>(url: string, data?: any, config?: AxiosRequestConfig) {
+  function put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
     return asyncRequest<T>({ url, method: 'put', data, axiosConfig: config });
   }
 
@@ -77,7 +77,7 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
    * @param url - 请求地址
    * @param config - axios配置
    */
-  function handleDelete<T = any>(url: string, config: AxiosRequestConfig) {
+  function handleDelete<T>(url: string, config: AxiosRequestConfig) {
     return asyncRequest<T>({ url, method: 'delete', axiosConfig: config });
   }
 
@@ -112,7 +112,7 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
    * - data: 请求的body的data
    * - axiosConfig: axios配置
    */
-  function useRequest<T = any>(param: RequestParam): RequestResultHook<T> {
+  function useRequest<T>(param: RequestParam): RequestResultHook<T> {
     const { loading, startLoading, endLoading } = useLoading();
     const { bool: network, setBool: setNetwork } = useBoolean(window.navigator.onLine);
 
@@ -147,7 +147,7 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
    * @param url - 请求地址
    * @param config - axios配置
    */
-  function get<T = any>(url: string, config?: AxiosRequestConfig) {
+  function get<T>(url: string, config?: AxiosRequestConfig) {
     return useRequest<T>({ url, method: 'get', axiosConfig: config });
   }
 
@@ -157,7 +157,7 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
    * @param data - 请求的body的data
    * @param config - axios配置
    */
-  function post<T = any>(url: string, data?: any, config?: AxiosRequestConfig) {
+  function post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
     return useRequest<T>({ url, method: 'post', data, axiosConfig: config });
   }
   /**
@@ -166,7 +166,7 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
    * @param data - 请求的body的data
    * @param config - axios配置
    */
-  function put<T = any>(url: string, data?: any, config?: AxiosRequestConfig) {
+  function put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
     return useRequest<T>({ url, method: 'put', data, axiosConfig: config });
   }
 
@@ -175,7 +175,7 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
    * @param url - 请求地址
    * @param config - axios配置
    */
-  function handleDelete<T = any>(url: string, config: AxiosRequestConfig) {
+  function handleDelete<T>(url: string, config: AxiosRequestConfig) {
     return useRequest<T>({ url, method: 'delete', axiosConfig: config });
   }
 
