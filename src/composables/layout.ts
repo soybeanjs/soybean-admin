@@ -18,22 +18,22 @@ export function useBasicLayout() {
     vertical: {
       showLogo: false,
       showHeaderMenu: false,
-      showMenuCollape: true
+      showMenuCollapse: true
     },
     'vertical-mix': {
       showLogo: false,
       showHeaderMenu: false,
-      showMenuCollape: false
+      showMenuCollapse: false
     },
     horizontal: {
       showLogo: true,
       showHeaderMenu: true,
-      showMenuCollape: false
+      showMenuCollapse: false
     },
     'horizontal-mix': {
       showLogo: true,
       showHeaderMenu: false,
-      showMenuCollape: true
+      showMenuCollapse: true
     }
   };
 

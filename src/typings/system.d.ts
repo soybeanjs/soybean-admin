@@ -238,7 +238,7 @@ interface GlobalHeaderProps {
   /** 显示头部菜单 */
   showHeaderMenu: boolean;
   /** 显示菜单折叠按钮 */
-  showMenuCollape: boolean;
+  showMenuCollapse: boolean;
 }
 
 /** 菜单项配置 */

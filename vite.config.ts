@@ -2,7 +2,7 @@ import { defineConfig, loadEnv } from 'vite';
 import { resolvePath, viteDefine, setupVitePlugins, createViteProxy } from './build';
 
 export default defineConfig(configEnv => {
-  const viteEnv = loadEnv(configEnv.mode, `.env.${configEnv.mode}`) as ImportMetaEnv;
+  const viteEnv = loadEnv(configEnv.mode, process.cwd()) as ImportMetaEnv;
   const vitePath = resolvePath('./', import.meta.url);
 
   return {

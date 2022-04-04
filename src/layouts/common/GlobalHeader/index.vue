@@ -2,7 +2,7 @@
   <dark-mode-container class="global-header flex-y-center h-full">
     <global-logo v-if="showLogo" :show-title="true" class="h-full" :style="{ width: theme.sider.width + 'px' }" />
     <div v-if="!showHeaderMenu" class="flex-1-hidden flex-y-center h-full">
-      <menu-collapse v-if="showMenuCollape" />
+      <menu-collapse v-if="showMenuCollapse" />
       <global-breadcrumb v-if="theme.header.crumb.visible" />
     </div>
     <div v-else class="flex-1-hidden flex-y-center h-full" :style="{ justifyContent: theme.menu.horizontalPosition }">
@@ -38,7 +38,7 @@ interface Props {
   /** 显示头部菜单 */
   showHeaderMenu: GlobalHeaderProps['showHeaderMenu'];
   /** 显示菜单折叠按钮 */
-  showMenuCollape: GlobalHeaderProps['showMenuCollape'];
+  showMenuCollapse: GlobalHeaderProps['showMenuCollapse'];
 }
 
 defineProps<Props>();
