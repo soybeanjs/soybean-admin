@@ -110,8 +110,8 @@ export const useThemeStore = defineStore('theme-store', {
       this.sider.mixChildMenuWidth = width;
     },
     /** 设置水平模式的菜单的位置 */
-    setHorizontalMenuPosition(posiiton: EnumType.ThemeHorizontalMenuPosition) {
-      this.menu.horizontalPosition = posiiton;
+    setHorizontalMenuPosition(position: EnumType.ThemeHorizontalMenuPosition) {
+      this.menu.horizontalPosition = position;
     },
     /** 设置底部是否固定 */
     setFooterIsFixed(isFixed: boolean) {

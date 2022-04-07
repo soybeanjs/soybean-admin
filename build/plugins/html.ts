@@ -3,7 +3,7 @@ import type { ConfigEnv, PluginOption } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default (config: ConfigEnv): PluginOption[] => {
-  const viteEnv = loadEnv(config.mode, `.env.${config.mode}`);
+  const viteEnv = loadEnv(config.mode, process.cwd());
 
   return createHtmlPlugin({
     minify: true,
