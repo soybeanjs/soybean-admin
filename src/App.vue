@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { RouterView } from 'vue-router';
 import { zhCN, dateZhCN } from 'naive-ui';
 import { useThemeStore, subscribeStore } from '@/store';
 

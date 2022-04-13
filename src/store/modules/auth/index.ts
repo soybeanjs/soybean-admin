@@ -11,14 +11,14 @@ interface AuthState {
   /** 用户token */
   token: string;
   /** 登录的加载状态 */
-  loginLoding: boolean;
+  loginLoading: boolean;
 }
 
 export const useAuthStore = defineStore('auth-store', {
   state: (): AuthState => ({
     userInfo: getUserInfo(),
     token: getToken(),
-    loginLoding: false
+    loginLoading: false
   }),
   getters: {
     /** 是否登录 */
@@ -81,12 +81,12 @@ export const useAuthStore = defineStore('auth-store', {
      * @param type - 登录方式: pwd - 密码登录; sms - 验证码登录
      */
     async login(phone: string, pwdOrCode: string, type: 'pwd' | 'sms') {
-      this.loginLoding = true;
+      this.loginLoading = true;
       const { data } = await fetchLogin(phone, pwdOrCode, type);
       if (data) {
         await this.loginByToken(data);
       }
-      this.loginLoding = false;
+      this.loginLoading = false;
     }
   }
 });

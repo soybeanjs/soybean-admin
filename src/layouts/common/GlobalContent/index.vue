@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import { RouterView } from 'vue-router';
 import { useAppStore, useThemeStore, useRouteStore } from '@/store';
 
 interface Props {

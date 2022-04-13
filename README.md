@@ -135,12 +135,8 @@ pnpm i -g commitizen
 - 本人微信号：honghuangdc，欢迎来技术交流，业务咨询。
 
 - 微信交流群：
-  <div style="text-align:left">
-    <img src="https://s2.loli.net/2022/03/30/VpmnTMsgXJH72B9.jpg" style="width:200px" />
-  </div>
-
   **微信群的人数已经满200个了，无法扫码，可以添加本人的微信再邀请进入**
-  
+
 - QQ交流群 `711301266`
 
   <div style="text-align:left">

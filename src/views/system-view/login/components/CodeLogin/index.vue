@@ -24,7 +24,7 @@
         size="large"
         :block="true"
         :round="true"
-        :loading="auth.loginLoding"
+        :loading="auth.loginLoading"
         @click="handleSubmit"
       >
         确定

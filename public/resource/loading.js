@@ -1,6 +1,6 @@
 /**
  * 初始化加载效果的svg格式logo
- * @param { string }id - 元素id
+ * @param {string} id - 元素id
  */
 function initSvgLogo(id) {
   const svgStr = `<svg width="128px" height="128px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
@@ -22,8 +22,7 @@ function initSvgLogo(id) {
 	<path style="fill:currentColor" d="M77.9,126.6c0,3.9-2.8,7.2-6.7,7.9c-7.8,1.5-14.8,5.9-19.7,12.2c-2.7,3.5-7.6,4.2-11.2,1.6
 	c-3.6-2.6-4.3-7.6-1.7-11.2c0.1-0.1,0.2-0.3,0.3-0.4c4.1-5.2,9.3-9.6,15.1-12.8c4.4-2.5,9.1-4.2,14-5.1
 	C73.3,117.7,77.9,121.3,77.9,126.6z" />
-</svg>
-`;
+	</svg>`;
   const appEl = document.querySelector(id);
   const div = document.createElement('div');
   div.innerHTML = svgStr;
@@ -34,11 +33,12 @@ function initSvgLogo(id) {
 
 function addThemeColorCssVars() {
   const key = '__THEME_COLOR__';
-  const themeColor = window.localStorage.getItem(key) || '#1890ff';
+  const defaultColor = '#1890ff';
+  const themeColor = window.localStorage.getItem(key) || defaultColor;
   const cssVars = `--primary-color: ${themeColor}`;
   document.documentElement.style.cssText = cssVars;
 }
 
-initSvgLogo('#loadingLogo');
-
 addThemeColorCssVars();
+
+initSvgLogo('#loadingLogo');
