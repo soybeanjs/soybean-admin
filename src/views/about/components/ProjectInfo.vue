@@ -5,7 +5,7 @@
         <n-tag type="primary">{{ version }}</n-tag>
       </n-descriptions-item>
       <n-descriptions-item label="最后编译时间">
-        <n-tag type="primary">{{ lastestBuildTime }}</n-tag>
+        <n-tag type="primary">{{ latestBuildTime }}</n-tag>
       </n-descriptions-item>
       <n-descriptions-item label="Github地址">
         <a class="text-primary" href="https://github.com/honghuangdc/soybean-admin" target="_blank">Github地址</a>
@@ -21,6 +21,6 @@
 import { pkgJson } from '../model';
 
 const { version } = pkgJson;
-const lastestBuildTime = PROJECT_BUILD_TIME;
+const latestBuildTime = PROJECT_BUILD_TIME;
 </script>
 <style scoped></style>
