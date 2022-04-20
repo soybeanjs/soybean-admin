@@ -6,7 +6,7 @@
       @update:dark="theme.setDarkMode"
     />
     <n-card :bordered="false" size="large" class="z-4 !w-auto rounded-20px shadow-sm">
-      <div class="w-360px">
+      <div class="w-360px <sm:w-300px">
         <header class="flex-y-center justify-between">
           <div class="w-70px h-70px rounded-35px overflow-hidden">
             <system-logo class="text-70px text-primary" :fill="true" />
