@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { darkTheme } from 'naive-ui';
-import { getThemeSettings, getNaiveThemeOverrides, addThemeCssVarsToHtml } from './helpers';
+import { getThemeSettings, getNaiveThemeOverrides } from './helpers';
 
 type ThemeState = Theme.Setting;
 
@@ -10,9 +10,6 @@ export const useThemeStore = defineStore('theme-store', {
     /** naiveUI的主题配置 */
     naiveThemeOverrides(state) {
       const overrides = getNaiveThemeOverrides({ primary: state.themeColor, ...state.otherColor });
-      if (overrides.common) {
-        addThemeCssVarsToHtml(overrides.common);
-      }
       return overrides;
     },
     /** naive-ui暗黑主题 */

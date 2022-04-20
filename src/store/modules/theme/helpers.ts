@@ -1,5 +1,5 @@
 import type { GlobalThemeOverrides } from 'naive-ui';
-import { cloneDeep, kebabCase } from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
 import { themeSetting } from '@/settings';
 import { getThemeColor, getColorPalette, addColorAlpha } from '@/utils';
 
@@ -70,20 +70,6 @@ export function getNaiveThemeOverrides(colors: Record<ColorType, string>): Globa
       colorLoading
     }
   };
-}
-
-type ThemeVars = Exclude<GlobalThemeOverrides['common'], undefined>;
-type ThemeVarsKeys = keyof ThemeVars;
-
-/** 添加css vars至html */
-export function addThemeCssVarsToHtml(themeVars: ThemeVars) {
-  const keys = Object.keys(themeVars) as ThemeVarsKeys[];
-  const style: string[] = [];
-  keys.forEach(key => {
-    style.push(`--${kebabCase(key)}: ${themeVars[key]}`);
-  });
-  const styleStr = style.join(';');
-  document.documentElement.style.cssText += styleStr;
 }
 
 /** windicss 暗黑模式 */
