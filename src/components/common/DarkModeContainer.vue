@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white text-[#333639] dark:(bg-[#18181c] text-white text-opacity-82) transition-all duration-300 ease-in-out"
+    class="bg-white text-[#333639] dark:bg-[#18181c] dark:text-white dark:text-opacity-82 transition-all duration-300 ease-in-out"
   >
     <slot></slot>
   </div>
