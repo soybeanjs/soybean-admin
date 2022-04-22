@@ -27,8 +27,11 @@ interface ImportMetaEnv {
   /**
    * 权限路由模式:
    * - static - 前端声明的静态
-   * - dynamic - 后端返回的动态 */
+   * - dynamic - 后端返回的动态
+   */
   readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic';
+  /** 路由首页的路径 */
+  readonly VITE_ROUTE_HOME_PATH: Exclude<AuthRoute.RoutePath, '/not-found-page' | '/:pathMatch(.*)*'>;
   /** vite环境类型 */
   readonly VITE_ENV_TYPE?: EnvType;
   /** 开启请求代理 */

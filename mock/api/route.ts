@@ -232,6 +232,39 @@ const routes: AuthRoute.Route[] = [
     }
   },
   {
+    name: 'auth-demo',
+    path: '/auth-demo',
+    component: 'basic',
+    children: [
+      {
+        name: 'auth-demo_permission',
+        path: '/auth-demo/permission',
+        component: 'self',
+        meta: {
+          title: '指令和权限切换',
+          requiresAuth: true,
+          icon: 'ic:round-construction'
+        }
+      },
+      {
+        name: 'auth-demo_super',
+        path: '/auth-demo/super',
+        component: 'self',
+        meta: {
+          title: '超级管理员可见',
+          requiresAuth: true,
+          permissions: ['super'],
+          icon: 'ic:round-supervisor-account'
+        }
+      }
+    ],
+    meta: {
+      title: '权限示例',
+      icon: 'ic:baseline-security',
+      order: 5
+    }
+  },
+  {
     name: 'exception',
     path: '/exception',
     component: 'basic',
@@ -270,7 +303,7 @@ const routes: AuthRoute.Route[] = [
     meta: {
       title: '异常页',
       icon: 'ant-design:exception-outlined',
-      order: 5
+      order: 6
     }
   },
   {
@@ -324,7 +357,7 @@ const routes: AuthRoute.Route[] = [
     meta: {
       title: '多级菜单',
       icon: 'carbon:menu',
-      order: 6
+      order: 7
     }
   },
   {
@@ -337,7 +370,7 @@ const routes: AuthRoute.Route[] = [
       singleLayout: 'basic',
       permissions: ['super', 'admin', 'test'],
       icon: 'fluent:book-information-24-regular',
-      order: 7
+      order: 8
     }
   }
 ];

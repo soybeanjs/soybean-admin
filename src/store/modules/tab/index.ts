@@ -21,7 +21,7 @@ export const useTabStore = defineStore('tab-store', {
       name: 'root',
       path: '/',
       meta: {
-        title: 'root'
+        title: 'Root'
       },
       scrollPosition: {
         left: 0,
@@ -53,7 +53,8 @@ export const useTabStore = defineStore('tab-store', {
     initHomeTab(routeHomeName: string, router: Router) {
       const routes = router.getRoutes();
       const findHome = routes.find(item => item.name === routeHomeName);
-      if (findHome) {
+      if (findHome && !findHome.children) {
+        // 有子路由的不能作为Tab
         this.homeTab = getTabRouteByVueRoute(findHome);
       }
     },
@@ -165,16 +166,20 @@ export const useTabStore = defineStore('tab-store', {
     iniTabStore(currentRoute: RouteLocationNormalizedLoaded) {
       const theme = useThemeStore();
 
-      const isHome = currentRoute.path === this.homeTab.path;
       const tabs: GlobalTabRoute[] = theme.tab.isCache ? getTabRoutes() : [];
+
       const hasHome = isInTabRoutes(tabs, this.homeTab.path);
-      const hasCurrent = isInTabRoutes(tabs, currentRoute.path);
-      if (!hasHome) {
+      if (!hasHome && this.homeTab.name !== 'root') {
         tabs.unshift(this.homeTab);
       }
+
+      const isHome = currentRoute.path === this.homeTab.path;
+      const hasCurrent = isInTabRoutes(tabs, currentRoute.path);
       if (!isHome && !hasCurrent) {
-        tabs.push(getTabRouteByVueRoute(currentRoute));
+        const currentTab = getTabRouteByVueRoute(currentRoute);
+        tabs.push(currentTab);
       }
+
       this.tabs = tabs;
       this.setActiveTab(currentRoute.path);
     }

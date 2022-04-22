@@ -8,7 +8,7 @@ import mock from './mock';
 import visualizer from './visualizer';
 
 /**
- *	vite插件
+ * vite插件
  * @param configEnv - 环境
  * @param srcPath - src路径
  * @param viteEnv - 环境变量配置

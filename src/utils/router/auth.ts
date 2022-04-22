@@ -1,16 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 根据用户权限过滤路由
  * @param routes - 权限路由
  * @param permission - 权限
  */
 export function filterAuthRoutesByUserPermission(routes: AuthRoute.Route[], permission: Auth.RoleType) {
-  const filters: AuthRoute.Route[] = [];
-
-  routes.forEach(route => {
-    filterAuthRouteByUserPermission(route, permission);
-  });
-  return filters;
+  return routes.map(route => filterAuthRouteByUserPermission(route, permission)).flat(1);
 }
 
 /**
@@ -19,5 +13,12 @@ export function filterAuthRoutesByUserPermission(routes: AuthRoute.Route[], perm
  * @param permission - 权限
  */
 function filterAuthRouteByUserPermission(route: AuthRoute.Route, permission: Auth.RoleType): AuthRoute.Route[] {
-  return [];
+  const hasPermission =
+    !route.meta.permissions || permission === 'super' || route.meta.permissions.includes(permission);
+
+  if (route.children) {
+    const filterChildren = route.children.map(item => filterAuthRouteByUserPermission(item, permission)).flat(1);
+    Object.assign(route, { children: filterChildren });
+  }
+  return hasPermission ? [route] : [];
 }

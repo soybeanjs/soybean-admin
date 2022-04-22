@@ -62,7 +62,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/testToken',
     method: 'post',
-    response: (option: any): Service.MockServiceResult<true | null> => {
+    response: (option: Service.MockOption): Service.MockServiceResult<true | null> => {
       if (option.headers?.authorization !== token.token) {
         return {
           code: 66666,

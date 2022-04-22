@@ -87,6 +87,9 @@ export const useAuthStore = defineStore('auth-store', {
         await this.loginByToken(data);
       }
       this.loginLoading = false;
+    },
+    updateUserRole(userRole: Auth.RoleType) {
+      this.userInfo.userRole = userRole;
     }
   }
 });

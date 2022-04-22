@@ -1,6 +1,6 @@
 import type { App } from 'vue';
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
-import { transformAuthRoutesToVueRoutes } from '@/utils';
+import { transformAuthRoutesToVueRoutes, transformRouteNameToRoutePath } from '@/utils';
 import { constantRoutes } from './routes';
 import { scrollBehavior } from './helpers';
 import { createRouterGuard } from './guard';
@@ -19,6 +19,11 @@ export async function setupRouter(app: App) {
   createRouterGuard(router);
   await router.isReady();
 }
+
+/** 路由名称 */
+export const routeName = (key: AuthRoute.RouteKey) => key;
+/** 路由路径 */
+export const routePath = (key: Exclude<AuthRoute.RouteKey, 'not-found-page'>) => transformRouteNameToRoutePath(key);
 
 export * from './routes';
 export * from './modules';

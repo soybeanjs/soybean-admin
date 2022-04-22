@@ -16,7 +16,7 @@ export async function createDynamicRouteGuard(
   const isLogin = Boolean(getToken());
 
   // 初始化权限路由
-  if (!route.isInitedAuthRoute) {
+  if (!route.isInitAuthRoute) {
     // 未登录情况下直接回到登录页，登录成功后再加载权限路由
     if (!isLogin) {
       if (to.name === routeName('login')) {
