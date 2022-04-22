@@ -20,6 +20,7 @@ export const useTabStore = defineStore('tab-store', {
     homeTab: {
       name: 'root',
       path: '/',
+      fullPath: '/',
       meta: {
         title: 'root'
       },
@@ -124,15 +125,15 @@ export const useTabStore = defineStore('tab-store', {
     },
     /**
      * 点击单个tab
-     * @param path - 路由path
+     * @param route - 路由route
      */
-    handleClickTab(path: string) {
+    handleClickTab(route: GlobalTabRoute) {
       const { routerPush } = useRouterPush(false);
 
-      const isActive = this.activeTab === path;
+      const isActive = this.activeTab === route.path;
       if (!isActive) {
-        this.setActiveTab(path);
-        routerPush(path);
+        this.setActiveTab(route.path);
+        routerPush(route.fullPath || route.path);
       }
     },
     /**
@@ -164,7 +165,6 @@ export const useTabStore = defineStore('tab-store', {
     /** 初始化Tab状态 */
     iniTabStore(currentRoute: RouteLocationNormalizedLoaded) {
       const theme = useThemeStore();
-
       const isHome = currentRoute.path === this.homeTab.path;
       const tabs: GlobalTabRoute[] = theme.tab.isCache ? getTabRoutes() : [];
       const hasHome = isInTabRoutes(tabs, this.homeTab.path);

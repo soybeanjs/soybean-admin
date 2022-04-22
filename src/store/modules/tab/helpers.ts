@@ -9,6 +9,7 @@ export function getTabRouteByVueRoute(route: RouteRecordNormalized | RouteLocati
     name: route.name,
     path: route.path,
     meta: route.meta,
+    fullPath: (<RouteLocationNormalizedLoaded>route).fullPath,
     scrollPosition: {
       left: 0,
       top: 0

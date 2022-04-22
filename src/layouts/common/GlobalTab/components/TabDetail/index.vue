@@ -9,7 +9,7 @@
       :closable="item.path !== tab.homeTab.path"
       :dark-mode="theme.darkMode"
       :class="{ '!mr-0': isChromeMode && index === tab.tabs.length - 1, 'mr-10px': !isChromeMode }"
-      @click="tab.handleClickTab(item.path)"
+      @click="tab.handleClickTab(item)"
       @close="tab.removeTab(item.path)"
       @contextmenu="handleContextMenu($event, item.path)"
     >

@@ -262,7 +262,8 @@ type GlobalBreadcrumb = import('naive-ui').DropdownOption & {
 };
 
 /** 多页签Tab的路由 */
-interface GlobalTabRoute extends Pick<import('vue-router').RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> {
+interface GlobalTabRoute
+  extends Pick<import('vue-router').RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta' | 'fullPath'> {
   /** 滚动的位置 */
   scrollPosition: {
     left: number;
