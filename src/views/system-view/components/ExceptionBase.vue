@@ -12,6 +12,7 @@
 </template>
 
 <script lang="ts" setup>
+import { RouterLink } from 'vue-router';
 import { routeName } from '@/router';
 
 type ExceptionType = '403' | '404' | '500';

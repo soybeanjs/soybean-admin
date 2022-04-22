@@ -24,7 +24,7 @@ export function getLayoutComponent(layoutType: EnumType.LayoutComponentName) {
  */
 export function getViewComponent(routeKey: AuthRoute.RouteKey) {
   if (!views[routeKey]) {
-    consoleError(`该路由“${routeKey}”没有对应的组件文件！`);
+    consoleError(`路由“${routeKey}”没有对应的组件文件！`);
   }
   return () => setViewComponentName(views[routeKey], routeKey) as Promise<Component>;
 }

@@ -47,7 +47,7 @@ export const useAppStore = defineStore('app-store', {
       this.settingDrawerVisible = false;
     },
     /** 切换抽屉可见状态 */
-    toggleSettingdrawerVisible() {
+    toggleSettingDrawerVisible() {
       this.settingDrawerVisible = !this.settingDrawerVisible;
     },
     /** 设置侧边栏折叠状态 */

@@ -49,9 +49,9 @@ const route = useRoute();
 const app = useAppStore();
 const theme = useThemeStore();
 const { routerPush } = useRouterPush();
+const { title } = useAppInfo();
 
 const showDrawer = computed(() => (props.visible && props.menus.length) || app.mixSiderFixed);
-const { title } = useAppInfo();
 
 const activeKey = computed(() => route.name as string);
 const expandedKeys = ref<string[]>([]);
