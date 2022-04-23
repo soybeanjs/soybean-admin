@@ -1,26 +1,24 @@
 import type { App, Directive } from 'vue';
-import { useAuthStore } from '@/store';
-import { isArray, isString } from '@/utils';
+import { usePermission } from '@/composables';
 
 export default function setupPermissionDirective(app: App) {
-  const auth = useAuthStore();
+  const { hasPermission } = usePermission();
+
+  function updateElVisible(el: HTMLElement, permission: Auth.RoleType | Auth.RoleType[]) {
+    if (!permission) {
+      throw new Error(`need roles: like v-permission="'admin'", v-permission="['admin', 'test]"`);
+    }
+    if (!hasPermission(permission)) {
+      el.parentElement?.removeChild(el);
+    }
+  }
 
   const permissionDirective: Directive<HTMLElement, Auth.RoleType | Auth.RoleType[]> = {
-    mounted(el: HTMLElement, binding) {
-      const { userRole } = auth.userInfo;
-      const elPermission = binding.value;
-      let hasPermission = userRole === 'super';
-      if (!hasPermission) {
-        if (isArray(elPermission)) {
-          hasPermission = (elPermission as Auth.RoleType[]).includes(userRole);
-        }
-        if (isString(elPermission)) {
-          hasPermission = (elPermission as Auth.RoleType) === userRole;
-        }
-      }
-      if (!hasPermission) {
-        el.remove();
-      }
+    mounted(el, binding) {
+      updateElVisible(el, binding.value);
+    },
+    beforeUpdate(el, binding) {
+      updateElVisible(el, binding.value);
     }
   };
 

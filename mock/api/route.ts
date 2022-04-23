@@ -1,4 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock';
+import { filterAuthRoutesByUserPermission } from '../utils';
 
 const routes: AuthRoute.Route[] = [
   {
@@ -241,7 +242,7 @@ const routes: AuthRoute.Route[] = [
         path: '/auth-demo/permission',
         component: 'self',
         meta: {
-          title: '指令和权限切换',
+          title: '权限切换',
           requiresAuth: true,
           icon: 'ic:round-construction'
         }
@@ -378,12 +379,12 @@ const routes: AuthRoute.Route[] = [
 function dataMiddleware(data: AuthRoute.Route[]): ApiRoute.Route {
   const routeHomeName: AuthRoute.RouteKey = 'dashboard_analysis';
 
-  function sortRoutes(sorts: AuthRoute.Route[]) {
-    return sorts.sort((next, pre) => Number(next.meta?.order) - Number(pre.meta?.order));
-  }
+  data.sort((next, pre) => Number(next.meta?.order) - Number(pre.meta?.order));
+
+  const filters = filterAuthRoutesByUserPermission(data, 'admin');
 
   return {
-    routes: sortRoutes(data),
+    routes: filters,
     home: routeHomeName
   };
 }

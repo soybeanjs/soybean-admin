@@ -8,7 +8,7 @@ const authDemo: AuthRoute.Route = {
       path: '/auth-demo/permission',
       component: 'self',
       meta: {
-        title: '指令和权限切换',
+        title: '权限切换',
         requiresAuth: true,
         icon: 'ic:round-construction'
       }
