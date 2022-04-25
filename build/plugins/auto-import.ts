@@ -15,7 +15,7 @@ export default (srcPath: string) => {
       defaultClass: 'inline-block'
     }),
     Components({
-      dts: true,
+      dts: 'src/typings/components.d.ts',
       resolvers: [NaiveUiResolver(), IconsResolver({ customCollections: ['custom'], componentPrefix: 'icon' })]
     })
   ];
