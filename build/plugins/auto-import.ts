@@ -16,6 +16,7 @@ export default (srcPath: string) => {
     }),
     Components({
       dts: 'src/typings/components.d.ts',
+      types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
       resolvers: [NaiveUiResolver(), IconsResolver({ customCollections: ['custom'], componentPrefix: 'icon' })]
     })
   ];
