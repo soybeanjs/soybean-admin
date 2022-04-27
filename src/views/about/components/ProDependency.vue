@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { pkgJson } from '../model';
+import { pkgJson } from './model';
 
 const { dependencies } = pkgJson;
 </script>

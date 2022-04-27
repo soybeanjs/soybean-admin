@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { pkgJson } from '../model';
+import { pkgJson } from './model';
 
 const { version } = pkgJson;
 const latestBuildTime = PROJECT_BUILD_TIME;
