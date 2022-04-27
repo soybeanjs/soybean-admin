@@ -1,10 +1,7 @@
-import { loadEnv } from 'vite';
-import type { ConfigEnv, PluginOption } from 'vite';
+import type { PluginOption } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
-export default (config: ConfigEnv): PluginOption[] => {
-  const viteEnv = loadEnv(config.mode, process.cwd());
-
+export default (viteEnv: ImportMetaEnv): PluginOption[] => {
   return createHtmlPlugin({
     minify: true,
     inject: {

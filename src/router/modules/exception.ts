@@ -37,7 +37,7 @@ const exception: AuthRoute.Route = {
   meta: {
     title: '异常页',
     icon: 'ant-design:exception-outlined',
-    order: 5
+    order: 6
   }
 };
 

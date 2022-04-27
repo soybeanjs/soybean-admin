@@ -84,6 +84,14 @@ declare namespace Service {
     /** 接口消息 */
     message: string;
   }
+
+  /** mock的响应option */
+  interface MockOption {
+    url: Record<string, any>;
+    body: Record<string, any>;
+    query: Record<string, any>;
+    headers: Record<string, any>;
+  }
 }
 
 /** 主题相关类型 */

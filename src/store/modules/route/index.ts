@@ -7,8 +7,11 @@ import {
   transformAuthRouteToMenu,
   transformAuthRoutesToVueRoutes,
   transformAuthRoutesToSearchMenus,
-  getCacheRoutes
+  getCacheRoutes,
+  filterAuthRoutesByUserPermission,
+  transformRoutePathToRouteName
 } from '@/utils';
+import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 
 interface RouteState {
@@ -19,7 +22,7 @@ interface RouteState {
    */
   authRouteMode: ImportMetaEnv['VITE_AUTH_ROUTE_MODE'];
   /** 是否初始化了权限路由 */
-  isInitedAuthRoute: boolean;
+  isInitAuthRoute: boolean;
   /** 路由首页name(前端静态路由时生效，后端动态路由该值会被后端返回的值覆盖) */
   routeHomeName: AuthRoute.RouteKey;
   /** 菜单 */
@@ -33,8 +36,8 @@ interface RouteState {
 export const useRouteStore = defineStore('route-store', {
   state: (): RouteState => ({
     authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
-    isInitedAuthRoute: false,
-    routeHomeName: 'dashboard_analysis',
+    isInitAuthRoute: false,
+    routeHomeName: transformRoutePathToRouteName(import.meta.env.VITE_ROUTE_HOME_PATH),
     menus: [],
     searchMenus: [],
     cacheRoutes: []
@@ -73,9 +76,9 @@ export const useRouteStore = defineStore('route-store', {
      * @param router - 路由实例
      */
     async initStaticRoute(router: Router) {
-      // 先根据用户权限过滤一下staticRoutes
-
-      this.handleAuthRoutes(staticRoutes, router);
+      const auth = useAuthStore();
+      const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
+      this.handleAuthRoutes(routes, router);
     },
     /**
      * 初始化权限路由
@@ -84,6 +87,7 @@ export const useRouteStore = defineStore('route-store', {
     async initAuthRoute(router: Router) {
       const { initHomeTab } = useTabStore();
       const { userId } = getUserInfo();
+
       if (!userId) return;
 
       const isDynamicRoute = this.authRouteMode === 'dynamic';
@@ -94,7 +98,8 @@ export const useRouteStore = defineStore('route-store', {
       }
 
       initHomeTab(this.routeHomeName, router);
-      this.isInitedAuthRoute = true;
+
+      this.isInitAuthRoute = true;
     }
   }
 });

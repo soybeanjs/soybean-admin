@@ -1,4 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock';
+import { filterAuthRoutesByUserPermission } from '../utils';
 
 const routes: AuthRoute.Route[] = [
   {
@@ -232,6 +233,39 @@ const routes: AuthRoute.Route[] = [
     }
   },
   {
+    name: 'auth-demo',
+    path: '/auth-demo',
+    component: 'basic',
+    children: [
+      {
+        name: 'auth-demo_permission',
+        path: '/auth-demo/permission',
+        component: 'self',
+        meta: {
+          title: '权限切换',
+          requiresAuth: true,
+          icon: 'ic:round-construction'
+        }
+      },
+      {
+        name: 'auth-demo_super',
+        path: '/auth-demo/super',
+        component: 'self',
+        meta: {
+          title: '超级管理员可见',
+          requiresAuth: true,
+          permissions: ['super'],
+          icon: 'ic:round-supervisor-account'
+        }
+      }
+    ],
+    meta: {
+      title: '权限示例',
+      icon: 'ic:baseline-security',
+      order: 5
+    }
+  },
+  {
     name: 'exception',
     path: '/exception',
     component: 'basic',
@@ -270,7 +304,7 @@ const routes: AuthRoute.Route[] = [
     meta: {
       title: '异常页',
       icon: 'ant-design:exception-outlined',
-      order: 5
+      order: 6
     }
   },
   {
@@ -324,7 +358,7 @@ const routes: AuthRoute.Route[] = [
     meta: {
       title: '多级菜单',
       icon: 'carbon:menu',
-      order: 6
+      order: 7
     }
   },
   {
@@ -335,9 +369,9 @@ const routes: AuthRoute.Route[] = [
       title: '关于',
       requiresAuth: true,
       singleLayout: 'basic',
-      permissions: ['super', 'admin', 'test'],
+      permissions: ['super', 'admin', 'user'],
       icon: 'fluent:book-information-24-regular',
-      order: 7
+      order: 8
     }
   }
 ];
@@ -345,12 +379,12 @@ const routes: AuthRoute.Route[] = [
 function dataMiddleware(data: AuthRoute.Route[]): ApiRoute.Route {
   const routeHomeName: AuthRoute.RouteKey = 'dashboard_analysis';
 
-  function sortRoutes(sorts: AuthRoute.Route[]) {
-    return sorts.sort((next, pre) => Number(next.meta?.order) - Number(pre.meta?.order));
-  }
+  data.sort((next, pre) => Number(next.meta?.order) - Number(pre.meta?.order));
+
+  const filters = filterAuthRoutesByUserPermission(data, 'admin');
 
   return {
-    routes: sortRoutes(data),
+    routes: filters,
     home: routeHomeName
   };
 }

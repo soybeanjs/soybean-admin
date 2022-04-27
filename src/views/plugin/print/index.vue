@@ -26,8 +26,8 @@ function printTable() {
 function printImage() {
   printJS({
     printable: [
-      'https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/qq_qrcode.JPG',
-      'https://raw.githubusercontent.com/honghuangdc/project-assets/main/img/qq_qrcode.JPG'
+      'https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg',
+      'https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg'
     ],
     type: 'image',
     header: 'Multiple Images',

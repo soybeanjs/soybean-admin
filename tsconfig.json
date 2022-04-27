@@ -1,25 +1,28 @@
 {
-	"extends": "@vue/tsconfig/tsconfig.web.json",
-	"include": [
-		"src/typings/**/*.d.ts",
-		"src/**/*",
-		"src/**/*.vue",
-		"vite.config.*",
-		"build/**/*.ts",
-		"mock/**/*.ts",
-		".env-config.ts",
-		"components.d.ts"
-	],
-	"exclude": [
-		"/dist/**",
-		"node_modules"
-	],
 	"compilerOptions": {
 		"baseUrl": ".",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
 		"paths": {
 			"@/*": ["./src/*"],
 			"~/*": ["./*"]
 		},
-		"types": ["node","unplugin-icons/types/vue","naive-ui/volar"]
-	}
+		"types": [
+			"vite/client",
+			"node",
+			"unplugin-icons/types/vue",
+			"naive-ui/volar"
+		]
+	},
+	"exclude": ["dist", "node_modules"],
 }

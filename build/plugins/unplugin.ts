@@ -1,3 +1,4 @@
+import DefineOptions from 'unplugin-vue-define-options/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
@@ -6,6 +7,7 @@ import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 
 export default (srcPath: string) => {
   return [
+    DefineOptions(),
     Icons({
       compiler: 'vue3',
       customCollections: {
@@ -15,7 +17,8 @@ export default (srcPath: string) => {
       defaultClass: 'inline-block'
     }),
     Components({
-      dts: true,
+      dts: 'src/typings/components.d.ts',
+      types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
       resolvers: [NaiveUiResolver(), IconsResolver({ customCollections: ['custom'], componentPrefix: 'icon' })]
     })
   ];

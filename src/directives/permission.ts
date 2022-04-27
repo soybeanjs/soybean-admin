@@ -1,16 +1,26 @@
 import type { App, Directive } from 'vue';
-import { useAuthStore } from '@/store';
+import { usePermission } from '@/composables';
 
-export default function setupLoginDirective(app: App) {
-  const auth = useAuthStore();
+export default function setupPermissionDirective(app: App) {
+  const { hasPermission } = usePermission();
 
-  const loginDirective: Directive<HTMLElement, Auth.RoleType | undefined> = {
-    mounted(el: HTMLElement, binding) {
-      if (binding.value !== auth.userInfo.userRole) {
-        el.remove();
-      }
+  function updateElVisible(el: HTMLElement, permission: Auth.RoleType | Auth.RoleType[]) {
+    if (!permission) {
+      throw new Error(`need roles: like v-permission="'admin'", v-permission="['admin', 'test]"`);
+    }
+    if (!hasPermission(permission)) {
+      el.parentElement?.removeChild(el);
+    }
+  }
+
+  const permissionDirective: Directive<HTMLElement, Auth.RoleType | Auth.RoleType[]> = {
+    mounted(el, binding) {
+      updateElVisible(el, binding.value);
+    },
+    beforeUpdate(el, binding) {
+      updateElVisible(el, binding.value);
     }
   };
 
-  app.directive('login', loginDirective);
+  app.directive('permission', permissionDirective);
 }

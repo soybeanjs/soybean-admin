@@ -6,9 +6,9 @@ const about: AuthRoute.Route = {
     title: '关于',
     requiresAuth: true,
     singleLayout: 'basic',
-    permissions: ['super', 'admin', 'test'],
+    permissions: ['super', 'admin', 'user'],
     icon: 'fluent:book-information-24-regular',
-    order: 7
+    order: 8
   }
 };
 
