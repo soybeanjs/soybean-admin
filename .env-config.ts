@@ -1,13 +1,5 @@
 /** 请求环境配置 */
-type ServiceEnv = Record<
-  EnvType,
-  {
-    /** 请求地址 */
-    url: string;
-    /** 代理地址 */
-    proxy: string;
-  }
->;
+type ServiceEnv = Record<EnvType, EnvConfig>;
 
 /** 环境配置 */
 const serviceEnvConfig: ServiceEnv = {
@@ -31,8 +23,8 @@ const serviceEnvConfig: ServiceEnv = {
  */
 export function getEnvConfig(env: ImportMetaEnv) {
   const { VITE_ENV_TYPE = 'dev' } = env;
-  const envConfig = {
-    http: serviceEnvConfig[VITE_ENV_TYPE]
-  };
+
+  const envConfig = serviceEnvConfig[VITE_ENV_TYPE];
+
   return envConfig;
 }

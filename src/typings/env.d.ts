@@ -6,6 +6,16 @@
  */
 type EnvType = 'dev' | 'test' | 'prod';
 
+/**
+ * env环境配置
+ */
+interface EnvConfig {
+  /** 请求地址 */
+  url: string;
+  /** 代理地址 */
+  proxy: string;
+}
+
 interface ImportMetaEnv {
   /** 项目基本地址 */
   readonly VITE_BASE_URL: string;
