@@ -1,5 +1,5 @@
 <template>
-  <dark-mode-container class="global-header flex-y-center h-full">
+  <dark-mode-container class="global-header flex-y-center h-full" :inverted="inverted">
     <global-logo v-if="showLogo" :show-title="true" class="h-full" :style="{ width: theme.sider.width + 'px' }" />
     <div v-if="!showHeaderMenu" class="flex-1-hidden flex-y-center h-full">
       <menu-collapse v-if="showMenuCollapse" />
@@ -19,6 +19,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useThemeStore } from '@/store';
 import GlobalLogo from '../GlobalLogo/index.vue';
 import GlobalSearch from '../GlobalSearch/index.vue';
@@ -44,6 +45,8 @@ interface Props {
 defineProps<Props>();
 
 const theme = useThemeStore();
+
+const inverted = computed(() => theme.layout.inverted && theme.layout.mode.includes('horizontal'));
 </script>
 <style scoped>
 .global-header {

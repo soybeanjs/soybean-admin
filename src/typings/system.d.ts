@@ -125,6 +125,8 @@ declare namespace Theme {
     minWidth: number;
     /** 布局模式 */
     mode: EnumType.ThemeLayoutMode;
+    /** 菜单反转增加对比 */
+    inverted: boolean;
     /** 布局模式列表 */
     modeList: LayoutModeList[];
   }

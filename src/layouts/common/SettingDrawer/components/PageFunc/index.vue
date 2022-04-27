@@ -1,6 +1,9 @@
 <template>
   <n-divider title-placement="center">界面功能</n-divider>
   <n-space vertical size="large">
+    <setting-menu label="菜单反转色">
+      <n-switch :value="theme.layout.inverted" @update:value="theme.setInvertedMode" />
+    </setting-menu>
     <setting-menu label="固定头部和多页签">
       <n-switch :value="theme.fixedHeaderAndTab" @update:value="theme.setIsFixedHeaderAndTab" />
     </setting-menu>

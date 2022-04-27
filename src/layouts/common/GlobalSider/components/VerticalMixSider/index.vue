@@ -1,5 +1,5 @@
 <template>
-  <dark-mode-container class="flex h-full" @mouseleave="resetFirstDegreeMenus">
+  <dark-mode-container class="flex h-full" :inverted="inverted" @mouseleave="resetFirstDegreeMenus">
     <div class="flex-1 flex-col-stretch h-full">
       <global-logo :show-title="false" :style="{ height: theme.header.height + 'px' }" />
       <n-scrollbar class="flex-1-hidden">
@@ -92,6 +92,8 @@ const activeChildMenus = computed(() => {
   });
   return menus;
 });
+
+const inverted = computed(() => theme.layout.inverted);
 
 watch(
   () => route.name,
