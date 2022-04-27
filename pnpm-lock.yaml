@@ -8,7 +8,7 @@ specifiers:
   '@commitlint/config-conventional': ^16.2.1
   '@iconify/json': ^2.1.33
   '@iconify/vue': ^3.2.1
-  '@soybeanjs/vue-admin-layout': ^1.0.2
+  '@soybeanjs/vue-admin-layout': ^1.0.3
   '@soybeanjs/vue-admin-tab': ^1.0.1
   '@types/bmapgl': ^0.0.5
   '@types/crypto-js': ^4.1.1
@@ -75,7 +75,7 @@ specifiers:
 dependencies:
   '@antv/g2plot': 2.4.16
   '@better-scroll/core': registry.nlark.com/@better-scroll/core/2.4.2
-  '@soybeanjs/vue-admin-layout': 1.0.2_vue@3.2.33
+  '@soybeanjs/vue-admin-layout': 1.0.3_vue@3.2.33
   '@soybeanjs/vue-admin-tab': 1.0.1_vue@3.2.33
   '@vueuse/core': 8.3.1_vue@3.2.33
   axios: 0.27.2
@@ -1029,8 +1029,8 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@soybeanjs/vue-admin-layout/1.0.2_vue@3.2.33:
-    resolution: {integrity: sha512-6OnBEpabV121ChT1SHiSXhyv1QN+rkkdZt4pflrg8vOAmy2hbx935KtCsgXjw5ObGO/tYPkfQSs4gi0ZVgmpUw==}
+  /@soybeanjs/vue-admin-layout/1.0.3_vue@3.2.33:
+    resolution: {integrity: sha512-ech9q8XOkQ2rIxF5D2p4ikzV/S5yk08N2sWuQWC6QSzF3c8seG89i+Pl+k0NZRkKlnD3ntz9Ai0VqxET/jhMdw==}
     peerDependencies:
       '@vue/composition-api': ^1.4.6
       vue: ^2.0.0 || >=3.0.0
