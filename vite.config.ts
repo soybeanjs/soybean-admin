@@ -1,20 +1,23 @@
+import { fileURLToPath } from 'url';
 import { defineConfig, loadEnv } from 'vite';
-import { resolvePath, viteDefine, setupVitePlugins, createViteProxy } from './build';
+import { viteDefine, setupVitePlugins, createViteProxy } from './build';
 
 export default defineConfig(configEnv => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as ImportMetaEnv;
-  const vitePath = resolvePath('./', import.meta.url);
+
+  const rootPath = fileURLToPath(new URL('./', import.meta.url));
+  const srcPath = `${rootPath}src`;
 
   return {
     base: viteEnv.VITE_BASE_URL,
     resolve: {
       alias: {
-        '~': vitePath.root,
-        '@': vitePath.src
+        '~': rootPath,
+        '@': srcPath
       }
     },
     define: viteDefine,
-    plugins: setupVitePlugins(configEnv, vitePath.src, viteEnv),
+    plugins: setupVitePlugins(viteEnv, srcPath),
     css: {
       preprocessorOptions: {
         scss: {

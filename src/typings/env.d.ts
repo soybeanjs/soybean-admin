@@ -1,12 +1,3 @@
-/// <reference types="vite/client" />
-
-declare module '*.vue' {
-  import { DefineComponent } from 'vue';
-
-  const component: DefineComponent<object, object, any>;
-  export default component;
-}
-
 /**
  * env环境类型
  * - dev: 后台开发环境
@@ -38,6 +29,10 @@ interface ImportMetaEnv {
   readonly VITE_HTTP_PROXY?: 'true' | 'false';
   /** 是否开启打包文件大小结果分析 */
   readonly VITE_VISUALIZER?: 'true' | 'false';
+  /** 是否开启打包压缩 */
+  readonly VITE_COMPRESS?: 'true' | 'false';
+  /** 压缩算法类型 */
+  readonly VITE_COMPRESS_TYPE?: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw';
   /** hash路由模式 */
   readonly VITE_HASH_ROUTE?: 'true' | 'false';
 }
