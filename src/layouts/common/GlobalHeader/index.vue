@@ -1,5 +1,5 @@
 <template>
-  <dark-mode-container class="global-header flex-y-center h-full">
+  <dark-mode-container class="global-header flex-y-center h-full" :inverted="theme.header.inverted">
     <global-logo v-if="showLogo" :show-title="true" class="h-full" :style="{ width: theme.sider.width + 'px' }" />
     <div v-if="!showHeaderMenu" class="flex-1-hidden flex-y-center h-full">
       <menu-collapse v-if="showMenuCollapse" />

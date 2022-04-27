@@ -1,6 +1,6 @@
 <template>
   <n-dropdown :options="options" @select="handleDropdown">
-    <hover-container class="px-12px">
+    <hover-container class="px-12px" content-class="hover:text-primary">
       <icon-custom-avatar class="text-32px" />
       <span class="pl-8px text-16px font-medium">{{ auth.userInfo.userName }}</span>
     </hover-container>
