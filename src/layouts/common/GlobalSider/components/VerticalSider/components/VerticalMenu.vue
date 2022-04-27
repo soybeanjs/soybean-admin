@@ -8,6 +8,7 @@
       :options="routeStore.menus"
       :expanded-keys="expandedKeys"
       :indent="18"
+      :inverted="theme.sider.inverted"
       @update:value="handleUpdateMenu"
       @update:expanded-keys="handleUpdateExpandedKeys"
     />

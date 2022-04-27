@@ -1,7 +1,12 @@
 <template>
   <div>
-    <hover-container tooltip-content="搜索" class="w-40px h-full" @click="handleSearch">
-      <icon-uil-search class="text-20px text-[#666]" />
+    <hover-container
+      class="w-40px h-full"
+      tooltip-content="搜索"
+      content-class="hover:text-primary"
+      @click="handleSearch"
+    >
+      <icon-uil-search class="text-20px" />
     </hover-container>
     <search-modal v-model:value="show" />
   </div>

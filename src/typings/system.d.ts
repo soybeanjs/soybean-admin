@@ -147,6 +147,8 @@ declare namespace Theme {
 
   /** 头部样式 */
   interface Header {
+    /** 头部反转色 */
+    inverted: boolean;
     /** 头部高度 */
     height: number;
     /** 面包屑样式 */
@@ -182,6 +184,8 @@ declare namespace Theme {
 
   /** 侧边栏样式 */
   interface Sider {
+    /** 侧边栏反转色 */
+    inverted: boolean;
     /** 侧边栏宽度 */
     width: number;
     /** 侧边栏折叠时的宽度 */
