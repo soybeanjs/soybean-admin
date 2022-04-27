@@ -6,9 +6,7 @@
  */
 type EnvType = 'dev' | 'test' | 'prod';
 
-/**
- * env环境配置
- */
+/** env环境配置 */
 interface EnvConfig {
   /** 请求地址 */
   url: string;
