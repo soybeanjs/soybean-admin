@@ -8,6 +8,7 @@
       :options="routeStore.menus"
       :expanded-keys="expandedKeys"
       :indent="18"
+      :inverted="inverted"
       @update:value="handleUpdateMenu"
       @update:expanded-keys="handleUpdateExpandedKeys"
     />
@@ -30,6 +31,7 @@ const { routerPush } = useRouterPush();
 
 const activeKey = computed(() => route.name as string);
 const expandedKeys = ref<string[]>([]);
+const inverted = computed(() => theme.layout.inverted && theme.layout.mode === 'vertical');
 
 function handleUpdateMenu(_key: string, item: MenuOption) {
   const menuItem = item as GlobalMenuOption;

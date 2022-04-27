@@ -38,6 +38,10 @@ export const useThemeStore = defineStore('theme-store', {
     setLayoutMode(mode: EnumType.ThemeLayoutMode) {
       this.layout.mode = mode;
     },
+    /** 切换菜单反转模式 */
+    setInvertedMode(isInverted: boolean) {
+      this.layout.inverted = isInverted;
+    },
     /** 设置系统主题颜色 */
     setThemeColor(themeColor: string) {
       this.themeColor = themeColor;

@@ -33,6 +33,7 @@ const defaultThemeSetting: Theme.Setting = {
   layout: {
     minWidth: 900,
     mode: 'vertical',
+    inverted: false,
     modeList: [
       { value: 'vertical', label: EnumThemeLayoutMode.vertical },
       { value: 'vertical-mix', label: EnumThemeLayoutMode['vertical-mix'] },

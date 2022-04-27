@@ -1,5 +1,5 @@
 <template>
-  <dark-mode-container class="flex-col-stretch h-full">
+  <dark-mode-container class="flex-col-stretch h-full" :inverted="inverted">
     <global-logo v-if="!isHorizontalMix" :show-title="showTitle" :style="{ height: theme.header.height + 'px' }" />
     <vertical-menu />
   </dark-mode-container>
@@ -16,5 +16,6 @@ const theme = useThemeStore();
 
 const isHorizontalMix = computed(() => theme.layout.mode === 'horizontal-mix');
 const showTitle = computed(() => !app.siderCollapse && theme.layout.mode !== 'vertical-mix');
+const inverted = computed(() => theme.layout.inverted && theme.layout.mode === 'vertical');
 </script>
 <style scoped></style>
