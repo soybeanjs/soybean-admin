@@ -38,6 +38,14 @@ export const useThemeStore = defineStore('theme-store', {
     setLayoutMode(mode: EnumType.ThemeLayoutMode) {
       this.layout.mode = mode;
     },
+    /** 设置侧边栏反转色 */
+    setSiderInverted(isInverted: boolean) {
+      this.sider.inverted = isInverted;
+    },
+    /** 设置头部反转色 */
+    setHeaderInverted(isInverted: boolean) {
+      this.header.inverted = isInverted;
+    },
     /** 设置系统主题颜色 */
     setThemeColor(themeColor: string) {
       this.themeColor = themeColor;
