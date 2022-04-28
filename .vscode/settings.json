@@ -33,7 +33,6 @@
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"javascript.updateImportsOnFileMove.enabled": "always",
 	"[javascriptreact]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
@@ -72,5 +71,6 @@
 		"business": "core",
 		"request": "api",
 		"adapter": "middleware"
-	}
+	},
+	"unocss.root": "src"
 }

@@ -22,7 +22,7 @@ export const formRules: CustomFormRules = {
   ],
   pwd: [
     { required: true, message: '请输入密码' },
-    { pattern: REGEXP_PWD, message: '密码为8-18位数字/字符/符号，至少2种组合', trigger: 'input' }
+    { pattern: REGEXP_PWD, message: '密码为6-18位数字/字符/符号，至少2种组合', trigger: 'input' }
   ],
   code: [
     { required: true, message: '请输入验证码' },

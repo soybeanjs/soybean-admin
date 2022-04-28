@@ -106,11 +106,11 @@ const technology: Technology[] = [
   },
   {
     id: 4,
-    name: 'WindiCSS',
+    name: 'UnoCSS',
     description: '下一代实用优先的CSS框架',
-    author: 'Windicss',
-    site: 'https://windicss.org/',
-    icon: 'file-icons:windi',
+    author: 'Anthony Fu',
+    site: 'https://uno.antfu.me/?s=',
+    icon: 'logos:unocss',
     iconColor: '#48b0f1'
   },
   {

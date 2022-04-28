@@ -1,9 +1,11 @@
-import { unref } from 'vue';
+import { unref, nextTick } from 'vue';
 import { defineStore } from 'pinia';
 import { router as globalRouter } from '@/router';
 import { useRouterPush } from '@/composables';
 import { fetchLogin, fetchUserInfo } from '@/service';
 import { getUserInfo, getToken, setUserInfo, setToken, setRefreshToken, clearAuthStorage } from '@/utils';
+import { useTabStore } from '../tab';
+import { useRouteStore } from '../route';
 
 interface AuthState {
   /** 用户信息 */
@@ -30,6 +32,8 @@ export const useAuthStore = defineStore('auth-store', {
     /** 重置auth状态 */
     resetAuthStore() {
       const { toLogin } = useRouterPush(false);
+      const { resetTabStore } = useTabStore();
+      const { resetRouteStore } = useRouteStore();
       const route = unref(globalRouter.currentRoute);
 
       clearAuthStorage();
@@ -38,6 +42,11 @@ export const useAuthStore = defineStore('auth-store', {
       if (route.meta.requiresAuth) {
         toLogin();
       }
+
+      nextTick(() => {
+        resetTabStore();
+        resetRouteStore();
+      });
     },
     /**
      * 根据token进行登录
@@ -46,7 +55,7 @@ export const useAuthStore = defineStore('auth-store', {
     async loginByToken(backendToken: ApiAuth.Token) {
       const { toLoginRedirect } = useRouterPush(false);
 
-      // 先把token存储到缓存中
+      // 先把token存储到缓存中(后面接口的请求头需要token)
       const { token, refreshToken } = backendToken;
       setToken(token);
       setRefreshToken(refreshToken);
@@ -76,13 +85,12 @@ export const useAuthStore = defineStore('auth-store', {
     },
     /**
      * 登录
-     * @param phone - 手机号
-     * @param pwdOrCode - 密码或验证码
-     * @param type - 登录方式: pwd - 密码登录; sms - 验证码登录
+     * @param userName - 用户名
+     * @param password - 密码
      */
-    async login(phone: string, pwdOrCode: string, type: 'pwd' | 'sms') {
+    async login(userName: string, password: string) {
       this.loginLoading = true;
-      const { data } = await fetchLogin(phone, pwdOrCode, type);
+      const { data } = await fetchLogin(userName, password);
       if (data) {
         await this.loginByToken(data);
       }

@@ -43,6 +43,9 @@ export const useRouteStore = defineStore('route-store', {
     cacheRoutes: []
   }),
   actions: {
+    resetRouteStore() {
+      this.$reset();
+    },
     /**
      * 处理权限路由
      * @param routes - 权限路由
@@ -53,6 +56,7 @@ export const useRouteStore = defineStore('route-store', {
       this.searchMenus = transformAuthRoutesToSearchMenus(routes);
 
       const vueRoutes = transformAuthRoutesToVueRoutes(routes);
+
       vueRoutes.forEach(route => {
         router.addRoute(route);
       });

@@ -63,9 +63,9 @@ function handleSubmit(e: MouseEvent) {
   formRef.value.validate(errors => {
     if (!errors) {
       if (!agreement.value) return;
-      window.$message?.success('验证成功');
+      window.$message?.success('验证成功!');
     } else {
-      window.$message?.error('验证失败');
+      window.$message?.error('验证失败!');
     }
   });
 }

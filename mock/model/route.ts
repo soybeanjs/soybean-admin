@@ -1,4 +1,4 @@
-const routes: Record<Auth.RoleType, AuthRoute.Route[]> = {
+export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
   super: [
     {
       name: 'dashboard',
@@ -844,5 +844,3 @@ const routes: Record<Auth.RoleType, AuthRoute.Route[]> = {
     }
   ]
 };
-
-export default routes;

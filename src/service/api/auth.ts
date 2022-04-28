@@ -11,15 +11,11 @@ export function fetchSmsCode(phone: string) {
 
 /**
  * 登录
- * @param phone - 手机号
- * @param pwdOrCode - 密码或验证码
- * @param type - 登录方式: pwd - 密码登录; sms - 验证码登录
+ * @param userName - 用户名
+ * @param password - 密码
  */
-export function fetchLogin(phone: string, pwdOrCode: string, type: 'pwd' | 'sms') {
-  if (type === 'pwd') {
-    return mockRequest.post<ApiAuth.Token>('/loginByPwd', { phone, pwd: pwdOrCode });
-  }
-  return mockRequest.post<ApiAuth.Token>('/loginByCode', { phone, code: pwdOrCode });
+export function fetchLogin(userName: string, password: string) {
+  return mockRequest.post<ApiAuth.Token>('/login', { userName, password });
 }
 
 /** 获取用户信息 */

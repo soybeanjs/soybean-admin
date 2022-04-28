@@ -11,7 +11,7 @@ export default function subscribeThemeStore() {
   const theme = useThemeStore();
   const osTheme = useOsTheme();
   const { width } = useElementSize(document.documentElement);
-  const { addDarkClass, removeDarkClass } = handleWindicssDarkMode();
+  const { addDarkClass, removeDarkClass } = handleCssDarkMode();
 
   // 监听主题颜色
   const stopThemeColor = watch(
@@ -76,8 +76,8 @@ export default function subscribeThemeStore() {
   });
 }
 
-/** windicss 暗黑模式 */
-function handleWindicssDarkMode() {
+/** css 暗黑模式 */
+function handleCssDarkMode() {
   const DARK_CLASS = 'dark';
   function addDarkClass() {
     document.documentElement.classList.add(DARK_CLASS);

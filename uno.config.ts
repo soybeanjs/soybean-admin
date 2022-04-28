@@ -1,6 +1,7 @@
 import { defineConfig, presetMini } from 'unocss';
 
 export default defineConfig({
+  exclude: ['node_modules', '.git', './stats.html'],
   presets: [presetMini({ dark: 'class' })],
   shortcuts: {
     'wh-full': 'w-full h-full',

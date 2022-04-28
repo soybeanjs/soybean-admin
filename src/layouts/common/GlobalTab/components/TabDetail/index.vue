@@ -50,7 +50,7 @@ const activeComponent = computed(() => (isChromeMode.value ? ChromeTab : ButtonT
 const tabRef = ref<HTMLElement>();
 async function getActiveTabClientX() {
   await nextTick();
-  if (tabRef.value) {
+  if (tabRef.value && tabRef.value.children.length && tabRef.value.children[tab.activeTabIndex]) {
     const activeTabElement = tabRef.value.children[tab.activeTabIndex];
     const { x, width } = activeTabElement.getBoundingClientRect();
     const clientX = x + width / 2;

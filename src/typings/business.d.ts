@@ -15,8 +15,6 @@ declare namespace Auth {
     userId: string;
     /** 用户名 */
     userName: string;
-    /** 用户手机号 */
-    userPhone: string;
     /** 用户角色类型 */
     userRole: RoleType;
   }

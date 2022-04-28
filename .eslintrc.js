@@ -55,12 +55,11 @@ module.exports = {
             group: 'external',
             position: 'before'
           },
-          // ui framework, such as "naive-ui"
-          // {
-          //   pattern: 'naive-ui',
-          //   group: 'external',
-          //   position: 'before'
-          // },
+          {
+            pattern: 'naive-ui',
+            group: 'external',
+            position: 'before'
+          },
           {
             pattern: '@/config',
             group: 'internal',
@@ -142,13 +141,7 @@ module.exports = {
             position: 'before'
           }
         ],
-        pathGroupsExcludedImportTypes: [
-          'vue',
-          'vue-router',
-          'vuex',
-          'pinia'
-          // 'naive-ui'
-        ]
+        pathGroupsExcludedImportTypes: ['vue', 'vue-router', 'vuex', 'pinia', 'naive-ui']
       }
     ],
     'import/no-unresolved': 'off',
@@ -171,17 +164,7 @@ module.exports = {
         ignores: ['index']
       }
     ],
-    '@typescript-eslint/ban-types': [
-      'error',
-      {
-        types: {
-          '{}': {
-            message: 'Use object instead',
-            fixWith: 'object'
-          }
-        }
-      }
-    ],
+    '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-empty-interface': [
       'error',
       {
@@ -192,17 +175,12 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-use-before-define': ['error', { classes: true, functions: false, typedefs: false }]
+    '@typescript-eslint/no-use-before-define': ['warn', { classes: true, functions: false, typedefs: false }]
   },
   overrides: [
     {
       files: ['*.vue'],
-      parser: 'vue-eslint-parser',
-      parserOptions: {
-        parser: '@typescript-eslint/parser'
-      },
       rules: {
-        'no-unused-vars': 'off',
         'no-undef': 'off'
       }
     },

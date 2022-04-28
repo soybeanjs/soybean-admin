@@ -1,4 +1,6 @@
-export function adapterOfDataWithAdapter(res: Service.RequestResult<ApiDemo.DataWithAdapter>): Demo.DataWithAdapter {
+export function adapterOfFetchDataWithAdapter(
+  res: Service.RequestResult<ApiDemo.DataWithAdapter>
+): Demo.DataWithAdapter {
   const { dataId, dataName } = res.data!;
 
   const result: Demo.DataWithAdapter = {

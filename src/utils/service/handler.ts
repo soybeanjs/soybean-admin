@@ -21,7 +21,7 @@ type Adapter<T = any> = (...args: Service.RequestResult[]) => T;
  * @param adapter - 适配器函数
  * @param args - 适配器函数的参数
  */
-export function adapterOfServiceResult<T extends Adapter>(adapter: T, ...args: TypeUtil.GetFunArgs<T>) {
+export function serviceAdapter<T extends Adapter>(adapter: T, ...args: TypeUtil.GetFunArgs<T>) {
   let result: Service.RequestResult | undefined;
 
   const hasError = args.some(item => {

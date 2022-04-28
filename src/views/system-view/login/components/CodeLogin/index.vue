@@ -43,7 +43,6 @@ import { useSmsCode } from '@/hooks';
 import { formRules, getImgCodeRule } from '@/utils';
 
 const auth = useAuthStore();
-const { login } = useAuthStore();
 const { toLoginModule } = useRouterPush();
 const { label, isCounting, loading: smsLoading, getSmsCode } = useSmsCode();
 
@@ -70,8 +69,9 @@ function handleSubmit(e: MouseEvent) {
 
   formRef.value.validate(errors => {
     if (!errors) {
-      const { phone, code } = model;
-      login(phone, code, 'sms');
+      window.$message?.success('验证通过!');
+    } else {
+      window.$message?.error('验证失败');
     }
   });
 }
