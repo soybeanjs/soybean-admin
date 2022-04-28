@@ -12,7 +12,7 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 ## 特性
 
 - **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发, 使用高效率的npm包管理器pnpm
-- **TypeScript**: 应用程序级 JavaScript 的语言
+- **TypeScript**：应用程序级 JavaScript 的语言
 - **主题**：丰富可配置的主题、暗黑模式，基于原子css - unocss的动态主题颜色
 - **代码规范**：丰富的规范插件及极高的代码规范
 - **权限路由**：简易的路由配置、基于mock的动态路由能快速实现后端动态路由
@@ -50,9 +50,6 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 ## 开发计划
 
-- [x] 添加前端静态路由
-- [x] 集成unocss替换windicss
-- [x] 用户角色切换示例、按钮级别权限指令
 - [ ] 引入ECharts替换AntV G2Plot
 - [ ] 最近功能的有关文档更新
 - [ ] 性能优化(优化递归函数)
