@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.4](https://github.com/honghuangdc/soybean-admin/compare/v0.9.3...v0.9.4) (2022-04-28)
+
+
+### Features
+
+* **layouts:** 添加侧边栏/头部的反转模式来增加对比度 ([861c8b9](https://github.com/honghuangdc/soybean-admin/commit/861c8b9852e0097a1f6b79ac2c10d19add123bde))
+* **layouts:** 添加侧边栏/头部的反转模式来增加对比度 ([3c8dd77](https://github.com/honghuangdc/soybean-admin/commit/3c8dd772f89d2b656a42c4f7164e581acdb2b1a5))
+* **projects:** 插件方式按需引入naiveUI ([6bed9ea](https://github.com/honghuangdc/soybean-admin/commit/6bed9ead38af6d58f6cd9e520db848ae5cbfa4db))
+* **projects:** 登录页背景图片位置适配移动端 ([24010d0](https://github.com/honghuangdc/soybean-admin/commit/24010d05fb1ff51cb5e5d94ffe310206a9638711))
+* **projects:** 登录页面适配移动端 ([ec0776e](https://github.com/honghuangdc/soybean-admin/commit/ec0776e268cd3d1031e9ecd794abce271a675793))
+* **projects:** 权限完善及权限示例页面 ([807448a](https://github.com/honghuangdc/soybean-admin/commit/807448aec5b041535fe4fbac90eca1138b2f439c))
+* **projects:** 添加请求适配器的请求示例 ([bed4292](https://github.com/honghuangdc/soybean-admin/commit/bed4292ed380e77ac428ab057abc42eceb72af53))
+* **projects:** 新增静态路由 ([ca2dfa6](https://github.com/honghuangdc/soybean-admin/commit/ca2dfa6185aa7a4e58184bcfef2a1246a52f88fd))
+* **projects:** 引入unocss替换windicss ([c9d3e5a](https://github.com/honghuangdc/soybean-admin/commit/c9d3e5a3fdf59179dcfc122ab8369c492ea7832e))
+* **projects:** HTML lang 修改为 zh-cmn-Hans ([b9c5c34](https://github.com/honghuangdc/soybean-admin/commit/b9c5c349790b1e83a7acd1f2c53a86c9221944ff))
+* **projects:** HTML lang 修改为 zh-cmn-Hans ([dbeb595](https://github.com/honghuangdc/soybean-admin/commit/dbeb595c0b9fc11e7d166a7684af37cc971f1a11))
+* **projects:** mock添加权限过滤 ([7f4350a](https://github.com/honghuangdc/soybean-admin/commit/7f4350aeb673dab59192584177a897aacebe4b28))
+
+
+### Bug Fixes
+
+* **projects:** 去除从环境文件引入端口号导致的错误 ([2d6d179](https://github.com/honghuangdc/soybean-admin/commit/2d6d179d669ea71cca3fe97ac840e4856bff4051))
+* **projects:** 全局搜索弹窗弹出时动画闪屏问题 ([bb1bbf2](https://github.com/honghuangdc/soybean-admin/commit/bb1bbf272438f4ed440735118c6a9ec04c7d109f))
+* **projects:** 添加.npmrc修复无法获取自动引入的全局组件声明类型 ([e8488e4](https://github.com/honghuangdc/soybean-admin/commit/e8488e4d5237e5e03ec07ff07d03115389d5b1ef))
+* **projects:** 添加获取路由组件文件未找到时的错误提示 ([219f87f](https://github.com/honghuangdc/soybean-admin/commit/219f87f46758f328f26697f66d8583f49c0d41de))
+* **projects:** 修复获取vite环境变量的方式 ([46e1ae7](https://github.com/honghuangdc/soybean-admin/commit/46e1ae7825b2b204ce3cdd63b3c64f39bff096d0))
+* **projects:** 修复路由守卫的动态路由逻辑 ([e6c26fc](https://github.com/honghuangdc/soybean-admin/commit/e6c26fcb4ae085f9fd7d7eb9183ddba020d0b5da))
+* **projects:** 修复样式 ([e899914](https://github.com/honghuangdc/soybean-admin/commit/e8999144266761b3b701442975c3c00251240d53))
+* **projects:** 修复在新版vite下环境变量获取不到的问题 ([3fb13ca](https://github.com/honghuangdc/soybean-admin/commit/3fb13ca9e710549d2ddeb774fe08fabd27d5ae11))
+* **projects:** 修复vite alias ([cd7ca8f](https://github.com/honghuangdc/soybean-admin/commit/cd7ca8f4c77ac8c753b753ba698a9573d6c37bf9))
+
 ### [0.9.3](https://github.com/honghuangdc/soybean-admin/compare/v0.9.2...v0.9.3) (2022-03-12)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "soybean-admin",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "scripts": {
     "dev": "cross-env VITE_ENV_TYPE=dev vite",
     "dev:test": "cross-env VITE_ENV_TYPE=test vite",
@@ -85,6 +85,7 @@
     "prettier": "^2.6.2",
     "rollup-plugin-visualizer": "^5.6.0",
     "sass": "^1.51.0",
+    "standard-version": "^9.3.2",
     "typescript": "^4.6.3",
     "unocss": "^0.32.1",
     "unplugin-icons": "^0.14.1",
