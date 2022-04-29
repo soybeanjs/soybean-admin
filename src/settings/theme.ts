@@ -29,6 +29,7 @@ const themeColorList = [
 ];
 
 const defaultThemeSetting: Theme.Setting = {
+  followSystemTheme: true,
   darkMode: false,
   layout: {
     minWidth: 900,

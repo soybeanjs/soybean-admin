@@ -26,6 +26,16 @@ export const useThemeStore = defineStore('theme-store', {
     setDarkMode(darkMode: boolean) {
       this.darkMode = darkMode;
     },
+    /** 设置自动跟随系统主题 */
+    setFollowSystemTheme(visible: boolean) {
+      this.followSystemTheme = visible;
+    },
+    /** 自动跟随系统主题 */
+    autoFollowSystemMode(darkMode: boolean) {
+      if (this.followSystemTheme) {
+        this.darkMode = darkMode;
+      }
+    },
     /** 切换/关闭 暗黑模式 */
     toggleDarkMode() {
       this.darkMode = !this.darkMode;
