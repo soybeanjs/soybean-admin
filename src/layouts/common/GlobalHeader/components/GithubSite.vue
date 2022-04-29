@@ -2,7 +2,7 @@
   <hover-container
     tooltip-content="github"
     class="w-40px h-full"
-    content-class="hover:text-primary"
+    :inverted="theme.header.inverted"
     @click="handleClickLink"
   >
     <icon-mdi-github class="text-20px" />
@@ -10,6 +10,9 @@
 </template>
 
 <script lang="ts" setup>
+import { useThemeStore } from '@/store';
+
+const theme = useThemeStore();
 function handleClickLink() {
   window.open('https://github.com/honghuangdc/soybean-admin', '_blank');
 }

@@ -17,8 +17,9 @@
             :is="breadcrumb.icon"
             v-if="theme.header.crumb.showIcon"
             class="inline-block align-text-bottom mr-4px text-16px"
+            :class="theme.header.inverted && 'text-#BBBBBB'"
           />
-          <span>{{ breadcrumb.label }}</span>
+          <span :class="theme.header.inverted && 'text-#BBBBBB'">{{ breadcrumb.label }}</span>
         </template>
       </n-breadcrumb-item>
     </template>
