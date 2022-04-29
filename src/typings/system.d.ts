@@ -98,6 +98,8 @@ declare namespace Service {
 declare namespace Theme {
   /** 主题配置 */
   interface Setting {
+    /** 是否自动跟随系统主题 */
+    followSystemTheme: boolean;
     /** 暗黑模式 */
     darkMode: boolean;
     /** 布局样式 */
