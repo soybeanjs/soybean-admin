@@ -3,7 +3,7 @@
     <hover-container
       class="w-40px h-full"
       tooltip-content="搜索"
-      content-class="hover:text-primary"
+      :inverted="theme.header.inverted"
       @click="handleSearch"
     >
       <icon-uil-search class="text-20px" />
@@ -13,10 +13,12 @@
 </template>
 
 <script lang="ts" setup>
+import { useThemeStore } from '@/store';
 import { useBoolean } from '@/hooks';
 import { SearchModal } from './components';
 
 const { bool: show, toggle } = useBoolean();
+const theme = useThemeStore();
 
 function handleSearch() {
   toggle();

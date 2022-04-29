@@ -1,6 +1,6 @@
 <template>
   <n-dropdown :options="options" @select="handleDropdown">
-    <hover-container class="px-12px" content-class="hover:text-primary">
+    <hover-container class="px-12px" :inverted="theme.header.inverted">
       <icon-custom-avatar class="text-32px" />
       <span class="pl-8px text-16px font-medium">{{ auth.userInfo.userName }}</span>
     </hover-container>
@@ -8,12 +8,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useAuthStore } from '@/store';
+import { useAuthStore, useThemeStore } from '@/store';
 import { iconifyRender } from '@/utils';
 
 type DropdownKey = 'user-center' | 'logout';
 
 const auth = useAuthStore();
+const theme = useThemeStore();
 
 const options = [
   {
