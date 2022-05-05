@@ -16,10 +16,10 @@
     <setting-menu label="跟随系统">
       <n-switch :value="theme.followSystemTheme" @update:value="theme.setFollowSystemTheme">
         <template #checked>
-          <icon-ic:baseline-do-not-disturb class="text-14px text-primary" />
+          <icon-ic-baseline-do-not-disturb class="text-14px text-primary" />
         </template>
         <template #unchecked>
-          <icon-ic:round-hdr-auto class="text-14px text-primary" />
+          <icon-ic-round-hdr-auto class="text-14px text-primary" />
         </template>
       </n-switch>
     </setting-menu>
