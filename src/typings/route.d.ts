@@ -70,7 +70,7 @@ declare namespace AuthRoute {
   type RouteMeta = {
     /** 路由标题(可用来作document.title或者菜单的名称) */
     title: string;
-    /** 路由的动态路径 */
+    /** 路由的动态路径(需要动态路径的页面需要将path添加进范型参数) */
     dynamicPath?: PathToDynamicPath<'/login'>;
     /** 作为单级路由的父级路由布局组件 */
     singleLayout?: Extract<RouteComponent, 'basic' | 'blank'>;
@@ -85,7 +85,7 @@ declare namespace AuthRoute {
     keepAlive?: boolean;
     /** 菜单和面包屑对应的图标 */
     icon?: string;
-    /** 是否在菜单中隐藏 */
+    /** 是否在菜单中隐藏(一些列表、表格的详情页面需要通过参数跳转，所以不能显示在菜单中) */
     hide?: boolean;
     /** 外链链接 */
     href?: string;
@@ -140,9 +140,9 @@ declare namespace AuthRoute {
 
   /** 路由path转换动态路径 */
   type PathToDynamicPath<Path extends RoutePath> =
-    | `${Path}/:module`
-    | `${Path}/:module(${string})`
-    | `${Path}/:module(${string})?`;
+    | `${Path}/:${string}`
+    | `${Path}/:${string}(${string})`
+    | `${Path}/:${string}(${string})?`;
 
   /** 获取一级路由(包括有子路由的一级路由) */
   type GetSingleRouteKey<Key extends RouteKey> = Key extends `${infer _Left}${RouteSplitMark}${infer _Right}`

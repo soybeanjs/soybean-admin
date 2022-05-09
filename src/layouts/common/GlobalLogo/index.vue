@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
 import { routePath } from '@/router';
 import { useAppInfo } from '@/composables';
 

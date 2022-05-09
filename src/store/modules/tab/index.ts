@@ -69,7 +69,8 @@ export const useTabStore = defineStore('tab-store', {
      */
     addTab(route: RouteLocationNormalizedLoaded) {
       if (!isInTabRoutes(this.tabs, route.path)) {
-        this.tabs.push(getTabRouteByVueRoute(route));
+        const tab = getTabRouteByVueRoute(route);
+        this.tabs.push(tab);
       }
     },
     /**

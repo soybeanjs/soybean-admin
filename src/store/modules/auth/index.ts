@@ -67,7 +67,8 @@ export const useAuthStore = defineStore('auth-store', {
         setUserInfo(data);
 
         // 更新状态
-        Object.assign(this, { userInfo: data, token });
+        this.userInfo = data;
+        this.token = token;
 
         // 跳转登录后的地址
         toLoginRedirect();
