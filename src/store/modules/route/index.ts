@@ -1,6 +1,5 @@
-import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
-import { routes as staticRoutes } from '@/router';
+import { router, constantRoutes, routes as staticRoutes } from '@/router';
 import { fetchUserRoutes } from '@/service';
 import {
   getUserInfo,
@@ -9,7 +8,8 @@ import {
   transformAuthRoutesToSearchMenus,
   getCacheRoutes,
   filterAuthRoutesByUserPermission,
-  transformRoutePathToRouteName
+  transformRoutePathToRouteName,
+  getConstantRouteNames
 } from '@/utils';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
@@ -44,14 +44,25 @@ export const useRouteStore = defineStore('route-store', {
   }),
   actions: {
     resetRouteStore() {
+      this.resetRoutes();
       this.$reset();
+    },
+    /** 重置路由数据，保留固定路由 */
+    resetRoutes() {
+      const routes = router.getRoutes();
+      const constantRouteNames = getConstantRouteNames(constantRoutes);
+      routes.forEach(route => {
+        const name: AuthRoute.RouteKey = (route.name || 'root') as AuthRoute.RouteKey;
+        if (!constantRouteNames.includes(name)) {
+          router.removeRoute(name);
+        }
+      });
     },
     /**
      * 处理权限路由
      * @param routes - 权限路由
-     * @param router - 路由实例
      */
-    handleAuthRoutes(routes: AuthRoute.Route[], router: Router) {
+    handleAuthRoutes(routes: AuthRoute.Route[]) {
       this.menus = transformAuthRouteToMenu(routes);
       this.searchMenus = transformAuthRoutesToSearchMenus(routes);
 
@@ -63,32 +74,23 @@ export const useRouteStore = defineStore('route-store', {
 
       this.cacheRoutes = getCacheRoutes(vueRoutes);
     },
-    /**
-     * 初始化动态路由
-     * @param router - 路由实例
-     */
-    async initDynamicRoute(router: Router) {
+    /** 初始化动态路由 */
+    async initDynamicRoute() {
       const { userId } = getUserInfo();
       const { data } = await fetchUserRoutes(userId);
       if (data) {
         this.routeHomeName = data.home;
-        this.handleAuthRoutes(data.routes, router);
+        this.handleAuthRoutes(data.routes);
       }
     },
-    /**
-     * 初始化静态路由
-     * @param router - 路由实例
-     */
-    async initStaticRoute(router: Router) {
+    /** 初始化静态路由 */
+    async initStaticRoute() {
       const auth = useAuthStore();
       const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
-      this.handleAuthRoutes(routes, router);
+      this.handleAuthRoutes(routes);
     },
-    /**
-     * 初始化权限路由
-     * @param router - 路由实例
-     */
-    async initAuthRoute(router: Router) {
+    /** 初始化权限路由 */
+    async initAuthRoute() {
       const { initHomeTab } = useTabStore();
       const { userId } = getUserInfo();
 
@@ -96,9 +98,9 @@ export const useRouteStore = defineStore('route-store', {
 
       const isDynamicRoute = this.authRouteMode === 'dynamic';
       if (isDynamicRoute) {
-        await this.initDynamicRoute(router);
+        await this.initDynamicRoute();
       } else {
-        await this.initStaticRoute(router);
+        await this.initStaticRoute();
       }
 
       initHomeTab(this.routeHomeName, router);

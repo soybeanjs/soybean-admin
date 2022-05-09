@@ -11,7 +11,7 @@ export function createRouterGuard(router: Router) {
     // 开始 loadingBar
     window.$loadingBar?.start();
     // 页面跳转权限处理
-    await createPermissionGuard(to, from, next, router);
+    await createPermissionGuard(to, from, next);
   });
   router.afterEach(to => {
     // 设置document title

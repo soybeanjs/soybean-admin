@@ -1,4 +1,4 @@
-import type { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
+import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { routeName } from '@/router';
 import { useRouteStore } from '@/store';
 import { getToken } from '@/utils';
@@ -9,8 +9,7 @@ import { getToken } from '@/utils';
 export async function createDynamicRouteGuard(
   to: RouteLocationNormalized,
   _from: RouteLocationNormalized,
-  next: NavigationGuardNext,
-  router: Router
+  next: NavigationGuardNext
 ) {
   const route = useRouteStore();
   const isLogin = Boolean(getToken());
@@ -28,7 +27,7 @@ export async function createDynamicRouteGuard(
       return false;
     }
 
-    await route.initAuthRoute(router);
+    await route.initAuthRoute();
 
     if (to.name === routeName('not-found-page')) {
       // 动态路由没有加载导致被not-found-page路由捕获，等待权限路由加载好了，回到之前的路由
