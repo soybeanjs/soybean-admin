@@ -154,7 +154,6 @@ module.exports = {
         ignorePropertyModificationsFor: ['state', 'acc', 'e']
       }
     ],
-    'no-plusplus': 'off',
     'no-shadow': 'off',
     'no-unused-vars': 'off',
     'no-use-before-define': 'off',
@@ -175,7 +174,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-use-before-define': ['warn', { classes: true, functions: false, typedefs: false }]
+    '@typescript-eslint/no-use-before-define': ['error', { classes: true, functions: false, typedefs: false }]
   },
   overrides: [
     {
