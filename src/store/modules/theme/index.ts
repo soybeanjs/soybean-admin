@@ -15,6 +15,9 @@ export const useThemeStore = defineStore('theme-store', {
     /** naive-ui暗黑主题 */
     naiveTheme(state) {
       return state.darkMode ? darkTheme : undefined;
+    },
+    pageAnimateMode(state) {
+      return state.page.animate ? state.page.animateMode : undefined;
     }
   },
   actions: {

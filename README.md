@@ -53,19 +53,19 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 - [x] 引入ECharts替换AntV G2Plot
 - [ ] 多页签：同一页面支持多个Tab(应用场景：不同query参数的详情页面在不同tab展示)
 - [ ] 缓存主题配置
-- [ ] 最近功能的有关文档更新
+- [ ] 添加锁屏组件、全局Iframe组件
 - [ ] 性能优化(优化递归函数)
 - [ ] 精简版(新分支thin)
+- [ ] 文档完善
 - [ ] 表单、表格示例
-- [ ] 添加锁屏组件、全局Iframe组件
 - [ ] 示例页面完善
-- [ ] 其他UI版本
 - [ ] element-plus版本
+- [ ] 其他UI版本
 - [ ] soybean-admin cli工具(选择不同UI)
-- [ ] 前端可视化创建路由页面
 - [ ] soybean-admin 后台服务java版: [soybean-admin-java](https://github.com/honghuangdc/soybean-admin-java)
 - [ ] soybean-admin 后台服务go版: [soybean-admin-go](https://github.com/honghuangdc/soybean-admin-go)
 - [ ] soybean-admin 后台服务nodejs版: [soybean-admin-nestjs](https://github.com/honghuangdc/soybean-admin-nestjs)
+- [ ] 前端可视化创建路由页面
 
 ## 安装使用
 
