@@ -8,7 +8,7 @@ specifiers:
   '@iconify/json': ^2.1.40
   '@iconify/vue': ^3.2.1
   '@soybeanjs/vue-admin-layout': ^1.0.4
-  '@soybeanjs/vue-admin-tab': ^1.0.1
+  '@soybeanjs/vue-admin-tab': ^1.0.2
   '@types/bmapgl': ^0.0.5
   '@types/crypto-js': ^4.1.1
   '@types/node': ^17.0.31
@@ -74,7 +74,7 @@ specifiers:
 dependencies:
   '@better-scroll/core': 2.4.2
   '@soybeanjs/vue-admin-layout': 1.0.4_vue@3.2.33
-  '@soybeanjs/vue-admin-tab': 1.0.1_vue@3.2.33
+  '@soybeanjs/vue-admin-tab': 1.0.2_vue@3.2.33
   '@vueuse/core': 8.4.2_vue@3.2.33
   axios: 0.27.2
   clipboard: 2.0.11
@@ -844,8 +844,8 @@ packages:
       vue-demi: 0.12.5_vue@3.2.33
     dev: false
 
-  /@soybeanjs/vue-admin-tab/1.0.1_vue@3.2.33:
-    resolution: {integrity: sha512-hy2xs1+Rb5/UkB1Fpm9Y4BeBO6jI92irh/BXq+rfivUMhWC0uJQpNs4eEhM8dqT2n/bWyU6dtCDJjfxETjqljA==}
+  /@soybeanjs/vue-admin-tab/1.0.2_vue@3.2.33:
+    resolution: {integrity: sha512-T3WVzqqgKH9lZKreQcavcPQRNKjhNy7DeFgnOmSggZJnH7HVS4nRPoBAM+YHkJ8wdK60rcQ7MT6VEKK/aGCn1Q==}
     peerDependencies:
       '@vue/composition-api': ^1.4.6
       vue: ^2.0.0 || >=3.0.0
