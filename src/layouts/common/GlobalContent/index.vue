@@ -4,19 +4,17 @@
     class="h-full bg-[#f6f9f8] dark:bg-[#101014] transition duration-300 ease-in-out"
   >
     <router-view v-slot="{ Component, route }">
-      <div class="h-full">
-        <transition
-          :name="theme.pageAnimateMode"
-          mode="out-in"
-          :appear="true"
-          @before-leave="handleBeforeLeave"
-          @after-enter="handleAfterEnter"
-        >
-          <keep-alive :include="routeStore.cacheRoutes">
-            <component :is="Component" v-if="app.reloadFlag" :key="route.path" />
-          </keep-alive>
-        </transition>
-      </div>
+      <transition
+        :name="theme.pageAnimateMode"
+        mode="out-in"
+        :appear="true"
+        @before-leave="handleBeforeLeave"
+        @after-enter="handleAfterEnter"
+      >
+        <keep-alive :include="routeStore.cacheRoutes">
+          <component :is="Component" v-if="app.reloadFlag" :key="route.path" />
+        </keep-alive>
+      </transition>
     </router-view>
   </div>
 </template>
