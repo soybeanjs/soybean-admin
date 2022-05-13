@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 import Vditor from 'vditor';
-import 'vditor/src/assets/scss/index.scss';
+import 'vditor/dist/index.css';
 import { useThemeStore } from '@/store';
 
 const theme = useThemeStore();
