@@ -7,7 +7,7 @@
 
 ## 简介
 
-Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中后台模版，它使用了最新的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于mock实现的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
+Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中后台模版，它使用了最新的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于mock实现的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
 
 ## 特性
 
@@ -34,19 +34,19 @@ Soybean Admin  是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 ## 项目示例图
 
-![](https://s2.loli.net/2022/01/24/ovK6Oyqr7gIMu2n.png)
+![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
 
-![](https://s2.loli.net/2022/01/24/O8loxYhMySHwGfJ.png)
+![](https://s2.loli.net/2022/05/16/uV5nzjb3gYptAEl.png)
 
-![](https://s2.loli.net/2022/01/24/HKwpJ7Ab6j8fVvk.png)
+![](https://s2.loli.net/2022/05/16/rSnNHLdpuvkKxWq.png)
 
-![](https://s2.loli.net/2022/01/24/bqJRSDZHBv3jsif.png)
+![](https://s2.loli.net/2022/05/16/ktH5dcG3fuFOoKA.png)
 
-![](https://s2.loli.net/2022/01/24/wXpHeau6UrSTWdF.png)
+![](https://s2.loli.net/2022/05/16/VPl6Ru1iCAhLcS4.png)
 
-![](https://s2.loli.net/2022/02/16/pBwF2gaxXnKZe3D.png)
+![](https://s2.loli.net/2022/05/16/bRlAKuHW7ZVh9DT.png)
 
-![](https://s2.loli.net/2022/02/16/pfuxVEPsTJIXw5n.png)
+![](https://s2.loli.net/2022/05/16/JvNt61rx5nca42i.png)
 
 ## 开发计划
 
