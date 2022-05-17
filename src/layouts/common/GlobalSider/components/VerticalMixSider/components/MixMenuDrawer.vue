@@ -53,7 +53,7 @@ const { title } = useAppInfo();
 
 const showDrawer = computed(() => (props.visible && props.menus.length) || app.mixSiderFixed);
 
-const activeKey = computed(() => route.name as string);
+const activeKey = computed(() => (route.meta?.activeMenu ? route.meta.activeMenu : route.name) as string);
 const expandedKeys = ref<string[]>([]);
 
 function handleUpdateMenu(_key: string, item: MenuOption) {
