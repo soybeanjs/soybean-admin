@@ -15,9 +15,8 @@ export function getThemeSettings() {
 type ColorType = 'primary' | 'info' | 'success' | 'warning' | 'error';
 type ColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active';
 type ColorKey = `${ColorType}Color${ColorScene}`;
-type ThemeColor = {
-  [key in ColorKey]?: string;
-};
+type ThemeColor = Partial<Record<ColorKey, string>>;
+
 interface ColorAction {
   scene: ColorScene;
   handler: (color: string) => string;

@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router';
-import { consoleError } from '../common';
 import { getLayoutComponent, getViewComponent } from './component';
 
 /**
@@ -113,7 +112,7 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
           Object.assign(itemRoute, { meta: { ...itemRoute.meta, multi: true } });
           delete itemRoute.component;
         } else {
-          consoleError('多级路由缺少子路由: ', item);
+          window.console.error('多级路由缺少子路由: ', item);
         }
       },
       self() {
@@ -124,17 +123,17 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
       if (item.component) {
         action[item.component]();
       } else {
-        consoleError('路由组件解析失败: ', item);
+        window.console.error('路由组件解析失败: ', item);
       }
     } catch {
-      consoleError('路由组件解析失败: ', item);
+      window.console.error('路由组件解析失败: ', item);
     }
   }
 
   // 注意：单独路由没有children
   if (isSingleRoute(item)) {
     if (hasChildren(item)) {
-      consoleError('单独路由不应该有子路由: ', item);
+      window.console.error('单独路由不应该有子路由: ', item);
     }
 
     // 捕获无效路由的需特殊处理
@@ -169,7 +168,7 @@ function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
     // 找出第一个不为多级路由中间级的子路由路径作为重定向路径
     const redirectPath: AuthRoute.RoutePath = (children.find(v => !v.meta?.multi)?.path || '/') as AuthRoute.RoutePath;
     if (redirectPath === '/') {
-      consoleError('该多级路由没有有效的子路径', item);
+      window.console.error('该多级路由没有有效的子路径', item);
     }
 
     if (item.component === 'multi') {

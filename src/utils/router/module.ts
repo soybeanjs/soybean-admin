@@ -1,5 +1,3 @@
-import { consoleError } from '../common';
-
 /**
  * 权限路由排序
  * @param routes - 权限路由
@@ -20,7 +18,7 @@ export function handleModuleRoutes(modules: AuthRoute.RouteModule) {
     if (item) {
       routes.push(item);
     } else {
-      consoleError(`路由模块解析出错: key = ${key}`);
+      window.console.error(`路由模块解析出错: key = ${key}`);
     }
   });
 

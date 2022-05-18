@@ -2,7 +2,6 @@ import type { Component } from 'vue';
 import { EnumLayoutComponentName } from '@/enum';
 import { BasicLayout, BlankLayout } from '@/layouts';
 import { views } from '@/views';
-import { consoleError } from '../common';
 
 type LayoutComponent = Record<EnumType.LayoutComponentName, () => Promise<Component>>;
 
@@ -24,7 +23,7 @@ export function getLayoutComponent(layoutType: EnumType.LayoutComponentName) {
  */
 export function getViewComponent(routeKey: AuthRoute.RouteKey) {
   if (!views[routeKey]) {
-    consoleError(`路由“${routeKey}”没有对应的组件文件！`);
+    window.console.error(`路由“${routeKey}”没有对应的组件文件！`);
   }
   return () => setViewComponentName(views[routeKey], routeKey) as Promise<Component>;
 }
