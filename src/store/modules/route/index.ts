@@ -43,6 +43,7 @@ export const useRouteStore = defineStore('route-store', {
     cacheRoutes: []
   }),
   actions: {
+    /** 重置路由的store */
     resetRouteStore() {
       this.resetRoutes();
       this.$reset();

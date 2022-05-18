@@ -16,6 +16,7 @@ export const useThemeStore = defineStore('theme-store', {
     naiveTheme(state) {
       return state.darkMode ? darkTheme : undefined;
     },
+    /** 页面动画模式 */
     pageAnimateMode(state) {
       return state.page.animate ? state.page.animateMode : undefined;
     }
@@ -34,7 +35,7 @@ export const useThemeStore = defineStore('theme-store', {
       this.followSystemTheme = visible;
     },
     /** 自动跟随系统主题 */
-    autoFollowSystemMode(darkMode: boolean) {
+    setAutoFollowSystemMode(darkMode: boolean) {
       if (this.followSystemTheme) {
         this.darkMode = darkMode;
       }
