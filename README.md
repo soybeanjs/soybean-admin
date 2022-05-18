@@ -36,9 +36,13 @@ Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 ![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
 
+![](https://s2.loli.net/2022/05/18/bW7mftiQexkvSTG.png)
+
 ![](https://s2.loli.net/2022/05/16/uV5nzjb3gYptAEl.png)
 
 ![](https://s2.loli.net/2022/05/16/rSnNHLdpuvkKxWq.png)
+
+![](https://s2.loli.net/2022/05/18/Mt6YZqmDxO8v4uR.png)
 
 ![](https://s2.loli.net/2022/05/16/ktH5dcG3fuFOoKA.png)
 
@@ -47,6 +51,10 @@ Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 ![](https://s2.loli.net/2022/05/16/bRlAKuHW7ZVh9DT.png)
 
 ![](https://s2.loli.net/2022/05/16/JvNt61rx5nca42i.png)
+
+![](https://s2.loli.net/2022/05/18/8WJvaz13ibXmsND.png)
+
+
 
 ## 开发计划
 
