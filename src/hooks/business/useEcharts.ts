@@ -63,7 +63,7 @@ export default function useEcharts(
   renderFun?: (chartInstance: echarts.ECharts) => void
 ) {
   let chart: echarts.ECharts | null = null;
-  const domRef = ref<HTMLElement>();
+  const domRef = ref<HTMLElement | null>(null);
   const initialSize = { width: 0, height: 0 };
   const { width, height } = useElementSize(domRef, initialSize);
 
