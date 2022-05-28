@@ -25,4 +25,5 @@ const maps: Map[] = [
   { id: 'tencent', label: '腾讯地图', component: TencentMap }
 ];
 </script>
+
 <style scoped></style>

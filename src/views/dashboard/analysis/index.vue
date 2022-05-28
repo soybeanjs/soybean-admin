@@ -9,4 +9,5 @@
 <script lang="ts" setup>
 import { TopChart, DataCard, BottomPart } from './components';
 </script>
+
 <style scoped></style>

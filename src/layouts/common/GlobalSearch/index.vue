@@ -24,4 +24,5 @@ function handleSearch() {
   toggle();
 }
 </script>
+
 <style lang="scss" scoped></style>

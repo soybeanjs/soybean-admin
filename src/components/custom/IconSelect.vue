@@ -66,6 +66,7 @@ function handleChange(iconItem: string) {
   modelValue.value = iconItem;
 }
 </script>
+
 <style lang="scss" scoped>
 :deep(.n-input-wrapper) {
   padding-right: 0;

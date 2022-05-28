@@ -9,4 +9,5 @@ import { useThemeStore } from '@/store';
 
 const theme = useThemeStore();
 </script>
+
 <style scoped></style>

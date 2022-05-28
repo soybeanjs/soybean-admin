@@ -31,4 +31,5 @@ withDefaults(defineProps<Props>(), {
   endColor: '#120fc4'
 });
 </script>
+
 <style scoped></style>

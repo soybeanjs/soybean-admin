@@ -21,4 +21,5 @@ const props = withDefaults(defineProps<Props>(), {
 
 const gradientStyle = computed(() => `linear-gradient(to bottom right, ${props.startColor}, ${props.endColor})`);
 </script>
+
 <style scoped></style>

@@ -44,4 +44,5 @@ const { mode, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = use
 
 const { bool: addMainOverflowHidden, setBool: setAddMainOverflowHidden } = useBoolean();
 </script>
+
 <style scoped></style>

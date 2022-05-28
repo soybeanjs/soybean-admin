@@ -186,4 +186,5 @@ const { domRef: pieRef } = useEcharts(
   darkMode
 );
 </script>
-<style></style>
+
+<style scoped></style>

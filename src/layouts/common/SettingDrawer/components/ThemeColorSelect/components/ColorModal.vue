@@ -45,4 +45,5 @@ function handleClose() {
   emit('close');
 }
 </script>
+
 <style scoped></style>

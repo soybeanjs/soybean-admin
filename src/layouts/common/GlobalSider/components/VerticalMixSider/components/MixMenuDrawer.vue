@@ -73,6 +73,7 @@ watch(
   { immediate: true }
 );
 </script>
+
 <style scoped>
 .drawer-shadow {
   box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);

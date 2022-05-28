@@ -26,4 +26,5 @@ onMounted(() => {
   renderBaiduMap();
 });
 </script>
+
 <style scoped></style>

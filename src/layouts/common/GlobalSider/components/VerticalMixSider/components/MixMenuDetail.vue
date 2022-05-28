@@ -42,4 +42,5 @@ const { bool: isHover, setTrue, setFalse } = useBoolean();
 
 const isActive = computed(() => props.routeName === props.activeRouteName);
 </script>
+
 <style scoped></style>

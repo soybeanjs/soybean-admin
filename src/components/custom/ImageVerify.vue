@@ -36,4 +36,5 @@ watch(imgCode, newValue => {
 
 defineExpose({ getImgCode });
 </script>
+
 <style scoped></style>

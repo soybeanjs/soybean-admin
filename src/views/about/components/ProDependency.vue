@@ -13,4 +13,5 @@ import { pkgJson } from './model';
 
 const { dependencies } = pkgJson;
 </script>
+
 <style scoped></style>

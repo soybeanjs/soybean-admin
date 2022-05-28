@@ -48,4 +48,5 @@ function handleDropdown(optionKey: string) {
   }
 }
 </script>
+
 <style scoped></style>

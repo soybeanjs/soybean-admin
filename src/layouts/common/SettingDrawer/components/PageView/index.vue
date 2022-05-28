@@ -40,4 +40,5 @@ import SettingMenu from '../SettingMenu/index.vue';
 
 const theme = useThemeStore();
 </script>
+
 <style scoped></style>

@@ -65,6 +65,7 @@ const layoutConfig: LayoutConfig = {
 
 const activeConfig = computed(() => layoutConfig[props.mode]);
 </script>
+
 <style scoped>
 .layout-checkbox__shadow {
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.18);

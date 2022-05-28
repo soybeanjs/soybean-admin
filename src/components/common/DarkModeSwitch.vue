@@ -36,4 +36,5 @@ function handleSwitch() {
   darkMode.value = !darkMode.value;
 }
 </script>
+
 <style scoped></style>

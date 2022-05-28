@@ -44,4 +44,5 @@ const statisticData: StatisticData[] = [
   }
 ];
 </script>
+
 <style scoped></style>

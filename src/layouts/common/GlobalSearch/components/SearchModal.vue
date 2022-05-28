@@ -134,4 +134,5 @@ onKeyStroke('Enter', handleEnter);
 onKeyStroke('ArrowUp', handleUp);
 onKeyStroke('ArrowDown', handleDown);
 </script>
+
 <style lang="scss" scoped></style>

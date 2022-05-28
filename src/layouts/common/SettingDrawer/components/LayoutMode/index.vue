@@ -18,4 +18,5 @@ import { LayoutCheckbox } from './components';
 
 const theme = useThemeStore();
 </script>
+
 <style scoped></style>

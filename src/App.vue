@@ -20,4 +20,5 @@ const theme = useThemeStore();
 
 subscribeStore();
 </script>
+
 <style scoped></style>

@@ -17,4 +17,5 @@ function handleClickLink() {
   window.open('https://github.com/honghuangdc/soybean-admin', '_blank');
 }
 </script>
+
 <style scoped></style>

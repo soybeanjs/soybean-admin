@@ -38,4 +38,5 @@ function handleOpenSite() {
   window.open(props.site, '_blank');
 }
 </script>
+
 <style scoped></style>

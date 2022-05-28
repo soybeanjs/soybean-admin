@@ -32,6 +32,7 @@ onMounted(() => {
   renderWangEditor();
 });
 </script>
+
 <style scoped>
 :deep(.w-e-toolbar) {
   background: inherit !important;

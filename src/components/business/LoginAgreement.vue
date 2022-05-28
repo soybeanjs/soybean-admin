@@ -44,4 +44,5 @@ function handleClickPolicy() {
   emit('click-policy');
 }
 </script>
+
 <style scoped></style>

@@ -7,4 +7,5 @@
 <script setup lang="ts">
 const src = 'https://staging-cn.vuejs.org/';
 </script>
+
 <style scoped></style>

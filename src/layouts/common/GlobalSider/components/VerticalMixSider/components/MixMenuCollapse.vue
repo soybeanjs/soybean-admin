@@ -10,4 +10,5 @@ import { useAppStore } from '@/store';
 
 const app = useAppStore();
 </script>
+
 <style scoped></style>

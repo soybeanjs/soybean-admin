@@ -47,4 +47,5 @@ function dropdownSelect(key: string) {
   routerPush({ name: key });
 }
 </script>
+
 <style scoped></style>

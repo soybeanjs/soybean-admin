@@ -113,4 +113,5 @@ const swiperExample: SwiperExample[] = [
   }
 ];
 </script>
+
 <style scoped></style>

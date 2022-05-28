@@ -141,4 +141,5 @@ const shortcuts: Shortcuts[] = [
   { id: 5, label: '图表', icon: 'mdi:chart-areaspline', iconColor: '#8aca6b' }
 ];
 </script>
+
 <style scoped></style>

@@ -11,4 +11,5 @@ import { useAppStore, useThemeStore } from '@/store';
 const app = useAppStore();
 const theme = useThemeStore();
 </script>
+
 <style scoped></style>

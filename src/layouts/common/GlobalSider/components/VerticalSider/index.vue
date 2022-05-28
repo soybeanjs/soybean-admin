@@ -17,4 +17,5 @@ const theme = useThemeStore();
 const isHorizontalMix = computed(() => theme.layout.mode === 'horizontal-mix');
 const showTitle = computed(() => !app.siderCollapse && theme.layout.mode !== 'vertical-mix');
 </script>
+
 <style scoped></style>

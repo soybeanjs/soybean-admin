@@ -35,4 +35,5 @@ function printImage() {
   });
 }
 </script>
+
 <style scoped></style>

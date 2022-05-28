@@ -101,4 +101,5 @@ useEventListener(window, 'beforeunload', () => {
   setTabRoutes(tab.tabs);
 });
 </script>
+
 <style scoped></style>

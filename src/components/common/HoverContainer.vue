@@ -41,4 +41,5 @@ const computedClass = computed(() =>
   [props.contentClass, props.inverted ? 'hover:bg-primary' : 'hover:bg-[#f6f6f6]'].join(' ')
 );
 </script>
+
 <style scoped></style>

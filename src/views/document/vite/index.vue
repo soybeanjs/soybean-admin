@@ -7,4 +7,5 @@
 <script setup lang="ts">
 const src = 'https://vitejs.cn/';
 </script>
+
 <style scoped></style>

@@ -572,4 +572,5 @@ const buttonExample: ButtonExample[] = [
   }
 ];
 </script>
+
 <style scoped></style>

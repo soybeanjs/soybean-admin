@@ -18,4 +18,5 @@ import { DrawerButton, DarkMode, LayoutMode, ThemeColorSelect, PageFunc, PageVie
 
 const app = useAppStore();
 </script>
+
 <style scoped></style>

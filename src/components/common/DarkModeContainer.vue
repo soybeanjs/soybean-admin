@@ -15,4 +15,5 @@ withDefaults(defineProps<Props>(), {
   inverted: false
 });
 </script>
+
 <style scoped></style>

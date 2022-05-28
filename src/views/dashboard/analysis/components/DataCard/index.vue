@@ -65,4 +65,5 @@ const cardData: CardData[] = [
   }
 ];
 </script>
+
 <style scoped></style>

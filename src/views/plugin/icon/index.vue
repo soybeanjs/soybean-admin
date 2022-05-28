@@ -50,4 +50,5 @@ const selectValue = ref('');
 
 const customIcons = [CustomActivity, CustomAtSign, CustomCast, CustomChrome, CustomCopy, CustomWind];
 </script>
+
 <style scoped></style>

@@ -21,4 +21,5 @@ defineProps<Props>();
 const { title } = useAppInfo();
 const routeHomePath = routePath('root');
 </script>
+
 <style scoped></style>

@@ -28,4 +28,5 @@ function handleUpdateMenu(_key: string, item: MenuOption) {
   routerPush(menuItem.routePath);
 }
 </script>
+
 <style scoped></style>

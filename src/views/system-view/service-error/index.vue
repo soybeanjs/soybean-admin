@@ -5,4 +5,5 @@
 <script lang="ts" setup>
 import { ExceptionBase } from '../components';
 </script>
+
 <style scoped></style>

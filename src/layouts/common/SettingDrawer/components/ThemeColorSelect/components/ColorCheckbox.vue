@@ -23,4 +23,5 @@ const props = withDefaults(defineProps<Props>(), {
 const whiteColors = ['#ffffff', '#fff', 'rgb(255,255,255)'];
 const isWhite = computed(() => whiteColors.includes(props.color));
 </script>
+
 <style scoped></style>

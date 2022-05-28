@@ -77,4 +77,5 @@ const bgColor = computed(() => {
   return mixColor(COLOR_WHITE, theme.themeColor, ratio);
 });
 </script>
+
 <style scoped></style>

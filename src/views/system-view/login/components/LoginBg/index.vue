@@ -24,4 +24,5 @@ const props = defineProps<Props>();
 const lightColor = computed(() => getColorPalette(props.themeColor, 3));
 const darkColor = computed(() => getColorPalette(props.themeColor, 6));
 </script>
+
 <style scoped></style>

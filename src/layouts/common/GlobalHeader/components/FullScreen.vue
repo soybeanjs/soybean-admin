@@ -12,4 +12,5 @@ import { useThemeStore } from '@/store';
 const { isFullscreen, toggle } = useFullscreen();
 const theme = useThemeStore();
 </script>
+
 <style scoped></style>

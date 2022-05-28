@@ -34,4 +34,5 @@ onUnmounted(() => {
   destroyXgPlayer();
 });
 </script>
+
 <style scoped></style>

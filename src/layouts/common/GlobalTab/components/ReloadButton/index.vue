@@ -19,4 +19,5 @@ function handleRefresh() {
   }, 1000);
 }
 </script>
+
 <style scoped></style>

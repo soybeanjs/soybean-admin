@@ -25,4 +25,5 @@ defineProps<Props>();
 
 const routeHomePath = routeName('root');
 </script>
+
 <style scoped></style>

@@ -23,4 +23,5 @@ import { pkgJson } from './model';
 const { version } = pkgJson;
 const latestBuildTime = PROJECT_BUILD_TIME;
 </script>
+
 <style scoped></style>
