@@ -7,6 +7,7 @@ import useCountDown from './useCountDown';
 export default function useSmsCode() {
   const { loading, startLoading, endLoading } = useLoading();
   const { counts, start, isCounting } = useCountDown(60);
+
   const initLabel = '获取验证码';
   const countingLabel = (second: number) => `${second}秒后重新获取`;
   const label = computed(() => {
@@ -40,6 +41,7 @@ export default function useSmsCode() {
   async function getSmsCode(phone: string) {
     const valid = isPhoneValid(phone);
     if (!valid || loading.value) return;
+
     startLoading();
     const { data } = await fetchSmsCode(phone);
     if (data) {

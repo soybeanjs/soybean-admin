@@ -33,3 +33,6 @@ export function isSet(data: unknown) {
 export function isMap(data: unknown) {
   return Object.prototype.toString.call(data) === EnumDataType.map;
 }
+export function isFile(data: unknown) {
+  return Object.prototype.toString.call(data) === EnumDataType.file;
+}

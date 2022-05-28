@@ -1,7 +1,7 @@
 import qs from 'qs';
 import FormData from 'form-data';
 import { EnumContentType } from '@/enum';
-import { isArray } from '../common';
+import { isArray, isFile } from '../common';
 
 /**
  * 请求数据的转换
@@ -17,20 +17,35 @@ export async function transformRequestData(requestData: any, contentType?: strin
   }
   // form-data类型转换
   if (contentType === EnumContentType.formData) {
-    const key = Object.keys(requestData)[0];
-    const file = requestData.data[key];
-    data = await transformFile(file, key);
+    data = await handleFormData(requestData);
   }
+
   return data;
+}
+
+async function handleFormData(data: Record<string, any>) {
+  const formData = new FormData();
+  const entries = Object.entries(data);
+
+  entries.forEach(async ([key, value]) => {
+    const isFileType = isFile(value) || (isArray(value) && value.length && isFile(value[0]));
+
+    if (isFileType) {
+      await transformFile(formData, key, value);
+    } else {
+      formData.append(key, value);
+    }
+  });
+
+  return formData;
 }
 
 /**
  * 接口为上传文件的类型时数据转换
- * @param file - 单文件或多文件
  * @param key - 文件的属性名
+ * @param file - 单文件或多文件
  */
-async function transformFile(file: File[] | File, key: string) {
-  const formData = new FormData();
+async function transformFile(formData: FormData, key: string, file: File[] | File) {
   if (isArray(file)) {
     // 多文件
     await Promise.all(
@@ -43,5 +58,4 @@ async function transformFile(file: File[] | File, key: string) {
     // 单文件
     await formData.append(key, file);
   }
-  return formData;
 }

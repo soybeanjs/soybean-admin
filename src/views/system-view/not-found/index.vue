@@ -2,8 +2,6 @@
   <exception-base type="404" />
 </template>
 
-<script lang="ts" setup>
-import { ExceptionBase } from '../components';
-</script>
+<script lang="ts" setup></script>
 
 <style scoped></style>

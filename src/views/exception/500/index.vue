@@ -2,8 +2,6 @@
   <exception-base type="500" />
 </template>
 
-<script lang="ts" setup>
-import { ExceptionBase } from '../../system-view/components';
-</script>
+<script lang="ts" setup></script>
 
 <style scoped></style>

@@ -1,13 +1,13 @@
 import { computed } from 'vue';
 import { useAppStore, useThemeStore } from '@/store';
 
+type LayoutMode = 'vertical' | 'horizontal';
 type LayoutHeaderProps = Record<EnumType.ThemeLayoutMode, GlobalHeaderProps>;
 
 export function useBasicLayout() {
   const app = useAppStore();
   const theme = useThemeStore();
 
-  type LayoutMode = 'vertical' | 'horizontal';
   const mode = computed(() => {
     const vertical: LayoutMode = 'vertical';
     const horizontal: LayoutMode = 'horizontal';
