@@ -101,11 +101,8 @@ pnpm dev
 pnpm build
 ```
 
-::: warning 注意
-
 **本地环境需要安装 pnpm 6.x 、Node.js 14.x 和 Git**
 
-:::
 
 ## 如何贡献
 

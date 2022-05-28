@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { FollowerPlacement } from 'vueuc';
+import type { PopoverPlacement } from 'naive-ui';
 import type { EnumThemeLayoutMode } from '@/enum';
 
 interface Props {
@@ -34,7 +34,7 @@ const props = defineProps<Props>();
 type LayoutConfig = Record<
   EnumType.ThemeLayoutMode,
   {
-    placement: FollowerPlacement;
+    placement: PopoverPlacement;
     menuClass: string;
     mainClass: string;
   }
