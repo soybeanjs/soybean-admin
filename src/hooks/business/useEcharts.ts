@@ -1,8 +1,8 @@
 import { ref, watch, nextTick, onUnmounted, computed } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import * as echarts from 'echarts/core';
-import { BarChart, LineChart, PieChart } from 'echarts/charts';
-import type { BarSeriesOption, LineSeriesOption, PieSeriesOption } from 'echarts/charts';
+import { BarChart, LineChart, PieChart, ScatterChart } from 'echarts/charts';
+import type { BarSeriesOption, LineSeriesOption, PieSeriesOption, ScatterSeriesOption } from 'echarts/charts';
 import {
   TitleComponent,
   LegendComponent,
@@ -28,6 +28,7 @@ export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
   | LineSeriesOption
   | PieSeriesOption
+  | ScatterSeriesOption
   | TitleComponentOption
   | LegendComponentOption
   | TooltipComponentOption
@@ -47,6 +48,7 @@ echarts.use([
   BarChart,
   LineChart,
   PieChart,
+  ScatterChart,
   LabelLayout,
   UniversalTransition,
   CanvasRenderer
@@ -55,7 +57,9 @@ echarts.use([
 /**
  * Echarts hooks函数
  * @param options - 图表配置
- * @param renderFun - 图表函数(例如：图表监听函数)
+ * @param darkMode - 暗黑模式
+ * @param renderFun - 图表渲染函数(例如：图表监听函数)
+ * @description 按需引入图表组件，没注册的组件需要先引入
  */
 export default function useEcharts(
   options: Ref<ECOption> | ComputedRef<ECOption>,
