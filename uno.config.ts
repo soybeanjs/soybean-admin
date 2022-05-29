@@ -60,20 +60,8 @@ export default defineConfig({
       error: 'var(--error-color)',
       error_hover: 'var(--error-color-hover)',
       error_pressed: 'var(--error-color-pressed)',
-      error_active: 'var(--error-color-active)'
-    },
-    backgroundColor: {
+      error_active: 'var(--error-color-active)',
       dark: '#18181c'
-    },
-    transitionProperty: [
-      'width',
-      'height',
-      'background',
-      'background-color',
-      'padding-left',
-      'border-color',
-      'right',
-      'fill'
-    ]
+    }
   }
 });
