@@ -31,13 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useThemeStore } from '@/store';
-import { useEcharts, type ECOption } from '@/hooks';
-
-const theme = useThemeStore();
-
-const darkMode = computed(() => theme.darkMode);
+import { ref } from 'vue';
+import { useEcharts, type ECOption } from '@/composables';
 
 const lineOptions = ref<ECOption>({
   tooltip: {
@@ -133,7 +128,7 @@ const lineOptions = ref<ECOption>({
     }
   ]
 });
-const { domRef: lineRef } = useEcharts(lineOptions, darkMode);
+const { domRef: lineRef } = useEcharts(lineOptions);
 
 const pieOptions = ref<ECOption>({
   tooltip: {
@@ -180,7 +175,7 @@ const pieOptions = ref<ECOption>({
     }
   ]
 });
-const { domRef: pieRef } = useEcharts(pieOptions, darkMode);
+const { domRef: pieRef } = useEcharts(pieOptions);
 </script>
 
 <style scoped></style>

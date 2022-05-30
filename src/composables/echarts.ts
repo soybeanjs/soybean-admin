@@ -1,4 +1,4 @@
-import { ref, watch, nextTick, onUnmounted, computed } from 'vue';
+import { ref, watch, nextTick, onUnmounted } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import * as echarts from 'echarts/core';
 import { BarChart, LineChart, PieChart, ScatterChart } from 'echarts/charts';
@@ -23,6 +23,7 @@ import type {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useElementSize } from '@vueuse/core';
+import { useThemeStore } from '@/store';
 
 export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
@@ -57,19 +58,21 @@ echarts.use([
 /**
  * Echarts hooks函数
  * @param options - 图表配置
- * @param darkMode - 暗黑模式
  * @param renderFun - 图表渲染函数(例如：图表监听函数)
  * @description 按需引入图表组件，没注册的组件需要先引入
  */
-export default function useEcharts(
+export function useEcharts(
   options: Ref<ECOption> | ComputedRef<ECOption>,
-  darkMode?: ComputedRef<boolean>,
   renderFun?: (chartInstance: echarts.ECharts) => void
 ) {
-  let chart: echarts.ECharts | null = null;
+  const theme = useThemeStore();
+
   const domRef = ref<HTMLElement | null>(null);
+
   const initialSize = { width: 0, height: 0 };
   const { width, height } = useElementSize(domRef, initialSize);
+
+  let chart: echarts.ECharts | null = null;
 
   function canRender() {
     return initialSize.width > 0 && initialSize.height > 0;
@@ -87,9 +90,9 @@ export default function useEcharts(
 
   async function render() {
     if (domRef.value) {
-      const theme = darkMode?.value ? 'dark' : 'light';
+      const chartTheme = theme.darkMode ? 'dark' : 'light';
       await nextTick();
-      chart = echarts.init(domRef.value, theme);
+      chart = echarts.init(domRef.value, chartTheme);
       if (renderFun) {
         renderFun(chart);
       }
@@ -110,7 +113,7 @@ export default function useEcharts(
     render();
   }
 
-  watch([width, height], ([newWidth, newHeight]) => {
+  const stopSizeWatch = watch([width, height], ([newWidth, newHeight]) => {
     initialSize.width = newWidth;
     initialSize.height = newHeight;
     if (canRender()) {
@@ -122,16 +125,22 @@ export default function useEcharts(
     }
   });
 
-  watch(options, newValue => {
+  const stopOptionWatch = watch(options, newValue => {
     update(newValue);
   });
 
-  watch(darkMode || computed(() => false), () => {
-    updateTheme();
-  });
+  const stopDarkModeWatch = watch(
+    () => theme.darkMode,
+    () => {
+      updateTheme();
+    }
+  );
 
   onUnmounted(() => {
     destroy();
+    stopSizeWatch();
+    stopOptionWatch();
+    stopDarkModeWatch();
   });
 
   return {

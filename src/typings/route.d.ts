@@ -40,6 +40,7 @@ declare namespace AuthRoute {
     | 'plugin_charts_echarts'
     | 'plugin_charts_d3'
     | 'plugin_charts_antv'
+    | 'plugin_charts_chartjs'
     | 'auth-demo'
     | 'auth-demo_permission'
     | 'auth-demo_super'
