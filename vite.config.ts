@@ -36,7 +36,11 @@ export default defineConfig(configEnv => {
       proxy: createViteProxy(isOpenProxy, envConfig)
     },
     build: {
-      brotliSize: false
+      brotliSize: false,
+      sourcemap: true,
+      commonjsOptions: {
+        ignoreTryCatch: false
+      }
     }
   };
 });
