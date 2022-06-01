@@ -26,8 +26,46 @@ module.exports = {
     '@vue/eslint-config-prettier',
     '@vue/typescript/recommended'
   ],
+  overrides: [
+    {
+      files: ['*.vue'],
+      rules: {
+        'no-undef': 'off'
+      }
+    },
+    {
+      files: ['*.html'],
+      rules: {
+        'vue/comment-directive': 'off'
+      }
+    }
+  ],
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['~', '.'],
+          ['@', './src']
+        ],
+        extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.d.ts']
+      },
+      node: {
+        extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.d.ts']
+      }
+    }
+  },
   rules: {
-    'import/extensions': 'off',
+    'import/extensions': [
+      'warn',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        mjs: 'never',
+        ts: 'never',
+        tsx: 'never'
+      }
+    ],
     'import/no-extraneous-dependencies': 'off',
     'import/order': [
       'error',
@@ -175,19 +213,5 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
     '@typescript-eslint/no-use-before-define': ['error', { classes: true, functions: false, typedefs: false }]
-  },
-  overrides: [
-    {
-      files: ['*.vue'],
-      rules: {
-        'no-undef': 'off'
-      }
-    },
-    {
-      files: ['*.html'],
-      rules: {
-        'vue/comment-directive': 'off'
-      }
-    }
-  ]
+  }
 };

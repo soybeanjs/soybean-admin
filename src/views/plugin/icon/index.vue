@@ -39,12 +39,12 @@
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import { icons } from './icons';
-import CustomActivity from '~icons/custom/activity';
-import CustomAtSign from '~icons/custom/at-sign';
-import CustomCast from '~icons/custom/cast';
-import CustomChrome from '~icons/custom/chrome';
-import CustomCopy from '~icons/custom/copy';
-import CustomWind from '~icons/custom/wind';
+import CustomActivity from '~icons/custom/activity.svg';
+import CustomAtSign from '~icons/custom/at-sign.svg';
+import CustomCast from '~icons/custom/cast.svg';
+import CustomChrome from '~icons/custom/chrome.svg';
+import CustomCopy from '~icons/custom/copy.svg';
+import CustomWind from '~icons/custom/wind.svg';
 
 const selectValue = ref('');
 
