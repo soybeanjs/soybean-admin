@@ -18,6 +18,7 @@
 		"@": "/src",
 		"~@": "/src"
 	},
+	"i18n-ally.displayLanguage": "zh",
 	"material-icon-theme.activeIconPack": "angular",
 	"material-icon-theme.files.associations": {},
 	"material-icon-theme.folders.associations": {
@@ -40,13 +41,17 @@
 	"terminal.integrated.cursorStyle": "line",
 	"terminal.integrated.fontSize": 14,
 	"terminal.integrated.fontWeight": 500,
+	"terminal.integrated.tabs.enabled": true,
+	"unocss.root": "src",
 	"workbench.iconTheme": "material-icon-theme",
 	"workbench.colorTheme": "One Dark Pro",
-	"unocss.root": "src",
-	"[jsonc]": {
-		"editor.defaultFormatter": "vscode.json-language-features"
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"[jsonc]": {
 		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[javascript]": {
@@ -55,21 +60,16 @@
 	"[javascriptreact]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"i18n-ally.displayLanguage": "zh",
-	"[html]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	"[markdown]": {
+		"editor.defaultFormatter": "yzhang.markdown-all-in-one"
 	},
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"[vue]": {
-		"editor.defaultFormatter": "Vue.volar"
-	},
-	"terminal.integrated.tabs.enabled": true,
 	"[typescriptreact]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"[markdown]": {
-		"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+	"[vue]": {
+		"editor.defaultFormatter": "Vue.volar"
 	}
 }

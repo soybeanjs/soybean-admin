@@ -66,7 +66,7 @@ module.exports = {
         tsx: 'never'
       }
     ],
-    'import/no-extraneous-dependencies': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true, peerDependencies: true }],
     'import/order': [
       'error',
       {
@@ -182,7 +182,7 @@ module.exports = {
         pathGroupsExcludedImportTypes: ['vue', 'vue-router', 'vuex', 'pinia', 'naive-ui']
       }
     ],
-    'import/no-unresolved': 'off',
+    'import/no-unresolved': ['error', { ignore: ['uno.css', '~icons/*'] }],
     'import/prefer-default-export': 'off',
     'max-classes-per-file': 'off',
     'no-param-reassign': [
@@ -201,7 +201,6 @@ module.exports = {
         ignores: ['index']
       }
     ],
-    '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-empty-interface': [
       'error',
       {
