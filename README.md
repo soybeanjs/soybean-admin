@@ -32,6 +32,17 @@ Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 - [gitee](https://gitee.com/honghuangdc/soybean-admin)
 
+## 更新日志
+[CHANGELOG](./CHANGELOG.md)
+
+## 后端服务
+
+- [soybean-admin-java(开发中)](https://github.com/honghuangdc/soybean-admin-java)
+
+- [soybean-admin-go(开发中)](https://github.com/honghuangdc/soybean-admin-go)
+
+- [soybean-admin-nestjs(开发中)](https://github.com/honghuangdc/soybean-admin-nestjs)
+
 ## 项目示例图
 
 ![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
@@ -132,6 +143,10 @@ pnpm i -g commitizen
 ## 开源作者
 
 [@Soybean](https://github.com/honghuangdc)
+
+## 捐赠
+如果你觉得这个项目对你有帮助，可以请Soybean喝杯饮料表示支持，Soybean开源的动力离不开各位的支持和鼓励。
+![赞助](https://s2.loli.net/2022/01/24/i9cpq7lTCrKUoFf.png)
 
 ## 交流
 
