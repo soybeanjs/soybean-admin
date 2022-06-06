@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.5](https://github.com/honghuangdc/soybean-admin/compare/v0.9.4...v0.9.5) (2022-06-06)
+
+
+### Features
+
+* **projects:** 支持同一路由根据不同query和hash同时显示不同Tab ([4122685](https://github.com/honghuangdc/soybean-admin/commit/4122685803f8a0a485682d16cec74e27945adc47)), closes [#64](https://github.com/honghuangdc/soybean-admin/issues/64)
+* **projects:** 动态路由根路由重定向只需取决于后端返回的路由首页 ([434ab1c](https://github.com/honghuangdc/soybean-admin/commit/434ab1c560b260f8a19895405eb1d3c3313052d7))
+* **projects:** 补充更多的ECharts示例 ([c776249](https://github.com/honghuangdc/soybean-admin/commit/c7762490def77695bedf179ffc63e3e95d15e14d))
+* **projects:** 添加百度地图、升级依赖 ([39854a4](https://github.com/honghuangdc/soybean-admin/commit/39854a492b9cce71e0c7ed52af9985cb4abd6a97))
+* **projects:** 添加插件页面：图表 ([0a46ea0](https://github.com/honghuangdc/soybean-admin/commit/0a46ea08443f6b879434e925d440cf07e9494fcb))
+* **projects:** 添加自动跟随系统主题设置 ([ba07b69](https://github.com/honghuangdc/soybean-admin/commit/ba07b695dd9dc5d3f8ebf57d0f2e69d624994962))
+* **projects:** 添加antv g2图表示例 ([44b022a](https://github.com/honghuangdc/soybean-admin/commit/44b022aefd7dbb4c34886814cf04767450dec026))
+* **projects:** 引入echarts替换antvG2plot ([e7ad086](https://github.com/honghuangdc/soybean-admin/commit/e7ad08685e8ac52a8906fc94e656192275f9764c))
+* **route:** 路由meta新增activeMenu属性 ([ebd16a4](https://github.com/honghuangdc/soybean-admin/commit/ebd16a4d1ab1a95a27838a2d4f20cc1d1e7309ae))
+
+
+### Bug Fixes
+
+* **projects:** 修复@antv/g2生产环境报错 ([4558c24](https://github.com/honghuangdc/soybean-admin/commit/4558c24d1c1e1faa3326650fc16e6baf384509ac))
+* **projects:** 修复插件不存在的错误提示 ([7165282](https://github.com/honghuangdc/soybean-admin/commit/716528206e9f63e873607d0afd59d83f6984e3fe))
+* **projects:** 修复权限切换路由数据未更新的问题 ([60f9125](https://github.com/honghuangdc/soybean-admin/commit/60f912508b0e685957fb22ef0ed1f83272847263))
+* **projects:** 修复页面切换时导致的溢出滚动条 ([e023306](https://github.com/honghuangdc/soybean-admin/commit/e0233061d3bca236b4c4bb462ce00f7ca186b9fa))
+* **route:** 当为左侧混合菜单时activeMenu无效情况 ([3e4f9e2](https://github.com/honghuangdc/soybean-admin/commit/3e4f9e282442073447c5c24c33d65bc6130978ee))
+
 ### [0.9.4](https://github.com/honghuangdc/soybean-admin/compare/v0.9.3...v0.9.4) (2022-04-28)
 
 

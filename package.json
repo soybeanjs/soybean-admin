@@ -1,7 +1,7 @@
 {
   "name": "soybean-admin",
-  "version": "0.9.4",
-	"license": "MIT",
+  "version": "0.9.5",
+  "license": "MIT",
   "scripts": {
     "dev": "cross-env VITE_ENV_TYPE=dev vite",
     "dev:test": "cross-env VITE_ENV_TYPE=test vite",
