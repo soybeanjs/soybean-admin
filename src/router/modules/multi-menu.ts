@@ -49,7 +49,7 @@ const multiMenu: AuthRoute.Route = {
   meta: {
     title: '多级菜单',
     icon: 'carbon:menu',
-    order: 6
+    order: 8
   }
 };
 

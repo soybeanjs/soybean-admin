@@ -1,13 +1,15 @@
 import type { RouteRecordNormalized, RouteLocationNormalizedLoaded } from 'vue-router';
 
 /**
- *	根据vue路由获取tab路由
+ * 根据vue路由获取tab路由
  * @param route
  */
 export function getTabRouteByVueRoute(route: RouteRecordNormalized | RouteLocationNormalizedLoaded) {
+  const fullPath = hasFullPath(route) ? route.fullPath : route.path;
+
   const tabRoute: GlobalTabRoute = {
     name: route.name,
-    path: route.path,
+    fullPath,
     meta: route.meta,
     scrollPosition: {
       left: 0,
@@ -20,17 +22,36 @@ export function getTabRouteByVueRoute(route: RouteRecordNormalized | RouteLocati
 /**
  * 获取该页签在多页签数据中的索引
  * @param tabs - 多页签数据
- * @param path - 该页签的路径
+ * @param fullPath - 该页签的路径
  */
-export function getIndexInTabRoutes(tabs: GlobalTabRoute[], path: string) {
-  return tabs.findIndex(tab => tab.path === path);
+export function getIndexInTabRoutes(tabs: GlobalTabRoute[], fullPath: string) {
+  return tabs.findIndex(tab => tab.fullPath === fullPath);
 }
 
 /**
  * 判断该页签是否在多页签数据中
  * @param tabs - 多页签数据
- * @param path - 该页签的路径
+ * @param fullPath - 该页签的路径
  */
-export function isInTabRoutes(tabs: GlobalTabRoute[], path: string) {
-  return getIndexInTabRoutes(tabs, path) > -1;
+export function isInTabRoutes(tabs: GlobalTabRoute[], fullPath: string) {
+  return getIndexInTabRoutes(tabs, fullPath) > -1;
+}
+
+/**
+ * 根据路由名称获取该页签在多页签数据中的索引
+ * @param tabs - 多页签数据
+ * @param routeName - 路由名称
+ */
+export function getIndexInTabRoutesByRouteName(tabs: GlobalTabRoute[], routeName: string) {
+  return tabs.findIndex(tab => tab.name === routeName);
+}
+
+/**
+ * 判断路由是否有fullPath属性
+ * @param route 路由
+ */
+function hasFullPath(
+  route: RouteRecordNormalized | RouteLocationNormalizedLoaded
+): route is RouteLocationNormalizedLoaded {
+  return Boolean((route as RouteLocationNormalizedLoaded).fullPath);
 }

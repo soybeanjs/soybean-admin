@@ -3,15 +3,15 @@
     <component
       :is="activeComponent"
       v-for="(item, index) in tab.tabs"
-      :key="item.path"
-      :is-active="tab.activeTab === item.path"
+      :key="item.fullPath"
+      :is-active="tab.activeTab === item.fullPath"
       :primary-color="theme.themeColor"
-      :closable="item.path !== tab.homeTab.path"
+      :closable="item.name !== tab.homeTab.name"
       :dark-mode="theme.darkMode"
       :class="{ '!mr-0': isChromeMode && index === tab.tabs.length - 1, 'mr-10px': !isChromeMode }"
-      @click="tab.handleClickTab(item.path)"
-      @close="tab.removeTab(item.path)"
-      @contextmenu="handleContextMenu($event, item.path)"
+      @click="tab.handleClickTab(item.fullPath)"
+      @close="tab.removeTab(item.fullPath)"
+      @contextmenu="handleContextMenu($event, item.fullPath)"
     >
       <Icon v-if="item.meta.icon" :icon="item.meta.icon" class="inline-block align-text-bottom mr-4px text-16px" />
       {{ item.meta.title }}
@@ -77,11 +77,11 @@ function setDropdown(x: number, y: number, currentPath: string) {
 }
 
 /** 点击右键菜单 */
-async function handleContextMenu(e: MouseEvent, path: string) {
+async function handleContextMenu(e: MouseEvent, fullPath: string) {
   e.preventDefault();
   const { clientX, clientY } = e;
   hideDropdown();
-  setDropdown(clientX, clientY, path);
+  setDropdown(clientX, clientY, fullPath);
   await nextTick();
   showDropdown();
 }

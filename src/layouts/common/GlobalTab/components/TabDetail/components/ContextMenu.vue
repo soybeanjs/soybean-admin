@@ -69,7 +69,7 @@ const options = computed<Option[]>(() => [
   {
     label: '关闭',
     key: 'close-current',
-    disabled: props.currentPath === tab.homeTab.path,
+    disabled: props.currentPath === tab.homeTab.fullPath,
     icon: iconifyRender('ant-design:close-outlined')
   },
   {

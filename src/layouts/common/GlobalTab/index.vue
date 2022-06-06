@@ -45,10 +45,10 @@ function init() {
 }
 
 watch(
-  () => route.path,
+  () => route.fullPath,
   () => {
     tab.addTab(route);
-    tab.setActiveTab(route.path);
+    tab.setActiveTab(route.fullPath);
   }
 );
 

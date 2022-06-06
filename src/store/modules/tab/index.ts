@@ -3,14 +3,14 @@ import { defineStore } from 'pinia';
 import { useRouterPush } from '@/composables';
 import { getTabRoutes, clearTabRoutes } from '@/utils';
 import { useThemeStore } from '../theme';
-import { getTabRouteByVueRoute, isInTabRoutes, getIndexInTabRoutes } from './helpers';
+import { getTabRouteByVueRoute, isInTabRoutes, getIndexInTabRoutes, getIndexInTabRoutesByRouteName } from './helpers';
 
 interface TabState {
   /** 多页签数据 */
   tabs: GlobalTabRoute[];
   /** 多页签首页 */
   homeTab: GlobalTabRoute;
-  /** 当前激活状态的页签(路由path) */
+  /** 当前激活状态的页签(路由fullPath) */
   activeTab: string;
 }
 
@@ -19,7 +19,7 @@ export const useTabStore = defineStore('tab-store', {
     tabs: [],
     homeTab: {
       name: 'root',
-      path: '/',
+      fullPath: '/',
       meta: {
         title: 'Root'
       },
@@ -34,7 +34,7 @@ export const useTabStore = defineStore('tab-store', {
     /** 当前激活状态的页签索引 */
     activeTabIndex(state) {
       const { tabs, activeTab } = state;
-      return tabs.findIndex(tab => tab.path === activeTab);
+      return tabs.findIndex(tab => tab.fullPath === activeTab);
     }
   },
   actions: {
@@ -45,10 +45,10 @@ export const useTabStore = defineStore('tab-store', {
     },
     /**
      * 设置当前路由对应的页签为激活状态
-     * @param path - 路由path
+     * @param fullPath - 路由fullPath
      */
-    setActiveTab(path: string) {
-      this.activeTab = path;
+    setActiveTab(fullPath: string) {
+      this.activeTab = fullPath;
     },
     /**
      * 初始化首页页签路由
@@ -68,23 +68,39 @@ export const useTabStore = defineStore('tab-store', {
      * @param route - 路由
      */
     addTab(route: RouteLocationNormalizedLoaded) {
-      if (!isInTabRoutes(this.tabs, route.path)) {
-        const tab = getTabRouteByVueRoute(route);
-        this.tabs.push(tab);
+      const tab = getTabRouteByVueRoute(route);
+
+      if (isInTabRoutes(this.tabs, tab.fullPath)) {
+        return;
       }
+
+      const index = getIndexInTabRoutesByRouteName(this.tabs, route.name as string);
+
+      if (index === -1) {
+        this.tabs.push(tab);
+        return;
+      }
+
+      const { multiTab = false } = route.meta;
+      if (!multiTab) {
+        this.tabs.splice(index, 1, tab);
+        return;
+      }
+
+      this.tabs.push(tab);
     },
     /**
      * 删除多页签
-     * @param path - 路由path
+     * @param fullPath - 路由fullPath
      */
-    removeTab(path: string) {
+    removeTab(fullPath: string) {
       const { routerPush } = useRouterPush(false);
 
-      const isActive = this.activeTab === path;
-      const updateTabs = this.tabs.filter(tab => tab.path !== path);
+      const isActive = this.activeTab === fullPath;
+      const updateTabs = this.tabs.filter(tab => tab.fullPath !== fullPath);
       this.tabs = updateTabs;
       if (isActive && updateTabs.length) {
-        const activePath = updateTabs[updateTabs.length - 1].path;
+        const activePath = updateTabs[updateTabs.length - 1].fullPath;
         this.setActiveTab(activePath);
         routerPush(activePath);
       }
@@ -96,73 +112,73 @@ export const useTabStore = defineStore('tab-store', {
     clearTab(excludes: string[] = []) {
       const { routerPush } = useRouterPush(false);
 
-      const homePath = this.homeTab.path;
+      const homePath = this.homeTab.fullPath;
       const remain = [homePath, ...excludes];
       const hasActive = remain.includes(this.activeTab);
-      const updateTabs = this.tabs.filter(tab => remain.includes(tab.path));
+      const updateTabs = this.tabs.filter(tab => remain.includes(tab.fullPath));
       this.tabs = updateTabs;
       if (!hasActive && updateTabs.length) {
-        const activePath = updateTabs[updateTabs.length - 1].path;
+        const activePath = updateTabs[updateTabs.length - 1].fullPath;
         this.setActiveTab(activePath);
         routerPush(activePath);
       }
     },
     /**
      * 清除左边多页签
-     * @param path - 路由path
+     * @param fullPath - 路由fullPath
      */
-    clearLeftTab(path: string) {
-      const index = getIndexInTabRoutes(this.tabs, path);
+    clearLeftTab(fullPath: string) {
+      const index = getIndexInTabRoutes(this.tabs, fullPath);
       if (index > -1) {
-        const excludes = this.tabs.slice(index).map(item => item.path);
+        const excludes = this.tabs.slice(index).map(item => item.fullPath);
         this.clearTab(excludes);
       }
     },
     /**
      * 清除右边多页签
-     * @param path - 路由path
+     * @param fullPath - 路由fullPath
      */
-    clearRightTab(path: string) {
-      const index = getIndexInTabRoutes(this.tabs, path);
+    clearRightTab(fullPath: string) {
+      const index = getIndexInTabRoutes(this.tabs, fullPath);
       if (index > -1) {
-        const excludes = this.tabs.slice(0, index + 1).map(item => item.path);
+        const excludes = this.tabs.slice(0, index + 1).map(item => item.fullPath);
         this.clearTab(excludes);
       }
     },
     /**
      * 点击单个tab
-     * @param path - 路由path
+     * @param fullPath - 路由fullPath
      */
-    handleClickTab(path: string) {
+    handleClickTab(fullPath: string) {
       const { routerPush } = useRouterPush(false);
 
-      const isActive = this.activeTab === path;
+      const isActive = this.activeTab === fullPath;
       if (!isActive) {
-        this.setActiveTab(path);
-        routerPush(path);
+        this.setActiveTab(fullPath);
+        routerPush(fullPath);
       }
     },
     /**
      * 记录tab滚动位置
-     * @param path - 路由path
+     * @param fullPath - 路由fullPath
      * @param position - tab当前页的滚动位置
      */
-    recordTabScrollPosition(path: string, position: { left: number; top: number }) {
-      const index = getIndexInTabRoutes(this.tabs, path);
+    recordTabScrollPosition(fullPath: string, position: { left: number; top: number }) {
+      const index = getIndexInTabRoutes(this.tabs, fullPath);
       if (index > -1) {
         this.tabs[index].scrollPosition = position;
       }
     },
     /**
      * 获取tab滚动位置
-     * @param path - 路由path
+     * @param fullPath - 路由fullPath
      */
-    getTabScrollPosition(path: string) {
+    getTabScrollPosition(fullPath: string) {
       const position = {
         left: 0,
         top: 0
       };
-      const index = getIndexInTabRoutes(this.tabs, path);
+      const index = getIndexInTabRoutes(this.tabs, fullPath);
       if (index > -1) {
         Object.assign(position, this.tabs[index].scrollPosition);
       }
@@ -174,20 +190,27 @@ export const useTabStore = defineStore('tab-store', {
 
       const tabs: GlobalTabRoute[] = theme.tab.isCache ? getTabRoutes() : [];
 
-      const hasHome = isInTabRoutes(tabs, this.homeTab.path);
+      const hasHome = getIndexInTabRoutesByRouteName(tabs, this.homeTab.name as string) > -1;
       if (!hasHome && this.homeTab.name !== 'root') {
         tabs.unshift(this.homeTab);
       }
 
-      const isHome = currentRoute.path === this.homeTab.path;
-      const hasCurrent = isInTabRoutes(tabs, currentRoute.path);
-      if (!isHome && !hasCurrent) {
+      const isHome = currentRoute.fullPath === this.homeTab.fullPath;
+      const index = getIndexInTabRoutesByRouteName(tabs, currentRoute.name as string);
+      if (!isHome) {
         const currentTab = getTabRouteByVueRoute(currentRoute);
-        tabs.push(currentTab);
+        if (!currentRoute.meta.multiTab) {
+          tabs.splice(index, 1, currentTab);
+        } else {
+          const hasCurrent = isInTabRoutes(tabs, currentRoute.fullPath);
+          if (!hasCurrent) {
+            tabs.push(currentTab);
+          }
+        }
       }
 
       this.tabs = tabs;
-      this.setActiveTab(currentRoute.path);
+      this.setActiveTab(currentRoute.fullPath);
     }
   }
 });

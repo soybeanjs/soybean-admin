@@ -303,6 +303,53 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       }
     },
     {
+      name: 'function',
+      path: '/function',
+      component: 'basic',
+      children: [
+        {
+          name: 'function_tab',
+          path: '/function/tab',
+          component: 'self',
+          meta: {
+            title: 'Tab',
+            requiresAuth: true,
+            icon: 'ic:round-tab'
+          }
+        },
+        {
+          name: 'function_tab-detail',
+          path: '/function/tab-detail',
+          component: 'self',
+          meta: {
+            title: 'Tab Detail',
+            requiresAuth: true,
+            hide: true,
+            activeMenu: 'function_tab',
+            icon: 'ic:round-tab'
+          }
+        },
+        {
+          name: 'function_tab-multi-detail',
+          path: '/function/tab-multi-detail',
+          component: 'self',
+          meta: {
+            title: 'Tab Multi Detail',
+            requiresAuth: true,
+            hide: true,
+            multiTab: true,
+            activeMenu: 'function_tab',
+            icon: 'ic:round-tab'
+          }
+        }
+      ],
+      meta: {
+        title: '功能',
+        icon: 'ri:function-line',
+        order: 6
+      }
+    },
+    {
       name: 'exception',
       path: '/exception',
       component: 'basic',
@@ -341,7 +388,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       meta: {
         title: '异常页',
         icon: 'ant-design:exception-outlined',
-        order: 6
+        order: 7
       }
     },
     {
@@ -395,7 +442,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       meta: {
         title: '多级菜单',
         icon: 'carbon:menu',
-        order: 7
+        order: 8
       }
     },
     {
@@ -407,7 +454,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
         requiresAuth: true,
         singleLayout: 'basic',
         icon: 'fluent:book-information-24-regular',
-        order: 8
+        order: 9
       }
     }
   ],
@@ -705,6 +752,53 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       }
     },
     {
+      name: 'function',
+      path: '/function',
+      component: 'basic',
+      children: [
+        {
+          name: 'function_tab',
+          path: '/function/tab',
+          component: 'self',
+          meta: {
+            title: 'Tab',
+            requiresAuth: true,
+            icon: 'ic:round-tab'
+          }
+        },
+        {
+          name: 'function_tab-detail',
+          path: '/function/tab-detail',
+          component: 'self',
+          meta: {
+            title: 'Tab Detail',
+            requiresAuth: true,
+            hide: true,
+            activeMenu: 'function_tab',
+            icon: 'ic:round-tab'
+          }
+        },
+        {
+          name: 'function_tab-multi-detail',
+          path: '/function/tab-multi-detail',
+          component: 'self',
+          meta: {
+            title: 'Tab Multi Detail',
+            requiresAuth: true,
+            hide: true,
+            multiTab: true,
+            activeMenu: 'function_tab',
+            icon: 'ic:round-tab'
+          }
+        }
+      ],
+      meta: {
+        title: '功能',
+        icon: 'ri:function-line',
+        order: 6
+      }
+    },
+    {
       name: 'exception',
       path: '/exception',
       component: 'basic',
@@ -743,7 +837,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       meta: {
         title: '异常页',
         icon: 'ant-design:exception-outlined',
-        order: 6
+        order: 7
       }
     },
     {
@@ -797,7 +891,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       meta: {
         title: '多级菜单',
         icon: 'carbon:menu',
-        order: 7
+        order: 8
       }
     },
     {
@@ -809,7 +903,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
         requiresAuth: true,
         singleLayout: 'basic',
         icon: 'fluent:book-information-24-regular',
-        order: 8
+        order: 9
       }
     }
   ],

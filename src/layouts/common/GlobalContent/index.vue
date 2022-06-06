@@ -12,7 +12,7 @@
         @after-enter="handleAfterEnter"
       >
         <keep-alive :include="routeStore.cacheRoutes">
-          <component :is="Component" v-if="app.reloadFlag" :key="route.path" />
+          <component :is="Component" v-if="app.reloadFlag" :key="route.fullPath" />
         </keep-alive>
       </transition>
     </router-view>

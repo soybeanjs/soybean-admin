@@ -44,6 +44,10 @@ declare namespace AuthRoute {
     | 'auth-demo'
     | 'auth-demo_permission'
     | 'auth-demo_super'
+    | 'function'
+    | 'function_tab'
+    | 'function_tab-detail'
+    | 'function_tab-multi-detail'
     | 'exception'
     | 'exception_403'
     | 'exception_404'
@@ -94,12 +98,14 @@ declare namespace AuthRoute {
     hide?: boolean;
     /** 外链链接 */
     href?: string;
+    /** 是否支持多个tab页签(默认一个，即相同name的路由会被替换) */
+    multiTab?: boolean;
     /** 路由顺序，可用于菜单的排序 */
     order?: number;
-    /** 表示是否是多级路由的中间级路由(用于转换路由数据时筛选多级路由的标识，定义路由时不用填写) */
-    multi?: boolean;
     /** 当前路由需要选中的菜单项(用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况) */
     activeMenu?: RouteKey;
+    /** 表示是否是多级路由的中间级路由(用于转换路由数据时筛选多级路由的标识，定义路由时不用填写) */
+    multi?: boolean;
   };
 
   /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */

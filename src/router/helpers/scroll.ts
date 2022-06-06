@@ -6,10 +6,13 @@ export const scrollBehavior: RouterScrollBehavior = (to, from) => {
     const tab = useTabStore();
 
     if (to.hash) {
-      resolve({
-        el: to.hash,
-        behavior: 'smooth'
-      });
+      const el = document.querySelector(to.hash);
+      if (el) {
+        resolve({
+          el,
+          behavior: 'smooth'
+        });
+      }
     }
 
     const { left, top } = tab.getTabScrollPosition(to.path);
