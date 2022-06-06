@@ -82,7 +82,7 @@ type ComponentAction = Record<AuthRoute.RouteComponent, () => void>;
  * 将单个权限路由转换成vue路由
  * @param item - 单个权限路由
  */
-function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
+export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
   const resultRoute: RouteRecordRaw[] = [];
 
   const itemRoute = { ...item } as RouteRecordRaw;

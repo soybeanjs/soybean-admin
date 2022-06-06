@@ -31,6 +31,14 @@ export async function createDynamicRouteGuard(
 
     if (to.name === routeName('not-found-page')) {
       // 动态路由没有加载导致被not-found-page路由捕获，等待权限路由加载好了，回到之前的路由
+
+      // 若路由是从根路由重定向过来的，重新回到根路由
+      const ROOT_ROUTE_NAME: AuthRoute.RouteKey = 'root';
+      if (to.redirectedFrom?.name === ROOT_ROUTE_NAME) {
+        next({ path: '/', replace: true, query: to.query });
+        return false;
+      }
+
       next({ path: to.fullPath, replace: true, query: to.query });
       return false;
     }

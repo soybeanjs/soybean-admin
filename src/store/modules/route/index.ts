@@ -1,14 +1,16 @@
 import { defineStore } from 'pinia';
-import { router, constantRoutes, routes as staticRoutes } from '@/router';
+import { router, ROOT_ROUTE, constantRoutes, routes as staticRoutes } from '@/router';
 import { fetchUserRoutes } from '@/service';
 import {
   getUserInfo,
   transformAuthRouteToMenu,
   transformAuthRoutesToVueRoutes,
+  transformAuthRouteToVueRoute,
   transformAuthRoutesToSearchMenus,
   getCacheRoutes,
   filterAuthRoutesByUserPermission,
   transformRoutePathToRouteName,
+  transformRouteNameToRoutePath,
   getConstantRouteNames
 } from '@/utils';
 import { useAuthStore } from '../auth';
@@ -75,12 +77,24 @@ export const useRouteStore = defineStore('route-store', {
 
       this.cacheRoutes = getCacheRoutes(vueRoutes);
     },
+    /** 动态路由模式下：更新根路由的重定向 */
+    handleUpdateRootRedirect(routeKey: AuthRoute.RouteKey) {
+      if (routeKey === 'root' || routeKey === 'not-found-page') {
+        throw Error('routeKey的值不能为root或者not-found-page');
+      }
+      const rootRoute: AuthRoute.Route = { ...ROOT_ROUTE, redirect: transformRouteNameToRoutePath(routeKey) };
+      const rootRouteName: AuthRoute.RouteKey = 'root';
+      router.removeRoute(rootRouteName);
+      const rootVueRoute = transformAuthRouteToVueRoute(rootRoute)[0];
+      router.addRoute(rootVueRoute);
+    },
     /** 初始化动态路由 */
     async initDynamicRoute() {
       const { userId } = getUserInfo();
       const { data } = await fetchUserRoutes(userId);
       if (data) {
         this.routeHomeName = data.home;
+        this.handleUpdateRootRedirect(data.home);
         this.handleAuthRoutes(data.routes);
       }
     },
