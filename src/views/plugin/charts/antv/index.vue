@@ -12,6 +12,12 @@
     <n-card :bordered="false" class="rounded-16px shadow-sm">
       <div ref="scatterRef" class="h-400px"></div>
     </n-card>
+    <n-card :bordered="false" class="rounded-16px shadow-sm">
+      <div ref="areaRef" class="h-400px"></div>
+    </n-card>
+    <n-card :bordered="false" class="rounded-16px shadow-sm">
+      <div ref="radarRef" class="h-400px"></div>
+    </n-card>
   </n-space>
 </template>
 
@@ -24,6 +30,8 @@ const pieRef = ref<HTMLElement | null>(null);
 const lineRef = ref<HTMLElement | null>(null);
 const barRef = ref<HTMLElement | null>(null);
 const scatterRef = ref<HTMLElement | null>(null);
+const areaRef = ref<HTMLElement | null>(null);
+const radarRef = ref<HTMLElement | null>(null);
 
 function renderPieChart() {
   if (!pieRef.value) return;
@@ -241,51 +249,220 @@ function renderBarChart() {
 }
 
 function renderScatterChart() {
-  fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json')
+  const colorMap = {
+    Asia: '#1890FF',
+    Americas: '#2FC25B',
+    Europe: '#FACC14',
+    Oceania: '#223273'
+  };
+
+  fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json')
     .then(res => res.json())
     .then(data => {
       if (!scatterRef.value) return;
-
       const chart = new Chart({
         container: scatterRef.value,
         autoFit: true,
         height: 500
       });
       chart.data(data);
+      // 为各个字段设置别名
       chart.scale({
-        height: { nice: true },
-        weight: { nice: true }
+        LifeExpectancy: {
+          alias: '人均寿命（年）',
+          nice: true
+        },
+        Population: {
+          type: 'pow',
+          alias: '人口总数'
+        },
+        GDP: {
+          alias: '人均国内生产总值($)',
+          nice: true
+        },
+        Country: {
+          alias: '国家/地区'
+        }
+      });
+      chart.axis('GDP', {
+        label: {
+          formatter(value) {
+            return `${(+value / 1000).toFixed(0)}k`;
+          } // 格式化坐标轴的显示
+        }
       });
       chart.tooltip({
         showTitle: false,
-        showCrosshairs: true,
-        crosshairs: {
-          type: 'xy'
-        },
-        itemTpl:
-          '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">' +
-          '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-          '{name}<br/>' +
-          '{value}' +
-          '</li>'
+        showMarkers: false
       });
+      chart.legend('Population', false); // 该图表默认会生成多个图例，设置不展示 Population 和 Country 两个维度的图例
       chart
         .point()
-        .position('height*weight')
-        .color('gender')
-        .shape('circle')
-        .tooltip('gender*height*weight', (gender, height, weight) => {
-          return {
-            name: gender,
-            value: `${height}(cm), ${weight}(kg)`
-          };
+        .position('GDP*LifeExpectancy')
+        .size('Population', [4, 65])
+        .color('continent', val => {
+          const key = val as keyof typeof colorMap;
+          return colorMap[key];
         })
-        .style({
-          fillOpacity: 0.85
+        .shape('circle')
+        .tooltip('Country*Population*GDP*LifeExpectancy')
+        .style('continent', val => {
+          const key = val as keyof typeof colorMap;
+          return {
+            lineWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3,
+            opacity: 0.65,
+            stroke: colorMap[key]
+          };
         });
-      chart.interaction('legend-highlight');
+      chart.interaction('element-active');
       chart.render();
     });
+}
+
+function renderAreaChart() {
+  if (!areaRef.value) return;
+
+  const data = [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 5268 },
+    { country: 'Asia', year: '1950', value: 4400 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 947 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 1766 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 133 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 628 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 408 },
+    { country: 'Oceania', year: '1750', value: 200 },
+    { country: 'Oceania', year: '1800', value: 200 },
+    { country: 'Oceania', year: '1850', value: 200 },
+    { country: 'Oceania', year: '1900', value: 460 },
+    { country: 'Oceania', year: '1950', value: 230 },
+    { country: 'Oceania', year: '1999', value: 300 },
+    { country: 'Oceania', year: '2050', value: 300 }
+  ];
+  const chart = new Chart({
+    container: areaRef.value,
+    autoFit: true,
+    height: 500
+  });
+
+  chart.data(data);
+  chart.scale('year', {
+    type: 'linear',
+    tickInterval: 50
+  });
+  chart.scale('value', {
+    nice: true
+  });
+
+  chart.tooltip({
+    showCrosshairs: true,
+    shared: true
+  });
+
+  chart.area().adjust('stack').position('year*value').color('country');
+  chart.line().adjust('stack').position('year*value').color('country');
+
+  chart.interaction('element-highlight');
+
+  chart.render();
+}
+
+function renderRadarChart() {
+  if (!radarRef.value) return;
+
+  const data = [
+    { item: 'Design', a: 70, b: 30 },
+    { item: 'Development', a: 60, b: 70 },
+    { item: 'Marketing', a: 50, b: 60 },
+    { item: 'Users', a: 40, b: 50 },
+    { item: 'Test', a: 60, b: 70 },
+    { item: 'Language', a: 70, b: 50 },
+    { item: 'Technology', a: 50, b: 40 },
+    { item: 'Support', a: 30, b: 40 },
+    { item: 'Sales', a: 60, b: 40 },
+    { item: 'UX', a: 50, b: 60 }
+  ];
+  const { DataView } = DataSet;
+  const dv = new DataView().source(data);
+  dv.transform({
+    type: 'fold',
+    fields: ['a', 'b'], // 展开字段集
+    key: 'user', // key字段
+    value: 'score' // value字段
+  });
+
+  const chart = new Chart({
+    container: radarRef.value,
+    autoFit: true,
+    height: 500
+  });
+  chart.data(dv.rows);
+  chart.scale('score', {
+    min: 0,
+    max: 80
+  });
+  chart.coordinate('polar', {
+    radius: 0.8
+  });
+  chart.tooltip({
+    shared: true,
+    showCrosshairs: true,
+    crosshairs: {
+      line: {
+        style: {
+          lineDash: [4, 4],
+          stroke: '#333'
+        }
+      }
+    }
+  });
+  chart.axis('item', {
+    line: null,
+    tickLine: null,
+    grid: {
+      line: {
+        style: {
+          lineDash: null
+        }
+      }
+    }
+  });
+  chart.axis('score', {
+    line: null,
+    tickLine: null,
+    grid: {
+      line: {
+        type: 'line',
+        style: {
+          lineDash: null
+        }
+      }
+    }
+  });
+
+  chart.line().position('item*score').color('user').size(2);
+  chart.point().position('item*score').color('user').shape('circle').size(4).style({
+    stroke: '#fff',
+    lineWidth: 1,
+    fillOpacity: 1
+  });
+  chart.area().position('item*score').color('user');
+  chart.render();
 }
 
 function init() {
@@ -293,6 +470,8 @@ function init() {
   renderLineChart();
   renderBarChart();
   renderScatterChart();
+  renderAreaChart();
+  renderRadarChart();
 }
 
 onMounted(() => {
