@@ -61,9 +61,13 @@ Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 ![](https://s2.loli.net/2022/05/16/bRlAKuHW7ZVh9DT.png)
 
-![](https://s2.loli.net/2022/05/16/JvNt61rx5nca42i.png)
+![](https://s2.loli.net/2022/06/07/rY8TyAftM5dxspv.png)
 
-![](https://s2.loli.net/2022/05/18/8WJvaz13ibXmsND.png)
+![](https://s2.loli.net/2022/06/07/5GNBAd31IzQVjLP.png)
+
+![](https://s2.loli.net/2022/06/07/rRSG6mEZpujOACT.png)
+
+
 
 
 
@@ -71,14 +75,15 @@ Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 - [x] 引入ECharts替换AntV G2Plot
 - [x] 图表示例：ECharts、AntV G2
-- [ ] 多页签：支持query、hash等参数，同一页面支持多个Tab
+- [x] 多页签：支持query、hash等参数，同一页面支持多个Tab
 - [ ] 缓存主题配置
 - [ ] 添加锁屏组件、全局Iframe组件
 - [ ] 示例页面完善
+- [ ] 表单、表格示例
 - [ ] 性能优化(优化递归函数)
 - [ ] 精简版(新分支thin)
 - [ ] 文档完善
-- [ ] 表单、表格示例
+- [ ] i18n国际化
 - [ ] element-plus版本
 - [ ] 其他UI版本
 - [ ] soybean-admin cli工具(选择不同UI)
