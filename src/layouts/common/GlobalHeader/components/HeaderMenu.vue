@@ -1,13 +1,15 @@
 <template>
-  <div style="flex: 1; overflow: hidden; padding: 0 10px">
-    <n-scrollbar :x-scrollable="true" class="flex-1-hidden">
-      <n-menu
-        :value="activeKey"
-        mode="horizontal"
-        :options="menus"
-        :inverted="theme.header.inverted"
-        @update:value="handleUpdateMenu"
-      />
+  <div class="flex-1-hidden h-full px-10px">
+    <n-scrollbar :x-scrollable="true" class="flex-1-hidden h-full" content-class="h-full">
+      <div class="flex-y-center h-full">
+        <n-menu
+          :value="activeKey"
+          mode="horizontal"
+          :options="menus"
+          :inverted="theme.header.inverted"
+          @update:value="handleUpdateMenu"
+        />
+      </div>
     </n-scrollbar>
   </div>
 </template>
@@ -33,20 +35,7 @@ function handleUpdateMenu(_key: string, item: MenuOption) {
 }
 </script>
 
-<style lang="scss" scoped>
-:deep(.n-menu-item-content__icon) {
-  font-size: 16px !important;
-}
-:deep(.n-menu .n-menu-item) {
-  margin-top: 0;
-  // margin-bottom: 5px;
-}
-:deep(.n-menu .n-menu-item::before) {
-  left: 0;
-  right: 0;
-  border-radius: 3px;
-  margin: 0 5px;
-}
+<style scoped>
 :deep(.n-menu-item-content-header) {
   overflow: inherit !important;
 }
