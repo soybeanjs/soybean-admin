@@ -11,19 +11,19 @@ const { load } = useScriptTag(GAODE_MAP_SDK_URL);
 
 const domRef = ref<HTMLDivElement>();
 
-async function renderBaiduMap() {
-  if (!domRef.value) return;
+async function renderMap() {
   await load(true);
+  if (!domRef.value) return;
   const map = new AMap.Map(domRef.value, {
     zoom: 11,
     center: [114.05834626586915, 22.546789983033168],
     viewMode: '3D'
   });
-  window.console.log(map);
+  map.getCenter();
 }
 
 onMounted(() => {
-  renderBaiduMap();
+  renderMap();
 });
 </script>
 
