@@ -5,9 +5,7 @@
       <menu-collapse v-if="showMenuCollapse" />
       <global-breadcrumb v-if="theme.header.crumb.visible" />
     </div>
-    <div v-else class="flex-1-hidden flex-y-center h-full" :style="{ justifyContent: theme.menu.horizontalPosition }">
-      <header-menu />
-    </div>
+    <header-menu v-else />
     <div class="flex justify-end h-full">
       <global-search />
       <github-site />
