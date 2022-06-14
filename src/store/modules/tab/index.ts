@@ -1,5 +1,3 @@
-import { unref } from 'vue';
-import type { Ref } from 'vue';
 import type { Router, RouteLocationNormalizedLoaded } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useRouterPush } from '@/composables';
@@ -56,10 +54,10 @@ export const useTabStore = defineStore('tab-store', {
      * 设置当前路由对应的页签title
      * @param title - tab名称
      */
-    setActiveTabTitle(title: string | Ref<string>) {
+    setActiveTabTitle(title: string) {
       const item = this.tabs.find(tab => tab.fullPath === this.activeTab);
       if (item) {
-        Object.assign(item, { meta: { title: unref(title) } });
+        item.meta.title = title;
       }
     },
     /**
