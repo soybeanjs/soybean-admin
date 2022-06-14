@@ -51,6 +51,16 @@ export const useTabStore = defineStore('tab-store', {
       this.activeTab = fullPath;
     },
     /**
+     * 设置当前路由对应的页签title
+     * @param title - tab名称
+     */
+    setActiveTabTitle(title: string) {
+      const item = this.tabs.find(tab => tab.fullPath === this.activeTab);
+      if (item) {
+        item.meta.title = title;
+      }
+    },
+    /**
      * 初始化首页页签路由
      * @param routeHomeName - 路由首页的name
      * @param router - 路由实例
