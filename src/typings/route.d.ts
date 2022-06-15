@@ -94,6 +94,8 @@ declare namespace AuthRoute {
     keepAlive?: boolean;
     /** 菜单和面包屑对应的图标 */
     icon?: string;
+    /** 自定义的菜单和面包屑对应的图标 */
+    customIcon?: string;
     /** 是否在菜单中隐藏(一些列表、表格的详情页面需要通过参数跳转，所以不能显示在菜单中) */
     hide?: boolean;
     /** 外链链接 */

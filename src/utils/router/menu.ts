@@ -1,4 +1,4 @@
-import { iconifyRender } from '../common';
+import { iconifyRender, customIconRender } from '../common';
 
 /** 路由不转换菜单 */
 function hideInMenu(route: AuthRoute.Route) {
@@ -6,13 +6,21 @@ function hideInMenu(route: AuthRoute.Route) {
 }
 
 /** 给菜单添加可选属性 */
-function addPartialProps(menuItem: GlobalMenuOption, icon?: string, children?: GlobalMenuOption[]) {
-  const item = { ...menuItem };
-  if (icon) {
-    Object.assign(item, { icon: iconifyRender(icon) });
+function addPartialProps(config: {
+  menu: GlobalMenuOption;
+  icon?: string;
+  customIcon?: string;
+  children?: GlobalMenuOption[];
+}) {
+  const item = { ...config.menu };
+  if (config.icon) {
+    Object.assign(item, { icon: iconifyRender(config.icon) });
   }
-  if (children) {
-    Object.assign(item, { children });
+  if (config.customIcon) {
+    Object.assign(item, { icon: customIconRender(config.customIcon) });
+  }
+  if (config.children) {
+    Object.assign(item, { children: config.children });
   }
   return item;
 }
@@ -30,16 +38,17 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuO
     if (route.children) {
       menuChildren = transformAuthRouteToMenu(route.children);
     }
-    const menuItem: GlobalMenuOption = addPartialProps(
-      {
+    const menuItem: GlobalMenuOption = addPartialProps({
+      menu: {
         key: routeName,
         label: meta.title,
         routeName,
         routePath: path
       },
-      meta?.icon,
-      menuChildren
-    );
+      icon: meta.icon,
+      customIcon: meta.customIcon,
+      children: menuChildren
+    });
 
     if (!hideInMenu(route)) {
       globalMenu.push(menuItem);

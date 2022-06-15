@@ -250,7 +250,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '图标',
             requiresAuth: true,
-            icon: 'ic:baseline-insert-emoticon'
+            customIcon: 'custom-icon'
           }
         },
         {
@@ -709,7 +709,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '图标',
             requiresAuth: true,
-            icon: 'ic:baseline-insert-emoticon'
+            customIcon: 'custom-icon'
           }
         },
         {

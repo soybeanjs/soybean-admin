@@ -1,11 +1,11 @@
 {
   "name": "soybean-admin",
   "version": "0.9.5",
-	"author": {
-		"name": "Soybean",
-		"email": "honghuangdc@gmail.com",
-		"url": "https://github.com/honghuangdc"
-	},
+  "author": {
+    "name": "Soybean",
+    "email": "honghuangdc@gmail.com",
+    "url": "https://github.com/honghuangdc"
+  },
   "scripts": {
     "dev": "cross-env VITE_ENV_TYPE=dev vite",
     "dev:test": "cross-env VITE_ENV_TYPE=test vite",
@@ -103,15 +103,16 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue-eslint-parser": "^9.0.2",
     "vue-tsc": "^0.37.8"
   },
-	"homepage": "https://github.com/honghuangdc/soybean-admin",
-	"repository": {
-		"url": "https://github.com/honghuangdc/soybean-admin.git"
-	},
-	"bugs": {
-		"url": "https://github.com/honghuangdc/soybean-admin/issues"
-	},
+  "homepage": "https://github.com/honghuangdc/soybean-admin",
+  "repository": {
+    "url": "https://github.com/honghuangdc/soybean-admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/honghuangdc/soybean-admin/issues"
+  },
   "license": "MIT"
 }

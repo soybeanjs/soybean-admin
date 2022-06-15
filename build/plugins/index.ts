@@ -10,10 +10,9 @@ import compress from './compress';
 /**
  * vite插件
  * @param viteEnv - 环境变量配置
- * @param srcPath - src路径
  */
-export function setupVitePlugins(viteEnv: ImportMetaEnv, srcPath: string): (PluginOption | PluginOption[])[] {
-  const plugins = [...vue, html(viteEnv), ...unplugin(srcPath), unocss, mock];
+export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | PluginOption[])[] {
+  const plugins = [...vue, html(viteEnv), ...unplugin, unocss, mock];
 
   if (viteEnv.VITE_VISUALIZER === 'true') {
     plugins.push(visualizer);
