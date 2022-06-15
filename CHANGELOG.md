@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.6](https://github.com/honghuangdc/soybean-admin/compare/v0.9.5...v0.9.6) (2022-06-15)
+
+
+### Features
+
+* **projects:** 本地svg动态渲染图标 ([c3c975e](https://github.com/honghuangdc/soybean-admin/commit/c3c975ee1142987b7ded0107bf91d0080d5651fe)), closes [#61](https://github.com/honghuangdc/soybean-admin/issues/61)
+* **projects:** 上下结构，菜单支持横向滚动 ([808051b](https://github.com/honghuangdc/soybean-admin/commit/808051b29dd682e1cbcf0e211774efb9cc12713a))
+* **projects:** 新增Antv G2图表示例 ([2d64a2e](https://github.com/honghuangdc/soybean-admin/commit/2d64a2e57c8d83c8d06f210eeefef8f31b3abeb9))
+* **projects:** 增加设置当前Tab页签名称功能 ([487213b](https://github.com/honghuangdc/soybean-admin/commit/487213b64853765e2bd186474e4607572624a33e))
+
+
+### Bug Fixes
+
+* **projects:** 设置tab标题导致meta属性丢失 ([efcfa57](https://github.com/honghuangdc/soybean-admin/commit/efcfa576d52a7eab644f3b4c65af153442887fab))
+* **projects:** 修复顶部菜单的位置失效问题 ([4ee0d94](https://github.com/honghuangdc/soybean-admin/commit/4ee0d94f1bde83c788fc0dcb084402359c04fb1b))
+
 ### [0.9.5](https://github.com/honghuangdc/soybean-admin/compare/v0.9.4...v0.9.5) (2022-06-06)
 
 
