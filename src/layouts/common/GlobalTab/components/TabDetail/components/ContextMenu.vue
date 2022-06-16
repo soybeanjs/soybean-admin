@@ -86,6 +86,11 @@ const options = computed<Option[]>(() => [
     label: '关闭右侧',
     key: 'close-right',
     icon: iconifyRender('mdi:format-horizontal-align-right')
+  },
+  {
+    label: '关闭所有',
+    key: 'close-all',
+    icon: iconifyRender('ant-design:line-outlined')
   }
 ]);
 
@@ -118,6 +123,12 @@ const actionMap = new Map<DropdownKey, () => void>([
     'close-right',
     () => {
       tab.clearRightTab(props.currentPath);
+    }
+  ],
+  [
+    'close-all',
+    () => {
+      tab.clearAllTab();
     }
   ]
 ]);
