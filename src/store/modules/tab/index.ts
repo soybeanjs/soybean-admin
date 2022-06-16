@@ -155,6 +155,10 @@ export const useTabStore = defineStore('tab-store', {
         this.clearTab(excludes);
       }
     },
+    /** 清除所有多页签 */
+    clearAllTab() {
+      this.clearTab();
+    },
     /**
      * 点击单个tab
      * @param fullPath - 路由fullPath

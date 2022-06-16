@@ -1,4 +1,5 @@
 import { h } from 'vue';
+import { NIcon } from 'naive-ui';
 import { Icon } from '@iconify/vue';
 import SvgIcon from '@/components/custom/SvgIcon.vue';
 
@@ -16,7 +17,7 @@ export function iconifyRender(icon: string, color?: string, size?: number) {
   if (size) {
     style.size = `${size}px`;
   }
-  return () => h(Icon, { icon, style });
+  return () => h(NIcon, null, { default: () => h(Icon, { icon, style }) });
 }
 
 /**
