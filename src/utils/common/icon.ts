@@ -35,5 +35,5 @@ export function customIconRender(icon: string, color?: string, size?: number) {
     style.size = `${size}px`;
   }
 
-  return () => h(SvgIcon, { icon, style });
+  return () => h(NIcon, null, { default: () => h(SvgIcon, { icon, style }) });
 }
