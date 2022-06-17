@@ -11,6 +11,7 @@
       <github-site />
       <full-screen />
       <theme-mode />
+      <system-message />
       <user-avatar />
     </div>
   </dark-mode-container>
@@ -27,7 +28,8 @@ import {
   GithubSite,
   FullScreen,
   ThemeMode,
-  UserAvatar
+  UserAvatar,
+  SystemMessage
 } from './components';
 
 interface Props {

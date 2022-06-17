@@ -26,3 +26,39 @@ declare namespace Demo {
     name: string;
   }
 }
+
+/** 系统消息 */
+declare namespace Message {
+  interface Tab {
+    /** tab的key */
+    key: number;
+    /** tab名称 */
+    name: string;
+    /** badge类型 */
+    badgeProps?: import('naive-ui').BadgeProps;
+    /** 消息数据 */
+    list: ListItem[];
+  }
+
+  interface List {
+    /** 数据唯一值 */
+    id: number;
+    /** 头像 */
+    avatar?: string;
+    /** 消息icon */
+    icon?: string;
+    svgIcon?: string;
+    /** 消息标题 */
+    title: string;
+    /** 消息发送时间 */
+    date?: string;
+    /** 消息是否已读 */
+    isRead?: boolean;
+    /** 消息描述 */
+    description?: string;
+    /** 标签名称 */
+    tagTitle?: string;
+    /** 标签props */
+    tagProps?: import('naive-ui').TagProps;
+  }
+}
