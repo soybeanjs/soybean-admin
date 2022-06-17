@@ -2,10 +2,10 @@
   <n-scrollbar class="max-h-360px">
     <n-list>
       <n-list-item
-        v-for="item in list"
+        v-for="(item, index) in list"
         :key="item.id"
         class="cursor-pointer hover:bg-[#f6f6f6] dark:hover:bg-dark"
-        @click="handleRead(item)"
+        @click="handleRead(index)"
       >
         <n-thing class="px-15px" :class="{ 'opacity-30': item.isRead }">
           <template #avatar>
@@ -44,14 +44,19 @@ interface Props {
   descRows?: number;
 }
 
+interface Emits {
+  (e: 'read', val: number): void;
+}
+
 withDefaults(defineProps<Props>(), {
   list: () => [],
   titleRows: 1,
   descRows: 2
 });
 
-function handleRead(item: Message.List) {
-  // eslint-disable-next-line no-param-reassign
-  item.isRead = true;
+const emit = defineEmits<Emits>();
+
+function handleRead(index: number) {
+  emit('read', index);
 }
 </script>

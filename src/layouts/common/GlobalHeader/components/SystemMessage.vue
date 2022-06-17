@@ -31,18 +31,14 @@
           :empty="item.list.length === 0"
           placeholder-class="bg-$n-color transition-background-color duration-300 ease-in-out"
         >
-          <message-list :list="item.list" />
+          <message-list :list="item.list" @read="handleRead" />
         </loading-empty-wrapper>
       </n-tab-pane>
     </n-tabs>
-    <div v-if="tabData[currentTab].list.length > 0" class="flex cursor-pointer border-t border-$n-divider-color">
-      <div class="py-10px text-center flex-1" @click="handleClear(currentTab)">清空</div>
-      <div class="py-10px text-center flex-1 border-l border-$n-divider-color" @click="handleAllRead(currentTab)">
-        全部已读
-      </div>
-      <div class="py-10px text-center flex-1 border-l border-$n-divider-color" @click="handleLoadMore(currentTab)">
-        查看更多
-      </div>
+    <div v-if="showAction" class="flex cursor-pointer border-t border-$n-divider-color">
+      <div class="py-10px text-center flex-1" @click="handleClear">清空</div>
+      <div class="py-10px text-center flex-1 border-l border-$n-divider-color" @click="handleAllRead">全部已读</div>
+      <div class="py-10px text-center flex-1 border-l border-$n-divider-color" @click="handleLoadMore">查看更多</div>
     </div>
   </n-popover>
 </template>
@@ -53,9 +49,9 @@ import { useThemeStore } from '@/store';
 import { useBoolean } from '@/hooks';
 import MessageList from './MessageList.vue';
 
-const currentTab = ref(0);
 const theme = useThemeStore();
 const { bool: loading, setBool: setLoading } = useBoolean();
+const currentTab = ref(0);
 const tabData = ref<Message.Tab[]>([
   {
     key: 1,
@@ -185,19 +181,25 @@ const count = computed(() => {
   }, 0);
 });
 
-function handleClear(index: number) {
-  tabData.value[index].list = [];
+const showAction = computed(() => tabData.value[currentTab.value].list.length > 0);
+
+function handleRead(index: number) {
+  tabData.value[currentTab.value].list[index].isRead = true;
 }
 
-function handleAllRead(index: number) {
-  tabData.value[index].list.map(item => Object.assign(item, { isRead: true }));
+function handleAllRead() {
+  tabData.value[currentTab.value].list.map(item => Object.assign(item, { isRead: true }));
 }
 
-function handleLoadMore(index: number) {
-  const { list } = tabData.value[index];
+function handleClear() {
+  tabData.value[currentTab.value].list = [];
+}
+
+function handleLoadMore() {
+  const { list } = tabData.value[currentTab.value];
   setLoading(true);
   setTimeout(() => {
-    list.push(...tabData.value[index].list);
+    list.push(...tabData.value[currentTab.value].list);
     setLoading(false);
   }, 1000);
 }
