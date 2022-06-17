@@ -27,6 +27,7 @@
       <global-footer />
     </template>
   </admin-layout>
+  <global-back-top />
   <setting-drawer />
 </template>
 
@@ -35,7 +36,15 @@ import AdminLayout from '@soybeanjs/vue-admin-layout';
 import { useAppStore, useThemeStore } from '@/store';
 import { useBasicLayout } from '@/composables';
 import { useBoolean } from '@/hooks';
-import { SettingDrawer, GlobalHeader, GlobalTab, GlobalSider, GlobalContent, GlobalFooter } from '../common';
+import {
+  SettingDrawer,
+  GlobalHeader,
+  GlobalTab,
+  GlobalSider,
+  GlobalContent,
+  GlobalFooter,
+  GlobalBackTop
+} from '../common';
 
 const app = useAppStore();
 const theme = useThemeStore();
