@@ -1,18 +1,17 @@
 <template>
-  <n-popover trigger="click" class="!p-0" placement="bottom">
+  <n-popover class="!p-0" trigger="click" placement="bottom">
     <template #trigger>
-      <hover-container tooltip-content="消息通知" class="w-40px h-full relative" :inverted="theme.header.inverted">
+      <hover-container class="w-40px h-full relative" tooltip-content="消息通知" :inverted="theme.header.inverted">
         <icon-clarity:notification-line class="text-18px" />
         <n-badge
           :value="count"
-          :show="count > 0"
           :max="99"
           :class="[count < 10 ? '-right-2px' : '-right-10px']"
           class="absolute top-10px"
         />
       </hover-container>
     </template>
-    <n-tabs v-model:value="currentTab" type="line" class="w-360px" justify-content="space-evenly">
+    <n-tabs v-model:value="currentTab" class="w-360px" type="line" justify-content="space-evenly">
       <n-tab-pane v-for="(item, index) in tabData" :key="item.key" :name="index">
         <template #tab>
           <div class="flex-x-center items-center w-120px">
@@ -21,7 +20,7 @@
               v-bind="item.badgeProps"
               :value="item.list.filter(message => !message.isRead).length"
               :max="99"
-              :show="item.list.length !== 0"
+              show-zero
             />
           </div>
         </template>

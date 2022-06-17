@@ -14,7 +14,7 @@
             <Icon v-else-if="item.icon" class="text-34px text-primary" :icon="item.icon" />
           </template>
           <template #header>
-            <n-ellipsis :line-clamp="titleRows" :tooltip="{ placement: 'top' }">
+            <n-ellipsis :line-clamp="1">
               {{ item.title }}
               <template #tooltip>
                 {{ item.title }}
@@ -25,7 +25,7 @@
             <n-tag v-bind="item.tagProps" size="small">{{ item.tagTitle }}</n-tag>
           </template>
           <template #description>
-            <n-ellipsis v-if="item.description" :line-clamp="descRows">
+            <n-ellipsis v-if="item.description" :line-clamp="2">
               {{ item.description }}
             </n-ellipsis>
             <p>{{ item.date }}</p>
@@ -40,8 +40,6 @@ import { Icon } from '@iconify/vue';
 
 interface Props {
   list?: Message.List[];
-  titleRows?: number;
-  descRows?: number;
 }
 
 interface Emits {
@@ -49,9 +47,7 @@ interface Emits {
 }
 
 withDefaults(defineProps<Props>(), {
-  list: () => [],
-  titleRows: 1,
-  descRows: 2
+  list: () => []
 });
 
 const emit = defineEmits<Emits>();
