@@ -38,7 +38,7 @@ export default defineConfig(configEnv => {
       port: 5050
     },
     build: {
-      brotliSize: false,
+      reportCompressedSize: false,
       sourcemap: false,
       commonjsOptions: {
         ignoreTryCatch: false

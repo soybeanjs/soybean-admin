@@ -37,7 +37,7 @@ declare namespace Message {
     /** badge类型 */
     badgeProps?: import('naive-ui').BadgeProps;
     /** 消息数据 */
-    list: ListItem[];
+    list: List[];
   }
 
   interface List {

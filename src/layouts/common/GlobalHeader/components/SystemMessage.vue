@@ -1,7 +1,7 @@
 <template>
   <n-popover class="!p-0" trigger="click" placement="bottom">
     <template #trigger>
-      <hover-container class="w-40px h-full relative" tooltip-content="消息通知" :inverted="theme.header.inverted">
+      <hover-container tooltip-content="消息通知" :inverted="theme.header.inverted" class="relative w-40px h-full">
         <icon-clarity:notification-line class="text-18px" />
         <n-badge
           :value="count"
@@ -34,10 +34,10 @@
         </loading-empty-wrapper>
       </n-tab-pane>
     </n-tabs>
-    <div v-if="showAction" class="flex cursor-pointer border-t border-$n-divider-color">
-      <div class="py-10px text-center flex-1" @click="handleClear">清空</div>
-      <div class="py-10px text-center flex-1 border-l border-$n-divider-color" @click="handleAllRead">全部已读</div>
-      <div class="py-10px text-center flex-1 border-l border-$n-divider-color" @click="handleLoadMore">查看更多</div>
+    <div v-if="showAction" class="flex border-t border-$n-divider-color cursor-pointer">
+      <div class="flex-1 text-center py-10px" @click="handleClear">清空</div>
+      <div class="flex-1 text-center py-10px border-l border-$n-divider-color" @click="handleAllRead">全部已读</div>
+      <div class="flex-1 text-center py-10px border-l border-$n-divider-color" @click="handleLoadMore">查看更多</div>
     </div>
   </n-popover>
 </template>
@@ -187,7 +187,7 @@ function handleRead(index: number) {
 }
 
 function handleAllRead() {
-  tabData.value[currentTab.value].list.map(item => Object.assign(item, { isRead: true }));
+  tabData.value[currentTab.value].list.forEach(item => Object.assign(item, { isRead: true }));
 }
 
 function handleClear() {
