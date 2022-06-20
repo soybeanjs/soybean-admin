@@ -7,7 +7,7 @@ specifiers:
   '@better-scroll/core': ^2.4.2
   '@commitlint/cli': ^17.0.2
   '@commitlint/config-conventional': ^17.0.2
-  '@iconify/json': ^2.1.63
+  '@iconify/json': ^2.1.64
   '@iconify/vue': ^3.2.1
   '@soybeanjs/vue-admin-layout': ^1.0.4
   '@soybeanjs/vue-admin-tab': ^1.0.2
@@ -45,7 +45,7 @@ specifiers:
   lint-staged: ^13.0.2
   lodash-es: ^4.17.21
   mockjs: ^1.1.0
-  naive-ui: ^2.30.4
+  naive-ui: ^2.30.5
   patch-package: ^6.4.7
   pinia: ^2.0.14
   postinstall-postinstall: ^2.1.0
@@ -90,7 +90,7 @@ dependencies:
   echarts: 5.3.3
   form-data: 4.0.0
   lodash-es: 4.17.21
-  naive-ui: 2.30.4_vue@3.2.37
+  naive-ui: 2.30.5_vue@3.2.37
   pinia: 2.0.14_j6bzmzd4ujpabbp5objtwxyjp4
   print-js: 1.6.0
   qs: 6.10.5
@@ -106,7 +106,7 @@ devDependencies:
   '@amap/amap-jsapi-types': 0.0.8
   '@commitlint/cli': 17.0.2
   '@commitlint/config-conventional': 17.0.2
-  '@iconify/json': 2.1.63
+  '@iconify/json': 2.1.64
   '@iconify/vue': 3.2.1_vue@3.2.37
   '@types/bmapgl': 0.0.5
   '@types/crypto-js': 4.1.1
@@ -895,8 +895,8 @@ packages:
     engines: {node: '>=6.9.0'}
     dev: true
 
-  /@iconify/json/2.1.63:
-    resolution: {integrity: sha512-WQwTV6KUl0C+VkH3/j9kwlHLOHyPn0pM7f0kFmJgghQ9Ha672UHr/KTuwVqbqn3c+RxnJyY+jIap4ewawMeaZA==}
+  /@iconify/json/2.1.64:
+    resolution: {integrity: sha512-OtiVmLCxdBcB9ZVGXjTyRDeqcVykOqNSlUpm6KA+dZ1ZbEy3s1gHruv70OlMogoG3x40/AIZ48/9JPyJWUrt4A==}
     dependencies:
       '@iconify/types': 1.1.0
       pathe: 0.2.0
@@ -5434,8 +5434,8 @@ packages:
     resolution: {integrity: sha512-r65nCZhrbXXb6dXOACihYApHw2Q6pV0M3V0PSxd74N0+D8nzAdEAITq2oAjA1jVnKI+tGvEBUpqiMh0+rW6zDQ==}
     dev: true
 
-  /naive-ui/2.30.4_vue@3.2.37:
-    resolution: {integrity: sha512-xf9Re46gfy8U/P71ON3hIEgr9ag0ffmthnzU4O7RHRhdzXkfN1KuDQZsBsDY34nl9ycAy1wnem3ob4tqBAChOA==}
+  /naive-ui/2.30.5_vue@3.2.37:
+    resolution: {integrity: sha512-fexk97L4BgJAjKcyP1ycLvYtnG/3wfjW0g7cSscXh6CQYKmiVsTA1CAlHecMmGyYaYsMjaPWtobzSMlUsSit6g==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
