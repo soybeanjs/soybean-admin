@@ -76,7 +76,7 @@ Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 - [x] 引入ECharts替换AntV G2Plot
 - [x] 图表示例：ECharts、AntV G2
 - [x] 多页签：支持query、hash等参数，同一页面支持多个Tab
-- [ ] 缓存主题配置
+- [x] 缓存主题配置
 - [ ] 添加锁屏组件、全局Iframe组件
 - [ ] 示例页面完善
 - [ ] 表单、表格示例

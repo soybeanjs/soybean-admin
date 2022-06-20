@@ -15,10 +15,12 @@
 <script setup lang="ts">
 import { zhCN, dateZhCN } from 'naive-ui';
 import { useThemeStore, subscribeStore } from '@/store';
+import { useGlobalEvents } from '@/composables';
 
 const theme = useThemeStore();
 
 subscribeStore();
+useGlobalEvents();
 </script>
 
 <style scoped></style>

@@ -4,5 +4,4 @@ export * from './cache';
 export * from './auth';
 export * from './menu';
 export * from './breadcrumb';
-export * from './tab';
 export * from './regexp';

@@ -6,5 +6,16 @@ import FullScreen from './FullScreen.vue';
 import ThemeMode from './ThemeMode.vue';
 import UserAvatar from './UserAvatar.vue';
 import SystemMessage from './SystemMessage.vue';
+import SettingButton from './SettingButton.vue';
 
-export { MenuCollapse, GlobalBreadcrumb, HeaderMenu, GithubSite, FullScreen, ThemeMode, UserAvatar, SystemMessage };
+export {
+  MenuCollapse,
+  GlobalBreadcrumb,
+  HeaderMenu,
+  GithubSite,
+  FullScreen,
+  ThemeMode,
+  UserAvatar,
+  SystemMessage,
+  SettingButton
+};

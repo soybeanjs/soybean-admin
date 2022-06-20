@@ -12,6 +12,7 @@
       <full-screen />
       <theme-mode />
       <system-message />
+      <setting-button v-if="isProd" />
       <user-avatar />
     </div>
   </dark-mode-container>
@@ -29,7 +30,8 @@ import {
   FullScreen,
   ThemeMode,
   UserAvatar,
-  SystemMessage
+  SystemMessage,
+  SettingButton
 } from './components';
 
 interface Props {
@@ -44,6 +46,8 @@ interface Props {
 defineProps<Props>();
 
 const theme = useThemeStore();
+
+const isProd = import.meta.env.PROD;
 </script>
 
 <style scoped>

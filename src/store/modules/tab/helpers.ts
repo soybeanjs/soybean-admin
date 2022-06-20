@@ -1,4 +1,6 @@
 import type { RouteRecordNormalized, RouteLocationNormalizedLoaded } from 'vue-router';
+import { EnumStorageKey } from '@/enum';
+import { setLocal, getLocal } from '@/utils';
 
 /**
  * 根据vue路由获取tab路由
@@ -54,4 +56,31 @@ function hasFullPath(
   route: RouteRecordNormalized | RouteLocationNormalizedLoaded
 ): route is RouteLocationNormalizedLoaded {
   return Boolean((route as RouteLocationNormalizedLoaded).fullPath);
+}
+
+/** 缓存多页签数据 */
+export function setTabRoutes(data: GlobalTabRoute[]) {
+  setLocal(EnumStorageKey['multi-tab-routes'], data);
+}
+
+/** 获取缓存的多页签数据 */
+export function getTabRoutes() {
+  const routes: GlobalTabRoute[] = [];
+  const data = getLocal<GlobalTabRoute[]>(EnumStorageKey['multi-tab-routes']);
+  if (data) {
+    const defaultTabRoutes = data.map(item => ({
+      ...item,
+      scrollPosition: {
+        left: 0,
+        top: 0
+      }
+    }));
+    routes.push(...defaultTabRoutes);
+  }
+  return routes;
+}
+
+/** 清空多页签数据 */
+export function clearTabRoutes() {
+  setTabRoutes([]);
 }
