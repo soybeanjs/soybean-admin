@@ -149,10 +149,6 @@ pnpm i -g commitizen
 
 [@Soybean](https://github.com/honghuangdc)
 
-## 捐赠
-如果你觉得这个项目对你有帮助，可以请Soybean喝杯饮料表示支持，Soybean开源的动力离不开各位的支持和鼓励。
-![赞助](https://s2.loli.net/2022/01/24/i9cpq7lTCrKUoFf.png)
-
 ## 交流
 
 `Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和QQ交流群，使用问题欢迎在群内提问。
@@ -168,6 +164,11 @@ pnpm i -g commitizen
   <div style="text-align:left">
     <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
   </div>
+
+## 捐赠
+如果你觉得这个项目对你有帮助，可以请Soybean喝杯饮料表示支持，Soybean开源的动力离不开各位的支持和鼓励。
+
+![赞助](https://s2.loli.net/2022/01/24/i9cpq7lTCrKUoFf.png)
 
 ## License
 

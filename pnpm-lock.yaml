@@ -3,11 +3,11 @@ lockfileVersion: 5.4
 specifiers:
   '@amap/amap-jsapi-types': ^0.0.8
   '@antv/data-set': ^0.11.8
-  '@antv/g2': ^4.2.3
+  '@antv/g2': ^4.2.4
   '@better-scroll/core': ^2.4.2
   '@commitlint/cli': ^17.0.2
   '@commitlint/config-conventional': ^17.0.2
-  '@iconify/json': ^2.1.65
+  '@iconify/json': ^2.1.66
   '@iconify/vue': ^3.2.1
   '@soybeanjs/vue-admin-layout': ^1.0.4
   '@soybeanjs/vue-admin-tab': ^1.0.2
@@ -42,7 +42,7 @@ specifiers:
   eslint-plugin-vue: 9.1.1
   form-data: ^4.0.0
   husky: ^8.0.1
-  lint-staged: ^13.0.2
+  lint-staged: ^13.0.3
   lodash-es: ^4.17.21
   mockjs: ^1.1.0
   naive-ui: ^2.30.6
@@ -77,7 +77,7 @@ specifiers:
 
 dependencies:
   '@antv/data-set': 0.11.8
-  '@antv/g2': 4.2.3
+  '@antv/g2': 4.2.4
   '@better-scroll/core': 2.4.2
   '@soybeanjs/vue-admin-layout': 1.0.4_vue@3.2.37
   '@soybeanjs/vue-admin-tab': 1.0.2_vue@3.2.37
@@ -106,7 +106,7 @@ devDependencies:
   '@amap/amap-jsapi-types': 0.0.8
   '@commitlint/cli': 17.0.2
   '@commitlint/config-conventional': 17.0.2
-  '@iconify/json': 2.1.65
+  '@iconify/json': 2.1.66
   '@iconify/vue': 3.2.1_vue@3.2.37
   '@types/bmapgl': 0.0.5
   '@types/crypto-js': 4.1.1
@@ -131,7 +131,7 @@ devDependencies:
   eslint-plugin-prettier: 4.0.0_xu6ewijrtliw5q5lksq5uixwby
   eslint-plugin-vue: 9.1.1_eslint@8.18.0
   husky: 8.0.1
-  lint-staged: 13.0.2
+  lint-staged: 13.0.3
   mockjs: 1.1.0
   patch-package: 6.4.7
   postinstall-postinstall: 2.1.0
@@ -297,8 +297,8 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@antv/g2/4.2.3:
-    resolution: {integrity: sha512-V18h8cUPgBNSbuY3VEsabYB5bua6YDBBBJqi8YO+1Pk7zJwiJrpC18zV9wKl/BuoMrjHEKUZmMqIKCVrQNjSfg==}
+  /@antv/g2/4.2.4:
+    resolution: {integrity: sha512-34FUXAO/weE41esct/+GihEiZc1/eByVoe+PIsp0Z4qtR60BFRU5OQ30g73iTIPERKz6JzCk3F6zoOYVksqVcw==}
     dependencies:
       '@antv/adjust': 0.2.5
       '@antv/attr': 0.3.3
@@ -895,8 +895,8 @@ packages:
     engines: {node: '>=6.9.0'}
     dev: true
 
-  /@iconify/json/2.1.65:
-    resolution: {integrity: sha512-i7Qbccv5h1hdp1H779hDif6WmY5qNHwiEGVLY2crWSK05B9dFPh0xH4Q8i77YuSCY9rP25AXDKNZVzPUEuSqJA==}
+  /@iconify/json/2.1.66:
+    resolution: {integrity: sha512-1iy+euT4aHh1G0ZILEtk/nf4iSur4yQqgM91yj6fndiG673iU5gQS5mX6rp905GR8eWbhpGwS1losoT3WCi5Mg==}
     dependencies:
       '@iconify/types': 1.1.0
       pathe: 0.2.0
@@ -5074,8 +5074,8 @@ packages:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
 
-  /lint-staged/13.0.2:
-    resolution: {integrity: sha512-qQLfLTh9z34eMzfEHENC+QBskZfxjomrf+snF3xJ4BzilORbD989NLqQ00ughsF/A+PT41e87+WsMFabf9++pQ==}
+  /lint-staged/13.0.3:
+    resolution: {integrity: sha512-9hmrwSCFroTSYLjflGI8Uk+GWAwMB4OlpU4bMJEAT5d/llQwtYKoim4bLOyLCuWFAhWEupE0vkIFqtw/WIsPug==}
     engines: {node: ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
