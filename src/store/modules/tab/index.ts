@@ -225,7 +225,11 @@ export const useTabStore = defineStore('tab-store', {
       if (!isHome) {
         const currentTab = getTabRouteByVueRoute(currentRoute);
         if (!currentRoute.meta.multiTab) {
-          tabs.splice(index, 1, currentTab);
+          if (index > -1) {
+            tabs.splice(index, 1, currentTab);
+          } else {
+            tabs.push(currentTab);
+          }
         } else {
           const hasCurrent = isInTabRoutes(tabs, currentRoute.fullPath);
           if (!hasCurrent) {
