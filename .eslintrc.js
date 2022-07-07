@@ -149,6 +149,11 @@ module.exports = {
             position: 'before'
           },
           {
+            pattern: '@/context',
+            group: 'internal',
+            position: 'before'
+          },
+          {
             pattern: '@/hooks',
             group: 'internal',
             position: 'before'
