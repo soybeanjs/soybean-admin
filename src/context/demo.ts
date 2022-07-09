@@ -7,7 +7,7 @@ interface DemoContext {
   setCounts: (count: number) => void;
 }
 
-const { useProvide: useDemoProvider, useInject: useDemoInject } = useContext<DemoContext>();
+const { useProvide: useDemoProvide, useInject: useDemoInject } = useContext<DemoContext>();
 
 export function useDemoContext() {
   const counts = ref(0);
@@ -21,12 +21,12 @@ export function useDemoContext() {
     setCounts
   };
 
-  function useProvider() {
-    useDemoProvider(demoContext);
+  function useProvide() {
+    useDemoProvide(demoContext);
   }
 
   return {
-    useProvider,
+    useProvide,
     useInject: useDemoInject
   };
 }
@@ -34,8 +34,8 @@ export function useDemoContext() {
 // 示例用法: A.vue为父组件， B.vue为子孙组件 C.vue为子孙组件
 // A.vue
 // import { useDemoContext } from '@/context';
-// const { useProvider } = useDemoContext();
-// useProvider();
+// const { useProvide } = useDemoContext();
+// useProvide();
 
 // B.vue 和 C.vue : 共享状态 counts
 // import { useDemoContext } from '@/context';

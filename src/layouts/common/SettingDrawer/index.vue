@@ -9,7 +9,7 @@
       <theme-config />
     </n-drawer-content>
   </n-drawer>
-  <drawer-button v-if="isDev" />
+  <drawer-button v-if="showButton" />
 </template>
 
 <script setup lang="ts">
@@ -18,7 +18,7 @@ import { DrawerButton, DarkMode, LayoutMode, ThemeColorSelect, PageFunc, PageVie
 
 const app = useAppStore();
 
-const isDev = import.meta.env.DEV;
+const showButton = import.meta.env.DEV || import.meta.env.VITE_VERCEL === '1';
 </script>
 
 <style scoped></style>

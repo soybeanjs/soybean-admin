@@ -30,19 +30,21 @@ interface ImportMetaEnv {
    */
   readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic';
   /** 路由首页的路径 */
-  readonly VITE_ROUTE_HOME_PATH: Exclude<AuthRoute.RoutePath, '/not-found-page' | '/:pathMatch(.*)*'>;
+  readonly VITE_ROUTE_HOME_PATH: Exclude<AuthRoute.RoutePath, '/' | '/not-found-page' | '/:pathMatch(.*)*'>;
   /** vite环境类型 */
   readonly VITE_ENV_TYPE?: EnvType;
   /** 开启请求代理 */
-  readonly VITE_HTTP_PROXY?: 'true' | 'false';
+  readonly VITE_HTTP_PROXY?: '1' | '0';
   /** 是否开启打包文件大小结果分析 */
-  readonly VITE_VISUALIZER?: 'true' | 'false';
+  readonly VITE_VISUALIZER?: '1' | '0';
   /** 是否开启打包压缩 */
-  readonly VITE_COMPRESS?: 'true' | 'false';
+  readonly VITE_COMPRESS?: '1' | '0';
   /** 压缩算法类型 */
   readonly VITE_COMPRESS_TYPE?: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw';
   /** hash路由模式 */
-  readonly VITE_HASH_ROUTE?: 'true' | 'false';
+  readonly VITE_HASH_ROUTE?: '1' | '0';
+  /** 是否是部署的vercel */
+  readonly VITE_VERCEL?: '1' | '0';
 }
 
 interface ImportMeta {

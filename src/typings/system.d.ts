@@ -21,11 +21,6 @@ declare namespace EnumType {
 
 /** 请求的相关类型 */
 declare namespace Service {
-  /** 请求环境类型
-   * - test:测试环境
-   * - prod:正式环境 */
-  type HttpEnv = 'test' | 'prod';
-
   /**
    * 请求的错误类型：
    * - axios: axios错误：网络错误, 请求超时, 默认的兜底错误

@@ -13,7 +13,7 @@
     "build": "npm run typecheck && cross-env VITE_ENV_TYPE=prod vite build",
     "build:dev": "npm run typecheck && cross-env VITE_ENV_TYPE=dev vite build",
     "build:test": "npm run typecheck && cross-env VITE_ENV_TYPE=test vite build",
-    "build:vercel": "cross-env VITE_HASH_ROUTE=true vite build",
+    "build:vercel": "cross-env VITE_HASH_ROUTE=1 VITE_VERCEL=1 vite build",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",

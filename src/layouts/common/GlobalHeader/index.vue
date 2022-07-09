@@ -12,7 +12,7 @@
       <full-screen />
       <theme-mode />
       <system-message />
-      <setting-button v-if="isProd" />
+      <setting-button v-if="showButton" />
       <user-avatar />
     </div>
   </dark-mode-container>
@@ -47,7 +47,7 @@ defineProps<Props>();
 
 const theme = useThemeStore();
 
-const isProd = import.meta.env.PROD;
+const showButton = import.meta.env.PROD && import.meta.env.VITE_VERCEL !== '1';
 </script>
 
 <style scoped>

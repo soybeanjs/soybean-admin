@@ -13,8 +13,8 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
 		"paths": {
-			"@/*": ["./src/*"],
-			"~/*": ["./*"]
+			"~/*": ["./*"],
+			"@/*": ["./src/*"]
 		},
 		"types": [
 			"vite/client",
@@ -23,5 +23,5 @@
 			"naive-ui/volar"
 		]
 	},
-	"exclude": ["dist", "node_modules"]
+	"exclude": ["node_modules", "dist"]
 }

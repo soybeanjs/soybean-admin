@@ -14,10 +14,10 @@ import compress from './compress';
 export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | PluginOption[])[] {
   const plugins = [...vue, html(viteEnv), ...unplugin, unocss, mock];
 
-  if (viteEnv.VITE_VISUALIZER === 'true') {
+  if (viteEnv.VITE_VISUALIZER === '1') {
     plugins.push(visualizer);
   }
-  if (viteEnv.VITE_COMPRESS === 'true') {
+  if (viteEnv.VITE_COMPRESS === '1') {
     plugins.push(compress(viteEnv));
   }
 
