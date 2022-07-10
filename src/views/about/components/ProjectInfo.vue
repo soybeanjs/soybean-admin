@@ -20,6 +20,8 @@
 <script setup lang="ts">
 import { pkgJson } from './model';
 
+defineOptions({ name: 'ProjectInfo' });
+
 const { version } = pkgJson;
 const latestBuildTime = PROJECT_BUILD_TIME;
 </script>

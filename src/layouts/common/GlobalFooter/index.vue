@@ -4,6 +4,8 @@
   </dark-mode-container>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineOptions({ name: 'GlobalFooter' });
+</script>
 
 <style scoped></style>

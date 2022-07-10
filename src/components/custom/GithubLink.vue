@@ -5,6 +5,8 @@
 <script setup lang="ts">
 import WebSiteLink from './WebSiteLink.vue';
 
+defineOptions({ name: 'GithubLink' });
+
 interface Props {
   /** github链接 */
   link: string;

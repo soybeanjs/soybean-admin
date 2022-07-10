@@ -8,6 +8,8 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/store';
 
+defineOptions({ name: 'MixMenuCollapse' });
+
 const app = useAppStore();
 </script>
 

@@ -46,6 +46,8 @@ import {
   GlobalBackTop
 } from '../common';
 
+defineOptions({ name: 'BasicLayout' });
+
 const app = useAppStore();
 const theme = useThemeStore();
 

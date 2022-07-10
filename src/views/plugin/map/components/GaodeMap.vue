@@ -7,6 +7,8 @@ import { ref, onMounted } from 'vue';
 import { useScriptTag } from '@vueuse/core';
 import { GAODE_MAP_SDK_URL } from '@/config';
 
+defineOptions({ name: 'GaodeMap' });
+
 const { load } = useScriptTag(GAODE_MAP_SDK_URL);
 
 const domRef = ref<HTMLDivElement>();

@@ -17,6 +17,8 @@ import { useThemeStore } from '@/store';
 import { useBoolean } from '@/hooks';
 import { SearchModal } from './components';
 
+defineOptions({ name: 'GlobalSearch' });
+
 const { bool: show, toggle } = useBoolean();
 const theme = useThemeStore();
 

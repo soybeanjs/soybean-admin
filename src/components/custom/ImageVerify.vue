@@ -8,17 +8,19 @@
 import { watch } from 'vue';
 import { useImageVerify } from '@/hooks';
 
+defineOptions({ name: 'ImageVerify' });
+
 interface Props {
   code?: string;
-}
-
-interface Emits {
-  (e: 'update:code', code: string): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   code: ''
 });
+
+interface Emits {
+  (e: 'update:code', code: string): void;
+}
 
 const emit = defineEmits<Emits>();
 

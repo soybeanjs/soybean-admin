@@ -1,5 +1,4 @@
 import type { Component } from 'vue';
-import { EnumLayoutComponentName } from '@/enum';
 import { BasicLayout, BlankLayout } from '@/layouts';
 import { views } from '@/views';
 
@@ -14,7 +13,7 @@ export function getLayoutComponent(layoutType: EnumType.LayoutComponentName) {
     basic: BasicLayout,
     blank: BlankLayout
   };
-  return () => setViewComponentName(layoutComponent[layoutType], EnumLayoutComponentName[layoutType]);
+  return layoutComponent[layoutType];
 }
 
 /**

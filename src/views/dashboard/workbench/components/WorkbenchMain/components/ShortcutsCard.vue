@@ -10,6 +10,8 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 
+defineOptions({ name: 'DashboardWorkbenchMainShortcutsCard' });
+
 interface Props {
   /** 快捷操作名称 */
   label: string;

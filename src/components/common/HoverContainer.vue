@@ -18,6 +18,8 @@
 import { computed } from 'vue';
 import type { PopoverPlacement } from 'naive-ui';
 
+defineOptions({ name: 'HoverContainer' });
+
 interface Props {
   /** tooltip显示文本 */
   tooltipContent?: string;
@@ -28,6 +30,7 @@ interface Props {
   /** 反转模式下 */
   inverted?: boolean;
 }
+
 const props = withDefaults(defineProps<Props>(), {
   tooltipContent: '',
   placement: 'bottom',

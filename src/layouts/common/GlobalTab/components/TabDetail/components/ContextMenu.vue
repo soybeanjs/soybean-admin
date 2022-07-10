@@ -16,6 +16,8 @@ import type { DropdownOption } from 'naive-ui';
 import { useAppStore, useTabStore } from '@/store';
 import { iconifyRender } from '@/utils';
 
+defineOptions({ name: 'ContextMenu' });
+
 interface Props {
   /** 右键菜单可见性 */
   visible?: boolean;
@@ -27,19 +29,14 @@ interface Props {
   y: number;
 }
 
-interface Emits {
-  (e: 'update:visible', visible: boolean): void;
-}
-
-type DropdownKey = 'reload-current' | 'close-current' | 'close-other' | 'close-left' | 'close-right' | 'close-all';
-type Option = DropdownOption & {
-  key: DropdownKey;
-};
-
 const props = withDefaults(defineProps<Props>(), {
   visible: false,
   currentPath: ''
 });
+
+interface Emits {
+  (e: 'update:visible', visible: boolean): void;
+}
 
 const emit = defineEmits<Emits>();
 
@@ -58,6 +55,11 @@ const dropdownVisible = computed({
 function hide() {
   dropdownVisible.value = false;
 }
+
+type DropdownKey = 'reload-current' | 'close-current' | 'close-other' | 'close-left' | 'close-right' | 'close-all';
+type Option = DropdownOption & {
+  key: DropdownKey;
+};
 
 const options = computed<Option[]>(() => [
   {

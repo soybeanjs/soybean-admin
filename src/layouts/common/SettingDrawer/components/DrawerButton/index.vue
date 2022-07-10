@@ -13,6 +13,8 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store';
 
+defineOptions({ name: 'DrawerButton' });
+
 const app = useAppStore();
 </script>
 

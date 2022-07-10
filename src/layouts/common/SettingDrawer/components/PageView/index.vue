@@ -38,6 +38,8 @@
 import { useThemeStore } from '@/store';
 import SettingMenu from '../SettingMenu/index.vue';
 
+defineOptions({ name: 'PageView' });
+
 const theme = useThemeStore();
 </script>
 

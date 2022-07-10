@@ -48,9 +48,13 @@ import { useThemeStore } from '@/store';
 import { useBoolean } from '@/hooks';
 import MessageList from './MessageList.vue';
 
+defineOptions({ name: 'SystemMessage' });
+
 const theme = useThemeStore();
 const { bool: loading, setBool: setLoading } = useBoolean();
+
 const currentTab = ref(0);
+
 const tabData = ref<Message.Tab[]>([
   {
     key: 1,

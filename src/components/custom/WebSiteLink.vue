@@ -8,6 +8,8 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'WebSiteLink' });
+
 interface Props {
   /** 网址名称 */
   label: string;

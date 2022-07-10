@@ -8,18 +8,20 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+defineOptions({ name: 'DarkModeSwitch' });
+
 interface Props {
   /** 暗黑模式 */
   dark?: boolean;
 }
 
-interface Emits {
-  (e: 'update:dark', darkMode: boolean): void;
-}
-
 const props = withDefaults(defineProps<Props>(), {
   dark: false
 });
+
+interface Emits {
+  (e: 'update:dark', darkMode: boolean): void;
+}
 
 const emit = defineEmits<Emits>();
 

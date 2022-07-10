@@ -22,19 +22,21 @@
 <script setup lang="ts">
 import { useAppStore, useThemeStore, useRouteStore } from '@/store';
 
+defineOptions({ name: 'GlobalContent' });
+
 interface Props {
   /** 显示padding */
   showPadding?: boolean;
 }
 
+withDefaults(defineProps<Props>(), {
+  showPadding: true
+});
+
 interface Emits {
   /** 禁止主体溢出 */
   (e: 'hide-main-overflow', hidden: boolean): void;
 }
-
-withDefaults(defineProps<Props>(), {
-  showPadding: true
-});
 
 const emit = defineEmits<Emits>();
 

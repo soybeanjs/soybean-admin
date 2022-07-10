@@ -23,6 +23,8 @@ import { useAppStore, useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { getActiveKeyPathsOfMenus } from '@/utils';
 
+defineOptions({ name: 'VerticalMenu' });
+
 const route = useRoute();
 const app = useAppStore();
 const theme = useThemeStore();

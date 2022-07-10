@@ -14,6 +14,8 @@ import { ref, watch, onMounted, onUnmounted } from 'vue';
 import Clipboard from 'clipboard';
 import { useThemeStore } from '@/store';
 
+defineOptions({ name: 'ThemeConfig' });
+
 const theme = useThemeStore();
 
 const copyRef = ref<HTMLElement>();

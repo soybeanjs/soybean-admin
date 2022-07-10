@@ -12,6 +12,8 @@ import { useElementSize } from '@vueuse/core';
 import BScroll from '@better-scroll/core';
 import type { Options } from '@better-scroll/core';
 
+defineOptions({ name: 'BetterScroll' });
+
 interface Props {
   /** better-scroll的配置: https://better-scroll.github.io/docs/zh-CN/guide/base-scroll-options.html */
   options: Options;

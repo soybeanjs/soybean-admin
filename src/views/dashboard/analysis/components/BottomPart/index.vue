@@ -23,6 +23,8 @@
 import { h } from 'vue';
 import { NTag } from 'naive-ui';
 
+defineOptions({ name: 'DashboardAnalysisBottomPart' });
+
 interface TimelineData {
   type: 'default' | 'info' | 'success' | 'warning' | 'error';
   title: string;

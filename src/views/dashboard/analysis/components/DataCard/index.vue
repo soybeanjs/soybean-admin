@@ -21,6 +21,8 @@
 import { Icon } from '@iconify/vue';
 import { GradientBg } from './components';
 
+defineOptions({ name: 'DashboardAnalysisDataCard' });
+
 interface CardData {
   id: string;
   title: string;

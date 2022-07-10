@@ -29,6 +29,8 @@ import { ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useThemeStore } from '@/store';
 
+defineOptions({ name: 'IconSelect' });
+
 interface Props {
   /** 选中的图标 */
   value: string;
@@ -38,13 +40,13 @@ interface Props {
   emptyIcon?: string;
 }
 
-interface Emits {
-  (e: 'update:value', val: string): void;
-}
-
 const props = withDefaults(defineProps<Props>(), {
   emptyIcon: 'mdi:apps'
 });
+
+interface Emits {
+  (e: 'update:value', val: string): void;
+}
 
 const emit = defineEmits<Emits>();
 

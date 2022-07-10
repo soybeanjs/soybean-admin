@@ -26,6 +26,8 @@ import { computed, watch, nextTick, onUnmounted } from 'vue';
 import { NETWORK_ERROR_MSG } from '@/config';
 import { useBoolean } from '@/hooks';
 
+defineOptions({ name: 'LoadingEmptyWrapper' });
+
 interface Props {
   /** 是否加载 */
   loading: boolean;

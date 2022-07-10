@@ -29,6 +29,8 @@ import { useBoolean } from '@/hooks';
 import { GlobalLogo } from '@/layouts/common';
 import { MixMenuDetail, MixMenuDrawer, MixMenuCollapse } from './components';
 
+defineOptions({ name: 'VerticalMixSider' });
+
 const route = useRoute();
 const app = useAppStore();
 const theme = useThemeStore();

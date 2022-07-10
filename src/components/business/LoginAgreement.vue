@@ -9,10 +9,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+defineOptions({ name: 'LoginAgreement' });
+
 interface Props {
   /** 是否勾选 */
   value?: boolean;
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  value: true
+});
 
 interface Emits {
   (e: 'update:value', value: boolean): void;
@@ -21,10 +27,6 @@ interface Emits {
   /** 点击隐私政策 */
   (e: 'click-policy'): void;
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  value: true
-});
 
 const emit = defineEmits<Emits>();
 

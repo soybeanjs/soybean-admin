@@ -7,6 +7,8 @@
   </n-card>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineOptions({ name: 'ProjectIntroduction' });
+</script>
 
 <style scoped></style>

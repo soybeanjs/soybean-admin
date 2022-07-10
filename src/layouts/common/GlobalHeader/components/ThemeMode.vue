@@ -7,6 +7,8 @@
 <script lang="ts" setup>
 import { useThemeStore } from '@/store';
 
+defineOptions({ name: 'ThemeMode' });
+
 const theme = useThemeStore();
 </script>
 

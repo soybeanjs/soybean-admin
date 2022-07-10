@@ -8,6 +8,8 @@
 import { useAppStore } from '@/store';
 import { useLoading } from '@/hooks';
 
+defineOptions({ name: 'ReloadButton' });
+
 const app = useAppStore();
 const { loading, startLoading, endLoading } = useLoading();
 

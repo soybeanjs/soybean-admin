@@ -4,6 +4,8 @@
 
 <script setup lang="ts">
 import { GlobalContent } from '../common';
+
+defineOptions({ name: 'BlankLayout' });
 </script>
 
 <style scoped></style>

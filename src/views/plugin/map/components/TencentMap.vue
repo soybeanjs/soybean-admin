@@ -7,6 +7,8 @@ import { ref, onMounted } from 'vue';
 import { useScriptTag } from '@vueuse/core';
 import { TENCENT_MAP_SDK_URL } from '@/config';
 
+defineOptions({ name: 'TencentMap' });
+
 const { load } = useScriptTag(TENCENT_MAP_SDK_URL);
 
 const domRef = ref<HTMLDivElement | null>(null);

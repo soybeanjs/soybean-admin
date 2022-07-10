@@ -34,6 +34,8 @@
 import { ref } from 'vue';
 import { useEcharts, type ECOption } from '@/composables';
 
+defineOptions({ name: 'DashboardAnalysisTopCard' });
+
 const lineOptions = ref<ECOption>({
   tooltip: {
     trigger: 'axis',

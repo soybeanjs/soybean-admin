@@ -28,6 +28,8 @@
 import { useThemeStore } from '@/store';
 import SettingMenu from '../SettingMenu/index.vue';
 
+defineOptions({ name: 'DarkMode' });
+
 const theme = useThemeStore();
 </script>
 <style scoped>

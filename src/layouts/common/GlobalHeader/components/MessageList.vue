@@ -38,17 +38,19 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue';
 
+defineOptions({ name: 'MessageList' });
+
 interface Props {
   list?: Message.List[];
-}
-
-interface Emits {
-  (e: 'read', val: number): void;
 }
 
 withDefaults(defineProps<Props>(), {
   list: () => []
 });
+
+interface Emits {
+  (e: 'read', val: number): void;
+}
 
 const emit = defineEmits<Emits>();
 

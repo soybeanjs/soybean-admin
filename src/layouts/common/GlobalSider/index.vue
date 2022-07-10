@@ -8,6 +8,8 @@ import { computed } from 'vue';
 import { useThemeStore } from '@/store';
 import { VerticalSider, VerticalMixSider } from './components';
 
+defineOptions({ name: 'GlobalSider' });
+
 const theme = useThemeStore();
 
 const isVerticalMix = computed(() => theme.layout.mode === 'vertical-mix');

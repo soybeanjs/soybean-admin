@@ -21,6 +21,8 @@ import type { MenuOption } from 'naive-ui';
 import { useRouteStore, useThemeStore } from '@/store';
 import { useRouterPush } from '@/composables';
 
+defineOptions({ name: 'HeaderMenu' });
+
 const route = useRoute();
 const routeStore = useRouteStore();
 const theme = useThemeStore();

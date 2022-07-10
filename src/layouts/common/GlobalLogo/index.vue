@@ -11,6 +11,8 @@
 import { routePath } from '@/router';
 import { useAppInfo } from '@/composables';
 
+defineOptions({ name: 'GlobalLogo' });
+
 interface Props {
   /** 显示名字 */
   showTitle: boolean;

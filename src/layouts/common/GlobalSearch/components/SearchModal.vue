@@ -31,16 +31,18 @@ import { useRouteStore } from '@/store';
 import SearchResult from './SearchResult.vue';
 import SearchFooter from './SearchFooter.vue';
 
+defineOptions({ name: 'SearchModal' });
+
 interface Props {
   /** 弹窗显隐 */
   value: boolean;
 }
 
+const props = defineProps<Props>();
+
 interface Emits {
   (e: 'update:value', val: boolean): void;
 }
-
-const props = defineProps<Props>();
 
 const emit = defineEmits<Emits>();
 

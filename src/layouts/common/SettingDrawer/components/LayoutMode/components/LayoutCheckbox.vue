@@ -20,6 +20,8 @@ import { computed } from 'vue';
 import type { PopoverPlacement } from 'naive-ui';
 import type { EnumThemeLayoutMode } from '@/enum';
 
+defineOptions({ name: 'LayoutCheckbox' });
+
 interface Props {
   /** 布局模式 */
   mode: EnumType.ThemeLayoutMode;

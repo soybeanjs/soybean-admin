@@ -17,6 +17,8 @@ import { useThemeStore, useTabStore } from '@/store';
 import { useDeviceInfo } from '@/composables';
 import { TabDetail, ReloadButton } from './components';
 
+defineOptions({ name: 'GlobalTab' });
+
 const route = useRoute();
 const theme = useThemeStore();
 const tab = useTabStore();

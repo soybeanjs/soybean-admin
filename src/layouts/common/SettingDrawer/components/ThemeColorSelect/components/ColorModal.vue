@@ -27,15 +27,17 @@ import { traditionColors } from '@/settings';
 import { useThemeStore } from '@/store';
 import ColorCheckbox from './ColorCheckbox.vue';
 
+defineOptions({ name: 'ColorModal' });
+
 interface Props {
   visible: boolean;
 }
 
+defineProps<Props>();
+
 interface Emits {
   (e: 'close'): void;
 }
-
-defineProps<Props>();
 
 const emit = defineEmits<Emits>();
 

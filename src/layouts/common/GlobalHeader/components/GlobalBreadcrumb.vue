@@ -34,6 +34,8 @@ import { useThemeStore, useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { getBreadcrumbByRouteKey } from '@/utils';
 
+defineOptions({ name: 'GlobalBreadcrumb' });
+
 const route = useRoute();
 const theme = useThemeStore();
 const routeStore = useRouteStore();

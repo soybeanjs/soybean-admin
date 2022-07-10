@@ -7,6 +7,8 @@ import { ref, onMounted } from 'vue';
 import { useScriptTag } from '@vueuse/core';
 import { BAIDU_MAP_SDK_URL } from '@/config';
 
+defineOptions({ name: 'BaiduMap' });
+
 const { load } = useScriptTag(BAIDU_MAP_SDK_URL);
 
 const domRef = ref<HTMLDivElement>();

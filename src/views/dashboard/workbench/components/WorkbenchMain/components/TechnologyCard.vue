@@ -17,6 +17,8 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 
+defineOptions({ name: 'DashboardWorkbenchMainTechnologyCard' });
+
 interface Props {
   /** 技术名称 */
   name: string;

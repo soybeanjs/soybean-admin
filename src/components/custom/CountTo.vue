@@ -6,6 +6,8 @@ import { ref, computed, onMounted, watch, watchEffect } from 'vue';
 import { useTransition, TransitionPresets } from '@vueuse/core';
 import { isNumber } from '@/utils';
 
+defineOptions({ name: 'CountTo' });
+
 interface Props {
   /** 初始值 */
   startValue?: number;
@@ -45,10 +47,12 @@ const props = withDefaults(defineProps<Props>(), {
   transition: 'linear'
 });
 
-const emit = defineEmits<{
+interface Emits {
   (e: 'on-started'): void;
   (e: 'on-finished'): void;
-}>();
+}
+
+const emit = defineEmits<Emits>();
 
 const source = ref(props.startValue);
 let outputValue = useTransition(source);

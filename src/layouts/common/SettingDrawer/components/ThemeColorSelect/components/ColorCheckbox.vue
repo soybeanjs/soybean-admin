@@ -7,6 +7,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
+defineOptions({ name: 'ColorCheckbox' });
+
 interface Props {
   /** 颜色 */
   color: string;

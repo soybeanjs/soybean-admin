@@ -16,6 +16,8 @@
 import { useAppStore } from '@/store';
 import { DrawerButton, DarkMode, LayoutMode, ThemeColorSelect, PageFunc, PageView, ThemeConfig } from './components';
 
+defineOptions({ name: 'SettingDrawer' });
+
 const app = useAppStore();
 
 const showButton = import.meta.env.DEV || import.meta.env.VITE_VERCEL === '1';

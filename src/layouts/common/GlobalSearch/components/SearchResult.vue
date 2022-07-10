@@ -25,17 +25,19 @@ import { computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useThemeStore } from '@/store';
 
+defineOptions({ name: 'SearchResult' });
+
 interface Props {
   value: string;
   options: AuthRoute.Route[];
 }
 
+const props = defineProps<Props>();
+
 interface Emits {
   (e: 'update:value', val: string): void;
   (e: 'enter'): void;
 }
-
-const props = defineProps<Props>();
 
 const emit = defineEmits<Emits>();
 

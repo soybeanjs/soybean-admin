@@ -32,6 +32,8 @@ import { Icon } from '@iconify/vue';
 import { useThemeStore, useTabStore } from '@/store';
 import { ContextMenu } from './components';
 
+defineOptions({ name: 'TabDetail' });
+
 interface Emits {
   (e: 'scroll', clientX: number): void;
 }

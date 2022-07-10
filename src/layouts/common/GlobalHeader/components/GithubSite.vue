@@ -12,6 +12,8 @@
 <script lang="ts" setup>
 import { useThemeStore } from '@/store';
 
+defineOptions({ name: 'GithubSite' });
+
 const theme = useThemeStore();
 function handleClickLink() {
   window.open('https://github.com/honghuangdc/soybean-admin', '_blank');

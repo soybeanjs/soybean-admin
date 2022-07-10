@@ -6,6 +6,8 @@
 import { computed } from 'vue';
 import { useWindowScroll } from '@vueuse/core';
 
+defineOptions({ name: 'GlobalBackTop' });
+
 const { y: scrollY } = useWindowScroll();
 
 const show = computed(() => scrollY.value > 180);

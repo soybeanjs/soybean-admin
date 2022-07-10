@@ -19,6 +19,8 @@ import { useThemeStore } from '@/store';
 import { useBoolean } from '@/hooks';
 import { ColorCheckbox, ColorModal } from './components';
 
+defineOptions({ name: 'ThemeColorSelect' });
+
 const theme = useThemeStore();
 
 const { bool: visible, setTrue: openModal, setFalse: closeModal } = useBoolean();

@@ -9,6 +9,8 @@
 import { useFullscreen } from '@vueuse/core';
 import { useThemeStore } from '@/store';
 
+defineOptions({ name: 'FullScreen' });
+
 const { isFullscreen, toggle } = useFullscreen();
 const theme = useThemeStore();
 </script>

@@ -7,6 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+defineOptions({ name: 'SvgIcon' });
+
 interface Props {
   /** 前缀 */
   prefix?: string;

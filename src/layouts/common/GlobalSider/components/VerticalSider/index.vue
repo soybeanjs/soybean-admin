@@ -11,6 +11,8 @@ import { useAppStore, useThemeStore } from '@/store';
 import { GlobalLogo } from '@/layouts/common';
 import { VerticalMenu } from './components';
 
+defineOptions({ name: 'VerticalSider' });
+
 const app = useAppStore();
 const theme = useThemeStore();
 

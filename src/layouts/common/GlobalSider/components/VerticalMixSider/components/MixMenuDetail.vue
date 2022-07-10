@@ -20,6 +20,8 @@ import { computed } from 'vue';
 import type { VNodeChild } from 'vue';
 import { useBoolean } from '@/hooks';
 
+defineOptions({ name: 'MixMenuDetail' });
+
 interface Props {
   /** 路由名称 */
   routeName: string;

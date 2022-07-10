@@ -8,15 +8,16 @@
 </template>
 
 <script lang="ts" setup>
+import type { DropdownOption } from 'naive-ui';
 import { useAuthStore, useThemeStore } from '@/store';
 import { iconifyRender } from '@/utils';
 
-type DropdownKey = 'user-center' | 'logout';
+defineOptions({ name: 'UserAvatar' });
 
 const auth = useAuthStore();
 const theme = useThemeStore();
 
-const options = [
+const options: DropdownOption[] = [
   {
     label: '用户中心',
     key: 'user-center',
@@ -32,6 +33,8 @@ const options = [
     icon: iconifyRender('carbon:logout')
   }
 ];
+
+type DropdownKey = 'user-center' | 'logout';
 
 function handleDropdown(optionKey: string) {
   const key = optionKey as DropdownKey;

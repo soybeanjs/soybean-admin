@@ -18,13 +18,15 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/store';
 
+defineOptions({ name: 'DashboardWorkbenchHeader' });
+
+const auth = useAuthStore();
+
 interface StatisticData {
   id: number;
   label: string;
   value: string;
 }
-
-const auth = useAuthStore();
 
 const statisticData: StatisticData[] = [
   {

@@ -34,6 +34,8 @@ import {
   SettingButton
 } from './components';
 
+defineOptions({ name: 'GlobalHeader' });
+
 interface Props {
   /** 显示logo */
   showLogo: GlobalHeaderProps['showLogo'];

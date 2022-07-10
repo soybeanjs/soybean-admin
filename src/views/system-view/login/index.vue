@@ -41,16 +41,16 @@ interface Props {
   module: EnumType.LoginModuleKey;
 }
 
+const props = defineProps<Props>();
+
+const theme = useThemeStore();
+const { title } = useAppInfo();
+
 interface LoginModule {
   key: EnumType.LoginModuleKey;
   label: EnumLoginModule;
   component: Component;
 }
-
-const props = defineProps<Props>();
-
-const theme = useThemeStore();
-const { title } = useAppInfo();
 
 const modules: LoginModule[] = [
   { key: 'pwd-login', label: EnumLoginModule['pwd-login'], component: PwdLogin },

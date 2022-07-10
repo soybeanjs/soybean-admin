@@ -14,6 +14,8 @@
 <script lang="ts" setup>
 import { routeName } from '@/router';
 
+defineOptions({ name: 'ExceptionBase' });
+
 type ExceptionType = '403' | '404' | '500';
 
 interface Props {

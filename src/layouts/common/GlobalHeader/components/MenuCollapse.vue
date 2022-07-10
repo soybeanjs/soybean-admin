@@ -8,6 +8,8 @@
 <script lang="ts" setup>
 import { useAppStore, useThemeStore } from '@/store';
 
+defineOptions({ name: 'MenuCollapse' });
+
 const app = useAppStore();
 const theme = useThemeStore();
 </script>

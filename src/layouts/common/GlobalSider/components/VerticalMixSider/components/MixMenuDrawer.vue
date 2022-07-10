@@ -36,6 +36,8 @@ import { useAppStore, useThemeStore } from '@/store';
 import { useAppInfo, useRouterPush } from '@/composables';
 import { getActiveKeyPathsOfMenus } from '@/utils';
 
+defineOptions({ name: 'MixMenuDrawer' });
+
 interface Props {
   /** 菜单抽屉可见性 */
   visible: boolean;
