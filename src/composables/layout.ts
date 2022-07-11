@@ -1,4 +1,5 @@
 import { computed } from 'vue';
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core';
 import { useAppStore, useThemeStore } from '@/store';
 
 type LayoutMode = 'vertical' | 'horizontal';
@@ -7,12 +8,15 @@ type LayoutHeaderProps = Record<EnumType.ThemeLayoutMode, GlobalHeaderProps>;
 export function useBasicLayout() {
   const app = useAppStore();
   const theme = useThemeStore();
+  const breakpoints = useBreakpoints(breakpointsTailwind);
 
   const mode = computed(() => {
     const vertical: LayoutMode = 'vertical';
     const horizontal: LayoutMode = 'horizontal';
     return theme.layout.mode.includes(vertical) ? vertical : horizontal;
   });
+
+  const isMobile = breakpoints.smaller('sm');
 
   const layoutHeaderProps: LayoutHeaderProps = {
     vertical: {
@@ -61,6 +65,7 @@ export function useBasicLayout() {
 
   return {
     mode,
+    isMobile,
     headerProps,
     siderVisible,
     siderWidth,

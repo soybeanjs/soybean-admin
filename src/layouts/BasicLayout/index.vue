@@ -1,7 +1,7 @@
 <template>
   <admin-layout
     :mode="mode"
-    :min-width="theme.layout.minWidth"
+    :is-mobile="isMobile"
     :fixed-header-and-tab="theme.fixedHeaderAndTab"
     :header-height="theme.header.height"
     :tab-visible="theme.tab.visible"
@@ -12,6 +12,7 @@
     :sider-collapse="app.siderCollapse"
     :add-main-overflow-hidden="addMainOverflowHidden"
     :fixed-footer="theme.footer.fixed"
+    @update:sider-collapse="app.setSiderCollapse"
   >
     <template #header>
       <global-header v-bind="headerProps" />
@@ -51,7 +52,7 @@ defineOptions({ name: 'BasicLayout' });
 const app = useAppStore();
 const theme = useThemeStore();
 
-const { mode, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
+const { mode, isMobile, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
 
 const { bool: addMainOverflowHidden, setBool: setAddMainOverflowHidden } = useBoolean();
 </script>

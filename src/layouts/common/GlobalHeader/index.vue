@@ -2,8 +2,8 @@
   <dark-mode-container class="global-header flex-y-center h-full" :inverted="theme.header.inverted">
     <global-logo v-if="showLogo" :show-title="true" class="h-full" :style="{ width: theme.sider.width + 'px' }" />
     <div v-if="!showHeaderMenu" class="flex-1-hidden flex-y-center h-full">
-      <menu-collapse v-if="showMenuCollapse" />
-      <global-breadcrumb v-if="theme.header.crumb.visible" />
+      <menu-collapse v-if="showMenuCollapse || isMobile" />
+      <global-breadcrumb v-if="theme.header.crumb.visible && !isMobile" />
     </div>
     <header-menu v-else />
     <div class="flex justify-end h-full">
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { useThemeStore } from '@/store';
+import { useBasicLayout } from '@/composables';
 import GlobalLogo from '../GlobalLogo/index.vue';
 import GlobalSearch from '../GlobalSearch/index.vue';
 import {
@@ -48,6 +49,7 @@ interface Props {
 defineProps<Props>();
 
 const theme = useThemeStore();
+const { isMobile } = useBasicLayout();
 
 const showButton = import.meta.env.PROD && import.meta.env.VITE_VERCEL !== '1';
 </script>
