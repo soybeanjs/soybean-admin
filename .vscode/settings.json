@@ -9,6 +9,8 @@
 		"strings": true
 	},
 	"editor.tabSize": 2,
+	"eslint.alwaysShowStatus": true,
+	"eslint.validate": ["javascript", "javascriptreact", "vue", "typescript", "typescriptreact", "html", "json", "jsonc"],
 	"files.associations": {
 		"*.env.*": "dotenv"
 	},
@@ -48,10 +50,10 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[json]": {
-		"editor.defaultFormatter": "vscode.json-language-features"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[jsonc]": {
-		"editor.defaultFormatter": "vscode.json-language-features"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"

@@ -1,6 +1,6 @@
 {
-	"compilerOptions": {
-		"baseUrl": ".",
+  "compilerOptions": {
+    "baseUrl": ".",
     "module": "ESNext",
     "target": "ESNext",
     "lib": ["DOM", "ESNext"],
@@ -12,16 +12,11 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-		"paths": {
-			"~/*": ["./*"],
-			"@/*": ["./src/*"]
-		},
-		"types": [
-			"vite/client",
-			"node",
-			"unplugin-icons/types/vue",
-			"naive-ui/volar"
-		]
-	},
-	"exclude": ["node_modules", "dist"]
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./src/*"]
+    },
+    "types": ["vite/client", "node", "unplugin-icons/types/vue", "naive-ui/volar"]
+  },
+  "exclude": ["node_modules", "dist"]
 }

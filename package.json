@@ -16,14 +16,14 @@
     "build:vercel": "cross-env VITE_HASH_ROUTE=1 VITE_VERCEL=1 vite build",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.json --fix",
     "prepare": "husky install",
     "postinstall": "patch-package",
     "release": "standard-version",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
   "lint-staged": {
-    "*.{vue,js,jsx,ts,tsx}": "eslint --fix"
+    "*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
   },
   "config": {
     "commitizen": {
@@ -46,10 +46,10 @@
     "form-data": "^4.0.0",
     "lodash-es": "^4.17.21",
     "naive-ui": "^2.31.0",
-    "pinia": "^2.0.15",
+    "pinia": "^2.0.16",
     "print-js": "^1.6.0",
     "qs": "^6.11.0",
-    "swiper": "^8.3.0",
+    "swiper": "^8.3.1",
     "ua-parser-js": "^1.0.2",
     "vditor": "^3.8.15",
     "vue": "3.2.37",
@@ -61,7 +61,7 @@
     "@amap/amap-jsapi-types": "^0.0.8",
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
-    "@iconify/json": "^2.1.76",
+    "@iconify/json": "^2.1.77",
     "@iconify/vue": "^3.2.1",
     "@types/bmapgl": "^0.0.5",
     "@types/crypto-js": "^4.1.1",
@@ -70,8 +70,8 @@
     "@types/ua-parser-js": "^0.7.36",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
-    "@vitejs/plugin-vue": "^2.3.3",
-    "@vitejs/plugin-vue-jsx": "^1.3.10",
+    "@vitejs/plugin-vue": "^3.0.0",
+    "@vitejs/plugin-vue-jsx": "^2.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",
     "commitizen": "^4.2.4",
@@ -99,7 +99,7 @@
     "unplugin-icons": "^0.14.7",
     "unplugin-vue-components": "0.21.1",
     "unplugin-vue-define-options": "^0.6.2",
-    "vite": "^2.9.14",
+    "vite": "^3.0.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-mock": "^2.9.6",
