@@ -147,16 +147,6 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               }
             },
             {
-              name: 'plugin_charts_d3',
-              path: '/plugin/charts/d3',
-              component: 'self',
-              meta: {
-                title: 'D3',
-                requiresAuth: true,
-                icon: 'simple-icons:d3dotjs'
-              }
-            },
-            {
               name: 'plugin_charts_antv',
               path: '/plugin/charts/antv',
               component: 'self',
@@ -446,6 +436,58 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       }
     },
     {
+      name: 'management',
+      path: '/management',
+      component: 'basic',
+      children: [
+        {
+          name: 'management_auth',
+          path: '/management/auth',
+          component: 'self',
+          meta: {
+            title: '权限管理',
+            requiresAuth: true,
+            icon: 'ic:baseline-security'
+          }
+        },
+        {
+          name: 'management_role',
+          path: '/management/role',
+          component: 'self',
+          meta: {
+            title: '角色管理',
+            requiresAuth: true,
+            icon: 'carbon:user-role'
+          }
+        },
+        {
+          name: 'management_user',
+          path: '/management/user',
+          component: 'self',
+          meta: {
+            title: '用户管理',
+            requiresAuth: true,
+            icon: 'ic:round-manage-accounts'
+          }
+        },
+        {
+          name: 'management_route',
+          path: '/management/route',
+          component: 'self',
+          meta: {
+            title: '路由管理',
+            requiresAuth: true,
+            icon: 'material-symbols:route'
+          }
+        }
+      ],
+      meta: {
+        title: '系统管理',
+        icon: 'carbon:cloud-service-management',
+        order: 9
+      }
+    },
+    {
       name: 'about',
       path: '/about',
       component: 'self',
@@ -454,7 +496,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
         requiresAuth: true,
         singleLayout: 'basic',
         icon: 'fluent:book-information-24-regular',
-        order: 9
+        order: 10
       }
     }
   ],
@@ -603,16 +645,6 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
                 title: 'ECharts',
                 requiresAuth: true,
                 icon: 'simple-icons:apacheecharts'
-              }
-            },
-            {
-              name: 'plugin_charts_d3',
-              path: '/plugin/charts/d3',
-              component: 'self',
-              meta: {
-                title: 'D3',
-                requiresAuth: true,
-                icon: 'simple-icons:d3dotjs'
               }
             },
             {
@@ -895,6 +927,58 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       }
     },
     {
+      name: 'management',
+      path: '/management',
+      component: 'basic',
+      children: [
+        {
+          name: 'management_auth',
+          path: '/management/auth',
+          component: 'self',
+          meta: {
+            title: '权限管理',
+            requiresAuth: true,
+            icon: 'ic:baseline-security'
+          }
+        },
+        {
+          name: 'management_role',
+          path: '/management/role',
+          component: 'self',
+          meta: {
+            title: '角色管理',
+            requiresAuth: true,
+            icon: 'carbon:user-role'
+          }
+        },
+        {
+          name: 'management_user',
+          path: '/management/user',
+          component: 'self',
+          meta: {
+            title: '用户管理',
+            requiresAuth: true,
+            icon: 'ic:round-manage-accounts'
+          }
+        },
+        {
+          name: 'management_route',
+          path: '/management/route',
+          component: 'self',
+          meta: {
+            title: '路由管理',
+            requiresAuth: true,
+            icon: 'material-symbols:route'
+          }
+        }
+      ],
+      meta: {
+        title: '系统管理',
+        icon: 'carbon:cloud-service-management',
+        order: 9
+      }
+    },
+    {
       name: 'about',
       path: '/about',
       component: 'self',
@@ -903,7 +987,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
         requiresAuth: true,
         singleLayout: 'basic',
         icon: 'fluent:book-information-24-regular',
-        order: 9
+        order: 10
       }
     }
   ],

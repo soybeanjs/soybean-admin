@@ -19,16 +19,6 @@ const plugin: AuthRoute.Route = {
           }
         },
         {
-          name: 'plugin_charts_d3',
-          path: '/plugin/charts/d3',
-          component: 'self',
-          meta: {
-            title: 'D3',
-            requiresAuth: true,
-            icon: 'simple-icons:d3dotjs'
-          }
-        },
-        {
           name: 'plugin_charts_antv',
           path: '/plugin/charts/antv',
           component: 'self',

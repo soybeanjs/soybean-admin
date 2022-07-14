@@ -38,9 +38,7 @@ declare namespace AuthRoute {
     | 'plugin_swiper'
     | 'plugin_charts'
     | 'plugin_charts_echarts'
-    | 'plugin_charts_d3'
     | 'plugin_charts_antv'
-    | 'plugin_charts_chartjs'
     | 'auth-demo'
     | 'auth-demo_permission'
     | 'auth-demo_super'
@@ -57,6 +55,11 @@ declare namespace AuthRoute {
     | 'multi-menu_first_second'
     | 'multi-menu_first_second-new'
     | 'multi-menu_first_second-new_third'
+    | 'management'
+    | 'management_user'
+    | 'management_role'
+    | 'management_auth'
+    | 'management_route'
     | 'about';
 
   /** 路由的path */

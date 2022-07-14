@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h3>d3</h3>
-  </div>
+  <div>角色管理</div>
 </template>
 
 <script setup lang="ts"></script>
