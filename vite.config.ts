@@ -8,7 +8,7 @@ export default defineConfig(configEnv => {
   const rootPath = getRootPath();
   const srcPath = getSrcPath();
 
-  const isOpenProxy = viteEnv.VITE_HTTP_PROXY === '1';
+  const isOpenProxy = viteEnv.VITE_HTTP_PROXY === 'Y';
   const envConfig = getEnvConfig(viteEnv);
 
   return {

@@ -5,10 +5,10 @@ import { constantRoutes } from './routes';
 import { scrollBehavior } from './helpers';
 import { createRouterGuard } from './guard';
 
-const { VITE_HASH_ROUTE = '0', VITE_BASE_URL } = import.meta.env;
+const { VITE_HASH_ROUTE = 'N', VITE_BASE_URL } = import.meta.env;
 
 export const router = createRouter({
-  history: VITE_HASH_ROUTE === '1' ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
+  history: VITE_HASH_ROUTE === 'Y' ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
   routes: transformAuthRoutesToVueRoutes(constantRoutes),
   scrollBehavior
 });

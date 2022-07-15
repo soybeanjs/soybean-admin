@@ -24,8 +24,8 @@ declare namespace Service {
   /**
    * 请求的错误类型：
    * - axios: axios错误：网络错误, 请求超时, 默认的兜底错误
-   * - http: 请求成功，响应的状态码非200的错误
-   * - backend: 请求成功，响应的状态码为200，由后端定义的业务错误
+   * - http: 请求成功，响应的http状态码非200的错误
+   * - backend: 请求成功，响应的http状态码为200，由后端定义的业务错误
    */
   type RequestErrorType = 'axios' | 'http' | 'backend';
 

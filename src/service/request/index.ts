@@ -2,7 +2,7 @@ import { getEnvConfig } from '~/.env-config';
 import { createRequest } from './request';
 
 const envConfig = getEnvConfig(import.meta.env);
-const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === '1';
+const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'Y';
 
 export const request = createRequest({ baseURL: isHttpProxy ? envConfig.proxy : envConfig.url });
 

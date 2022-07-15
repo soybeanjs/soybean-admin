@@ -20,7 +20,7 @@ defineOptions({ name: 'SettingDrawer' });
 
 const app = useAppStore();
 
-const showButton = import.meta.env.DEV || import.meta.env.VITE_VERCEL === '1';
+const showButton = import.meta.env.DEV || import.meta.env.VITE_VERCEL === 'Y';
 </script>
 
 <style scoped></style>

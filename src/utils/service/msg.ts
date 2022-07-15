@@ -18,15 +18,12 @@ function hasErrorMsg(error: Service.RequestError) {
  * @param error
  */
 export function showErrorMsg(error: Service.RequestError) {
-  if (!error.msg) return;
-  if (!NO_ERROR_MSG_CODE.includes(error.code)) {
-    if (!hasErrorMsg(error)) {
-      addErrorMsg(error);
-      window.console.warn(error.code, error.msg);
-      window.$message?.error(error.msg, { duration: ERROR_MSG_DURATION });
-      setTimeout(() => {
-        removeErrorMsg(error);
-      }, ERROR_MSG_DURATION);
-    }
-  }
+  if (!error.msg || NO_ERROR_MSG_CODE.includes(error.code) || hasErrorMsg(error)) return;
+
+  addErrorMsg(error);
+  window.console.warn(error.code, error.msg);
+  window.$message?.error(error.msg, { duration: ERROR_MSG_DURATION });
+  setTimeout(() => {
+    removeErrorMsg(error);
+  }, ERROR_MSG_DURATION);
 }

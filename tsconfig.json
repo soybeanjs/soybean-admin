@@ -6,6 +6,7 @@
     "lib": ["DOM", "ESNext"],
     "strict": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -16,7 +17,7 @@
       "~/*": ["./*"],
       "@/*": ["./src/*"]
     },
-    "types": ["vite/client", "node", "unplugin-icons/types/vue", "naive-ui/volar"]
+    "types": ["node", "vite/client", "unplugin-icons/types/vue", "naive-ui/volar"]
   },
   "exclude": ["node_modules", "dist"]
 }

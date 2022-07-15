@@ -1,17 +1,17 @@
 /**
- * env环境类型
+ *后台服务的环境类型
  * - dev: 后台开发环境
  * - test: 后台测试环境
  * - prod: 后台生产环境
  */
-type EnvType = 'dev' | 'test' | 'prod';
+type ServiceEnvType = 'dev' | 'test' | 'prod';
 
-/** env环境配置 */
-interface EnvConfig {
-  /** 后端的请求地址 */
+/** 后台服务的环境配置 */
+interface ServiceEnvConfig {
+  /** 请求地址 */
   url: string;
-  /** 代理标识, 用于拦截地址转发代理(如："/api"，这个和后端路径有无 "/api" 路径没有任何关系) */
-  proxy: string;
+  /** 代理标识, 用于拦截地址转发代理(和后端请求路径中有无该路径没有关系) */
+  proxy: '/proxy-flag';
 }
 
 interface ImportMetaEnv {
@@ -32,19 +32,19 @@ interface ImportMetaEnv {
   /** 路由首页的路径 */
   readonly VITE_ROUTE_HOME_PATH: Exclude<AuthRoute.RoutePath, '/' | '/not-found-page' | '/:pathMatch(.*)*'>;
   /** vite环境类型 */
-  readonly VITE_ENV_TYPE?: EnvType;
+  readonly VITE_ENV_TYPE?: ServiceEnvType;
   /** 开启请求代理 */
-  readonly VITE_HTTP_PROXY?: '1' | '0';
+  readonly VITE_HTTP_PROXY?: 'Y' | 'N';
   /** 是否开启打包文件大小结果分析 */
-  readonly VITE_VISUALIZER?: '1' | '0';
+  readonly VITE_VISUALIZER?: 'Y' | 'N';
   /** 是否开启打包压缩 */
-  readonly VITE_COMPRESS?: '1' | '0';
+  readonly VITE_COMPRESS?: 'Y' | 'N';
   /** 压缩算法类型 */
   readonly VITE_COMPRESS_TYPE?: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw';
   /** hash路由模式 */
-  readonly VITE_HASH_ROUTE?: '1' | '0';
+  readonly VITE_HASH_ROUTE?: 'Y' | 'N';
   /** 是否是部署的vercel */
-  readonly VITE_VERCEL?: '1' | '0';
+  readonly VITE_VERCEL?: 'Y' | 'N';
 }
 
 interface ImportMeta {

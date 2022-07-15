@@ -15,7 +15,7 @@ type ErrorStatus = keyof typeof ERROR_STATUS;
 
 /**
  * 处理axios请求失败的错误
- * @param error - 错误
+ * @param axiosError - 错误
  */
 export function handleAxiosError(axiosError: AxiosError) {
   const error: Service.RequestError = {
@@ -75,7 +75,7 @@ export function handleResponseError(response: AxiosResponse) {
     // 请求成功的状态码非200的错误
     const errorCode: ErrorStatus = response.status as ErrorStatus;
     const msg = ERROR_STATUS[errorCode] || DEFAULT_REQUEST_ERROR_MSG;
-    Object.assign(error, { type: 'backend', code: errorCode, msg });
+    Object.assign(error, { type: 'http', code: errorCode, msg });
   }
 
   showErrorMsg(error);

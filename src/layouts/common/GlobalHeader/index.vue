@@ -51,7 +51,7 @@ defineProps<Props>();
 const theme = useThemeStore();
 const { isMobile } = useBasicLayout();
 
-const showButton = import.meta.env.PROD && import.meta.env.VITE_VERCEL !== '1';
+const showButton = import.meta.env.PROD && import.meta.env.VITE_VERCEL !== 'Y';
 </script>
 
 <style scoped>

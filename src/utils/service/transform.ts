@@ -56,6 +56,6 @@ async function transformFile(formData: FormData, key: string, file: File[] | Fil
     );
   } else {
     // 单文件
-    await formData.append(key, file);
+    formData.append(key, file);
   }
 }
