@@ -212,6 +212,7 @@ module.exports = {
         ignores: ['index']
       }
     ],
+    '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports', disallowTypeAnnotations: false }],
     '@typescript-eslint/no-empty-interface': [
       'error',
       {
@@ -221,7 +222,10 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-shadow': 'error',
-    '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { vars: 'all', args: 'all', ignoreRestSiblings: false, varsIgnorePattern: '^_', argsIgnorePattern: '^_' }
+    ],
     '@typescript-eslint/no-use-before-define': ['error', { classes: true, functions: false, typedefs: false }]
   }
 };
