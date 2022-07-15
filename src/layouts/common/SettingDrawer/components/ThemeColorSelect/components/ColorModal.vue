@@ -1,5 +1,5 @@
 <template>
-  <n-modal :show="visible" preset="card" class="w-640px h-480px" @close="handleClose">
+  <n-modal :show="visible" preset="card" class="w-640px h-480px" :z-index="10001" @close="handleClose">
     <div class="flex-x-center">
       <n-gradient-text type="primary" :size="24">中国传统颜色</n-gradient-text>
     </div>
