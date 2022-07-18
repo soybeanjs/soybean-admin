@@ -469,21 +469,21 @@ const radarOptions = ref<ECOption>({
   radar: [
     {
       indicator: [
-        { text: 'Brand', max: 100 },
-        { text: 'Content', max: 100 },
-        { text: 'Usability', max: 100 },
-        { text: 'Function', max: 100 }
+        { name: 'Brand', max: 100 },
+        { name: 'Content', max: 100 },
+        { name: 'Usability', max: 100 },
+        { name: 'Function', max: 100 }
       ],
       center: ['25%', '40%'],
       radius: 80
     },
     {
       indicator: [
-        { text: 'Look', max: 100 },
-        { text: 'Photo', max: 100 },
-        { text: 'System', max: 100 },
-        { text: 'Performance', max: 100 },
-        { text: 'Screen', max: 100 }
+        { name: 'Look', max: 100 },
+        { name: 'Photo', max: 100 },
+        { name: 'System', max: 100 },
+        { name: 'Performance', max: 100 },
+        { name: 'Screen', max: 100 }
       ],
       radius: 80,
       center: ['50%', '60%']
@@ -492,7 +492,7 @@ const radarOptions = ref<ECOption>({
       indicator: (() => {
         const res = [];
         for (let i = 1; i <= 12; i += 1) {
-          res.push({ text: `${i}月`, max: 100 });
+          res.push({ name: `${i}月`, max: 100 });
         }
         return res;
       })(),
