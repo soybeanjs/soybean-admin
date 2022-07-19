@@ -7,13 +7,13 @@
 
 ## 简介
 
-Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中后台模版，它使用了最新的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于mock实现的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
+Soybean Admin 是一个基于 Vue3、Vite3、TypeScript、Naive UI和UnoCSS 的清新优雅的中后台模版，它使用了最新的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于mock实现的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
 
 ## 特性
 
-- **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发, 使用高效率的npm包管理器pnpm
+- **最新技术栈**：使用 Vue3/vite3 等前端前沿技术开发, 使用高效率的npm包管理器pnpm
 - **TypeScript**：应用程序级 JavaScript 的语言
-- **主题**：丰富可配置的主题、暗黑模式，基于原子css - unocss的动态主题颜色
+- **主题**：丰富可配置的主题、暗黑模式，基于原子css - UnoCSS的动态主题颜色
 - **代码规范**：丰富的规范插件及极高的代码规范
 - **权限路由**：简易的路由配置、基于mock的动态路由能快速实现后端动态路由
 - **请求函数**：基于axios的完善的请求函数封装，提供Promise和hooks两种请求函数，加入请求结果数据转换的适配器
@@ -24,7 +24,7 @@ Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 
 ## 文档
 
-- [项目文档](https://docs.soybean.pro)
+- [项目文档: docs.soybean.pro](https://docs.soybean.pro)
 
 ## 代码仓库
 
@@ -77,11 +77,12 @@ Soybean Admin 是一个基于 Vue3、Vite、TypeScript、Naive UI 的免费中�
 - [x] 图表示例：ECharts、AntV G2
 - [x] 多页签：支持query、hash等参数，同一页面支持多个Tab
 - [x] 缓存主题配置
-- [ ] 表单、表格示例(ing...)
-- [ ] 全局Iframe组件
-- [ ] 示例页面完善
+- [ ] v0.9.7表单、表格示例(ing...)
+- [ ] v0.9.8可修改的KeepAlive的页面缓存和全局Tab组件store重构
+- [ ] v0.9.9全局Iframe组件
+- [ ] v1.0示例页面完善
+- [ ] v1.0版本文档
 - [ ] 精简版(新分支thin)
-- [ ] 文档完善
 - [ ] element-plus版本
 - [ ] i18n国际化
 - [ ] 其他UI版本
