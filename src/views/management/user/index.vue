@@ -1,5 +1,7 @@
 <template>
-  <div>用户管理</div>
+  <div>
+    <n-data-table />
+  </div>
 </template>
 
 <script setup lang="ts"></script>

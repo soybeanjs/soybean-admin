@@ -2,6 +2,6 @@
   <div>权限管理</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="tsx"></script>
 
 <style scoped></style>
