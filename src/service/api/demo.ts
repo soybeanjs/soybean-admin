@@ -1,11 +1,11 @@
-import { serviceAdapter } from '@/utils';
+import { adapter } from '@/utils';
 import { request, mockRequest } from '../request';
-import { adapterOfFetchDataWithAdapter } from '../adapter';
+import { adapterOfFetchDataWithAdapter } from './demo.adapter';
 
-/** 带有适配器的请求(将请求结果进行数据处理) */
+/** 带有适配器的请求示例 */
 export async function fetchDataWithAdapter() {
   const res = await mockRequest.post<ApiDemo.DataWithAdapter>('/apiDemoWithAdapter');
-  return serviceAdapter(adapterOfFetchDataWithAdapter, res);
+  return adapter(adapterOfFetchDataWithAdapter, res);
 }
 
 /** 测试代理后的请求 */

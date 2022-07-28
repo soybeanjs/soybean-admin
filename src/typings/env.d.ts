@@ -8,10 +8,12 @@ type ServiceEnvType = 'dev' | 'test' | 'prod';
 
 /** 后台服务的环境配置 */
 interface ServiceEnvConfig {
+  /** 匹配路径的正则字符串, 用于拦截地址转发代理(任意以 /开头 + 字符串, 单个/不起作用) */
+  pattern: '/proxy-pattrn';
   /** 请求地址 */
   url: string;
-  /** 代理标识, 用于拦截地址转发代理(和后端请求路径中有无该路径没有关系) */
-  proxy: '/proxy-flag';
+  /** 另一个后端请求地址(有多个不同的后端服务时) */
+  secondUrl: string;
 }
 
 interface ImportMetaEnv {
@@ -31,8 +33,8 @@ interface ImportMetaEnv {
   readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic';
   /** 路由首页的路径 */
   readonly VITE_ROUTE_HOME_PATH: Exclude<AuthRoute.RoutePath, '/' | '/not-found-page' | '/:pathMatch(.*)*'>;
-  /** vite环境类型 */
-  readonly VITE_ENV_TYPE?: ServiceEnvType;
+  /** 后端服务的环境类型 */
+  readonly VITE_SERVICE_ENV?: ServiceEnvType;
   /** 开启请求代理 */
   readonly VITE_HTTP_PROXY?: 'Y' | 'N';
   /** 是否开启打包文件大小结果分析 */

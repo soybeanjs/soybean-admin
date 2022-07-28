@@ -70,6 +70,20 @@ declare namespace Service {
   /** 自定义的请求结果 */
   type RequestResult<T = any> = SuccessResult<T> | FailedResult;
 
+  /** 多个请求数据结果 */
+  type MultiRequestResult<T extends any[]> = T extends [infer First, ...infer Rest]
+    ? First extends any
+      ? Rest extends any[]
+        ? [Service.RequestResult<First>, ...MultiRequestResult<Rest>]
+        : [Service.RequestResult<First>]
+      : Rest extends any[]
+      ? MultiRequestResult<Rest>
+      : []
+    : [];
+
+  /** 请求结果的适配器函数 */
+  type ServiceAdapter<T = any, A extends any[] = any> = (...args: A) => T;
+
   /** mock示例接口类型：后端接口返回的数据的类型 */
   interface MockServiceResult<T = any> {
     /** 状态码 */

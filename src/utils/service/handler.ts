@@ -14,14 +14,11 @@ export async function handleServiceResult<T = any>(error: Service.RequestError |
   return success;
 }
 
-type Adapter<T = any> = (...args: Service.RequestResult[]) => T;
-
-/**
- * 请求结果的数据转换适配器
- * @param adapter - 适配器函数
- * @param args - 适配器函数的参数
- */
-export function serviceAdapter<T extends Adapter>(adapter: T, ...args: TypeUtil.GetFunArgs<T>) {
+/** 请求结果的适配器：用于接收适配器函数和请求结果 */
+export function adapter<T extends Service.ServiceAdapter>(
+  adapterFun: T,
+  ...args: Service.MultiRequestResult<TypeUtil.GetFunArgs<T>>
+): Service.RequestResult<TypeUtil.GetFunReturn<T>> {
   let result: Service.RequestResult | undefined;
 
   const hasError = args.some(item => {
@@ -36,11 +33,12 @@ export function serviceAdapter<T extends Adapter>(adapter: T, ...args: TypeUtil.
   });
 
   if (!hasError) {
+    const adapterFunArgs = args.map(item => item.data);
     result = {
       error: null,
-      data: adapter(...args)
+      data: adapterFun(...adapterFunArgs)
     };
   }
 
-  return result as Service.RequestResult<TypeUtil.GetFunReturn<T>>;
+  return result!;
 }
