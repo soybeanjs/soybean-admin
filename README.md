@@ -7,13 +7,13 @@
 
 ## 简介
 
-Soybean Admin 是一个基于 Vue3、Vite3、TypeScript、Naive UI和UnoCSS 的清新优雅的中后台模版，它使用了最新的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于mock实现的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
+[Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个基于 Vue3、Vite3、TypeScript、NaiveUI、Pinia和UnoCSS 的清新优雅的中后台模版，它使用了最新的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于mock实现的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
 
 ## 特性
 
-- **最新技术栈**：使用 Vue3/vite3 等前端前沿技术开发, 使用高效率的npm包管理器pnpm
+- **最新技术栈**：使用 Vue3/Vite3 等前端前沿技术开发, 使用高效率的npm包管理器pnpm
 - **TypeScript**：应用程序级 JavaScript 的语言
-- **主题**：丰富可配置的主题、暗黑模式，基于原子css - UnoCSS的动态主题颜色
+- **主题**：丰富可配置的主题、暗黑模式，基于原子css框架 - UnoCSS的动态主题颜色
 - **代码规范**：丰富的规范插件及极高的代码规范
 - **权限路由**：简易的路由配置、基于mock的动态路由能快速实现后端动态路由
 - **请求函数**：基于axios的完善的请求函数封装，提供Promise和hooks两种请求函数，加入请求结果数据转换的适配器
@@ -94,6 +94,14 @@ Soybean Admin 是一个基于 Vue3、Vite3、TypeScript、Naive UI和UnoCSS 的�
 
 ## 安装使用
 
+- 环境配置
+
+  **本地环境需要安装 pnpm 7.x 、Node.js 14.18+ 和 Git**
+	- [Nodejs安装教程]()
+
+	- [Nodejs版本管理工具fnm安装教程]()
+
+
 - 克隆代码
 
 ```bash
@@ -117,9 +125,6 @@ pnpm dev
 ```bash
 pnpm build
 ```
-
-**本地环境需要安装 pnpm 6.x 、Node.js 14.x 和 Git**
-
 
 ## 如何贡献
 

@@ -13,3 +13,9 @@ export enum EnumLoginModule {
   'reset-pwd' = '重置密码',
   'bind-wechat' = '微信绑定'
 }
+
+export enum EnumGender {
+  male = '男',
+  female = '女',
+  null = ''
+}

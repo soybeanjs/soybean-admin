@@ -28,3 +28,24 @@ declare namespace ApiDemo {
     dataName: string;
   }
 }
+
+declare namespace ApiUserManagement {
+  interface UserTable {
+    /** 用户id */
+    id: string;
+    /** 用户名 */
+    name: string;
+    /** 用户年龄 */
+    age?: number;
+    /**
+     * 用户性别
+     * - 男 1
+     * - 女 0
+     */
+    gender: '0' | '1' | null;
+    /** 创建时间 */
+    createTime: string;
+    /** 更新时间 */
+    updateTime: string;
+  }
+}

@@ -62,3 +62,23 @@ declare namespace Message {
     tagProps?: import('naive-ui').TagProps;
   }
 }
+
+/** 用户管理 */
+declare namespace UserManagement {
+  /** 用户表格 */
+  interface UserTable {
+    /** 用户id */
+    id: string;
+    /** 用户名 */
+    userName: string;
+    /** 用户年龄 */
+    userAge: string;
+    /**
+     * 用户性别
+     * - male 男
+     * - female 女
+     */
+    userGender: keyof typeof import('@/enum').EnumGender;
+    userGenderLabel: import('@/enum').EnumGender;
+  }
+}
