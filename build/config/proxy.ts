@@ -9,15 +9,15 @@ export function createViteProxy(isOpenProxy: boolean, envConfig: ServiceEnvConfi
   if (!isOpenProxy) return undefined;
 
   const proxy: Record<string, string | ProxyOptions> = {
-    [envConfig.pattern]: {
+    [envConfig.urlPattern]: {
       target: envConfig.url,
       changeOrigin: true,
-      rewrite: path => path.replace(new RegExp(`^${envConfig.pattern}`), '')
+      rewrite: path => path.replace(new RegExp(`^${envConfig.urlPattern}`), '')
     },
-    [envConfig.pattern]: {
+    [envConfig.secondUrlPattern]: {
       target: envConfig.secondUrl,
       changeOrigin: true,
-      rewrite: path => path.replace(new RegExp(`^${envConfig.pattern}`), '')
+      rewrite: path => path.replace(new RegExp(`^${envConfig.secondUrlPattern}`), '')
     }
   };
 

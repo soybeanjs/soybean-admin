@@ -4,19 +4,22 @@ type ServiceEnv = Record<ServiceEnvType, ServiceEnvConfig>;
 /** 不同请求服务的环境配置 */
 const serviceEnv: ServiceEnv = {
   dev: {
-    pattern: '/proxy-pattrn',
     url: 'http://localhost:8080',
-    secondUrl: 'http://localhost:8081'
+    urlPattern: '/url-pattern',
+    secondUrl: 'http://localhost:8081',
+    secondUrlPattern: '/second-url-pattern'
   },
   test: {
-    pattern: '/proxy-pattrn',
     url: 'http://localhost:8080',
-    secondUrl: 'http://localhost:8081'
+    urlPattern: '/url-pattern',
+    secondUrl: 'http://localhost:8081',
+    secondUrlPattern: '/second-url-pattern'
   },
   prod: {
-    pattern: '/proxy-pattrn',
     url: 'http://localhost:8080',
-    secondUrl: 'http://localhost:8081'
+    urlPattern: '/url-pattern',
+    secondUrl: 'http://localhost:8081',
+    secondUrlPattern: '/second-url-pattern'
   }
 };
 
