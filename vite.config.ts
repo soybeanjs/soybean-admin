@@ -37,6 +37,19 @@ export default defineConfig(configEnv => {
     preview: {
       port: 5050
     },
+    optimizeDeps: {
+      include: [
+        '@antv/data-set',
+        '@antv/g2',
+        '@better-scroll/core',
+        'echarts',
+        'swiper',
+        'swiper/vue',
+        'vditor',
+        'wangeditor',
+        'xgplayer'
+      ]
+    },
     build: {
       reportCompressedSize: false,
       sourcemap: false,
