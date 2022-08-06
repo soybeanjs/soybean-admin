@@ -18,6 +18,7 @@
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.json --fix",
     "prepare": "husky install",
+    "postinstall": "patch-package",
     "release": "standard-version",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
@@ -62,6 +63,7 @@
     "@commitlint/config-conventional": "^17.0.3",
     "@iconify/json": "^2.1.87",
     "@iconify/vue": "^3.2.1",
+    "@milahu/patch-package": "^6.4.14",
     "@types/bmapgl": "^0.0.5",
     "@types/crypto-js": "^4.1.1",
     "@types/node": "^18.6.3",

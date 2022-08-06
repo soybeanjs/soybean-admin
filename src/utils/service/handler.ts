@@ -18,7 +18,7 @@ export async function handleServiceResult<T = any>(error: Service.RequestError |
 export function adapter<T extends Service.ServiceAdapter>(
   adapterFun: T,
   ...args: Service.MultiRequestResult<TypeUtil.GetFunArgs<T>>
-): Service.RequestResult<TypeUtil.GetFunReturn<T>> {
+): Service.RequestResult<ReturnType<T>> {
   let result: Service.RequestResult | undefined;
 
   const hasError = args.some(item => {
