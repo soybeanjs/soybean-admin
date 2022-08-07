@@ -8,15 +8,5 @@ import { adapterOfFetchUserManagementList } from './management.adapter';
 export async function fetchUserManagementList() {
   const data = await mockRequest.post<ApiUserManagement.UserTable[]>('/getUserManagementList');
 
-  const id = '2';
-
-  return adapter(adapterOfFetchUserManagementList, data, { error: null, data: id });
+  return adapter(adapterOfFetchUserManagementList, data);
 }
-
-// export async function fetchFilterUserManagementList(
-//   filterKey: keyof UserManagement.UserTable,
-//   mode: 'fontEnd' | 'backEnd',
-//   source: UserManagement.UserTable[]
-// ) {
-
-// }

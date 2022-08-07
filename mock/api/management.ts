@@ -1,3 +1,4 @@
+import { mock } from 'mockjs';
 import type { MockMethod } from 'vite-plugin-mock';
 
 const apis: MockMethod[] = [
@@ -5,44 +6,26 @@ const apis: MockMethod[] = [
     url: '/mock/getUserManagementList',
     method: 'post',
     response: (): Service.MockServiceResult<ApiUserManagement.UserTable[]> => {
-      const data: ApiUserManagement.UserTable[] = [
-        {
-          id: '1',
-          name: '张三',
-          age: 24,
-          gender: null,
-          createTime: '2022-04-13',
-          updateTime: '2022-07-29'
-        },
-        {
-          id: '2',
-          name: '李四',
-          age: 22,
-          gender: '1',
-          createTime: '2022-05-13',
-          updateTime: '2022-06-29'
-        },
-        {
-          id: '3',
-          name: '王五',
-          gender: '1',
-          createTime: '2022-04-18',
-          updateTime: '2022-07-30'
-        },
-        {
-          id: '4',
-          name: '王小梅',
-          age: 20,
-          gender: '0',
-          createTime: '2022-05-18',
-          updateTime: '2022-07-30'
-        }
-      ];
+      const data = mock({
+        'list|1000': [
+          {
+            id: '@id',
+            name: '@cname',
+            'age|20-36': 36,
+            'gender|1': ['0', '1', null],
+            phone:
+              /^[1](([3][0-9])|([4][01456789])|([5][012356789])|([6][2567])|([7][0-8])|([8][0-9])|([9][012356789]))[0-9]{8}$/,
+            email: '@email("qq.com")',
+            'role|1': ['super', 'admin', 'user'],
+            'disabled|1': true
+          }
+        ]
+      });
 
       return {
         code: 200,
         message: 'ok',
-        data
+        data: data.list
       };
     }
   }

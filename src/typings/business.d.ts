@@ -67,6 +67,10 @@ declare namespace Message {
 declare namespace UserManagement {
   /** 用户表格 */
   interface UserTable {
+    /** 序号 */
+    index: number;
+    /** 数据的key(id) */
+    key: string;
     /** 用户id */
     id: string;
     /** 用户名 */
@@ -80,5 +84,13 @@ declare namespace UserManagement {
      */
     userGender: keyof typeof import('@/enum').EnumGender;
     userGenderLabel: import('@/enum').EnumGender;
+    /** 用户手机号 */
+    userPhone: string;
+    /** 用户邮箱 */
+    userEmail: string;
+    /** 用户角色 */
+    userRole: Auth.RoleType;
+    /** 是否禁用用户 */
+    disabled: boolean;
   }
 }

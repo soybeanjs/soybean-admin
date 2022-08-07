@@ -36,16 +36,20 @@ declare namespace ApiUserManagement {
     /** 用户名 */
     name: string;
     /** 用户年龄 */
-    age?: number;
+    age: number;
     /**
      * 用户性别
      * - 男 1
      * - 女 0
      */
     gender: '0' | '1' | null;
-    /** 创建时间 */
-    createTime: string;
-    /** 更新时间 */
-    updateTime: string;
+    /** 用户手机号码 */
+    phone: string;
+    /** 用户邮箱 */
+    email: string;
+    /** 用户角色 */
+    role: Auth.RoleType;
+    /** 是否禁用用户 */
+    disabled: boolean;
   }
 }
