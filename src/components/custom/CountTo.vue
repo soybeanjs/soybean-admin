@@ -8,6 +8,8 @@ import { isNumber } from '@/utils';
 
 defineOptions({ name: 'CountTo' });
 
+type TansitionKey = keyof typeof TransitionPresets;
+
 interface Props {
   /** 初始值 */
   startValue?: number;
@@ -30,7 +32,7 @@ interface Props {
   /** 使用缓冲动画函数 */
   useEasing?: boolean;
   /** 缓冲动画函数类型 */
-  transition?: string;
+  transition?: TansitionKey;
 }
 
 const props = withDefaults(defineProps<Props>(), {
