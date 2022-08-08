@@ -1,12 +1,9 @@
 <template>
   <n-space :vertical="true" :size="16">
-    <workbench-header />
-    <workbench-main />
+    <h1>我是工作台</h1>
   </n-space>
 </template>
 
-<script lang="ts" setup>
-import { WorkbenchHeader, WorkbenchMain } from './components';
-</script>
+<script lang="ts" setup></script>
 
 <style scoped></style>
