@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import type { Ref } from 'vue';
 import type { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { useLoading, useBoolean } from '@/hooks';
+import { useBoolean, useLoading } from '@/hooks';
 import CustomAxiosInstance from './instance';
 
 type RequestMethod = 'get' | 'post' | 'put' | 'delete';
@@ -89,12 +89,12 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
   };
 }
 
-type RequestResultHook<T = any> = {
+interface RequestResultHook<T = any> {
   data: Ref<T | null>;
   error: Ref<Service.RequestError | null>;
   loading: Ref<boolean>;
   network: Ref<boolean>;
-};
+}
 
 /**
  * 创建hooks请求

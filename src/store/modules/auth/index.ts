@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { router } from '@/router';
 import { fetchLogin, fetchUserInfo } from '@/service';
 import { useRouterPush } from '@/composables';
-import { getUserInfo, getToken, setUserInfo, setToken, setRefreshToken, clearAuthStorage } from '@/utils';
+import { clearAuthStorage, getToken, getUserInfo, setRefreshToken, setToken, setUserInfo } from '@/utils';
 import { useTabStore } from '../tab';
 import { useRouteStore } from '../route';
 

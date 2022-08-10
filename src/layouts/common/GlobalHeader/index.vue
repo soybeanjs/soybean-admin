@@ -24,15 +24,15 @@ import { useBasicLayout } from '@/composables';
 import GlobalLogo from '../GlobalLogo/index.vue';
 import GlobalSearch from '../GlobalSearch/index.vue';
 import {
-  MenuCollapse,
+  FullScreen,
+  GithubSite,
   GlobalBreadcrumb,
   HeaderMenu,
-  GithubSite,
-  FullScreen,
-  ThemeMode,
-  UserAvatar,
+  MenuCollapse,
+  SettingButton,
   SystemMessage,
-  SettingButton
+  ThemeMode,
+  UserAvatar
 } from './components';
 
 defineOptions({ name: 'GlobalHeader' });

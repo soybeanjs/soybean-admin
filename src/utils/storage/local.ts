@@ -1,4 +1,4 @@
-import { encrypto, decrypto } from '../crypto';
+import { decrypto, encrypto } from '../crypto';
 
 interface StorageData {
   value: unknown;

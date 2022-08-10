@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/store';
-import { getRefreshToken, setToken, setRefreshToken } from '@/utils';
+import { getRefreshToken, setRefreshToken, setToken } from '@/utils';
 import { fetchUpdateToken } from '../api';
 
 /**

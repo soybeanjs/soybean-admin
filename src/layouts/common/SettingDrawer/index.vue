@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/store';
-import { DrawerButton, DarkMode, LayoutMode, ThemeColorSelect, PageFunc, PageView, ThemeConfig } from './components';
+import { DarkMode, DrawerButton, LayoutMode, PageFunc, PageView, ThemeColorSelect, ThemeConfig } from './components';
 
 defineOptions({ name: 'SettingDrawer' });
 

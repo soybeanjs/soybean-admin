@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
 import { useThemeStore } from '@/store';

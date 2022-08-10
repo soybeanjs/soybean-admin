@@ -1,4 +1,4 @@
-import { iconifyRender, customIconRender } from '../common';
+import { customIconRender, iconifyRender } from '../common';
 
 /** 路由不转换菜单 */
 function hideInMenu(route: AuthRoute.Route) {
@@ -74,7 +74,7 @@ function getActiveKeyPathsOfMenu(activeKey: string, menu: GlobalMenuOption) {
     keys.push(menu.routeName);
   }
   if (menu.children) {
-    keys.push(...menu.children.map(item => getActiveKeyPathsOfMenu(activeKey, item)).flat(1));
+    keys.push(...menu.children.map(item => getActiveKeyPathsOfMenu(activeKey, item as GlobalMenuOption)).flat(1));
   }
   return keys;
 }

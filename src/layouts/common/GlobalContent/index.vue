@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore, useThemeStore, useRouteStore } from '@/store';
+import { useAppStore, useRouteStore, useThemeStore } from '@/store';
 
 defineOptions({ name: 'GlobalContent' });
 

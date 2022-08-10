@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, watch } from 'vue';
+import { computed, reactive, watch } from 'vue';
 
 defineOptions({ name: 'TableActionModal' });
 

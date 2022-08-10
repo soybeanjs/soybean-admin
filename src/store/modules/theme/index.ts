@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { darkTheme } from 'naive-ui';
-import { initThemeSettings, getNaiveThemeOverrides, setThemeSettings, clearThemeSettings } from './helpers';
+import { clearThemeSettings, getNaiveThemeOverrides, initThemeSettings, setThemeSettings } from './helpers';
 
 type ThemeState = Theme.Setting;
 

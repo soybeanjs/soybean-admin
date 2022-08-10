@@ -2,7 +2,7 @@ import type { GlobalThemeOverrides } from 'naive-ui';
 import { cloneDeep } from 'lodash-es';
 import { themeSetting } from '@/settings';
 import { EnumStorageKey } from '@/enum';
-import { getThemeColor, getColorPalette, addColorAlpha, setLocal, getLocal, removeLocal } from '@/utils';
+import { addColorAlpha, getColorPalette, getLocal, getThemeColor, removeLocal, setLocal } from '@/utils';
 
 /** 初始化主题配置 */
 export function initThemeSettings() {

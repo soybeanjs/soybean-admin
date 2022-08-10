@@ -265,7 +265,7 @@ interface GlobalHeaderProps {
 }
 
 /** 菜单项配置 */
-type GlobalMenuOption = {
+type GlobalMenuOption = import('naive-ui').MenuOption & {
   key: string;
   label: string;
   routeName: string;

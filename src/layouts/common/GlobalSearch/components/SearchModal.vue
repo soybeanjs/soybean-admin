@@ -24,9 +24,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, shallowRef, computed, watch, nextTick } from 'vue';
+import { computed, nextTick, ref, shallowRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { useDebounceFn, onKeyStroke } from '@vueuse/core';
+import { onKeyStroke, useDebounceFn } from '@vueuse/core';
 import { useRouteStore } from '@/store';
 import SearchResult from './SearchResult.vue';
 import SearchFooter from './SearchFooter.vue';

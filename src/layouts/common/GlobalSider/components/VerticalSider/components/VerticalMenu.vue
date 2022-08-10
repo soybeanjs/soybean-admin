@@ -5,7 +5,7 @@
       :collapsed="app.siderCollapse"
       :collapsed-width="theme.sider.collapsedWidth"
       :collapsed-icon-size="22"
-      :options="routeStore.menus"
+      :options="menus"
       :expanded-keys="expandedKeys"
       :indent="18"
       :inverted="theme.sider.inverted"
@@ -19,7 +19,7 @@
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
-import { useAppStore, useThemeStore, useRouteStore } from '@/store';
+import { useAppStore, useRouteStore, useThemeStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { getActiveKeyPathsOfMenus } from '@/utils';
 
@@ -30,6 +30,8 @@ const app = useAppStore();
 const theme = useThemeStore();
 const routeStore = useRouteStore();
 const { routerPush } = useRouterPush();
+
+const menus = computed(() => routeStore.menus as GlobalMenuOption[]);
 
 const activeKey = computed(() => (route.meta?.activeMenu ? route.meta.activeMenu : route.name) as string);
 const expandedKeys = ref<string[]>([]);
@@ -46,7 +48,7 @@ function handleUpdateExpandedKeys(keys: string[]) {
 watch(
   () => route.name,
   () => {
-    expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, routeStore.menus);
+    expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, menus.value);
   },
   { immediate: true }
 );

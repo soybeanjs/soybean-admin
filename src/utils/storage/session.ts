@@ -1,4 +1,4 @@
-import { encrypto, decrypto } from '../crypto';
+import { decrypto, encrypto } from '../crypto';
 
 export function setSession(key: string, value: unknown) {
   const json = encrypto(value);

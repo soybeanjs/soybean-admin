@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 

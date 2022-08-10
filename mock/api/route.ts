@@ -1,5 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock';
-import { userModel, routeModel } from '../model';
+import { routeModel, userModel } from '../model';
 
 const apis: MockMethod[] = [
   {

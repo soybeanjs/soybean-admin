@@ -25,9 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onUnmounted } from 'vue';
+import { onUnmounted, ref } from 'vue';
 import { graphic } from 'echarts';
-import { useEcharts, type ECOption } from '@/composables';
+import { type ECOption, useEcharts } from '@/composables';
 
 const pieOptions = ref<ECOption>({
   legend: {},

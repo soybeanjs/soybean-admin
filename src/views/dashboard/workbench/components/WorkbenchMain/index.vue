@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { TechnologyCard, ShortcutsCard } from './components';
+import { ShortcutsCard, TechnologyCard } from './components';
 
 defineOptions({ name: 'DashboardWorkbenchMain' });
 

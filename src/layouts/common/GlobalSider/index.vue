@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useThemeStore } from '@/store';
-import { VerticalSider, VerticalMixSider } from './components';
+import { VerticalMixSider, VerticalSider } from './components';
 
 defineOptions({ name: 'GlobalSider' });
 

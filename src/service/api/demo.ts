@@ -1,5 +1,5 @@
 import { adapter } from '@/utils';
-import { request, mockRequest } from '../request';
+import { mockRequest, request } from '../request';
 import { adapterOfFetchDataWithAdapter } from './demo.adapter';
 
 /** 带有适配器的请求示例 */

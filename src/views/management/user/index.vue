@@ -26,11 +26,11 @@
 </template>
 
 <script setup lang="tsx">
-import { ref, reactive } from 'vue';
-import { NSwitch, NTag, NSpace, NPopconfirm, NButton } from 'naive-ui';
+import { reactive, ref } from 'vue';
+import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { fetchUserManagementList } from '@/service';
-import { useLoading, useBoolean } from '@/hooks';
+import { useBoolean, useLoading } from '@/hooks';
 import { TableActionModal } from './components';
 
 const { loading, startLoading, endLoading } = useLoading(false);

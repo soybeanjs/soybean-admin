@@ -1,6 +1,6 @@
-import type { RouteRecordNormalized, RouteLocationNormalizedLoaded } from 'vue-router';
+import type { RouteLocationNormalizedLoaded, RouteRecordNormalized } from 'vue-router';
 import { EnumStorageKey } from '@/enum';
-import { setLocal, getLocal } from '@/utils';
+import { getLocal, setLocal } from '@/utils';
 
 /**
  * 根据vue路由获取tab路由

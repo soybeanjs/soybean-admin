@@ -1,4 +1,4 @@
-import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import { routeName } from '@/router';
 import { useAuthStore } from '@/store';
 import { exeStrategyActions, getToken } from '@/utils';

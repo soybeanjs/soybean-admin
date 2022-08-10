@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useScriptTag } from '@vueuse/core';
 import { GAODE_MAP_SDK_URL } from '@/config';
 

@@ -2,8 +2,8 @@
   <span>{{ value }}</span>
 </template>
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch, watchEffect } from 'vue';
-import { useTransition, TransitionPresets } from '@vueuse/core';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
+import { TransitionPresets, useTransition } from '@vueuse/core';
 import { isNumber } from '@/utils';
 
 defineOptions({ name: 'CountTo' });

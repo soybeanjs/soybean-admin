@@ -1,5 +1,5 @@
 import { useEventListener } from '@vueuse/core';
-import { useThemeStore, useTabStore } from '@/store';
+import { useTabStore, useThemeStore } from '@/store';
 
 /** 全局事件 */
 export function useGlobalEvents() {

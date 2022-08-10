@@ -38,13 +38,13 @@ import { useAppStore, useThemeStore } from '@/store';
 import { useBasicLayout } from '@/composables';
 import { useBoolean } from '@/hooks';
 import {
-  SettingDrawer,
-  GlobalHeader,
-  GlobalTab,
-  GlobalSider,
+  GlobalBackTop,
   GlobalContent,
   GlobalFooter,
-  GlobalBackTop
+  GlobalHeader,
+  GlobalSider,
+  GlobalTab,
+  SettingDrawer
 } from '../common';
 
 defineOptions({ name: 'BasicLayout' });

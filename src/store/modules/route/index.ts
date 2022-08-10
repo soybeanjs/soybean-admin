@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia';
-import { router, ROOT_ROUTE, constantRoutes, routes as staticRoutes } from '@/router';
+import { ROOT_ROUTE, constantRoutes, router, routes as staticRoutes } from '@/router';
 import { fetchUserRoutes } from '@/service';
 import {
+  filterAuthRoutesByUserPermission,
+  getCacheRoutes,
+  getConstantRouteNames,
   getUserInfo,
   transformAuthRouteToMenu,
-  transformAuthRoutesToVueRoutes,
   transformAuthRouteToVueRoute,
   transformAuthRoutesToSearchMenus,
-  getCacheRoutes,
-  filterAuthRoutesByUserPermission,
-  transformRoutePathToRouteName,
+  transformAuthRoutesToVueRoutes,
   transformRouteNameToRoutePath,
-  getConstantRouteNames
+  transformRoutePathToRouteName
 } from '@/utils';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
@@ -66,7 +66,7 @@ export const useRouteStore = defineStore('route-store', {
      * @param routes - 权限路由
      */
     handleAuthRoutes(routes: AuthRoute.Route[]) {
-      this.menus = transformAuthRouteToMenu(routes);
+      (this.menus as GlobalMenuOption[]) = transformAuthRouteToMenu(routes);
       this.searchMenus = transformAuthRoutesToSearchMenus(routes);
 
       const vueRoutes = transformAuthRoutesToVueRoutes(routes);
@@ -80,7 +80,7 @@ export const useRouteStore = defineStore('route-store', {
     /** 动态路由模式下：更新根路由的重定向 */
     handleUpdateRootRedirect(routeKey: AuthRoute.RouteKey) {
       if (routeKey === 'root' || routeKey === 'not-found-page') {
-        throw Error('routeKey的值不能为root或者not-found-page');
+        throw new Error('routeKey的值不能为root或者not-found-page');
       }
       const rootRoute: AuthRoute.Route = { ...ROOT_ROUTE, redirect: transformRouteNameToRoutePath(routeKey) };
       const rootRouteName: AuthRoute.RouteKey = 'root';

@@ -79,7 +79,7 @@ declare namespace AuthRoute {
   type RouteComponent = 'basic' | 'blank' | 'multi' | 'self';
 
   /** 路由描述 */
-  type RouteMeta = {
+  interface RouteMeta {
     /** 路由标题(可用来作document.title或者菜单的名称) */
     title: string;
     /** 路由的动态路径(需要动态路径的页面需要将path添加进范型参数) */
@@ -111,7 +111,7 @@ declare namespace AuthRoute {
     activeMenu?: RouteKey;
     /** 表示是否是多级路由的中间级路由(用于转换路由数据时筛选多级路由的标识，定义路由时不用填写) */
     multi?: boolean;
-  };
+  }
 
   /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
   interface Route {

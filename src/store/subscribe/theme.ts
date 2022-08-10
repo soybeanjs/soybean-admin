@@ -1,4 +1,4 @@
-import { watch, onUnmounted } from 'vue';
+import { onUnmounted, watch } from 'vue';
 import { useOsTheme } from 'naive-ui';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { useElementSize } from '@vueuse/core';

@@ -1,4 +1,4 @@
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 /**
  * 绘制图形验证码

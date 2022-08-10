@@ -23,11 +23,11 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { useAppStore, useThemeStore, useRouteStore } from '@/store';
+import { useAppStore, useRouteStore, useThemeStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { useBoolean } from '@/hooks';
 import { GlobalLogo } from '@/layouts/common';
-import { MixMenuDetail, MixMenuDrawer, MixMenuCollapse } from './components';
+import { MixMenuCollapse, MixMenuDetail, MixMenuDrawer } from './components';
 
 defineOptions({ name: 'VerticalMixSider' });
 

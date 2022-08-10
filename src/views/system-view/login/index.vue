@@ -34,7 +34,7 @@ import { EnumLoginModule } from '@/enum';
 import { useThemeStore } from '@/store';
 import { useAppInfo } from '@/composables';
 import { getColorPalette, mixColor } from '@/utils';
-import { LoginBg, PwdLogin, CodeLogin, Register, ResetPwd, BindWechat } from './components';
+import { BindWechat, CodeLogin, LoginBg, PwdLogin, Register, ResetPwd } from './components';
 
 interface Props {
   /** 登录模块分类 */

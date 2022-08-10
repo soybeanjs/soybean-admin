@@ -1,5 +1,5 @@
 import { defineConfig, loadEnv } from 'vite';
-import { getRootPath, getSrcPath, viteDefine, setupVitePlugins, createViteProxy } from './build';
+import { createViteProxy, getRootPath, getSrcPath, setupVitePlugins, viteDefine } from './build';
 import { getServiceEnvConfig } from './.env-config';
 
 export default defineConfig(configEnv => {

@@ -1,32 +1,32 @@
-import { ref, watch, nextTick, onUnmounted } from 'vue';
-import type { Ref, ComputedRef } from 'vue';
+import { nextTick, onUnmounted, ref, watch } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import * as echarts from 'echarts/core';
-import { BarChart, LineChart, PieChart, ScatterChart, PictorialBarChart, RadarChart, GaugeChart } from 'echarts/charts';
+import { BarChart, GaugeChart, LineChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
 import type {
   BarSeriesOption,
+  GaugeSeriesOption,
   LineSeriesOption,
-  PieSeriesOption,
-  ScatterSeriesOption,
   PictorialBarSeriesOption,
+  PieSeriesOption,
   RadarSeriesOption,
-  GaugeSeriesOption
+  ScatterSeriesOption
 } from 'echarts/charts';
 import {
-  TitleComponent,
-  LegendComponent,
-  TooltipComponent,
-  GridComponent,
   DatasetComponent,
-  TransformComponent,
-  ToolboxComponent
+  GridComponent,
+  LegendComponent,
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  TransformComponent
 } from 'echarts/components';
 import type {
-  TitleComponentOption,
-  LegendComponentOption,
-  TooltipComponentOption,
+  DatasetComponentOption,
   GridComponentOption,
+  LegendComponentOption,
+  TitleComponentOption,
   ToolboxComponentOption,
-  DatasetComponentOption
+  TooltipComponentOption
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';

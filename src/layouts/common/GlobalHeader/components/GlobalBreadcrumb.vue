@@ -30,7 +30,7 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { routePath } from '@/router';
-import { useThemeStore, useRouteStore } from '@/store';
+import { useRouteStore, useThemeStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { getBreadcrumbByRouteKey } from '@/utils';
 

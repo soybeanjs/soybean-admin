@@ -1,4 +1,4 @@
-import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import { routeName } from '@/router';
 import { useRouteStore } from '@/store';
 import { getToken } from '@/utils';

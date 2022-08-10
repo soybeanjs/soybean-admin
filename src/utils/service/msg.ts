@@ -1,4 +1,4 @@
-import { NO_ERROR_MSG_CODE, ERROR_MSG_DURATION } from '@/config';
+import { ERROR_MSG_DURATION, NO_ERROR_MSG_CODE } from '@/config';
 
 /** 错误消息栈，防止同一错误同时出现 */
 const errorMsgStack = new Map<string | number, string>([]);

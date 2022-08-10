@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useThemeStore } from '@/store';
 import { useBoolean } from '@/hooks';
 import MessageList from './MessageList.vue';

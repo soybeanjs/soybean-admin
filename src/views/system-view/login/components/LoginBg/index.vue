@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { getColorPalette } from '@/utils';
-import { CornerTop, CornerBottom } from './components';
+import { CornerBottom, CornerTop } from './components';
 
 interface Props {
   /** 主题颜色 */

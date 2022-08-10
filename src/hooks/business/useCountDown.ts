@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useBoolean } from '../common';
 
 /**
@@ -7,7 +7,7 @@ import { useBoolean } from '../common';
  */
 export default function useCountDown(second: number) {
   if (second <= 0 && second % 1 !== 0) {
-    throw Error('倒计时的时间应该为一个正整数！');
+    throw new Error('倒计时的时间应该为一个正整数！');
   }
   const { bool: isComplete, setTrue, setFalse } = useBoolean(false);
 

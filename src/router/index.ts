@@ -1,5 +1,5 @@
 import type { App } from 'vue';
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import { transformAuthRoutesToVueRoutes, transformRouteNameToRoutePath } from '@/utils';
 import { constantRoutes } from './routes';
 import { scrollBehavior } from './helpers';

@@ -1,9 +1,9 @@
 import { createApp } from 'vue';
-import { setupAssets } from './plugins';
-import { setupStore } from './store';
+import App from './App.vue';
 import { setupDirectives } from './directives';
 import { setupRouter } from './router';
-import App from './App.vue';
+import { setupAssets } from './plugins';
+import { setupStore } from './store';
 
 async function setupApp() {
   // import assets: js、css

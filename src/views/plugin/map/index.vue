@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import type { Component } from 'vue';
-import { GaodeMap, TencentMap, BaiduMap } from './components';
+import { BaiduMap, GaodeMap, TencentMap } from './components';
 
 interface Map {
   id: string;

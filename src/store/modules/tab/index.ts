@@ -1,15 +1,15 @@
-import type { Router, RouteLocationNormalizedLoaded } from 'vue-router';
+import type { RouteLocationNormalizedLoaded, Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useRouterPush } from '@/composables';
 import { useThemeStore } from '../theme';
 import {
-  getTabRouteByVueRoute,
-  isInTabRoutes,
+  clearTabRoutes,
   getIndexInTabRoutes,
   getIndexInTabRoutesByRouteName,
-  setTabRoutes,
+  getTabRouteByVueRoute,
   getTabRoutes,
-  clearTabRoutes
+  isInTabRoutes,
+  setTabRoutes
 } from './helpers';
 
 interface TabState {

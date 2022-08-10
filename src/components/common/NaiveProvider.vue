@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { defineComponent, h } from 'vue';
-import { useLoadingBar, useDialog, useMessage, useNotification } from 'naive-ui';
+import { useDialog, useLoadingBar, useMessage, useNotification } from 'naive-ui';
 
 defineOptions({ name: 'NaiveProvider' });
 

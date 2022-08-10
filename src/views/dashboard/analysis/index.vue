@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import { TopChart, DataCard, BottomPart } from './components';
+import { BottomPart, DataCard, TopChart } from './components';
 </script>
 
 <style scoped></style>
