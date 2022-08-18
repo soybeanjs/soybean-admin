@@ -11,10 +11,15 @@
         />
       </hover-container>
     </template>
-    <n-tabs v-model:value="currentTab" class="w-360px" type="line" justify-content="space-evenly">
+    <n-tabs
+      v-model:value="currentTab"
+      :class="[isMobile ? 'w-276px' : 'w-360px']"
+      type="line"
+      justify-content="space-evenly"
+    >
       <n-tab-pane v-for="(item, index) in tabData" :key="item.key" :name="index">
         <template #tab>
-          <div class="flex-x-center items-center w-120px">
+          <div class="flex-x-center items-center" :class="[isMobile ? 'w-92px' : 'w-120px']">
             <span class="mr-5px">{{ item.name }}</span>
             <n-badge
               v-bind="item.badgeProps"
@@ -45,12 +50,14 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { useThemeStore } from '@/store';
+import { useBasicLayout } from '@/composables';
 import { useBoolean } from '@/hooks';
 import MessageList from './MessageList.vue';
 
 defineOptions({ name: 'SystemMessage' });
 
 const theme = useThemeStore();
+const { isMobile } = useBasicLayout();
 const { bool: loading, setBool: setLoading } = useBoolean();
 
 const currentTab = ref(0);
