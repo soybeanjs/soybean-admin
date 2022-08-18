@@ -5,20 +5,25 @@
     :closable="false"
     preset="card"
     footer-style="padding: 0; margin: 0"
-    class="w-630px fixed left-0 right-0 top-50px"
+    class="fixed left-0 right-0"
+    :class="[isMobile ? 'wh-full top-0px rounded-0' : 'w-630px top-50px']"
     @after-leave="handleClose"
   >
-    <n-input ref="inputRef" v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
-      <template #prefix>
-        <icon-uil-search class="text-15px text-[#c2c2c2]" />
-      </template>
-    </n-input>
+    <n-input-group>
+      <n-input ref="inputRef" v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
+        <template #prefix>
+          <icon-uil-search class="text-15px text-[#c2c2c2]" />
+        </template>
+      </n-input>
+      <n-button v-if="isMobile" type="primary" ghost @click="handleClose">取消</n-button>
+    </n-input-group>
+
     <div class="mt-20px">
       <n-empty v-if="resultOptions.length === 0" description="暂无搜索结果" />
       <search-result v-else v-model:value="activePath" :options="resultOptions" @enter="handleEnter" />
     </div>
     <template #footer>
-      <search-footer />
+      <search-footer v-if="!isMobile" />
     </template>
   </n-modal>
 </template>
@@ -28,6 +33,7 @@ import { computed, nextTick, ref, shallowRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { onKeyStroke, useDebounceFn } from '@vueuse/core';
 import { useRouteStore } from '@/store';
+import { useBasicLayout } from '@/composables';
 import SearchResult from './SearchResult.vue';
 import SearchFooter from './SearchFooter.vue';
 
@@ -46,6 +52,7 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
+const { isMobile } = useBasicLayout();
 const router = useRouter();
 const routeStore = useRouteStore();
 
