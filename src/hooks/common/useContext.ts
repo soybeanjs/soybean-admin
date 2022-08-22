@@ -7,6 +7,7 @@ export default function useContext<T>(contextName = 'context') {
 
   function useProvide(context: T) {
     provide(injectKey, context);
+    return context;
   }
 
   function useInject() {

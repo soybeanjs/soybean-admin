@@ -71,12 +71,12 @@
 - [x] 图表示例：ECharts、AntV G2
 - [x] 多页签：支持 query、hash 等参数，同一页面支持多个 Tab
 - [x] 缓存主题配置
+- [x] 精简版(新分支 thin)
 - [ ] v0.9.7 表单、表格示例(ing...)
 - [ ] v0.9.8 可修改的 KeepAlive 的页面缓存和全局 Tab 组件 store 重构
 - [ ] v0.9.9 全局 Iframe 组件
 - [ ] v1.0 示例页面完善
 - [ ] v1.0 版本文档
-- [ ] 精简版(新分支 thin)
 - [ ] element-plus 版本
 - [ ] i18n 国际化
 - [ ] 其他 UI 版本

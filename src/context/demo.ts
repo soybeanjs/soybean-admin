@@ -22,7 +22,7 @@ export function useDemoContext() {
   };
 
   function useProvide() {
-    useDemoProvide(demoContext);
+    return useDemoProvide(demoContext);
   }
 
   return {
@@ -35,7 +35,7 @@ export function useDemoContext() {
 // A.vue
 // import { useDemoContext } from '@/context';
 // const { useProvide } = useDemoContext();
-// useProvide();
+// const { counts, setCounts } = useProvide();
 
 // B.vue 和 C.vue : 共享状态 counts
 // import { useDemoContext } from '@/context';

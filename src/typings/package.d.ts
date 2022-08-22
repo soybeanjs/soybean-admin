@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 /// <reference types="@amap/amap-jsapi-types" />
 /// <reference types="bmapgl" />
 
@@ -8,16 +7,3 @@ declare namespace BMap {
 }
 
 declare const TMap: any;
-
-declare module 'virtual:icons/*' {
-  import type { FunctionalComponent, SVGAttributes } from 'vue';
-
-  const component: FunctionalComponent<SVGAttributes>;
-  export default component;
-}
-declare module '~icons/*' {
-  import type { FunctionalComponent, SVGAttributes } from 'vue';
-
-  const component: FunctionalComponent<SVGAttributes>;
-  export default component;
-}
