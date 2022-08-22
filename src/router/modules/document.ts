@@ -14,16 +14,6 @@ const document: AuthRoute.Route = {
       }
     },
     {
-      name: 'document_vue-new',
-      path: '/document/vue-new',
-      component: 'self',
-      meta: {
-        title: 'vue文档(新版)',
-        requiresAuth: true,
-        icon: 'mdi:vuejs'
-      }
-    },
-    {
       name: 'document_vite',
       path: '/document/vite',
       component: 'self',
