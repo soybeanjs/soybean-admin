@@ -18,10 +18,11 @@
     </component>
   </div>
   <context-menu
-    v-model:visible="dropdown.visible"
+    :visible="dropdown.visible"
     :current-path="dropdown.currentPath"
     :x="dropdown.x"
     :y="dropdown.y"
+    @update:visible="handleDropdownVisible"
   />
 </template>
 
@@ -76,14 +77,31 @@ function setDropdown(x: number, y: number, currentPath: string) {
   Object.assign(dropdown, { x, y, currentPath });
 }
 
+let isClickContextMenu = false;
+
+function handleDropdownVisible(visible: boolean) {
+  if (!isClickContextMenu) {
+    dropdown.visible = visible;
+  }
+}
+
 /** 点击右键菜单 */
 async function handleContextMenu(e: MouseEvent, fullPath: string) {
   e.preventDefault();
+
   const { clientX, clientY } = e;
+
+  isClickContextMenu = true;
+
+  const DURATION = dropdown.visible ? 150 : 0;
+
   hideDropdown();
-  setDropdown(clientX, clientY, fullPath);
-  await nextTick();
-  showDropdown();
+
+  setTimeout(() => {
+    setDropdown(clientX, clientY, fullPath);
+    showDropdown();
+    isClickContextMenu = false;
+  }, DURATION);
 }
 
 watch(
