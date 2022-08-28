@@ -33,13 +33,13 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
     const { url } = param;
     const method = param.method || 'get';
     const { instance } = customInstance;
-    const res = (await getRequestResponse(
+    const res = (await getRequestResponse({
       instance,
       method,
       url,
-      param.data,
-      param.axiosConfig
-    )) as Service.RequestResult<T>;
+      data: param.data,
+      config: param.axiosConfig
+    })) as Service.RequestResult<T>;
 
     return res;
   }
@@ -132,7 +132,9 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
     const method = param.method || 'get';
     const { instance } = customInstance;
 
-    getRequestResponse(instance, method, url, param.data, param.axiosConfig).then(handleRequestResult);
+    getRequestResponse({ instance, method, url, data: param.data, config: param.axiosConfig }).then(
+      handleRequestResult
+    );
 
     return {
       data,
@@ -187,13 +189,15 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
   };
 }
 
-async function getRequestResponse(
-  instance: AxiosInstance,
-  method: RequestMethod,
-  url: string,
-  data?: any,
-  config?: AxiosRequestConfig
-) {
+async function getRequestResponse(params: {
+  instance: AxiosInstance;
+  method: RequestMethod;
+  url: string;
+  data?: any;
+  config?: AxiosRequestConfig;
+}) {
+  const { instance, method, url, data, config } = params;
+
   let res: any;
   if (method === 'get' || method === 'delete') {
     res = await instance[method](url, config);

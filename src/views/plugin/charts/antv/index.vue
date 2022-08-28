@@ -287,7 +287,7 @@ function renderScatterChart() {
       chart.axis('GDP', {
         label: {
           formatter(value) {
-            return `${(+value / 1000).toFixed(0)}k`;
+            return `${(Number(value) / 1000).toFixed(0)}k`;
           } // 格式化坐标轴的显示
         }
       });

@@ -1,7 +1,9 @@
 module.exports = {
-  extends: ['@soybeanjs'],
+  extends: ['soybeanjs-vue'],
+  settings: {
+    'import/core-modules': ['uno.css', '~icons/*', 'virtual:svg-icons-register']
+  },
   rules: {
-    'import/no-unresolved': ['error', { ignore: ['uno.css', '~icons/*', 'virtual:svg-icons-register'] }],
     'import/order': [
       'error',
       {

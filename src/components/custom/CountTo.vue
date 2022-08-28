@@ -82,7 +82,7 @@ function formatNumber(num: number | string) {
   }
   const { decimals, decimal, separator, suffix, prefix } = props;
   let number = Number(num).toFixed(decimals);
-  number += '';
+  number = String(number);
 
   const x = number.split('.');
   let x1 = x[0];

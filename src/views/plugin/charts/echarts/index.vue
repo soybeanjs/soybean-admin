@@ -294,7 +294,7 @@ const pictorialBarOption = ref<ECOption>(getPictorialBarOption());
 const { domRef: pictorialBarRef } = useEcharts(pictorialBarOption);
 function getPictorialBarOption(): ECOption {
   const category: string[] = [];
-  let dottedBase = +new Date();
+  let dottedBase = Number(new Date());
   const lineData: number[] = [];
   const barData: number[] = [];
 
