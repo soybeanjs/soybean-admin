@@ -65,7 +65,7 @@
     "echarts": "^5.3.3",
     "form-data": "^4.0.0",
     "lodash-es": "^4.17.21",
-    "naive-ui": "^2.33.0",
+    "naive-ui": "2.32.2",
     "pinia": "^2.0.21",
     "print-js": "^1.6.0",
     "qs": "^6.11.0",
@@ -79,9 +79,9 @@
   },
   "devDependencies": {
     "@amap/amap-jsapi-types": "^0.0.8",
-    "@commitlint/cli": "^17.1.1",
+    "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
-    "@iconify/json": "^2.1.99",
+    "@iconify/json": "^2.1.100",
     "@iconify/vue": "^3.2.1",
     "@milahu/patch-package": "^6.4.14",
     "@types/bmapgl": "^0.0.5",
@@ -96,7 +96,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^6.9.2",
     "eslint": "^8.23.0",
-    "eslint-config-soybeanjs-vue": "^0.0.8",
+    "eslint-config-soybeanjs-vue": "^0.0.9",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "mockjs": "^1.1.0",
@@ -117,7 +117,7 @@
     "vite-plugin-progress": "^0.0.3",
     "vite-plugin-pwa": "^0.12.3",
     "vite-plugin-svg-icons": "^2.0.1",
-    "vue-tsc": "^0.40.3"
+    "vue-tsc": "^0.40.4"
   },
   "lint-staged": {
     "*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
