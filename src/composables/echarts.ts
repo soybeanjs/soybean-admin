@@ -81,7 +81,7 @@ export function useEcharts(
 ) {
   const theme = useThemeStore();
 
-  const domRef = ref<HTMLElement | null>(null);
+  const domRef = ref<HTMLElement>();
 
   const initialSize = { width: 0, height: 0 };
   const { width, height } = useElementSize(domRef, initialSize);

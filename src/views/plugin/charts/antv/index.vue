@@ -26,12 +26,12 @@ import { onMounted, ref } from 'vue';
 import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-const pieRef = ref<HTMLElement | null>(null);
-const lineRef = ref<HTMLElement | null>(null);
-const barRef = ref<HTMLElement | null>(null);
-const scatterRef = ref<HTMLElement | null>(null);
-const areaRef = ref<HTMLElement | null>(null);
-const radarRef = ref<HTMLElement | null>(null);
+const pieRef = ref<HTMLElement>();
+const lineRef = ref<HTMLElement>();
+const barRef = ref<HTMLElement>();
+const scatterRef = ref<HTMLElement>();
+const areaRef = ref<HTMLElement>();
+const radarRef = ref<HTMLElement>();
 
 function renderPieChart() {
   if (!pieRef.value) return;

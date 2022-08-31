@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { Ref } from 'vue';
 import { type ECOption, useEcharts } from '@/composables';
 
 defineOptions({ name: 'DashboardAnalysisTopCard' });
@@ -129,7 +130,7 @@ const lineOptions = ref<ECOption>({
       data: [2208, 2016, 2916, 4512, 8281, 2008, 1963, 2367, 2956, 678]
     }
   ]
-});
+}) as Ref<ECOption>;
 const { domRef: lineRef } = useEcharts(lineOptions);
 
 const pieOptions = ref<ECOption>({
@@ -176,7 +177,7 @@ const pieOptions = ref<ECOption>({
       ]
     }
   ]
-});
+}) as Ref<ECOption>;
 const { domRef: pieRef } = useEcharts(pieOptions);
 </script>
 

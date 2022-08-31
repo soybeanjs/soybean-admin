@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import { onUnmounted, ref } from 'vue';
+import type { Ref } from 'vue';
 import { graphic } from 'echarts';
 import { type ECOption, useEcharts } from '@/composables';
 
@@ -62,7 +63,7 @@ const pieOptions = ref<ECOption>({
       ]
     }
   ]
-});
+}) as Ref<ECOption>;
 const { domRef: pieRef } = useEcharts(pieOptions);
 
 const lineOptions = ref<ECOption>({
@@ -252,7 +253,7 @@ const lineOptions = ref<ECOption>({
       data: [820, 932, 901, 934, 1290, 1330, 1320]
     }
   ]
-});
+}) as Ref<ECOption>;
 const { domRef: lineRef } = useEcharts(lineOptions);
 
 const barOptions = ref<ECOption>({
@@ -287,10 +288,10 @@ const barOptions = ref<ECOption>({
       }
     }
   ]
-});
+}) as Ref<ECOption>;
 const { domRef: barRef } = useEcharts(barOptions);
 
-const pictorialBarOption = ref<ECOption>(getPictorialBarOption());
+const pictorialBarOption = ref<ECOption>(getPictorialBarOption()) as Ref<ECOption>;
 const { domRef: pictorialBarRef } = useEcharts(pictorialBarOption);
 function getPictorialBarOption(): ECOption {
   const category: string[] = [];
@@ -394,7 +395,7 @@ function getPictorialBarOption(): ECOption {
   return options;
 }
 
-const scatterOptions = ref<ECOption>(getScatterOption());
+const scatterOptions = ref<ECOption>(getScatterOption()) as Ref<ECOption>;
 const { domRef: scatterRef } = useEcharts(scatterOptions);
 
 function getScatterOption() {
@@ -545,7 +546,7 @@ const radarOptions = ref<ECOption>({
       ]
     }
   ]
-});
+}) as Ref<ECOption>;
 const { domRef: radarRef } = useEcharts(radarOptions);
 
 const gaugeOptions = ref<ECOption>({
@@ -738,7 +739,7 @@ const gaugeOptions = ref<ECOption>({
       ]
     }
   ]
-});
+}) as Ref<ECOption>;
 
 let intervalId: NodeJS.Timer;
 const { domRef: gaugeRef } = useEcharts(gaugeOptions, chart => {
