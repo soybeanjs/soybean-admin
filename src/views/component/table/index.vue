@@ -14,8 +14,9 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import { onMounted, ref } from 'vue';
+import { NSpace, NButton, NPopconfirm } from 'naive-ui';
 import type { DataTableColumn } from 'naive-ui';
 import { useLoadingEmpty } from '@/hooks';
 import { getRandomInteger } from '@/utils';
@@ -36,11 +37,33 @@ const columns: DataTableColumn[] = [
   },
   {
     title: 'Age',
-    key: 'age'
+    key: 'age',
+    align: 'center'
   },
   {
     title: 'Address',
-    key: 'address'
+    key: 'address',
+    align: 'center'
+  },
+  {
+    key: 'action',
+    title: 'Action',
+    align: 'center',
+    render: () => {
+      return (
+        <NSpace justify={'center'}>
+          <NButton size={'small'} onClick={() => {}}>
+            编辑
+          </NButton>
+          <NPopconfirm onPositiveClick={() => {}}>
+            {{
+              default: () => '确认删除',
+              trigger: () => <NButton size={'small'}>删除</NButton>
+            }}
+          </NPopconfirm>
+        </NSpace>
+      );
+    }
   }
 ];
 
