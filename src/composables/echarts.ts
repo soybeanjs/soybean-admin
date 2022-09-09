@@ -130,6 +130,10 @@ export function useEcharts(
   const stopSizeWatch = watch([width, height], ([newWidth, newHeight]) => {
     initialSize.width = newWidth;
     initialSize.height = newHeight;
+		if (newWidth === 0 && newHeight === 0) {
+      // 节点被删除 将chart置为空
+      chart = null
+    }
     if (canRender()) {
       if (!isRendered()) {
         render();
