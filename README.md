@@ -115,6 +115,18 @@ pnpm dev
 pnpm build
 ```
 
+## Docker 部署
+
+- Docker 部署 Soybean
+
+```bash
+docker run --name soybean -p 80:80 -d soybean/soybean:v0.9.6
+```
+
+- 访问 Soybean
+
+打开本地浏览器访问`http://localhost`
+
 ## 如何贡献
 
 非常欢迎您的加入！[提一个 Issue](https://github.com/honghuangdc/soybean-admin/issues/new) 或者提交一个 Pull Request。
