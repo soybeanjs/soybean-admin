@@ -1,5 +1,5 @@
 ImageTag ?=v0.9.6
-SoybeanImg ?= soybean/soybean:$(ImageTag)
+SoybeanImg ?= soybeanjs/soybean-admin:$(ImageTag)
 
 VERSION=$(shell git rev-parse --short HEAD)
 

@@ -120,7 +120,7 @@ pnpm build
 - Docker 部署 Soybean
 
 ```bash
-docker run --name soybean -p 80:80 -d soybean/soybean:v0.9.6
+docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 ```
 
 - 访问 Soybean
