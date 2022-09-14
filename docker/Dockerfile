@@ -1,6 +1,6 @@
 FROM node:16.17.0 as builder
 
-ENV WORKDIR=/soybean
+ENV WORKDIR=/soybean-admin
 
 WORKDIR $WORKDIR
 
@@ -18,7 +18,7 @@ FROM nginx:alpine as prod
 
 RUN mkdir /soybean
 
-COPY --from=builder /soybean/dist /soybean
-COPY --from=builder /soybean/build/docker/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /soybean-admin/dist /soybean-admin
+COPY --from=builder /soybean-admin/docker/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80

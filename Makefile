@@ -1,12 +1,12 @@
 ImageTag ?=v0.9.6
-SoybeanImg ?= soybean/soybean:$(ImageTag)
+SoybeanAdminImg ?= soybeanjs/soybean-admin:$(ImageTag)
 
 VERSION=$(shell git rev-parse --short HEAD)
 
-soybean: soybean-build soybean-push
+soybean-admin: soybean-admin-build soybean-admin-push
 
-soybean-build:
-	docker build --build-arg version=$(VERSION) -t ${SoybeanImg} -f build/docker/Dockerfile .
+soybean-admin-build:
+	docker build --build-arg version=$(VERSION) -t ${SoybeanAdminImg} -f docker/Dockerfile .
 
-soybean-push:
-	docker push ${SoybeanImg}
+soybean-admin-push:
+	docker push ${SoybeanAdminImg}
