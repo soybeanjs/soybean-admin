@@ -1,4 +1,4 @@
-import DefineOptions from 'unplugin-vue-define-options/vite';
+import VueMacros from 'unplugin-vue-macros/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
@@ -12,7 +12,7 @@ const srcPath = getSrcPath();
 const customIconPath = `${srcPath}/assets/svg`;
 
 export default [
-  DefineOptions(),
+  VueMacros(),
   Icons({
     compiler: 'vue3',
     customCollections: {
