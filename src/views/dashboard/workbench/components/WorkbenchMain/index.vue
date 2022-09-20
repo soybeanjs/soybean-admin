@@ -66,7 +66,7 @@ const technology: Technology[] = [
     description: '一套用于构建用户界面的渐进式框架',
     author: '尤雨溪 - Evan You',
     site: 'https://v3.cn.vuejs.org/',
-    icon: 'vscode-icons:file-type-vue'
+    icon: 'logos:vue'
   },
   {
     id: 1,
@@ -74,7 +74,7 @@ const technology: Technology[] = [
     description: 'JavaScript类型的超集，它可以编译成纯JavaScript',
     author: '微软 - Microsoft',
     site: 'https://www.typescriptlang.org/',
-    icon: 'vscode-icons:file-type-typescript-official'
+    icon: 'logos:typescript-icon'
   },
   {
     id: 2,
@@ -82,7 +82,7 @@ const technology: Technology[] = [
     description: '下一代前端开发与构建工具',
     author: '尤雨溪 - Evan You',
     site: 'https://vitejs.cn/',
-    icon: 'vscode-icons:file-type-vite'
+    icon: 'logos:vitejs'
   },
   {
     id: 3,
@@ -90,8 +90,7 @@ const technology: Technology[] = [
     description: '一个 Vue 3 组件库',
     author: '图森未来 - TuSimple',
     site: 'https://www.naiveui.com/zh-CN/os-theme',
-    icon: 'mdi:alpha-n-box-outline',
-    iconColor: '#5fbc22'
+    icon: 'logos:naiveui'
   },
   {
     id: 4,
@@ -99,8 +98,7 @@ const technology: Technology[] = [
     description: '下一代实用优先的CSS框架',
     author: 'Anthony Fu',
     site: 'https://uno.antfu.me/?s=',
-    icon: 'logos:unocss',
-    iconColor: '#48b0f1'
+    icon: 'logos:unocss'
   },
   {
     id: 5,
@@ -108,8 +106,7 @@ const technology: Technology[] = [
     description: 'vue状态管理框架，支持vue2、vue3',
     author: 'Posva',
     site: 'https://pinia.esm.dev/',
-    icon: 'mdi:fruit-pineapple',
-    iconColor: '#fecf48'
+    icon: 'noto:pineapple'
   }
 ];
 

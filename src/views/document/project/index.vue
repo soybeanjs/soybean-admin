@@ -5,7 +5,9 @@
 </template>
 
 <script setup lang="ts">
-const src = 'https://staging-cn.vuejs.org/';
+import { ref } from 'vue';
+
+const src = ref('https://docs.soybean.pro/');
 </script>
 
 <style scoped></style>

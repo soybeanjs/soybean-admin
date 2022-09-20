@@ -5,7 +5,9 @@
 </template>
 
 <script setup lang="ts">
-const src = 'https://www.naiveui.com/zh-CN/os-theme/docs/introduction';
+import { ref } from 'vue';
+
+const src = ref('https://www.naiveui.com/zh-CN/os-theme/docs/introduction');
 </script>
 
 <style scoped></style>
