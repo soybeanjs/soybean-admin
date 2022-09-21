@@ -53,13 +53,29 @@ export const useRouteStore = defineStore('route-store', {
     /** 重置路由数据，保留固定路由 */
     resetRoutes() {
       const routes = router.getRoutes();
-      const constantRouteNames = getConstantRouteNames(constantRoutes);
       routes.forEach(route => {
         const name: AuthRoute.RouteKey = (route.name || 'root') as AuthRoute.RouteKey;
-        if (!constantRouteNames.includes(name)) {
+        if (!this.isConstantRoute(name)) {
           router.removeRoute(name);
         }
       });
+    },
+    /**
+     * 是否是固定路由
+     * @param name 路由名称
+     */
+    isConstantRoute(name: AuthRoute.RouteKey) {
+      const constantRouteNames = getConstantRouteNames(constantRoutes);
+      return constantRouteNames.includes(name);
+    },
+    /**
+     * 是否是有效的固定路由
+     * @param name 路由名称
+     */
+    isValidConstantRoute(name: AuthRoute.RouteKey) {
+      const NOT_FOUND_PAGE_NAME: AuthRoute.RouteKey = 'not-found-page';
+      const constantRouteNames = getConstantRouteNames(constantRoutes);
+      return constantRouteNames.includes(name) && name !== NOT_FOUND_PAGE_NAME;
     },
     /**
      * 处理权限路由
