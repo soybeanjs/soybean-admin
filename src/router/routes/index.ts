@@ -30,6 +30,15 @@ export const constantRoutes: AuthRoute.Route[] = [
     }
   },
   {
+    name: 'constant-page',
+    path: '/constant-page',
+    component: 'self',
+    meta: {
+      title: '固定页面',
+      singleLayout: 'blank'
+    }
+  },
+  {
     name: 'no-permission',
     path: '/no-permission',
     component: 'self',
