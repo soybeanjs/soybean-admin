@@ -3,7 +3,7 @@
     <template #trigger>
       <n-input v-model:value="modelValue" readonly placeholder="点击选择图标">
         <template #suffix>
-          <Icon :icon="modelValue ? modelValue : emptyIcon" class="text-30px p-5px" />
+          <svg-icon :icon="selectedIcon" class="text-30px p-5px" />
         </template>
       </n-input>
     </template>
@@ -12,10 +12,10 @@
     </template>
     <div v-if="iconsList.length > 0" class="grid grid-cols-9 h-auto overflow-auto">
       <template v-for="iconItem in iconsList" :key="iconItem">
-        <Icon
+        <svg-icon
           :icon="iconItem"
           class="border-1px border-[#d9d9d9] text-30px m-2px p-5px"
-          :style="{ 'border-color': modelValue === iconItem ? theme.themeColor : '' }"
+          :class="{ 'border-primary': modelValue === iconItem }"
           @click="handleChange(iconItem)"
         />
       </template>
@@ -26,8 +26,6 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import { Icon } from '@iconify/vue';
-import { useThemeStore } from '@/store';
 
 defineOptions({ name: 'IconSelect' });
 
@@ -50,11 +48,6 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
-const theme = useThemeStore();
-
-const searchValue = ref('');
-const iconsList = computed(() => props.icons.filter(v => v.includes(searchValue.value)));
-
 const modelValue = computed({
   get() {
     return props.value;
@@ -63,6 +56,12 @@ const modelValue = computed({
     emit('update:value', val);
   }
 });
+
+const selectedIcon = computed(() => modelValue.value || props.emptyIcon);
+
+const searchValue = ref('');
+
+const iconsList = computed(() => props.icons.filter(v => v.includes(searchValue.value)));
 
 function handleChange(iconItem: string) {
   modelValue.value = iconItem;

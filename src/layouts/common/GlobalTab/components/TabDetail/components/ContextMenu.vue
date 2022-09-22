@@ -14,7 +14,7 @@
 import { computed } from 'vue';
 import type { DropdownOption } from 'naive-ui';
 import { useAppStore, useTabStore } from '@/store';
-import { iconifyRender } from '@/utils';
+import { useIconRender } from '@/composables';
 
 defineOptions({ name: 'ContextMenu' });
 
@@ -42,6 +42,7 @@ const emit = defineEmits<Emits>();
 
 const app = useAppStore();
 const tab = useTabStore();
+const { iconRender } = useIconRender();
 
 const dropdownVisible = computed({
   get() {
@@ -66,33 +67,33 @@ const options = computed<Option[]>(() => [
     label: '重新加载',
     key: 'reload-current',
     disabled: props.currentPath !== tab.activeTab,
-    icon: iconifyRender('ant-design:reload-outlined')
+    icon: iconRender({ icon: 'ant-design:reload-outlined' })
   },
   {
     label: '关闭',
     key: 'close-current',
     disabled: props.currentPath === tab.homeTab.fullPath,
-    icon: iconifyRender('ant-design:close-outlined')
+    icon: iconRender({ icon: 'ant-design:close-outlined' })
   },
   {
     label: '关闭其他',
     key: 'close-other',
-    icon: iconifyRender('ant-design:column-width-outlined')
+    icon: iconRender({ icon: 'ant-design:column-width-outlined' })
   },
   {
     label: '关闭左侧',
     key: 'close-left',
-    icon: iconifyRender('mdi:format-horizontal-align-left')
+    icon: iconRender({ icon: 'mdi:format-horizontal-align-left' })
   },
   {
     label: '关闭右侧',
     key: 'close-right',
-    icon: iconifyRender('mdi:format-horizontal-align-right')
+    icon: iconRender({ icon: 'mdi:format-horizontal-align-right' })
   },
   {
     label: '关闭所有',
     key: 'close-all',
-    icon: iconifyRender('ant-design:line-outlined')
+    icon: iconRender({ icon: 'ant-design:line-outlined' })
   }
 ]);
 

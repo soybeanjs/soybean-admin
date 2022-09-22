@@ -13,7 +13,11 @@
       @close="tab.removeTab(item.fullPath)"
       @contextmenu="handleContextMenu($event, item.fullPath)"
     >
-      <Icon v-if="item.meta.icon" :icon="item.meta.icon" class="inline-block align-text-bottom mr-4px text-16px" />
+      <svg-icon
+        :icon="item.meta.icon"
+        :local-icon="item.meta.localIcon"
+        class="inline-block align-text-bottom mr-4px text-16px"
+      />
       {{ item.meta.title }}
     </component>
   </div>
@@ -29,7 +33,6 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { ButtonTab, ChromeTab } from '@soybeanjs/vue-admin-tab';
-import { Icon } from '@iconify/vue';
 import { useTabStore, useThemeStore } from '@/store';
 import { ContextMenu } from './components';
 

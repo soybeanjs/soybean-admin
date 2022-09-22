@@ -10,7 +10,7 @@ const document: AuthRoute.Route = {
       meta: {
         title: 'vue文档',
         requiresAuth: true,
-        icon: 'mdi:vuejs'
+        icon: 'logos:vue'
       }
     },
     {
@@ -20,16 +20,36 @@ const document: AuthRoute.Route = {
       meta: {
         title: 'vite文档',
         requiresAuth: true,
-        icon: 'simple-icons:vite'
+        icon: 'logos:vitejs'
+      }
+    },
+    {
+      name: 'document_naive',
+      path: '/document/naive',
+      component: 'self',
+      meta: {
+        title: 'naive文档',
+        requiresAuth: true,
+        icon: 'logos:naiveui'
       }
     },
     {
       name: 'document_project',
       path: '/document/project',
+      component: 'self',
+      meta: {
+        title: '项目文档',
+        requiresAuth: true,
+        localIcon: 'logo'
+      }
+    },
+    {
+      name: 'document_project-link',
+      path: '/document/project-link',
       meta: {
         title: '项目文档(外链)',
         requiresAuth: true,
-        icon: 'mdi:file-link-outline',
+        localIcon: 'logo',
         href: 'https://docs.soybean.pro/'
       }
     }

@@ -1,7 +1,7 @@
 <template>
   <n-dropdown :options="options" @select="handleDropdown">
     <hover-container class="px-12px" :inverted="theme.header.inverted">
-      <icon-custom-avatar class="text-32px" />
+      <icon-local-avatar class="text-32px" />
       <span class="pl-8px text-16px font-medium">{{ auth.userInfo.userName }}</span>
     </hover-container>
   </n-dropdown>
@@ -10,18 +10,19 @@
 <script lang="ts" setup>
 import type { DropdownOption } from 'naive-ui';
 import { useAuthStore, useThemeStore } from '@/store';
-import { iconifyRender } from '@/utils';
+import { useIconRender } from '@/composables';
 
 defineOptions({ name: 'UserAvatar' });
 
 const auth = useAuthStore();
 const theme = useThemeStore();
+const { iconRender } = useIconRender();
 
 const options: DropdownOption[] = [
   {
     label: '用户中心',
     key: 'user-center',
-    icon: iconifyRender('carbon:user-avatar')
+    icon: iconRender({ icon: 'carbon:user-avatar' })
   },
   {
     type: 'divider',
@@ -30,7 +31,7 @@ const options: DropdownOption[] = [
   {
     label: '退出登录',
     key: 'logout',
-    icon: iconifyRender('carbon:logout')
+    icon: iconRender({ icon: 'carbon:logout' })
   }
 ];
 

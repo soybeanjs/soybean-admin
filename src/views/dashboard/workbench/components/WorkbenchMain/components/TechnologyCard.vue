@@ -4,7 +4,7 @@
     @click="handleOpenSite"
   >
     <header class="flex-y-center">
-      <Icon :icon="icon" :style="{ color: iconColor }" class="text-30px" />
+      <svg-icon :icon="icon" :style="{ color: iconColor }" class="text-30px" />
       <h3 class="pl-12px text-18px font-semibold">{{ name }}</h3>
     </header>
     <p class="py-8px h-56px text-[#999]">{{ description }}</p>
@@ -15,8 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
-
 defineOptions({ name: 'DashboardWorkbenchMainTechnologyCard' });
 
 interface Props {

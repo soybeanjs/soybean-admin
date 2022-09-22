@@ -1,4 +1,4 @@
-import { customIconRender, iconifyRender } from '../common';
+import { useIconRender } from '@/composables';
 
 /** 路由不转换菜单 */
 function hideInMenu(route: AuthRoute.Route) {
@@ -9,18 +9,25 @@ function hideInMenu(route: AuthRoute.Route) {
 function addPartialProps(config: {
   menu: GlobalMenuOption;
   icon?: string;
-  customIcon?: string;
+  localIcon?: string;
   children?: GlobalMenuOption[];
 }) {
+  const { iconRender } = useIconRender();
+
   const item = { ...config.menu };
-  if (config.icon) {
-    Object.assign(item, { icon: iconifyRender(config.icon) });
+
+  const { icon, localIcon, children } = config;
+
+  if (localIcon) {
+    Object.assign(item, { icon: iconRender({ localIcon }) });
   }
-  if (config.customIcon) {
-    Object.assign(item, { icon: customIconRender(config.customIcon) });
+
+  if (icon) {
+    Object.assign(item, { icon: iconRender({ icon }) });
   }
-  if (config.children) {
-    Object.assign(item, { children: config.children });
+
+  if (children) {
+    Object.assign(item, { children });
   }
   return item;
 }
@@ -46,7 +53,7 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuO
         routePath: path
       },
       icon: meta.icon,
-      customIcon: meta.customIcon,
+      localIcon: meta.localIcon,
       children: menuChildren
     });
 

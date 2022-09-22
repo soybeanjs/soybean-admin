@@ -13,7 +13,7 @@
                 :style="`--icon-margin: ${button.props.circle ? 0 : 6}px`"
               >
                 <template v-if="button.icon" #icon>
-                  <Icon :icon="button.icon" />
+                  <svg-icon :icon="button.icon" />
                 </template>
                 {{ button.label }}
               </n-button>
@@ -36,7 +36,6 @@
 
 <script setup lang="ts">
 import type { ButtonProps } from 'naive-ui';
-import { Icon } from '@iconify/vue';
 import { useLoading } from '@/hooks';
 
 interface ButtonDetail {

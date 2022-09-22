@@ -4,7 +4,7 @@
       <div class="grid grid-cols-10">
         <template v-for="item in icons" :key="item">
           <div class="mt-5px flex-x-center">
-            <Icon :icon="item" class="text-30px" />
+            <svg-icon :icon="item" class="text-30px" />
           </div>
         </template>
       </div>
@@ -18,20 +18,21 @@
     </n-card>
     <n-card title="自定义图标示例" class="mt-10px shadow-sm rounded-16px">
       <div class="pb-12px text-16px">
-        在src/assets/svg文件夹下的svg文件，通过在template里面以 icon-custom-{文件名} 直接渲染
+        在src/assets/svg-icon文件夹下的svg文件，通过在template里面以 icon-local-{文件名} 直接渲染,
+        其中icon-local为.env文件里的 VITE_ICON_LOCAL_PREFFIX
       </div>
       <div class="grid grid-cols-10">
         <div class="mt-5px flex-x-center">
-          <icon-custom-activity class="text-40px text-success" />
+          <icon-local-activity class="text-40px text-success" />
         </div>
         <div class="mt-5px flex-x-center">
-          <icon-custom-cast class="text-20px text-error" />
+          <icon-local-cast class="text-20px text-error" />
         </div>
       </div>
-      <div class="py-12px text-16px">通过SvgIcon组件动态渲染, 菜单通过meta的customIcon属性渲染自定义图标</div>
+      <div class="py-12px text-16px">通过SvgIcon组件动态渲染, 菜单通过meta的localIcon属性渲染自定义图标</div>
       <div class="grid grid-cols-10">
-        <div v-for="(item, index) in customIcons" :key="index" class="mt-5px flex-x-center">
-          <svg-icon :icon="item" class="text-30px text-primary" />
+        <div v-for="(fileName, index) in localIcons" :key="index" class="mt-5px flex-x-center">
+          <svg-icon :local-icon="fileName" class="text-30px text-primary" />
         </div>
       </div>
     </n-card>
@@ -40,12 +41,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { Icon } from '@iconify/vue';
 import { icons } from './icons';
 
 const selectValue = ref('');
 
-const customIcons = ['custom-icon', 'activity', 'at-sign', 'cast', 'chrome', 'copy', 'wind'];
+const localIcons = ['custom-icon', 'activity', 'at-sign', 'cast', 'chrome', 'copy', 'wind'];
 </script>
 
 <style scoped></style>

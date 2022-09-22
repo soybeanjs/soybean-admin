@@ -2,14 +2,12 @@
   <div
     class="flex-col-center p-12px border-1px border-[#efeff5] dark:border-[#ffffff17] rounded-4px hover:shadow-sm cursor-pointer"
   >
-    <Icon :icon="icon" :style="{ color: iconColor }" class="text-30px" />
+    <svg-icon :icon="icon" :style="{ color: iconColor }" class="text-30px" />
     <p class="py-8px text-16px">{{ label }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
-
 defineOptions({ name: 'DashboardWorkbenchMainShortcutsCard' });
 
 interface Props {

@@ -11,7 +11,7 @@
           @click="handleTo"
           @mouseenter="handleMouse(item)"
         >
-          <Icon :icon="item.meta?.icon ?? 'mdi:bookmark-minus-outline'" />
+          <svg-icon :icon="item.meta.icon" :local-icon="item.meta.localIcon" />
           <span class="flex-1 ml-5px">{{ item.meta?.title }}</span>
           <icon-ant-design-enter-outlined class="icon text-20px p-2px mr-3px" />
         </div>
@@ -22,7 +22,6 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { Icon } from '@iconify/vue';
 import { useThemeStore } from '@/store';
 
 defineOptions({ name: 'SearchResult' });

@@ -4,7 +4,7 @@
       <gradient-bg class="h-100px" :start-color="item.colors[0]" :end-color="item.colors[1]">
         <h3 class="text-16px">{{ item.title }}</h3>
         <div class="flex justify-between pt-12px">
-          <Icon :icon="item.icon" class="text-32px" />
+          <svg-icon :icon="item.icon" class="text-32px" />
           <count-to
             :prefix="item.unit"
             :start-value="1"
@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
 import { GradientBg } from './components';
 
 defineOptions({ name: 'DashboardAnalysisDataCard' });

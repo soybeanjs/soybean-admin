@@ -7,13 +7,13 @@
       </div>
       <div v-show="isEmpty" class="absolute-center">
         <div class="relative">
-          <icon-custom-empty-data :class="iconClass" />
+          <icon-local-empty-data :class="iconClass" />
           <p class="absolute-lb w-full text-center" :class="descClass">{{ emptyDesc }}</p>
         </div>
       </div>
       <div v-show="!network" class="absolute-center">
         <div class="relative" :class="{ 'cursor-pointer': showNetworkReload }" @click="handleReload">
-          <icon-custom-network-error :class="iconClass" />
+          <icon-local-network-error :class="iconClass" />
           <p class="absolute-lb w-full text-center" :class="descClass">{{ networkErrorDesc }}</p>
         </div>
       </div>

@@ -10,8 +10,7 @@
         <n-thing class="px-15px" :class="{ 'opacity-30': item.isRead }">
           <template #avatar>
             <n-avatar v-if="item.avatar" :src="item.avatar" />
-            <svg-icon v-else-if="item.svgIcon" class="text-34px text-primary" :icon="item.svgIcon" />
-            <Icon v-else-if="item.icon" class="text-34px text-primary" :icon="item.icon" />
+            <svg-icon v-else class="text-34px text-primary" :icon="item.icon" :local-icon="item.svgIcon" />
           </template>
           <template #header>
             <n-ellipsis :line-clamp="1">
@@ -36,8 +35,6 @@
   </n-scrollbar>
 </template>
 <script lang="ts" setup>
-import { Icon } from '@iconify/vue';
-
 defineOptions({ name: 'MessageList' });
 
 interface Props {
