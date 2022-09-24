@@ -28,7 +28,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '仪表盘',
-        icon: 'carbon:dashboard',
+        icon: 'mdi:monitor-dashboard',
         order: 1
       }
     },
@@ -90,7 +90,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '文档',
-        icon: 'carbon:document',
+        icon: 'mdi:file-document-multiple-outline',
         order: 2
       }
     },
@@ -106,7 +106,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '按钮',
             requiresAuth: true,
-            icon: 'ic:baseline-radio-button-checked'
+            icon: 'mdi:button-cursor'
           }
         },
         {
@@ -132,7 +132,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '组件示例',
-        icon: 'fluent:app-store-24-regular',
+        icon: 'cib:app-store',
         order: 3
       }
     },
@@ -163,13 +163,13 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               meta: {
                 title: 'AntV',
                 requiresAuth: true,
-                icon: 'ant-design:bar-chart-outlined'
+                icon: 'simple-icons:antdesign'
               }
             }
           ],
           meta: {
             title: '图表',
-            icon: 'material-symbols:bar-chart-rounded'
+            icon: 'mdi:chart-areaspline'
           }
         },
         {
@@ -260,7 +260,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '打印',
             requiresAuth: true,
-            icon: 'ic:baseline-local-printshop'
+            icon: 'mdi:printer'
           }
         }
       ],
@@ -345,7 +345,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '功能',
-        icon: 'ri:function-line',
+        icon: 'icon-park-outline:all-application',
         order: 6
       }
     },
@@ -408,7 +408,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               meta: {
                 title: '二级菜单',
                 requiresAuth: true,
-                icon: 'ic:outline-menu'
+                icon: 'mdi:menu'
               }
             },
             {
@@ -423,19 +423,19 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
                   meta: {
                     title: '三级菜单',
                     requiresAuth: true,
-                    icon: 'ic:outline-menu'
+                    icon: 'mdi:menu'
                   }
                 }
               ],
               meta: {
                 title: '二级菜单(有子菜单)',
-                icon: 'ic:outline-menu'
+                icon: 'mdi:menu'
               }
             }
           ],
           meta: {
             title: '一级菜单',
-            icon: 'ic:outline-menu'
+            icon: 'mdi:menu'
           }
         }
       ],
@@ -539,7 +539,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '仪表盘',
-        icon: 'carbon:dashboard',
+        icon: 'mdi:monitor-dashboard',
         order: 1
       }
     },
@@ -601,7 +601,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '文档',
-        icon: 'carbon:document',
+        icon: 'mdi:file-document-multiple-outline',
         order: 2
       }
     },
@@ -617,7 +617,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '按钮',
             requiresAuth: true,
-            icon: 'ic:baseline-radio-button-checked'
+            icon: 'mdi:button-cursor'
           }
         },
         {
@@ -643,7 +643,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '组件示例',
-        icon: 'fluent:app-store-24-regular',
+        icon: 'cib:app-store',
         order: 3
       }
     },
@@ -674,13 +674,13 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               meta: {
                 title: 'AntV',
                 requiresAuth: true,
-                icon: 'ant-design:bar-chart-outlined'
+                icon: 'simple-icons:antdesign'
               }
             }
           ],
           meta: {
             title: '图表',
-            icon: 'material-symbols:bar-chart-rounded'
+            icon: 'mdi:chart-areaspline'
           }
         },
         {
@@ -771,7 +771,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '打印',
             requiresAuth: true,
-            icon: 'ic:baseline-local-printshop'
+            icon: 'mdi:printer'
           }
         }
       ],
@@ -846,7 +846,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '功能',
-        icon: 'ri:function-line',
+        icon: 'icon-park-outline:all-application',
         order: 6
       }
     },
@@ -909,7 +909,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               meta: {
                 title: '二级菜单',
                 requiresAuth: true,
-                icon: 'ic:outline-menu'
+                icon: 'mdi:menu'
               }
             },
             {
@@ -924,19 +924,19 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
                   meta: {
                     title: '三级菜单',
                     requiresAuth: true,
-                    icon: 'ic:outline-menu'
+                    icon: 'mdi:menu'
                   }
                 }
               ],
               meta: {
                 title: '二级菜单(有子菜单)',
-                icon: 'ic:outline-menu'
+                icon: 'mdi:menu'
               }
             }
           ],
           meta: {
             title: '一级菜单',
-            icon: 'ic:outline-menu'
+            icon: 'mdi:menu'
           }
         }
       ],
@@ -1030,7 +1030,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '仪表盘',
-        icon: 'carbon:dashboard',
+        icon: 'mdi:monitor-dashboard',
         order: 1
       }
     },
@@ -1073,7 +1073,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               meta: {
                 title: '二级菜单',
                 requiresAuth: true,
-                icon: 'ic:outline-menu'
+                icon: 'mdi:menu'
               }
             },
             {
@@ -1088,19 +1088,19 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
                   meta: {
                     title: '三级菜单',
                     requiresAuth: true,
-                    icon: 'ic:outline-menu'
+                    icon: 'mdi:menu'
                   }
                 }
               ],
               meta: {
                 title: '二级菜单(有子菜单)',
-                icon: 'ic:outline-menu'
+                icon: 'mdi:menu'
               }
             }
           ],
           meta: {
             title: '一级菜单',
-            icon: 'ic:outline-menu'
+            icon: 'mdi:menu'
           }
         }
       ],

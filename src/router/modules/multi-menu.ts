@@ -15,7 +15,7 @@ const multiMenu: AuthRoute.Route = {
           meta: {
             title: '二级菜单',
             requiresAuth: true,
-            icon: 'ic:outline-menu'
+            icon: 'mdi:menu'
           }
         },
         {
@@ -30,19 +30,19 @@ const multiMenu: AuthRoute.Route = {
               meta: {
                 title: '三级菜单',
                 requiresAuth: true,
-                icon: 'ic:outline-menu'
+                icon: 'mdi:menu'
               }
             }
           ],
           meta: {
             title: '二级菜单(有子菜单)',
-            icon: 'ic:outline-menu'
+            icon: 'mdi:menu'
           }
         }
       ],
       meta: {
         title: '一级菜单',
-        icon: 'ic:outline-menu'
+        icon: 'mdi:menu'
       }
     }
   ],

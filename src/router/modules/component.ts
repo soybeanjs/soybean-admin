@@ -10,7 +10,7 @@ const component: AuthRoute.Route = {
       meta: {
         title: '按钮',
         requiresAuth: true,
-        icon: 'ic:baseline-radio-button-checked'
+        icon: 'mdi:button-cursor'
       }
     },
     {
@@ -36,7 +36,7 @@ const component: AuthRoute.Route = {
   ],
   meta: {
     title: '组件示例',
-    icon: 'fluent:app-store-24-regular',
+    icon: 'cib:app-store',
     order: 3
   }
 };

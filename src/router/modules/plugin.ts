@@ -25,13 +25,13 @@ const plugin: AuthRoute.Route = {
           meta: {
             title: 'AntV',
             requiresAuth: true,
-            icon: 'ant-design:bar-chart-outlined'
+            icon: 'simple-icons:antdesign'
           }
         }
       ],
       meta: {
         title: '图表',
-        icon: 'material-symbols:bar-chart-rounded'
+        icon: 'mdi:chart-areaspline'
       }
     },
     {
@@ -112,7 +112,7 @@ const plugin: AuthRoute.Route = {
       meta: {
         title: '图标',
         requiresAuth: true,
-        icon: 'ic:baseline-insert-emoticon'
+        localIcon: 'custom-icon'
       }
     },
     {
@@ -122,7 +122,7 @@ const plugin: AuthRoute.Route = {
       meta: {
         title: '打印',
         requiresAuth: true,
-        icon: 'ic:baseline-local-printshop'
+        icon: 'mdi:printer'
       }
     }
   ],

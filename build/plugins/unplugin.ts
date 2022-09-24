@@ -24,8 +24,7 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
         [collectionName]: FileSystemIconLoader(localIconPath)
       },
       scale: 1,
-      defaultClass: 'inline-block',
-      autoInstall: true
+      defaultClass: 'inline-block'
     }),
     Components({
       dts: 'src/typings/components.d.ts',

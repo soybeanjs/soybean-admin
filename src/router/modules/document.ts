@@ -56,7 +56,7 @@ const document: AuthRoute.Route = {
   ],
   meta: {
     title: '文档',
-    icon: 'carbon:document',
+    icon: 'mdi:file-document-multiple-outline',
     order: 2
   }
 };
