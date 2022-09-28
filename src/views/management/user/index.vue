@@ -15,9 +15,12 @@
           导出Excel
         </n-button>
       </n-space>
-      <n-space>
-        <n-switch />
-        <icon-mdi-refresh class="text-20px" />
+      <n-space align="center" :size="18">
+        <n-button size="small" type="primary" @click="getTableData">
+          <icon-mdi-refresh class="mr-4px text-16px" :class="{ 'animate-spin': loading }" />
+          刷新表格
+        </n-button>
+        <column-setting v-model:columns="columns" />
       </n-space>
     </n-space>
     <n-data-table :columns="columns" :data="tableData" :loading="loading" :pagination="pagination" />
@@ -27,23 +30,27 @@
 
 <script setup lang="tsx">
 import { reactive, ref } from 'vue';
-import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui';
+import type { Ref } from 'vue';
+import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
-import { fetchUserManagementList } from '@/service';
+import { fetchUserList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
-import { TableActionModal } from './components';
+import { genderLabels, userStatusLabels } from '@/constants';
+import TableActionModal from './components/TableActionModal.vue';
+import type { ModalType } from './components/TableActionModal.vue';
+import ColumnSetting from './components/ColumnSetting.vue';
 
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
 
-const tableData = ref<UserManagement.UserTable[]>([]);
-function setTableData(data: UserManagement.UserTable[]) {
+const tableData = ref<UserManagement.User[]>([]);
+function setTableData(data: UserManagement.User[]) {
   tableData.value = data;
 }
 
 async function getTableData() {
   startLoading();
-  const { data } = await fetchUserManagementList();
+  const { data } = await fetchUserList();
   if (data) {
     setTimeout(() => {
       setTableData(data);
@@ -52,7 +59,7 @@ async function getTableData() {
   }
 }
 
-const columns: DataTableColumns = [
+const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
   {
     type: 'selection',
     align: 'center'
@@ -68,66 +75,53 @@ const columns: DataTableColumns = [
     align: 'center'
   },
   {
-    key: 'userAge',
+    key: 'age',
     title: '用户年龄',
     align: 'center'
   },
   {
-    key: 'userGenderLabel',
+    key: 'gender',
     title: '性别',
     align: 'center',
     render: row => {
-      const rowData = row as unknown as UserManagement.UserTable;
+      if (row.gender) {
+        const tagTypes: Record<UserManagement.GenderKey, NaiveUI.ThemeColor> = {
+          '0': 'success',
+          '1': 'warning'
+        };
 
-      if (rowData.userGender !== 'null') {
-        const tagType = {
-          male: 'success',
-          female: 'warning'
-        } as const;
-        return <NTag type={tagType[rowData.userGender]}>{rowData.userGenderLabel}</NTag>;
+        return <NTag type={tagTypes[row.gender]}>{genderLabels[row.gender]}</NTag>;
       }
 
       return <span></span>;
     }
   },
   {
-    key: 'userPhone',
+    key: 'phone',
     title: '手机号码',
     align: 'center'
   },
   {
-    key: 'userEmail',
+    key: 'email',
     title: '邮箱',
     align: 'center'
   },
   {
-    key: 'userRole',
-    title: '角色',
-    align: 'center',
-    render: row => {
-      const rowData = row as unknown as UserManagement.UserTable;
-
-      const tagType = {
-        super: 'primary',
-        admin: 'warning',
-        user: 'success'
-      } as const;
-
-      return <NTag type={tagType[rowData.userRole]}>{rowData.userRole}</NTag>;
-    }
-  },
-  {
-    key: 'disabled',
+    key: 'userStatus',
     title: '状态',
     align: 'center',
     render: row => {
-      const rowData = row as unknown as UserManagement.UserTable;
+      if (row.userStatus) {
+        const tagTypes: Record<UserManagement.UserStatusKey, NaiveUI.ThemeColor> = {
+          '1': 'success',
+          '2': 'error',
+          '3': 'warning',
+          '4': 'default'
+        };
 
-      return (
-        <NSwitch value={rowData.disabled} onUpdateValue={disabled => handleUpdateDisabled(disabled, rowData.id)}>
-          {{ checked: () => '启用', unchecked: () => '禁用' }}
-        </NSwitch>
-      );
+        return <NTag type={tagTypes[row.userStatus]}>{userStatusLabels[row.userStatus]}</NTag>;
+      }
+      return <span></span>;
     }
   },
   {
@@ -135,13 +129,12 @@ const columns: DataTableColumns = [
     title: '操作',
     align: 'center',
     render: row => {
-      const rowData = row as unknown as UserManagement.UserTable;
       return (
         <NSpace justify={'center'}>
-          <NButton size={'small'} onClick={() => handleEditTable(rowData.id)}>
+          <NButton size={'small'} onClick={() => handleEditTable(row.id)}>
             编辑
           </NButton>
-          <NPopconfirm onPositiveClick={() => handleDeleteTable(rowData.id)}>
+          <NPopconfirm onPositiveClick={() => handleDeleteTable(row.id)}>
             {{
               default: () => '确认删除',
               trigger: () => <NButton size={'small'}>删除</NButton>
@@ -151,24 +144,17 @@ const columns: DataTableColumns = [
       );
     }
   }
-];
-
-function handleUpdateDisabled(disabled: boolean, rowId: string) {
-  const index = tableData.value.findIndex(item => item.id === rowId);
-  if (index > -1) {
-    tableData.value[index].disabled = disabled;
-  }
-}
-
-type ModalType = 'add' | 'edit';
+]) as Ref<DataTableColumns<UserManagement.User>>;
 
 const modalType = ref<ModalType>('add');
+
 function setModalType(type: ModalType) {
   modalType.value = type;
 }
 
-const editData = ref<UserManagement.UserTable | null>(null);
-function setEditData(data: UserManagement.UserTable | null) {
+const editData = ref<UserManagement.User | null>(null);
+
+function setEditData(data: UserManagement.User | null) {
   editData.value = data;
 }
 
@@ -185,6 +171,7 @@ function handleEditTable(rowId: string) {
   setModalType('edit');
   openModal();
 }
+
 function handleDeleteTable(rowId: string) {
   window.$message?.info(`点击了删除，rowId为${rowId}`);
 }

@@ -72,7 +72,7 @@ declare namespace Service {
 
   /** 多个请求数据结果 */
   type MultiRequestResult<T extends any[]> = T extends [infer First, ...infer Rest]
-    ? First extends any
+    ? [First] extends [any]
       ? Rest extends any[]
         ? [Service.RequestResult<First>, ...MultiRequestResult<Rest>]
         : [Service.RequestResult<First>]
@@ -292,4 +292,40 @@ interface GlobalTabRoute
     left: number;
     top: number;
   };
+}
+
+/** 系统消息 */
+declare namespace Message {
+  interface Tab {
+    /** tab的key */
+    key: number;
+    /** tab名称 */
+    name: string;
+    /** badge类型 */
+    badgeProps?: import('naive-ui').BadgeProps;
+    /** 消息数据 */
+    list: List[];
+  }
+
+  interface List {
+    /** 数据唯一值 */
+    id: number;
+    /** 头像 */
+    avatar?: string;
+    /** 消息icon */
+    icon?: string;
+    svgIcon?: string;
+    /** 消息标题 */
+    title: string;
+    /** 消息发送时间 */
+    date?: string;
+    /** 消息是否已读 */
+    isRead?: boolean;
+    /** 消息描述 */
+    description?: string;
+    /** 标签名称 */
+    tagTitle?: string;
+    /** 标签props */
+    tagProps?: import('naive-ui').TagProps;
+  }
 }

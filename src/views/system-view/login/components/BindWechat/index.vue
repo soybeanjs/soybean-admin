@@ -29,12 +29,14 @@ import { formRules } from '@/utils';
 const { toLoginModule } = useRouterPush();
 const { label, isCounting, loading: smsLoading, getSmsCode } = useSmsCode();
 
-const formRef = ref<(HTMLElement & FormInst) | null>(null);
+const formRef = ref<HTMLElement & FormInst>();
+
 const model = reactive({
   phone: '',
   code: '',
   imgCode: ''
 });
+
 const rules = {
   phone: formRules.phone,
   code: formRules.code
@@ -44,17 +46,9 @@ function handleSmsCode() {
   getSmsCode(model.phone);
 }
 
-function handleSubmit(e: MouseEvent) {
-  if (!formRef.value) return;
-  e.preventDefault();
-
-  formRef.value.validate(errors => {
-    if (!errors) {
-      window.$message?.success('验证成功!');
-    } else {
-      window.$message?.error('验证失败!');
-    }
-  });
+async function handleSubmit() {
+  await formRef.value?.validate();
+  window.$message?.success('验证成功!');
 }
 </script>
 

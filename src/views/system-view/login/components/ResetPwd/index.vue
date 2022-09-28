@@ -35,13 +35,15 @@ import { formRules, getConfirmPwdRule } from '@/utils';
 const { toLoginModule } = useRouterPush();
 const { label, isCounting, loading: smsLoading, start } = useSmsCode();
 
-const formRef = ref<(HTMLElement & FormInst) | null>(null);
+const formRef = ref<HTMLElement & FormInst>();
+
 const model = reactive({
   phone: '',
   code: '',
   pwd: '',
   confirmPwd: ''
 });
+
 const rules: FormRules = {
   phone: formRules.phone,
   code: formRules.code,
@@ -53,17 +55,9 @@ function handleSmsCode() {
   start();
 }
 
-function handleSubmit(e: MouseEvent) {
-  if (!formRef.value) return;
-  e.preventDefault();
-
-  formRef.value.validate(errors => {
-    if (!errors) {
-      window.$message?.success('验证成功');
-    } else {
-      window.$message?.error('验证失败');
-    }
-  });
+async function handleSubmit() {
+  await formRef.value?.validate();
+  window.$message?.success('验证成功!');
 }
 </script>
 

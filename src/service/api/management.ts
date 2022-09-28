@@ -1,12 +1,9 @@
 import { adapter } from '@/utils';
 import { mockRequest } from '../request';
-import { adapterOfFetchUserManagementList } from './management.adapter';
+import { adapterOfFetchUserList } from './management.adapter';
 
-/**
- * 获取用户管理列表
- */
-export async function fetchUserManagementList() {
-  const data = await mockRequest.post<ApiUserManagement.UserTable[]>('/getUserManagementList');
-
-  return adapter(adapterOfFetchUserManagementList, data);
-}
+/** 获取用户列表 */
+export const fetchUserList = async () => {
+  const data = await mockRequest.post<ApiUserManagement.User[] | null>('/getAllUserList');
+  return adapter(adapterOfFetchUserList, data);
+};

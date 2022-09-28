@@ -48,26 +48,25 @@ const auth = useAuthStore();
 const { login } = useAuthStore();
 const { toLoginModule } = useRouterPush();
 
-const formRef = ref<(HTMLElement & FormInst) | null>(null);
+const formRef = ref<HTMLElement & FormInst>();
+
 const model = reactive({
   userName: 'Soybean',
   password: 'soybean123'
 });
+
 const rules: FormRules = {
   password: formRules.pwd
 };
+
 const rememberMe = ref(false);
 
-function handleSubmit(e: MouseEvent) {
-  if (!formRef.value) return;
-  e.preventDefault();
+async function handleSubmit() {
+  await formRef.value?.validate();
 
-  formRef.value.validate(errors => {
-    if (!errors) {
-      const { userName, password } = model;
-      login(userName, password);
-    }
-  });
+  const { userName, password } = model;
+
+  login(userName, password);
 }
 
 function handleLoginOtherAccount(param: { userName: string; password: string }) {

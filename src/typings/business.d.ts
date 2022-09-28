@@ -20,77 +20,27 @@ declare namespace Auth {
   }
 }
 
-declare namespace Demo {
-  interface DataWithAdapter {
-    id: string;
-    name: string;
-  }
-}
-
-/** 系统消息 */
-declare namespace Message {
-  interface Tab {
-    /** tab的key */
-    key: number;
-    /** tab名称 */
-    name: string;
-    /** badge类型 */
-    badgeProps?: import('naive-ui').BadgeProps;
-    /** 消息数据 */
-    list: List[];
-  }
-
-  interface List {
-    /** 数据唯一值 */
-    id: number;
-    /** 头像 */
-    avatar?: string;
-    /** 消息icon */
-    icon?: string;
-    svgIcon?: string;
-    /** 消息标题 */
-    title: string;
-    /** 消息发送时间 */
-    date?: string;
-    /** 消息是否已读 */
-    isRead?: boolean;
-    /** 消息描述 */
-    description?: string;
-    /** 标签名称 */
-    tagTitle?: string;
-    /** 标签props */
-    tagProps?: import('naive-ui').TagProps;
-  }
-}
-
-/** 用户管理 */
 declare namespace UserManagement {
-  /** 用户表格 */
-  interface UserTable {
+  interface User extends ApiUserManagement.User {
     /** 序号 */
     index: number;
-    /** 数据的key(id) */
+    /** 表格的key（id） */
     key: string;
-    /** 用户id */
-    id: string;
-    /** 用户名 */
-    userName: string;
-    /** 用户年龄 */
-    userAge: string;
-    /**
-     * 用户性别
-     * - male 男
-     * - female 女
-     */
-    userGender: keyof typeof import('@/enum').EnumGender;
-    userGenderLabel: import('@/enum').EnumGender;
-    /** 用户手机号 */
-    userPhone: string;
-    /** 用户邮箱 */
-    userEmail: string;
-    /** 用户角色 */
-    userRole: Auth.RoleType;
-    /** 是否禁用用户 */
-    disabled: boolean;
   }
+
+  /**
+   * 用户性别
+   * - 0: 女
+   * - 1: 男
+   */
+  type GenderKey = NonNullable<User['gender']>;
+
+  /**
+   * 用户状态
+   * - 1: 启用
+   * - 2: 禁用
+   * - 3: 冻结
+   * - 4: 软删除
+   */
+  type UserStatusKey = NonNullable<User['userStatus']>;
 }
