@@ -4,6 +4,7 @@ import { setupDirectives } from './directives';
 import { setupRouter } from './router';
 import { setupAssets } from './plugins';
 import { setupStore } from './store';
+import { setupI18n } from './locales';
 
 async function setupApp() {
   // import assets: js、css
@@ -19,6 +20,8 @@ async function setupApp() {
 
   // vue router
   await setupRouter(app);
+
+  setupI18n(app);
 
   // mount app
   app.mount('#app');
