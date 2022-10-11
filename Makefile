@@ -10,3 +10,7 @@ soybean-admin-build:
 
 soybean-admin-push:
 	docker push ${SoybeanAdminImg}
+
+# run tauri app:
+run:
+	pnpm tauri dev
