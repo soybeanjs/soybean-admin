@@ -86,19 +86,19 @@ export function useEcharts(
   const initialSize = { width: 0, height: 0 };
   const { width, height } = useElementSize(domRef, initialSize);
 
-  let chart: echarts.ECharts | null = null;
+  const chartRef = ref<echarts.ECharts>();
 
   function canRender() {
     return initialSize.width > 0 && initialSize.height > 0;
   }
 
   function isRendered() {
-    return Boolean(domRef.value && chart);
+    return Boolean(domRef.value && chartRef.value);
   }
 
   function update(updateOptions: ECOption) {
     if (isRendered()) {
-      chart!.setOption({ ...updateOptions, backgroundColor: 'transparent' });
+      chartRef.value!.setOption({ ...updateOptions, backgroundColor: 'transparent' });
     }
   }
 
@@ -106,20 +106,20 @@ export function useEcharts(
     if (domRef.value) {
       const chartTheme = theme.darkMode ? 'dark' : 'light';
       await nextTick();
-      chart = echarts.init(domRef.value, chartTheme);
+      chartRef.value = echarts.init(domRef.value, chartTheme);
       if (renderFun) {
-        renderFun(chart);
+        renderFun(chartRef.value);
       }
       update(options.value);
     }
   }
 
   function resize() {
-    chart?.resize();
+    chartRef.value?.resize();
   }
 
   function destroy() {
-    chart?.dispose();
+    chartRef.value?.dispose();
   }
 
   function updateTheme() {
@@ -132,7 +132,7 @@ export function useEcharts(
     initialSize.height = newHeight;
     if (newWidth === 0 && newHeight === 0) {
       // 节点被删除 将chart置为空
-      chart = null;
+      chartRef.value = undefined;
     }
     if (canRender()) {
       if (!isRendered()) {
@@ -162,6 +162,7 @@ export function useEcharts(
   });
 
   return {
-    domRef
+    domRef,
+    chartRef
   };
 }
