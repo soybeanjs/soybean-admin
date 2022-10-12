@@ -18,7 +18,7 @@
         :local-icon="item.meta.localIcon"
         class="inline-block align-text-bottom mr-4px text-16px"
       />
-      {{ item.meta.title }}
+      {{ t(item.meta.title) }}
     </component>
   </div>
   <context-menu
@@ -34,6 +34,7 @@
 import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { ButtonTab, ChromeTab } from '@soybeanjs/vue-admin-tab';
 import { useTabStore, useThemeStore } from '@/store';
+import { t } from '@/locales';
 import { ContextMenu } from './components';
 
 defineOptions({ name: 'TabDetail' });

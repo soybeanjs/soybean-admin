@@ -10,7 +10,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           path: '/dashboard/analysis',
           component: 'self',
           meta: {
-            title: '分析页',
+            title: 'message.routes.dashboard.analysis',
             requiresAuth: true,
             icon: 'icon-park-outline:analysis'
           }
@@ -20,14 +20,14 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           path: '/dashboard/workbench',
           component: 'self',
           meta: {
-            title: '工作台',
+            title: 'message.routes.dashboard.workbench',
             requiresAuth: true,
             icon: 'icon-park-outline:workbench'
           }
         }
       ],
       meta: {
-        title: '仪表盘',
+        title: 'message.routes.dashboard.dashboard',
         icon: 'mdi:monitor-dashboard',
         order: 1
       }
@@ -502,7 +502,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       path: '/about',
       component: 'self',
       meta: {
-        title: '关于',
+        title: 'message.routes.about.about',
         requiresAuth: true,
         singleLayout: 'basic',
         icon: 'fluent:book-information-24-regular',

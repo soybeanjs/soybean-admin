@@ -14,7 +14,7 @@ export function setupI18n(app: App) {
 }
 
 export function t(key: string) {
-  return i18n.global.t(key);
+  return key.includes('message.') ? i18n.global.t(key) : key;
 }
 
 export function setLocale(locale: LocaleKey) {

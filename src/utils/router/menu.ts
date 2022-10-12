@@ -1,4 +1,5 @@
 import { useIconRender } from '@/composables';
+import { t } from '@/locales';
 
 /** 路由不转换菜单 */
 function hideInMenu(route: AuthRoute.Route) {
@@ -48,7 +49,7 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuO
     const menuItem: GlobalMenuOption = addPartialProps({
       menu: {
         key: routeName,
-        label: meta.title,
+        label: t(meta.title),
         routeName,
         routePath: path
       },
