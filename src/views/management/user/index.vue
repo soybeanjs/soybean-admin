@@ -176,7 +176,7 @@ function handleDeleteTable(rowId: string) {
   window.$message?.info(`点击了删除，rowId为${rowId}`);
 }
 
-const pagination = reactive<PaginationProps>({
+const pagination: PaginationProps = reactive({
   page: 1,
   pageSize: 10,
   showSizePicker: true,

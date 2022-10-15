@@ -33,6 +33,10 @@
     "@": "/src",
     "~@": "/src"
   },
+	"i18n-ally.localesPaths": [
+    "src/locales",
+    "src/locales/lang"
+  ],
   "material-icon-theme.activeIconPack": "angular",
   "material-icon-theme.files.associations": {},
   "material-icon-theme.folders.associations": {
