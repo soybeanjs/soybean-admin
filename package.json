@@ -52,7 +52,7 @@
     "clean": "pnpm rimraf node_modules pnpm-lock.yaml",
     "postinstall": "patch-package",
     "release": "standard-version",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+    "commit": "soybean git-commit"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.8",
@@ -85,11 +85,10 @@
   },
   "devDependencies": {
     "@amap/amap-jsapi-types": "^0.0.10",
-    "@commitlint/cli": "^17.1.2",
-    "@commitlint/config-conventional": "^17.1.0",
     "@iconify/json": "^2.1.130",
     "@iconify/vue": "^4.0.0",
     "@milahu/patch-package": "^6.4.14",
+    "@soybeanjs/cli": "^0.1.0",
     "@tauri-apps/cli": "^1.1.1",
     "@types/bmapgl": "^0.0.5",
     "@types/crypto-js": "^4.1.1",
@@ -100,16 +99,11 @@
     "@unocss/vite": "^0.46.1",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vitejs/plugin-vue-jsx": "^2.1.0",
-    "commitizen": "^4.2.5",
     "cross-env": "^7.0.3",
-    "cz-conventional-changelog": "^3.3.0",
-    "cz-customizable": "^7.0.0",
     "eslint": "^8.26.0",
     "eslint-config-soybeanjs-vue": "^0.1.1",
     "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
     "mockjs": "^1.1.0",
-    "postinstall-postinstall": "^2.1.0",
     "rollup-plugin-visualizer": "^5.8.3",
     "sass": "^1.55.0",
     "standard-version": "^9.5.0",
@@ -126,13 +120,5 @@
     "vite-plugin-pwa": "^0.13.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.0.9"
-  },
-  "lint-staged": {
-    "*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-customizable"
-    }
   }
 }
