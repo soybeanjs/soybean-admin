@@ -50,7 +50,6 @@
     "lint": "eslint . --fix",
     "prepare": "husky install",
     "clean": "pnpm rimraf node_modules pnpm-lock.yaml",
-    "postinstall": "patch-package",
     "release": "standard-version",
     "commit": "soybean git-commit"
   },
@@ -87,7 +86,6 @@
     "@amap/amap-jsapi-types": "^0.0.10",
     "@iconify/json": "^2.1.130",
     "@iconify/vue": "^4.0.0",
-    "@milahu/patch-package": "^6.4.14",
     "@soybeanjs/cli": "^0.1.0",
     "@tauri-apps/cli": "^1.1.1",
     "@types/bmapgl": "^0.0.5",
@@ -120,5 +118,10 @@
     "vite-plugin-pwa": "^0.13.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.0.9"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "mockjs@1.1.0": "patches/mockjs@1.1.0.patch"
+    }
   }
 }
