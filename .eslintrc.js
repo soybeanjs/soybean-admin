@@ -1,5 +1,13 @@
 module.exports = {
   extends: ['soybeanjs-vue'],
+  overrides: [
+    {
+      files: ['./scripts/*.ts'],
+      rules: {
+        'no-unused-expressions': 'off'
+      }
+    }
+  ],
   settings: {
     'import/core-modules': ['uno.css', '~icons/*', 'virtual:svg-icons-register']
   },

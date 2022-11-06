@@ -16,7 +16,7 @@
     "typescript",
     "typescriptreact",
     "vue",
-		"html",
+    "html",
     "json",
     "jsonc",
     "json5",
@@ -33,14 +33,11 @@
     "@": "/src",
     "~@": "/src"
   },
-	"i18n-ally.localesPaths": [
-    "src/locales",
-    "src/locales/lang"
-  ],
+  "i18n-ally.localesPaths": ["src/locales", "src/locales/lang"],
   "material-icon-theme.activeIconPack": "angular",
   "material-icon-theme.files.associations": {},
   "material-icon-theme.folders.associations": {
-		"src-tauri": "src",
+    "src-tauri": "src",
     "enum": "typescript",
     "enums": "typescript",
     "store": "context",
