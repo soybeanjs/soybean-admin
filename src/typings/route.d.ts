@@ -66,7 +66,7 @@ declare namespace AuthRoute {
   /** 路由的path */
   type RoutePath =
     | '/'
-    | Exclude<KeyToPath<RouteKey>, '/root' | 'not-found-page'>
+    | Exclude<KeyToPath<RouteKey>, '/root' | '/not-found-page'>
     | SingleRouteParentPath
     | '/:pathMatch(.*)*';
 
