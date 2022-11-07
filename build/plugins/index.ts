@@ -9,13 +9,24 @@ import unplugin from './unplugin';
 import mock from './mock';
 import visualizer from './visualizer';
 import compress from './compress';
+import soybeanjs from './soybeanjs';
 
 /**
  * vite插件
  * @param viteEnv - 环境变量配置
  */
 export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | PluginOption[])[] {
-  const plugins = [vue(), vueJsx(), VitePWA(), html(viteEnv), ...unplugin(viteEnv), unocss(), mock, progress()];
+  const plugins = [
+    vue(),
+    vueJsx(),
+    VitePWA(),
+    html(viteEnv),
+    ...unplugin(viteEnv),
+    unocss(),
+    mock,
+    progress(),
+    soybeanjs()
+  ];
 
   if (viteEnv.VITE_VISUALIZER === 'Y') {
     plugins.push(visualizer as PluginOption);

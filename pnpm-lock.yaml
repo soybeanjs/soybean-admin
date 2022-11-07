@@ -13,6 +13,7 @@ specifiers:
   '@iconify/json': ^2.1.133
   '@iconify/vue': ^4.0.0
   '@soybeanjs/cli': ^0.1.2
+  '@soybeanjs/router-page': 0.2.0
   '@soybeanjs/vue-admin-layout': ^1.1.1
   '@soybeanjs/vue-admin-tab': ^1.0.5
   '@tauri-apps/cli': ^1.1.1
@@ -107,6 +108,7 @@ devDependencies:
   '@iconify/json': 2.1.133
   '@iconify/vue': 4.0.0_vue@3.2.41
   '@soybeanjs/cli': 0.1.2
+  '@soybeanjs/router-page': 0.2.0
   '@tauri-apps/cli': 1.1.1
   '@types/bmapgl': 0.0.5
   '@types/crypto-js': 4.1.1
@@ -2012,6 +2014,12 @@ packages:
       kolorist: 1.6.0
       minimist: 1.2.7
       prompts: 2.4.2
+    dev: true
+
+  /@soybeanjs/router-page/0.2.0:
+    resolution: {integrity: sha512-3vZlw3o+AzPS2TrL2zRSxEeNMOXVW48y8VO1RK74d3uG8/6XXxJDhlOFmNqgk/EQ5qDDwW5ofnbj7S3oYGBcFQ==}
+    dependencies:
+      fast-glob: 3.2.12
     dev: true
 
   /@soybeanjs/vue-admin-layout/1.1.1_vue@3.2.41:
