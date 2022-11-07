@@ -254,49 +254,48 @@ declare namespace Theme {
   }
 }
 
-/** 全局头部属性 */
-interface GlobalHeaderProps {
-  /** 显示logo */
-  showLogo: boolean;
-  /** 显示头部菜单 */
-  showHeaderMenu: boolean;
-  /** 显示菜单折叠按钮 */
-  showMenuCollapse: boolean;
-}
+declare namespace App {
+  /** 全局头部属性 */
+  interface GlobalHeaderProps {
+    /** 显示logo */
+    showLogo: boolean;
+    /** 显示头部菜单 */
+    showHeaderMenu: boolean;
+    /** 显示菜单折叠按钮 */
+    showMenuCollapse: boolean;
+  }
 
-/** 菜单项配置 */
-type GlobalMenuOption = import('naive-ui').MenuOption & {
-  key: string;
-  label: string;
-  routeName: string;
-  routePath: string;
-  icon?: () => import('vue').VNodeChild;
-  children?: GlobalMenuOption[];
-};
-
-/** 面包屑 */
-type GlobalBreadcrumb = import('naive-ui').DropdownOption & {
-  key: string;
-  label: string;
-  disabled: boolean;
-  routeName: string;
-  hasChildren: boolean;
-  children?: GlobalBreadcrumb[];
-};
-
-/** 多页签Tab的路由 */
-interface GlobalTabRoute
-  extends Pick<import('vue-router').RouteLocationNormalizedLoaded, 'name' | 'fullPath' | 'meta'> {
-  /** 滚动的位置 */
-  scrollPosition: {
-    left: number;
-    top: number;
+  /** 菜单项配置 */
+  type GlobalMenuOption = import('naive-ui').MenuOption & {
+    key: string;
+    label: string;
+    routeName: string;
+    routePath: string;
+    icon?: () => import('vue').VNodeChild;
+    children?: GlobalMenuOption[];
   };
-}
 
-/** 系统消息 */
-declare namespace Message {
-  interface Tab {
+  /** 面包屑 */
+  type GlobalBreadcrumb = import('naive-ui').DropdownOption & {
+    key: string;
+    label: string;
+    disabled: boolean;
+    routeName: string;
+    hasChildren: boolean;
+    children?: GlobalBreadcrumb[];
+  };
+
+  /** 多页签Tab的路由 */
+  interface GlobalTabRoute
+    extends Pick<import('vue-router').RouteLocationNormalizedLoaded, 'name' | 'fullPath' | 'meta'> {
+    /** 滚动的位置 */
+    scrollPosition: {
+      left: number;
+      top: number;
+    };
+  }
+
+  interface MessageTab {
     /** tab的key */
     key: number;
     /** tab名称 */
@@ -304,10 +303,10 @@ declare namespace Message {
     /** badge类型 */
     badgeProps?: import('naive-ui').BadgeProps;
     /** 消息数据 */
-    list: List[];
+    list: MessageList[];
   }
 
-  interface List {
+  interface MessageList {
     /** 数据唯一值 */
     id: number;
     /** 头像 */

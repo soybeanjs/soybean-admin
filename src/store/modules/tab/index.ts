@@ -14,9 +14,9 @@ import {
 
 interface TabState {
   /** 多页签数据 */
-  tabs: GlobalTabRoute[];
+  tabs: App.GlobalTabRoute[];
   /** 多页签首页 */
-  homeTab: GlobalTabRoute;
+  homeTab: App.GlobalTabRoute;
   /** 当前激活状态的页签(路由fullPath) */
   activeTab: string;
 }
@@ -213,7 +213,7 @@ export const useTabStore = defineStore('tab-store', {
     iniTabStore(currentRoute: RouteLocationNormalizedLoaded) {
       const theme = useThemeStore();
 
-      const tabs: GlobalTabRoute[] = theme.tab.isCache ? getTabRoutes() : [];
+      const tabs: App.GlobalTabRoute[] = theme.tab.isCache ? getTabRoutes() : [];
 
       const hasHome = getIndexInTabRoutesByRouteName(tabs, this.homeTab.name as string) > -1;
       if (!hasHome && this.homeTab.name !== 'root') {

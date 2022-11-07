@@ -61,7 +61,7 @@ export async function createPermissionGuard(
       // 登录状态进入需要登录权限的页面，无权限，重定向到无权限页面
       isLogin && needLogin && !hasPermission,
       () => {
-        next({ name: routeName('no-permission') });
+        next({ name: routeName('403') });
       }
     ]
   ];

@@ -84,7 +84,7 @@ function resetFirstDegreeMenus() {
 }
 
 const activeChildMenus = computed(() => {
-  const menus: GlobalMenuOption[] = [];
+  const menus: App.GlobalMenuOption[] = [];
   routeStore.menus.some(item => {
     const flag = item.routeName === activeParentRouteName.value && Boolean(item.children?.length);
     if (flag) {

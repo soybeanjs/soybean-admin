@@ -62,7 +62,7 @@ const { bool: loading, setBool: setLoading } = useBoolean();
 
 const currentTab = ref(0);
 
-const tabData = ref<Message.Tab[]>([
+const tabData = ref<App.MessageTab[]>([
   {
     key: 1,
     name: '通知',

@@ -1,4 +1,4 @@
-const about: AuthRoutes.Route = {
+const about: AuthRoute.Route = {
   name: 'about',
   path: '/about',
   component: 'self',

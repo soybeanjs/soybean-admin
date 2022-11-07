@@ -30,8 +30,10 @@ export enum EnumDataType {
   undefined = '[object Undefined]',
   object = '[object Object]',
   array = '[object Array]',
+  function = '[object Function]',
   date = '[object Date]',
   regexp = '[object RegExp]',
+  promise = '[object Promise]',
   set = '[object Set]',
   map = '[object Map]',
   file = '[object File]'

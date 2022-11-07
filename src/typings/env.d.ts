@@ -34,7 +34,7 @@ interface ImportMetaEnv {
    */
   readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic';
   /** 路由首页的路径 */
-  readonly VITE_ROUTE_HOME_PATH: Exclude<AuthRoute.RoutePath, '/' | '/not-found-page' | '/:pathMatch(.*)*'>;
+  readonly VITE_ROUTE_HOME_PATH: AuthRoute.RoutePath;
   /** iconify图标作为组件的前缀 */
   readonly VITE_ICON_PREFFIX: string;
   /**

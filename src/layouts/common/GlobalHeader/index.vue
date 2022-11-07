@@ -39,11 +39,11 @@ defineOptions({ name: 'GlobalHeader' });
 
 interface Props {
   /** 显示logo */
-  showLogo: GlobalHeaderProps['showLogo'];
+  showLogo: App.GlobalHeaderProps['showLogo'];
   /** 显示头部菜单 */
-  showHeaderMenu: GlobalHeaderProps['showHeaderMenu'];
+  showHeaderMenu: App.GlobalHeaderProps['showHeaderMenu'];
   /** 显示菜单折叠按钮 */
-  showMenuCollapse: GlobalHeaderProps['showMenuCollapse'];
+  showMenuCollapse: App.GlobalHeaderProps['showMenuCollapse'];
 }
 
 defineProps<Props>();

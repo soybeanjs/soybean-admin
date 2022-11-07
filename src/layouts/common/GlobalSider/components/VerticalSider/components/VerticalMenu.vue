@@ -31,13 +31,13 @@ const theme = useThemeStore();
 const routeStore = useRouteStore();
 const { routerPush } = useRouterPush();
 
-const menus = computed(() => routeStore.menus as GlobalMenuOption[]);
+const menus = computed(() => routeStore.menus as App.GlobalMenuOption[]);
 
 const activeKey = computed(() => (route.meta?.activeMenu ? route.meta.activeMenu : route.name) as string);
 const expandedKeys = ref<string[]>([]);
 
 function handleUpdateMenu(_key: string, item: MenuOption) {
-  const menuItem = item as GlobalMenuOption;
+  const menuItem = item as App.GlobalMenuOption;
   routerPush(menuItem.routePath);
 }
 

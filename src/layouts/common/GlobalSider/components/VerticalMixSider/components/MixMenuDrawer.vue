@@ -42,7 +42,7 @@ interface Props {
   /** 菜单抽屉可见性 */
   visible: boolean;
   /** 子菜单数据 */
-  menus: GlobalMenuOption[];
+  menus: App.GlobalMenuOption[];
 }
 
 const props = defineProps<Props>();
@@ -59,7 +59,7 @@ const activeKey = computed(() => (route.meta?.activeMenu ? route.meta.activeMenu
 const expandedKeys = ref<string[]>([]);
 
 function handleUpdateMenu(_key: string, item: MenuOption) {
-  const menuItem = item as GlobalMenuOption;
+  const menuItem = item as App.GlobalMenuOption;
   routerPush(menuItem.routePath);
 }
 

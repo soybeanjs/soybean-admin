@@ -39,8 +39,8 @@ export const constantRoutes: AuthRoute.Route[] = [
     }
   },
   {
-    name: 'no-permission',
-    path: '/no-permission',
+    name: '403',
+    path: '/403',
     component: 'self',
     meta: {
       title: '无权限',
@@ -48,8 +48,8 @@ export const constantRoutes: AuthRoute.Route[] = [
     }
   },
   {
-    name: 'not-found',
-    path: '/not-found',
+    name: '404',
+    path: '/404',
     component: 'self',
     meta: {
       title: '未找到',
@@ -57,8 +57,8 @@ export const constantRoutes: AuthRoute.Route[] = [
     }
   },
   {
-    name: 'service-error',
-    path: '/service-error',
+    name: '500',
+    path: '/500',
     component: 'self',
     meta: {
       title: '服务器错误',
@@ -67,7 +67,7 @@ export const constantRoutes: AuthRoute.Route[] = [
   },
   // 匹配无效路径的路由
   {
-    name: 'not-found-page',
+    name: 'not-found',
     path: '/:pathMatch(.*)*',
     component: 'blank',
     meta: {

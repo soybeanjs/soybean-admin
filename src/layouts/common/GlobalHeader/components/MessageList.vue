@@ -38,7 +38,7 @@
 defineOptions({ name: 'MessageList' });
 
 interface Props {
-  list?: Message.List[];
+  list?: App.MessageList[];
 }
 
 withDefaults(defineProps<Props>(), {

@@ -4,7 +4,7 @@
  * @param menus - 菜单数据
  * @param rootPath - 根路由路径
  */
-export function getBreadcrumbByRouteKey(activeKey: string, menus: GlobalMenuOption[], rootPath: string) {
+export function getBreadcrumbByRouteKey(activeKey: string, menus: App.GlobalMenuOption[], rootPath: string) {
   const breadcrumbMenu = getBreadcrumbMenu(activeKey, menus);
   const breadcrumb = breadcrumbMenu.map(item => transformBreadcrumbMenuToBreadcrumb(item, rootPath));
   return breadcrumb;
@@ -15,8 +15,8 @@ export function getBreadcrumbByRouteKey(activeKey: string, menus: GlobalMenuOpti
  * @param activeKey - 当前页面路由的key
  * @param menus - 菜单数据
  */
-function getBreadcrumbMenu(activeKey: string, menus: GlobalMenuOption[]) {
-  const breadcrumbMenu: GlobalMenuOption[] = [];
+function getBreadcrumbMenu(activeKey: string, menus: App.GlobalMenuOption[]) {
+  const breadcrumbMenu: App.GlobalMenuOption[] = [];
   menus.some(menu => {
     const flag = activeKey.includes(menu.routeName);
     if (flag) {
@@ -32,15 +32,15 @@ function getBreadcrumbMenu(activeKey: string, menus: GlobalMenuOption[]) {
  * @param activeKey - 当前页面路由的key
  * @param menu - 单个菜单数据
  */
-function getBreadcrumbMenuItem(activeKey: string, menu: GlobalMenuOption) {
-  const breadcrumbMenu: GlobalMenuOption[] = [];
+function getBreadcrumbMenuItem(activeKey: string, menu: App.GlobalMenuOption) {
+  const breadcrumbMenu: App.GlobalMenuOption[] = [];
   if (activeKey === menu.routeName) {
     breadcrumbMenu.push(menu);
   }
   if (activeKey.includes(menu.routeName) && menu.children && menu.children.length) {
     breadcrumbMenu.push(menu);
     breadcrumbMenu.push(
-      ...menu.children.map(item => getBreadcrumbMenuItem(activeKey, item as GlobalMenuOption)).flat(1)
+      ...menu.children.map(item => getBreadcrumbMenuItem(activeKey, item as App.GlobalMenuOption)).flat(1)
     );
   }
 
@@ -52,9 +52,9 @@ function getBreadcrumbMenuItem(activeKey: string, menu: GlobalMenuOption) {
  * @param menu - 单个菜单数据
  * @param rootPath - 根路由路径
  */
-function transformBreadcrumbMenuToBreadcrumb(menu: GlobalMenuOption, rootPath: string) {
+function transformBreadcrumbMenuToBreadcrumb(menu: App.GlobalMenuOption, rootPath: string) {
   const hasChildren = Boolean(menu.children && menu.children.length);
-  const breadcrumb: GlobalBreadcrumb = {
+  const breadcrumb: App.GlobalBreadcrumb = {
     key: menu.routeName,
     label: menu.label as string,
     routeName: menu.routeName,
@@ -66,7 +66,7 @@ function transformBreadcrumbMenuToBreadcrumb(menu: GlobalMenuOption, rootPath: s
   }
   if (hasChildren) {
     breadcrumb.children = menu.children?.map(item =>
-      transformBreadcrumbMenuToBreadcrumb(item as GlobalMenuOption, rootPath)
+      transformBreadcrumbMenuToBreadcrumb(item as App.GlobalMenuOption, rootPath)
     );
   }
   return breadcrumb;
