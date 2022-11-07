@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.7](https://github.com/honghuangdc/soybean-admin/compare/v0.9.6...v0.9.7) (2022-11-07)
+
+
+### Features
+
+* **projects:** 全局搜索菜单及消息通知适配移动端 ([97e2ffd](https://github.com/honghuangdc/soybean-admin/commit/97e2ffddf4ac047133dc016a91ac07556e562d29))
+* **projects:** 实现用户管理页面 ([472f93b](https://github.com/honghuangdc/soybean-admin/commit/472f93bfc111e8ca94adef823b8cc12e4f8cd2c6))
+* **projects:** 适配移动端，修复Tab关闭图标的bug ([296b154](https://github.com/honghuangdc/soybean-admin/commit/296b154be5dfe410b3cfca9afaeeaf9c47de3e0c)), closes [#87](https://github.com/honghuangdc/soybean-admin/issues/87) [#106](https://github.com/honghuangdc/soybean-admin/issues/106) [#109](https://github.com/honghuangdc/soybean-admin/issues/109) [#111](https://github.com/honghuangdc/soybean-admin/issues/111)
+* **projects:** 添加请求适配adapter层应用的示例页面 ([8d11a6a](https://github.com/honghuangdc/soybean-admin/commit/8d11a6affcfa37344011a6aaf3d6e005546f0e61))
+* **projects:** 添加生产的主题配置缓存 ([718c362](https://github.com/honghuangdc/soybean-admin/commit/718c36263e451a39bca6da6c33657a09515ffbcc))
+* **projects:** 添加系统管理的页面 ([c33b5eb](https://github.com/honghuangdc/soybean-admin/commit/c33b5ebfefbb3ae507141bd2e9414231fd1512d4))
+* **projects:** 添加组件名称，调整vue文件里面的类型声明位置 ([f64bc91](https://github.com/honghuangdc/soybean-admin/commit/f64bc91ce285c7a9806ed0f6ae970d9b598fd0cb))
+* **projects:** 添加provide、inject上下文示例 ([a444731](https://github.com/honghuangdc/soybean-admin/commit/a444731e9eef43022930c3550dcfc058e70a2941))
+* **projects:** 系统消息组件代码优化 ([9518372](https://github.com/honghuangdc/soybean-admin/commit/9518372fe0431d4e08a5f40d1b2982691fbb4107))
+* **projects:** 增加返回顶部功能 ([894b0f1](https://github.com/honghuangdc/soybean-admin/commit/894b0f1c182a36ad1774a8144bf50dd4e0b62a46))
+* **projects:** 增加系统消息组件 ([afa0134](https://github.com/honghuangdc/soybean-admin/commit/afa0134fdd63c253e102bc129e275d16ca25508e))
+* **projects:** add constant route page without login status[添加未登录可访问的固定路由示例页面] ([78efd77](https://github.com/honghuangdc/soybean-admin/commit/78efd7793a241811065caf56edf7e68aea58bc8c))
+* **projects:** add pinia setup syntax example: setup-store[添加setup syntax的pinia示例setup-store] ([82c4b09](https://github.com/honghuangdc/soybean-admin/commit/82c4b09b9411390f97c2d10bb211c66ed9656b63))
+* **projects:** import i18n [引入i18n] ([b632b7f](https://github.com/honghuangdc/soybean-admin/commit/b632b7ffed5c6d6ec15c23c8cce030bf669c554f))
+* **projects:** new router system [新的路由系统] ([c7b6a3f](https://github.com/honghuangdc/soybean-admin/commit/c7b6a3fbecd1ba051833e4e47b75a06935f212c8))
+* **projects:** refactor icon system, unify icon usage [重构图标系统，统一图标用法] ([811f820](https://github.com/honghuangdc/soybean-admin/commit/811f820644053606e50624c2f184f9669f3eff7e))
+* **projects:** support constant route without login status[支持未登录状态下访问自定义的固定路由] ([a539112](https://github.com/honghuangdc/soybean-admin/commit/a539112a0f53183ee073d4eb9034ef48209fe30c))
+* **projects:** useNaiveTable函数：类型部分 ([02992dc](https://github.com/honghuangdc/soybean-admin/commit/02992dc02d105cbfcebbea397438c68db1fa8177))
+* **tabs:** 多页签增加关闭所有 ([8237adb](https://github.com/honghuangdc/soybean-admin/commit/8237adb9c0b187911df37d6d99fd84718bc3ea8f))
+
+
+### Bug Fixes
+
+* **deps:** decrease @types/node version to fix TS type error [降低@types/node版本修复TS的类型错误] ([149d22a](https://github.com/honghuangdc/soybean-admin/commit/149d22a4a491ca5fc6c52375046e9f1cb86ee76d))
+* **projects:** 修复多个后端服务时的本地代理 ([2aba58c](https://github.com/honghuangdc/soybean-admin/commit/2aba58c973e5d0ea975443a8b22c9d94283d4fb9))
+* **projects:** 修复构建后mockjs对xhr的影响问题 ([7757285](https://github.com/honghuangdc/soybean-admin/commit/77572855c3f7161697f42e6da36771c15707f0ab))
+* **projects:** 修复图标的TS类型 ([dbd6760](https://github.com/honghuangdc/soybean-admin/commit/dbd676095b42aaebc783d5c89478306a453195a5))
+* **projects:** 修复eslint规则 ([d7f5bf3](https://github.com/honghuangdc/soybean-admin/commit/d7f5bf3373e7884b8dc2c696a2c36e9cf27ad64b))
+* **projects:** 修复import.meta.env的TS类型 ([1994262](https://github.com/honghuangdc/soybean-admin/commit/19942625d58e673126db5249488555de71d18457))
+* **projects:** 修复tab不显示路由首页的问题 ([a792bb5](https://github.com/honghuangdc/soybean-admin/commit/a792bb5cb3c388ba3b93e17bab8f42d23cd5df4a))
+* **projects:** 修复TS类型问题 ([16dce9a](https://github.com/honghuangdc/soybean-admin/commit/16dce9a4ce4d3aa822d70f6e5199eb9c86e33ad9))
+* **projects:** add iconify json ([8a1ec93](https://github.com/honghuangdc/soybean-admin/commit/8a1ec938e7a26728919024e9f5b7b0af2b270aba))
+* **svg-icon:** 自定义图标在Dropdown组件下hover状态无法显示图标 ([0523f08](https://github.com/honghuangdc/soybean-admin/commit/0523f0838246041bfc09130e21369bd777f63682))
+* **utils:** 修复iconifyRender ([c37d0ac](https://github.com/honghuangdc/soybean-admin/commit/c37d0ac7887a3451b8558fc4aa6c05ed3b0ef74f))
+
 ### [0.9.6](https://github.com/honghuangdc/soybean-admin/compare/v0.9.5...v0.9.6) (2022-06-15)
 
 
