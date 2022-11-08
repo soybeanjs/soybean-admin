@@ -4,12 +4,12 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import unocss from '@unocss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import progress from 'vite-plugin-progress';
+import routerPage from '@soybeanjs/router-page';
 import html from './html';
 import unplugin from './unplugin';
 import mock from './mock';
 import visualizer from './visualizer';
 import compress from './compress';
-import soybeanjs from './soybeanjs';
 
 /**
  * vite插件
@@ -25,7 +25,7 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
     unocss(),
     mock,
     progress(),
-    soybeanjs()
+    routerPage()
   ];
 
   if (viteEnv.VITE_VISUALIZER === 'Y') {
