@@ -1,97 +1,5 @@
-import type { RouteComponent, RouteRecordRaw } from 'vue-router';
-import { BasicLayout, BlankLayout } from '@/layouts';
-import { views } from '@/views';
-import { isFunction } from '@/utils';
-
-type Lazy<T> = () => Promise<T>;
-
-type LayoutComponent = Record<EnumType.LayoutComponentName, Lazy<RouteComponent>>;
-
-/**
- * 获取布局的vue文件(懒加载的方式)
- * @param layoutType - 布局类型
- */
-export function getLayoutComponent(layoutType: EnumType.LayoutComponentName) {
-  const layoutComponent: LayoutComponent = {
-    basic: BasicLayout,
-    blank: BlankLayout
-  };
-  return layoutComponent[layoutType];
-}
-
-/**
- * 获取页面导入的vue文件
- * @param routeKey - 路由key
- */
-export function getViewComponent(routeKey: AuthRoute.LastDegreeRouteKey) {
-  if (!views[routeKey]) {
-    throw new Error(`路由“${routeKey}”没有对应的组件文件！`);
-  }
-  return setViewComponentName(views[routeKey], routeKey);
-}
-
-interface ModuleComponent {
-  default: RouteComponent;
-}
-
-/** 给页面组件设置名称 */
-function setViewComponentName(component: RouteComponent | Lazy<ModuleComponent>, name: string) {
-  if (isAsyncComponent(component)) {
-    return async () => {
-      const result = await component();
-      Object.assign(result.default, { name });
-      return result;
-    };
-  }
-
-  Object.assign(component, { name });
-
-  return component;
-}
-
-function isAsyncComponent(component: RouteComponent | Lazy<ModuleComponent>): component is Lazy<ModuleComponent> {
-  return isFunction(component);
-}
-
-/**
- * 是否有外链
- * @param item - 权限路由
- */
-function hasHref(item: AuthRoute.Route) {
-  return Boolean(item.meta.href);
-}
-
-/**
- * 是否有动态路由path
- * @param item - 权限路由
- */
-function hasDynamicPath(item: AuthRoute.Route) {
-  return Boolean(item.meta.dynamicPath);
-}
-
-/**
- * 是否有路由组件
- * @param item - 权限路由
- */
-function hasComponent(item: AuthRoute.Route) {
-  return Boolean(item.component);
-}
-
-/**
- * 是否有子路由
- * @param item - 权限路由
- */
-function hasChildren(item: AuthRoute.Route) {
-  return Boolean(item.children && item.children.length);
-}
-
-/**
- * 是否是单层级路由
- * @param item - 权限路由
- */
-function isSingleRoute(item: AuthRoute.Route) {
-  return Boolean(item.meta.singleLayout);
-}
+import type { RouteRecordRaw } from 'vue-router';
+import { getLayoutComponent, getViewComponent } from './component';
 
 /**
  * 将权限路由转换成vue路由
@@ -211,4 +119,86 @@ export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
   resultRoute.push(itemRoute);
 
   return resultRoute;
+}
+
+/**
+ * 将权限路由转换成搜索的菜单数据
+ * @param routes - 权限路由
+ * @param treeMap
+ */
+export function transformAuthRouteToSearchMenus(routes: AuthRoute.Route[], treeMap: AuthRoute.Route[] = []) {
+  if (routes && routes.length === 0) return [];
+  return routes.reduce((acc, cur) => {
+    if (!cur.meta?.hide) {
+      acc.push(cur);
+    }
+    if (cur.children && cur.children.length > 0) {
+      transformAuthRouteToSearchMenus(cur.children, treeMap);
+    }
+    return acc;
+  }, treeMap);
+}
+
+/** 将路由名字转换成路由路径 */
+export function transformRouteNameToRoutePath(name: Exclude<AuthRoute.AllRouteKey, 'not-found'>): AuthRoute.RoutePath {
+  const rootPath: AuthRoute.RoutePath = '/';
+  if (name === 'root') return rootPath;
+
+  const splitMark = '_';
+  const pathSplitMark = '/';
+  const path = name.split(splitMark).join(pathSplitMark);
+
+  return (pathSplitMark + path) as AuthRoute.RoutePath;
+}
+
+/** 将路由路径转换成路由名字 */
+export function transformRoutePathToRouteName<K extends AuthRoute.RoutePath>(path: K) {
+  if (path === '/') return 'root';
+
+  const pathSplitMark = '/';
+  const routeSplitMark = '_';
+
+  const name = path.split(pathSplitMark).slice(1).join(routeSplitMark) as AuthRoute.AllRouteKey;
+
+  return name;
+}
+
+/**
+ * 是否有外链
+ * @param item - 权限路由
+ */
+function hasHref(item: AuthRoute.Route) {
+  return Boolean(item.meta.href);
+}
+
+/**
+ * 是否有动态路由path
+ * @param item - 权限路由
+ */
+function hasDynamicPath(item: AuthRoute.Route) {
+  return Boolean(item.meta.dynamicPath);
+}
+
+/**
+ * 是否有路由组件
+ * @param item - 权限路由
+ */
+function hasComponent(item: AuthRoute.Route) {
+  return Boolean(item.component);
+}
+
+/**
+ * 是否有子路由
+ * @param item - 权限路由
+ */
+function hasChildren(item: AuthRoute.Route) {
+  return Boolean(item.children && item.children.length);
+}
+
+/**
+ * 是否是单层级路由
+ * @param item - 权限路由
+ */
+function isSingleRoute(item: AuthRoute.Route) {
+  return Boolean(item.meta.singleLayout);
 }

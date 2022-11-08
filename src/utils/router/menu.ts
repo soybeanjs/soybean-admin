@@ -1,37 +1,5 @@
 import { useIconRender } from '@/composables';
 
-/** 路由不转换菜单 */
-function hideInMenu(route: AuthRoute.Route) {
-  return Boolean(route.meta.hide);
-}
-
-/** 给菜单添加可选属性 */
-function addPartialProps(config: {
-  menu: App.GlobalMenuOption;
-  icon?: string;
-  localIcon?: string;
-  children?: App.GlobalMenuOption[];
-}) {
-  const { iconRender } = useIconRender();
-
-  const item = { ...config.menu };
-
-  const { icon, localIcon, children } = config;
-
-  if (localIcon) {
-    Object.assign(item, { icon: iconRender({ localIcon }) });
-  }
-
-  if (icon) {
-    Object.assign(item, { icon: iconRender({ icon }) });
-  }
-
-  if (children) {
-    Object.assign(item, { children });
-  }
-  return item;
-}
-
 /**
  * 将权限路由转换成菜单
  * @param routes - 路由
@@ -84,4 +52,36 @@ function getActiveKeyPathsOfMenu(activeKey: string, menu: App.GlobalMenuOption) 
     keys.push(...menu.children.map(item => getActiveKeyPathsOfMenu(activeKey, item as App.GlobalMenuOption)).flat(1));
   }
   return keys;
+}
+
+/** 路由不转换菜单 */
+function hideInMenu(route: AuthRoute.Route) {
+  return Boolean(route.meta.hide);
+}
+
+/** 给菜单添加可选属性 */
+function addPartialProps(config: {
+  menu: App.GlobalMenuOption;
+  icon?: string;
+  localIcon?: string;
+  children?: App.GlobalMenuOption[];
+}) {
+  const { iconRender } = useIconRender();
+
+  const item = { ...config.menu };
+
+  const { icon, localIcon, children } = config;
+
+  if (localIcon) {
+    Object.assign(item, { icon: iconRender({ localIcon }) });
+  }
+
+  if (icon) {
+    Object.assign(item, { icon: iconRender({ icon }) });
+  }
+
+  if (children) {
+    Object.assign(item, { children });
+  }
+  return item;
 }

@@ -6,12 +6,13 @@ import {
   getCacheRoutes,
   getConstantRouteNames,
   getUserInfo,
+  transformAuthRouteToVueRoutes,
+  transformAuthRouteToVueRoute,
   transformAuthRouteToMenu,
   transformAuthRouteToSearchMenus,
   transformRouteNameToRoutePath,
   transformRoutePathToRouteName
 } from '@/utils';
-import { transformAuthRouteToVueRoutes, transformAuthRouteToVueRoute } from '@/utils/router/transform';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 
