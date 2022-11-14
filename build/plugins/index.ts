@@ -2,7 +2,6 @@ import type { PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import unocss from '@unocss/vite';
-import { VitePWA } from 'vite-plugin-pwa';
 import progress from 'vite-plugin-progress';
 import routerPage from '@soybeanjs/router-page';
 import html from './html';
@@ -10,6 +9,7 @@ import unplugin from './unplugin';
 import mock from './mock';
 import visualizer from './visualizer';
 import compress from './compress';
+import pwa from './pwa';
 
 /**
  * vite插件
@@ -19,13 +19,13 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
   const plugins = [
     vue(),
     vueJsx(),
-    VitePWA(),
     html(viteEnv),
     ...unplugin(viteEnv),
     unocss(),
     mock,
     progress(),
-    routerPage()
+    routerPage(),
+    pwa()
   ];
 
   if (viteEnv.VITE_VISUALIZER === 'Y') {
