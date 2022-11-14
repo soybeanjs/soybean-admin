@@ -77,7 +77,7 @@ function start() {
 }
 
 function formatNumber(num: number | string) {
-  if (!num) {
+  if (num !== 0 && !num) {
     return '';
   }
   const { decimals, decimal, separator, suffix, prefix } = props;
