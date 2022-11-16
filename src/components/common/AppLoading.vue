@@ -16,9 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { EnumStorageKey } from '@/enum';
 import { useAppInfo } from '@/composables';
-import { getLocal } from '@/utils';
+import { localStg } from '@/utils';
 
 const { title } = useAppInfo();
 
@@ -31,7 +30,7 @@ const lodingClasses = [
 
 function addThemeColorCssVars() {
   const defaultColor = '#1890ff';
-  const themeColor = getLocal(EnumStorageKey['theme-color']) || defaultColor;
+  const themeColor = localStg.get('themeColor') || defaultColor;
   const cssVars = `--primary-color: ${themeColor}`;
   document.documentElement.style.cssText = cssVars;
 }

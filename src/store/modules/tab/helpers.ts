@@ -1,6 +1,5 @@
 import type { RouteLocationNormalizedLoaded, RouteRecordNormalized } from 'vue-router';
-import { EnumStorageKey } from '@/enum';
-import { getLocal, setLocal } from '@/utils';
+import { localStg } from '@/utils';
 
 /**
  * 根据vue路由获取tab路由
@@ -58,15 +57,10 @@ function hasFullPath(
   return Boolean((route as RouteLocationNormalizedLoaded).fullPath);
 }
 
-/** 缓存多页签数据 */
-export function setTabRoutes(data: App.GlobalTabRoute[]) {
-  setLocal(EnumStorageKey['multi-tab-routes'], data);
-}
-
 /** 获取缓存的多页签数据 */
 export function getTabRoutes() {
   const routes: App.GlobalTabRoute[] = [];
-  const data = getLocal<App.GlobalTabRoute[]>(EnumStorageKey['multi-tab-routes']);
+  const data = localStg.get('multiTabRoutes');
   if (data) {
     const defaultTabRoutes = data.map(item => ({
       ...item,
@@ -82,5 +76,5 @@ export function getTabRoutes() {
 
 /** 清空多页签数据 */
 export function clearTabRoutes() {
-  setTabRoutes([]);
+  localStg.set('multiTabRoutes', []);
 }
