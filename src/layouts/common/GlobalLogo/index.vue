@@ -4,16 +4,15 @@
     <h2
       v-show="showTitle"
       class="pl-8px text-16px font-bold text-primary transition duration-300 ease-in-out"
-      @click="toggleLocal"
     >
-      {{ t('message.system.title') }}
+      {{ title }}
     </h2>
   </router-link>
 </template>
 
 <script setup lang="ts">
 import { routePath } from '@/router';
-import { t, setLocale } from '@/locales';
+import { useAppInfo } from '@/composables'
 
 defineOptions({ name: 'GlobalLogo' });
 
@@ -26,11 +25,8 @@ defineProps<Props>();
 
 const routeHomePath = routePath('root');
 
-let flag = true;
-function toggleLocal() {
-  flag = !flag;
-  setLocale(flag ? 'en' : 'zh-CN');
-}
+const { title } = useAppInfo()
+
 </script>
 
 <style scoped></style>

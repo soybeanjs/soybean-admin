@@ -13,6 +13,3 @@ declare namespace Common {
    */
   type StrategyAction = [boolean, () => void];
 }
-
-/** 构建时间 */
-declare const PROJECT_BUILD_TIME: string;
