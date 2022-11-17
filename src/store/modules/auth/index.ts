@@ -52,6 +52,7 @@ export const useAuthStore = defineStore('auth-store', {
      * @param backendToken - 返回的token
      */
     async handleActionAfterLogin(backendToken: ApiAuth.Token) {
+      const route = useRouteStore();
       const { toLoginRedirect } = useRouterPush(false);
 
       const loginSuccess = await this.loginByToken(backendToken);
@@ -61,11 +62,13 @@ export const useAuthStore = defineStore('auth-store', {
         toLoginRedirect();
 
         // 登录成功弹出欢迎提示
-        window.$notification?.success({
-          title: '登录成功!',
-          content: `欢迎回来，${this.userInfo.userName}!`,
-          duration: 3000
-        });
+        if (route.isInitAuthRoute) {
+          window.$notification?.success({
+            title: '登录成功!',
+            content: `欢迎回来，${this.userInfo.userName}!`,
+            duration: 3000
+          });
+        }
 
         return;
       }
