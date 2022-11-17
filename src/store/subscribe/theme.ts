@@ -3,7 +3,7 @@ import { useOsTheme } from 'naive-ui';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { useElementSize } from '@vueuse/core';
 import { kebabCase } from 'lodash-es';
-import { setThemeColor } from '@/utils';
+import { localStg } from '@/utils';
 import { useThemeStore } from '../modules';
 
 /** 订阅theme store */
@@ -17,7 +17,7 @@ export default function subscribeThemeStore() {
   const stopThemeColor = watch(
     () => theme.themeColor,
     newValue => {
-      setThemeColor(newValue);
+      localStg.set('themeColor', newValue);
     },
     { immediate: true }
   );

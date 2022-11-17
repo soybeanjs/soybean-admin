@@ -1,6 +1,7 @@
 import type { RouteLocationNormalizedLoaded, Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useRouterPush } from '@/composables';
+import { localStg } from '@/utils';
 import { useThemeStore } from '../theme';
 import {
   clearTabRoutes,
@@ -8,8 +9,7 @@ import {
   getIndexInTabRoutesByRouteName,
   getTabRouteByVueRoute,
   getTabRoutes,
-  isInTabRoutes,
-  setTabRoutes
+  isInTabRoutes
 } from './helpers';
 
 interface TabState {
@@ -52,7 +52,7 @@ export const useTabStore = defineStore('tab-store', {
     },
     /** 缓存页签路由数据 */
     cacheTabRoutes() {
-      setTabRoutes(this.tabs);
+      localStg.set('multiTabRoutes', this.tabs);
     },
     /**
      * 设置当前路由对应的页签为激活状态

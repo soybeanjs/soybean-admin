@@ -2,10 +2,10 @@ import { defineStore } from 'pinia';
 import { ROOT_ROUTE, constantRoutes, router, routes as staticRoutes } from '@/router';
 import { fetchUserRoutes } from '@/service';
 import {
+  localStg,
   filterAuthRoutesByUserPermission,
   getCacheRoutes,
   getConstantRouteNames,
-  getUserInfo,
   transformAuthRouteToVueRoutes,
   transformAuthRouteToVueRoute,
   transformAuthRouteToMenu,
@@ -106,7 +106,12 @@ export const useRouteStore = defineStore('route-store', {
     },
     /** 初始化动态路由 */
     async initDynamicRoute() {
-      const { userId } = getUserInfo();
+      const { userId } = localStg.get('userInfo') || {};
+
+      if (!userId) {
+        throw new Error('userId 不能为空!');
+      }
+
       const { data } = await fetchUserRoutes(userId);
       if (data) {
         this.routeHomeName = data.home;
@@ -123,9 +128,6 @@ export const useRouteStore = defineStore('route-store', {
     /** 初始化权限路由 */
     async initAuthRoute() {
       const { initHomeTab } = useTabStore();
-      const { userId } = getUserInfo();
-
-      if (!userId) return;
 
       const isDynamicRoute = this.authRouteMode === 'dynamic';
       if (isDynamicRoute) {

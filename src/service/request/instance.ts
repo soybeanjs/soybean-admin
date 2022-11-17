@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { REFRESH_TOKEN_CODE } from '@/config';
 import {
-  getToken,
+  localStg,
   handleAxiosError,
   handleBackendError,
   handleResponseError,
@@ -49,7 +49,7 @@ export default class CustomAxiosInstance {
           const contentType = handleConfig.headers['Content-Type'] as string;
           handleConfig.data = await transformRequestData(handleConfig.data, contentType);
           // 设置token
-          handleConfig.headers.Authorization = getToken();
+          handleConfig.headers.Authorization = localStg.get('token') || '';
         }
         return handleConfig;
       },
