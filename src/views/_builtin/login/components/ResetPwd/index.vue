@@ -13,10 +13,10 @@
       </div>
     </n-form-item>
     <n-form-item path="pwd">
-      <n-input v-model:value="model.pwd" placeholder="密码" />
+      <n-input v-model:value="model.pwd" type="password" show-password-on="click" placeholder="密码" />
     </n-form-item>
     <n-form-item path="confirmPwd">
-      <n-input v-model:value="model.confirmPwd" placeholder="确认密码" />
+      <n-input v-model:value="model.confirmPwd" type="password" show-password-on="click" placeholder="确认密码" />
     </n-form-item>
     <n-space :vertical="true" size="large">
       <n-button type="primary" size="large" :block="true" :round="true" @click="handleSubmit">确定</n-button>
