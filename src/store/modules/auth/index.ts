@@ -1,4 +1,4 @@
-import { unref } from 'vue';
+import { unref, nextTick } from 'vue';
 import { defineStore } from 'pinia';
 import { router } from '@/router';
 import { fetchLogin, fetchUserInfo } from '@/service';
@@ -40,12 +40,14 @@ export const useAuthStore = defineStore('auth-store', {
       clearAuthStorage();
       this.$reset();
 
-      resetTabStore();
-      resetRouteStore();
-
       if (route.meta.requiresAuth) {
         toLogin();
       }
+
+      nextTick(() => {
+        resetTabStore();
+        resetRouteStore();
+      });
     },
     /**
      * 处理登录后成功或失败的逻辑
@@ -58,6 +60,8 @@ export const useAuthStore = defineStore('auth-store', {
       const loginSuccess = await this.loginByToken(backendToken);
 
       if (loginSuccess) {
+        await route.initAuthRoute();
+
         // 跳转登录后的地址
         toLoginRedirect();
 
