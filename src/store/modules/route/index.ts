@@ -25,8 +25,6 @@ interface RouteState {
   authRouteMode: ImportMetaEnv['VITE_AUTH_ROUTE_MODE'];
   /** 是否初始化了权限路由 */
   isInitAuthRoute: boolean;
-  /** 动态路由是否初始化失败 */
-  failedInitDynamicRoute: boolean;
   /** 路由首页name(前端静态路由时生效，后端动态路由该值会被后端返回的值覆盖) */
   routeHomeName: AuthRoute.AllRouteKey;
   /** 菜单 */
@@ -41,7 +39,6 @@ export const useRouteStore = defineStore('route-store', {
   state: (): RouteState => ({
     authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
     isInitAuthRoute: false,
-    failedInitDynamicRoute: false,
     routeHomeName: transformRoutePathToRouteName(import.meta.env.VITE_ROUTE_HOME_PATH),
     menus: [],
     searchMenus: [],
@@ -109,6 +106,8 @@ export const useRouteStore = defineStore('route-store', {
     },
     /** 初始化动态路由 */
     async initDynamicRoute() {
+      const { initHomeTab } = useTabStore();
+
       const { userId } = localStg.get('userInfo') || {};
 
       if (!userId) {
@@ -121,8 +120,10 @@ export const useRouteStore = defineStore('route-store', {
         this.routeHomeName = data.home;
         this.handleUpdateRootRedirect(data.home);
         this.handleAuthRoute(data.routes);
-      } else {
-        this.failedInitDynamicRoute = true;
+
+        initHomeTab(data.home, router);
+
+        this.isInitAuthRoute = true;
       }
     },
     /** 初始化静态路由 */
@@ -130,21 +131,15 @@ export const useRouteStore = defineStore('route-store', {
       const auth = useAuthStore();
       const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
       this.handleAuthRoute(routes);
+      this.isInitAuthRoute = true;
     },
     /** 初始化权限路由 */
     async initAuthRoute() {
-      const { initHomeTab } = useTabStore();
-
-      const isDynamicRoute = this.authRouteMode === 'dynamic';
-      if (isDynamicRoute) {
+      if (this.authRouteMode === 'dynamic') {
         await this.initDynamicRoute();
       } else {
         await this.initStaticRoute();
       }
-
-      initHomeTab(this.routeHomeName, router);
-
-      this.isInitAuthRoute = !this.failedInitDynamicRoute;
     }
   }
 });
