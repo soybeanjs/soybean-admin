@@ -9,6 +9,12 @@ const serviceEnv: ServiceEnv = {
     secondUrl: 'http://localhost:8081',
     secondUrlPattern: '/second-url-pattern'
   },
+  uat: {
+    url: 'http://localhost:8080',
+    urlPattern: '/url-pattern',
+    secondUrl: 'http://localhost:8081',
+    secondUrlPattern: '/second-url-pattern'
+  },
   test: {
     url: 'http://localhost:8080',
     urlPattern: '/url-pattern',

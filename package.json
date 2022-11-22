@@ -36,6 +36,7 @@
   ],
   "scripts": {
     "dev": "cross-env VITE_SERVICE_ENV=dev vite",
+    "dev:uat": "cross-env VITE_SERVICE_ENV=uat vite --mode uat",
     "dev:test": "cross-env VITE_SERVICE_ENV=test vite",
     "dev:prod": "cross-env VITE_SERVICE_ENV=prod vite",
     "build": "npm run typecheck && cross-env VITE_SERVICE_ENV=prod vite build",
@@ -122,7 +123,6 @@
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-progress": "^0.0.6",
-    "vite-plugin-pwa": "^0.13.3",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.0.9",
     "zx": "^7.1.1"
