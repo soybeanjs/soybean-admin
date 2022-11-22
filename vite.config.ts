@@ -3,6 +3,8 @@ import { createViteProxy, getRootPath, getSrcPath, setupVitePlugins, viteDefine 
 import { getServiceEnvConfig } from './.env-config';
 
 export default defineConfig(configEnv => {
+  // 加载 envDir 中的 .env 文件。默认情况下只有前缀为 VITE_ 会被加载，除非更改了 prefixes 配置。
+
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as ImportMetaEnv;
 
   const rootPath = getRootPath();
@@ -10,6 +12,10 @@ export default defineConfig(configEnv => {
 
   const isOpenProxy = viteEnv.VITE_HTTP_PROXY === 'Y';
   const envConfig = getServiceEnvConfig(viteEnv);
+
+  console.log(configEnv);
+  console.log(viteEnv);
+  console.log(envConfig);
 
   return {
     base: viteEnv.VITE_BASE_URL,

@@ -9,24 +9,13 @@ import unplugin from './unplugin';
 import mock from './mock';
 import visualizer from './visualizer';
 import compress from './compress';
-import pwa from './pwa';
 
 /**
  * vite插件
  * @param viteEnv - 环境变量配置
  */
 export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | PluginOption[])[] {
-  const plugins = [
-    vue(),
-    vueJsx(),
-    html(viteEnv),
-    ...unplugin(viteEnv),
-    unocss(),
-    mock,
-    progress(),
-    routerPage(),
-    pwa()
-  ];
+  const plugins = [vue(), vueJsx(), html(viteEnv), ...unplugin(viteEnv), unocss(), mock, progress(), routerPage()];
 
   if (viteEnv.VITE_VISUALIZER === 'Y') {
     plugins.push(visualizer as PluginOption);
