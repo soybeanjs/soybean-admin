@@ -128,9 +128,14 @@ export const useRouteStore = defineStore('route-store', {
     },
     /** 初始化静态路由 */
     async initStaticRoute() {
+      const { initHomeTab } = useTabStore();
       const auth = useAuthStore();
+
       const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
       this.handleAuthRoute(routes);
+
+      initHomeTab(this.routeHomeName, router);
+
       this.isInitAuthRoute = true;
     },
     /** 初始化权限路由 */
