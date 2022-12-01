@@ -98,6 +98,7 @@ export function useEcharts(
 
   function update(updateOptions: ECOption) {
     if (isRendered()) {
+			chart?.clear();
       chart!.setOption({ ...updateOptions, backgroundColor: 'transparent' });
     }
   }
@@ -145,7 +146,7 @@ export function useEcharts(
 
   const stopOptionWatch = watch(options, newValue => {
     update(newValue);
-  });
+  }, { deep: true });
 
   const stopDarkModeWatch = watch(
     () => theme.darkMode,
