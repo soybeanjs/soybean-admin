@@ -236,6 +236,8 @@ declare namespace Theme {
     fixed: boolean;
     /** 底部高度 */
     height: number;
+    /* 底部是否可见 */
+    visible: boolean;
   }
 
   /** 页面样式 */

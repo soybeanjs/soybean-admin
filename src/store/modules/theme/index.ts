@@ -149,6 +149,10 @@ export const useThemeStore = defineStore('theme-store', {
     setFooterHeight(height: number) {
       this.footer.height = height;
     },
+    /** 设置底部是否显示 */
+    setFooterVisible(isVisible: boolean) {
+      this.footer.visible = isVisible;
+    },
     /** 设置切换页面时是否过渡动画 */
     setPageIsAnimate(animate: boolean) {
       this.page.animate = animate;
