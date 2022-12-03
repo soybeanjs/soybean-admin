@@ -23,6 +23,8 @@ interface Props {
   visible?: boolean;
   /** 当前路由路径 */
   currentPath?: string;
+  /** 是否固定在tab卡不可关闭  */
+  affix?: boolean;
   /** 鼠标x坐标 */
   x: number;
   /** 鼠标y坐标 */
@@ -72,7 +74,7 @@ const options = computed<Option[]>(() => [
   {
     label: '关闭',
     key: 'close-current',
-    disabled: props.currentPath === tab.homeTab.fullPath,
+    disabled: props.currentPath === tab.homeTab.fullPath || Boolean(props.affix),
     icon: iconRender({ icon: 'ant-design:close-outlined' })
   },
   {

@@ -60,6 +60,8 @@ declare namespace AuthRoute {
     activeMenu?: RouteKey;
     /** 表示是否是多级路由的中间级路由(用于转换路由数据时筛选多级路由的标识，定义路由时不用填写) */
     multi?: boolean;
+    /** 是否固定在tab卡不可关闭  */
+    affix?: boolean;
   }
 
   type Route<K extends AllRouteKey = AllRouteKey> = K extends AllRouteKey
