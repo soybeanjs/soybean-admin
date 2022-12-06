@@ -65,33 +65,36 @@ async function getActiveTabClientX() {
   }
 }
 
-const dropdown = reactive({
+interface DropdownConfig {
+  visible: boolean;
+  affix: boolean;
+  x: number;
+  y: number;
+  currentPath: string;
+}
+
+const dropdown: DropdownConfig = reactive({
   visible: false,
   affix: false,
   x: 0,
   y: 0,
   currentPath: ''
 });
-function showDropdown() {
-  dropdown.visible = true;
-}
-function hideDropdown() {
-  dropdown.visible = false;
-}
-function setDropdown(x: number, y: number, currentPath: string, affix?: boolean) {
-  Object.assign(dropdown, { x, y, currentPath, affix });
+
+function setDropdown(config: Partial<DropdownConfig>) {
+  Object.assign(dropdown, config);
 }
 
 let isClickContextMenu = false;
 
 function handleDropdownVisible(visible: boolean) {
   if (!isClickContextMenu) {
-    dropdown.visible = visible;
+    setDropdown({ visible });
   }
 }
 
 /** 点击右键菜单 */
-async function handleContextMenu(e: MouseEvent, fullPath: string, affix?: boolean) {
+async function handleContextMenu(e: MouseEvent, currentPath: string, affix?: boolean) {
   e.preventDefault();
 
   const { clientX, clientY } = e;
@@ -100,11 +103,16 @@ async function handleContextMenu(e: MouseEvent, fullPath: string, affix?: boolea
 
   const DURATION = dropdown.visible ? 150 : 0;
 
-  hideDropdown();
+  setDropdown({ visible: false });
 
   setTimeout(() => {
-    setDropdown(clientX, clientY, fullPath, affix);
-    showDropdown();
+    setDropdown({
+      visible: true,
+      x: clientX,
+      y: clientY,
+      currentPath,
+      affix
+    });
     isClickContextMenu = false;
   }, DURATION);
 }
