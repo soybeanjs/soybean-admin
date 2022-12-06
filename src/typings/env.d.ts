@@ -53,6 +53,8 @@ interface ImportMetaEnv {
   readonly VITE_COMPRESS?: 'Y' | 'N';
   /** 压缩算法类型 */
   readonly VITE_COMPRESS_TYPE?: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw';
+  /** 是否应用pwa */
+  readonly VITE_PWA?: 'Y' | 'N';
   /** hash路由模式 */
   readonly VITE_HASH_ROUTE?: 'Y' | 'N';
   /** 是否是部署的vercel */
