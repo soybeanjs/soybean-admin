@@ -1,4 +1,4 @@
-import { onUnmounted, watch } from 'vue';
+import { effectScope, onScopeDispose, watch } from 'vue';
 import { useOsTheme } from 'naive-ui';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { useElementSize } from '@vueuse/core';
@@ -12,67 +12,66 @@ export default function subscribeThemeStore() {
   const osTheme = useOsTheme();
   const { width } = useElementSize(document.documentElement);
   const { addDarkClass, removeDarkClass } = handleCssDarkMode();
+  const scope = effectScope();
 
-  // 监听主题颜色
-  const stopThemeColor = watch(
-    () => theme.themeColor,
-    newValue => {
-      localStg.set('themeColor', newValue);
-    },
-    { immediate: true }
-  );
+  scope.run(() => {
+    // 监听主题颜色
+    watch(
+      () => theme.themeColor,
+      newValue => {
+        localStg.set('themeColor', newValue);
+      },
+      { immediate: true }
+    );
 
-  // 监听naiveUI themeOverrides
-  const stopThemeOverrides = watch(
-    () => theme.naiveThemeOverrides,
-    newValue => {
-      if (newValue.common) {
-        addThemeCssVarsToHtml(newValue.common);
+    // 监听naiveUI themeOverrides
+    watch(
+      () => theme.naiveThemeOverrides,
+      newValue => {
+        if (newValue.common) {
+          addThemeCssVarsToHtml(newValue.common);
+        }
+      },
+      { immediate: true }
+    );
+
+    // 监听暗黑模式
+    watch(
+      () => theme.darkMode,
+      newValue => {
+        if (newValue) {
+          addDarkClass();
+        } else {
+          removeDarkClass();
+        }
+      },
+      {
+        immediate: true
       }
-    },
-    { immediate: true }
-  );
+    );
 
-  // 监听暗黑模式
-  const stopDarkMode = watch(
-    () => theme.darkMode,
-    newValue => {
-      if (newValue) {
-        addDarkClass();
+    // 监听操作系统主题模式
+    watch(
+      osTheme,
+      newValue => {
+        const isDark = newValue === 'dark';
+        theme.setAutoFollowSystemMode(isDark);
+      },
+      { immediate: true }
+    );
+
+    // 禁用横向滚动(页面切换时,过渡动画会产生水平方向的滚动条, 小于最小宽度时，不禁止)
+    watch(width, newValue => {
+      if (newValue < theme.layout.minWidth) {
+        document.documentElement.style.overflowX = 'auto';
       } else {
-        removeDarkClass();
+        document.documentElement.style.overflowX = 'hidden';
       }
-    },
-    {
-      immediate: true
-    }
-  );
-
-  // 监听操作系统主题模式
-  const stopOsTheme = watch(
-    osTheme,
-    newValue => {
-      const isDark = newValue === 'dark';
-      theme.setAutoFollowSystemMode(isDark);
-    },
-    { immediate: true }
-  );
-
-  // 禁用横向滚动(页面切换时,过渡动画会产生水平方向的滚动条, 小于最小宽度时，不禁止)
-  const stopWidth = watch(width, newValue => {
-    if (newValue < theme.layout.minWidth) {
-      document.documentElement.style.overflowX = 'auto';
-    } else {
-      document.documentElement.style.overflowX = 'hidden';
-    }
+    });
   });
 
-  onUnmounted(() => {
-    stopThemeColor();
-    stopThemeOverrides();
-    stopDarkMode();
-    stopOsTheme();
-    stopWidth();
+  onScopeDispose(() => {
+    scope.stop();
   });
 }
 
