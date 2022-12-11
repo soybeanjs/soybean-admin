@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, onScopeDispose, ref } from 'vue';
 import { useBoolean } from '../common';
 
 /**
@@ -41,6 +41,8 @@ export default function useCountDown(second: number) {
     intervalId = clearInterval(intervalId);
     counts.value = 0;
   }
+
+  onScopeDispose(stop);
 
   return {
     counts,

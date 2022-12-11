@@ -1,4 +1,4 @@
-import { nextTick, onUnmounted, ref, watch } from 'vue';
+import { nextTick, effectScope, onScopeDispose, ref, watch } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 import * as echarts from 'echarts/core';
 import { BarChart, GaugeChart, LineChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
@@ -128,42 +128,44 @@ export function useEcharts(
     render();
   }
 
-  const stopSizeWatch = watch([width, height], ([newWidth, newHeight]) => {
-    initialSize.width = newWidth;
-    initialSize.height = newHeight;
-    if (newWidth === 0 && newHeight === 0) {
-      // 节点被删除 将chart置为空
-      chart = null;
-    }
-    if (canRender()) {
-      if (!isRendered()) {
-        render();
-      } else {
-        resize();
+  const scope = effectScope();
+
+  scope.run(() => {
+    watch([width, height], ([newWidth, newHeight]) => {
+      initialSize.width = newWidth;
+      initialSize.height = newHeight;
+      if (newWidth === 0 && newHeight === 0) {
+        // 节点被删除 将chart置为空
+        chart = null;
       }
-    }
+      if (canRender()) {
+        if (!isRendered()) {
+          render();
+        } else {
+          resize();
+        }
+      }
+    });
+
+    watch(
+      options,
+      newValue => {
+        update(newValue);
+      },
+      { deep: true }
+    );
+
+    watch(
+      () => theme.darkMode,
+      () => {
+        updateTheme();
+      }
+    );
   });
 
-  const stopOptionWatch = watch(
-    options,
-    newValue => {
-      update(newValue);
-    },
-    { deep: true }
-  );
-
-  const stopDarkModeWatch = watch(
-    () => theme.darkMode,
-    () => {
-      updateTheme();
-    }
-  );
-
-  onUnmounted(() => {
+  onScopeDispose(() => {
     destroy();
-    stopSizeWatch();
-    stopOptionWatch();
-    stopDarkModeWatch();
+    scope.stop();
   });
 
   return {
