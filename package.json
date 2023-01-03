@@ -45,14 +45,14 @@
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint . --fix",
-    "commit": "czg",
+    "commit": "soybean git-commit",
     "esno": "esno",
     "cleanup": "esno ./scripts/cleanup.ts",
     "compress": "esno ./scripts/compress.ts",
+    "git-hooks": "esno ./scripts/git-hooks.ts",
     "update-pkg": "ncu --deep -u",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release": "standard-version",
-    "prepare": "husky install"
+    "release": "standard-version"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.8",
@@ -87,6 +87,7 @@
     "@amap/amap-jsapi-types": "^0.0.10",
     "@iconify/json": "^2.2.1",
     "@iconify/vue": "^4.0.2",
+    "@soybeanjs/cli": "^0.1.4",
     "@soybeanjs/router-page": "1.0.3",
     "@types/bmapgl": "^0.0.5",
     "@types/crypto-js": "^4.1.1",
@@ -97,22 +98,20 @@
     "@unocss/vite": "^0.48.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
-    "commitlint": "^17.3.0",
     "compressing": "^1.6.3",
     "conventional-changelog": "^3.1.25",
     "cross-env": "^7.0.3",
-    "cz-git": "^1.4.1",
-    "czg": "^1.4.1",
     "eslint": "^8.31.0",
     "eslint-config-soybeanjs-vue": "^0.2.1",
     "esno": "^0.16.3",
-    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
     "mockjs": "^1.1.0",
     "node-html-to-image": "^3.2.4",
     "npm-check-updates": "^16.6.2",
     "rimraf": "^3.0.2",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.57.1",
+    "simple-git-hooks": "^2.8.1",
     "standard-version": "^9.5.0",
     "typescript": "4.9.4",
     "unplugin-icons": "^0.14.15",
@@ -133,5 +132,14 @@
     "patchedDependencies": {
       "mockjs@1.1.0": "patches/mockjs@1.1.0.patch"
     }
+  },
+  "simple-git-hooks": {
+    "commit-msg": "pnpm soybean git-commit-verify",
+    "pre-commit": "pnpm exec lint-staged --concurrent false"
+  },
+  "lint-staged": {
+    "*": [
+      "eslint . --fix"
+    ]
   }
 }
