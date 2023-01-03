@@ -47,6 +47,7 @@
     "lint": "eslint . --fix",
     "commit": "soybean git-commit",
     "esno": "esno",
+    "logo": "esno ./scripts/logo.ts",
     "cleanup": "esno ./scripts/cleanup.ts",
     "compress": "esno ./scripts/compress.ts",
     "git-hooks": "esno ./scripts/git-hooks.ts",

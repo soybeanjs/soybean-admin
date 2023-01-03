@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="https://i.loli.net/2021/11/24/x5lLfuSnEawBAgi.png"/>
+	<img src="./public/logo.png" style="width: 240px;"/>
 	<h1>Soybean Admin</h1>
 </div>
 
