@@ -17,7 +17,7 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
   const collectionName = VITE_ICON_LOCAL_PREFFIX.replace(`${VITE_ICON_PREFFIX}-`, '');
 
   return [
-    VueMacros(),
+    VueMacros({}),
     Icons({
       compiler: 'vue3',
       customCollections: {
