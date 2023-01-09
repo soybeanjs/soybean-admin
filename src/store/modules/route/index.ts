@@ -11,7 +11,8 @@ import {
   transformAuthRouteToMenu,
   transformAuthRouteToSearchMenus,
   transformRouteNameToRoutePath,
-  transformRoutePathToRouteName
+  transformRoutePathToRouteName,
+  sortRoutes
 } from '@/utils';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
@@ -119,7 +120,7 @@ export const useRouteStore = defineStore('route-store', {
       if (!error) {
         this.routeHomeName = data.home;
         this.handleUpdateRootRedirect(data.home);
-        this.handleAuthRoute(data.routes);
+        this.handleAuthRoute(sortRoutes(data.routes));
 
         initHomeTab(data.home, router);
 
