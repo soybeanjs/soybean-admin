@@ -2,7 +2,7 @@
  * 权限路由排序
  * @param routes - 权限路由
  */
-function sortRoutes(routes: AuthRoute.Route[]) {
+export function sortRoutes(routes: AuthRoute.Route[]) {
   return routes.sort((next, pre) => Number(next.meta?.order) - Number(pre.meta?.order));
 }
 
