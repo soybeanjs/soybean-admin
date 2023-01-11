@@ -52,7 +52,8 @@
     "logo": "esno ./scripts/logo.ts",
     "compress": "esno ./scripts/compress.ts",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release": "standard-version"
+    "release": "standard-version",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.8",
@@ -104,7 +105,7 @@
     "eslint": "^8.31.0",
     "eslint-config-soybeanjs-vue": "^0.2.2",
     "esno": "^0.16.3",
-    "lint-staged": "^13.1.0",
+    "lint-staged": "12.5.0",
     "mockjs": "^1.1.0",
     "node-html-to-image": "^3.2.4",
     "npm-check-updates": "^16.6.2",
@@ -135,11 +136,9 @@
   },
   "simple-git-hooks": {
     "commit-msg": "pnpm soy git-commit-verify",
-    "pre-commit": "pnpm exec lint-staged --concurrent false"
+    "pre-commit": "pnpm typecheck && pnpm lint-staged"
   },
   "lint-staged": {
-    "*": [
-      "eslint . --fix"
-    ]
+    "*": "eslint . --fix"
   }
 }
