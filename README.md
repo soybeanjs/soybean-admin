@@ -41,9 +41,8 @@
 
 ## 后端服务
 
-- [soybean-admin-java(开发中)](https://github.com/honghuangdc/soybean-admin-java)
-- [soybean-admin-go(开发中)](https://github.com/honghuangdc/soybean-admin-go)
-- [soybean-admin-nestjs(开发中)](https://github.com/honghuangdc/soybean-admin-nestjs)
+- [soybean-admin-java](https://github.com/honghuangdc/soybean-admin-java)
+- [soybean-admin-go](https://github.com/honghuangdc/soybean-admin-go)
 
 ## 项目示例图
 
@@ -116,13 +115,9 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 ## Git 贡献提交规范
 
-项目已经内置 angular 提交规范，通过 git cz 代替 git commit 命令即可。
+项目已经内置 angular 提交规范，直接执行 commit 命令即可。
 
-git cz 命令需要全局安装 commitizen
-
-```bash
-pnpm i -g commitizen
-```
+项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-git-hooks 进行初始化配置
 
 ## 浏览器支持
 
