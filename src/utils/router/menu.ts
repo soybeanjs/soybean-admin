@@ -45,7 +45,7 @@ export function getActiveKeyPathsOfMenus(activeKey: string, menus: App.GlobalMen
 
 function getActiveKeyPathsOfMenu(activeKey: string, menu: App.GlobalMenuOption) {
   const keys: string[] = [];
-  if (activeKey.includes(menu.routeName)) {
+  if (activeKey.startsWith(menu.routeName)) {
     keys.push(menu.routeName);
   }
   if (menu.children) {
