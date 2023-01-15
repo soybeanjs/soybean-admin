@@ -5,13 +5,13 @@ declare namespace AuthRoute {
   /** 捕获无效路由的路由路径 */
   type NotFoundRoutePath = '/:pathMatch(.*)*';
 
-  type RootRouteKey = RouterPage.RootRouteKey;
+  type RootRouteKey = PageRoute.RootRouteKey;
 
-  type NotFoundRouteKey = RouterPage.NotFoundRouteKey;
+  type NotFoundRouteKey = PageRoute.NotFoundRouteKey;
 
-  type RouteKey = RouterPage.RouteKey;
+  type RouteKey = PageRoute.RouteKey;
 
-  type LastDegreeRouteKey = RouterPage.LastDegreeRouteKey;
+  type LastDegreeRouteKey = PageRoute.LastDegreeRouteKey;
 
   type AllRouteKey = RouteKey | RootRouteKey | NotFoundRouteKey;
 
