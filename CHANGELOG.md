@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.8](https://github.com/honghuangdc/soybean-admin/compare/v0.9.7...v0.9.8) (2023-01-15)
+
+
+### Features
+
+* 新增 affix 属性，用于将其固定在tab卡 ([e772ff0](https://github.com/honghuangdc/soybean-admin/commit/e772ff05fb6ef513bd37cd9b1e245ea72f0ad6d2))
+* **projects:** add compress script [添加压缩命令] ([be6d431](https://github.com/honghuangdc/soybean-admin/commit/be6d431485a5688bd1ed567e11c1ca35ab9259b0))
+* **projects:** add generate logo script ([25daa23](https://github.com/honghuangdc/soybean-admin/commit/25daa236064c9a76677dbf16bc6d9717b1e0040f))
+* **projects:** add new route plugin @soybeanjs/vite-plugin-vue-page-route [集成新的路由插件] ([3131e00](https://github.com/honghuangdc/soybean-admin/commit/3131e00f0f4a66756f547892a8d312cde3aaf868))
+* **projects:** add script about generating png logo from [添加根据svg生成png图标的命令] ([70aeefe](https://github.com/honghuangdc/soybean-admin/commit/70aeefea02fcc13c152ee9d7a1197381bac724b9))
+* setting 页面新增 是否显示footer的开关 ([d064f62](https://github.com/honghuangdc/soybean-admin/commit/d064f6285a6d1616d7606f1390d5f01819b258bb))
+
+
+### Bug Fixes
+
+* **components:** 修复路由在path中包含重复路单词径菜单时，被激活会错误展开 ([264da00](https://github.com/honghuangdc/soybean-admin/commit/264da00e5d2cd8139907c2ac11a046649d942f4b))
+* count can't display when endValue is 0. ([0282feb](https://github.com/honghuangdc/soybean-admin/commit/0282feb1730724ba66c2e57ab354099afa074e81))
+* **projects:** 修复动态路由模式下路由不排序的问题 ([58b27c9](https://github.com/honghuangdc/soybean-admin/commit/58b27c96932ba89b362138a6056a82c25a7be282))
+* **projects:** 修复tabs在static路由模式下可以关闭首页 ([7211a17](https://github.com/honghuangdc/soybean-admin/commit/7211a17a8158b01a1f6dd6c83591f86d76633de0))
+* **projects:** add router-page.d.ts to git [将router-page.d.ts添加git提交] ([7a58035](https://github.com/honghuangdc/soybean-admin/commit/7a5803551419f65ca55ba797b49273b3a0dc6067))
+* **projects:** fix login success message [修复登录成功的消息提示] ([810398a](https://github.com/honghuangdc/soybean-admin/commit/810398abb882613f82ba385e8a7666cf8b86d92d))
+* **projects:** fix router when the dynamic routes api was failed [修复当动态路由接口失败后路由异常问题] ([f2b580f](https://github.com/honghuangdc/soybean-admin/commit/f2b580fc067e81202238bf8079a13ff014b0b329))
+* **projects:** fix vite-pwa plugin config ([94098d0](https://github.com/honghuangdc/soybean-admin/commit/94098d02e8cec12e3c9f9331ece154b65d1c9150))
+* remove height limit h-360px ([b5c570a](https://github.com/honghuangdc/soybean-admin/commit/b5c570adf55fd235dcec49bc20837623b1d5d3c4))
+* set password attributes ([a9a3703](https://github.com/honghuangdc/soybean-admin/commit/a9a37036d58274385a779e6460f7be281dafdcaf))
+
 ### [0.9.7](https://github.com/honghuangdc/soybean-admin/compare/v0.9.6...v0.9.7) (2022-11-07)
 
 
