@@ -1,11 +1,12 @@
 import { unref, nextTick } from 'vue';
 import { defineStore } from 'pinia';
 import { router } from '@/router';
-import { fetchLogin, fetchUserInfo } from '@/service';
+import { fetchUserInfo } from '@/service';
+import { useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { localStg } from '@/utils';
 import { useTabStore } from '../tab';
-import { useRouteStore } from '../route';
+import { defaultAuthType } from './auth-type';
 import { getToken, getUserInfo, clearAuthStorage } from './helpers';
 
 interface AuthState {
@@ -53,59 +54,35 @@ export const useAuthStore = defineStore('auth-store', {
      * 处理登录后成功或失败的逻辑
      * @param backendToken - 返回的token
      */
-    async handleActionAfterLogin(backendToken: ApiAuth.Token) {
+    async handleActionAfterLogin(backendToken: ApiAuth.Token | ApiAuth.JWT) {
       const route = useRouteStore();
       const { toLoginRedirect } = useRouterPush(false);
 
-      const loginSuccess = await this.loginByToken(backendToken);
+      // 保存token到store
+      this.token = backendToken.token;
 
-      if (loginSuccess) {
-        await route.initAuthRoute();
-
-        // 跳转登录后的地址
-        toLoginRedirect();
-
-        // 登录成功弹出欢迎提示
-        if (route.isInitAuthRoute) {
-          window.$notification?.success({
-            title: '登录成功!',
-            content: `欢迎回来，${this.userInfo.userName}!`,
-            duration: 3000
-          });
-        }
-
+      // 获取用户信息
+      const userInfo = await this.updateUserInfo();
+      if (!userInfo) {
+        // 获取数据失败，重置状态，退出
+        this.resetAuthStore();
         return;
       }
 
-      // 不成功则重置状态
-      this.resetAuthStore();
-    },
-    /**
-     * 根据token进行登录
-     * @param backendToken - 返回的token
-     */
-    async loginByToken(backendToken: ApiAuth.Token) {
-      let successFlag = false;
+      // 初始化路由
+      await route.initAuthRoute();
 
-      // 先把token存储到缓存中(后面接口的请求头需要token)
-      const { token, refreshToken } = backendToken;
-      localStg.set('token', token);
-      localStg.set('refreshToken', refreshToken);
+      // 跳转登录后的地址
+      toLoginRedirect();
 
-      // 获取用户信息
-      const { data } = await fetchUserInfo();
-      if (data) {
-        // 成功后把用户信息存储到缓存中
-        localStg.set('userInfo', data);
-
-        // 更新状态
-        this.userInfo = data;
-        this.token = token;
-
-        successFlag = true;
+      // 登录成功弹出欢迎提示
+      if (route.isInitAuthRoute) {
+        window.$notification?.success({
+          title: '登录成功!',
+          content: `欢迎回来，${this.userInfo.userName}!`,
+          duration: 3000
+        });
       }
-
-      return successFlag;
     },
     /**
      * 登录
@@ -114,11 +91,27 @@ export const useAuthStore = defineStore('auth-store', {
      */
     async login(userName: string, password: string) {
       this.loginLoading = true;
-      const { data } = await fetchLogin(userName, password);
+      const { data } = await defaultAuthType.fetchLogin(userName, password);
       if (data) {
+        // 登录成功后对返回的Token或者JWT处理
+        defaultAuthType.handleAuthToken(data);
         await this.handleActionAfterLogin(data);
       }
       this.loginLoading = false;
+    },
+    /**
+     * 查询用户信息并更新到store
+     */
+    async updateUserInfo() {
+      const { data } = await fetchUserInfo();
+      if (data) {
+        // 成功后把用户信息存储到缓存中
+        localStg.set('userInfo', data);
+        // 更新状态
+        this.userInfo = data;
+        return data;
+      }
+      return null;
     },
     /**
      * 更换用户权限(切换账号)
@@ -142,9 +135,10 @@ export const useAuthStore = defineStore('auth-store', {
         }
       };
       const { userName, password } = accounts[userRole];
-      const { data } = await fetchLogin(userName, password);
+      const { data } = await defaultAuthType.fetchLogin(userName, password);
       if (data) {
-        await this.loginByToken(data);
+        this.token = data.token;
+        defaultAuthType.handleAuthToken(data);
         resetRouteStore();
         initAuthRoute();
       }

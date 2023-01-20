@@ -23,7 +23,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/login',
     method: 'post',
-    response: (options: Service.MockOption): Service.MockServiceResult<ApiAuth.Token | null> => {
+    response: (options: Service.MockOption): Service.MockServiceResult<ApiAuth.JWT | null> => {
       const { userName = undefined, password = undefined } = options.body;
 
       if (!userName || !password) {
@@ -101,7 +101,7 @@ const apis: MockMethod[] = [
   {
     url: '/mock/updateToken',
     method: 'post',
-    response: (options: Service.MockOption): Service.MockServiceResult<ApiAuth.Token | null> => {
+    response: (options: Service.MockOption): Service.MockServiceResult<ApiAuth.JWT | null> => {
       const { refreshToken = '' } = options.body;
 
       const findItem = userModel.find(item => item.refreshToken === refreshToken);

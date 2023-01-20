@@ -10,12 +10,21 @@ export function fetchSmsCode(phone: string) {
 }
 
 /**
- * 登录
+ * 登录（Token认证方式）
  * @param userName - 用户名
  * @param password - 密码
  */
-export function fetchLogin(userName: string, password: string) {
+export function fetchLoginToken(userName: string, password: string) {
   return mockRequest.post<ApiAuth.Token>('/login', { userName, password });
+}
+
+/**
+ * 登录（JWT认证方式）
+ * @param userName - 用户名
+ * @param password - 密码
+ */
+export function fetchLoginJWT(userName: string, password: string) {
+  return mockRequest.post<ApiAuth.JWT>('/login', { userName, password });
 }
 
 /** 获取用户信息 */
@@ -37,5 +46,5 @@ export function fetchUserRoutes(userId: string) {
  * @param refreshToken
  */
 export function fetchUpdateToken(refreshToken: string) {
-  return mockRequest.post<ApiAuth.Token>('/updateToken', { refreshToken });
+  return mockRequest.post<ApiAuth.JWT>('/updateToken', { refreshToken });
 }

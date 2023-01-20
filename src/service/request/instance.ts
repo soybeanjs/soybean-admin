@@ -9,7 +9,7 @@ import {
   handleServiceResult,
   transformRequestData
 } from '@/utils';
-import { handleRefreshToken } from './helpers';
+import { defaultAuthType } from '@/store/modules/auth/auth-type';
 
 /**
  * 封装axios请求类
@@ -71,7 +71,7 @@ export default class CustomAxiosInstance {
 
           // token失效, 刷新token
           if (REFRESH_TOKEN_CODE.includes(backend[codeKey])) {
-            const config = await handleRefreshToken(response.config);
+            const config = await defaultAuthType.handleTokenFailure(response.config);
             if (config) {
               return this.instance.request(config);
             }

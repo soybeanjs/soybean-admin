@@ -2,8 +2,12 @@
 
 /** 后端返回的用户权益相关类型 */
 declare namespace ApiAuth {
-  /** 返回的token和刷新token */
+  /** 返回的token */
   interface Token {
+    token: string;
+  }
+  /** 返回的token和刷新token */
+  interface JWT {
     token: string;
     refreshToken: string;
   }
