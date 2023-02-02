@@ -27,15 +27,7 @@ import type { SwiperOptions } from 'swiper';
 
 type SwiperExampleOptions = Pick<
   SwiperOptions,
-  | 'navigation'
-  | 'pagination'
-  | 'scrollbar'
-  | 'slidesPerView'
-  | 'slidesPerGroup'
-  | 'spaceBetween'
-  | 'direction'
-  | 'loop'
-  | 'loopFillGroupWithBlank'
+  'navigation' | 'pagination' | 'scrollbar' | 'slidesPerView' | 'slidesPerGroup' | 'spaceBetween' | 'direction' | 'loop'
 >;
 
 interface SwiperExample {

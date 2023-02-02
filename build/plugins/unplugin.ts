@@ -21,7 +21,9 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
     Icons({
       compiler: 'vue3',
       customCollections: {
-        [collectionName]: FileSystemIconLoader(localIconPath)
+        [collectionName]: FileSystemIconLoader(localIconPath, svg =>
+          svg.replace(/^<svg /, '<svg width="1em" height="1em" ')
+        )
       },
       scale: 1,
       defaultClass: 'inline-block'
