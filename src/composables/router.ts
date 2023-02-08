@@ -19,9 +19,9 @@ export function useRouterPush(inSetup = true) {
     if (newTab) {
       const routerData = router.resolve(to);
       window.open(routerData.href, '_blank');
-    } else {
-      router.push(to);
+      return Promise.resolve();
     }
+    return router.push(to);
   }
 
   /** 返回上一级路由 */
