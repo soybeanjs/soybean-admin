@@ -22,7 +22,7 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
       compiler: 'vue3',
       customCollections: {
         [collectionName]: FileSystemIconLoader(localIconPath, svg =>
-          svg.replace(/^<svg /, '<svg width="1em" height="1em" ')
+          svg.replace(/^<svg\s/, '<svg width="1em" height="1em" ')
         )
       },
       scale: 1,

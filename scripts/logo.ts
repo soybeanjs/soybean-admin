@@ -1,17 +1,12 @@
-import { readFile } from 'fs/promises';
-import nodeHtmlToImage from 'node-html-to-image';
+import { readFile, writeFile } from 'fs/promises';
 import themeSettings from '../src/settings/theme.json';
 
-async function generatePngLogoFromSvg(svgPath: string, color: string) {
+async function updateFavicon(svgPath: string, color: string) {
   const svgStr = await readFile(svgPath, 'utf-8');
 
   const svgStrWithColor = svgStr.replace(/currentColor/g, color);
 
-  await nodeHtmlToImage({
-    output: './public/logo.png',
-    html: svgStrWithColor,
-    transparent: true
-  });
+  await writeFile('./public/favicon.svg', svgStrWithColor);
 }
 
-generatePngLogoFromSvg('./src/assets/svg-icon/logo.svg', themeSettings.themeColor);
+updateFavicon('./src/assets/svg-icon/logo.svg', themeSettings.themeColor);

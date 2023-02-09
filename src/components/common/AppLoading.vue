@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { useAppInfo } from '@/composables';
 import { localStg } from '@/utils';
+import themeSettings from '@/settings/theme.json';
 
 const { title } = useAppInfo();
 
@@ -29,7 +30,7 @@ const lodingClasses = [
 ];
 
 function addThemeColorCssVars() {
-  const defaultColor = '#1890ff';
+  const defaultColor = themeSettings.themeColor;
   const themeColor = localStg.get('themeColor') || defaultColor;
   const cssVars = `--primary-color: ${themeColor}`;
   document.documentElement.style.cssText = cssVars;
