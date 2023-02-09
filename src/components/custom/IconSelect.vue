@@ -11,14 +11,13 @@
       <n-input v-model:value="searchValue" placeholder="搜索图标"></n-input>
     </template>
     <div v-if="iconsList.length > 0" class="grid grid-cols-9 h-auto overflow-auto">
-      <template v-for="iconItem in iconsList" :key="iconItem">
+      <span v-for="iconItem in iconsList" :key="iconItem" @click="handleChange(iconItem)">
         <svg-icon
           :icon="iconItem"
-          class="border-1px border-[#d9d9d9] text-30px m-2px p-5px"
+          class="border-1px border-[#d9d9d9] text-30px m-2px p-5px cursor-pointer"
           :class="{ 'border-primary': modelValue === iconItem }"
-          @click="handleChange(iconItem)"
         />
-      </template>
+      </span>
     </div>
     <n-empty v-else class="w-306px" description="你什么也找不到" />
   </n-popover>
