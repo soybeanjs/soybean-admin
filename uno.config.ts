@@ -37,7 +37,7 @@ export default defineConfig({
     'fixed-br': 'fixed-rb',
     'fixed-center': 'fixed-lt flex-center wh-full',
     'nowrap-hidden': 'whitespace-nowrap overflow-hidden',
-    'ellipsis-text': 'nowrap-hidden overflow-ellipsis',
+    'ellipsis-text': 'nowrap-hidden text-ellipsis',
     'transition-base': 'transition-all duration-300 ease-in-out'
   },
   theme: {
