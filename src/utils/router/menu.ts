@@ -10,7 +10,7 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): App.GlobalM
     const { name, path, meta } = route;
     const routeName = name as string;
     let menuChildren: App.GlobalMenuOption[] | undefined;
-    if (route.children) {
+    if (route.children && route.children.length > 0) {
       menuChildren = transformAuthRouteToMenu(route.children);
     }
     const menuItem: App.GlobalMenuOption = addPartialProps({
