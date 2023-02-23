@@ -1,4 +1,4 @@
-import WorkbenchHeader from './WorkbenchHeader/index.vue';
-import WorkbenchMain from './WorkbenchMain/index.vue';
+import WorkbenchHeader from './workbench-header/index.vue';
+import WorkbenchMain from './workbench-main/index.vue';
 
 export { WorkbenchHeader, WorkbenchMain };

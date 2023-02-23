@@ -1,5 +1,5 @@
-import useCountDown from './useCountDown';
-import useSmsCode from './useSmsCode';
-import useImageVerify from './useImageVerify';
+import useCountDown from './use-count-down';
+import useSmsCode from './use-sms-code';
+import useImageVerify from './use-image-verify';
 
 export { useCountDown, useSmsCode, useImageVerify };

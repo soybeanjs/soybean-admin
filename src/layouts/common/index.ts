@@ -1,10 +1,10 @@
-import SettingDrawer from './SettingDrawer/index.vue';
-import GlobalHeader from './GlobalHeader/index.vue';
-import GlobalTab from './GlobalTab/index.vue';
-import GlobalSider from './GlobalSider/index.vue';
-import GlobalContent from './GlobalContent/index.vue';
-import GlobalFooter from './GlobalFooter/index.vue';
-import GlobalLogo from './GlobalLogo/index.vue';
-import GlobalBackTop from './GlobalBackTop/index.vue';
+import SettingDrawer from './setting-drawer/index.vue';
+import GlobalHeader from './global-header/index.vue';
+import GlobalTab from './global-tab/index.vue';
+import GlobalSider from './global-sider/index.vue';
+import GlobalContent from './global-content/index.vue';
+import GlobalFooter from './global-footer/index.vue';
+import GlobalLogo from './global-logo/index.vue';
+import GlobalBackTop from './global-back-top/index.vue';
 
 export { SettingDrawer, GlobalHeader, GlobalTab, GlobalSider, GlobalContent, GlobalFooter, GlobalLogo, GlobalBackTop };

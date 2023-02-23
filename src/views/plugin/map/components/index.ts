@@ -1,5 +1,5 @@
-import BaiduMap from './BaiduMap.vue';
-import GaodeMap from './GaodeMap.vue';
-import TencentMap from './TencentMap.vue';
+import BaiduMap from './baidu-map.vue';
+import GaodeMap from './gaode-map.vue';
+import TencentMap from './tencent-map.vue';
 
 export { BaiduMap, GaodeMap, TencentMap };

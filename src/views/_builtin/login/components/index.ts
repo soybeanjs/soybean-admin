@@ -1,8 +1,8 @@
-import LoginBg from './LoginBg/index.vue';
-import PwdLogin from './PwdLogin/index.vue';
-import CodeLogin from './CodeLogin/index.vue';
-import Register from './Register/index.vue';
-import ResetPwd from './ResetPwd/index.vue';
-import BindWechat from './BindWechat/index.vue';
+import LoginBg from './login-bg/index.vue';
+import PwdLogin from './pwd-login/index.vue';
+import CodeLogin from './code-login/index.vue';
+import Register from './register-user/index.vue';
+import ResetPwd from './reset-pwd/index.vue';
+import BindWechat from './bind-wechat/index.vue';
 
 export { LoginBg, PwdLogin, CodeLogin, Register, ResetPwd, BindWechat };

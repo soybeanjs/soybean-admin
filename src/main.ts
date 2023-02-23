@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import AppLoading from './components/common/AppLoading.vue';
+import AppLoading from './components/common/app-loading.vue';
 import { setupDirectives } from './directives';
 import { setupRouter } from './router';
 import { setupAssets } from './plugins';
