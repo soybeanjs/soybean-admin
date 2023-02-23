@@ -39,17 +39,17 @@ module.exports = {
             position: 'before'
           },
           {
+            pattern: '@/constants',
+            group: 'internal',
+            position: 'before'
+          },
+          {
             pattern: '@/config',
             group: 'internal',
             position: 'before'
           },
           {
             pattern: '@/settings',
-            group: 'internal',
-            position: 'before'
-          },
-          {
-            pattern: '@/enum',
             group: 'internal',
             position: 'before'
           },

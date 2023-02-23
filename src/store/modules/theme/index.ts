@@ -58,7 +58,7 @@ export const useThemeStore = defineStore('theme-store', {
       this.layout.minWidth = minWidth;
     },
     /** 设置布局模式 */
-    setLayoutMode(mode: EnumType.ThemeLayoutMode) {
+    setLayoutMode(mode: UnionKey.ThemeLayoutMode) {
       this.layout.mode = mode;
     },
     /** 设置侧边栏反转色 */
@@ -106,7 +106,7 @@ export const useThemeStore = defineStore('theme-store', {
       }
     },
     /** 设置多页签风格 */
-    setTabMode(mode: EnumType.ThemeTabMode) {
+    setTabMode(mode: UnionKey.ThemeTabMode) {
       this.tab.mode = mode;
     },
     /** 设置多页签缓存 */
@@ -138,7 +138,7 @@ export const useThemeStore = defineStore('theme-store', {
       this.sider.mixChildMenuWidth = width;
     },
     /** 设置水平模式的菜单的位置 */
-    setHorizontalMenuPosition(position: EnumType.ThemeHorizontalMenuPosition) {
+    setHorizontalMenuPosition(position: UnionKey.ThemeHorizontalMenuPosition) {
       this.menu.horizontalPosition = position;
     },
     /** 设置底部是否固定 */
@@ -158,7 +158,7 @@ export const useThemeStore = defineStore('theme-store', {
       this.page.animate = animate;
     },
     /** 设置页面过渡动画类型 */
-    setPageAnimateMode(mode: EnumType.ThemeAnimateMode) {
+    setPageAnimateMode(mode: UnionKey.ThemeAnimateMode) {
       this.page.animateMode = mode;
     }
   }

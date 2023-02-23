@@ -9,13 +9,13 @@ interface ModuleComponent {
   default: RouteComponent;
 }
 
-type LayoutComponent = Record<EnumType.LayoutComponentName, Lazy<ModuleComponent>>;
+type LayoutComponent = Record<UnionKey.LayoutComponentName, Lazy<ModuleComponent>>;
 
 /**
  * 获取布局的vue文件(懒加载的方式)
  * @param layoutType - 布局类型
  */
-export function getLayoutComponent(layoutType: EnumType.LayoutComponentName) {
+export function getLayoutComponent(layoutType: UnionKey.LayoutComponentName) {
   const layoutComponent: LayoutComponent = {
     basic: BasicLayout,
     blank: BlankLayout

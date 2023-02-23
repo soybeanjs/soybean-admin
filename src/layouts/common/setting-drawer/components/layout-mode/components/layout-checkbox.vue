@@ -18,15 +18,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PopoverPlacement } from 'naive-ui';
-import type { EnumThemeLayoutMode } from '@/enum';
 
 defineOptions({ name: 'LayoutCheckbox' });
 
 interface Props {
   /** 布局模式 */
-  mode: EnumType.ThemeLayoutMode;
+  mode: UnionKey.ThemeLayoutMode;
   /** 布局模式文本 */
-  label: EnumThemeLayoutMode;
+  label: string;
   /** 选中状态 */
   checked: boolean;
 }
@@ -34,7 +33,7 @@ interface Props {
 const props = defineProps<Props>();
 
 type LayoutConfig = Record<
-  EnumType.ThemeLayoutMode,
+  UnionKey.ThemeLayoutMode,
   {
     placement: PopoverPlacement;
     menuClass: string;

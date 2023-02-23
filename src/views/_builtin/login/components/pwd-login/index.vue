@@ -23,11 +23,11 @@
       </n-button>
       <div class="flex-y-center justify-between">
         <n-button class="flex-1" :block="true" @click="toLoginModule('code-login')">
-          {{ EnumLoginModule['code-login'] }}
+          {{ loginModuleLabels['code-login'] }}
         </n-button>
         <div class="w-12px"></div>
         <n-button class="flex-1" :block="true" @click="toLoginModule('register')">
-          {{ EnumLoginModule.register }}
+          {{ loginModuleLabels.register }}
         </n-button>
       </div>
     </n-space>
@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import type { FormInst, FormRules } from 'naive-ui';
-import { EnumLoginModule } from '@/enum';
+import { loginModuleLabels } from '@/constants';
 import { useAuthStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { formRules } from '@/utils';

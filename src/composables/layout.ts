@@ -3,7 +3,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { useAppStore, useThemeStore } from '@/store';
 
 type LayoutMode = 'vertical' | 'horizontal';
-type LayoutHeaderProps = Record<EnumType.ThemeLayoutMode, App.GlobalHeaderProps>;
+type LayoutHeaderProps = Record<UnionKey.ThemeLayoutMode, App.GlobalHeaderProps>;
 
 export function useBasicLayout() {
   const app = useAppStore();

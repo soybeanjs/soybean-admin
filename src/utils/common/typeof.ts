@@ -1,57 +1,69 @@
-import { EnumDataType } from '@/enum';
+import { dataTypeLabels } from '@/constants';
 
-export function isNumber<T extends number>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.number;
+function getDataTypeString<K extends TypeUtil.DataTypeStringKey>(value: unknown) {
+  return Object.prototype.toString.call(value) as TypeUtil.DataTypeString<K>;
 }
 
-export function isString<T extends string>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.string;
+export function isNumber<T extends number>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.number;
 }
 
-export function isBoolean<T extends boolean>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.boolean;
+export function isString<T extends string>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.string;
 }
 
-export function isNull<T extends null>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.null;
+export function isBoolean<T extends boolean>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.boolean;
 }
 
-export function isUndefined<T extends undefined>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.undefined;
+export function isNull<T extends null>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.null;
 }
 
-export function isObject<T extends Record<string, any>>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.object;
+export function isUndefined<T extends undefined>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.undefined;
 }
 
-export function isArray<T extends any[]>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.array;
+export function isSymbol<T extends symbol>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.symbol;
 }
 
-export function isFunction<T extends (...args: any[]) => any | void | never>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.function;
+export function isBigInt<T extends bigint>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.bigInt;
 }
 
-export function isDate<T extends Date>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.date;
+export function isObject<T extends Record<string, any>>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.object;
 }
 
-export function isRegExp<T extends RegExp>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.regexp;
+export function isArray<T extends any[]>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.array;
 }
 
-export function isPromise<T extends Promise<any>>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.promise;
+export function isFunction<T extends (...args: any[]) => any | void>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.function;
 }
 
-export function isSet<T extends Set<any>>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.set;
+export function isDate<T extends Date>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.date;
 }
 
-export function isMap<T extends Map<any, any>>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.map;
+export function isRegExp<T extends RegExp>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.regExp;
 }
 
-export function isFile<T extends File>(data: T | unknown): data is T {
-  return Object.prototype.toString.call(data) === EnumDataType.file;
+export function isPromise<T extends Promise<any>>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.promise;
+}
+
+export function isSet<T extends Set<any>>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.set;
+}
+
+export function isMap<T extends Map<any, any>>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.map;
+}
+
+export function isFile<T extends File>(value: T | unknown): value is T {
+  return getDataTypeString(value) === dataTypeLabels.file;
 }

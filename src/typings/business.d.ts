@@ -5,9 +5,8 @@ declare namespace Auth {
    * - super: 超级管理员(该权限具有所有路由数据)
    * - admin: 管理员
    * - user: 用户
-   * - custom: 自定义角色
    */
-  type RoleType = keyof typeof import('@/enum').EnumUserRole;
+  type RoleType = 'super' | 'admin' | 'user';
 
   /** 用户信息 */
   interface UserInfo {

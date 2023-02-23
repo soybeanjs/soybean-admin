@@ -1,9 +1,30 @@
 declare namespace TypeUtil {
   type Noop = (...args: any) => any;
 
-  type UnionInclude<T, K extends keyof T> = K extends keyof T ? true : false;
+  interface DataType {
+    number: number;
+    string: string;
+    boolean: boolean;
+    null: null;
+    undefined: undefined;
+    symbol: symbol;
+    bigInt: bigint;
+    object: Record<string, any>;
+    array: Array<any>;
+    function: (...args: any[]) => any | void;
+    date: Date;
+    regExp: RegExp;
+    promise: Promise<any>;
+    set: Set<any>;
+    map: Map<any, any>;
+    file: File;
+  }
 
-  type GetFunArgs<F extends Noop> = F extends (...args: infer P) => any ? P : never;
+  type DataTypeStringKey = keyof DataType;
+
+  type DataTypeString<T extends DataTypeStringKey = DataTypeStringKey> = `[object ${Capitalize<T>}]`;
+
+  type UnionInclude<T, K extends keyof T> = K extends keyof T ? true : false;
 
   type Writable<T> = { [K in keyof T]: T[K] };
 

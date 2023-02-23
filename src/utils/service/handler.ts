@@ -17,7 +17,7 @@ export async function handleServiceResult<T = any>(error: Service.RequestError |
 /** 请求结果的适配器：用于接收适配器函数和请求结果 */
 export function adapter<T extends Service.ServiceAdapter>(
   adapterFun: T,
-  ...args: Service.MultiRequestResult<TypeUtil.GetFunArgs<T>>
+  ...args: Service.MultiRequestResult<Parameters<T>>
 ): Service.RequestResult<ReturnType<T>> {
   let result: Service.RequestResult | undefined;
 

@@ -1,6 +1,5 @@
 import qs from 'qs';
 import FormData from 'form-data';
-import { EnumContentType } from '@/enum';
 import { isArray, isFile } from '../common';
 
 /**
@@ -8,15 +7,15 @@ import { isArray, isFile } from '../common';
  * @param requestData - 请求数据
  * @param contentType - 请求头的Content-Type
  */
-export async function transformRequestData(requestData: any, contentType?: string) {
+export async function transformRequestData(requestData: any, contentType?: UnionKey.ContentType) {
   // application/json类型不处理
   let data = requestData;
   // form类型转换
-  if (contentType === EnumContentType.formUrlencoded) {
+  if (contentType === 'application/x-www-form-urlencoded') {
     data = qs.stringify(requestData);
   }
   // form-data类型转换
-  if (contentType === EnumContentType.formData) {
+  if (contentType === 'multipart/form-data') {
     data = await handleFormData(requestData);
   }
 

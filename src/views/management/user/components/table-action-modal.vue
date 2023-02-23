@@ -34,8 +34,8 @@
 <script setup lang="ts">
 import { ref, computed, reactive, watch } from 'vue';
 import type { FormInst, FormItemRule } from 'naive-ui';
-import { formRules, createRequiredFormRule } from '@/utils';
 import { genderOptions, userStatusOptions } from '@/constants';
+import { formRules, createRequiredFormRule } from '@/utils';
 
 export interface Props {
   /** 弹窗可见性 */

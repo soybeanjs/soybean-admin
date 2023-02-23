@@ -18,7 +18,7 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/login',
     component: 'self',
     props: route => {
-      const moduleType = (route.params.module as EnumType.LoginModuleKey) || 'pwd-login';
+      const moduleType = (route.params.module as UnionKey.LoginModule) || 'pwd-login';
       return {
         module: moduleType
       };

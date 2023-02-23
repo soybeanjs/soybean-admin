@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Component } from 'vue';
-import { EnumLoginModule } from '@/enum';
+import { loginModuleLabels } from '@/constants';
 import { useThemeStore } from '@/store';
 import { useAppInfo } from '@/composables';
 import { getColorPalette, mixColor } from '@/utils';
@@ -36,7 +36,7 @@ import { BindWechat, CodeLogin, LoginBg, PwdLogin, Register, ResetPwd } from './
 
 interface Props {
   /** 登录模块分类 */
-  module: EnumType.LoginModuleKey;
+  module: UnionKey.LoginModule;
 }
 
 const props = defineProps<Props>();
@@ -45,17 +45,17 @@ const theme = useThemeStore();
 const { title } = useAppInfo();
 
 interface LoginModule {
-  key: EnumType.LoginModuleKey;
-  label: EnumLoginModule;
+  key: UnionKey.LoginModule;
+  label: string;
   component: Component;
 }
 
 const modules: LoginModule[] = [
-  { key: 'pwd-login', label: EnumLoginModule['pwd-login'], component: PwdLogin },
-  { key: 'code-login', label: EnumLoginModule['code-login'], component: CodeLogin },
-  { key: 'register', label: EnumLoginModule.register, component: Register },
-  { key: 'reset-pwd', label: EnumLoginModule['reset-pwd'], component: ResetPwd },
-  { key: 'bind-wechat', label: EnumLoginModule['bind-wechat'], component: BindWechat }
+  { key: 'pwd-login', label: loginModuleLabels['pwd-login'], component: PwdLogin },
+  { key: 'code-login', label: loginModuleLabels['code-login'], component: CodeLogin },
+  { key: 'register', label: loginModuleLabels.register, component: Register },
+  { key: 'reset-pwd', label: loginModuleLabels['reset-pwd'], component: ResetPwd },
+  { key: 'bind-wechat', label: loginModuleLabels['bind-wechat'], component: BindWechat }
 ];
 
 const activeModule = computed(() => {
