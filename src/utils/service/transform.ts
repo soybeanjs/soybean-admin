@@ -59,3 +59,11 @@ async function transformFile(formData: FormData, key: string, file: File[] | Fil
     formData.append(key, file);
   }
 }
+
+export function getDeepResponseWithKey(res: any, key: string) {
+  let result = res;
+  key.split('.').forEach(item => {
+    result = result[item];
+  });
+  return result;
+}

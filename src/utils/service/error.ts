@@ -8,6 +8,7 @@ import {
   REQUEST_TIMEOUT_CODE,
   REQUEST_TIMEOUT_MSG
 } from '@/config';
+import { getDeepResponseWithKey } from '@/utils';
 import { exeStrategyActions } from '../common';
 import { showErrorMsg } from './msg';
 
@@ -91,8 +92,8 @@ export function handleBackendError(backendResult: Record<string, any>, config: S
   const { codeKey, msgKey } = config;
   const error: Service.RequestError = {
     type: 'backend',
-    code: backendResult[codeKey],
-    msg: backendResult[msgKey]
+    code: getDeepResponseWithKey(backendResult, codeKey),
+    msg: getDeepResponseWithKey(backendResult, msgKey)
   };
 
   showErrorMsg(error);

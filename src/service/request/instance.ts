@@ -7,7 +7,8 @@ import {
   handleBackendError,
   handleResponseError,
   handleServiceResult,
-  transformRequestData
+  transformRequestData,
+  getDeepResponseWithKey
 } from '@/utils';
 import { handleRefreshToken } from './helpers';
 
@@ -64,13 +65,16 @@ export default class CustomAxiosInstance {
         if (status === 200 || status < 300 || status === 304) {
           const backend = response.data;
           const { codeKey, dataKey, successCode } = this.backendConfig;
+
+          const code = getDeepResponseWithKey(backend, codeKey);
           // 请求成功
-          if (backend[codeKey] === successCode) {
-            return handleServiceResult(null, backend[dataKey]);
+          if (code === successCode) {
+            const data = getDeepResponseWithKey(backend, dataKey);
+            return handleServiceResult(null, data);
           }
 
           // token失效, 刷新token
-          if (REFRESH_TOKEN_CODE.includes(backend[codeKey])) {
+          if (REFRESH_TOKEN_CODE.includes(code)) {
             const config = await handleRefreshToken(response.config);
             if (config) {
               return this.instance.request(config);
