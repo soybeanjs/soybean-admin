@@ -146,6 +146,22 @@ export const useRouteStore = defineStore('route-store', {
       } else {
         await this.initStaticRoute();
       }
+    },
+
+    /** 从缓存路由中去除某个路由 */
+    removeCacheRoute(name: AuthRoute.AllRouteKey) {
+      const index = this.cacheRoutes.indexOf(name);
+      if (index > -1) {
+        this.cacheRoutes.splice(index, 1);
+      }
+    },
+
+    /** 添加某个缓存路由 */
+    addCacheRoute(name: AuthRoute.AllRouteKey) {
+      const index = this.cacheRoutes.indexOf(name);
+      if (index === -1) {
+        this.cacheRoutes.push(name);
+      }
     }
   }
 });
