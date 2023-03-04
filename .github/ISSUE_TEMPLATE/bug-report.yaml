@@ -1,9 +1,16 @@
 name: Bug提交
 description: 在使用软件或功能的过程中遇到了错误
 title: '[Bug]: '
-labels: [bug?]
+labels: [ "bug?" ]
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 请按照以下要求进行提交
+        ### 1. 提交后需要指定标签和截止时间。
+        ---
+
   - type: markdown
     attributes:
       value: |
@@ -13,7 +20,7 @@ body:
   - type: input
     id: env-program-ver
     attributes:
-      label: 版本
+      label: 软件版本
     validations:
       required: true
 
