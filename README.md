@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="./public/logo.png" style="width: 240px;"/>
+	<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean.svg" style="width: 240px;"/>
 	<h1>Soybean Admin</h1>
 </div>
 
@@ -137,15 +137,14 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 `Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
 
-- 微信交流群（添加本人微信拉进群），欢迎来技术交流，业务咨询。
+- 微信交流群
   <div style="text-align:left">
-    <img src="https://s2.loli.net/2022/05/16/3YGBgXnVPJdslk8.jpg" style="width:200px" />
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs-wechat2.jpeg" style="width:200px" />
   </div>
 
-- QQ 交流群 `711301266`
-
+- 添加本人微信，欢迎来技术交流，业务咨询。
   <div style="text-align:left">
-    <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs.jpeg" style="width:200px" />
   </div>
 
 ## 捐赠
