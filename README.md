@@ -1,30 +1,31 @@
 <div align="center">
-	<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean.svg" style="width: 240px;"/>
+	<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean.svg" style="width: 160px;"/>
 	<h1>Soybean Admin</h1>
 </div>
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 ## 简介
 
-[Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个基于 Vue3、Vite3、TypeScript、NaiveUI、Pinia 和 UnoCSS 的清新优雅的中后台模版，它使用了最新的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于 mock 实现的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
+[Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个基于 Vue3、Vite3、TypeScript、NaiveUI、Pinia 和 UnoCSS 的清新优雅的中后台模版，它使用了最新流行的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于文件的路由系统以及基于 Mock 的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
 
 ## 特性
 
-- **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发, 使用高效率的 npm 包管理器 pnpm
+- **最新流行技术栈**：使用 Vue3/Vite 等前端前沿技术开发, 使用高效率的 npm 包管理器 pnpm
 - **TypeScript**: 应用程序级 JavaScript 的语言
 - **主题**：丰富可配置的主题、暗黑模式，基于原子 css 框架 - UnoCss 的动态主题颜色
 - **代码规范**：丰富的规范插件及极高的代码规范
-- **权限路由**：基于文件的路由系统、基于 mock 的动态路由能快速实现后端动态路由
-- **请求函数**：基于 axios 的完善的请求函数封装，提供 Promise 和 hooks 两种请求函数，加入请求结果数据转换的适配器适配器
+- **文件路由系统**：基于文件的路由系统，根据页面文件自动生成路由声明、路由导入和路由模块
+- **权限路由**：提供前端静态和后端动态两种路由模式，基于 mock 的动态路由能快速实现后端动态路由
+- **请求函数**：基于 axios 的完善的请求函数封装，提供 Promise 和 hooks 两种请求函数，加入请求结果数据转换的适配器
 
-## 预览
+## 在线预览
 
-- [soybean-admin](https://soybean.pro/)
+- [Soybean Admin 预览地址](https://soybean.pro/)
 
 ## 文档
 
-- [项目文档: docs.soybean.pro](https://docs.soybean.pro)
+- [项目文档预览地址](https://docs.soybean.pro)
 
 ## 代码仓库
 
@@ -42,7 +43,6 @@
 ## 后端服务
 
 - [soybean-admin-java](https://github.com/honghuangdc/soybean-admin-java)
-- [soybean-admin-go](https://github.com/honghuangdc/soybean-admin-go)
 
 ## 项目示例图
 
@@ -115,7 +115,7 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 ## Git 贡献提交规范
 
-项目已经内置 angular 提交规范，直接执行 commit 命令即可。
+项目已经内置 Angular 提交规范，直接执行 commit 命令即可生成符合 Angular 提交规范的 commit。
 
 项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-git-hooks 进行初始化配置
 
@@ -135,16 +135,17 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 ## 交流
 
-`Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
+`Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群(人员已满)，使用问题欢迎在群内提问。
 
-- 微信交流群
-  <div style="text-align:left">
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs-wechat2.jpeg" style="width:200px" />
-  </div>
-
-- 添加本人微信，欢迎来技术交流，业务咨询。
-  <div style="text-align:left">
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs.jpeg" style="width:200px" />
+  <div style="display:flex;">
+  	<div style="padding-right:24px;">
+  		<p>微信交流群</p>
+      <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs-wechat2.jpeg" style="width:200px" />
+  	</div>
+		<div>
+			<p>添加本人微信，欢迎来技术交流，业务咨询</p>
+			<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs.jpeg" style="width:180px" />
+		</div>
   </div>
 
 ## 捐赠
