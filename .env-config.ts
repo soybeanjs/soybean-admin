@@ -25,6 +25,6 @@ export function getServiceEnvConfig(env: ImportMetaEnv): ServiceEnvConfigWithPro
 
   return {
     ...config,
-    proxyPattern: 'proxy-pattern'
+    proxyPattern: '/proxy-pattern'
   };
 }
