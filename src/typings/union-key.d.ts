@@ -3,6 +3,13 @@ declare namespace UnionKey {
   type ContentType = 'application/json' | 'application/x-www-form-urlencoded' | 'multipart/form-data';
 
   /**
+   * 布局组件的名称
+   * - basic 基础布局
+   * - blank 空白布局
+   */
+  type LayoutComponentType = 'basic' | 'blank';
+
+  /**
    * 登录模块
    * - pwd-login: 账密登录
    * - code-login: 手机验证码登录
@@ -46,11 +53,4 @@ declare namespace UnionKey {
    * - fade-scale: 缩放消退
    */
   type ThemeAnimateMode = 'zoom-fade' | 'zoom-out' | 'fade-slide' | 'fade' | 'fade-bottom' | 'fade-scale';
-
-  /**
-   * 布局组件的名称
-   * - basic 基础布局
-   * - blank 空白布局
-   */
-  type LayoutComponentName = 'basic' | 'blank';
 }
