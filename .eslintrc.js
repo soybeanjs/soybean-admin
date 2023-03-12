@@ -1,10 +1,16 @@
 module.exports = {
-  extends: ['soybeanjs-vue'],
+  extends: ['soybeanjs/vue'],
   overrides: [
     {
       files: ['./scripts/*.ts'],
       rules: {
         'no-unused-expressions': 'off'
+      }
+    },
+    {
+      files: ['*.vue'],
+      rules: {
+        'no-undef': 'off' // use tsc to check the ts code of the vue
       }
     }
   ],

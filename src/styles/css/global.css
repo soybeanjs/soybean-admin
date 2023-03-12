@@ -1,7 +1,9 @@
-@import './transition.css';
-@import './reset.css';
-@import './scrollbar.css';
+@import "./transition.css";
+@import "./reset.css";
+@import "./scrollbar.css";
 
-html, body, #app {
+html,
+body,
+#app {
 	height: 100%;
 }

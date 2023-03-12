@@ -9,20 +9,7 @@
     "strings": true
   },
   "editor.tabSize": 2,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue",
-    "html",
-    "json",
-    "jsonc",
-    "json5",
-    "yaml",
-    "yml",
-    "markdown"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "json"],
   "files.associations": {
     "*.env.*": "dotenv"
   },
