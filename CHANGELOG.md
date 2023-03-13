@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.9](https://github.com/honghuangdc/soybean-admin/compare/v0.9.8...v0.9.9) (2023-03-13)
+
+
+### Features
+
+* **hooks:** add useNaiveTable ([cc13fcc](https://github.com/honghuangdc/soybean-admin/commit/cc13fcc8aaaf667902d69350ad0de3cc16c261ab))
+* **projects:** custom unocss colors support opacity ([488e6e3](https://github.com/honghuangdc/soybean-admin/commit/488e6e32045d995361b898ef3d384dafcb069008))
+* **projects:** new layout,tab and add update theme settings ([912c353](https://github.com/honghuangdc/soybean-admin/commit/912c3531c5d7a3ab30e15d39bed98ca9b20131ab))
+
+
+### Bug Fixes
+
+* **components:** 修复iconSelect选择器点击事件失效 ([7e505f9](https://github.com/honghuangdc/soybean-admin/commit/7e505f9b96f5380b6c27b4c2ee2ab0698c4eedc4))
+* **components:** 页面跳转被拦截, 则会出现 tab 页签与页面不一致的问题 ([bd5dd2c](https://github.com/honghuangdc/soybean-admin/commit/bd5dd2cf28a0943721c397d70c53fe3988a4f81a))
+* **components:** refresh cached routes ([b0f98e4](https://github.com/honghuangdc/soybean-admin/commit/b0f98e4bfac31751dd39a7dec203277db813694b))
+* **projects:** fix eslint svg cause incorrect icon render ([0b5afda](https://github.com/honghuangdc/soybean-admin/commit/0b5afda287a0eea57daa8d35409297e2cbf6d578))
+* **projects:** fix github bug-report ([f73e3f6](https://github.com/honghuangdc/soybean-admin/commit/f73e3f648decf5632fe5193e825b1f912c5f6153))
+* **projects:** fix pwa logo ([bf2f617](https://github.com/honghuangdc/soybean-admin/commit/bf2f6172554337450c4a300b8bdb580d3e25ad45))
+* **projects:** not only `/login` claim dynamic path scenario , but also others , eg:/user/1 ([6059891](https://github.com/honghuangdc/soybean-admin/commit/60598915561f1bad6ffba0dc102f0a776be52f0d))
+* **projects:** sortRoutes recursively ([9188941](https://github.com/honghuangdc/soybean-admin/commit/918894147ab739b4592e8c76378246e28c46491a))
+* **projects:** the length of routes children list should greater than 0 ([e1afc10](https://github.com/honghuangdc/soybean-admin/commit/e1afc10b80243a5d8d270a351a37a0a2d159f167))
+* **utils:** make AxiosRequestConfig optional for request.handleDelete() ([4a6fec8](https://github.com/honghuangdc/soybean-admin/commit/4a6fec8af0b44b546f81ec41d7a5947371e189b2))
+
 ### [0.9.8](https://github.com/honghuangdc/soybean-admin/compare/v0.9.7...v0.9.8) (2023-01-15)
 
 
