@@ -4,7 +4,7 @@
       <n-card :bordered="false" class="rounded-16px shadow-sm">
         <div class="flex w-full h-360px">
           <div class="w-200px h-full py-12px">
-            <h3 class="text-16px font-bold">Dashboard</h3>
+            <h3 class="text-16px text-custom font-bold">Dashboard</h3>
             <p class="text-[#aaa]">Overview Of Lasted Month</p>
             <h3 class="pt-36px text-24px font-bold">
               <count-to prefix="$" :start-value="0" :end-value="7754" />

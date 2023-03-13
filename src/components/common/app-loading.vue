@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { useAppInfo } from '@/composables';
-import { localStg } from '@/utils';
+import { localStg, getRgbOfColor } from '@/utils';
 import themeSettings from '@/settings/theme.json';
 
 const { title } = useAppInfo();
@@ -32,7 +32,10 @@ const lodingClasses = [
 function addThemeColorCssVars() {
   const defaultColor = themeSettings.themeColor;
   const themeColor = localStg.get('themeColor') || defaultColor;
-  const cssVars = `--primary-color: ${themeColor}`;
+
+  const { r, g, b } = getRgbOfColor(themeColor);
+
+  const cssVars = `--primary-color: ${r},${g},${b}`;
   document.documentElement.style.cssText = cssVars;
 }
 
