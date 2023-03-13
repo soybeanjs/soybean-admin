@@ -1,5 +1,6 @@
 import {
   themeLayoutModeOptions,
+  themeScrollModeOptions,
   themeTabModeOptions,
   themeHorizontalMenuPositionOptions,
   themeAnimateModeOptions
@@ -41,6 +42,8 @@ const defaultThemeSetting: Theme.Setting = {
     mode: 'vertical',
     modeList: themeLayoutModeOptions
   },
+  scrollMode: 'content',
+  scrollModeList: themeScrollModeOptions,
   themeColor: themeColorList[0],
   themeColorList,
   otherColor: {

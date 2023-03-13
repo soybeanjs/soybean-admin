@@ -59,12 +59,24 @@ function hide() {
   dropdownVisible.value = false;
 }
 
-type DropdownKey = 'reload-current' | 'close-current' | 'close-other' | 'close-left' | 'close-right' | 'close-all';
+type DropdownKey =
+  | 'full-content'
+  | 'reload-current'
+  | 'close-current'
+  | 'close-other'
+  | 'close-left'
+  | 'close-right'
+  | 'close-all';
 type Option = DropdownOption & {
   key: DropdownKey;
 };
 
 const options = computed<Option[]>(() => [
+  {
+    label: '内容全屏',
+    key: 'full-content',
+    icon: iconRender({ icon: 'gridicons-fullscreen' })
+  },
   {
     label: '重新加载',
     key: 'reload-current',
@@ -100,6 +112,12 @@ const options = computed<Option[]>(() => [
 ]);
 
 const actionMap = new Map<DropdownKey, () => void>([
+  [
+    'full-content',
+    () => {
+      app.setContentFull(true);
+    }
+  ],
   [
     'reload-current',
     () => {

@@ -23,6 +23,17 @@
       }
     ]
   },
+  "scrollMode": "content",
+  "scrollModeList": [
+    {
+      "value": "wrapper",
+      "label": "外层滚动"
+    },
+    {
+      "value": "content",
+      "label": "主体滚动"
+    }
+  ],
   "themeColor": "#1890ff",
   "themeColorList": [
     "#1890ff",

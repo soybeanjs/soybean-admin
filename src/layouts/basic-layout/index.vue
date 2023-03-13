@@ -1,18 +1,20 @@
 <template>
   <admin-layout
     :mode="mode"
-    :is-mobile="isMobile"
-    :fixed-header-and-tab="theme.fixedHeaderAndTab"
+    :scroll-mode="theme.scrollMode"
+    :scroll-el-id="app.scrollElId"
+    :full-content="app.contentFull"
+    :fixed-top="theme.fixedHeaderAndTab"
     :header-height="theme.header.height"
     :tab-visible="theme.tab.visible"
     :tab-height="theme.tab.height"
+    :content-class="app.disableMainXScroll ? 'overflow-x-hidden' : ''"
     :sider-visible="siderVisible"
+    :sider-collapse="app.siderCollapse"
     :sider-width="siderWidth"
     :sider-collapsed-width="siderCollapsedWidth"
-    :sider-collapse="app.siderCollapse"
-    :fixed-footer="theme.footer.fixed"
     :footer-visible="theme.footer.visible"
-    @update:sider-collapse="app.setSiderCollapse"
+    :fixed-footer="theme.footer.fixed"
   >
     <template #header>
       <global-header v-bind="headerProps" />
@@ -33,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import AdminLayout from '@soybeanjs/vue-admin-layout';
+import { AdminLayout } from '@soybeanjs/vue-materials';
 import { useAppStore, useThemeStore } from '@/store';
 import { useBasicLayout } from '@/composables';
 import {
@@ -51,7 +53,7 @@ defineOptions({ name: 'BasicLayout' });
 const app = useAppStore();
 const theme = useThemeStore();
 
-const { mode, isMobile, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
+const { mode, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
 </script>
 
 <style scoped></style>

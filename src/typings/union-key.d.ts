@@ -29,6 +29,13 @@ declare namespace UnionKey {
   type ThemeLayoutMode = 'vertical' | 'horizontal' | 'vertical-mix' | 'horizontal-mix';
 
   /**
+   * 内容溢出时的出现滚动条的方式
+   * - wrapper 布局组件最外层的元素出现滚动条
+   * - content 主体内容组件出现滚动条
+   */
+  type ThemeScrollMode = 'wrapper' | 'content';
+
+  /**
    * 多页签风格
    * - chrome: 谷歌风格
    * - button: 按钮风格

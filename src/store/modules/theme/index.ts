@@ -61,6 +61,10 @@ export const useThemeStore = defineStore('theme-store', {
     setLayoutMode(mode: UnionKey.ThemeLayoutMode) {
       this.layout.mode = mode;
     },
+    /** 设置滚动模式 */
+    setScrollMode(mode: UnionKey.ThemeScrollMode) {
+      this.scrollMode = mode;
+    },
     /** 设置侧边栏反转色 */
     setSiderInverted(isInverted: boolean) {
       this.sider.inverted = isInverted;

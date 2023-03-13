@@ -5,6 +5,7 @@ const about1: AuthRoute.Route = {
   meta: {
     title: '关于',
     requiresAuth: true,
+    keepAlive: true,
     singleLayout: 'basic',
     permissions: ['super', 'admin', 'user'],
     icon: 'fluent:book-information-24-regular',

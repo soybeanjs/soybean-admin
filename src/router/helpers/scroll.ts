@@ -1,8 +1,9 @@
 import type { RouterScrollBehavior } from 'vue-router';
-import { useTabStore } from '@/store';
+import { useAppStore, useTabStore } from '@/store';
 
 export const scrollBehavior: RouterScrollBehavior = (to, from) => {
   return new Promise(resolve => {
+    const app = useAppStore();
     const tab = useTabStore();
 
     if (to.hash) {
@@ -20,17 +21,18 @@ export const scrollBehavior: RouterScrollBehavior = (to, from) => {
       left,
       top
     };
-    const { scrollLeft, scrollTop } = document.documentElement;
+    const { scrollEl, scrollLeft, scrollTop } = app.getScrollConfig();
 
     const isFromCached = Boolean(from.meta.keepAlive);
     if (isFromCached) {
       tab.recordTabScrollPosition(from.path, { left: scrollLeft, top: scrollTop });
     }
 
-    const duration = !scrollPosition.left && !scrollPosition.top ? 0 : 350;
-
     setTimeout(() => {
-      resolve(scrollPosition);
-    }, duration);
+      if (scrollEl) {
+        scrollEl.scrollLeft = scrollPosition.left;
+        scrollEl.scrollTop = scrollPosition.top;
+      }
+    }, 400);
   });
 };

@@ -92,6 +92,10 @@ declare namespace Theme {
     followSystemTheme: boolean;
     /** 布局样式 */
     layout: Layout;
+    /** 滚动模式 */
+    scrollMode: UnionKey.ThemeScrollMode;
+    /** 滚动模式列表 */
+    scrollModeList: Common.OptionWithKey<UnionKey.ThemeScrollMode>[];
     /** 主题颜色 */
     themeColor: string;
     /** 主题颜色列表 */

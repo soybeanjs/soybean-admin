@@ -1,25 +1,26 @@
 <template>
-  <div ref="tabRef" class="h-full" :class="[isChromeMode ? 'flex items-end' : 'flex-y-center']">
-    <component
-      :is="activeComponent"
-      v-for="(item, index) in tab.tabs"
+  <div ref="tabRef" class="flex h-full pr-18px" :class="[isChromeMode ? 'items-end' : 'items-center gap-12px']">
+    <AdminTab
+      v-for="item in tab.tabs"
       :key="item.fullPath"
-      :is-active="tab.activeTab === item.fullPath"
-      :primary-color="theme.themeColor"
-      :closable="!(item.name === tab.homeTab.name || item.meta.affix)"
+      :mode="theme.tab.mode"
       :dark-mode="theme.darkMode"
-      :class="{ '!mr-0': isChromeMode && index === tab.tabs.length - 1, 'mr-10px': !isChromeMode }"
+      :active="tab.activeTab === item.fullPath"
+      :active-color="theme.themeColor"
+      :closable="!(item.name === tab.homeTab.name || item.meta.affix)"
       @click="tab.handleClickTab(item.fullPath)"
       @close="tab.removeTab(item.fullPath)"
       @contextmenu="handleContextMenu($event, item.fullPath, item.meta.affix)"
     >
-      <svg-icon
-        :icon="item.meta.icon"
-        :local-icon="item.meta.localIcon"
-        class="inline-block align-text-bottom mr-4px text-16px"
-      />
+      <template #prefix>
+        <svg-icon
+          :icon="item.meta.icon"
+          :local-icon="item.meta.localIcon"
+          class="inline-block align-text-bottom text-16px"
+        />
+      </template>
       {{ item.meta.title }}
-    </component>
+    </AdminTab>
   </div>
   <context-menu
     :visible="dropdown.visible"
@@ -33,7 +34,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref, watch } from 'vue';
-import { ButtonTab, ChromeTab } from '@soybeanjs/vue-admin-tab';
+import { AdminTab } from '@soybeanjs/vue-materials';
 import { useTabStore, useThemeStore } from '@/store';
 import { ContextMenu } from './components';
 
@@ -49,7 +50,6 @@ const theme = useThemeStore();
 const tab = useTabStore();
 
 const isChromeMode = computed(() => theme.tab.mode === 'chrome');
-const activeComponent = computed(() => (isChromeMode.value ? ChromeTab : ButtonTab));
 
 // 获取当前激活的tab的clientX
 const tabRef = ref<HTMLElement>();

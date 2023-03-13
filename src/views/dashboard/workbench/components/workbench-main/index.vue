@@ -37,7 +37,9 @@
           </n-grid>
         </n-card>
         <n-card title="创意" :bordered="false" size="small" class="shadow-sm rounded-16px">
-          <icon-local-banner class="text-400px text-primary" />
+          <div class="flex-center h-380px">
+            <icon-local-banner class="text-400px sm:text-320px text-primary" />
+          </div>
         </n-card>
       </n-space>
     </n-grid-item>

@@ -4,22 +4,28 @@
     <setting-menu label="深色主题">
       <n-switch :value="theme.darkMode" @update:value="theme.setDarkMode">
         <template #checked>
-          <icon-mdi-white-balance-sunny class="text-14px text-primary" />
+          <icon-mdi-white-balance-sunny class="text-14px text-white" />
         </template>
         <template #unchecked>
-          <icon-mdi-moon-waning-crescent class="text-14px text-primary" />
+          <icon-mdi-moon-waning-crescent class="text-14px text-white" />
         </template>
       </n-switch>
     </setting-menu>
     <setting-menu label="跟随系统">
       <n-switch :value="theme.followSystemTheme" @update:value="theme.setFollowSystemTheme">
         <template #checked>
-          <icon-ic-baseline-do-not-disturb class="text-14px text-primary" />
+          <icon-ic-baseline-do-not-disturb class="text-14px text-white" />
         </template>
         <template #unchecked>
-          <icon-ic-round-hdr-auto class="text-14px text-primary" />
+          <icon-ic-round-hdr-auto class="text-14px text-white" />
         </template>
       </n-switch>
+    </setting-menu>
+    <setting-menu label="侧边栏深色主题">
+      <n-switch :value="theme.sider.inverted" @update:value="theme.setSiderInverted" />
+    </setting-menu>
+    <setting-menu label="头部深色主题">
+      <n-switch :value="theme.header.inverted" @update:value="theme.setHeaderInverted" />
     </setting-menu>
   </n-space>
 </template>
@@ -32,8 +38,4 @@ defineOptions({ name: 'DarkMode' });
 
 const theme = useThemeStore();
 </script>
-<style scoped>
-:deep(.n-switch__rail) {
-  background-color: #000e1c !important;
-}
-</style>
+<style scoped></style>

@@ -24,6 +24,22 @@ export const themeLayoutModeOptions: Common.OptionWithKey<UnionKey.ThemeLayoutMo
   }
 ];
 
+export const themeScrollModeLabels: Record<UnionKey.ThemeScrollMode, string> = {
+  wrapper: '外层滚动',
+  content: '主体滚动'
+};
+
+export const themeScrollModeOptions: Common.OptionWithKey<UnionKey.ThemeScrollMode>[] = [
+  {
+    value: 'wrapper',
+    label: themeScrollModeLabels.wrapper
+  },
+  {
+    value: 'content',
+    label: themeScrollModeLabels.content
+  }
+];
+
 export const themeTabModeLabels: Record<UnionKey.ThemeTabMode, string> = {
   chrome: '谷歌风格',
   button: '按钮风格'

@@ -1,11 +1,14 @@
 <template>
   <n-divider title-placement="center">界面功能</n-divider>
   <n-space vertical size="large">
-    <setting-menu label="侧边栏反转色">
-      <n-switch :value="theme.sider.inverted" @update:value="theme.setSiderInverted" />
-    </setting-menu>
-    <setting-menu label="头部反转色">
-      <n-switch :value="theme.header.inverted" @update:value="theme.setHeaderInverted" />
+    <setting-menu label="滚动模式">
+      <n-select
+        class="w-120px"
+        size="small"
+        :value="theme.scrollMode"
+        :options="theme.scrollModeList"
+        @update:value="theme.setScrollMode"
+      />
     </setting-menu>
     <setting-menu label="固定头部和多页签">
       <n-switch :value="theme.fixedHeaderAndTab" @update:value="theme.setIsFixedHeaderAndTab" />

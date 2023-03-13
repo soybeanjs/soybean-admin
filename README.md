@@ -3,7 +3,7 @@
 	<h1>Soybean Admin</h1>
 </div>
 
-![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
 ## 简介
 

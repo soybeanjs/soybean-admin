@@ -16,6 +16,7 @@ specifiers:
   '@soybeanjs/vite-plugin-vue-page-route': ^0.0.5
   '@soybeanjs/vue-admin-layout': ^1.1.1
   '@soybeanjs/vue-admin-tab': ^1.0.5
+  '@soybeanjs/vue-materials': ^0.1.8
   '@types/bmapgl': ^0.0.5
   '@types/crypto-js': ^4.1.1
   '@types/node': 18.15.0
@@ -78,6 +79,7 @@ dependencies:
   '@better-scroll/core': 2.5.0
   '@soybeanjs/vue-admin-layout': 1.1.1_vue@3.2.47
   '@soybeanjs/vue-admin-tab': 1.0.5_vue@3.2.47
+  '@soybeanjs/vue-materials': 0.1.8_vue@3.2.47
   '@vueuse/core': 9.13.0_vue@3.2.47
   axios: 0.27.2
   clipboard: 2.0.11
@@ -2505,6 +2507,20 @@ packages:
       css-render: 0.15.9
       vue: 3.2.47
       vue-demi: 0.12.5_vue@3.2.47
+    dev: false
+
+  /@soybeanjs/vue-materials/0.1.8_vue@3.2.47:
+    resolution: {integrity: sha512-YVy+IiGruGoAqSx/z+3JkoJ8OwpmDb9ZQLmIHBLeBT7MzAW36y4MXm8/9AJTYrM/DFk3o9key18aSs3kp9nV4g==}
+    peerDependencies:
+      '@vue/composition-api': ^1.7.0
+      vue: ^2.0.0 || >=3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      colord: 2.9.3
+      vue: 3.2.47
+      vue-demi: 0.13.11_vue@3.2.47
     dev: false
 
   /@surma/rollup-plugin-off-main-thread/2.2.3:

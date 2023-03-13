@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-4px border-1px border-[#efeff5] dark:border-[#ffffff17] rounded-4px hover:shadow-sm cursor-pointer"
+    class="h-120px p-4px border-1px border-[#efeff5] dark:border-[#ffffff17] rounded-4px hover:shadow-sm cursor-pointer"
     @click="handleOpenSite"
   >
     <header class="flex-y-center">
