@@ -119,6 +119,9 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-git-hooks 进行初始化配置
 
+## 基于 SoybeanAdmin 二次开发的项目
+[electron-mock-admin](https://github.com/lixin59/electron-mock-api): 一个 Mock Api 管理系统，帮助前端开发伙伴快速实现接口的mock。
+
 ## 浏览器支持
 
 本地开发推荐使用`Chrome 90+` 浏览器
