@@ -30,7 +30,7 @@
       <global-footer />
     </template>
   </admin-layout>
-  <global-back-top />
+  <n-back-top :key="theme.scrollMode" :listen-to="`#${app.scrollElId}`" class="z-100" />
   <setting-drawer />
 </template>
 
@@ -38,15 +38,7 @@
 import { AdminLayout } from '@soybeanjs/vue-materials';
 import { useAppStore, useThemeStore } from '@/store';
 import { useBasicLayout } from '@/composables';
-import {
-  GlobalBackTop,
-  GlobalContent,
-  GlobalFooter,
-  GlobalHeader,
-  GlobalSider,
-  GlobalTab,
-  SettingDrawer
-} from '../common';
+import { GlobalContent, GlobalFooter, GlobalHeader, GlobalSider, GlobalTab, SettingDrawer } from '../common';
 
 defineOptions({ name: 'BasicLayout' });
 
