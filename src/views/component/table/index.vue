@@ -31,23 +31,23 @@ const { loading, startLoading, endLoading, empty, setEmpty } = useLoadingEmpty()
 
 const columns: DataTableColumn[] = [
   {
-    title: 'Name',
+    title: '姓名',
     key: 'name',
     align: 'center'
   },
   {
-    title: 'Age',
+    title: '年龄',
     key: 'age',
     align: 'center'
   },
   {
-    title: 'Address',
+    title: '地址',
     key: 'address',
     align: 'center'
   },
   {
     key: 'action',
-    title: 'Action',
+    title: '操作',
     align: 'center',
     render: () => {
       return (

@@ -1121,6 +1121,28 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
         icon: 'fluent:book-information-24-regular',
         order: 8
       }
+    },
+    {
+      name: 'movie',
+      path: '/movie',
+      component: 'basic',
+      children: [
+        {
+          name: 'movie_list',
+          path: '/movie/list',
+          component: 'self',
+          meta: {
+            title: '影片列表',
+            requiresAuth: false,
+            icon: 'icon-park-outline:analysis'
+          }
+        }
+      ],
+      meta: {
+        title: '影音管理',
+        icon: 'mdi:monitor-dashboard',
+        order: 9
+      }
     }
   ]
 };

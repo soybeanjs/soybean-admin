@@ -27,7 +27,6 @@ export async function createDynamicRouteGuard(
       }
       return false;
     }
-
     await route.initAuthRoute();
 
     if (to.name === routeName('not-found')) {

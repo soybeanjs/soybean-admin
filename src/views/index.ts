@@ -33,6 +33,7 @@ export const views: Record<
   management_role: () => import('./management/role/index.vue'),
   management_route: () => import('./management/route/index.vue'),
   management_user: () => import('./management/user/index.vue'),
+  movie_list: () => import('./movie/list/index.vue'),
   'multi-menu_first_second-new_third': () => import('./multi-menu/first/second-new/third/index.vue'),
   'multi-menu_first_second': () => import('./multi-menu/first/second/index.vue'),
   plugin_charts_antv: () => import('./plugin/charts/antv/index.vue'),
