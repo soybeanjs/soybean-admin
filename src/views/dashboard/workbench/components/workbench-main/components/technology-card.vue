@@ -1,13 +1,13 @@
 <template>
   <div
-    class="h-120px p-4px border-1px border-[#efeff5] dark:border-[#ffffff17] rounded-4px hover:shadow-sm cursor-pointer"
+    class="h-120px p-4px border-1px border-#efeff5 dark:border-#ffffff17 rounded-4px hover:shadow-sm cursor-pointer"
     @click="handleOpenSite"
   >
     <header class="flex-y-center">
       <svg-icon :icon="icon" :style="{ color: iconColor }" class="text-30px" />
       <h3 class="pl-12px text-18px font-semibold">{{ name }}</h3>
     </header>
-    <p class="py-8px h-56px text-[#999]">{{ description }}</p>
+    <p class="py-8px h-56px text-#999">{{ description }}</p>
     <div class="flex justify-end">
       <span>{{ author }}</span>
     </div>

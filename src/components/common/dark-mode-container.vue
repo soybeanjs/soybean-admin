@@ -1,7 +1,7 @@
 <template>
   <div
-    class="dark:bg-[#18181c] dark:text-white dark:text-opacity-82 transition-all"
-    :class="inverted ? 'bg-[#001428] text-white' : 'bg-white text-[#333639]'"
+    class="dark:bg-dark dark:text-white dark:text-opacity-82 transition-all"
+    :class="inverted ? 'bg-#001428 text-white' : 'bg-white text-#333639'"
   >
     <slot></slot>
   </div>

@@ -5,7 +5,7 @@
         <icon-local-avatar class="text-70px" />
         <div class="pl-12px">
           <h3 class="text-18px font-semibold">早安，{{ auth.userInfo.userName }}, 今天又是充满活力的一天！</h3>
-          <p class="leading-30px text-[#999]">今日多云转晴，20℃ - 25℃！</p>
+          <p class="leading-30px text-#999">今日多云转晴，20℃ - 25℃！</p>
         </div>
       </div>
       <n-space :size="24" :wrap="false">

@@ -3,7 +3,7 @@
     <div class="pb-12px">
       <template v-for="item in options" :key="item.path">
         <div
-          class="bg-[#e5e7eb] dark:bg-dark h-56px mt-8px px-14px rounded-4px cursor-pointer flex-y-center justify-between"
+          class="bg-#e5e7eb dark:bg-dark h-56px mt-8px px-14px rounded-4px cursor-pointer flex-y-center justify-between"
           :style="{
             background: item.path === active ? theme.themeColor : '',
             color: item.path === active ? '#fff' : ''

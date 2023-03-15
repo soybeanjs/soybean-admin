@@ -15,6 +15,7 @@
     :sider-collapsed-width="siderCollapsedWidth"
     :footer-visible="theme.footer.visible"
     :fixed-footer="theme.footer.fixed"
+    :right-footer="theme.footer.right"
   >
     <template #header>
       <global-header v-bind="headerProps" />
@@ -48,4 +49,12 @@ const theme = useThemeStore();
 const { mode, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
 </script>
 
-<style scoped></style>
+<style lang="scss">
+#__SCROLL_EL_ID__ {
+  @include scrollbar(8px, #e1e1e1);
+}
+
+.dark #__SCROLL_EL_ID__ {
+  @include scrollbar(8px, #555);
+}
+</style>

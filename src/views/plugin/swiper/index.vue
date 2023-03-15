@@ -11,7 +11,7 @@
           <h3 class="py-24px text-24px font-bold">{{ item.label }}</h3>
           <swiper v-bind="item.options">
             <swiper-slide v-for="i in 5" :key="i">
-              <div class="flex-center h-240px border-1px border-[#999] text-18px font-bold">Slide{{ i }}</div>
+              <div class="flex-center h-240px border-1px border-#999 text-18px font-bold">Slide{{ i }}</div>
             </swiper-slide>
           </swiper>
         </div>

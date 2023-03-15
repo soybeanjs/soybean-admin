@@ -12,7 +12,7 @@
     <n-input-group>
       <n-input ref="inputRef" v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
         <template #prefix>
-          <icon-uil-search class="text-15px text-[#c2c2c2]" />
+          <icon-uil-search class="text-15px text-#c2c2c2" />
         </template>
       </n-input>
       <n-button v-if="isMobile" type="primary" ghost @click="handleClose">取消</n-button>

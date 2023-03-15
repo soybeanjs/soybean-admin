@@ -8,7 +8,7 @@
       :options="menus"
       :expanded-keys="expandedKeys"
       :indent="18"
-      :inverted="theme.sider.inverted"
+      :inverted="!theme.darkMode && theme.sider.inverted"
       @update:value="handleUpdateMenu"
       @update:expanded-keys="handleUpdateExpandedKeys"
     />

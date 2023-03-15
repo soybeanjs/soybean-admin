@@ -14,7 +14,7 @@
       <span v-for="iconItem in iconsList" :key="iconItem" @click="handleChange(iconItem)">
         <svg-icon
           :icon="iconItem"
-          class="border-1px border-[#d9d9d9] text-30px m-2px p-5px cursor-pointer"
+          class="border-1px border-#d9d9d9 text-30px m-2px p-5px cursor-pointer"
           :class="{ 'border-primary': modelValue === iconItem }"
         />
       </span>

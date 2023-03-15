@@ -5,6 +5,7 @@
   >
     <dark-mode-container
       class="drawer-shadow absolute-lt flex-col-stretch h-full nowrap-hidden"
+      :inverted="theme.sider.inverted"
       :style="{ width: showDrawer ? theme.sider.mixChildMenuWidth + 'px' : '0px' }"
     >
       <header class="header-height flex-y-center justify-between" :style="{ height: theme.header.height + 'px' }">
@@ -20,6 +21,7 @@
           :options="menus"
           :expanded-keys="expandedKeys"
           :indent="18"
+          :inverted="!theme.darkMode && theme.sider.inverted"
           @update:value="handleUpdateMenu"
           @update:expanded-keys="handleUpdateExpandedKeys"
         />

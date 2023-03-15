@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-full overflow-hidden">
     <n-card title="表格" class="h-full shadow-sm rounded-16px">
       <n-space :vertical="true">
         <n-space>

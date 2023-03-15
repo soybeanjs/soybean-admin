@@ -4,7 +4,7 @@
       <n-list-item
         v-for="(item, index) in list"
         :key="item.id"
-        class="hover:bg-[#f6f6f6] dark:hover:bg-dark cursor-pointer"
+        class="hover:bg-#f6f6f6 dark:hover:bg-dark cursor-pointer"
         @click="handleRead(index)"
       >
         <n-thing class="px-15px" :class="{ 'opacity-30': item.isRead }">

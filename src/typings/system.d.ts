@@ -200,12 +200,16 @@ declare namespace Theme {
 
   /** 底部样式 */
   interface Footer {
-    /** 是否固定底部 */
-    fixed: boolean;
-    /** 底部高度 */
-    height: number;
     /* 底部是否可见 */
     visible: boolean;
+    /** 是否固定底部 */
+    fixed: boolean;
+    /** 底部是否居右(顶部混合菜单模式有效) */
+    right: boolean;
+    /** 底部高度 */
+    height: number;
+    /** 底部反转色 */
+    inverted: boolean;
   }
 
   /** 页面样式 */

@@ -4,15 +4,15 @@
       <n-card :bordered="false" class="rounded-16px shadow-sm">
         <div class="w-full h-360px py-12px">
           <h3 class="text-16px font-bold">Dashboard</h3>
-          <p class="text-[#aaa]">Overview Of Lasted Month</p>
+          <p class="text-#aaa">Overview Of Lasted Month</p>
           <h3 class="pt-32px text-24px font-bold">
             <count-to prefix="$" :start-value="0" :end-value="7754" />
           </h3>
-          <p class="text-[#aaa]">Current Month Earnings</p>
+          <p class="text-#aaa">Current Month Earnings</p>
           <h3 class="pt-32px text-24px font-bold">
             <count-to :start-value="0" :end-value="1234" />
           </h3>
-          <p class="text-[#aaa]">Current Month Sales</p>
+          <p class="text-#aaa">Current Month Sales</p>
           <n-button class="mt-24px whitespace-pre-wrap" type="primary">Last Month Summary</n-button>
         </div>
       </n-card>

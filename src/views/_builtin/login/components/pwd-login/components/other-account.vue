@@ -1,6 +1,6 @@
 <template>
   <n-space :vertical="true">
-    <n-divider class="!mb-0 text-14px text-[#666]">其他账户登录</n-divider>
+    <n-divider class="!mb-0 text-14px text-#666">其他账户登录</n-divider>
     <n-space justify="center">
       <n-button
         v-for="item in accounts"

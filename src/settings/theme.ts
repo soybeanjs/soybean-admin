@@ -83,9 +83,11 @@ const defaultThemeSetting: Theme.Setting = {
     horizontalPositionList: themeHorizontalMenuPositionOptions
   },
   footer: {
+    visible: true,
     fixed: false,
+    right: true,
     height: 48,
-    visible: true
+    inverted: false
   },
   page: {
     animate: true,

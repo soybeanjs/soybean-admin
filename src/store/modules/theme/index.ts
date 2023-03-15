@@ -145,17 +145,25 @@ export const useThemeStore = defineStore('theme-store', {
     setHorizontalMenuPosition(position: UnionKey.ThemeHorizontalMenuPosition) {
       this.menu.horizontalPosition = position;
     },
+    /** 设置底部是否显示 */
+    setFooterVisible(isVisible: boolean) {
+      this.footer.visible = isVisible;
+    },
     /** 设置底部是否固定 */
     setFooterIsFixed(isFixed: boolean) {
       this.footer.fixed = isFixed;
+    },
+    /** 设置底部是否固定 */
+    setFooterIsRight(right: boolean) {
+      this.footer.right = right;
     },
     /** 设置底部高度 */
     setFooterHeight(height: number) {
       this.footer.height = height;
     },
-    /** 设置底部是否显示 */
-    setFooterVisible(isVisible: boolean) {
-      this.footer.visible = isVisible;
+    /** 设置底部高度 */
+    setFooterInverted(inverted: boolean) {
+      this.footer.inverted = inverted;
     },
     /** 设置切换页面时是否过渡动画 */
     setPageIsAnimate(animate: boolean) {

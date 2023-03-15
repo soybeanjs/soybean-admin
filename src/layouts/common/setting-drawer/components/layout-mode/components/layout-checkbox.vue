@@ -6,8 +6,8 @@
     <n-tooltip :placement="activeConfig.placement" trigger="hover">
       <template #trigger>
         <div class="layout-checkbox__shadow relative w-56px h-48px bg-white rounded-4px overflow-hidden">
-          <div class="absolute-lt bg-[#273352]" :class="activeConfig.menuClass"></div>
-          <div class="absolute-rb bg-[#f0f2f5]" :class="activeConfig.mainClass"></div>
+          <div class="absolute-lt bg-#273352" :class="activeConfig.menuClass"></div>
+          <div class="absolute-rb bg-#f0f2f5" :class="activeConfig.mainClass"></div>
         </div>
       </template>
       <span>{{ label }}</span>

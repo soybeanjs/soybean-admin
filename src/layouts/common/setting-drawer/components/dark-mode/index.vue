@@ -21,11 +21,14 @@
         </template>
       </n-switch>
     </setting-menu>
-    <setting-menu label="侧边栏深色主题">
+    <setting-menu label="侧边栏深色">
       <n-switch :value="theme.sider.inverted" @update:value="theme.setSiderInverted" />
     </setting-menu>
-    <setting-menu label="头部深色主题">
+    <setting-menu label="头部深色">
       <n-switch :value="theme.header.inverted" @update:value="theme.setHeaderInverted" />
+    </setting-menu>
+    <setting-menu label="底部深色">
+      <n-switch :value="theme.footer.inverted" @update:value="theme.setFooterInverted" />
     </setting-menu>
   </n-space>
 </template>
