@@ -138,12 +138,16 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 ## 交流
 
-`Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群(人员已满)，使用问题欢迎在群内提问。
+`Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
 
   <div style="display:flex;">
   	<div style="padding-right:24px;">
   		<p>微信交流群</p>
       <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs-wechat2.jpeg" style="width:200px" />
+  	</div>
+  	<div style="padding-right:24px;">
+  		<p>QQ交流群</p>
+      <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin.jpg" style="width:200px" />
   	</div>
 		<div>
 			<p>添加本人微信，欢迎来技术交流，业务咨询</p>
