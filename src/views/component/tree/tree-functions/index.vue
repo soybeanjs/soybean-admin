@@ -9,14 +9,6 @@
     <n-space :vertical="true">
       <n-card title="函数示例">
         <n-card>
-          <template #header>
-            <n-gradient-text
-              class="text-20px font-bold"
-              gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
-            >
-              函数合集
-            </n-gradient-text>
-          </template>
           <template #header-extra>
             <n-space justify="space-around">
               <n-button dashed type="primary" @click="handleGenerateTreeData">重置数据</n-button>

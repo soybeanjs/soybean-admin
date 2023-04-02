@@ -145,7 +145,10 @@ import { ref, h } from 'vue';
 import type { TreeOption, TreeInst } from 'naive-ui';
 import { NIcon } from 'naive-ui';
 import { repeat } from 'seemly';
+import { useIconRender } from '@/composables';
 import { useLoading } from '@/hooks';
+
+const { iconRender } = useIconRender();
 
 const cascade = ref<boolean>(true);
 const segmented = ref<boolean>(true);
@@ -310,7 +313,7 @@ const caseEightDefaultExpandedKeys = ref<string[]>(['20']);
 
 const renderSwitcherIconWithExpaned = ({ expanded }: { expanded: boolean }) =>
   h(NIcon, null, {
-    default: () => h(expanded ? <icon-solar-moon-broken /> : <icon-solar-sun-broken />)
+    default: () => h(expanded ? iconRender({ icon: 'solar:moon-broken' }) : iconRender({ icon: 'solar:sun-broken' }))
   });
 
 function createRemoteData() {

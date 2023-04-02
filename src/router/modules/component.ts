@@ -32,6 +32,48 @@ const component: AuthRoute.Route = {
         requiresAuth: true,
         icon: 'mdi:table-large'
       }
+    },
+    {
+      name: 'component_tree',
+      path: '/component/tree',
+      component: 'multi',
+      children: [
+        {
+          name: 'component_tree_tree-basic',
+          path: '/component/tree/tree-basic',
+          component: 'self',
+          meta: {
+            title: '基础树',
+            requiresAuth: true,
+            icon: 'fluent:tree-deciduous-20-regular'
+          }
+        },
+        {
+          name: 'component_tree_tree-custom',
+          path: '/component/tree/tree-custom',
+          component: 'self',
+          meta: {
+            title: '自定义树',
+            requiresAuth: true,
+            icon: 'fluent:tree-deciduous-20-filled'
+          }
+        },
+        {
+          name: 'component_tree_tree-functions',
+          path: '/component/tree/tree-functions',
+          component: 'self',
+          meta: {
+            title: '函数示例',
+            requiresAuth: true,
+            icon: 'fluent:tree-evergreen-20-filled'
+          }
+        }
+      ],
+      meta: {
+        title: '树',
+        requiresAuth: true,
+        icon: 'carbon:tree-view-alt'
+      }
     }
   ],
   meta: {

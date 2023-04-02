@@ -189,7 +189,7 @@ function createSuffixData(level = 2, baseKey = ''): TreeOption[] | undefined {
       key,
       children: createSuffixData(level - 1, key),
       suffix: () =>
-        h(NSpace, { justify: 'space-evenly' }, [
+        h(NSpace, { justify: 'space-evenly' }, () => [
           h(NButton, { text: true, class: 'pt-1.5' }, { default: () => <icon-mdi-plus class="text-18px" /> }),
           h(
             NButton,
