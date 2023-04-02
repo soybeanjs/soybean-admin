@@ -1,4 +1,4 @@
-import VueMacros from 'unplugin-vue-macros/vite';
+import VueDefineOption from 'unplugin-vue-define-options/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
@@ -17,7 +17,7 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
   const collectionName = VITE_ICON_LOCAL_PREFFIX.replace(`${VITE_ICON_PREFFIX}-`, '');
 
   return [
-    VueMacros({}),
+    VueDefineOption({}),
     Icons({
       compiler: 'vue3',
       customCollections: {

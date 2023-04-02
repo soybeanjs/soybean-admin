@@ -7,3 +7,9 @@ declare namespace BMap {
 }
 
 declare const TMap: any;
+
+declare module 'unplugin-vue-define-options/vite' {
+  const plugin: (options?: import('unplugin-vue-define-options/dist/unplugin.d-59ddef99').B) => import('vite').Plugin;
+
+  export default plugin;
+}
