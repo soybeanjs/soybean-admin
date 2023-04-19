@@ -143,7 +143,7 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
   <div style="display:flex;">
   	<div style="padding-right:24px;">
   		<p>微信交流群</p>
-      <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs-wechat2.jpeg" style="width:200px" />
+      <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs-wechat0427.jpeg" style="width:200px" />
   	</div>
   	<div style="padding-right:24px;">
   		<p>QQ交流群</p>
