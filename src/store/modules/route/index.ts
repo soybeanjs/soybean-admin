@@ -107,6 +107,7 @@ export const useRouteStore = defineStore('route-store', {
     },
     /** 初始化动态路由 */
     async initDynamicRoute() {
+      const { resetAuthStore } = useAuthStore();
       const { initHomeTab } = useTabStore();
 
       const { userId } = localStg.get('userInfo') || {};
@@ -125,6 +126,8 @@ export const useRouteStore = defineStore('route-store', {
         initHomeTab(data.home, router);
 
         this.isInitAuthRoute = true;
+      } else {
+        resetAuthStore();
       }
     },
     /** 初始化静态路由 */
