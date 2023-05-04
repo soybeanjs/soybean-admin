@@ -1,9 +1,12 @@
 import type { LocaleMessages } from 'vue-i18n';
+import { useAppInfo } from '@/composables';
+
+const { title } = useAppInfo();
 
 const locale: LocaleMessages<I18nType.Schema> = {
   message: {
     system: {
-      title: 'Soybean管理系统'
+      title
     },
     routes: {
       dashboard: {
