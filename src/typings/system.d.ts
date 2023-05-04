@@ -245,13 +245,14 @@ declare namespace App {
   };
 
   /** 面包屑 */
-  type GlobalBreadcrumb = import('naive-ui').DropdownOption & {
+  type GlobalBreadcrumb = Omit<import('naive-ui').DropdownOption, 'icon'> & {
     key: string;
     label: string;
     disabled: boolean;
     routeName: string;
     hasChildren: boolean;
-    children?: GlobalBreadcrumb[];
+    icon?: import('vue').Component;
+    options?: import('naive-ui/es/dropdown/src/interface').DropdownMixedOption[];
   };
 
   /** 多页签Tab的路由 */

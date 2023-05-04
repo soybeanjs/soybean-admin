@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { AxiosResponse, AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { REFRESH_TOKEN_CODE } from '@/config';
 import {
   localStg,
@@ -59,7 +59,7 @@ export default class CustomAxiosInstance {
       }
     );
     this.instance.interceptors.response.use(
-      async response => {
+      (async response => {
         const { status } = response;
         if (status === 200 || status < 300 || status === 304) {
           const backend = response.data;
@@ -82,7 +82,7 @@ export default class CustomAxiosInstance {
         }
         const error = handleResponseError(response);
         return handleServiceResult(error, null);
-      },
+      }) as (response: AxiosResponse<any, any>) => Promise<AxiosResponse<any, any>>,
       (axiosError: AxiosError) => {
         const error = handleAxiosError(axiosError);
         return handleServiceResult(error, null);
