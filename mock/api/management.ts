@@ -1,4 +1,4 @@
-import { mock } from 'mockjs';
+import { mock } from 'better-mock';
 import type { MockMethod } from 'vite-plugin-mock';
 
 const apis: MockMethod[] = [

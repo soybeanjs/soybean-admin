@@ -99,12 +99,12 @@
     "@unocss/vite": "^0.51.8",
     "@vitejs/plugin-vue": "^4.2.1",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "better-mock": "^0.3.6",
     "conventional-changelog": "^3.1.25",
     "cross-env": "^7.0.3",
     "eslint": "^8.39.0",
     "eslint-config-soybeanjs": "^0.3.3",
     "lint-staged": "13.2.2",
-    "mockjs": "^1.1.0",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.62.1",
     "simple-git-hooks": "^2.8.1",
@@ -121,11 +121,6 @@
     "vite-plugin-pwa": "^0.14.7",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "1.6.4"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "mockjs@1.1.0": "patches/mockjs@1.1.0.patch"
-    }
   },
   "simple-git-hooks": {
     "commit-msg": "pnpm soy git-commit-verify",
