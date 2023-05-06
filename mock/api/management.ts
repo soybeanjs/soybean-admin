@@ -1,4 +1,4 @@
-import { mock } from 'better-mock';
+import betterMock from 'better-mock';
 import type { MockMethod } from 'vite-plugin-mock';
 
 const apis: MockMethod[] = [
@@ -6,7 +6,7 @@ const apis: MockMethod[] = [
     url: '/mock/getAllUserList',
     method: 'post',
     response: (): Service.MockServiceResult<ApiUserManagement.User[]> => {
-      const data = mock({
+      const data = betterMock.mock({
         'list|1000': [
           {
             id: '@id',
