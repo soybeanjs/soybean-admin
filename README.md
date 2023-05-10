@@ -121,6 +121,7 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 ## 基于 SoybeanAdmin 二次开发的项目
 [electron-mock-admin](https://github.com/lixin59/electron-mock-api): 一个 Mock Api 管理系统，帮助前端开发伙伴快速实现接口的mock。
+[T-Shell](https://github.com/TheBlindM/T-Shell): 是一个可配置命令提示的终端模拟器和 SSH客户端。
 
 ## 浏览器支持
 
