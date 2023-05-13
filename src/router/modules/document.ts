@@ -9,6 +9,7 @@ const document: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: 'vue文档',
+        i18nTitle: 'message.routes.document.vue',
         requiresAuth: true,
         icon: 'logos:vue'
       }
@@ -19,6 +20,7 @@ const document: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: 'vite文档',
+        i18nTitle: 'message.routes.document.vite',
         requiresAuth: true,
         icon: 'logos:vitejs'
       }
@@ -29,6 +31,7 @@ const document: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: 'naive文档',
+        i18nTitle: 'message.routes.document.naive',
         requiresAuth: true,
         icon: 'logos:naiveui'
       }
@@ -39,6 +42,7 @@ const document: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '项目文档',
+        i18nTitle: 'message.routes.document.project',
         requiresAuth: true,
         localIcon: 'logo'
       }
@@ -48,6 +52,7 @@ const document: AuthRoute.Route = {
       path: '/document/project-link',
       meta: {
         title: '项目文档(外链)',
+        i18nTitle: 'message.routes.document.project-link',
         requiresAuth: true,
         localIcon: 'logo',
         href: 'https://docs.soybean.pro/'
@@ -56,6 +61,7 @@ const document: AuthRoute.Route = {
   ],
   meta: {
     title: '文档',
+    i18nTitle: 'message.routes.document._value',
     icon: 'mdi:file-document-multiple-outline',
     order: 2
   }

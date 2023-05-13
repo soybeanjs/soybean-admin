@@ -14,6 +14,7 @@ const plugin: AuthRoute.Route = {
           component: 'self',
           meta: {
             title: 'ECharts',
+            i18nTitle: 'message.routes.plugin.charts.echarts',
             requiresAuth: true,
             icon: 'simple-icons:apacheecharts'
           }
@@ -24,6 +25,7 @@ const plugin: AuthRoute.Route = {
           component: 'self',
           meta: {
             title: 'AntV',
+            i18nTitle: 'message.routes.plugin.charts.antv',
             requiresAuth: true,
             icon: 'simple-icons:antdesign'
           }
@@ -31,6 +33,7 @@ const plugin: AuthRoute.Route = {
       ],
       meta: {
         title: '图表',
+        i18nTitle: 'message.routes.plugin.charts._value',
         icon: 'mdi:chart-areaspline'
       }
     },
@@ -40,6 +43,7 @@ const plugin: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '地图',
+        i18nTitle: 'message.routes.plugin.map',
         requiresAuth: true,
         icon: 'mdi:map'
       }
@@ -50,6 +54,7 @@ const plugin: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '视频',
+        i18nTitle: 'message.routes.plugin.video',
         requiresAuth: true,
         icon: 'mdi:video'
       }
@@ -65,6 +70,7 @@ const plugin: AuthRoute.Route = {
           component: 'self',
           meta: {
             title: '富文本编辑器',
+            i18nTitle: 'message.routes.plugin.editor.quill',
             requiresAuth: true,
             icon: 'mdi:file-document-edit-outline'
           }
@@ -75,6 +81,7 @@ const plugin: AuthRoute.Route = {
           component: 'self',
           meta: {
             title: 'markdown编辑器',
+            i18nTitle: 'message.routes.plugin.editor.markdown',
             requiresAuth: true,
             icon: 'ri:markdown-line'
           }
@@ -82,6 +89,7 @@ const plugin: AuthRoute.Route = {
       ],
       meta: {
         title: '编辑器',
+        i18nTitle: 'message.routes.plugin.editor._value',
         icon: 'icon-park-outline:editor'
       }
     },
@@ -91,6 +99,7 @@ const plugin: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: 'Swiper插件',
+        i18nTitle: 'message.routes.plugin.swiper',
         requiresAuth: true,
         icon: 'simple-icons:swiper'
       }
@@ -101,6 +110,7 @@ const plugin: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '剪贴板',
+        i18nTitle: 'message.routes.plugin.copy',
         requiresAuth: true,
         icon: 'mdi:clipboard-outline'
       }
@@ -111,6 +121,7 @@ const plugin: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '图标',
+        i18nTitle: 'message.routes.plugin.icon',
         requiresAuth: true,
         localIcon: 'custom-icon'
       }
@@ -121,6 +132,7 @@ const plugin: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '打印',
+        i18nTitle: 'message.routes.plugin.print',
         requiresAuth: true,
         icon: 'mdi:printer'
       }
@@ -128,6 +140,7 @@ const plugin: AuthRoute.Route = {
   ],
   meta: {
     title: '插件示例',
+    i18nTitle: 'message.routes.plugin._value',
     icon: 'clarity:plugin-line',
     order: 4
   }
