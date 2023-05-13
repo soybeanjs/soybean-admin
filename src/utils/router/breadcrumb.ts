@@ -59,7 +59,8 @@ function transformBreadcrumbMenuToBreadcrumb(menu: App.GlobalMenuOption, rootPat
     label: menu.label as string,
     routeName: menu.routeName,
     disabled: menu.routePath === rootPath,
-    hasChildren
+    hasChildren,
+    i18nTitle: menu.i18nTitle
   };
   if (menu.icon) {
     breadcrumb.icon = menu.icon;

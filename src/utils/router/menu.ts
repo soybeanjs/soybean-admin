@@ -1,4 +1,5 @@
 import { useIconRender } from '@/composables';
+import { t } from '@/locales';
 
 /**
  * 将权限路由转换成菜单
@@ -18,7 +19,8 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): App.GlobalM
         key: routeName,
         label: meta.title,
         routeName,
-        routePath: path
+        routePath: path,
+        i18nTitle: meta.i18nTitle
       },
       icon: meta.icon,
       localIcon: meta.localIcon,
@@ -30,6 +32,28 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): App.GlobalM
     }
   });
 
+  return globalMenu;
+}
+
+/**
+ * 翻译菜单
+ * @param menus
+ * @returns
+ */
+export function translateMenuLabel(menus: App.GlobalMenuOption[]): App.GlobalMenuOption[] {
+  const globalMenu: App.GlobalMenuOption[] = [];
+  menus.forEach(menu => {
+    let menuChildren: App.GlobalMenuOption[] | undefined;
+    if (menu.children && menu.children.length > 0) {
+      menuChildren = translateMenuLabel(menu.children);
+    }
+    const menuItem: App.GlobalMenuOption = {
+      ...menu,
+      children: menuChildren,
+      label: menu.i18nTitle ? t(menu.i18nTitle) : menu.label
+    };
+    globalMenu.push(menuItem);
+  });
   return globalMenu;
 }
 

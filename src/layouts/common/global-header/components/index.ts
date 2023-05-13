@@ -7,6 +7,7 @@ import ThemeMode from './theme-mode.vue';
 import UserAvatar from './user-avatar.vue';
 import SystemMessage from './system-message.vue';
 import SettingButton from './setting-button.vue';
+import ToggleLang from './toggle-lang.vue';
 
 export {
   MenuCollapse,
@@ -17,5 +18,6 @@ export {
   ThemeMode,
   UserAvatar,
   SystemMessage,
-  SettingButton
+  SettingButton,
+  ToggleLang
 };

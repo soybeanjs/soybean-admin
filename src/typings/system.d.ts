@@ -242,6 +242,7 @@ declare namespace App {
     routePath: string;
     icon?: () => import('vue').VNodeChild;
     children?: GlobalMenuOption[];
+    i18nTitle?: string;
   };
 
   /** 面包屑 */
@@ -252,6 +253,7 @@ declare namespace App {
     routeName: string;
     hasChildren: boolean;
     icon?: import('vue').Component;
+    i18nTitle?: string;
     options?: import('naive-ui/es/dropdown/src/interface').DropdownMixedOption[];
   };
 
@@ -300,6 +302,7 @@ declare namespace App {
 }
 
 declare namespace I18nType {
+  type langType = 'en' | 'zh-CN';
   interface Schema {
     system: {
       title: string;

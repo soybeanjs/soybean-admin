@@ -13,14 +13,26 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { dateZhCN, zhCN } from 'naive-ui';
+import { useI18n } from 'vue-i18n';
 import { subscribeStore, useThemeStore } from '@/store';
 import { useGlobalEvents } from '@/composables';
 
 const theme = useThemeStore();
+const { locale, t } = useI18n();
+const route = useRoute();
 
 subscribeStore();
 useGlobalEvents();
+
+watch(
+  () => locale.value,
+  () => {
+    document.title = route.meta.i18nTitle ? t(route.meta.i18nTitle) : route.meta.title;
+  }
+);
 </script>
 
 <style scoped></style>
