@@ -31,6 +31,8 @@ declare namespace AuthRoute {
   interface RouteMeta<K extends AuthRoute.RoutePath> {
     /** 路由标题(可用来作document.title或者菜单的名称) */
     title: string;
+    /** 用来支持多国语言 如果i18nTitle和title同时存在优先使用i18nTitle */
+    i18nTitle?: string;
     /** 路由的动态路径(需要动态路径的页面需要将path添加进范型参数) */
     dynamicPath?: AuthRouteUtils.GetDynamicPath<K>;
     /** 作为单级路由的父级路由布局组件 */

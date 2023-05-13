@@ -26,7 +26,9 @@ import { useRoute } from 'vue-router';
 import { useAppStore, useRouteStore, useThemeStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { useBoolean } from '@/hooks';
+import { translateMenuLabel } from '@/utils';
 import { GlobalLogo } from '@/layouts/common';
+import { t } from '@/locales';
 import { MixMenuCollapse, MixMenuDetail, MixMenuDrawer } from './components';
 
 defineOptions({ name: 'VerticalMixSider' });
@@ -45,13 +47,13 @@ function setActiveParentRouteName(routeName: string) {
 
 const firstDegreeMenus = computed(() =>
   routeStore.menus.map(item => {
-    const { routeName, label } = item;
+    const { routeName, label, i18nTitle } = item;
     const icon = item?.icon;
     const hasChildren = Boolean(item.children && item.children.length);
 
     return {
       routeName,
-      label,
+      label: i18nTitle ? t(i18nTitle) : label,
       icon,
       hasChildren
     };
@@ -88,7 +90,7 @@ const activeChildMenus = computed(() => {
   routeStore.menus.some(item => {
     const flag = item.routeName === activeParentRouteName.value && Boolean(item.children?.length);
     if (flag) {
-      menus.push(...(item.children || []));
+      menus.push(...translateMenuLabel((item.children || []) as App.GlobalMenuOption[]));
     }
     return flag;
   });

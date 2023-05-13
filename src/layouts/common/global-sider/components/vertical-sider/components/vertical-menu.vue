@@ -21,7 +21,7 @@ import { useRoute } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import { useAppStore, useRouteStore, useThemeStore } from '@/store';
 import { useRouterPush } from '@/composables';
-import { getActiveKeyPathsOfMenus } from '@/utils';
+import { getActiveKeyPathsOfMenus, translateMenuLabel } from '@/utils';
 
 defineOptions({ name: 'VerticalMenu' });
 
@@ -31,7 +31,7 @@ const theme = useThemeStore();
 const routeStore = useRouteStore();
 const { routerPush } = useRouterPush();
 
-const menus = computed(() => routeStore.menus as App.GlobalMenuOption[]);
+const menus = computed(() => translateMenuLabel(routeStore.menus as App.GlobalMenuOption[]));
 
 const activeKey = computed(() => (route.meta?.activeMenu ? route.meta.activeMenu : route.name) as string);
 const expandedKeys = ref<string[]>([]);

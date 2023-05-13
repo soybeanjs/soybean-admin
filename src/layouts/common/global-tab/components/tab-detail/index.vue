@@ -19,7 +19,7 @@
           class="inline-block align-text-bottom text-16px"
         />
       </template>
-      {{ item.meta.title }}
+      {{ item.meta.i18nTitle ? t(item.meta.i18nTitle) : item.meta.title }}
     </AdminTab>
   </div>
   <context-menu
@@ -36,6 +36,7 @@
 import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { AdminTab } from '@soybeanjs/vue-materials';
 import { useTabStore, useThemeStore } from '@/store';
+import { t } from '@/locales';
 import { ContextMenu } from './components';
 
 defineOptions({ name: 'TabDetail' });

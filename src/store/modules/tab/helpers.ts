@@ -7,7 +7,6 @@ import { localStg } from '@/utils';
  */
 export function getTabRouteByVueRoute(route: RouteRecordNormalized | RouteLocationNormalizedLoaded) {
   const fullPath = hasFullPath(route) ? route.fullPath : route.path;
-
   const tabRoute: App.GlobalTabRoute = {
     name: route.name,
     fullPath,
