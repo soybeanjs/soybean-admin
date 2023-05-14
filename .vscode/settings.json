@@ -70,5 +70,6 @@
   },
   "[vue]": {
     "editor.defaultFormatter": "Vue.volar"
-  }
+  },
+  "i18n-ally.localesPaths": ["src/locales", "src/locales/lang"]
 }
