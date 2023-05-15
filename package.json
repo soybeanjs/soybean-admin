@@ -56,6 +56,11 @@
     "prepare": "soy init-git-hooks"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "@fast-crud/fast-crud": "^1.13.6",
+    "@fast-crud/fast-extends": "^1.13.6",
+    "@fast-crud/ui-naive": "^1.13.6",
+    "@fast-crud/ui-interface": "^1.13.6",
     "@antv/data-set": "^0.11.8",
     "@antv/g2": "^4.2.10",
     "@better-scroll/core": "^2.5.1",

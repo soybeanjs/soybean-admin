@@ -7,7 +7,9 @@
     class="h-full"
   >
     <naive-provider>
-      <router-view />
+      <fs-ui-context>
+        <router-view />
+      </fs-ui-context>
     </naive-provider>
   </n-config-provider>
 </template>
