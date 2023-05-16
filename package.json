@@ -121,6 +121,11 @@
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "1.6.5"
   },
+  "pnpm": {
+    "patchedDependencies": {
+      "mockjs@1.1.0": "patches/mockjs@1.1.0.patch"
+    }
+  },
   "simple-git-hooks": {
     "commit-msg": "pnpm soy git-commit-verify",
     "pre-commit": "pnpm typecheck && pnpm lint-staged"

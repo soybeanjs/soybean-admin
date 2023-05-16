@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+patchedDependencies:
+  mockjs@1.1.0:
+    hash: zljuuegabo7mnbroxnwxab3e2u
+    path: patches/mockjs@1.1.0.patch
+
 dependencies:
   '@antv/data-set':
     specifier: ^0.11.8
@@ -7634,12 +7639,13 @@ packages:
     hasBin: true
     dev: true
 
-  /mockjs@1.1.0:
+  /mockjs@1.1.0(patch_hash=zljuuegabo7mnbroxnwxab3e2u):
     resolution: {integrity: sha512-eQsKcWzIaZzEZ07NuEyO4Nw65g0hdWAyurVol1IPl1gahRwY+svqzfgfey8U8dahLwG44d6/RwEzuK52rSa/JQ==}
     hasBin: true
     dependencies:
       commander: 10.0.1
     dev: true
+    patched: true
 
   /modify-values@1.0.1:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
@@ -10258,7 +10264,7 @@ packages:
       debug: 4.3.4
       esbuild: 0.14.54
       fast-glob: 3.2.12
-      mockjs: 1.1.0
+      mockjs: 1.1.0(patch_hash=zljuuegabo7mnbroxnwxab3e2u)
       path-to-regexp: 6.2.1
       vite: 4.3.6(@types/node@20.1.5)(sass@1.62.1)
     transitivePeerDependencies:
