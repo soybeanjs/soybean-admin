@@ -24,7 +24,7 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
     vueJsx(),
     ...unplugin(viteEnv),
     unocss(),
-    mock,
+    mock(viteEnv),
     progress(),
     pageRoute()
   ];
