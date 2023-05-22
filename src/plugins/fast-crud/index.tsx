@@ -5,6 +5,7 @@ import { FastCrud } from '@fast-crud/fast-crud';
 import '@fast-crud/fast-crud/dist/style.css';
 import './common.scss';
 
+import type { FsUploaderOptions } from '@fast-crud/fast-extends';
 import {
   FsExtendsCopyable,
   FsExtendsEditor,
@@ -15,6 +16,7 @@ import {
 import '@fast-crud/fast-extends/dist/style.css';
 import UiNaive from '@fast-crud/ui-naive';
 import axios from 'axios';
+import type { VueI18n } from 'vue-i18n';
 import { mockRequest, request } from '@/service/request';
 import { setupNaive } from '@/plugins/fast-crud/naive';
 
@@ -24,7 +26,10 @@ import { setupNaive } from '@/plugins/fast-crud/naive';
  * @param app
  * @param options
  */
-function install(app: App, options: any = {}) {
+export type FsSetupOpts = {
+  i18n?: VueI18n;
+};
+function install(app: App, options: FsSetupOpts = {}) {
   // 安装naive ui 常用组件
   setupNaive(app);
   app.use(UiNaive);
@@ -32,7 +37,7 @@ function install(app: App, options: any = {}) {
     i18n: options.i18n,
     async dictRequest(context: { url: string }) {
       const url = context.url;
-      let res: any;
+      let res: Service.SuccessResult | Service.FailedResult;
       if (url && url.startsWith('/mock')) {
         // 如果是crud开头的dict请求视为mock
         res = await mockRequest.get(url.replace('/mock', ''));
@@ -44,7 +49,6 @@ function install(app: App, options: any = {}) {
     },
     /**
      * useCrud时会被执行
-     * @param context，useCrud的参数
      */
     commonOptions() {
       return {
@@ -85,7 +89,7 @@ function install(app: App, options: any = {}) {
             };
           },
           // page请求结果转换
-          transformRes: (originPageRes: { res: any; query: any }) => {
+          transformRes: originPageRes => {
             const { res } = originPageRes;
             const pageSize = res.limit;
             let currentPage = res.offset / pageSize;
@@ -115,29 +119,29 @@ function install(app: App, options: any = {}) {
   app.use(FsExtendsJson);
   app.use(FsExtendsCopyable);
   // 安装uploader 公共参数
-  app.use(FsExtendsUploader, {
+  const uploaderOptions: FsUploaderOptions = {
     defaultType: 'form',
     form: {
       action: 'http://www.docmirror.cn:7070/api/upload/form/upload',
       name: 'file',
       withCredentials: false,
-      uploadRequest: async (props: { action: string; file: File; onProgress: (progress: any) => void }) => {
+      uploadRequest: async props => {
         const { action, file, onProgress } = props;
         const data = new FormData();
         data.append('file', file);
-        const res: any = await axios.post(action, data, {
+        const res = await axios.post(action, data, {
           headers: {
             'Content-Type': 'multipart/form-data'
           },
           timeout: 60000,
-          onUploadProgress(progress: any) {
-            onProgress({ percent: Math.round((progress.loaded / progress.total) * 100) });
+          onUploadProgress(progress) {
+            onProgress({ percent: Math.round((progress.loaded / progress.total!) * 100) });
           }
         });
         // 上传完成后的结果，一般返回个url 或者key,具体看你的后台返回啥
         return res.data.data;
       },
-      successHandle(ret: string) {
+      async successHandle(ret: string) {
         // 上传完成后的结果处理， 此处应转换格式为{url:xxx,key:xxx}
         return {
           url: `http://www.docmirror.cn:7070${ret}`,
@@ -145,7 +149,8 @@ function install(app: App, options: any = {}) {
         };
       }
     }
-  } as any);
+  };
+  app.use(FsExtendsUploader, uploaderOptions);
 
   // 安装editor
   app.use(FsExtendsEditor, {
@@ -161,6 +166,6 @@ export default {
   install
 };
 
-export function setupFastCrud(app: App<Element>, options: any = {}) {
+export function setupFastCrud(app: App<Element>, options: FsSetupOpts = {}) {
   install(app, options);
 }

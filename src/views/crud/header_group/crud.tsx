@@ -1,22 +1,22 @@
-import type { CreateCrudOptionsRet } from '@fast-crud/fast-crud';
-import { dict } from '@fast-crud/fast-crud';
+import type { CreateCrudOptionsRet, UserPageQuery, UserPageRes } from '@fast-crud/fast-crud';
+import type { HeaderGroupRecord } from './api';
 import * as api from './api';
 
 export default function createCrudOptions(): CreateCrudOptionsRet {
-  const pageRequest = async (query: any) => {
+  const pageRequest = async (query: UserPageQuery): Promise<UserPageRes> => {
     return api.GetList(query);
   };
-  const editRequest = async (ctx: { form: any; row: any }) => {
+  const editRequest = async (ctx: { form: HeaderGroupRecord; row: HeaderGroupRecord }) => {
     const { form, row } = ctx;
     form.id = row.id;
     return api.UpdateObj(form);
   };
-  const delRequest = async (ctx: { row: any }) => {
+  const delRequest = async (ctx: { row: HeaderGroupRecord }) => {
     const { row } = ctx;
     return api.DelObj(row.id);
   };
 
-  const addRequest = async (ctx: { form: any }) => {
+  const addRequest = async (ctx: { form: HeaderGroupRecord }) => {
     const { form } = ctx;
     return api.AddObj(form);
   };
@@ -69,14 +69,8 @@ export default function createCrudOptions(): CreateCrudOptionsRet {
               children: {
                 province: {
                   title: '省',
-                  search: { show: true },
-                  type: 'dict-select',
-                  dict: dict({
-                    data: [
-                      { value: '广东省', label: '广东省' },
-                      { value: '浙江省', label: '浙江省' }
-                    ]
-                  })
+                  type: 'text',
+                  search: { show: true }
                 },
                 city: {
                   title: '市',

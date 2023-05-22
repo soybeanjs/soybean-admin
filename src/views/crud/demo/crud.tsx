@@ -1,10 +1,10 @@
-import type { AddReq, CreateCrudOptionsRet, DelReq, EditReq } from '@fast-crud/fast-crud';
+import type { AddReq, CreateCrudOptionsRet, DelReq, EditReq, UserPageQuery, UserPageRes } from '@fast-crud/fast-crud';
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 import * as api from './api';
 
 export default function createCrudOptions(): CreateCrudOptionsRet {
-  const pageRequest = async (query: any) => {
+  const pageRequest = async (query: UserPageQuery): Promise<UserPageRes> => {
     return api.GetList(query);
   };
   const editRequest = async (ctx: EditReq) => {

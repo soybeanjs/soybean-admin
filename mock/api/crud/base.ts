@@ -1,21 +1,34 @@
-// eslint-disable-next-line max-params
-function copyList(originList: any, newList: any, options: any, parentId?: number) {
+export type ListItem = {
+  id?: number;
+  children?: ListItem[];
+  [key: string]: any;
+};
+export type BaseMockOptions = { name: string; copyTimes?: number; list: ListItem[]; idGenerator: number };
+type CopyListParams = { originList: ListItem[]; newList: ListItem[]; options: BaseMockOptions; parentId?: number };
+
+function copyList(props: CopyListParams) {
+  const { originList, newList, options, parentId } = props;
   for (const item of originList) {
-    const newItem = { ...item, parentId };
+    const newItem: ListItem = { ...item, parentId };
     newItem.id = options.idGenerator;
     options.idGenerator += 1;
     newList.push(newItem);
     if (item.children) {
       newItem.children = [];
-      copyList(item.children, newItem.children, options, newItem.id);
+      copyList({
+        originList: item.children,
+        newList: newItem.children,
+        options,
+        parentId: newItem.id
+      });
     }
   }
 }
 
-function delById(req: any, list: any[]) {
+function delById(req: Service.MockOption, list: any[]) {
   for (let i = 0; i < list.length; i += 1) {
     const item = list[i];
-    if (item.id === parseInt(req.params.id, 10)) {
+    if (item.id === parseInt(req.query.id, 10)) {
       list.splice(i, 1);
       break;
     }
@@ -25,7 +38,7 @@ function delById(req: any, list: any[]) {
   }
 }
 
-function findById(id: number, list: any[]): any {
+function findById(id: number, list: ListItem[]): any {
   for (const item of list) {
     if (item.id === id) {
       return item;
@@ -39,22 +52,94 @@ function findById(id: number, list: any[]): any {
   }
   return null;
 }
+
+function matchWithArrayCondition(value: any[], item: ListItem, key: string) {
+  if (value.length === 0) {
+    return true;
+  }
+  let matched = false;
+  for (const i of value) {
+    if (item[key] instanceof Array) {
+      for (const j of item[key]) {
+        if (i === j) {
+          matched = true;
+          break;
+        }
+      }
+      if (matched) {
+        break;
+      }
+    } else if (item[key] === i || (typeof item[key] === 'string' && item[key].indexOf(`${i}`) >= 0)) {
+      matched = true;
+      break;
+    }
+    if (matched) {
+      break;
+    }
+  }
+  return matched;
+}
+
+function matchWithObjectCondition(value: any, item: ListItem, key: string) {
+  let matched = true;
+  for (const key2 of Object.keys(value)) {
+    const v = value[key2];
+    if (v && item[key] && v !== item[key][key2]) {
+      matched = false;
+      break;
+    }
+  }
+  return matched;
+}
+
+function searchFromList(list: ListItem[], query: any) {
+  const filter = (item: ListItem) => {
+    let allFound = true; // 是否所有条件都符合
+    for (const key of Object.keys(query)) {
+      const value = query[key];
+      if (value === undefined || value === null || value === '') {
+        // no nothing
+      } else if (value instanceof Array) {
+        // 如果条件中的value是数组的话，只要查到一个就行
+        const matched = matchWithArrayCondition(value, item, key);
+        if (!matched) {
+          allFound = false;
+        }
+      } else if (value instanceof Object) {
+        // 如果条件中的value是对象的话，需要每个key都匹配
+        const matched = matchWithObjectCondition(value, item, key);
+        if (!matched) {
+          allFound = false;
+        }
+      } else if (item[key] !== value) {
+        allFound = false;
+      }
+    }
+    return allFound;
+  };
+  return list.filter(filter);
+}
+
 export default {
-  buildMock(options: { name: string; copyTimes: number; list: any[]; idGenerator: number }) {
+  buildMock(options: BaseMockOptions) {
     const name = options.name;
     if (!options.copyTimes) {
       options.copyTimes = 29;
     }
     const list: any[] = [];
     for (let i = 0; i < options.copyTimes; i += 1) {
-      copyList(options.list, list, options);
+      copyList({
+        originList: options.list,
+        newList: list,
+        options
+      });
     }
     options.list = list;
     return [
       {
         path: `/mock/${name}/page`,
         method: 'post',
-        handle(req: any) {
+        handle(req: Service.MockOption) {
           let data = [...list];
           let limit = 20;
           let offset = 0;
@@ -67,74 +152,15 @@ export default {
           let orderAsc: any;
           let orderProp: any;
           if (req && req.body) {
-            const { page, query, sort } = req.body;
+            const { page, query } = req.body;
             if (page.limit) {
               limit = parseInt(page.limit, 10);
             }
             if (page.offset) {
               offset = parseInt(page.offset, 10);
             }
-            orderProp = sort.prop;
-            orderAsc = sort.asc;
-
             if (Object.keys(query).length > 0) {
-              // eslint-disable-next-line complexity
-              data = list.filter(item => {
-                let allFound = true; // 是否所有条件都符合
-                // eslint-disable-next-line guard-for-in
-                for (const key in query) {
-                  // 判定某一个条件
-                  const value = query[key];
-                  if (value === undefined || value === null || value === '') {
-                    // eslint-disable-next-line no-continue
-                    continue;
-                  }
-                  if (value instanceof Array) {
-                    // 如果条件中的value是数组的话，只要查到一个就行
-                    if (value.length === 0) {
-                      // eslint-disable-next-line no-continue
-                      continue;
-                    }
-                    let found = false;
-                    for (const i of value) {
-                      if (item[key] instanceof Array) {
-                        // eslint-disable-next-line max-depth
-                        for (const j of item[key]) {
-                          // eslint-disable-next-line max-depth
-                          if (i === j) {
-                            found = true;
-                            break;
-                          }
-                        }
-                        // eslint-disable-next-line max-depth
-                        if (found) {
-                          break;
-                        }
-                      } else if (item[key] === i || (typeof item[key] === 'string' && item[key].indexOf(`${i}`) >= 0)) {
-                        found = true;
-                        break;
-                      }
-                      if (found) {
-                        break;
-                      }
-                    }
-                    if (!found) {
-                      allFound = false;
-                    }
-                  } else if (value instanceof Object) {
-                    // eslint-disable-next-line max-depth,guard-for-in
-                    for (const key2 in value) {
-                      const v = value[key2];
-                      if (v && item[key] && v !== item[key][key2]) {
-                        return false;
-                      }
-                    }
-                  } else if (item[key] !== value) {
-                    allFound = false;
-                  }
-                }
-                return allFound;
-              });
+              data = searchFromList(list, query);
             }
           }
 
@@ -150,7 +176,7 @@ export default {
               let ret = 0;
               if (a[orderProp] > b[orderProp]) {
                 ret = 1;
-              } else {
+              } else if (a[orderProp] < b[orderProp]) {
                 ret = -1;
               }
               return orderAsc ? ret : -ret;
@@ -177,8 +203,8 @@ export default {
       {
         path: `/mock/${name}/get`,
         method: 'get',
-        handle(req: any) {
-          let id = req.params.id;
+        handle(req: Service.MockOption) {
+          let id = req.query.id;
           id = parseInt(id, 10);
           let current = null;
           for (const item of list) {
@@ -197,7 +223,7 @@ export default {
       {
         path: `/mock/${name}/add`,
         method: 'post',
-        handle(req: any) {
+        handle(req: Service.MockOption) {
           req.body.id = options.idGenerator;
           options.idGenerator += 1;
           list.unshift(req.body);
@@ -211,7 +237,7 @@ export default {
       {
         path: `/mock/${name}/update`,
         method: 'post',
-        handle(req: any) {
+        handle(req: Service.MockOption) {
           const item = findById(req.body.id, list);
           if (item) {
             Object.assign(item, req.body);
@@ -226,7 +252,7 @@ export default {
       {
         path: `/mock/${name}/delete`,
         method: 'post',
-        handle(req: any) {
+        handle(req: Service.MockOption) {
           delById(req, list);
           return {
             code: 200,
@@ -238,7 +264,7 @@ export default {
       {
         path: `/mock/${name}/batchDelete`,
         method: 'post',
-        handle(req: any) {
+        handle(req: Service.MockOption) {
           const ids = req.body.ids;
           for (let i = list.length - 1; i >= 0; i -= 1) {
             const item = list[i];
