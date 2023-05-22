@@ -3,7 +3,7 @@ import App from './App.vue';
 import AppLoading from './components/common/app-loading.vue';
 import { setupDirectives } from './directives';
 import { setupRouter } from './router';
-import { setupAssets } from './plugins';
+import { setupAssets, setupFastCrud } from './plugins';
 import { setupStore } from './store';
 import { setupI18n } from './locales';
 
@@ -28,6 +28,8 @@ async function setupApp() {
   await setupRouter(app);
 
   setupI18n(app);
+
+  setupFastCrud(app);
 
   // mount app
   app.mount('#app');
