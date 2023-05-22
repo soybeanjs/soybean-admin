@@ -32,9 +32,11 @@
 - [github](https://github.com/honghuangdc/soybean-admin)
 - [tauri 版](https://github.com/honghuangdc/soybean-admin/tree/tauri)
 - [精简版](https://github.com/honghuangdc/soybean-admin/tree/thin)
+- [fast-crud](https://github.com/honghuangdc/soybean-admin/tree/fast-crud)
 - [gitee](https://gitee.com/honghuangdc/soybean-admin)
 - [tauri 版](https://gitee.com/honghuangdc/soybean-admin/tree/tauri)
 - [精简版](https://gitee.com/honghuangdc/soybean-admin/tree/thin)
+- [fast-crud](https://gitee.com/honghuangdc/soybean-admin/tree/fast-crud)
 
 ## 更新日志
 
