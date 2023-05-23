@@ -19,9 +19,9 @@
             class="inline-block align-text-bottom mr-4px text-16px"
             :class="{ 'text-#BBBBBB': theme.header.inverted }"
           />
-          <span :class="{ 'text-#BBBBBB': theme.header.inverted }">{{
-            breadcrumb.i18nTitle ? t(breadcrumb.i18nTitle) : breadcrumb.label
-          }}</span>
+          <span :class="{ 'text-#BBBBBB': theme.header.inverted }">
+            {{ breadcrumb.i18nTitle ? t(breadcrumb.i18nTitle) : breadcrumb.label }}
+          </span>
         </template>
       </n-breadcrumb-item>
     </template>
