@@ -29,14 +29,14 @@
 
 ## 代码仓库
 
-- [github](https://github.com/honghuangdc/soybean-admin)
-- [tauri 版](https://github.com/honghuangdc/soybean-admin/tree/tauri)
-- [精简版](https://github.com/honghuangdc/soybean-admin/tree/thin)
-- [fast-crud](https://github.com/honghuangdc/soybean-admin/tree/fast-crud)
-- [gitee](https://gitee.com/honghuangdc/soybean-admin)
-- [tauri 版](https://gitee.com/honghuangdc/soybean-admin/tree/tauri)
-- [精简版](https://gitee.com/honghuangdc/soybean-admin/tree/thin)
-- [fast-crud](https://gitee.com/honghuangdc/soybean-admin/tree/fast-crud)
+| 仓库            | github地址                                                                    | gitee镜像                                                                   | 预览           |
+|---------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------|--------------|
+| soybean-admin | [github](https://github.com/honghuangdc/soybean-admin)                      | [gitee](https://gitee.com/honghuangdc/soybean-admin)                      | 			   [预览](https://soybean.pro/) |
+| tauri 版	      | [tauri 版](https://github.com/honghuangdc/soybean-admin/tree/tauri)	         | [tauri 版](https://gitee.com/honghuangdc/soybean-admin/tree/tauri)         |              |
+| 精简版	          | [精简版](https://github.com/honghuangdc/soybean-admin/tree/thin)	              | [精简版](https://gitee.com/honghuangdc/soybean-admin/tree/thin)              |              |
+| 集成fast-crud	  | [集成fast-crud](https://github.com/honghuangdc/soybean-admin/tree/fast-crud)	 | [集成fast-crud](https://gitee.com/honghuangdc/soybean-admin/tree/fast-crud) | [预览](http://fast-crud.docmirror.cn/soybean/#/crud/demo)|
+
+
 
 ## 更新日志
 
@@ -122,8 +122,8 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-git-hooks 进行初始化配置
 
 ## 基于 SoybeanAdmin 二次开发的项目
-[electron-mock-admin](https://github.com/lixin59/electron-mock-api): 一个 Mock Api 管理系统，帮助前端开发伙伴快速实现接口的mock。
-[T-Shell](https://github.com/TheBlindM/T-Shell): 是一个可配置命令提示的终端模拟器和 SSH客户端。
+- [electron-mock-admin](https://github.com/lixin59/electron-mock-api): 一个 Mock Api 管理系统，帮助前端开发伙伴快速实现接口的mock。
+- [T-Shell](https://github.com/TheBlindM/T-Shell): 是一个可配置命令提示的终端模拟器和 SSH客户端。
 
 ## 浏览器支持
 
