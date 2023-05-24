@@ -12,7 +12,8 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '分析页',
             requiresAuth: true,
-            icon: 'icon-park-outline:analysis'
+            icon: 'icon-park-outline:analysis',
+            i18nTitle: 'message.routes.dashboard.analysis'
           }
         },
         {
@@ -22,14 +23,16 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '工作台',
             requiresAuth: true,
-            icon: 'icon-park-outline:workbench'
+            icon: 'icon-park-outline:workbench',
+            i18nTitle: 'message.routes.dashboard.workbench'
           }
         }
       ],
       meta: {
         title: '仪表盘',
         icon: 'mdi:monitor-dashboard',
-        order: 1
+        order: 1,
+        i18nTitle: 'message.routes.dashboard._value'
       }
     },
     {
@@ -43,6 +46,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'vue文档',
+            i18nTitle: 'message.routes.document.vue',
             requiresAuth: true,
             icon: 'logos:vue'
           }
@@ -53,6 +57,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'vite文档',
+            i18nTitle: 'message.routes.document.vite',
             requiresAuth: true,
             icon: 'logos:vitejs'
           }
@@ -63,6 +68,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'naive文档',
+            i18nTitle: 'message.routes.document.naive',
             requiresAuth: true,
             icon: 'logos:naiveui'
           }
@@ -73,6 +79,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '项目文档',
+            i18nTitle: 'message.routes.document.project',
             requiresAuth: true,
             localIcon: 'logo'
           }
@@ -82,6 +89,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           path: '/document/project-link',
           meta: {
             title: '项目文档(外链)',
+            i18nTitle: 'message.routes.document.project-link',
             requiresAuth: true,
             localIcon: 'logo',
             href: 'https://docs.soybean.pro/'
@@ -90,6 +98,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '文档',
+        i18nTitle: 'message.routes.document._value',
         icon: 'mdi:file-document-multiple-outline',
         order: 2
       }
@@ -105,6 +114,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '按钮',
+            i18nTitle: 'message.routes.component.button',
             requiresAuth: true,
             icon: 'mdi:button-cursor'
           }
@@ -115,6 +125,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '卡片',
+            i18nTitle: 'message.routes.component.card',
             requiresAuth: true,
             icon: 'mdi:card-outline'
           }
@@ -125,6 +136,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '表格',
+            i18nTitle: 'message.routes.component.table',
             requiresAuth: true,
             icon: 'mdi:table-large'
           }
@@ -132,6 +144,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '组件示例',
+        i18nTitle: 'message.routes.component._value',
         icon: 'cib:app-store',
         order: 3
       }
@@ -152,6 +165,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: 'ECharts',
+                i18nTitle: 'message.routes.plugin.charts.echarts',
                 requiresAuth: true,
                 icon: 'simple-icons:apacheecharts'
               }
@@ -162,6 +176,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: 'AntV',
+                i18nTitle: 'message.routes.plugin.charts.antv',
                 requiresAuth: true,
                 icon: 'simple-icons:antdesign'
               }
@@ -169,6 +184,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           ],
           meta: {
             title: '图表',
+            i18nTitle: 'message.routes.plugin.charts._value',
             icon: 'mdi:chart-areaspline'
           }
         },
@@ -178,6 +194,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '地图',
+            i18nTitle: 'message.routes.plugin.map',
             requiresAuth: true,
             icon: 'mdi:map'
           }
@@ -188,6 +205,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '视频',
+            i18nTitle: 'message.routes.plugin.video',
             requiresAuth: true,
             icon: 'mdi:video'
           }
@@ -203,6 +221,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: '富文本编辑器',
+                i18nTitle: 'message.routes.plugin.editor.quill',
                 requiresAuth: true,
                 icon: 'mdi:file-document-edit-outline'
               }
@@ -213,6 +232,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: 'markdown编辑器',
+                i18nTitle: 'message.routes.plugin.editor.markdown',
                 requiresAuth: true,
                 icon: 'ri:markdown-line'
               }
@@ -220,6 +240,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           ],
           meta: {
             title: '编辑器',
+            i18nTitle: 'message.routes.plugin.editor._value',
             icon: 'icon-park-outline:editor'
           }
         },
@@ -229,6 +250,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'Swiper插件',
+            i18nTitle: 'message.routes.plugin.swiper',
             requiresAuth: true,
             icon: 'simple-icons:swiper'
           }
@@ -239,6 +261,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '剪贴板',
+            i18nTitle: 'message.routes.plugin.copy',
             requiresAuth: true,
             icon: 'mdi:clipboard-outline'
           }
@@ -249,6 +272,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '图标',
+            i18nTitle: 'message.routes.plugin.icon',
             requiresAuth: true,
             localIcon: 'custom-icon'
           }
@@ -259,6 +283,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '打印',
+            i18nTitle: 'message.routes.plugin.print',
             requiresAuth: true,
             icon: 'mdi:printer'
           }
@@ -266,6 +291,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '插件示例',
+        i18nTitle: 'message.routes.plugin._value',
         icon: 'clarity:plugin-line',
         order: 4
       }
@@ -281,6 +307,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '权限切换',
+            i18nTitle: 'message.routes.auth-demo.permission',
             requiresAuth: true,
             icon: 'ic:round-construction'
           }
@@ -291,6 +318,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '超级管理员可见',
+            i18nTitle: 'message.routes.auth-demo.super',
             requiresAuth: true,
             icon: 'ic:round-supervisor-account'
           }
@@ -298,6 +326,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '权限示例',
+        i18nTitle: 'message.routes.auth-demo._value',
         icon: 'ic:baseline-security',
         order: 5
       }
@@ -313,6 +342,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'Tab',
+            i18nTitle: 'message.routes.function.tab',
             requiresAuth: true,
             icon: 'ic:round-tab'
           }
@@ -345,6 +375,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '功能',
+        i18nTitle: 'message.routes.function._value',
         icon: 'icon-park-outline:all-application',
         order: 6
       }
@@ -360,6 +391,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '异常页403',
+            i18nTitle: 'message.routes.exception.403',
             requiresAuth: true,
             icon: 'ic:baseline-block'
           }
@@ -370,6 +402,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '异常页404',
+            i18nTitle: 'message.routes.exception.404',
             requiresAuth: true,
             icon: 'ic:baseline-web-asset-off'
           }
@@ -380,12 +413,14 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '异常页500',
+            i18nTitle: 'message.routes.exception.500',
             requiresAuth: true,
             icon: 'ic:baseline-wifi-off'
           }
         }
       ],
       meta: {
+        i18nTitle: 'message.routes.exception._value',
         title: '异常页',
         icon: 'ant-design:exception-outlined',
         order: 7
@@ -407,6 +442,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: '二级菜单',
+                i18nTitle: 'message.routes.multi-menu.first.second',
                 requiresAuth: true,
                 icon: 'mdi:menu'
               }
@@ -422,6 +458,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
                   component: 'self',
                   meta: {
                     title: '三级菜单',
+                    i18nTitle: 'message.routes.multi-menu.first.second-new.third',
                     requiresAuth: true,
                     icon: 'mdi:menu'
                   }
@@ -429,18 +466,21 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               ],
               meta: {
                 title: '二级菜单(有子菜单)',
+                i18nTitle: 'message.routes.multi-menu.first.second-new._value',
                 icon: 'mdi:menu'
               }
             }
           ],
           meta: {
             title: '一级菜单',
+            i18nTitle: 'message.routes.multi-menu.first._value',
             icon: 'mdi:menu'
           }
         }
       ],
       meta: {
         title: '多级菜单',
+        i18nTitle: 'message.routes.multi-menu._value',
         icon: 'carbon:menu',
         order: 8
       }
@@ -456,6 +496,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '权限管理',
+            i18nTitle: 'message.routes.management.auth',
             requiresAuth: true,
             icon: 'ic:baseline-security'
           }
@@ -466,6 +507,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '角色管理',
+            i18nTitle: 'message.routes.management.role',
             requiresAuth: true,
             icon: 'carbon:user-role'
           }
@@ -476,6 +518,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '用户管理',
+            i18nTitle: 'message.routes.management.user',
             requiresAuth: true,
             icon: 'ic:round-manage-accounts'
           }
@@ -486,6 +529,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '路由管理',
+            i18nTitle: 'message.routes.management.route',
             requiresAuth: true,
             icon: 'material-symbols:route'
           }
@@ -493,6 +537,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '系统管理',
+        i18nTitle: 'message.routes.management._value',
         icon: 'carbon:cloud-service-management',
         order: 9
       }
@@ -503,7 +548,9 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       component: 'self',
       meta: {
         title: '关于',
+        i18nTitle: 'message.routes.about',
         requiresAuth: true,
+        keepAlive: true,
         singleLayout: 'basic',
         icon: 'fluent:book-information-24-regular',
         order: 10
@@ -523,7 +570,8 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '分析页',
             requiresAuth: true,
-            icon: 'icon-park-outline:analysis'
+            icon: 'icon-park-outline:analysis',
+            i18nTitle: 'message.routes.dashboard.analysis'
           }
         },
         {
@@ -533,14 +581,16 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '工作台',
             requiresAuth: true,
-            icon: 'icon-park-outline:workbench'
+            icon: 'icon-park-outline:workbench',
+            i18nTitle: 'message.routes.dashboard.workbench'
           }
         }
       ],
       meta: {
         title: '仪表盘',
         icon: 'mdi:monitor-dashboard',
-        order: 1
+        order: 1,
+        i18nTitle: 'message.routes.dashboard._value'
       }
     },
     {
@@ -554,6 +604,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'vue文档',
+            i18nTitle: 'message.routes.document.vue',
             requiresAuth: true,
             icon: 'logos:vue'
           }
@@ -564,6 +615,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'vite文档',
+            i18nTitle: 'message.routes.document.vite',
             requiresAuth: true,
             icon: 'logos:vitejs'
           }
@@ -574,6 +626,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'naive文档',
+            i18nTitle: 'message.routes.document.naive',
             requiresAuth: true,
             icon: 'logos:naiveui'
           }
@@ -584,6 +637,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '项目文档',
+            i18nTitle: 'message.routes.document.project',
             requiresAuth: true,
             localIcon: 'logo'
           }
@@ -593,6 +647,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           path: '/document/project-link',
           meta: {
             title: '项目文档(外链)',
+            i18nTitle: 'message.routes.document.project-link',
             requiresAuth: true,
             localIcon: 'logo',
             href: 'https://docs.soybean.pro/'
@@ -601,6 +656,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '文档',
+        i18nTitle: 'message.routes.document._value',
         icon: 'mdi:file-document-multiple-outline',
         order: 2
       }
@@ -616,6 +672,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '按钮',
+            i18nTitle: 'message.routes.component.button',
             requiresAuth: true,
             icon: 'mdi:button-cursor'
           }
@@ -626,6 +683,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '卡片',
+            i18nTitle: 'message.routes.component.card',
             requiresAuth: true,
             icon: 'mdi:card-outline'
           }
@@ -636,6 +694,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '表格',
+            i18nTitle: 'message.routes.component.table',
             requiresAuth: true,
             icon: 'mdi:table-large'
           }
@@ -643,6 +702,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '组件示例',
+        i18nTitle: 'message.routes.component._value',
         icon: 'cib:app-store',
         order: 3
       }
@@ -663,6 +723,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: 'ECharts',
+                i18nTitle: 'message.routes.plugin.charts.echarts',
                 requiresAuth: true,
                 icon: 'simple-icons:apacheecharts'
               }
@@ -673,6 +734,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: 'AntV',
+                i18nTitle: 'message.routes.plugin.charts.antv',
                 requiresAuth: true,
                 icon: 'simple-icons:antdesign'
               }
@@ -680,6 +742,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           ],
           meta: {
             title: '图表',
+            i18nTitle: 'message.routes.plugin.charts._value',
             icon: 'mdi:chart-areaspline'
           }
         },
@@ -689,6 +752,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '地图',
+            i18nTitle: 'message.routes.plugin.map',
             requiresAuth: true,
             icon: 'mdi:map'
           }
@@ -699,6 +763,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '视频',
+            i18nTitle: 'message.routes.plugin.video',
             requiresAuth: true,
             icon: 'mdi:video'
           }
@@ -714,6 +779,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: '富文本编辑器',
+                i18nTitle: 'message.routes.plugin.editor.quill',
                 requiresAuth: true,
                 icon: 'mdi:file-document-edit-outline'
               }
@@ -724,6 +790,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: 'markdown编辑器',
+                i18nTitle: 'message.routes.plugin.editor.markdown',
                 requiresAuth: true,
                 icon: 'ri:markdown-line'
               }
@@ -731,6 +798,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           ],
           meta: {
             title: '编辑器',
+            i18nTitle: 'message.routes.plugin.editor._value',
             icon: 'icon-park-outline:editor'
           }
         },
@@ -740,6 +808,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'Swiper插件',
+            i18nTitle: 'message.routes.plugin.swiper',
             requiresAuth: true,
             icon: 'simple-icons:swiper'
           }
@@ -750,6 +819,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '剪贴板',
+            i18nTitle: 'message.routes.plugin.copy',
             requiresAuth: true,
             icon: 'mdi:clipboard-outline'
           }
@@ -760,6 +830,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '图标',
+            i18nTitle: 'message.routes.plugin.icon',
             requiresAuth: true,
             localIcon: 'custom-icon'
           }
@@ -770,6 +841,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '打印',
+            i18nTitle: 'message.routes.plugin.print',
             requiresAuth: true,
             icon: 'mdi:printer'
           }
@@ -777,6 +849,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '插件示例',
+        i18nTitle: 'message.routes.plugin._value',
         icon: 'clarity:plugin-line',
         order: 4
       }
@@ -792,13 +865,26 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '权限切换',
+            i18nTitle: 'message.routes.auth-demo.permission',
             requiresAuth: true,
             icon: 'ic:round-construction'
+          }
+        },
+        {
+          name: 'auth-demo_super',
+          path: '/auth-demo/super',
+          component: 'self',
+          meta: {
+            title: '超级管理员可见',
+            i18nTitle: 'message.routes.auth-demo.super',
+            requiresAuth: true,
+            icon: 'ic:round-supervisor-account'
           }
         }
       ],
       meta: {
         title: '权限示例',
+        i18nTitle: 'message.routes.auth-demo._value',
         icon: 'ic:baseline-security',
         order: 5
       }
@@ -814,6 +900,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: 'Tab',
+            i18nTitle: 'message.routes.function.tab',
             requiresAuth: true,
             icon: 'ic:round-tab'
           }
@@ -846,6 +933,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '功能',
+        i18nTitle: 'message.routes.function._value',
         icon: 'icon-park-outline:all-application',
         order: 6
       }
@@ -861,6 +949,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '异常页403',
+            i18nTitle: 'message.routes.exception.403',
             requiresAuth: true,
             icon: 'ic:baseline-block'
           }
@@ -871,6 +960,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '异常页404',
+            i18nTitle: 'message.routes.exception.404',
             requiresAuth: true,
             icon: 'ic:baseline-web-asset-off'
           }
@@ -881,12 +971,14 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '异常页500',
+            i18nTitle: 'message.routes.exception.500',
             requiresAuth: true,
             icon: 'ic:baseline-wifi-off'
           }
         }
       ],
       meta: {
+        i18nTitle: 'message.routes.exception._value',
         title: '异常页',
         icon: 'ant-design:exception-outlined',
         order: 7
@@ -908,6 +1000,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: '二级菜单',
+                i18nTitle: 'message.routes.multi-menu.first.second',
                 requiresAuth: true,
                 icon: 'mdi:menu'
               }
@@ -923,6 +1016,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
                   component: 'self',
                   meta: {
                     title: '三级菜单',
+                    i18nTitle: 'message.routes.multi-menu.first.second-new.third',
                     requiresAuth: true,
                     icon: 'mdi:menu'
                   }
@@ -930,18 +1024,21 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               ],
               meta: {
                 title: '二级菜单(有子菜单)',
+                i18nTitle: 'message.routes.multi-menu.first.second-new._value',
                 icon: 'mdi:menu'
               }
             }
           ],
           meta: {
             title: '一级菜单',
+            i18nTitle: 'message.routes.multi-menu.first._value',
             icon: 'mdi:menu'
           }
         }
       ],
       meta: {
         title: '多级菜单',
+        i18nTitle: 'message.routes.multi-menu._value',
         icon: 'carbon:menu',
         order: 8
       }
@@ -957,6 +1054,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '权限管理',
+            i18nTitle: 'message.routes.management.auth',
             requiresAuth: true,
             icon: 'ic:baseline-security'
           }
@@ -967,6 +1065,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '角色管理',
+            i18nTitle: 'message.routes.management.role',
             requiresAuth: true,
             icon: 'carbon:user-role'
           }
@@ -977,6 +1076,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '用户管理',
+            i18nTitle: 'message.routes.management.user',
             requiresAuth: true,
             icon: 'ic:round-manage-accounts'
           }
@@ -987,6 +1087,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '路由管理',
+            i18nTitle: 'message.routes.management.route',
             requiresAuth: true,
             icon: 'material-symbols:route'
           }
@@ -994,6 +1095,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       ],
       meta: {
         title: '系统管理',
+        i18nTitle: 'message.routes.management._value',
         icon: 'carbon:cloud-service-management',
         order: 9
       }
@@ -1004,7 +1106,9 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       component: 'self',
       meta: {
         title: '关于',
+        i18nTitle: 'message.routes.about',
         requiresAuth: true,
+        keepAlive: true,
         singleLayout: 'basic',
         icon: 'fluent:book-information-24-regular',
         order: 10
@@ -1024,14 +1128,27 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           meta: {
             title: '分析页',
             requiresAuth: true,
-            icon: 'icon-park-outline:analysis'
+            icon: 'icon-park-outline:analysis',
+            i18nTitle: 'message.routes.dashboard.analysis'
+          }
+        },
+        {
+          name: 'dashboard_workbench',
+          path: '/dashboard/workbench',
+          component: 'self',
+          meta: {
+            title: '工作台',
+            requiresAuth: true,
+            icon: 'icon-park-outline:workbench',
+            i18nTitle: 'message.routes.dashboard.workbench'
           }
         }
       ],
       meta: {
         title: '仪表盘',
         icon: 'mdi:monitor-dashboard',
-        order: 1
+        order: 1,
+        i18nTitle: 'message.routes.dashboard._value'
       }
     },
     {
@@ -1045,13 +1162,26 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
           component: 'self',
           meta: {
             title: '权限切换',
+            i18nTitle: 'message.routes.auth-demo.permission',
             requiresAuth: true,
             icon: 'ic:round-construction'
+          }
+        },
+        {
+          name: 'auth-demo_super',
+          path: '/auth-demo/super',
+          component: 'self',
+          meta: {
+            title: '超级管理员可见',
+            i18nTitle: 'message.routes.auth-demo.super',
+            requiresAuth: true,
+            icon: 'ic:round-supervisor-account'
           }
         }
       ],
       meta: {
         title: '权限示例',
+        i18nTitle: 'message.routes.auth-demo._value',
         icon: 'ic:baseline-security',
         order: 5
       }
@@ -1072,6 +1202,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               component: 'self',
               meta: {
                 title: '二级菜单',
+                i18nTitle: 'message.routes.multi-menu.first.second',
                 requiresAuth: true,
                 icon: 'mdi:menu'
               }
@@ -1087,6 +1218,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
                   component: 'self',
                   meta: {
                     title: '三级菜单',
+                    i18nTitle: 'message.routes.multi-menu.first.second-new.third',
                     requiresAuth: true,
                     icon: 'mdi:menu'
                   }
@@ -1094,20 +1226,23 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
               ],
               meta: {
                 title: '二级菜单(有子菜单)',
+                i18nTitle: 'message.routes.multi-menu.first.second-new._value',
                 icon: 'mdi:menu'
               }
             }
           ],
           meta: {
             title: '一级菜单',
+            i18nTitle: 'message.routes.multi-menu.first._value',
             icon: 'mdi:menu'
           }
         }
       ],
       meta: {
         title: '多级菜单',
+        i18nTitle: 'message.routes.multi-menu._value',
         icon: 'carbon:menu',
-        order: 7
+        order: 8
       }
     },
     {
@@ -1116,10 +1251,12 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
       component: 'self',
       meta: {
         title: '关于',
+        i18nTitle: 'message.routes.about',
         requiresAuth: true,
+        keepAlive: true,
         singleLayout: 'basic',
         icon: 'fluent:book-information-24-regular',
-        order: 8
+        order: 10
       }
     }
   ]

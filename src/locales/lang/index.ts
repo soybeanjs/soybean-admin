@@ -5,7 +5,7 @@ import kmKH from './km-KH';
 const locales = {
   'zh-CN': zhCN,
   en,
-	'km-KH': kmKH,
+  'km-KH': kmKH
 };
 
 export type LocaleKey = keyof typeof locales;

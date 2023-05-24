@@ -26,7 +26,7 @@ const options = [
   {
     label: 'ភាសាខ្មែរ',
     key: 'km-KH'
-	}
+  }
 ];
 const handleSelect = (key: string) => {
   language.value = key as I18nType.langType;

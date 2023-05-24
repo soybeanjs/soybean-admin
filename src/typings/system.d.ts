@@ -310,7 +310,7 @@ declare namespace I18nType {
     };
     routes: {
       dashboard: {
-        dashboard: string;
+        _value: string;
         analysis: string;
         workbench: string;
       };

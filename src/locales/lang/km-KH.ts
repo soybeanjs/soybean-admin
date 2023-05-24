@@ -7,7 +7,7 @@ const locale: LocaleMessages<I18nType.Schema> = {
     },
     routes: {
       dashboard: {
-        dashboard: 'ផ្ទាំងទិន្នន័យ',
+        _value: 'ផ្ទាំងទិន្នន័យ',
         analysis: 'ផ្ទាំងវិភាគ',
         workbench: 'ផ្ទាំងការងារ'
       },
