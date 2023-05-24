@@ -1,0 +1,116 @@
+---
+#
+# - Run this workflow to pull changes from the template repository.
+# 
+#   - Clone this repository. Check out a branch
+#   - Copy files from the template onto this clone
+#   - Push the branch to this repository
+#   - Create a pull request in this repository
+#
+name: Sync changes from template
+
+# TODO:
+# - Switch to gh. Check https://github.com/cli/cli/issues/297 for updates
+
+on:
+  # Run at 0517 UTC each Friday
+  schedule:
+    - cron: "17 5 * * 5"
+
+  # Run when this file changes
+  push:
+    paths:
+      - .github/workflows/sync-from-template.yml
+
+  # Run when manually triggered
+  workflow_dispatch:
+
+env:
+  BASE_BRANCH: main
+  HEAD_BRANCH: chore/sync-from-template
+  GIT_AUTHOR_NAME: ${{ github.repository_owner }}
+  GIT_AUTHOR_EMAIL: ${{ github.repository_owner }}@users.noreply.github.com
+  REPO_TEMPLATE: chhinsras/soybean-admin
+  THIS_REPO: ${{ github.repository }}
+
+jobs:
+  sync-from-template:
+    # Do not run on the template repository itself
+    if: github.repository != 'chhinsras/soybean-admin'
+    name: Sync changes from chhinsras/soybean-admin
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      # Clone the template repository
+      - name: Check out template repository
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.REPO_TEMPLATE }}
+          token: ${{ github.token }}
+          path: ${{ env.REPO_TEMPLATE }}
+
+      # Clone the target repository. Check out a branch
+      - name: Check out ${{ github.repository }}
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ github.token }}
+          path: ${{ github.repository }}
+      - name: Create branch in ${{ env.THIS_REPO }}
+        run: |
+          git -C "${THIS_REPO}" fetch origin "${HEAD_BRANCH}" || true
+          git -C "${THIS_REPO}" branch -a
+          git -C "${THIS_REPO}" checkout -B "${HEAD_BRANCH}" \
+            "remotes/origin/${HEAD_BRANCH}" || \
+          git -C "${THIS_REPO}" checkout -b "${HEAD_BRANCH}"
+
+      # Copy files from the template onto the target clone
+      - name: Copy template contents
+        run: |
+          _files="$(find ${REPO_TEMPLATE} \
+            ! -path "*/.git/*" \
+            ! -path "*/.github/workflows/*" \
+            ! -name ".gitignore" \
+            ! -name "README.md" \
+            -type f \
+            -print)"
+          for _file in ${_files}; do
+            _src="${_file}"
+            _dst="${THIS_REPO}/${_file#${REPO_TEMPLATE}/}"
+            # TODO: Find a more robust / elegant way to get this :point_down:
+            _dst="${_dst%/*}/"
+            mkdir -p "${_dst}"
+            echo "INFO: Copy '${_src}' to '${_dst}'."
+            cp "${_src}" "${_dst}"
+          done
+          git -C "${THIS_REPO}" diff
+
+      # Commit changes, if there are any
+      - name: Commit changes, if any
+        run: |
+          git -C ${THIS_REPO} config user.name "${GIT_AUTHOR_NAME}"
+          git -C ${THIS_REPO} config \
+            user.email "${GIT_AUTHOR_EMAIL}"
+          git -C ${THIS_REPO} add .
+          git -C ${THIS_REPO} commit \
+            -m "Sync from template@${{ github.sha }}"
+
+      # Push the branch to the target repository
+      - name: Push topic branch
+        run: git -C ${THIS_REPO} push -u origin "${HEAD_BRANCH}"
+
+      # Create a pull request in the target repository
+      - name: Create pull request
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_USER: ${{ github.actor }}
+        run: |
+          pushd ${THIS_REPO}
+          hub pull-request \
+            -b "${BASE_BRANCH}" \
+            -h "${HEAD_BRANCH}" \
+            --no-edit \
+            -m "Pull updates from ${REPO_TEMPLATE}" \
+            -m "Pull updates from ${REPO_TEMPLATE}"
+          popd
