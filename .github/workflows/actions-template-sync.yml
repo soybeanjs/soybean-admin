@@ -1,0 +1,25 @@
+name: actions-template-sync
+
+on:
+  # cronjob trigger At 00:00 on day-of-month 1. https://crontab.guru/every-month
+  schedule:
+  - cron:  "0 0 1 * *"
+  # manual trigger
+  workflow_dispatch:
+
+jobs:
+  test-implementation-job:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # To use this repository's private action, you must check out the repository
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Test action step PAT
+        uses: AndreasAugustin/actions-template-sync@v0.8.0
+        with:
+          github_token: ${{ secrets.SOURCE_REPO_PAT }}
+          source_repo_path: ${{ secrets.SOURCE_REPO_PATH }} # <owner/repo>, should be within secrets
