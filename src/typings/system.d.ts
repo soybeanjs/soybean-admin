@@ -254,7 +254,7 @@ declare namespace App {
     hasChildren: boolean;
     icon?: import('vue').Component;
     i18nTitle?: string;
-    options?: import('naive-ui/es/dropdown/src/interface').DropdownMixedOption[];
+    options?: (import('naive-ui/es/dropdown/src/interface').DropdownMixedOption & { i18nTitle?: string })[];
   };
 
   /** 多页签Tab的路由 */
