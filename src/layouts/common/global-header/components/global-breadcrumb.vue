@@ -45,7 +45,13 @@ const routeStore = useRouteStore();
 const { routerPush } = useRouterPush();
 
 const breadcrumbs = computed(() =>
-  getBreadcrumbByRouteKey(route.name as string, routeStore.menus as App.GlobalMenuOption[], routePath('root'))
+  getBreadcrumbByRouteKey(route.name as string, routeStore.menus as App.GlobalMenuOption[], routePath('root')).map(
+    item => ({
+      ...item,
+      label: item.i18nTitle ? t(item.i18nTitle) : item.label,
+      options: item.options?.map(oItem => ({ ...oItem, label: oItem.i18nTitle ? t(oItem.i18nTitle) : oItem.label }))
+    })
+  )
 );
 
 function dropdownSelect(key: string) {
