@@ -1,6 +1,7 @@
 <template>
   <admin-layout
     :mode="mode"
+    :is-mobile="isMobile"
     :scroll-mode="theme.scrollMode"
     :scroll-el-id="app.scrollElId"
     :full-content="app.contentFull"
@@ -16,6 +17,7 @@
     :footer-visible="theme.footer.visible"
     :fixed-footer="theme.footer.fixed"
     :right-footer="theme.footer.right"
+    @click-mobile-sider-mask="app.setSiderCollapse(true)"
   >
     <template #header>
       <global-header v-bind="headerProps" />
@@ -46,7 +48,7 @@ defineOptions({ name: 'BasicLayout' });
 const app = useAppStore();
 const theme = useThemeStore();
 
-const { mode, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
+const { mode, isMobile, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
 </script>
 
 <style lang="scss">

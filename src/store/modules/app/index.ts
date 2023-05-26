@@ -1,6 +1,6 @@
 import { nextTick } from 'vue';
 import { defineStore } from 'pinia';
-import { SCROLL_EL_ID } from '@soybeanjs/vue-materials';
+import { LAYOUT_SCROLL_EL_ID } from '@soybeanjs/vue-materials';
 
 interface AppState {
   /** 滚动元素的id */
@@ -21,7 +21,7 @@ interface AppState {
 
 export const useAppStore = defineStore('app-store', {
   state: (): AppState => ({
-    scrollElId: SCROLL_EL_ID,
+    scrollElId: LAYOUT_SCROLL_EL_ID,
     contentFull: false,
     disableMainXScroll: false,
     reloadFlag: true,
