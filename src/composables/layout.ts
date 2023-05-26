@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { useAppStore, useThemeStore } from '@/store';
 
@@ -62,6 +62,16 @@ export function useBasicLayout() {
     }
     return w;
   });
+
+  watch(
+    isMobile,
+    newValue => {
+      if (newValue) {
+        app.setSiderCollapse(true);
+      }
+    },
+    { immediate: true }
+  );
 
   return {
     mode,
