@@ -1,5 +1,83 @@
 # Changelog
 
+## v0.9.9...v0.10.0
+
+[compare changes](https://github.com/honghuangdc/soybean-admin/compare/v0.9.9...v0.10.0)
+
+### 🚀 Features
+
+- **projects:** 返回顶部功能适配新布局 ([54e2cb5](https://github.com/honghuangdc/soybean-admin/commit/54e2cb5))
+- **components:** Add tree related component instances ([d203a35](https://github.com/honghuangdc/soybean-admin/commit/d203a35))
+- **components:** Add routing data related to tree components and page display optimization ([a0f55ac](https://github.com/honghuangdc/soybean-admin/commit/a0f55ac))
+- **projects:** 增加i18n支持翻译菜单,tab,title ([3d48aa8](https://github.com/honghuangdc/soybean-admin/commit/3d48aa8))
+- **projects:** Add menu translate [翻译菜单] ([f68285f](https://github.com/honghuangdc/soybean-admin/commit/f68285f))
+- **projects:** 增加主题切换过渡效果 ([8da8843](https://github.com/honghuangdc/soybean-admin/commit/8da8843))
+- **projects:** Support mobile layout [支持移动端布局] ([f2b518e](https://github.com/honghuangdc/soybean-admin/commit/f2b518e))
+
+### 🐞 Bug Fixes
+
+- **projects:** Fix router guide [修复路由跳转异常] fixed #216 ([#216](https://github.com/honghuangdc/soybean-admin/issues/216))
+- **projects:** Fix better-mock usage [修复better-mock用法] ([c57640a](https://github.com/honghuangdc/soybean-admin/commit/c57640a))
+- **projects:** Tsconfig missing isolatedModules ([ab49afd](https://github.com/honghuangdc/soybean-admin/commit/ab49afd))
+- **projects:** Fix mockjs [修复mockjs] ([9b19f96](https://github.com/honghuangdc/soybean-admin/commit/9b19f96))
+- **projects:** Add prod mockjs switch [添加生产模式的mockjs的开关] ([9f5638f](https://github.com/honghuangdc/soybean-admin/commit/9f5638f))
+- **projects:** 修复面包屑导航下拉菜单语言显示问题 ([ee8fa04](https://github.com/honghuangdc/soybean-admin/commit/ee8fa04))
+- **projects:** Hide the drawer when it is initial mobile mode [初始化时为移动端布局则隐藏侧边栏] fixed #238 ([#238](https://github.com/honghuangdc/soybean-admin/issues/238))
+
+### 🔥 Performance
+
+- **projects:** Complete dynamic route translate [补充动态路由的翻译] ([7b746fa](https://github.com/honghuangdc/soybean-admin/commit/7b746fa))
+- **projects:** Move changing document title by locale to global event of composables & add appLoading unmount ([08e194e](https://github.com/honghuangdc/soybean-admin/commit/08e194e))
+
+### 💅 Refactors
+
+- **projects:** Update useTable ([211ae1f](https://github.com/honghuangdc/soybean-admin/commit/211ae1f))
+- **projects:** Remove page examples: tree [去除tree相关示例页面] ([f309003](https://github.com/honghuangdc/soybean-admin/commit/f309003))
+- **projects:** Use better-mock replace mockjs [用better-mock替换mockjs] ([9d3c732](https://github.com/honghuangdc/soybean-admin/commit/9d3c732))
+- **projects:** Upgrade vue3.3, official support defineOptions ([86a370f](https://github.com/honghuangdc/soybean-admin/commit/86a370f))
+
+### 📖 Documentation
+
+- **projects:** Add qq to README.md [文档添加QQ群] ([f74a642](https://github.com/honghuangdc/soybean-admin/commit/f74a642))
+- **projects:** Update README.md [更新README.md] ([397092c](https://github.com/honghuangdc/soybean-admin/commit/397092c))
+- **projects:** Update README.md [更新README.md] ([5a4f842](https://github.com/honghuangdc/soybean-admin/commit/5a4f842))
+- **projects:** Update README.md [更新README.md] ([a765da6](https://github.com/honghuangdc/soybean-admin/commit/a765da6))
+- **projects:** Update README.md [更新README.md] ([a989b44](https://github.com/honghuangdc/soybean-admin/commit/a989b44))
+- **projects:** 优化README.md ([6ea755f](https://github.com/honghuangdc/soybean-admin/commit/6ea755f))
+- **projects:** Readme.md 二次开发的项目内容换行 ([f3a1707](https://github.com/honghuangdc/soybean-admin/commit/f3a1707))
+- **projects:** Update CHANGELOG.md ([5f6caab](https://github.com/honghuangdc/soybean-admin/commit/5f6caab))
+
+### 📦 Build
+
+- **projects:** Remove old layout,tab package [去除旧的布局和页签依赖] ([42e6de3](https://github.com/honghuangdc/soybean-admin/commit/42e6de3))
+- **deps:** Update deps ([db62959](https://github.com/honghuangdc/soybean-admin/commit/db62959))
+- **deps:** Update deps [升级依赖] ([f2e82da](https://github.com/honghuangdc/soybean-admin/commit/f2e82da))
+- **deps:** Update deps and remove vite-plugin-html [升级依赖，去除vite-plugin-html] ([eaf3678](https://github.com/honghuangdc/soybean-admin/commit/eaf3678))
+- **deps:** Update deps [升级依赖] ([bae1767](https://github.com/honghuangdc/soybean-admin/commit/bae1767))
+- **projects:** Update deps and fix type error [升级依赖并修复类型问题] ([34f023c](https://github.com/honghuangdc/soybean-admin/commit/34f023c))
+- **deps:** Update deps [升级依赖] ([c264216](https://github.com/honghuangdc/soybean-admin/commit/c264216))
+- **deps:** Update deps [升级依赖] ([40f8587](https://github.com/honghuangdc/soybean-admin/commit/40f8587))
+- **projects:** Update deps and fix style [升级依赖&修复代码格式] ([c1c4335](https://github.com/honghuangdc/soybean-admin/commit/c1c4335))
+
+### 🏡 Chore
+
+- **deps:** Update deps ([cebbef6](https://github.com/honghuangdc/soybean-admin/commit/cebbef6))
+- **projects:** Remove useless packages, update lint-staged config, add githublogen ([5aaa318](https://github.com/honghuangdc/soybean-admin/commit/5aaa318))
+- Release v0.10.0 ([270a055](https://github.com/honghuangdc/soybean-admin/commit/270a055))
+
+### 🎨 Styles
+
+- **projects:** Per style [完善样式] ([209ef3d](https://github.com/honghuangdc/soybean-admin/commit/209ef3d))
+
+### ❤️ Contributors
+
+- Soybean ([@soybeanjs](http://github.com/soybeanjs))
+- Cc <cc@qq.com>
+- Xiaojunnuo ([@greper](http://github.com/greper))
+- Kirk Lin ([@kirklin](http://github.com/kirklin))
+- Small_happy <5304122+small_happy@user.noreply.gitee.com>
+- 燕博文 <349952469@qq.com>
+
 ### [0.9.9](https://github.com/honghuangdc/soybean-admin/compare/v0.9.8...v0.9.9) (2023-03-13)
 
 
