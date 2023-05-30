@@ -48,27 +48,28 @@
 
 ## 项目示例图
 
-![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin01.png)
 
-![](https://s2.loli.net/2022/05/18/bW7mftiQexkvSTG.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin02.png)
 
-![](https://s2.loli.net/2022/05/16/uV5nzjb3gYptAEl.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin03.png)
 
-![](https://s2.loli.net/2022/05/16/rSnNHLdpuvkKxWq.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin04.png)
 
-![](https://s2.loli.net/2022/05/18/Mt6YZqmDxO8v4uR.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin05.png)
 
-![](https://s2.loli.net/2022/05/16/ktH5dcG3fuFOoKA.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin06.png)
 
-![](https://s2.loli.net/2022/05/16/VPl6Ru1iCAhLcS4.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin07.png)
 
-![](https://s2.loli.net/2022/05/16/bRlAKuHW7ZVh9DT.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin08.png)
 
-![](https://s2.loli.net/2022/06/07/rY8TyAftM5dxspv.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin09.png)
 
-![](https://s2.loli.net/2022/06/07/5GNBAd31IzQVjLP.png)
-
-![](https://s2.loli.net/2022/06/07/rRSG6mEZpujOACT.png)
+<div style="display:flex;justify-content:center;align-item:center;gap:48px;">
+	<img style="width:380px" src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin10.png" />
+	<img style="width:380px" src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin11.png" />
+</div>
 
 ## 安装使用
 
@@ -144,10 +145,6 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 `Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
 
   <div style="display:flex;">
-  	<!-- <div style="padding-right:24px;">
-  		<p>微信交流群</p>
-      <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs-wechat0503.jpeg" style="width:200px" />
-  	</div> -->
   	<div style="padding-right:24px;">
   		<p>QQ交流群</p>
       <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin.jpg" style="width:200px" />
