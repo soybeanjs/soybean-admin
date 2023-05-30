@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.10.0...v0.10.1
+
+[compare changes](https://github.com/honghuangdc/soybean-admin/compare/v0.10.0...v0.10.1)
+
+### 📖 Documentation
+
+- **projects:** CHANGELOG.md ([a252138](https://github.com/honghuangdc/soybean-admin/commit/a252138))
+- **projects:** Update README.md ([b5839ea](https://github.com/honghuangdc/soybean-admin/commit/b5839ea))
+
+### 🏡 Chore
+
+- **projects:** Add switch for pageRoute plugin [添加自动生成路由的插件的开关] ([780ac75](https://github.com/honghuangdc/soybean-admin/commit/780ac75))
+- Release v0.10.1 ([44e4c04](https://github.com/honghuangdc/soybean-admin/commit/44e4c04))
+
+### ❤️ Contributors
+
+- Soybean ([@soybeanjs](http://github.com/soybeanjs))
+
 ## v0.9.9...v0.10.0
 
 [compare changes](https://github.com/honghuangdc/soybean-admin/compare/v0.9.9...v0.10.0)
