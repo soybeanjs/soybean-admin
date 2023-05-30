@@ -25,8 +25,7 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
     ...unplugin(viteEnv),
     unocss(),
     mock(viteEnv),
-    progress(),
-    pageRoute()
+    progress()
   ];
 
   if (viteEnv.VITE_VISUALIZER === 'Y') {
@@ -37,6 +36,9 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
   }
   if (viteEnv.VITE_PWA === 'Y' || viteEnv.VITE_VERCEL === 'Y') {
     plugins.push(pwa());
+  }
+  if (viteEnv.VITE_SOYBEAN_ROUTE_PLUGIN === 'Y') {
+    plugins.push(pageRoute());
   }
 
   return plugins;
