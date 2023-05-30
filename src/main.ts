@@ -29,6 +29,8 @@ async function setupApp() {
 
   setupI18n(app);
 
+  appLoading.unmount();
+
   // mount app
   app.mount('#app');
 }
