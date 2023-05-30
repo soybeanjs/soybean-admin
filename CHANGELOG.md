@@ -1,7 +1,5 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-
 ### [0.9.9](https://github.com/honghuangdc/soybean-admin/compare/v0.9.8...v0.9.9) (2023-03-13)
 
 
