@@ -6,7 +6,7 @@
     >
       <component :is="icon" :class="[isMini ? 'text-16px' : 'text-20px']" />
       <p
-        class="text-12px overflow-hidden transition-height duration-300 ease-in-out"
+        class="w-full text-center ellipsis-text text-12px transition-height duration-300 ease-in-out"
         :class="[isMini ? 'h-0 pt-0' : 'h-24px pt-4px']"
       >
         {{ label }}
