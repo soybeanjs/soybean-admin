@@ -48,7 +48,7 @@
 
 ## 项目示例图
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin01-v2.png)
+![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
 
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin02-v2.png)
 
@@ -60,7 +60,7 @@
 
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin06-v2.png)
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin07-v2.png)
+![](https://s2.loli.net/2022/05/16/VPl6Ru1iCAhLcS4.png)
 
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin08-v2.png)
 
