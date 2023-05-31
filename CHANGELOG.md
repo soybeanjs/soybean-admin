@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.10.1...v0.10.2
+
+[compare changes](https://github.com/honghuangdc/soybean-admin/compare/v0.10.1...v0.10.2)
+
+### 🐞 Bug Fixes
+
+- **components:** Fix mix-menu layout when the locale is English (fixed 241) ([5c085a1](https://github.com/honghuangdc/soybean-admin/commit/5c085a1))
+
+### 📖 Documentation
+
+- **projects:** CHANGELOG.md ([bb2eab6](https://github.com/honghuangdc/soybean-admin/commit/bb2eab6))
+- **projects:** Update README.md: update example image url [更新示例图片的链接] ([4f51263](https://github.com/honghuangdc/soybean-admin/commit/4f51263))
+- **projects:** Fix README.md: example image link ([56ea893](https://github.com/honghuangdc/soybean-admin/commit/56ea893))
+
+### 🏡 Chore
+
+- **projects:** Update deps and use soy lint-staged replace lint-staged ([9a23817](https://github.com/honghuangdc/soybean-admin/commit/9a23817))
+- Release v0.10.2 ([1f6d079](https://github.com/honghuangdc/soybean-admin/commit/1f6d079))
+
+### ❤️ Contributors
+
+- Soybean ([@soybeanjs](http://github.com/soybeanjs))
+
 ## v0.10.0...v0.10.1
 
 [compare changes](https://github.com/honghuangdc/soybean-admin/compare/v0.10.0...v0.10.1)
