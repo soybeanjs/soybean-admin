@@ -58,7 +58,7 @@
     "@antv/data-set": "0.11.8",
     "@antv/g2": "4.2.10",
     "@better-scroll/core": "2.5.1",
-    "@soybeanjs/vue-materials": "0.1.15",
+    "@soybeanjs/vue-materials": "0.2.0",
     "@vueuse/core": "10.1.2",
     "axios": "1.4.0",
     "clipboard": "2.0.11",
@@ -84,25 +84,24 @@
   },
   "devDependencies": {
     "@amap/amap-jsapi-types": "0.0.13",
-    "@iconify/json": "2.2.71",
+    "@iconify/json": "2.2.72",
     "@iconify/vue": "4.1.1",
-    "@soybeanjs/cli": "0.3.2",
+    "@soybeanjs/cli": "0.4.1",
     "@soybeanjs/vite-plugin-vue-page-route": "0.0.5",
     "@types/bmapgl": "0.0.7",
     "@types/crypto-js": "4.1.1",
     "@types/node": "20.2.5",
     "@types/qs": "6.9.7",
     "@types/ua-parser-js": "0.7.36",
-    "@unocss/preset-uno": "0.52.5",
-    "@unocss/transformer-directives": "0.52.5",
-    "@unocss/vite": "0.52.5",
+    "@unocss/preset-uno": "0.52.7",
+    "@unocss/transformer-directives": "0.52.7",
+    "@unocss/vite": "0.52.7",
     "@vitejs/plugin-vue": "4.2.3",
     "@vitejs/plugin-vue-jsx": "3.0.1",
     "bumpp": "9.1.0",
     "cross-env": "7.0.3",
     "eslint": "8.41.0",
-    "eslint-config-soybeanjs": "0.4.7",
-    "lint-staged": "13.2.2",
+    "eslint-config-soybeanjs": "0.4.8",
     "mockjs": "1.1.0",
     "rollup-plugin-visualizer": "5.9.0",
     "sass": "1.62.1",
@@ -126,10 +125,6 @@
   },
   "simple-git-hooks": {
     "commit-msg": "pnpm soy git-commit-verify",
-    "pre-commit": "pnpm typecheck && pnpm lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,mjs,jsx,ts,mts,tsx,json,vue,svelte,astro}": "eslint . --fix",
-    "*.!{js,mjs,jsx,ts,mts,tsx,json,vue,svelte,astro}": "format"
+    "pre-commit": "pnpm typecheck && pnpm soy lint-staged"
   }
 }
