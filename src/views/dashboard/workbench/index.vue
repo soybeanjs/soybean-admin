@@ -1,12 +1,7 @@
 <template>
-  <n-space :vertical="true" :size="16">
-    <workbench-header />
-    <workbench-main />
-  </n-space>
+  <div>workbench</div>
 </template>
 
-<script lang="ts" setup>
-import { WorkbenchHeader, WorkbenchMain } from './components';
-</script>
+<script lang="ts" setup></script>
 
 <style scoped></style>
