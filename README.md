@@ -19,6 +19,13 @@
 - **权限路由**：提供前端静态和后端动态两种路由模式，基于 mock 的动态路由能快速实现后端动态路由
 - **请求函数**：基于 axios 的完善的请求函数封装，提供 Promise 和 hooks 两种请求函数，加入请求结果数据转换的适配器
 
+## SoybeanJS 工具库
+
+- [@soybeanjs/cli](https://github.com/soybeanjs/cli): SoybeanJS 命令行工具，包含发布、git 和依赖等相关的实用命令
+- [eslint-config-soybeanjs](https://github.com/soybeanjs/eslint-config): SoybeanJS 的 eslint 预设配置
+- [@soybeanjs/materials](https://github.com/soybeanjs/materials): SoybeanJS 的物料仓库
+- [@soybeanjs/vite-plugin-vue-page-route](https://github.com/soybeanjs/vite-plugin-vue-page-route): SoybeanAdmin 的路由插件
+
 ## 在线预览
 
 - [Soybean Admin 预览地址](https://soybean.pro/)
