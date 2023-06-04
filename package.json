@@ -49,9 +49,9 @@
     "commit": "soy git-commit",
     "cleanup": "soy cleanup",
     "update-pkg": "soy update-pkg",
+    "release": "soy release",
     "tsx": "tsx",
     "logo": "tsx ./scripts/logo.ts",
-    "update-version": "bumpp --commit --push --tag",
     "prepare": "soy init-git-hooks"
   },
   "dependencies": {
@@ -98,7 +98,6 @@
     "@unocss/vite": "0.52.7",
     "@vitejs/plugin-vue": "4.2.3",
     "@vitejs/plugin-vue-jsx": "3.0.1",
-    "bumpp": "9.1.0",
     "cross-env": "7.0.3",
     "eslint": "8.42.0",
     "eslint-config-soybeanjs": "0.4.8",
@@ -126,5 +125,6 @@
   "simple-git-hooks": {
     "commit-msg": "pnpm soy git-commit-verify",
     "pre-commit": "pnpm typecheck && pnpm soy lint-staged"
-  }
+  },
+  "github-token": "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"
 }
