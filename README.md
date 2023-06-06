@@ -61,15 +61,15 @@
 
 ![](https://s2.loli.net/2022/05/16/rSnNHLdpuvkKxWq.png)
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin04-v2.png)
+![](https://s2.loli.net/2023/06/07/O39EKNa675FZIuS.png)
 
 ![](https://s2.loli.net/2022/05/18/Mt6YZqmDxO8v4uR.png)
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin06-v2.png)
+![](https://s2.loli.net/2023/06/07/zhmWnFlPTfDpot8.png)
 
 ![](https://s2.loli.net/2022/05/16/VPl6Ru1iCAhLcS4.png)
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin08-v2.png)
+![](https://s2.loli.net/2023/06/07/n6Dy1HXBvuPc9oT.png)
 
 ![](https://s2.loli.net/2022/06/07/rY8TyAftM5dxspv.png)
 
@@ -77,11 +77,10 @@
 
 ![](https://s2.loli.net/2022/06/07/rRSG6mEZpujOACT.png)
 
-![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
-
 <div align="center">
-	<img style="width:380px;margin-right:18px;border:1px solid #dedede;" src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin10-v2.png" />
-	<img style="width:380px;border:1px solid #dedede;" src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin11-v2.png" />
+	<img style="width:380px;margin-right:18px;border:1px solid #dedede;" src="https://s2.loli.net/2023/06/07/A5Nonc9vI6pB1lr.png" />
+	&nbsp;
+	<img style="width:380px;border:1px solid #dedede;" src="https://s2.loli.net/2023/06/07/VwBjqEhTke3OxXF.png" />
 </div>
 
 ## 安装使用
@@ -161,11 +160,11 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
   <div style="display:flex;">
   	<div style="padding-right:24px;">
   		<p>QQ交流群</p>
-      <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin.jpg" style="width:200px" />
+      <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
   	</div>
 		<div>
 			<p>添加本人微信，欢迎来技术交流，业务咨询</p>
-			<img src="https://s2.loli.net/2023/06/07/sVyCUFBvzQ9f5b7.jpg" style="width:190px" />
+			<img src="https://s2.loli.net/2023/06/07/sVyCUFBvzQ9f5b7.jpg" style="width:167px" />
 		</div>
   </div>
 
