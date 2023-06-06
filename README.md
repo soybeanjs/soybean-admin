@@ -55,13 +55,15 @@
 
 ![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin02-v2.png)
+![](https://s2.loli.net/2022/05/18/bW7mftiQexkvSTG.png)
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin03-v2.png)
+![](https://s2.loli.net/2022/05/16/uV5nzjb3gYptAEl.png)
+
+![](https://s2.loli.net/2022/05/16/rSnNHLdpuvkKxWq.png)
 
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin04-v2.png)
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin05-v2.png)
+![](https://s2.loli.net/2022/05/18/Mt6YZqmDxO8v4uR.png)
 
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin06-v2.png)
 
@@ -69,7 +71,13 @@
 
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin08-v2.png)
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin09-v2.png)
+![](https://s2.loli.net/2022/06/07/rY8TyAftM5dxspv.png)
+
+![](https://s2.loli.net/2022/06/07/5GNBAd31IzQVjLP.png)
+
+![](https://s2.loli.net/2022/06/07/rRSG6mEZpujOACT.png)
+
+![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
 
 <div align="center">
 	<img style="width:380px;margin-right:18px;border:1px solid #dedede;" src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin10-v2.png" />
@@ -157,7 +165,7 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
   	</div>
 		<div>
 			<p>添加本人微信，欢迎来技术交流，业务咨询</p>
-			<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybeanjs.jpeg" style="width:180px" />
+			<img src="https://s2.loli.net/2023/06/07/sVyCUFBvzQ9f5b7.jpg" style="width:190px" />
 		</div>
   </div>
 
@@ -169,4 +177,4 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 ## License
 
-[MIT © Soybean-2021](./LICENSE)
+本项目基于[MIT © Soybean-2021](./LICENSE) 协议，仅供参考学习，商用时请保留作者的版权信息，作者不对软件做担保和负责。
