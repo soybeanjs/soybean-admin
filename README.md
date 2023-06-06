@@ -22,9 +22,15 @@
 ## SoybeanJS 工具库
 
 - [@soybeanjs/cli](https://github.com/soybeanjs/cli): SoybeanJS 命令行工具，包含发布、git 和依赖等相关的实用命令
+- [@soybeanjs/changelog](https://github.com/soybeanjs/changelog): 根据 git tags 和 commits 生成 changelog [示例](./CHANGELOG.md)
 - [eslint-config-soybeanjs](https://github.com/soybeanjs/eslint-config): SoybeanJS 的 eslint 预设配置
 - [@soybeanjs/materials](https://github.com/soybeanjs/materials): SoybeanJS 的物料仓库
 - [@soybeanjs/vite-plugin-vue-page-route](https://github.com/soybeanjs/vite-plugin-vue-page-route): SoybeanAdmin 的路由插件
+
+## 基于 SoybeanAdmin 二次开发的项目
+
+- [electron-mock-admin](https://github.com/lixin59/electron-mock-api): 一个 Mock Api 管理系统，帮助前端开发伙伴快速实现接口的 mock。
+- [T-Shell](https://github.com/TheBlindM/T-Shell): 是一个可配置命令提示的终端模拟器和 SSH 客户端。
 
 ## 在线预览
 
@@ -134,11 +140,6 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-git-hooks 进行初始化配置
 
-## 基于 SoybeanAdmin 二次开发的项目
-
-- [electron-mock-admin](https://github.com/lixin59/electron-mock-api): 一个 Mock Api 管理系统，帮助前端开发伙伴快速实现接口的 mock。
-- [T-Shell](https://github.com/TheBlindM/T-Shell): 是一个可配置命令提示的终端模拟器和 SSH 客户端。
-
 ## 浏览器支持
 
 本地开发推荐使用`Chrome 90+` 浏览器
@@ -164,7 +165,7 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
   	</div>
 		<div>
 			<p>添加本人微信，欢迎来技术交流，业务咨询</p>
-			<img src="https://s2.loli.net/2023/06/07/sVyCUFBvzQ9f5b7.jpg" style="width:167px" />
+			<img src="https://s2.loli.net/2023/06/07/sVyCUFBvzQ9f5b7.jpg" style="width:200px" />
 		</div>
   </div>
 
