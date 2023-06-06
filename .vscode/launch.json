@@ -7,6 +7,14 @@
       "name": "Vue debugger",
       "url": "http://localhost:3200",
       "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "TS debugger",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--loader", "tsx"],
+      "program": "${relativeFile}"
     }
   ]
 }
