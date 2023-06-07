@@ -100,8 +100,8 @@ devDependencies:
     specifier: 4.1.1
     version: 4.1.1(vue@3.3.4)
   '@soybeanjs/cli':
-    specifier: 0.5.3
-    version: 0.5.3
+    specifier: 0.5.4
+    version: 0.5.4
   '@soybeanjs/vite-plugin-vue-page-route':
     specifier: 0.0.5
     version: 0.0.5
@@ -2370,8 +2370,8 @@ packages:
       ofetch: 1.0.1
     dev: true
 
-  /@soybeanjs/cli@0.5.3:
-    resolution: {integrity: sha512-wDHRs2ZzwuaufZbebw2LJFvLlvqggUwpWsKZ4unyAs7n7pU06FUsSKBoKLxLECLH3ES/fhW45keGuJ0G6FOp6Q==}
+  /@soybeanjs/cli@0.5.4:
+    resolution: {integrity: sha512-ciPXBiX2U9yzZeB9rtbxUViP/Jp92FnM623dJmqEiqITf+ottjgrAo90w38Plfi9GAhDOLbDEuz4pGWuQHHVNg==}
     hasBin: true
     dependencies:
       '@soybeanjs/changelog': 0.0.2
@@ -3565,7 +3565,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001495
-      electron-to-chromium: 1.4.421
+      electron-to-chromium: 1.4.422
       node-releases: 2.0.12
       update-browserslist-db: 1.0.11(browserslist@4.21.7)
     dev: true
@@ -4533,8 +4533,8 @@ packages:
       jake: 10.8.7
     dev: true
 
-  /electron-to-chromium@1.4.421:
-    resolution: {integrity: sha512-wZOyn3s/aQOtLGAwXMZfteQPN68kgls2wDAnYOA8kCjBvKVrW5RwmWVspxJYTqrcN7Y263XJVsC66VCIGzDO3g==}
+  /electron-to-chromium@1.4.422:
+    resolution: {integrity: sha512-OQMid0IRbJv27BhlPiBK8CfGzjeq4ZCBSmpwNi1abyS8w17/BajOUu7hBI49ptDTBCz9NRFbORhWvt41dF7dwg==}
     dev: true
 
   /emoji-regex@8.0.0:
