@@ -6,7 +6,7 @@ import { localStg, addColorAlpha, getColorPalette } from '@/utils';
 /** 初始化主题配置 */
 export function initThemeSettings() {
   const isProd = import.meta.env.PROD;
-  // 生产环境才缓存主题配置，本地开发实时调整配置更改配置的json
+  // 生产环境已缓存主题配置，本地开发实时调整配置更改配置的json
   const storageSettings = localStg.get('themeSettings');
 
   if (isProd && storageSettings) {
