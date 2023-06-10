@@ -13,7 +13,7 @@ export const userRoleLabels: Record<Auth.RoleType, string> = {
   admin: '管理员',
   user: '普通用户'
 };
-export const userRoleOptions = transformObjectToOption(loginModuleLabels);
+export const userRoleOptions = transformObjectToOption(userRoleLabels);
 
 /** 用户性别 */
 export const genderLabels: Record<UserManagement.GenderKey, string> = {
