@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -103,8 +103,8 @@ devDependencies:
     specifier: 0.6.1
     version: 0.6.1
   '@soybeanjs/vite-plugin-vue-page-route':
-    specifier: 0.0.6
-    version: 0.0.6
+    specifier: 0.0.5
+    version: 0.0.5
   '@types/bmapgl':
     specifier: 0.0.7
     version: 0.0.7
@@ -2390,16 +2390,16 @@ packages:
       - supports-color
     dev: true
 
-  /@soybeanjs/vite-plugin-vue-page-route@0.0.6:
-    resolution: {integrity: sha512-Kz2pxCCIFSHFbNUyCDv8BUitsPRpA0tt2gfHlyBZwi4lLLKesHiDpmfkUb0J3wQ5dLxii4iRkZlKd+HVh71Wvg==}
+  /@soybeanjs/vite-plugin-vue-page-route@0.0.5:
+    resolution: {integrity: sha512-rMxbLh6oyGyj1iXf4Bw81ZRxAGBZmz/LSOhQei2vDLRfyyQLA/+lGl9Qr1fzKUkD1o6UQ0I+eURioBsNvOPHAw==}
     dependencies:
       '@swc/core': 1.3.62
       chokidar: 3.5.3
-      execa: 7.1.1
+      execa: 5.1.1
       fast-glob: 3.2.12
       fs-extra: 11.1.1
       kolorist: 1.8.0
-      magic-string: 0.30.0
+      magic-string: 0.27.0
       micromatch: 4.0.5
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -6880,6 +6880,13 @@ packages:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
     dependencies:
       sourcemap-codec: 1.4.8
+    dev: true
+
+  /magic-string@0.27.0:
+    resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
   /magic-string@0.30.0:
