@@ -1,5 +1,5 @@
 <template>
-  <hover-container class="w-40px h-full">
+  <hover-container class="w-40px h-full" :inverted="theme.header.inverted">
     <n-dropdown :options="options" trigger="hover" :value="language" @select="handleSelect">
       <icon-cil:language class="text-18px outline-transparent" />
     </n-dropdown>
@@ -9,8 +9,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useThemeStore } from '@/store';
 import { localStg } from '@/utils';
 
+const theme = useThemeStore();
 const { locale } = useI18n();
 
 const language = ref<I18nType.langType>(localStg.get('lang') || 'zh-CN');
