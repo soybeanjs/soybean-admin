@@ -48,7 +48,7 @@ export const useIconRender = () => {
     }
 
     if (!icon && !localIcon) {
-      window.console.warn('没有传递图标名称，请确保给icon或localIcon传递有效值!');
+      throw Error('没有传递图标名称，请确保给icon或localIcon传递有效值!');
     }
 
     return () => h(SvgIcon, { icon, localIcon, style });

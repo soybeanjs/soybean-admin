@@ -16,6 +16,3 @@ declare namespace Common {
   /** 选项数据 */
   type OptionWithKey<K> = { value: K; label: string };
 }
-
-/** 构建时间 */
-declare const PROJECT_BUILD_TIME: string;

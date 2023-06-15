@@ -18,28 +18,3 @@ declare namespace Auth {
     userRole: RoleType;
   }
 }
-
-declare namespace UserManagement {
-  interface User extends ApiUserManagement.User {
-    /** 序号 */
-    index: number;
-    /** 表格的key（id） */
-    key: string;
-  }
-
-  /**
-   * 用户性别
-   * - 0: 女
-   * - 1: 男
-   */
-  type GenderKey = NonNullable<User['gender']>;
-
-  /**
-   * 用户状态
-   * - 1: 启用
-   * - 2: 禁用
-   * - 3: 冻结
-   * - 4: 软删除
-   */
-  type UserStatusKey = NonNullable<User['userStatus']>;
-}
