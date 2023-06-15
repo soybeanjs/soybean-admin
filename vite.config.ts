@@ -1,5 +1,5 @@
 import { defineConfig, loadEnv } from 'vite';
-import { createViteProxy, getRootPath, getSrcPath, setupVitePlugins, viteDefine } from './build';
+import { createViteProxy, getRootPath, getSrcPath, setupVitePlugins } from './build';
 import { getServiceEnvConfig } from './.env-config';
 
 export default defineConfig(configEnv => {
@@ -19,7 +19,6 @@ export default defineConfig(configEnv => {
         '@': srcPath
       }
     },
-    define: viteDefine,
     plugins: setupVitePlugins(viteEnv),
     css: {
       preprocessorOptions: {
@@ -35,17 +34,7 @@ export default defineConfig(configEnv => {
       proxy: createViteProxy(isOpenProxy, envConfig)
     },
     optimizeDeps: {
-      include: [
-        '@antv/data-set',
-        '@antv/g2',
-        '@better-scroll/core',
-        'echarts',
-        'swiper',
-        'swiper/vue',
-        'vditor',
-        'wangeditor',
-        'xgplayer'
-      ]
+      include: ['@better-scroll/core']
     },
     build: {
       reportCompressedSize: false,

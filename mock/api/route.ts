@@ -8,7 +8,7 @@ const apis: MockMethod[] = [
     response: (options: Service.MockOption): Service.MockServiceResult => {
       const { userId = undefined } = options.body;
 
-      const routeHomeName: AuthRoute.LastDegreeRouteKey = 'dashboard_analysis';
+      const routeHomeName: AuthRoute.LastDegreeRouteKey = 'multi-menu_first_second';
 
       const role = userModel.find(item => item.userId === userId)?.userRole || 'user';
 
