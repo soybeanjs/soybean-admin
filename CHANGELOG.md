@@ -1,6 +1,48 @@
 # Changelog
 
 
+## [v0.10.3](https://github.com/honghuangdc/soybean-admin/compare/v0.10.2...v0.10.3) (23-06-15)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: fix userRoleOptions &nbsp;-&nbsp; by @soybeanjs [<samp>(2ca2b)</samp>](https://github.com/honghuangdc/soybean-admin/commit/2ca2b76)
+- **styles**: fix toggle-lang bg &nbsp;-&nbsp; by @soybeanjs [<samp>(47309)</samp>](https://github.com/honghuangdc/soybean-admin/commit/473095b)
+
+### &nbsp;&nbsp;&nbsp;🔥 Performance
+
+- **projects**:
+  - remove useless code &nbsp;-&nbsp; by @soybeanjs [<samp>(eb8e4)</samp>](https://github.com/honghuangdc/soybean-admin/commit/eb8e49e)
+  - use transformObjectToOption to generate option of object labels &nbsp;-&nbsp; by @soybeanjs [<samp>(da611)</samp>](https://github.com/honghuangdc/soybean-admin/commit/da611fb)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - CHANGELOG.md &nbsp;-&nbsp; by @soybeanjs [<samp>(ff5bf)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ff5bf62)
+  - generate full CHANGELOG.md &nbsp;-&nbsp; by @soybeanjs [<samp>(055d4)</samp>](https://github.com/honghuangdc/soybean-admin/commit/055d4cc)
+  - update README.md &nbsp;-&nbsp; by @soybeanjs [<samp>(3c7e1)</samp>](https://github.com/honghuangdc/soybean-admin/commit/3c7e1cf)
+  - update README.md &nbsp;-&nbsp; by @soybeanjs [<samp>(1681c)</samp>](https://github.com/honghuangdc/soybean-admin/commit/1681c34)
+  - update README.md picture url &nbsp;-&nbsp; by @soybeanjs [<samp>(4eefc)</samp>](https://github.com/honghuangdc/soybean-admin/commit/4eefc95)
+  - update README.md &nbsp;-&nbsp; by @soybeanjs [<samp>(8f24a)</samp>](https://github.com/honghuangdc/soybean-admin/commit/8f24a94)
+  - update CHANGELOG.md by regenerate changelog &nbsp;-&nbsp; by @soybeanjs [<samp>(2a9b7)</samp>](https://github.com/honghuangdc/soybean-admin/commit/2a9b725)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(f9d47)</samp>](https://github.com/honghuangdc/soybean-admin/commit/f9d47c0)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(47ab0)</samp>](https://github.com/honghuangdc/soybean-admin/commit/47ab018)
+  - decrease vite-plugin-page-route &nbsp;-&nbsp; by @soybeanjs [<samp>(882f2)</samp>](https://github.com/honghuangdc/soybean-admin/commit/882f281)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(e6abf)</samp>](https://github.com/honghuangdc/soybean-admin/commit/e6abf93)
+- **projects**:
+  - remove bumpp & add release script &nbsp;-&nbsp; by @soybeanjs [<samp>(a3dfe)</samp>](https://github.com/honghuangdc/soybean-admin/commit/a3dfe61)
+  - update @soybeanjs/cli and generate total changelog &nbsp;-&nbsp; by @soybeanjs [<samp>(58591)</samp>](https://github.com/honghuangdc/soybean-admin/commit/58591f6)
+  - update deps & update unocss deprecated api exclude &nbsp;-&nbsp; by @soybeanjs [<samp>(0907d)</samp>](https://github.com/honghuangdc/soybean-admin/commit/0907d38)
+  - update deps & update package.json &nbsp;-&nbsp; by @soybeanjs [<samp>(0b2f6)</samp>](https://github.com/honghuangdc/soybean-admin/commit/0b2f68a)
+  - add vite-plugin-vue-devtools &nbsp;-&nbsp; by @soybeanjs [<samp>(c1bee)</samp>](https://github.com/honghuangdc/soybean-admin/commit/c1bee40)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v0.10.2](https://github.com/honghuangdc/soybean-admin/compare/v0.10.1...v0.10.2) (2023-06-01)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
