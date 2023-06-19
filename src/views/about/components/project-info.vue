@@ -1,5 +1,5 @@
 <template>
-  <n-card title="项目信息" :bordered="false" size="small" class="rounded-16px shadow-sm">
+  <n-card title="项目信息" :bordered="false" size="small" class="rounded-8px shadow-sm">
     <n-descriptions label-placement="left" bordered size="small" :column="2">
       <n-descriptions-item label="版本">
         <n-tag type="primary">{{ version }}</n-tag>

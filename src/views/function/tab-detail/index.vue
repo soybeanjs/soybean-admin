@@ -1,6 +1,6 @@
 <template>
   <n-space :vertical="true" :size="16">
-    <n-card title="Tab Detail" :bordered="false" size="small" class="shadow-sm rounded-16px">
+    <n-card title="Tab Detail" :bordered="false" size="small" class="rounded-8px shadow-sm">
       <n-space :vertical="true" :size="12">
         <div>当前路由的描述数据(meta)：</div>
         <div>{{ route.meta }}</div>

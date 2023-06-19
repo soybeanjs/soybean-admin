@@ -4,7 +4,7 @@
     <router-link :to="{ name: routeHomePath }">
       <n-button type="primary">回到首页</n-button>
     </router-link>
-    <n-card :bordered="false" size="small" class="mt-24px rounded-16px shadow-sm">
+    <n-card :bordered="false" size="small" class="mt-24px rounded-8px shadow-sm">
       <div class="flex-center py-12px">
         <n-button type="primary" class="mr-24px" :disabled="isMoving" @click="startMove">开始</n-button>
         <n-button type="error" @click="endMove">暂停</n-button>

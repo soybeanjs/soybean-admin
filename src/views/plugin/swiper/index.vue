@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-card title="Swiper插件" class="shadow-sm rounded-16px">
+    <n-card title="Swiper插件" :bordered="false" class="rounded-8px shadow-sm">
       <n-space :vertical="true">
         <github-link link="https://github.com/nolimits4web/swiper" />
         <web-site-link label="vue3版文档地址：" link="https://swiperjs.com/vue" />

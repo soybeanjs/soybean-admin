@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <n-card title="Icon组件示例" class="shadow-sm rounded-16px">
+    <n-card title="Icon组件示例" :bordered="false" class="rounded-8px shadow-sm">
       <div class="grid grid-cols-10">
         <template v-for="item in icons" :key="item">
           <div class="mt-5px flex-x-center">
@@ -16,7 +16,7 @@
         <web-site-link label="iconify地址：" link="https://icones.js.org/" class="mt-10px" />
       </template>
     </n-card>
-    <n-card title="自定义图标示例" class="mt-10px shadow-sm rounded-16px">
+    <n-card title="自定义图标示例" :bordered="false" class="mt-10px rounded-8px shadow-sm">
       <div class="pb-12px text-16px">
         在src/assets/svg-icon文件夹下的svg文件，通过在template里面以 icon-local-{文件名} 直接渲染,
         其中icon-local为.env文件里的 VITE_ICON_LOCAL_PREFFIX

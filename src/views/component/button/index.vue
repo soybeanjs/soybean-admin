@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-card title="按钮" class="h-full shadow-sm rounded-16px">
+    <n-card title="按钮" :bordered="false" class="h-full rounded-8px shadow-sm">
       <n-grid cols="s:1 m:2" responsive="screen" :x-gap="16" :y-gap="16">
         <n-grid-item v-for="item in buttonExample" :key="item.id">
           <n-card :title="item.label" class="min-h-180px">

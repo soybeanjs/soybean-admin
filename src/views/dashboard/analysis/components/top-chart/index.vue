@@ -1,7 +1,7 @@
 <template>
   <n-grid :x-gap="16" :y-gap="16" :item-responsive="true">
     <n-grid-item span="0:24 640:24 1024:6">
-      <n-card :bordered="false" class="rounded-16px shadow-sm">
+      <n-card :bordered="false" class="rounded-8px shadow-sm">
         <div class="w-full h-360px py-12px">
           <h3 class="text-16px font-bold">Dashboard</h3>
           <p class="text-#aaa">Overview Of Lasted Month</p>
@@ -18,12 +18,12 @@
       </n-card>
     </n-grid-item>
     <n-grid-item span="0:24 640:24 1024:10">
-      <n-card :bordered="false" class="rounded-16px shadow-sm">
+      <n-card :bordered="false" class="rounded-8px shadow-sm">
         <div ref="lineRef" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
     <n-grid-item span="0:24 640:24 1024:8">
-      <n-card :bordered="false" class="rounded-16px shadow-sm">
+      <n-card :bordered="false" class="rounded-8px shadow-sm">
         <div ref="pieRef" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>

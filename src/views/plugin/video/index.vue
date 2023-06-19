@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <n-card title="视频播放器插件" class="h-full shadow-sm rounded-16px">
+    <n-card title="视频播放器插件" :bordered="false" class="h-full rounded-8px shadow-sm">
       <div ref="domRef" class=""></div>
     </n-card>
   </div>
@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 import Player from 'xgplayer';
+import 'xgplayer/dist/index.min.css';
 
 const domRef = ref<HTMLElement>();
 const player = ref<Player>();

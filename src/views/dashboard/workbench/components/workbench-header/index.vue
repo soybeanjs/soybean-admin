@@ -1,5 +1,5 @@
 <template>
-  <n-card :bordered="false" class="rounded-16px shadow-sm">
+  <n-card :bordered="false" class="rounded-8px shadow-sm">
     <div class="flex-y-center justify-between">
       <div class="flex-y-center">
         <icon-local-avatar class="text-70px" />

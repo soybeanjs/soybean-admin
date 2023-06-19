@@ -1,6 +1,6 @@
 <template>
   <div class="h-full overflow-hidden">
-    <n-card title="表格" class="h-full shadow-sm rounded-16px">
+    <n-card title="表格" :bordered="false" class="h-full rounded-8px shadow-sm">
       <n-space :vertical="true">
         <n-space>
           <n-button @click="getDataSource">有数据</n-button>

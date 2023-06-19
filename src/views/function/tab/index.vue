@@ -1,6 +1,6 @@
 <template>
   <n-space :vertical="true" :size="16">
-    <n-card title="Tab Home" :bordered="false" size="small" class="shadow-sm rounded-16px">
+    <n-card title="Tab Home" :bordered="false" size="small" class="rounded-8px shadow-sm">
       <n-space :vertical="true" :size="12">
         <n-button @click="handleToTabDetail">跳转Tab Detail</n-button>
         <n-button @click="handleToTabMultiDetail(1)">跳转Tab Multi Detail 1</n-button>

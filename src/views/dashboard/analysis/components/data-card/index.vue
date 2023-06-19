@@ -1,20 +1,22 @@
 <template>
-  <n-grid cols="s:1 m:2 l:4" responsive="screen" :x-gap="16" :y-gap="16">
-    <n-grid-item v-for="item in cardData" :key="item.id">
-      <gradient-bg class="h-100px" :start-color="item.colors[0]" :end-color="item.colors[1]">
-        <h3 class="text-16px">{{ item.title }}</h3>
-        <div class="flex justify-between pt-12px">
-          <svg-icon :icon="item.icon" class="text-32px" />
-          <count-to
-            :prefix="item.unit"
-            :start-value="1"
-            :end-value="item.value"
-            class="text-30px text-white dark:text-dark"
-          />
-        </div>
-      </gradient-bg>
-    </n-grid-item>
-  </n-grid>
+  <n-card :bordered="false" class="h-full rounded-8px shadow-sm">
+    <n-grid cols="s:1 m:2 l:4" responsive="screen" :x-gap="16" :y-gap="16">
+      <n-grid-item v-for="item in cardData" :key="item.id">
+        <gradient-bg class="h-100px" :start-color="item.colors[0]" :end-color="item.colors[1]">
+          <h3 class="text-16px">{{ item.title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="item.icon" class="text-32px" />
+            <count-to
+              :prefix="item.unit"
+              :start-value="1"
+              :end-value="item.value"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-grid-item>
+    </n-grid>
+  </n-card>
 </template>
 
 <script setup lang="ts">

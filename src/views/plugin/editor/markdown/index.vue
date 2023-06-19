@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <n-card title="markdown插件" class="shadow-sm rounded-16px">
+    <n-card title="markdown插件" :bordered="false" class="rounded-8px shadow-sm">
       <div ref="domRef"></div>
       <template #footer>
         <github-link link="https://github.com/Vanessa219/vditor" />

@@ -1,21 +1,21 @@
 <template>
   <n-space :vertical="true" :size="16">
-    <n-card :bordered="false" class="rounded-16px shadow-sm">
+    <n-card :bordered="false" class="rounded-8px shadow-sm">
       <div ref="pieRef" class="h-400px"></div>
     </n-card>
-    <n-card :bordered="false" class="rounded-16px shadow-sm">
+    <n-card :bordered="false" class="rounded-8px shadow-sm">
       <div ref="lineRef" class="h-400px"></div>
     </n-card>
-    <n-card :bordered="false" class="rounded-16px shadow-sm">
+    <n-card :bordered="false" class="rounded-8px shadow-sm">
       <div ref="barRef" class="h-400px"></div>
     </n-card>
-    <n-card :bordered="false" class="rounded-16px shadow-sm">
+    <n-card :bordered="false" class="rounded-8px shadow-sm">
       <div ref="scatterRef" class="h-400px"></div>
     </n-card>
-    <n-card :bordered="false" class="rounded-16px shadow-sm">
+    <n-card :bordered="false" class="rounded-8px shadow-sm">
       <div ref="areaRef" class="h-400px"></div>
     </n-card>
-    <n-card :bordered="false" class="rounded-16px shadow-sm">
+    <n-card :bordered="false" class="rounded-8px shadow-sm">
       <div ref="radarRef" class="h-400px"></div>
     </n-card>
   </n-space>

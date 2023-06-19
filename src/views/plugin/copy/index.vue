@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <n-card title="文本复制" class="h-full shadow-sm rounded-16px">
+    <n-card title="文本复制" :bordered="false" class="h-full rounded-8px shadow-sm">
       <n-input-group>
         <n-input v-model:value="source" placeholder="请输入要复制的内容吧" />
         <n-button type="primary" @click="handleCopy">复制</n-button>

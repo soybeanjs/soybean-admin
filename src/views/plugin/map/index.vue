@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <n-card title="地图插件" class="h-full shadow-sm rounded-16px" content-style="overflow:hidden">
+    <n-card title="地图插件" :bordered="false" class="h-full rounded-8px shadow-sm" content-style="overflow:hidden">
       <n-tabs type="line" class="flex-col-stretch h-full" pane-class="flex-1-hidden">
         <n-tab-pane v-for="item in maps" :key="item.id" :name="item.id" :tab="item.label">
           <component :is="item.component" />

@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <n-card title="富文本插件" class="shadow-sm rounded-16px">
+    <n-card title="富文本插件" :bordered="false" class="rounded-8px shadow-sm">
       <div ref="domRef" class="bg-white dark:bg-dark"></div>
       <template #footer>
         <github-link link="https://github.com/wangeditor-team/wangEditor" />

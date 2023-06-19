@@ -1,5 +1,5 @@
 <template>
-  <div class="p-16px rounded-16px text-white" :style="{ backgroundImage: gradientStyle }">
+  <div class="p-16px rounded-8px text-white" :style="{ backgroundImage: gradientStyle }">
     <slot></slot>
   </div>
 </template>

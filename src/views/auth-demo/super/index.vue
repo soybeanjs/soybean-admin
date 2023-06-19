@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <n-card title="当前页面只有super才能看到" class="h-full shadow-sm rounded-16px"></n-card>
+    <n-card title="当前页面只有super才能看到" :bordered="false" class="h-full rounded-8px shadow-sm"></n-card>
   </div>
 </template>
 

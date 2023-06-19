@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-card title="卡片" class="h-full shadow-sm rounded-16px">
+    <n-card title="卡片" :bordered="false" class="h-full rounded-8px shadow-sm">
       <n-space :vertical="true">
         <n-card title="基本用法">
           <p class="pb-16px">基础卡片</p>
