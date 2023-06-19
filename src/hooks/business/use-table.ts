@@ -12,7 +12,7 @@ type PaginationParams = Pick<PaginationProps, 'page' | 'pageSize'>;
 /**
  * 表格请求接口的参数
  */
-type ApiParams = Record<string, unknown> & PaginationParams;
+type ApiParams<TableData> = Record<string, unknown> & PaginationParams & Partial<TableData>;
 
 /**
  * 表格请求接口的结果
@@ -23,7 +23,7 @@ type ApiData<TableData = Record<string, unknown>> = Record<string, unknown> & { 
 /**
  * 表格接口的请求函数
  */
-type ApiFn<Params = ApiParams, TableData = Record<string, unknown>> = (
+type ApiFn<TableData = Record<string, unknown>, Params = ApiParams<TableData>> = (
   params: Params
 ) => Promise<Service.RequestResult<ApiData<TableData>>>;
 
@@ -54,45 +54,41 @@ type Transformer<TableData = Record<string, unknown>> = (
   apiData: ApiData<TableData>
 ) => TransformedTableData<TableData>;
 
-type TableParams<TableData = Record<string, unknown>, Params = ApiParams> = {
-  apiFn: ApiFn<Params, TableData>;
+type TableParams<TableData = Record<string, unknown>, Params = ApiParams<TableData>> = {
+  apiFn: ApiFn<TableData, Params>;
   apiParams: Params;
-  transformer: Transformer<TableData>;
   columns: DataTableColumn<TableData>[];
+  transformer: Transformer<TableData>;
   pagination?: PaginationProps;
 };
 
-export function useTable<TableData extends Record<string, unknown>, Params extends ApiParams>(
+export function useTable<TableData extends Record<string, unknown>, Params extends ApiParams<TableData>>(
   params: TableParams<TableData, Params>,
   immediate = true
 ) {
   const { loading, startLoading, endLoading, empty, setEmpty } = useLoadingEmpty();
+
   const data: Ref<TableData[]> = ref([]);
 
   function updateData(update: TableData[]) {
     data.value = update;
   }
 
-  let dataSource: TableData[] = [];
-  function setDataSource(source: TableData[]) {
-    dataSource = source;
-  }
-
-  function resetData() {
-    data.value = dataSource;
-  }
-
   const columns = ref(params.columns) as Ref<DataTableColumn<TableData>[]>;
 
   const pagination = reactive({
-    ...getPagination(params.pagination),
+    page: 1,
+    pageSize: 10,
+    showSizePicker: true,
+    pageSizes: [10, 15, 20, 25, 30],
     onChange: (page: number) => {
       pagination.page = page;
     },
     onUpdatePageSize: (pageSize: number) => {
       pagination.pageSize = pageSize;
       pagination.page = 1;
-    }
+    },
+    ...params.pagination
   }) as PaginationProps;
 
   function updatePagination(update: Partial<PaginationProps>) {
@@ -105,14 +101,13 @@ export function useTable<TableData extends Record<string, unknown>, Params exten
     apiParams.pageSize = apiParams.pageSize || pagination.pageSize;
 
     startLoading();
+
     const { data: apiData } = await params.apiFn(apiParams);
 
     if (apiData) {
       const transformedData = params.transformer(apiData);
 
       updateData(transformedData.data);
-
-      setDataSource(transformedData.data);
 
       setEmpty(transformedData.data.length === 0);
 
@@ -133,19 +128,6 @@ export function useTable<TableData extends Record<string, unknown>, Params exten
     empty,
     pagination,
     getData,
-    updateData,
-    resetData
+    updatePagination
   };
-}
-
-function getPagination(pagination?: Partial<PaginationProps>) {
-  const defaultPagination: Partial<PaginationProps> = {
-    page: 1,
-    pageSize: 10,
-    showSizePicker: true,
-    pageSizes: [10, 15, 20, 25, 30]
-  };
-  Object.assign(defaultPagination, pagination);
-
-  return defaultPagination;
 }
