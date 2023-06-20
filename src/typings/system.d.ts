@@ -90,6 +90,8 @@ declare namespace Theme {
     darkMode: boolean;
     /** 是否自动跟随系统主题 */
     followSystemTheme: boolean;
+    /** 自定义暗黑动画过渡 */
+    isCustomizeDarkModeTransition: boolean;
     /** 布局样式 */
     layout: Layout;
     /** 滚动模式 */

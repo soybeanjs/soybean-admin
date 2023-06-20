@@ -21,6 +21,16 @@
         </template>
       </n-switch>
     </setting-menu>
+    <setting-menu label="自定义暗黑主题动画过渡">
+      <n-switch :value="theme.isCustomizeDarkModeTransition" @update:value="theme.setIsCustomizeDarkModeTransition">
+        <template #checked>
+          <icon-ic-baseline-do-not-disturb class="text-14px text-white" />
+        </template>
+        <template #unchecked>
+          <icon-ic-round-hdr-auto class="text-14px text-white" />
+        </template>
+      </n-switch>
+    </setting-menu>
     <setting-menu label="侧边栏深色">
       <n-switch :value="theme.sider.inverted" @update:value="theme.setSiderInverted" />
     </setting-menu>

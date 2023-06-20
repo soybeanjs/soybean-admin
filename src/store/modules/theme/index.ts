@@ -43,6 +43,10 @@ export const useThemeStore = defineStore('theme-store', {
     setFollowSystemTheme(visible: boolean) {
       this.followSystemTheme = visible;
     },
+    /** 设置自动跟随系统主题 */
+    setIsCustomizeDarkModeTransition(isCustomize: boolean) {
+      this.isCustomizeDarkModeTransition = isCustomize;
+    },
     /** 自动跟随系统主题 */
     setAutoFollowSystemMode(darkMode: boolean) {
       if (this.followSystemTheme) {

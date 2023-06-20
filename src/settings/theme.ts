@@ -37,6 +37,7 @@ const themeColorList = [
 const defaultThemeSetting: Theme.Setting = {
   darkMode: false,
   followSystemTheme: true,
+  isCustomizeDarkModeTransition: false,
   layout: {
     minWidth: 900,
     mode: 'vertical',
