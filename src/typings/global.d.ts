@@ -5,6 +5,14 @@ interface Window {
   $notification?: import('naive-ui').NotificationProviderInst;
 }
 
+interface ViewTransition {
+  ready: Promise<void>;
+}
+
+interface Document {
+  startViewTransition?: (callback: () => Promise<void> | void) => ViewTransition;
+}
+
 /** 通用类型 */
 declare namespace Common {
   /**

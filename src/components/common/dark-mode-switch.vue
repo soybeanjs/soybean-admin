@@ -34,32 +34,35 @@ const darkMode = computed({
   }
 });
 
-function handleSwitch(event: MouseEvent) {
+async function handleSwitch(event: MouseEvent) {
   const x = event.clientX;
   const y = event.clientY;
-  const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-  // @ts-expect-error: Transition API
+
   if (!document.startViewTransition) {
     darkMode.value = !darkMode.value;
     return;
   }
-  // @ts-expect-error: Transition API
+
+  const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+
   const transition = document.startViewTransition(() => {
     darkMode.value = !darkMode.value;
   });
-  transition.ready.then(() => {
-    const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
-    document.documentElement.animate(
-      {
-        clipPath: darkMode.value ? clipPath : [...clipPath].reverse()
-      },
-      {
-        duration: 300,
-        easing: 'ease-in',
-        pseudoElement: darkMode.value ? '::view-transition-new(root)' : '::view-transition-old(root)'
-      }
-    );
-  });
+
+  await transition.ready;
+
+  const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
+
+  document.documentElement.animate(
+    {
+      clipPath: darkMode.value ? clipPath : [...clipPath].reverse()
+    },
+    {
+      duration: 300,
+      easing: 'ease-in',
+      pseudoElement: darkMode.value ? '::view-transition-new(root)' : '::view-transition-old(root)'
+    }
+  );
 }
 </script>
 
