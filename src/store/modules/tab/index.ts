@@ -68,7 +68,11 @@ export const useTabStore = defineStore('tab-store', {
     setActiveTabTitle(title: string) {
       const item = this.tabs.find(tab => tab.fullPath === this.activeTab);
       if (item) {
-        item.meta.title = title;
+        if (item.meta.i18nTitle) {
+          item.meta.i18nTitle = title;
+        } else {
+          item.meta.title = title;
+        }
       }
     },
     /**
