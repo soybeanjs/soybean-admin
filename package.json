@@ -81,22 +81,22 @@
     "vue-router": "4.2.2",
     "vuedraggable": "4.1.0",
     "wangeditor": "4.7.15",
-    "xgplayer": "3.0.4"
+    "xgplayer": "3.0.5"
   },
   "devDependencies": {
     "@amap/amap-jsapi-types": "0.0.13",
-    "@iconify/json": "2.2.82",
+    "@iconify/json": "2.2.83",
     "@iconify/vue": "4.1.1",
     "@soybeanjs/cli": "0.6.2",
     "@soybeanjs/vite-plugin-vue-page-route": "0.0.7",
     "@types/bmapgl": "0.0.7",
     "@types/crypto-js": "4.1.1",
-    "@types/node": "20.3.1",
+    "@types/node": "20.3.2",
     "@types/qs": "6.9.7",
     "@types/ua-parser-js": "0.7.36",
-    "@unocss/preset-uno": "0.53.3",
-    "@unocss/transformer-directives": "0.53.3",
-    "@unocss/vite": "0.53.3",
+    "@unocss/preset-uno": "0.53.4",
+    "@unocss/transformer-directives": "0.53.4",
+    "@unocss/vite": "0.53.4",
     "@vitejs/plugin-vue": "4.2.3",
     "@vitejs/plugin-vue-jsx": "3.0.1",
     "cross-env": "7.0.3",
@@ -116,8 +116,8 @@
     "vite-plugin-progress": "0.0.7",
     "vite-plugin-pwa": "0.16.4",
     "vite-plugin-svg-icons": "2.0.1",
-    "vite-plugin-vue-devtools": "0.2.1",
-    "vue-tsc": "1.8.1"
+    "vite-plugin-vue-devtools": "0.3.2",
+    "vue-tsc": "1.8.2"
   },
   "pnpm": {
     "patchedDependencies": {
