@@ -10,11 +10,11 @@ import jsonSetting from './theme.json';
 const themeColorList = [
   '#1890ff',
   '#409EFF',
-  '#2d8cf0',
   '#007AFF',
   '#5ac8fa',
   '#5856D6',
   '#536dfe',
+  '#646cff',
   '#9c27b0',
   '#AF52DE',
   '#0096c7',
@@ -45,7 +45,7 @@ const defaultThemeSetting: Theme.Setting = {
   },
   scrollMode: 'content',
   scrollModeList: themeScrollModeOptions,
-  themeColor: themeColorList[0],
+  themeColor: themeColorList[6],
   themeColorList,
   otherColor: {
     info: '#2080f0',
