@@ -21,9 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import SwiperCore, { Navigation, Pagination } from 'swiper';
+import SwiperCore from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import type { SwiperOptions } from 'swiper';
+import type { SwiperOptions } from 'swiper/types';
 
 type SwiperExampleOptions = Pick<
   SwiperOptions,
