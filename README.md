@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean.svg" style="width: 160px;"/>
+	<img src="./public/favicon.svg" style="width: 160px;"/>
 	<h1>Soybean Admin</h1>
 </div>
 
