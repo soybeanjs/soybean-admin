@@ -1,31 +1,40 @@
 <template>
-  <div class="h-full overflow-hidden">
-    <n-card title="用户管理" :bordered="false" class="rounded-8px shadow-sm">
-      <n-space class="pb-12px" justify="space-between">
-        <n-space>
-          <n-button type="primary" @click="handleAddTable">
-            <icon-ic-round-plus class="mr-4px text-20px" />
-            新增
-          </n-button>
-          <n-button type="error">
-            <icon-ic-round-delete class="mr-4px text-20px" />
-            删除
-          </n-button>
-          <n-button type="success">
-            <icon-uil:export class="mr-4px text-20px" />
-            导出Excel
-          </n-button>
+  <div class="overflow-hidden">
+    <n-card title="用户管理" :bordered="false" class="h-full rounded-8px shadow-sm">
+      <div class="flex-col h-full">
+        <n-space class="pb-12px" justify="space-between">
+          <n-space>
+            <n-button type="primary" @click="handleAddTable">
+              <icon-ic-round-plus class="mr-4px text-20px" />
+              新增
+            </n-button>
+            <n-button type="error">
+              <icon-ic-round-delete class="mr-4px text-20px" />
+              删除
+            </n-button>
+            <n-button type="success">
+              <icon-uil:export class="mr-4px text-20px" />
+              导出Excel
+            </n-button>
+          </n-space>
+          <n-space align="center" :size="18">
+            <n-button size="small" type="primary" @click="getTableData">
+              <icon-mdi-refresh class="mr-4px text-16px" :class="{ 'animate-spin': loading }" />
+              刷新表格
+            </n-button>
+            <column-setting v-model:columns="columns" />
+          </n-space>
         </n-space>
-        <n-space align="center" :size="18">
-          <n-button size="small" type="primary" @click="getTableData">
-            <icon-mdi-refresh class="mr-4px text-16px" :class="{ 'animate-spin': loading }" />
-            刷新表格
-          </n-button>
-          <column-setting v-model:columns="columns" />
-        </n-space>
-      </n-space>
-      <n-data-table :columns="columns" :data="tableData" :loading="loading" :pagination="pagination" />
-      <table-action-modal v-model:visible="visible" :type="modalType" :edit-data="editData" />
+        <n-data-table
+          :columns="columns"
+          :data="tableData"
+          :loading="loading"
+          :pagination="pagination"
+          flex-height
+          class="flex-1-hidden"
+        />
+        <table-action-modal v-model:visible="visible" :type="modalType" :edit-data="editData" />
+      </div>
     </n-card>
   </div>
 </template>
