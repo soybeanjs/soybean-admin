@@ -1,8 +1,8 @@
-import { decrypto, encrypto } from '../crypto';
+import { decrypt, encrypt } from '../crypto';
 
 function createSessionStorage<T extends StorageInterface.Session = StorageInterface.Session>() {
   function set<K extends keyof T>(key: K, value: T[K]) {
-    const json = encrypto(value);
+    const json = encrypt(value);
     sessionStorage.setItem(key as string, json);
   }
   function get<K extends keyof T>(key: K) {
@@ -10,7 +10,7 @@ function createSessionStorage<T extends StorageInterface.Session = StorageInterf
     let data: T[K] | null = null;
     if (json) {
       try {
-        data = decrypto(json);
+        data = decrypt(json);
       } catch {
         // 防止解析失败
       }

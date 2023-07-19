@@ -19,7 +19,7 @@
     <n-card title="自定义图标示例" :bordered="false" class="mt-10px rounded-8px shadow-sm">
       <div class="pb-12px text-16px">
         在src/assets/svg-icon文件夹下的svg文件，通过在template里面以 icon-local-{文件名} 直接渲染,
-        其中icon-local为.env文件里的 VITE_ICON_LOCAL_PREFFIX
+        其中icon-local为.env文件里的 VITE_ICON_LOCAL_PREFIX
       </div>
       <div class="grid grid-cols-10">
         <div class="mt-5px flex-x-center">

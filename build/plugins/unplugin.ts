@@ -7,13 +7,13 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { getSrcPath } from '../utils';
 
 export default function unplugin(viteEnv: ImportMetaEnv) {
-  const { VITE_ICON_PREFFIX, VITE_ICON_LOCAL_PREFFIX } = viteEnv;
+  const { VITE_ICON_PREFIX, VITE_ICON_LOCAL_PREFIX } = viteEnv;
 
   const srcPath = getSrcPath();
   const localIconPath = `${srcPath}/assets/svg-icon`;
 
   /** 本地svg图标集合名称 */
-  const collectionName = VITE_ICON_LOCAL_PREFFIX.replace(`${VITE_ICON_PREFFIX}-`, '');
+  const collectionName = VITE_ICON_LOCAL_PREFIX.replace(`${VITE_ICON_PREFIX}-`, '');
 
   return [
     Icons({
@@ -31,12 +31,12 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
       types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
       resolvers: [
         NaiveUiResolver(),
-        IconsResolver({ customCollections: [collectionName], componentPrefix: VITE_ICON_PREFFIX })
+        IconsResolver({ customCollections: [collectionName], componentPrefix: VITE_ICON_PREFIX })
       ]
     }),
     createSvgIconsPlugin({
       iconDirs: [localIconPath],
-      symbolId: `${VITE_ICON_LOCAL_PREFFIX}-[dir]-[name]`,
+      symbolId: `${VITE_ICON_LOCAL_PREFIX}-[dir]-[name]`,
       inject: 'body-last',
       customDomId: '__SVG_ICON_LOCAL__'
     })

@@ -5,11 +5,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useScriptTag } from '@vueuse/core';
-import { GAODE_MAP_SDK_URL } from '@/config';
+import { AMAP_SDK_URL } from '@/config';
 
 defineOptions({ name: 'GaodeMap' });
 
-const { load } = useScriptTag(GAODE_MAP_SDK_URL);
+const { load } = useScriptTag(AMAP_SDK_URL);
 
 const domRef = ref<HTMLDivElement>();
 

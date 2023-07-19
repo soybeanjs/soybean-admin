@@ -77,9 +77,9 @@ const darkColorMap = [
  * @param darkThemeMixColor - 暗黑主题的混合颜色，默认 #141414
  */
 export function getColorPalettes(color: AnyColor, darkTheme = false, darkThemeMixColor = '#141414'): string[] {
-  const indexs: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const indexes: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const patterns = indexs.map(index => getColorPalette(color, index));
+  const patterns = indexes.map(index => getColorPalette(color, index));
 
   if (darkTheme) {
     const darkPatterns = darkColorMap.map(({ index, opacity }) => {
