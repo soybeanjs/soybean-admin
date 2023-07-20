@@ -26,6 +26,8 @@ declare namespace Service {
     dataKey: string;
     /** 表示后端消息的属性字段 */
     msgKey: string;
+		/** 分页数据的属性字段 */
+		pageKey: string;
     /** 后端业务上定义的成功请求的状态 */
     successCode: number | string;
   }
@@ -38,6 +40,13 @@ declare namespace Service {
     data: T;
   }
 
+	/** 带分页的请求成功结果 */
+	interface DataTablResult<T = any> {
+		error: null;
+		data: T;
+		page: any;
+	}
+
   /** 自定义的请求失败结果 */
   interface FailedResult {
     /** 请求错误 */
@@ -47,7 +56,7 @@ declare namespace Service {
   }
 
   /** 自定义的请求结果 */
-  type RequestResult<T = any> = SuccessResult<T> | FailedResult;
+  type RequestResult<T = any> = SuccessResult<T> | DataTablResult<T> | FailedResult;
 
   /** 多个请求数据结果 */
   type MultiRequestResult<T extends any[]> = T extends [infer First, ...infer Rest]

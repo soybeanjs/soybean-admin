@@ -1,5 +1,5 @@
 /** 统一失败和成功的请求结果的数据类型 */
-export async function handleServiceResult<T = any>(error: Service.RequestError | null, data: any) {
+export async function handleServiceResult<T = any>(error: Service.RequestError | null, page: any, data: any) {
   if (error) {
     const fail: Service.FailedResult = {
       error,
@@ -7,6 +7,15 @@ export async function handleServiceResult<T = any>(error: Service.RequestError |
     };
     return fail;
   }
+	if (page) {
+		const pageresult: Service.DataTablResult = {
+			error: null,
+			page: page,
+			data
+		};
+		return pageresult;
+	}
+
   const success: Service.SuccessResult<T> = {
     error: null,
     data
@@ -34,10 +43,23 @@ export function adapter<T extends Service.ServiceAdapter>(
 
   if (!hasError) {
     const adapterFunArgs = args.map(item => item.data);
-    result = {
-      error: null,
-      data: adapterFun(...adapterFunArgs)
-    };
+		const hasPage = args.some(item => {
+			if (item.page) {
+				result = {
+					error: null,
+					page: item.page,
+					data: adapterFun(...adapterFunArgs)
+				};
+				return true;
+			}
+			return false;
+		});
+		if(!hasPage){
+			result = {
+				error: null,
+				data: adapterFun(...adapterFunArgs)
+			};
+		}
   }
 
   return result!;

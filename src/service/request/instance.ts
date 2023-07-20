@@ -37,6 +37,7 @@ export default class CustomAxiosInstance {
       codeKey: 'code',
       dataKey: 'data',
       msgKey: 'message',
+			pageKey: 'page',
       successCode: 200
     }
   ) {
@@ -63,7 +64,7 @@ export default class CustomAxiosInstance {
       },
       (axiosError: AxiosError) => {
         const error = handleAxiosError(axiosError);
-        return handleServiceResult(error, null);
+        return handleServiceResult(error, null, null);
       }
     );
     this.instance.interceptors.response.use(
@@ -71,10 +72,14 @@ export default class CustomAxiosInstance {
         const { status, config } = response;
         if (status === 200 || status < 300 || status === 304) {
           const backend = response.data;
-          const { codeKey, dataKey, successCode } = this.backendConfig;
+          const { codeKey, pageKey, dataKey, successCode } = this.backendConfig;
           // 请求成功
           if (backend[codeKey] === successCode) {
-            return handleServiceResult(null, backend[dataKey]);
+						// 分页处理
+						if (backend[pageKey]) {
+							return handleServiceResult(null, backend[pageKey], backend[dataKey]);
+						}
+            return handleServiceResult(null, null, backend[dataKey]);
           }
 
           // token失效, 刷新token
