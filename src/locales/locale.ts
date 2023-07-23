@@ -1,4 +1,4 @@
-import zhCN from './lang/zhCN';
+import zhCN from './lang/zh-CN';
 import en from './lang/en';
 import kmKH from './lang/km-KH';
 
