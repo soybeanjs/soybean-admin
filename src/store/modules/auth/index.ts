@@ -4,6 +4,7 @@ import { router } from '@/router';
 import { fetchLogin, fetchUserInfo } from '@/service';
 import { useRouterPush } from '@/composables';
 import { localStg } from '@/utils';
+import { $t } from '@/locales';
 import { useTabStore } from '../tab';
 import { useRouteStore } from '../route';
 import { getToken, getUserInfo, clearAuthStorage } from './helpers';
@@ -68,8 +69,8 @@ export const useAuthStore = defineStore('auth-store', {
         // 登录成功弹出欢迎提示
         if (route.isInitAuthRoute) {
           window.$notification?.success({
-            title: '登录成功!',
-            content: `欢迎回来，${this.userInfo.userName}!`,
+            title: $t('page.login.common.loginSuccess'),
+            content: $t('page.login.common.welcomeBack', { userName: this.userInfo.userName }),
             duration: 3000
           });
         }

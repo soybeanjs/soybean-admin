@@ -9,7 +9,7 @@ const component: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '按钮',
-        i18nTitle: 'message.routes.component.button',
+        i18nTitle: 'routes.component.button',
         requiresAuth: true,
         icon: 'mdi:button-cursor'
       }
@@ -20,7 +20,7 @@ const component: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '卡片',
-        i18nTitle: 'message.routes.component.card',
+        i18nTitle: 'routes.component.card',
         requiresAuth: true,
         icon: 'mdi:card-outline'
       }
@@ -31,7 +31,7 @@ const component: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '表格',
-        i18nTitle: 'message.routes.component.table',
+        i18nTitle: 'routes.component.table',
         requiresAuth: true,
         icon: 'mdi:table-large'
       }
@@ -39,7 +39,7 @@ const component: AuthRoute.Route = {
   ],
   meta: {
     title: '组件示例',
-    i18nTitle: 'message.routes.component._value',
+    i18nTitle: 'routes.component._value',
     icon: 'cib:app-store',
     order: 3
   }

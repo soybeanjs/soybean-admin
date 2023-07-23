@@ -244,7 +244,7 @@ declare namespace App {
     routePath: string;
     icon?: () => import('vue').VNodeChild;
     children?: GlobalMenuOption[];
-    i18nTitle?: string;
+    i18nTitle?: I18nType.I18nKey;
   };
 
   /** 面包屑 */
@@ -255,8 +255,8 @@ declare namespace App {
     routeName: string;
     hasChildren: boolean;
     icon?: import('vue').Component;
-    i18nTitle?: string;
-    options?: (import('naive-ui/es/dropdown/src/interface').DropdownMixedOption & { i18nTitle?: string })[];
+    i18nTitle?: I18nType.I18nKey;
+    options?: (import('naive-ui/es/dropdown/src/interface').DropdownMixedOption & { i18nTitle?: I18nType.I18nKey })[];
   };
 
   /** 多页签Tab的路由 */
@@ -304,11 +304,24 @@ declare namespace App {
 }
 
 declare namespace I18nType {
-  type langType = 'en' | 'zh-CN' | 'km-KH';
+  type LangType = 'en' | 'zh-CN' | 'km-KH';
 
-  interface Schema {
+  type Schema = {
     system: {
       title: string;
+    };
+    common: {
+      add: string;
+      addSuccess: string;
+      edit: string;
+      editSuccess: string;
+      delete: string;
+      deleteSuccess: string;
+      batchDelete: string;
+      confirm: string;
+      cancel: string;
+      pleaseCheckValue: string;
+      action: string;
     };
     routes: {
       dashboard: {
@@ -360,9 +373,9 @@ declare namespace I18nType {
       };
       exception: {
         _value: string;
-        403: string;
-        404: string;
-        500: string;
+        '403': string;
+        '404': string;
+        '500': string;
       };
       'multi-menu': {
         _value: string;
@@ -384,5 +397,138 @@ declare namespace I18nType {
       };
       about: string;
     };
-  }
+    layout: {
+      settingDrawer: {
+        title: string;
+        themeModeTitle: string;
+        darkMode: string;
+        layoutModelTitle: string;
+        systemThemeTitle: string;
+        pageFunctionsTitle: string;
+        pageViewTitle: string;
+        followSystemTheme: string;
+        isCustomizeDarkModeTransition: string;
+        scrollMode: string;
+        scrollModeList: {
+          wrapper: string;
+          content: string;
+        };
+        fixedHeaderAndTab: string;
+        header: {
+          inverted: string;
+          height: string;
+          crumb: {
+            visible: string;
+            icon: string;
+          };
+        };
+        tab: {
+          visible: string;
+          height: string;
+          modeList: {
+            mode: string;
+            chrome: string;
+            button: string;
+          };
+          isCache: string;
+        };
+        sider: {
+          inverted: string;
+          width: string;
+          mixWidth: string;
+        };
+        menu: {
+          horizontalPosition: string;
+          horizontalPositionList: {
+            flexStart: string;
+            center: string;
+            flexEnd: string;
+          };
+        };
+        footer: {
+          inverted: string;
+          visible: string;
+          fixed: string;
+          right: string;
+        };
+        page: {
+          animate: string;
+          animateMode: string;
+          animateModeList: {
+            zoomFade: string;
+            zoomOut: string;
+            fadeSlide: string;
+            fade: string;
+            fadeBottom: string;
+            fadeScale: string;
+          };
+        };
+        systemTheme: {
+          moreColors: string;
+        };
+        themeConfiguration: {
+          title: string;
+          copy: string;
+          reset: string;
+          resetSuccess: string;
+          operateSuccess: string;
+          copySuccess: string;
+          confirmCopy: string;
+        };
+      };
+    };
+    page: {
+      login: {
+        common: {
+          userNamePlaceholder: string;
+          phonePlaceholder: string;
+          codePlaceholder: string;
+          passwordPlaceholder: string;
+          confirmPasswordPlaceholder: string;
+          codeLogin: string;
+          confirm: string;
+          back: string;
+          validateSuccess: string;
+          loginSuccess: string;
+          welcomeBack: string;
+        };
+        pwdLogin: {
+          title: string;
+          rememberMe: string;
+          forgetPassword: string;
+          register: string;
+          otherAccountLogin: string;
+          otherLoginMode: string;
+          superAdmin: string;
+          admin: string;
+          user: string;
+        };
+        codeLogin: {
+          title: string;
+          getCode: string;
+          imageCodePlaceholder: string;
+        };
+        register: {
+          title: string;
+          agreement: string;
+          protocol: string;
+          policy: string;
+        };
+        resetPwd: {
+          title: string;
+        };
+        bindWeChat: {
+          title: string;
+        };
+      };
+    };
+  };
+
+  type GetI18nKey<T extends Record<string, unknown>, K extends keyof T = keyof T> = K extends string
+    ? T[K] extends Record<string, unknown>
+      ? `${K}.${GetI18nKey<T[K]>}`
+      : K
+    : never;
+
+  type I18nKey = GetI18nKey<Schema>;
 }

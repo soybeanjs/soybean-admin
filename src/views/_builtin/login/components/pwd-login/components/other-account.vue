@@ -1,6 +1,6 @@
 <template>
   <n-space :vertical="true">
-    <n-divider class="!mb-0 text-14px text-#666">其他账户登录</n-divider>
+    <n-divider class="!mb-0 text-14px text-#666">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</n-divider>
     <n-space justify="center">
       <n-button
         v-for="item in accounts"
@@ -15,25 +15,38 @@
 </template>
 
 <script lang="ts" setup>
+import { userRoleLabels } from '@/constants';
+import { $t } from '@/locales';
+
 interface Emits {
   (e: 'login', param: { userName: string; password: string }): void;
 }
 
 const emit = defineEmits<Emits>();
 
-const accounts = [
+interface Account {
+  key: Auth.RoleType;
+  label: string;
+  userName: string;
+  password: string;
+}
+
+const accounts: Account[] = [
   {
-    label: '超级管理员',
+    key: 'super',
+    label: userRoleLabels.super,
     userName: 'Super',
     password: 'super123'
   },
   {
-    label: '管理员',
+    key: 'admin',
+    label: userRoleLabels.admin,
     userName: 'Admin',
     password: 'admin123'
   },
   {
-    label: '普通用户',
+    key: 'user',
+    label: userRoleLabels.user,
     userName: 'User01',
     password: 'user01123'
   }

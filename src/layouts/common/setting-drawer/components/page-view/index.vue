@@ -1,16 +1,16 @@
 <template>
-  <n-divider title-placement="center">界面显示</n-divider>
+  <n-divider title-placement="center">{{ $t('layout.settingDrawer.pageViewTitle') }}</n-divider>
   <n-space vertical size="large">
-    <setting-menu label="面包屑">
+    <setting-menu :label="$t('layout.settingDrawer.header.crumb.visible')">
       <n-switch :value="theme.header.crumb.visible" @update:value="theme.setHeaderCrumbVisible" />
     </setting-menu>
-    <setting-menu label="面包屑图标">
+    <setting-menu :label="$t('layout.settingDrawer.header.crumb.icon')">
       <n-switch :value="theme.header.crumb.showIcon" @update:value="theme.setHeaderCrumbIconVisible" />
     </setting-menu>
-    <setting-menu label="多页签">
+    <setting-menu :label="$t('layout.settingDrawer.tab.visible')">
       <n-switch :value="theme.tab.visible" @update:value="theme.setTabVisible" />
     </setting-menu>
-    <setting-menu label="多页签风格">
+    <setting-menu :label="$t('layout.settingDrawer.tab.modeList.mode')">
       <n-select
         class="w-120px"
         size="small"
@@ -19,10 +19,10 @@
         @update:value="theme.setTabMode"
       />
     </setting-menu>
-    <setting-menu label="页面切换动画">
+    <setting-menu :label="$t('layout.settingDrawer.page.animate')">
       <n-switch :value="theme.page.animate" @update:value="theme.setPageIsAnimate" />
     </setting-menu>
-    <setting-menu label="页面切换动画类型">
+    <setting-menu :label="$t('layout.settingDrawer.page.animateMode')">
       <n-select
         class="w-120px"
         size="small"
@@ -36,6 +36,7 @@
 
 <script lang="ts" setup>
 import { useThemeStore } from '@/store';
+import { $t } from '@/locales';
 import SettingMenu from '../setting-menu/index.vue';
 
 defineOptions({ name: 'PageView' });

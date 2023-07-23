@@ -1,10 +1,10 @@
-const about1: AuthRoute.Route = {
+const about: AuthRoute.Route = {
   name: 'about',
   path: '/about',
   component: 'self',
   meta: {
     title: '关于',
-    i18nTitle: 'message.routes.about',
+    i18nTitle: 'routes.about',
     requiresAuth: true,
     keepAlive: true,
     singleLayout: 'basic',
@@ -14,4 +14,4 @@ const about1: AuthRoute.Route = {
   }
 };
 
-export default about1;
+export default about;

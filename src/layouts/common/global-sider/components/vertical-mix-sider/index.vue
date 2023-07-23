@@ -28,7 +28,7 @@ import { useRouterPush } from '@/composables';
 import { useBoolean } from '@/hooks';
 import { translateMenuLabel } from '@/utils';
 import { GlobalLogo } from '@/layouts/common';
-import { t } from '@/locales';
+import { $t } from '@/locales';
 import { MixMenuCollapse, MixMenuDetail, MixMenuDrawer } from './components';
 
 defineOptions({ name: 'VerticalMixSider' });
@@ -53,7 +53,7 @@ const firstDegreeMenus = computed(() =>
 
     return {
       routeName,
-      label: i18nTitle ? t(i18nTitle) : label,
+      label: i18nTitle ? $t(i18nTitle) : label,
       icon,
       hasChildren
     };

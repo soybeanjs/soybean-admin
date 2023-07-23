@@ -9,7 +9,7 @@ const authDemo: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '权限切换',
-        i18nTitle: 'message.routes.auth-demo.permission',
+        i18nTitle: 'routes.auth-demo.permission',
         requiresAuth: true,
         icon: 'ic:round-construction'
       }
@@ -20,7 +20,7 @@ const authDemo: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: '超级管理员可见',
-        i18nTitle: 'message.routes.auth-demo.super',
+        i18nTitle: 'routes.auth-demo.super',
         requiresAuth: true,
         permissions: ['super'],
         icon: 'ic:round-supervisor-account'
@@ -29,7 +29,7 @@ const authDemo: AuthRoute.Route = {
   ],
   meta: {
     title: '权限示例',
-    i18nTitle: 'message.routes.auth-demo._value',
+    i18nTitle: 'routes.auth-demo._value',
     icon: 'ic:baseline-security',
     order: 5
   }

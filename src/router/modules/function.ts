@@ -9,7 +9,7 @@ const functionRoute: AuthRoute.Route = {
       component: 'self',
       meta: {
         title: 'Tab',
-        i18nTitle: 'message.routes.function.tab',
+        i18nTitle: 'routes.function.tab',
         requiresAuth: true,
         icon: 'ic:round-tab'
       }
@@ -42,7 +42,7 @@ const functionRoute: AuthRoute.Route = {
   ],
   meta: {
     title: '功能',
-    i18nTitle: 'message.routes.function._value',
+    i18nTitle: 'routes.function._value',
     icon: 'icon-park-outline:all-application',
     order: 6
   }

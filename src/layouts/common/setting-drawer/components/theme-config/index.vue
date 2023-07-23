@@ -1,11 +1,13 @@
 <template>
-  <n-divider title-placement="center">主题配置</n-divider>
+  <n-divider title-placement="center">{{ $t('layout.settingDrawer.themeConfiguration.title') }}</n-divider>
   <textarea id="themeConfigCopyTarget" v-model="dataClipboardText" class="absolute opacity-0" />
   <n-space vertical>
     <div ref="copyRef" data-clipboard-target="#themeConfigCopyTarget">
-      <n-button type="primary" :block="true">拷贝当前配置</n-button>
+      <n-button type="primary" :block="true">{{ $t('layout.settingDrawer.themeConfiguration.copy') }}</n-button>
     </div>
-    <n-button type="warning" :block="true" @click="handleResetConfig">重置当前配置</n-button>
+    <n-button type="warning" :block="true" @click="handleResetConfig">
+      {{ $t('layout.settingDrawer.themeConfiguration.reset') }}
+    </n-button>
   </n-space>
 </template>
 
@@ -13,6 +15,7 @@
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import Clipboard from 'clipboard';
 import { useThemeStore } from '@/store';
+import { $t } from '@/locales';
 
 defineOptions({ name: 'ThemeConfig' });
 
@@ -28,7 +31,7 @@ function getClipboardText() {
 
 function handleResetConfig() {
   theme.resetThemeStore();
-  window.$message?.success('已重置配置，请重新拷贝！');
+  window.$message?.success($t('layout.settingDrawer.themeConfiguration.resetSuccess'));
 }
 
 function clipboardEventListener() {
@@ -36,9 +39,9 @@ function clipboardEventListener() {
   const copy = new Clipboard(copyRef.value);
   copy.on('success', () => {
     window.$dialog?.success({
-      title: '操作成功',
-      content: '复制成功,请替换 src/settings/theme.json的内容！',
-      positiveText: '确定'
+      title: $t('layout.settingDrawer.themeConfiguration.operateSuccess'),
+      content: $t('layout.settingDrawer.themeConfiguration.copySuccess'),
+      positiveText: $t('layout.settingDrawer.themeConfiguration.confirmCopy')
     });
   });
 }

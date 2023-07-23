@@ -1,15 +1,22 @@
 <template>
   <n-form ref="formRef" :model="model" :rules="rules" size="large" :show-label="false">
     <n-form-item path="userName">
-      <n-input v-model:value="model.userName" placeholder="请输入用户名" />
+      <n-input v-model:value="model.userName" :placeholder="$t('page.login.common.userNamePlaceholder')" />
     </n-form-item>
     <n-form-item path="password">
-      <n-input v-model:value="model.password" type="password" show-password-on="click" placeholder="请输入密码" />
+      <n-input
+        v-model:value="model.password"
+        type="password"
+        show-password-on="click"
+        :placeholder="$t('page.login.common.passwordPlaceholder')"
+      />
     </n-form-item>
     <n-space :vertical="true" :size="24">
       <div class="flex-y-center justify-between">
-        <n-checkbox v-model:checked="rememberMe">记住我</n-checkbox>
-        <n-button :text="true" @click="toLoginModule('reset-pwd')">忘记密码？</n-button>
+        <n-checkbox v-model:checked="rememberMe">{{ $t('page.login.pwdLogin.rememberMe') }}</n-checkbox>
+        <n-button :text="true" @click="toLoginModule('reset-pwd')">
+          {{ $t('page.login.pwdLogin.forgetPassword') }}
+        </n-button>
       </div>
       <n-button
         type="primary"
@@ -19,7 +26,7 @@
         :loading="auth.loginLoading"
         @click="handleSubmit"
       >
-        确定
+        {{ $t('page.login.common.confirm') }}
       </n-button>
       <div class="flex-y-center justify-between">
         <n-button class="flex-1" :block="true" @click="toLoginModule('code-login')">

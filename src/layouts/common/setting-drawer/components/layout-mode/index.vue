@@ -1,5 +1,5 @@
 <template>
-  <n-divider title-placement="center">布局模式</n-divider>
+  <n-divider title-placement="center">{{ $t('layout.settingDrawer.layoutModelTitle') }}</n-divider>
   <n-space justify="space-around" :wrap="true" :size="24" class="px-12px">
     <layout-card
       v-for="item in theme.layout.modeList"
@@ -43,6 +43,7 @@
 
 <script setup lang="ts">
 import { useThemeStore } from '@/store';
+import { $t } from '@/locales';
 import { LayoutCard } from './components';
 
 defineOptions({ name: 'LayoutMode' });

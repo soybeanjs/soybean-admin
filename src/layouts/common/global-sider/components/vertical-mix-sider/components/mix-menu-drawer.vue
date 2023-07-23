@@ -9,7 +9,7 @@
       :style="{ width: showDrawer ? theme.sider.mixChildMenuWidth + 'px' : '0px' }"
     >
       <header class="header-height flex-y-center justify-between" :style="{ height: theme.header.height + 'px' }">
-        <h2 class="text-primary pl-8px text-16px font-bold">{{ title }}</h2>
+        <h2 class="text-primary pl-8px text-16px font-bold">{{ $t('system.title') }}</h2>
         <div class="px-8px text-16px text-gray-600 cursor-pointer" @click="app.toggleMixSiderFixed">
           <icon-mdi-pin-off v-if="app.mixSiderFixed" />
           <icon-mdi-pin v-else />
@@ -35,8 +35,9 @@ import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import { useAppStore, useThemeStore } from '@/store';
-import { useAppInfo, useRouterPush } from '@/composables';
+import { useRouterPush } from '@/composables';
 import { getActiveKeyPathsOfMenus } from '@/utils';
+import { $t } from '@/locales';
 
 defineOptions({ name: 'MixMenuDrawer' });
 
@@ -53,7 +54,6 @@ const route = useRoute();
 const app = useAppStore();
 const theme = useThemeStore();
 const { routerPush } = useRouterPush();
-const { title } = useAppInfo();
 
 const showDrawer = computed(() => (props.visible && props.menus.length) || app.mixSiderFixed);
 

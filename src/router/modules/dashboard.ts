@@ -11,7 +11,7 @@ const dashboard: AuthRoute.Route = {
         title: '分析页',
         requiresAuth: true,
         icon: 'icon-park-outline:analysis',
-        i18nTitle: 'message.routes.dashboard.analysis'
+        i18nTitle: 'routes.dashboard.analysis'
       }
     },
     {
@@ -22,7 +22,7 @@ const dashboard: AuthRoute.Route = {
         title: '工作台',
         requiresAuth: true,
         icon: 'icon-park-outline:workbench',
-        i18nTitle: 'message.routes.dashboard.workbench'
+        i18nTitle: 'routes.dashboard.workbench'
       }
     }
   ],
@@ -30,7 +30,7 @@ const dashboard: AuthRoute.Route = {
     title: '仪表盘',
     icon: 'mdi:monitor-dashboard',
     order: 1,
-    i18nTitle: 'message.routes.dashboard._value'
+    i18nTitle: 'routes.dashboard._value'
   }
 };
 

@@ -1,5 +1,5 @@
 import { useIconRender } from '@/composables';
-import { t } from '@/locales';
+import { $t } from '@/locales';
 
 /**
  * 将权限路由转换成菜单
@@ -50,7 +50,7 @@ export function translateMenuLabel(menus: App.GlobalMenuOption[]): App.GlobalMen
     const menuItem: App.GlobalMenuOption = {
       ...menu,
       children: menuChildren,
-      label: menu.i18nTitle ? t(menu.i18nTitle) : menu.label
+      label: menu.i18nTitle ? $t(menu.i18nTitle) : menu.label
     };
     globalMenu.push(menuItem);
   });

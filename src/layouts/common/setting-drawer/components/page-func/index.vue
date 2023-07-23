@@ -1,7 +1,7 @@
 <template>
-  <n-divider title-placement="center">界面功能</n-divider>
+  <n-divider title-placement="center">{{ $t('layout.settingDrawer.pageFunctionsTitle') }}</n-divider>
   <n-space vertical size="large">
-    <setting-menu label="滚动模式">
+    <setting-menu :label="$t('layout.settingDrawer.scrollMode')">
       <n-select
         class="w-120px"
         size="small"
@@ -10,10 +10,10 @@
         @update:value="theme.setScrollMode"
       />
     </setting-menu>
-    <setting-menu label="固定头部和多页签">
+    <setting-menu :label="$t('layout.settingDrawer.fixedHeaderAndTab')">
       <n-switch :value="theme.fixedHeaderAndTab" @update:value="theme.setIsFixedHeaderAndTab" />
     </setting-menu>
-    <setting-menu label="顶部菜单位置">
+    <setting-menu :label="$t('layout.settingDrawer.menu.horizontalPosition')">
       <n-select
         class="w-120px"
         size="small"
@@ -22,7 +22,7 @@
         @update:value="theme.setHorizontalMenuPosition"
       />
     </setting-menu>
-    <setting-menu label="头部高度">
+    <setting-menu :label="$t('layout.settingDrawer.header.height')">
       <n-input-number
         class="w-120px"
         size="small"
@@ -31,7 +31,7 @@
         @update:value="theme.setHeaderHeight"
       />
     </setting-menu>
-    <setting-menu label="多页签高度">
+    <setting-menu :label="$t('layout.settingDrawer.tab.height')">
       <n-input-number
         class="w-120px"
         size="small"
@@ -40,10 +40,10 @@
         @update:value="theme.setTabHeight"
       />
     </setting-menu>
-    <setting-menu label="多页签缓存">
+    <setting-menu :label="$t('layout.settingDrawer.tab.isCache')">
       <n-switch :value="theme.tab.isCache" @update:value="theme.setTabIsCache" />
     </setting-menu>
-    <setting-menu label="侧边栏展开宽度">
+    <setting-menu :label="$t('layout.settingDrawer.sider.width')">
       <n-input-number
         class="w-120px"
         size="small"
@@ -52,7 +52,7 @@
         @update:value="theme.setSiderWidth"
       />
     </setting-menu>
-    <setting-menu label="左侧混合侧边栏展开宽度">
+    <setting-menu :label="$t('layout.settingDrawer.sider.mixWidth')">
       <n-input-number
         class="w-120px"
         size="small"
@@ -61,13 +61,13 @@
         @update:value="theme.setMixSiderWidth"
       />
     </setting-menu>
-    <setting-menu label="显示底部">
+    <setting-menu :label="$t('layout.settingDrawer.footer.visible')">
       <n-switch :value="theme.footer.visible" @update:value="theme.setFooterVisible" />
     </setting-menu>
-    <setting-menu label="固定底部">
+    <setting-menu :label="$t('layout.settingDrawer.footer.fixed')">
       <n-switch :value="theme.footer.fixed" @update:value="theme.setFooterIsFixed" />
     </setting-menu>
-    <setting-menu label="底部居右">
+    <setting-menu :label="$t('layout.settingDrawer.footer.right')">
       <n-switch :value="theme.footer.right" @update:value="theme.setFooterIsRight" />
     </setting-menu>
   </n-space>
@@ -75,6 +75,7 @@
 
 <script lang="ts" setup>
 import { useThemeStore } from '@/store';
+import { $t } from '@/locales';
 import SettingMenu from '../setting-menu/index.vue';
 
 defineOptions({ name: 'PageFunc' });

@@ -9,7 +9,7 @@
       <div class="w-300px sm:w-360px">
         <header class="flex-y-center justify-between">
           <system-logo class="text-64px text-primary" />
-          <n-gradient-text type="primary" :size="28">{{ title }}</n-gradient-text>
+          <n-gradient-text type="primary" :size="28">{{ $t('system.title') }}</n-gradient-text>
         </header>
         <main class="pt-24px">
           <h3 class="text-18px text-primary font-medium">{{ activeModule.label }}</h3>
@@ -30,8 +30,8 @@ import { computed } from 'vue';
 import type { Component } from 'vue';
 import { loginModuleLabels } from '@/constants';
 import { useThemeStore } from '@/store';
-import { useAppInfo } from '@/composables';
 import { getColorPalette, mixColor } from '@/utils';
+import { $t } from '@/locales';
 import { BindWechat, CodeLogin, LoginBg, PwdLogin, Register, ResetPwd } from './components';
 
 interface Props {
@@ -42,7 +42,6 @@ interface Props {
 const props = defineProps<Props>();
 
 const theme = useThemeStore();
-const { title } = useAppInfo();
 
 interface LoginModule {
   key: UnionKey.LoginModule;

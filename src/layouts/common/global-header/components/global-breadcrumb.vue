@@ -35,7 +35,7 @@ import { routePath } from '@/router';
 import { useRouteStore, useThemeStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { getBreadcrumbByRouteKey } from '@/utils';
-import { t } from '@/locales';
+import { $t } from '@/locales';
 
 defineOptions({ name: 'GlobalBreadcrumb' });
 
@@ -48,8 +48,8 @@ const breadcrumbs = computed(() =>
   getBreadcrumbByRouteKey(route.name as string, routeStore.menus as App.GlobalMenuOption[], routePath('root')).map(
     item => ({
       ...item,
-      label: item.i18nTitle ? t(item.i18nTitle) : item.label,
-      options: item.options?.map(oItem => ({ ...oItem, label: oItem.i18nTitle ? t(oItem.i18nTitle) : oItem.label }))
+      label: item.i18nTitle ? $t(item.i18nTitle) : item.label,
+      options: item.options?.map(oItem => ({ ...oItem, label: oItem.i18nTitle ? $t(oItem.i18nTitle) : oItem.label }))
     })
   )
 );

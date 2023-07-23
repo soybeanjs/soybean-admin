@@ -1,11 +1,32 @@
 {
+  "cSpell.ignorePaths": [
+    "package.json",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml",
+    "node_modules",
+    "vscode-extension",
+    ".git/objects",
+    ".vscode",
+    ".vscode-insiders",
+    "CHANGELOG.md",
+    "dist",
+    "public",
+    "styles"
+  ],
   "cSpell.words": [
     "AMAP",
     "antv",
+    "bmapgl",
     "colord",
     "echarts",
+    "gitee",
+    "gridicons",
     "iconify",
+    "jsapi",
+    "naiveui",
     "Sider",
+    "tauri",
     "unocss",
     "unplugin",
     "vditor",
@@ -29,7 +50,13 @@
     "*.svg": "html"
   },
   "files.eol": "\n",
-  "i18n-ally.localesPaths": ["src/locales", "src/locales/lang"],
+  "i18n-ally.displayLanguage": "zh-CN",
+  "i18n-ally.enabledParsers": ["ts"],
+  "i18n-ally.enabledFrameworks": ["vue"],
+  "i18n-ally.editor.preferEditor": true,
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": ["src/locales/lang"],
+  "material-icon-theme.activeIconPack": "vue",
   "[html][css][less][scss][sass][markdown][yaml][yml][jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
