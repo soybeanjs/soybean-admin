@@ -44,11 +44,16 @@ type ApiParamsUpdater<P, R> = (params: P) => R;
 type PagePropsOfPagination = Pick<PaginationProps, 'page' | 'pageSize'>;
 
 /**
+ * 自定义的列 key
+ */
+type CustomColumnKey<K = never> = K | 'action';
+
+/**
  * 表格的列
  */
 type HookTableColumn<T = Record<string, unknown>> =
-  | (Omit<TableColumnGroup<T>, 'key'> & { key: keyof T })
-  | (Omit<DataTableBaseColumn<T>, 'key'> & { key: keyof T })
+  | (Omit<TableColumnGroup<T>, 'key'> & { key: CustomColumnKey<keyof T> })
+  | (Omit<DataTableBaseColumn<T>, 'key'> & { key: CustomColumnKey<keyof T> })
   | DataTableSelectionColumn<T>
   | DataTableExpandColumn<T>;
 
@@ -67,7 +72,7 @@ type HookTableConfig<TableData, Fn extends ApiFn> = {
   /**
    * 列表列
    */
-  columns: HookTableColumn<TableData>[];
+  columns: () => HookTableColumn<TableData>[];
   /**
    * 列表接口参数更新
    * @description 用于更新分页参数, 如果列表接口的参数不包含同名分页参数属性 `page` 和 `pageSize`, 需要通过此函数更新
@@ -101,7 +106,7 @@ export default function useHookTable<TableData, Fn extends ApiFn>(apiFn: Fn, con
     data.value = update;
   }
 
-  const columns = ref(config.columns) as Ref<HookTableColumn<TableData>[]>;
+  const columns = ref(config.columns()) as Ref<HookTableColumn<TableData>[]>;
 
   const requestParams = ref(apiParams) as Ref<HookTableConfig<TableData, Fn>['apiParams']>;
 
@@ -154,6 +159,10 @@ export default function useHookTable<TableData, Fn extends ApiFn>(apiFn: Fn, con
     endLoading();
   }
 
+  function reloadColumns() {
+    columns.value = config.columns();
+  }
+
   if (immediate) {
     getData();
   }
@@ -165,6 +174,7 @@ export default function useHookTable<TableData, Fn extends ApiFn>(apiFn: Fn, con
     empty,
     pagination,
     getData,
-    updatePagination
+    updatePagination,
+    reloadColumns
   };
 }
