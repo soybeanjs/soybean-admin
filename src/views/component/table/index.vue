@@ -29,7 +29,7 @@ interface DataSource {
 
 const { loading, startLoading, endLoading, empty, setEmpty } = useLoadingEmpty();
 
-const columns: DataTableColumn[] = [
+const columns: DataTableColumn<DataSource>[] = [
   {
     title: 'Name',
     key: 'name',
@@ -49,13 +49,22 @@ const columns: DataTableColumn[] = [
     key: 'action',
     title: 'Action',
     align: 'center',
-    render: () => {
+    render: row => {
       return (
         <NSpace justify={'center'}>
-          <NButton size={'small'} onClick={() => {}}>
+          <NButton
+            size={'small'}
+            onClick={() => {
+              handleEdit(row.name);
+            }}
+          >
             编辑
           </NButton>
-          <NPopconfirm onPositiveClick={() => {}}>
+          <NPopconfirm
+            onPositiveClick={() => {
+              handleDelete(row.name);
+            }}
+          >
             {{
               default: () => '确认删除',
               trigger: () => <NButton size={'small'}>删除</NButton>
@@ -97,6 +106,14 @@ function getEmptyDataSource() {
     endLoading();
     setEmpty(!dataSource.value.length);
   }, 1000);
+}
+
+function handleEdit(_name: string) {
+  //
+}
+
+function handleDelete(_name: string) {
+  //
 }
 
 onMounted(() => {

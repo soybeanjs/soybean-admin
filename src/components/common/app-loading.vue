@@ -4,7 +4,7 @@
     <div class="w-56px h-56px my-36px">
       <div class="relative h-full animate-spin">
         <div
-          v-for="(item, index) in lodingClasses"
+          v-for="(item, index) in loadingClasses"
           :key="index"
           class="absolute w-16px h-16px bg-primary rounded-8px animate-pulse"
           :class="item"
@@ -20,7 +20,7 @@ import { sessionStg, getRgbOfColor } from '@/utils';
 import { $t } from '@/locales';
 import themeSettings from '@/settings/theme.json';
 
-const lodingClasses = [
+const loadingClasses = [
   'left-0 top-0',
   'left-0 bottom-0 animate-delay-500',
   'right-0 top-0 animate-delay-1000',
