@@ -123,7 +123,8 @@ pnpm build
 - Docker 部署 Soybean
 
 ```bash
-docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
+docker build -t soybean-admin-image -f docker/Dockerfile .
+docker run -d -p 80:80 soybean-admin-image
 ```
 
 - 访问 SoybeanAdmin
@@ -138,7 +139,7 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 项目已经内置 Angular 提交规范，直接执行 commit 命令即可生成符合 Angular 提交规范的 commit。
 
-项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-git-hooks 进行初始化配置
+项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-simple-git-hooks 进行初始化配置
 
 ## 浏览器支持
 
