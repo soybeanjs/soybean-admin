@@ -120,6 +120,7 @@ export const useRouteStore = defineStore('route-store', {
 
       if (!error) {
         this.handleAuthRoute(sortRoutes(data.routes));
+        // sadwhinpm
         this.routeHomeName = data.home;
         this.handleUpdateRootRedirect(data.home);
 
