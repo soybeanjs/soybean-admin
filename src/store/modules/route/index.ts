@@ -120,7 +120,7 @@ export const useRouteStore = defineStore('route-store', {
 
       if (!error) {
         this.handleAuthRoute(sortRoutes(data.routes));
-        // sadwhinpm
+        // home相关处理需要在最后，否则会出现找不到主页404的情况
         this.routeHomeName = data.home;
         this.handleUpdateRootRedirect(data.home);
 
