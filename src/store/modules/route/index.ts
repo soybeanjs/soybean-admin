@@ -119,9 +119,10 @@ export const useRouteStore = defineStore('route-store', {
       const { error, data } = await fetchUserRoutes(userId);
 
       if (!error) {
+        this.handleAuthRoute(sortRoutes(data.routes));
+        // home相关处理需要在最后，否则会出现找不到主页404的情况
         this.routeHomeName = data.home;
         this.handleUpdateRootRedirect(data.home);
-        this.handleAuthRoute(sortRoutes(data.routes));
 
         initHomeTab(data.home, router);
 
