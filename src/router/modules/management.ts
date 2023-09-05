@@ -11,6 +11,7 @@ const management: AuthRoute.Route = {
         title: '权限管理',
         i18nTitle: 'routes.management.auth',
         requiresAuth: true,
+        keepAlive: true,
         icon: 'ic:baseline-security'
       }
     },
@@ -22,6 +23,7 @@ const management: AuthRoute.Route = {
         title: '角色管理',
         i18nTitle: 'routes.management.role',
         requiresAuth: true,
+        keepAlive: true,
         icon: 'carbon:user-role'
       }
     },
@@ -33,6 +35,7 @@ const management: AuthRoute.Route = {
         title: '用户管理',
         i18nTitle: 'routes.management.user',
         requiresAuth: true,
+        keepAlive: true,
         icon: 'ic:round-manage-accounts'
       }
     },
@@ -44,6 +47,7 @@ const management: AuthRoute.Route = {
         title: '路由管理',
         i18nTitle: 'routes.management.route',
         requiresAuth: true,
+        keepAlive: true,
         icon: 'material-symbols:route'
       }
     }
