@@ -8,7 +8,16 @@
 </template>
 
 <script setup lang="ts">
+import { onActivated, onMounted } from 'vue';
 import { DevDependency, ProDependency, ProjectInfo, ProjectIntroduction } from './components';
+
+onActivated(() => {
+  console.log('about page activated');
+});
+
+onMounted(() => {
+  console.log('about page mounted');
+});
 </script>
 
 <style scoped></style>

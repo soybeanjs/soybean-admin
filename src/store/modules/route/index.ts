@@ -14,6 +14,7 @@ import {
   transformRoutePathToRouteName,
   sortRoutes
 } from '@/utils';
+import { useAppStore } from '../app';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 
@@ -151,7 +152,6 @@ export const useRouteStore = defineStore('route-store', {
         await this.initStaticRoute();
       }
     },
-
     /** 从缓存路由中去除某个路由 */
     removeCacheRoute(name: AuthRoute.AllRouteKey) {
       const index = this.cacheRoutes.indexOf(name);
@@ -159,12 +159,29 @@ export const useRouteStore = defineStore('route-store', {
         this.cacheRoutes.splice(index, 1);
       }
     },
-
     /** 添加某个缓存路由 */
     addCacheRoute(name: AuthRoute.AllRouteKey) {
       const index = this.cacheRoutes.indexOf(name);
       if (index === -1) {
         this.cacheRoutes.push(name);
+      }
+    },
+    /**
+     * 重新缓存路由
+     */
+    async reCacheRoute(name: AuthRoute.AllRouteKey) {
+      const { reloadPage } = useAppStore();
+
+      const isCached = this.cacheRoutes.includes(name);
+
+      if (isCached) {
+        this.removeCacheRoute(name);
+      }
+
+      await reloadPage();
+
+      if (isCached) {
+        this.addCacheRoute(name as AuthRoute.AllRouteKey);
       }
     }
   }

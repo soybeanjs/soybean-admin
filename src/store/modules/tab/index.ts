@@ -1,7 +1,6 @@
-import { nextTick } from 'vue';
 import type { RouteLocationNormalizedLoaded, Router } from 'vue-router';
 import { defineStore } from 'pinia';
-import { useRouteStore, useAppStore } from '@/store';
+import { useRouteStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { localStg } from '@/utils';
 import { useThemeStore } from '../theme';
@@ -121,21 +120,12 @@ export const useTabStore = defineStore('tab-store', {
      * @param fullPath - 路由fullPath
      */
     async removeTab(fullPath: string) {
+      const { reCacheRoute } = useRouteStore();
       const { routerPush } = useRouterPush(false);
 
-      // 清除keepAlive缓存
-      const closeTabIndex = this.tabs.findIndex(tab => tab.fullPath === fullPath);
-      if (closeTabIndex !== -1) {
-        const appStore = useAppStore();
-        const routeStore = useRouteStore();
-        const closeTabName = this.tabs[closeTabIndex].name as AuthRoute.AllRouteKey;
-
-        routeStore.removeCacheRoute(closeTabName);
-        appStore.reloadPage();
-
-        nextTick(() => {
-          routeStore.addCacheRoute(closeTabName);
-        });
+      const tabName = this.tabs.find(tab => tab.fullPath === fullPath)?.name as AuthRoute.AllRouteKey | undefined;
+      if (tabName) {
+        await reCacheRoute(tabName);
       }
 
       const isActive = this.activeTab === fullPath;
