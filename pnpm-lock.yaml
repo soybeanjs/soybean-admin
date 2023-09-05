@@ -102,6 +102,9 @@ devDependencies:
   '@iconify/vue':
     specifier: 4.1.1
     version: 4.1.1(vue@3.3.4)
+  '@plugin-web-update-notification/vite':
+    specifier: ^1.6.5
+    version: 1.6.5(vite@4.4.9)
   '@soybeanjs/cli':
     specifier: 0.7.1
     version: 0.7.1
@@ -2168,6 +2171,19 @@ packages:
       open: 9.1.0
       picocolors: 1.0.0
       tslib: 2.6.2
+    dev: true
+
+  /@plugin-web-update-notification/core@1.6.5:
+    resolution: {integrity: sha512-DgyeVczO3nziivhI1p9+iWILFwnBmH0tmlVJKMf6q3YlFSqG8pDgNEylBN77Whwkuso2JrBcuhLqHSAnm1tiYw==}
+    dev: true
+
+  /@plugin-web-update-notification/vite@1.6.5(vite@4.4.9):
+    resolution: {integrity: sha512-11nsEiOdDRZFbsSTNHWN4dA/dLoABwCPqErQZtDndPOQF9dW3TVpyCm4YZ6uuRv5RdretK2ELq+2kDkDFB4uFQ==}
+    peerDependencies:
+      vite: '>4.0.0 || ^3.0.0 || ^2.0.0'
+    dependencies:
+      '@plugin-web-update-notification/core': 1.6.5
+      vite: 4.4.9(@types/node@20.5.9)(sass@1.66.1)
     dev: true
 
   /@pnpm/config.env-replace@1.1.0:
