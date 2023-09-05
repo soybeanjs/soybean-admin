@@ -92,7 +92,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
             i18nTitle: 'routes.document.project-link',
             requiresAuth: true,
             localIcon: 'logo',
-            href: 'https://docs.soybean.pro/'
+            href: 'https://admin-docs.soybeanjs.cn/'
           }
         }
       ],
@@ -650,7 +650,7 @@ export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
             i18nTitle: 'routes.document.project-link',
             requiresAuth: true,
             localIcon: 'logo',
-            href: 'https://docs.soybean.pro/'
+            href: 'https://admin-docs.soybeanjs.cn/'
           }
         }
       ],
