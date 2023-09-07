@@ -20,7 +20,9 @@ async function handleRefresh() {
 
   await reCacheRoute(route.name as AuthRoute.AllRouteKey);
 
-  endLoading();
+  setTimeout(() => {
+    endLoading();
+  }, 1000);
 }
 </script>
 
