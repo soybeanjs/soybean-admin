@@ -5,7 +5,6 @@ import unocss from '@unocss/vite';
 import progress from 'vite-plugin-progress';
 import VueDevtools from 'vite-plugin-vue-devtools';
 import pageRoute from '@soybeanjs/vite-plugin-vue-page-route';
-import { webUpdateNotice } from '@plugin-web-update-notification/vite';
 import unplugin from './unplugin';
 import mock from './mock';
 import visualizer from './visualizer';
@@ -28,15 +27,7 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
     ...unplugin(viteEnv),
     unocss(),
     mock(viteEnv),
-    progress(),
-    webUpdateNotice({
-      notificationProps: {
-        title: '👋 有新版本了',
-        description: '点击刷新页面获取最新版本',
-        buttonText: '刷新',
-        dismissButtonText: '忽略'
-      }
-    })
+    progress()
   ];
 
   if (viteEnv.VITE_VISUALIZER === 'Y') {
