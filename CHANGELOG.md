@@ -1,6 +1,86 @@
 # Changelog
 
 
+## [v0.10.4](https://github.com/honghuangdc/soybean-admin/compare/v0.10.3...v0.10.4) (23-09-20)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **auth**:
+  - 防止多次刷新token &nbsp;-&nbsp; by @eAliwei [<samp>(0eaa3)</samp>](https://github.com/honghuangdc/soybean-admin/commit/0eaa327)
+- **hooks**:
+  - add useHookTable &nbsp;-&nbsp; by @honghuangdc [<samp>(b3ae7)</samp>](https://github.com/honghuangdc/soybean-admin/commit/b3ae760)
+- **projects**:
+  - add websocket demo &nbsp;-&nbsp; by @honghuangdc [<samp>(af53e)</samp>](https://github.com/honghuangdc/soybean-admin/commit/af53ec7)
+  - add switch for customize darkmode transition &nbsp;-&nbsp; by @honghuangdc [<samp>(6e0cc)</samp>](https://github.com/honghuangdc/soybean-admin/commit/6e0cce4)
+  - new i18n function $t & login page and setting drawer config i18n &nbsp;-&nbsp; by @honghuangdc [<samp>(854d0)</samp>](https://github.com/honghuangdc/soybean-admin/commit/854d0bc)
+  - add plugin-web-update-notification &nbsp;-&nbsp; by @honghuangdc [<samp>(c9164)</samp>](https://github.com/honghuangdc/soybean-admin/commit/c91644b)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **components**:
+  - 修复动态路由主页404 &nbsp;-&nbsp; by @lapislazulisch [<samp>(3ae19)</samp>](https://github.com/honghuangdc/soybean-admin/commit/3ae1952)
+  - 修复动态路由home页404 &nbsp;-&nbsp; by @lapislazulisch [<samp>(ad6ac)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ad6ac72)
+- **projects**:
+  - fix set tab title (fixed #256) &nbsp;-&nbsp; by @honghuangdc in https://github.com/honghuangdc/soybean-admin/issues/256 [<samp>(13f6c)</samp>](https://github.com/honghuangdc/soybean-admin/commit/13f6cd8)
+  - correct the lang file name & add recommend vscode plugin i18n-ally &nbsp;-&nbsp; by @honghuangdc [<samp>(864ec)</samp>](https://github.com/honghuangdc/soybean-admin/commit/864ec47)
+  - fix reload button animate &nbsp;-&nbsp; by @honghuangdc [<samp>(41f23)</samp>](https://github.com/honghuangdc/soybean-admin/commit/41f2338)
+- **styles**:
+  - 用户管理页面布局自适应屏幕高度 (fixed #253) &nbsp;-&nbsp; by @honghuangdc in https://github.com/honghuangdc/soybean-admin/issues/253 [<samp>(0f7b9)</samp>](https://github.com/honghuangdc/soybean-admin/commit/0f7b9d5)
+
+### &nbsp;&nbsp;&nbsp;🔥 Performance
+
+- **hooks**:
+  - perf use-table &nbsp;-&nbsp; by @honghuangdc [<samp>(33180)</samp>](https://github.com/honghuangdc/soybean-admin/commit/3318041)
+  - perf useHookTable &nbsp;-&nbsp; by @honghuangdc [<samp>(809fa)</samp>](https://github.com/honghuangdc/soybean-admin/commit/809fa85)
+- **projects**:
+  - add type declaration for document startViewTransition &nbsp;-&nbsp; by @honghuangdc [<samp>(d3ebe)</samp>](https://github.com/honghuangdc/soybean-admin/commit/d3ebe95)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**:
+  - 生产环境缓存主题变更为sessionStorage &nbsp;-&nbsp; by @honghuangdc [<samp>(c46a5)</samp>](https://github.com/honghuangdc/soybean-admin/commit/c46a592)
+  - add reCacheRoute method &nbsp;-&nbsp; by @honghuangdc [<samp>(f92ee)</samp>](https://github.com/honghuangdc/soybean-admin/commit/f92ee77)
+  - update soybean domain &nbsp;-&nbsp; by @honghuangdc [<samp>(073fd)</samp>](https://github.com/honghuangdc/soybean-admin/commit/073fd16)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - update README.md logo &nbsp;-&nbsp; by @honghuangdc [<samp>(19141)</samp>](https://github.com/honghuangdc/soybean-admin/commit/19141a7)
+  - update Docker deployment method &nbsp;-&nbsp; by @snowords [<samp>(00da0)</samp>](https://github.com/honghuangdc/soybean-admin/commit/00da000)
+  - update git hooks init command &nbsp;-&nbsp; by @snowords [<samp>(7f35e)</samp>](https://github.com/honghuangdc/soybean-admin/commit/7f35e87)
+  - update README.md &nbsp;-&nbsp; by @eltociear [<samp>(93ed5)</samp>](https://github.com/honghuangdc/soybean-admin/commit/93ed5ad)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(bba68)</samp>](https://github.com/honghuangdc/soybean-admin/commit/bba68bf)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(0e6d2)</samp>](https://github.com/honghuangdc/soybean-admin/commit/0e6d289)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(135ce)</samp>](https://github.com/honghuangdc/soybean-admin/commit/135ce77)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(44ba3)</samp>](https://github.com/honghuangdc/soybean-admin/commit/44ba327)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(9296e)</samp>](https://github.com/honghuangdc/soybean-admin/commit/9296e69)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(751de)</samp>](https://github.com/honghuangdc/soybean-admin/commit/751ded4)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(305d9)</samp>](https://github.com/honghuangdc/soybean-admin/commit/305d956)
+- **projects**:
+  - update deps and fix swiper &nbsp;-&nbsp; by @honghuangdc [<samp>(9d105)</samp>](https://github.com/honghuangdc/soybean-admin/commit/9d1051b)
+  - update package.json &nbsp;-&nbsp; by @honghuangdc [<samp>(d7aea)</samp>](https://github.com/honghuangdc/soybean-admin/commit/d7aea9d)
+  - update deps & fix eslint code &nbsp;-&nbsp; by @honghuangdc [<samp>(08e0c)</samp>](https://github.com/honghuangdc/soybean-admin/commit/08e0cf5)
+  - update pnpm-lock.yaml &nbsp;-&nbsp; by @honghuangdc [<samp>(94644)</samp>](https://github.com/honghuangdc/soybean-admin/commit/9464473)
+  - update VSCode setting &nbsp;-&nbsp; by @honghuangdc [<samp>(56c77)</samp>](https://github.com/honghuangdc/soybean-admin/commit/56c770c)
+  - correct the word spell &nbsp;-&nbsp; by @honghuangdc [<samp>(458e3)</samp>](https://github.com/honghuangdc/soybean-admin/commit/458e387)
+  - correct word spell & eslint fix code &nbsp;-&nbsp; by @honghuangdc [<samp>(cffc3)</samp>](https://github.com/honghuangdc/soybean-admin/commit/cffc30a)
+  - When tab is switched, keep the page without refreshing &nbsp;-&nbsp; by @linjiangl [<samp>(83f25)</samp>](https://github.com/honghuangdc/soybean-admin/commit/83f2514)
+
+### &nbsp;&nbsp;&nbsp;🎨 Styles
+
+- **projects**:
+  - unify card border radius, 16px to 8px &nbsp;-&nbsp; by @honghuangdc [<samp>(cbda4)</samp>](https://github.com/honghuangdc/soybean-admin/commit/cbda4a3)
+  - update default theme color &nbsp;-&nbsp; by @honghuangdc [<samp>(43ac2)</samp>](https://github.com/honghuangdc/soybean-admin/commit/43ac23f)
+  - prettier format code &nbsp;-&nbsp; by @honghuangdc [<samp>(24cf1)</samp>](https://github.com/honghuangdc/soybean-admin/commit/24cf1d9)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;[![eltociear](https://github.com/eltociear.png?size=48)](https://github.com/eltociear)&nbsp;&nbsp;[![linjiangl](https://github.com/linjiangl.png?size=48)](https://github.com/linjiangl)&nbsp;&nbsp;[![lapislazulisch](https://github.com/lapislazulisch.png?size=48)](https://github.com/lapislazulisch)&nbsp;&nbsp;[![snowords](https://github.com/snowords.png?size=48)](https://github.com/snowords)&nbsp;&nbsp;[![eAliwei](https://github.com/eAliwei.png?size=48)](https://github.com/eAliwei)&nbsp;&nbsp;[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v0.10.3](https://github.com/honghuangdc/soybean-admin/compare/v0.10.2...v0.10.3) (23-06-15)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
