@@ -42,9 +42,9 @@
 
 ## 代码仓库
 
-| 仓库           | github 地址                                                                   | gitee 镜像                                                                   | 预览                                                      |
+| 仓库           | GitHub 地址                                                                   | gitee 镜像                                                                   | 预览                                                      |
 | -------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- |
-| soybean-admin  | [github](https://github.com/honghuangdc/soybean-admin)                        | [gitee](https://gitee.com/honghuangdc/soybean-admin)                         | [预览](https://admin.soybeanjs.cn/)                       |
+| soybean-admin  | [GitHub](https://github.com/honghuangdc/soybean-admin)                        | [gitee](https://gitee.com/honghuangdc/soybean-admin)                         | [预览](https://admin.soybeanjs.cn/)                       |
 | tauri 版       | [tauri 版](https://github.com/honghuangdc/soybean-admin/tree/tauri)           | [tauri 版](https://gitee.com/honghuangdc/soybean-admin/tree/tauri)           |                                                           |
 | 精简版         | [精简版](https://github.com/honghuangdc/soybean-admin/tree/thin)              | [精简版](https://gitee.com/honghuangdc/soybean-admin/tree/thin)              |                                                           |
 | 集成 fast-crud | [集成 fast-crud](https://github.com/honghuangdc/soybean-admin/tree/fast-crud) | [集成 fast-crud](https://gitee.com/honghuangdc/soybean-admin/tree/fast-crud) | [预览](http://fast-crud.docmirror.cn/soybean/#/crud/demo) |
