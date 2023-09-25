@@ -17,3 +17,18 @@ function getConstantRouteName(route: AuthRoute.Route) {
   }
   return names;
 }
+
+/**
+ * 根据路由名称查找顶级菜单
+ * @param routeName - 当前页面路由的key
+ * @param menus - 菜单数据
+ */
+export function getTopLevelMenu(routeName: string, menus: App.GlobalMenuOption[]): App.GlobalMenuOption | undefined {
+  return menus.find(item => {
+    if (item.routeName === routeName) return true;
+    if (Array.isArray(item.children)) {
+      return getTopLevelMenu(routeName, item.children);
+    }
+    return false;
+  });
+}
