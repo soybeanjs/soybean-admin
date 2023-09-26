@@ -19,7 +19,7 @@ export function getBreadcrumbByRouteKey(activeKey: string, menus: App.GlobalMenu
 function getBreadcrumbMenu(activeKey: string, menus: App.GlobalMenuOption[]) {
   const breadcrumbMenu: App.GlobalMenuOption[] = [];
   const topLevelMenu = getTopLevelMenu(activeKey, menus);
-  const options = getBreadcrumbMenuItem(activeKey, topLevelMenu as App.GlobalMenuOption);
+  const options = topLevelMenu ? getBreadcrumbMenuItem(activeKey, topLevelMenu as App.GlobalMenuOption) : [];
   breadcrumbMenu.push(...options);
   return breadcrumbMenu;
 }
