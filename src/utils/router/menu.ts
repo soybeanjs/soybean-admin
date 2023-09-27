@@ -63,10 +63,10 @@ export function translateMenuLabel(menus: App.GlobalMenuOption[]): App.GlobalMen
  * @param menus - 菜单数据
  */
 export function getActiveKeyPathsOfMenus(activeKey: string, menus: App.GlobalMenuOption[]) {
-  const keys = [] as any;
-  const lists = [] as any;
-  function traverse(list: any, parent = null) {
-    list.forEach((t: any) => {
+  const keys: string[] = [];
+  const lists: App.GlobalMenuOption[] = [];
+  function traverse(list: App.GlobalMenuOption[], parent: App.GlobalMenuOption | null = null) {
+    list.forEach((t: App.GlobalMenuOption) => {
       lists.push(t);
       if (parent) {
         t.parent = parent;
