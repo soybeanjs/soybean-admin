@@ -1,3 +1,4 @@
+import { getTopLevelMenu } from './helpers';
 /**
  * 获取面包屑数据
  * @param activeKey - 当前页面路由的key
@@ -17,13 +18,9 @@ export function getBreadcrumbByRouteKey(activeKey: string, menus: App.GlobalMenu
  */
 function getBreadcrumbMenu(activeKey: string, menus: App.GlobalMenuOption[]) {
   const breadcrumbMenu: App.GlobalMenuOption[] = [];
-  menus.some(menu => {
-    const flag = activeKey.includes(menu.routeName);
-    if (flag) {
-      breadcrumbMenu.push(...getBreadcrumbMenuItem(activeKey, menu));
-    }
-    return flag;
-  });
+  const topLevelMenu = getTopLevelMenu(activeKey, menus);
+  const options = topLevelMenu ? getBreadcrumbMenuItem(activeKey, topLevelMenu as App.GlobalMenuOption) : [];
+  breadcrumbMenu.push(...options);
   return breadcrumbMenu;
 }
 
