@@ -39,9 +39,9 @@ interface RouteState {
 
 export const useRouteStore = defineStore('route-store', {
   state: (): RouteState => ({
-    authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
+    authRouteMode: 'static',
     isInitAuthRoute: false,
-    routeHomeName: transformRoutePathToRouteName(import.meta.env.VITE_ROUTE_HOME_PATH),
+    routeHomeName: transformRoutePathToRouteName('/dashboard/analysis'),
     menus: [],
     searchMenus: [],
     cacheRoutes: []

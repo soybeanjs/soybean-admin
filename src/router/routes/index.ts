@@ -1,14 +1,19 @@
-import { getLoginModuleRegExp } from '@/utils';
+// import { getLoginModuleRegExp } from '@/utils';
 
 /** 根路由: / */
 export const ROOT_ROUTE: AuthRoute.Route = {
   name: 'root',
   path: '/',
-  redirect: import.meta.env.VITE_ROUTE_HOME_PATH,
+  redirect: '/dashboard/workbench',
   meta: {
     title: 'Root'
   }
 };
+
+function getLoginModuleRegExp() {
+  const modules: UnionKey.LoginModule[] = ['pwd-login', 'code-login', 'register', 'reset-pwd', 'bind-wechat'];
+  return modules.join('|');
+}
 
 /** 固定的路由 */
 export const constantRoutes: AuthRoute.Route[] = [
