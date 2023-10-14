@@ -1,8 +1,7 @@
 import type { UserConfig } from '@farmfe/core';
 import { loadEnv } from 'vite';
-// import vue from '@farmfe/js-plugin-vue';
 import postcss from '@farmfe/js-plugin-postcss';
-import { createViteProxy, getRootPath, getSrcPath, setupVitePlugins, viteDefine } from './build';
+import { createViteProxy, getRootPath, getSrcPath, setupFarmVitePlugins, viteDefine } from './build';
 import { getServiceEnvConfig } from './.env-config';
 
 function defineConfig(config: UserConfig) {
@@ -30,14 +29,15 @@ export default defineConfig({
       }
     },
     define: viteDefine,
-    sourcemap: true
+    external: ['uno.css', 'virtual:svg-icons-register'],
+    sourcemap: false
   },
-  vitePlugins: setupVitePlugins(viteEnv) as object[],
+  vitePlugins: setupFarmVitePlugins(viteEnv) as object[],
   plugins: [['@farmfe/plugin-sass', { additionalData: `@use "@/styles/scss/global.scss" as *;` }], postcss()],
   server: {
     // host: '0.0.0.0',
     port: 3200,
-    // open: true,
+    open: true,
     proxy: createViteProxy(isOpenProxy, envConfig) as any
   }
 });

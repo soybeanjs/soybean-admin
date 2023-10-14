@@ -103,14 +103,14 @@ devDependencies:
     specifier: ^0.5.8
     version: 0.5.8
   '@farmfe/core':
-    specifier: ^0.13.2
-    version: 0.13.2
+    specifier: ^0.13.5
+    version: 0.13.5
   '@farmfe/js-plugin-postcss':
     specifier: 1.0.4
-    version: 1.0.4(@farmfe/core@0.13.2)(postcss@8.4.30)
+    version: 1.0.4(@farmfe/core@0.13.5)(postcss@8.4.30)
   '@farmfe/js-plugin-vue':
     specifier: ^3.0.0
-    version: 3.0.0(@farmfe/core@0.13.2)(sass@1.67.0)
+    version: 3.0.0(@farmfe/core@0.13.5)(sass@1.67.0)
   '@farmfe/plugin-sass':
     specifier: ^0.2.2
     version: 0.2.2
@@ -1953,8 +1953,8 @@ packages:
       walkdir: 0.4.1
     dev: true
 
-  /@farmfe/core-darwin-arm64@0.13.2:
-    resolution: {integrity: sha512-pdGgdNbCJE1/R7tEpoA1h44y+jbuau+Ut2ceFrIk2Khcgj1xpQUiPYozYcTzvqk+Wh9CZPOtxB+szNT97GJ+KA==}
+  /@farmfe/core-darwin-arm64@0.13.5:
+    resolution: {integrity: sha512-kicTnMMobbWIqZM1qWgy+iWBaQVU4k2yFe324Sn6V7zjA61CJwBU8r51xRlqwxQH91vrQ8w6qGEcF6+2xt/vdw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -1962,8 +1962,8 @@ packages:
     dev: true
     optional: true
 
-  /@farmfe/core-darwin-x64@0.13.2:
-    resolution: {integrity: sha512-k/dL5y5jjB38THWnDji+K/BJAdOUA5S86kHEbSfIeUFsFEy7HRkVxfuK2AF/vS21QL4/HEjF9tXx6AVfw1cgYg==}
+  /@farmfe/core-darwin-x64@0.13.5:
+    resolution: {integrity: sha512-3Y7m8v8DM1IwHtWyiWf3ke2uwDoiFCbEO+fkEQdRY1YLEfYhDTvFl3n3tKZtjWOX/dnAixwN7FqXICOCKmtwCg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -1971,8 +1971,8 @@ packages:
     dev: true
     optional: true
 
-  /@farmfe/core-linux-x64-gnu@0.13.2:
-    resolution: {integrity: sha512-lfmxOnBsNsm+ICySv3dIEmFZ1gormpFi2irH4frTDRdFlgKihfodZd14R2v4gV5K+3eKOn6ynRcc3L7vjmlBKg==}
+  /@farmfe/core-linux-x64-gnu@0.13.5:
+    resolution: {integrity: sha512-1ACg/Pr/NfO5lpzhB0yKDyRPuZ1UwTxA8U/007PtksKiNMjS5o77DKGL3pLQ+a64Z8DMLCLr42gEf2mu6J7tvQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -1981,8 +1981,8 @@ packages:
     dev: true
     optional: true
 
-  /@farmfe/core-win32-x64-msvc@0.13.2:
-    resolution: {integrity: sha512-JrFweR8/wsPZdo1wzgollSUokA0OluQq5JBywdb2BpNgKnvyGJ1ydZdYiNB9SzqyiwhqXHaPVfLlIUZIh/aHYg==}
+  /@farmfe/core-win32-x64-msvc@0.13.5:
+    resolution: {integrity: sha512-Z7N/L7sTP3H81/BewqjvjelasVIDDtXEwTDNMu6qIbb/pnrmh7f9Wql8N7H3SpPLr8htMbYDGDWj9dab65nTpg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -1990,8 +1990,8 @@ packages:
     dev: true
     optional: true
 
-  /@farmfe/core@0.13.2:
-    resolution: {integrity: sha512-wdfmZt7SE3G9PXhBXRiOymkY4ljeCF0oxZk58+XYv04RpS8TMCuJ4hk9DJnjVMhgToH9NP90yBnHZWqQJqoXXw==}
+  /@farmfe/core@0.13.5:
+    resolution: {integrity: sha512-s1pmwUT8Y41Nl/1yW/SxKoX5RR/FnU80ws242nuXy7zsRH6FQh67DGKVDyftJdkivHoGSSTvHnsxgBHVCH7vFw==}
     engines: {node: '>= 16'}
     dependencies:
       '@farmfe/runtime': 0.7.2
@@ -2020,10 +2020,10 @@ packages:
       zod: 3.22.4
       zod-validation-error: 1.5.0(zod@3.22.4)
     optionalDependencies:
-      '@farmfe/core-darwin-arm64': 0.13.2
-      '@farmfe/core-darwin-x64': 0.13.2
-      '@farmfe/core-linux-x64-gnu': 0.13.2
-      '@farmfe/core-win32-x64-msvc': 0.13.2
+      '@farmfe/core-darwin-arm64': 0.13.5
+      '@farmfe/core-darwin-x64': 0.13.5
+      '@farmfe/core-linux-x64-gnu': 0.13.5
+      '@farmfe/core-win32-x64-msvc': 0.13.5
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -2031,17 +2031,17 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@farmfe/js-plugin-postcss@1.0.4(@farmfe/core@0.13.2)(postcss@8.4.30):
+  /@farmfe/js-plugin-postcss@1.0.4(@farmfe/core@0.13.5)(postcss@8.4.30):
     resolution: {integrity: sha512-bNCDjeZsp3l0jHPk/xcSQ5fDf2kEWvakuWqu2ed2GE2IJkhboWeY7s2WrZ9AzDmH9p9BdH3W6BXXGt/0kRP+Cg==}
     peerDependencies:
       '@farmfe/core': ^0.13.2
       postcss: '>=8.0.0'
     dependencies:
-      '@farmfe/core': 0.13.2
+      '@farmfe/core': 0.13.5
       postcss: 8.4.30
     dev: true
 
-  /@farmfe/js-plugin-vue@3.0.0(@farmfe/core@0.13.2)(sass@1.67.0):
+  /@farmfe/js-plugin-vue@3.0.0(@farmfe/core@0.13.5)(sass@1.67.0):
     resolution: {integrity: sha512-W+Eou+dQN4n+bZbqG3Dxv8JwGFp3liApY68Jqru3KS/yladqDAOYz6oZlQ7M89HFWPCyrlPY7L48esRwzN5W+A==}
     peerDependencies:
       '@farmfe/core': ^0.13.0
@@ -2056,7 +2056,7 @@ packages:
       stylus:
         optional: true
     dependencies:
-      '@farmfe/core': 0.13.2
+      '@farmfe/core': 0.13.5
       sass: 1.67.0
     dev: true
 

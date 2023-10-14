@@ -3,10 +3,10 @@ import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/rollup';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
-// import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { getSrcPath } from '../utils';
 
-export default function unplugin(viteEnv: ImportMetaEnv) {
+export default function unplugin(viteEnv: ImportMetaEnv, isFarm = false) {
   const { VITE_ICON_PREFIX, VITE_ICON_LOCAL_PREFIX } = viteEnv;
 
   const srcPath = getSrcPath();
@@ -33,12 +33,14 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
         NaiveUiResolver(),
         IconsResolver({ customCollections: [collectionName], componentPrefix: VITE_ICON_PREFIX })
       ]
-    })
-    // createSvgIconsPlugin({
-    //   iconDirs: [localIconPath],
-    //   symbolId: `${VITE_ICON_LOCAL_PREFIX}-[dir]-[name]`,
-    //   inject: 'body-last',
-    //   customDomId: '__SVG_ICON_LOCAL__'
-    // })
-  ];
+    }),
+    isFarm
+      ? null
+      : createSvgIconsPlugin({
+          iconDirs: [localIconPath],
+          symbolId: `${VITE_ICON_LOCAL_PREFIX}-[dir]-[name]`,
+          inject: 'body-last',
+          customDomId: '__SVG_ICON_LOCAL__'
+        })
+  ].filter(Boolean);
 }

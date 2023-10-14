@@ -7,6 +7,8 @@
 
 <script lang="ts" setup>
 import { WorkbenchHeader, WorkbenchMain } from './components';
+
+console.log('end', Date.now());
 </script>
 
 <style scoped></style>
