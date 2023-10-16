@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import { createViteProxy, getRootPath, getSrcPath, setupVitePlugins, viteDefine } from './build';
 import { getServiceEnvConfig } from './.env-config';
+console.log('start', Date.now());
 
 export default defineConfig(configEnv => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as ImportMetaEnv;
@@ -31,7 +32,7 @@ export default defineConfig(configEnv => {
     server: {
       host: '0.0.0.0',
       port: 3200,
-      // open: true,
+      open: true,
       proxy: createViteProxy(isOpenProxy, envConfig)
     },
     optimizeDeps: {

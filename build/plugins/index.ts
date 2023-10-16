@@ -2,7 +2,7 @@ import type { PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import unocss from '@unocss/vite';
-import progress from 'vite-plugin-progress';
+// import progress from 'vite-plugin-progress';
 import VueDevtools from 'vite-plugin-vue-devtools';
 import pageRoute from '@soybeanjs/vite-plugin-vue-page-route';
 import unplugin from './unplugin';
@@ -26,8 +26,8 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
     VueDevtools(),
     ...unplugin(viteEnv),
     unocss(),
-    mock(viteEnv),
-    progress()
+    mock(viteEnv)
+    // progress()
   ];
 
   if (viteEnv.VITE_VISUALIZER === 'Y') {

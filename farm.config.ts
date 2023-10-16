@@ -17,6 +17,8 @@ const srcPath = getSrcPath();
 const isOpenProxy = viteEnv.VITE_HTTP_PROXY === 'Y';
 const envConfig = getServiceEnvConfig(viteEnv);
 
+console.log('start', Date.now());
+
 export default defineConfig({
   root: rootPath,
   compilation: {
