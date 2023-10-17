@@ -12,7 +12,9 @@
           @mouseenter="handleMouse(item)"
         >
           <svg-icon :icon="item.meta.icon" :local-icon="item.meta.localIcon" />
-          <span class="flex-1 ml-5px">{{ item.meta?.title }}</span>
+          <span class="flex-1 ml-5px">
+            {{ (item.meta?.i18nTitle && $t(item.meta?.i18nTitle)) || item.meta?.title }}
+          </span>
           <icon-ant-design-enter-outlined class="icon text-20px p-2px mr-3px" />
         </div>
       </template>
@@ -23,6 +25,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useThemeStore } from '@/store';
+import { $t } from '@/locales';
 
 defineOptions({ name: 'SearchResult' });
 
