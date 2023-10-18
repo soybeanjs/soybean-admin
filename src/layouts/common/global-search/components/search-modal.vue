@@ -84,14 +84,9 @@ watch(show, async val => {
 /** 查询 */
 function search() {
   resultOptions.value = routeStore.searchMenus.filter(menu => {
-    return (
-      (keyword.value &&
-        menu.meta?.i18nTitle &&
-        $t(menu.meta?.i18nTitle)
-          .toLocaleLowerCase()
-          .includes(keyword.value.toLocaleLowerCase().trim())) ||
-      menu.meta?.title.toLocaleLowerCase().includes(keyword.value.toLocaleLowerCase().trim())
-    );
+    const trimKeyword = keyword.value.toLocaleLowerCase().trim();
+    const title = (menu.meta.i18nTitle ? $t(menu.meta.i18nTitle) : menu.meta.title).toLocaleLowerCase();
+    return trimKeyword && title.includes(trimKeyword);
   });
   if (resultOptions.value?.length > 0) {
     activePath.value = resultOptions.value[0].path;
