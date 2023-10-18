@@ -88,11 +88,7 @@ function search() {
     const title = (menu.meta.i18nTitle ? $t(menu.meta.i18nTitle) : menu.meta.title).toLocaleLowerCase();
     return trimKeyword && title.includes(trimKeyword);
   });
-  if (resultOptions.value?.length > 0) {
-    activePath.value = resultOptions.value[0].path;
-  } else {
-    activePath.value = '';
-  }
+  activePath.value = resultOptions.value[0]?.path ?? '';
 }
 
 function handleClose() {
