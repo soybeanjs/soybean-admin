@@ -22,10 +22,8 @@ Soybean Admin 正在重构，重构后的版本为v1.0，变更点如下:
 
 > 同时推出需要商业授权的 AntDesignVue 版本 和 ElementPlus 版本
 
-全新收费版的 Elegant Admin 会同时进行开发，特性如下:
-
-- 与UI框架无关的核心架子，基础组件由基于UnoCSS实现的组件提供，可以对接不同的UI框架
-- 更丰富的主题配置及系统主题定制私有化
+AntDesignVue版本进度 90%
+[预览地址](https://antd.soybeanjs.cn/)
 
 ## 简介
 
