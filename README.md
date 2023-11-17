@@ -7,7 +7,7 @@
 
 ## 注意
 
-Soybean Admin 正在重构，重构后的版本为v1.0，变更点如下:
+Soybean Admin 正在重构，重构后的版本为 v1.0 (v1.0-beta已发布，在分支v1.0-beta)，变更点如下:
 
 - 采用基于 pnpm 的 monorepo 管理项目
 - 第三方 soybeanjs 的工具库直接抽离到项目中(ElegantRouter除外)，不再作为依赖
@@ -21,9 +21,6 @@ Soybean Admin 正在重构，重构后的版本为v1.0，变更点如下:
 > 1.0版本仍然采用 NaiveUI
 
 > 同时推出需要商业授权的 AntDesignVue 版本 和 ElementPlus 版本
-
-AntDesignVue版本进度 90%
-[预览地址](https://antd.soybeanjs.cn/)
 
 ## 简介
 
