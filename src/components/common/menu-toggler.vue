@@ -1,0 +1,48 @@
+<script lang="ts" setup>
+import { $t } from '@/locales';
+import { computed } from 'vue';
+
+defineOptions({ name: 'MenuToggler' });
+
+interface Props {
+  /**
+   * show collapsed icon
+   */
+  collapsed?: boolean;
+  /**
+   * arrow style icon
+   */
+  arrowIcon?: boolean;
+}
+
+const props = defineProps<Props>();
+
+type NumberBool = 0 | 1;
+
+const icon = computed(() => {
+  const icons: Record<NumberBool, Record<NumberBool, string>> = {
+    0: {
+      0: 'line-md:menu-fold-left',
+      1: 'line-md:menu-fold-right'
+    },
+    1: {
+      0: 'ph-caret-double-left-bold',
+      1: 'ph-caret-double-right-bold'
+    }
+  };
+
+  const arrowIcon = Number(props.arrowIcon || false) as NumberBool;
+
+  const collapsed = Number(props.collapsed || false) as NumberBool;
+
+  return icons[arrowIcon][collapsed];
+});
+</script>
+
+<template>
+  <ButtonIcon :tooltip-content="collapsed ? $t('icon.expand') : $t('icon.collapse')" tooltip-placement="bottom-start">
+    <SvgIcon :icon="icon" />
+  </ButtonIcon>
+</template>
+
+<style scoped></style>

@@ -1,47 +1,30 @@
-<template>
-  <div class="relative flex-center wh-full" :style="{ backgroundColor: bgColor }">
-    <dark-mode-switch
-      :dark="theme.darkMode"
-      class="absolute left-48px top-24px z-3 text-20px"
-      @update:dark="theme.setDarkMode"
-    />
-    <n-card :bordered="false" size="large" class="z-4 !w-auto rounded-20px shadow-sm">
-      <div class="w-300px sm:w-360px">
-        <header class="flex-y-center justify-between">
-          <system-logo class="text-64px text-primary" />
-          <n-gradient-text type="primary" :size="28">{{ $t('system.title') }}</n-gradient-text>
-        </header>
-        <main class="pt-24px">
-          <h3 class="text-18px text-primary font-medium">{{ activeModule.label }}</h3>
-          <div class="pt-24px">
-            <transition name="fade-slide" mode="out-in" appear>
-              <component :is="activeModule.component" />
-            </transition>
-          </div>
-        </main>
-      </div>
-    </n-card>
-    <login-bg :theme-color="bgThemeColor" />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Component } from 'vue';
-import { loginModuleLabels } from '@/constants';
-import { useThemeStore } from '@/store';
-import { getColorPalette, mixColor } from '@/utils';
+import { getColorPalette, mixColor } from '@sa/utils';
 import { $t } from '@/locales';
-import { BindWechat, CodeLogin, LoginBg, PwdLogin, Register, ResetPwd } from './components';
+import { useAppStore } from '@/store/modules/app';
+import { useThemeStore } from '@/store/modules/theme';
+import { loginModuleRecord } from '@/constants/app';
+import PwdLogin from './components/pwd-login.vue';
+import CodeLogin from './components/code-login.vue';
+import Register from './components/register.vue';
+import ResetPwd from './components/reset-pwd.vue';
+import BindWechat from './components/bind-wechat.vue';
 
 interface Props {
-  /** 登录模块分类 */
-  module: UnionKey.LoginModule;
+  /**
+   * the login module
+   */
+  module?: UnionKey.LoginModule;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  module: 'pwd-login'
+});
 
-const theme = useThemeStore();
+const appStore = useAppStore();
+const themeStore = useThemeStore();
 
 interface LoginModule {
   key: UnionKey.LoginModule;
@@ -50,29 +33,65 @@ interface LoginModule {
 }
 
 const modules: LoginModule[] = [
-  { key: 'pwd-login', label: loginModuleLabels['pwd-login'], component: PwdLogin },
-  { key: 'code-login', label: loginModuleLabels['code-login'], component: CodeLogin },
-  { key: 'register', label: loginModuleLabels.register, component: Register },
-  { key: 'reset-pwd', label: loginModuleLabels['reset-pwd'], component: ResetPwd },
-  { key: 'bind-wechat', label: loginModuleLabels['bind-wechat'], component: BindWechat }
+  { key: 'pwd-login', label: loginModuleRecord['pwd-login'], component: PwdLogin },
+  { key: 'code-login', label: loginModuleRecord['code-login'], component: CodeLogin },
+  { key: 'register', label: loginModuleRecord.register, component: Register },
+  { key: 'reset-pwd', label: loginModuleRecord['reset-pwd'], component: ResetPwd },
+  { key: 'bind-wechat', label: loginModuleRecord['bind-wechat'], component: BindWechat }
 ];
 
 const activeModule = computed(() => {
-  const active: LoginModule = { ...modules[0] };
   const findItem = modules.find(item => item.key === props.module);
-  if (findItem) {
-    Object.assign(active, findItem);
-  }
-  return active;
+  return findItem || modules[0];
 });
 
-const bgThemeColor = computed(() => (theme.darkMode ? getColorPalette(theme.themeColor, 7) : theme.themeColor));
+const bgThemeColor = computed(() =>
+  themeStore.darkMode ? getColorPalette(themeStore.themeColor, 7) : themeStore.themeColor
+);
 
 const bgColor = computed(() => {
   const COLOR_WHITE = '#ffffff';
-  const ratio = theme.darkMode ? 0.5 : 0.2;
-  return mixColor(COLOR_WHITE, theme.themeColor, ratio);
+
+  const ratio = themeStore.darkMode ? 0.5 : 0.2;
+
+  return mixColor(COLOR_WHITE, themeStore.themeColor, ratio);
 });
 </script>
+
+<template>
+  <div class="relative flex-center wh-full overflow-hidden" :style="{ backgroundColor: bgColor }">
+    <WaveBg :theme-color="bgThemeColor" />
+    <NCard class="relative w-auto rd-12px z-4">
+      <div class="w-400px <sm:w-300px">
+        <header class="flex-y-center justify-between">
+          <SystemLogo class="text-64px text-primary <sm:text-48px" />
+          <h3 class="text-28px font-500 text-primary <sm:text-22px">{{ $t('system.title') }}</h3>
+          <div class="i-flex-vertical">
+            <ThemeSchemaSwitch
+              :theme-schema="themeStore.themeScheme"
+              :show-tooltip="false"
+              class="text-20px <sm:text-18px"
+              @switch="themeStore.toggleThemeScheme"
+            />
+            <LangSwitch
+              :lang="appStore.locale"
+              :lang-options="appStore.localeOptions"
+              :show-tooltip="false"
+              @change-lang="appStore.changeLocale"
+            />
+          </div>
+        </header>
+        <main class="pt-24px">
+          <h3 class="text-18px text-primary font-medium">{{ $t(activeModule.label) }}</h3>
+          <div class="pt-24px">
+            <Transition :name="themeStore.page.animateMode" mode="out-in" appear>
+              <component :is="activeModule.component" />
+            </Transition>
+          </div>
+        </main>
+      </div>
+    </NCard>
+  </div>
+</template>
 
 <style scoped></style>

@@ -1,0 +1,22 @@
+{
+  "name": "@sa/utils",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "colord": "2.9.3",
+    "crypto-js": "4.2.0",
+    "localforage": "1.10.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "4.2.1"
+  }
+}

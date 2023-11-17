@@ -1,10 +1,25 @@
-import { getServiceEnvConfig } from '~/.env-config';
-import { createRequest } from './request';
+import { localStg } from '@/utils/storage';
+import { createOfetch as createRequest } from '@sa/request';
+import { createServiceConfig, createProxyPattern } from '~/env.config';
 
-const { url, proxyPattern } = getServiceEnvConfig(import.meta.env);
+const { baseURL, otherBaseURL } = createServiceConfig(import.meta.env);
 
 const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'Y';
 
-export const request = createRequest({ baseURL: isHttpProxy ? proxyPattern : url });
+export const request = createRequest({
+  baseURL: isHttpProxy ? createProxyPattern() : baseURL,
+  headers: {
+    apifoxToken: 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2'
+  },
+  onRequest({ options }) {
+    if (options.headers) {
+      const token = localStg.get('token');
 
-export const mockRequest = createRequest({ baseURL: '/mock' });
+      const Authorization = token ? `Bearer ${token}` : '';
+
+      Object.assign(options.headers, { Authorization });
+    }
+  }
+});
+
+export const demoRequest = createRequest({ baseURL: isHttpProxy ? createProxyPattern('demo') : otherBaseURL.demo });

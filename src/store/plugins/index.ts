@@ -1,13 +1,13 @@
 import type { PiniaPluginContext } from 'pinia';
 import { cloneDeep } from 'lodash-es';
+import { SetupStoreId } from '@/enum';
 
 /**
- * setup语法的重置状态插件
+ * the plugin reset the state of the store which is written by setup syntax
  * @param context
- * @description 请将用setup语法的状态id写入到setupSyntaxIds
  */
 export function resetSetupStore(context: PiniaPluginContext) {
-  const setupSyntaxIds = ['setup-store'];
+  const setupSyntaxIds = Object.values(SetupStoreId) as string[];
 
   if (setupSyntaxIds.includes(context.store.$id)) {
     const { $state } = context.store;

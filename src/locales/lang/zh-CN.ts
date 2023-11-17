@@ -1,8 +1,9 @@
-const locale: I18nType.Schema = {
+const local: App.I18n.Schema = {
   system: {
-    title: 'Soybean管理系统'
+    title: 'Soybean 管理系统'
   },
   common: {
+    tip: '提示',
     add: '添加',
     addSuccess: '添加成功',
     edit: '修改',
@@ -13,165 +14,118 @@ const locale: I18nType.Schema = {
     confirm: '确认',
     cancel: '取消',
     pleaseCheckValue: '请检查输入的值是否合法',
-    action: '操作'
+    action: '操作',
+    backToHome: '返回首页',
+    lookForward: '敬请期待',
+    userCenter: '个人中心',
+    logout: '退出登录',
+    logoutConfirm: '确认退出登录吗？'
   },
-  routes: {
-    dashboard: {
-      _value: '仪表盘',
-      analysis: '分析页',
-      workbench: '工作台'
+  theme: {
+    themeSchema: {
+      title: '主题模式',
+      light: '亮色模式',
+      dark: '暗黑模式',
+      auto: '跟随系统'
     },
-    document: {
-      _value: '文档',
-      vue: 'Vue文档',
-      vite: 'Vite文档',
-      naive: 'NaiveUI文档',
-      project: '项目文档',
-      'project-link': '项目文档(外链)'
+    layoutMode: {
+      title: '布局模式',
+      vertical: '左侧菜单模式',
+      'vertical-mix': '左侧菜单混合模式',
+      horizontal: '顶部菜单模式',
+      'horizontal-mix': '顶部菜单混合模式'
     },
-    component: {
-      _value: '组件示例',
-      button: '按钮',
-      card: '卡片',
-      table: '表格'
+    themeColor: {
+      title: '主题颜色',
+      primary: '主色',
+      info: '信息色',
+      success: '成功色',
+      warning: '警告色',
+      error: '错误色',
+      followPrimary: '跟随主色'
     },
-    plugin: {
-      _value: '插件示例',
-      charts: {
-        _value: '图表',
-        echarts: 'ECharts',
-        antv: 'AntV'
-      },
-      copy: '剪贴板',
-      editor: {
-        _value: '编辑器',
-        quill: '富文本',
-        markdown: 'Markdown'
-      },
-      icon: '图标',
-      map: '地图',
-      print: '打印',
-      swiper: 'Swiper',
-      video: '视频'
+    scrollMode: {
+      title: '滚动模式',
+      wrapper: '外层滚动',
+      content: '主体滚动'
     },
-    'auth-demo': {
-      _value: '权限示例',
-      permission: '切换权限',
-      super: '超级管理员可见'
-    },
-    function: {
-      _value: '功能',
-      tab: 'Tab页签'
-    },
-    exception: {
-      _value: '异常页',
-      403: '403',
-      404: '404',
-      500: '500'
-    },
-    'multi-menu': {
-      _value: '多级菜单',
-      first: {
-        _value: '一级菜单',
-        second: '二级菜单',
-        'second-new': {
-          _value: '二级菜单(有子菜单)',
-          third: '三级菜单'
-        }
+    page: {
+      animate: '页面切换动画',
+      mode: {
+        title: '页面切换动画类型',
+        'fade-slide': '滑动',
+        fade: '淡入淡出',
+        'fade-bottom': '底部消退',
+        'fade-scale': '缩放消退',
+        'zoom-fade': '渐变',
+        'zoom-out': '闪现',
+        none: '无'
       }
     },
-    management: {
-      _value: '系统管理',
-      auth: '权限管理',
-      role: '角色管理',
-      route: '路由管理',
-      user: '用户管理'
-    },
-    about: '关于'
-  },
-  layout: {
-    settingDrawer: {
-      title: '主题配置',
-      themeModeTitle: '主题模式',
-      darkMode: '深色主题',
-      layoutModelTitle: '布局模式',
-      systemThemeTitle: '系统主题',
-      pageFunctionsTitle: '界面功能',
-      pageViewTitle: '界面显示',
-      followSystemTheme: '跟随系统',
-      isCustomizeDarkModeTransition: '自定义暗黑主题动画过渡',
-      scrollMode: '滚动模式',
-      scrollModeList: {
-        wrapper: '外层滚动',
-        content: '主体滚动'
-      },
-      fixedHeaderAndTab: '固定头部和多页签',
-      header: {
-        inverted: '头部深色',
-        height: '头部高度',
-        crumb: {
-          visible: '面包屑',
-          icon: '面包屑图标'
-        }
-      },
-      tab: {
-        visible: '多页签',
-        height: '多页签高度',
-        modeList: {
-          mode: '多页签风格',
-          chrome: '谷歌风格',
-          button: '按钮风格'
-        },
-        isCache: '多页签缓存'
-      },
-      sider: {
-        inverted: '侧边栏深色',
-        width: '侧边栏展开宽度',
-        mixWidth: '左侧混合侧边栏展开宽度'
-      },
-      menu: {
-        horizontalPosition: '顶部菜单位置',
-        horizontalPositionList: {
-          flexStart: '居左',
-          center: '居中',
-          flexEnd: '居右'
-        }
-      },
-      footer: {
-        inverted: '底部深色',
-        visible: '显示底部',
-        fixed: '固定底部',
-        right: '底部居右'
-      },
-      page: {
-        animate: '页面切换动画',
-        animateMode: '页面切换动画类型',
-        animateModeList: {
-          zoomFade: '渐变',
-          zoomOut: '闪现',
-          fadeSlide: '滑动',
-          fade: '消退',
-          fadeBottom: '底部消退',
-          fadeScale: '缩放消退'
-        }
-      },
-      systemTheme: {
-        moreColors: '更多颜色'
-      },
-      themeConfiguration: {
-        title: '主题配置',
-        copy: '拷贝当前配置',
-        reset: '重置当前配置',
-        resetSuccess: '已重置配置，请重新拷贝！',
-        operateSuccess: '操作成功',
-        copySuccess: '复制成功,请替换 src/settings/theme.json的内容！',
-        confirmCopy: '确认'
+    fixedHeaderAndTab: '固定头部和标签栏',
+    header: {
+      height: '头部高度',
+      breadcrumb: {
+        visible: '显示面包屑',
+        showIcon: '显示面包屑图标'
       }
+    },
+    tab: {
+      visible: '显示标签栏',
+      cache: '缓存标签页',
+      height: '标签栏高度',
+      mode: {
+        title: '标签栏风格',
+        chrome: '谷歌风格',
+        button: '按钮风格'
+      }
+    },
+    sider: {
+      inverted: '深色侧边栏',
+      width: '侧边栏宽度',
+      collapsedWidth: '侧边栏折叠宽度',
+      mixWidth: '混合布局侧边栏宽度',
+      mixCollapsedWidth: '混合布局侧边栏折叠宽度',
+      mixChildMenuWidth: '混合布局子菜单宽度'
+    },
+    footer: {
+      visible: '显示底部',
+      fixed: '固定底部',
+      height: '底部高度',
+      right: '底部局右'
+    },
+    themeDrawerTitle: '主题配置',
+    pageFunTitle: '页面功能',
+    configOperation: {
+      copyConfig: '复制配置',
+      copySuccessMsg: '复制成功，请替换 src/theme/settings.ts 中的变量 themeSettings',
+      resetConfig: '重置配置',
+      resetSuccessMsg: '重置成功'
     }
+  },
+  route: {
+    login: '登录',
+    403: '无权限',
+    404: '页面不存在',
+    500: '服务器错误',
+    home: '首页',
+    'user-center': '个人中心',
+    manage: '系统管理',
+    manage_user: '用户管理',
+    'manage_user-detail': '用户详情',
+    manage_role: '角色管理',
+    manage_route: '路由管理',
+    'multi-menu': '多级菜单',
+    'multi-menu_first': '菜单一',
+    'multi-menu_first_child': '菜单一子菜单',
+    'multi-menu_second': '菜单二',
+    'multi-menu_second_child': '菜单二子菜单',
+    'multi-menu_second_child_home': '菜单二子菜单首页'
   },
   page: {
     login: {
       common: {
+        loginOrRegister: '登录 / 注册',
         userNamePlaceholder: '请输入用户名',
         phonePlaceholder: '请输入手机号',
         codePlaceholder: '请输入验证码',
@@ -182,7 +136,7 @@ const locale: I18nType.Schema = {
         back: '返回',
         validateSuccess: '验证成功',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{userName}!'
+        welcomeBack: '欢迎回来，{userName} ！'
       },
       pwdLogin: {
         title: '密码登录',
@@ -213,7 +167,48 @@ const locale: I18nType.Schema = {
         title: '绑定微信'
       }
     }
+  },
+  form: {
+    userName: {
+      required: '请输入用户名',
+      invalid: '用户名格式不正确'
+    },
+    phone: {
+      required: '请输入手机号',
+      invalid: '手机号格式不正确'
+    },
+    pwd: {
+      required: '请输入密码',
+      invalid: '密码格式不正确'
+    },
+    code: {
+      required: '请输入验证码',
+      invalid: '验证码格式不正确'
+    },
+    email: {
+      required: '请输入邮箱',
+      invalid: '邮箱格式不正确'
+    }
+  },
+  dropdown: {
+    closeCurrent: '关闭',
+    closeOther: '关闭其它',
+    closeLeft: '关闭左侧',
+    closeRight: '关闭右侧',
+    closeAll: '关闭所有'
+  },
+  icon: {
+    themeConfig: '主题配置',
+    themeSchema: '主题模式',
+    lang: '切换语言',
+    fullscreen: '全屏',
+    fullscreenExit: '退出全屏',
+    reload: '刷新页面',
+    collapse: '折叠菜单',
+    expand: '展开菜单',
+    pin: '固定',
+    unpin: '取消固定'
   }
 };
 
-export default locale;
+export default local;

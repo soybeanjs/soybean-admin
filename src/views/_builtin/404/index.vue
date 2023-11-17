@@ -1,7 +1,7 @@
-<template>
-  <exception-base type="404" />
-</template>
+<script setup lang="ts"></script>
 
-<script lang="ts" setup></script>
+<template>
+  <ExceptionBase type="404" />
+</template>
 
 <style scoped></style>

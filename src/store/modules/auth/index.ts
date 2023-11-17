@@ -1,154 +1,96 @@
-import { unref, nextTick } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
-import { router } from '@/router';
-import { fetchLogin, fetchUserInfo } from '@/service';
-import { useRouterPush } from '@/composables';
-import { localStg } from '@/utils';
-import { $t } from '@/locales';
-import { useTabStore } from '../tab';
+import { useLoading } from '@sa/hooks';
+import { SetupStoreId } from '@/enum';
+import { useRouterPush } from '@/hooks/common/router';
+import { fetchLogin, fetchGetUserInfo } from '@/service/api';
+import { localStg } from '@/utils/storage';
 import { useRouteStore } from '../route';
-import { getToken, getUserInfo, clearAuthStorage } from './helpers';
+import { getToken, getUserInfo, clearAuthStorage } from './shared';
+import { $t } from '@/locales';
 
-interface AuthState {
-  /** 用户信息 */
-  userInfo: Auth.UserInfo;
-  /** 用户token */
-  token: string;
-  /** 登录的加载状态 */
-  loginLoading: boolean;
-}
+export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
+  const routeStore = useRouteStore();
+  const { route, toLogin, redirectFromLogin } = useRouterPush(false);
+  const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
-export const useAuthStore = defineStore('auth-store', {
-  state: (): AuthState => ({
-    userInfo: getUserInfo(),
-    token: getToken(),
-    loginLoading: false
-  }),
-  getters: {
-    /** 是否登录 */
-    isLogin(state) {
-      return Boolean(state.token);
+  const token = ref(getToken());
+
+  const userInfo: Api.Auth.UserInfo = reactive(getUserInfo());
+
+  /**
+   * is login
+   */
+  const isLogin = computed(() => Boolean(token.value));
+
+  /**
+   * reset auth store
+   */
+  async function resetStore() {
+    const authStore = useAuthStore();
+
+    clearAuthStorage();
+
+    authStore.$reset();
+
+    if (!route.value.meta.constant) {
+      await toLogin();
     }
-  },
-  actions: {
-    /** 重置auth状态 */
-    resetAuthStore() {
-      const { toLogin } = useRouterPush(false);
-      const { resetTabStore } = useTabStore();
-      const { resetRouteStore } = useRouteStore();
-      const route = unref(router.currentRoute);
 
-      clearAuthStorage();
-      this.$reset();
+    routeStore.resetStore();
+  }
 
-      if (route.meta.requiresAuth) {
-        toLogin();
+  /**
+   * login
+   * @param userName user name
+   * @param password password
+   */
+  async function login(userName: string, password: string) {
+    startLoading();
+
+    try {
+      const { data: loginToken } = await fetchLogin(userName, password);
+
+      await loginByToken(loginToken);
+
+      await routeStore.initAuthRoute();
+
+      await redirectFromLogin();
+
+      if (routeStore.isInitAuthRoute) {
+        window.$notification?.success({
+          title: $t('page.login.common.loginSuccess'),
+          content: $t('page.login.common.welcomeBack', { userName: userInfo.userName })
+        });
       }
-
-      nextTick(() => {
-        resetTabStore();
-        resetRouteStore();
-      });
-    },
-    /**
-     * 处理登录后成功或失败的逻辑
-     * @param backendToken - 返回的token
-     */
-    async handleActionAfterLogin(backendToken: ApiAuth.Token) {
-      const route = useRouteStore();
-      const { toLoginRedirect } = useRouterPush(false);
-
-      const loginSuccess = await this.loginByToken(backendToken);
-
-      if (loginSuccess) {
-        await route.initAuthRoute();
-
-        // 跳转登录后的地址
-        toLoginRedirect();
-
-        // 登录成功弹出欢迎提示
-        if (route.isInitAuthRoute) {
-          window.$notification?.success({
-            title: $t('page.login.common.loginSuccess'),
-            content: $t('page.login.common.welcomeBack', { userName: this.userInfo.userName }),
-            duration: 3000
-          });
-        }
-
-        return;
-      }
-
-      // 不成功则重置状态
-      this.resetAuthStore();
-    },
-    /**
-     * 根据token进行登录
-     * @param backendToken - 返回的token
-     */
-    async loginByToken(backendToken: ApiAuth.Token) {
-      let successFlag = false;
-
-      // 先把token存储到缓存中(后面接口的请求头需要token)
-      const { token, refreshToken } = backendToken;
-      localStg.set('token', token);
-      localStg.set('refreshToken', refreshToken);
-
-      // 获取用户信息
-      const { data } = await fetchUserInfo();
-      if (data) {
-        // 成功后把用户信息存储到缓存中
-        localStg.set('userInfo', data);
-
-        // 更新状态
-        this.userInfo = data;
-        this.token = token;
-
-        successFlag = true;
-      }
-
-      return successFlag;
-    },
-    /**
-     * 登录
-     * @param userName - 用户名
-     * @param password - 密码
-     */
-    async login(userName: string, password: string) {
-      this.loginLoading = true;
-      const { data } = await fetchLogin(userName, password);
-      if (data) {
-        await this.handleActionAfterLogin(data);
-      }
-      this.loginLoading = false;
-    },
-    /**
-     * 更换用户权限(切换账号)
-     * @param userRole
-     */
-    async updateUserRole(userRole: Auth.RoleType) {
-      const { resetRouteStore, initAuthRoute } = useRouteStore();
-
-      const accounts: Record<Auth.RoleType, { userName: string; password: string }> = {
-        super: {
-          userName: 'Super',
-          password: 'super123'
-        },
-        admin: {
-          userName: 'Admin',
-          password: 'admin123'
-        },
-        user: {
-          userName: 'User01',
-          password: 'user01123'
-        }
-      };
-      const { userName, password } = accounts[userRole];
-      const { data } = await fetchLogin(userName, password);
-      if (data) {
-        await this.loginByToken(data);
-        resetRouteStore();
-        initAuthRoute();
-      }
+    } catch {
+      resetStore();
+    } finally {
+      endLoading();
     }
   }
+
+  async function loginByToken(loginToken: Api.Auth.LoginToken) {
+    // 1. stored in the localStorage, the later requests need it in headers
+    localStg.set('token', loginToken.token);
+    localStg.set('refreshToken', loginToken.refreshToken);
+
+    const { data: info } = await fetchGetUserInfo();
+
+    // 2. store user info
+    localStg.set('userInfo', info);
+
+    // 3. update auth route
+    token.value = loginToken.token;
+    Object.assign(userInfo, info);
+  }
+
+  return {
+    token,
+    userInfo,
+    isLogin,
+    loginLoading,
+    resetStore,
+    login
+  };
 });

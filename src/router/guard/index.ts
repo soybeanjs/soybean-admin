@@ -1,23 +1,14 @@
 import type { Router } from 'vue-router';
-import { useTitle } from '@vueuse/core';
-import { $t } from '@/locales';
+import { createProgressGuard } from './progress';
+import { createDocumentTitleGuard } from './title';
 import { createPermissionGuard } from './permission';
 
 /**
- * 路由守卫函数
- * @param router - 路由实例
+ * router guard
+ * @param router - router instance
  */
 export function createRouterGuard(router: Router) {
-  router.beforeEach(async (to, from, next) => {
-    // 开始 loadingBar
-    window.$loadingBar?.start();
-    // 页面跳转权限处理
-    await createPermissionGuard(to, from, next);
-  });
-  router.afterEach(to => {
-    // 设置document title
-    useTitle(to.meta.i18nTitle ? $t(to.meta.i18nTitle) : to.meta.title);
-    // 结束 loadingBar
-    window.$loadingBar?.finish();
-  });
+  createProgressGuard(router);
+  createPermissionGuard(router);
+  createDocumentTitleGuard(router);
 }

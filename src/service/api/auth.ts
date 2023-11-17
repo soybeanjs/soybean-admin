@@ -1,41 +1,36 @@
-import { mockRequest } from '../request';
+import { request } from '../request';
 
 /**
- * 获取验证码
- * @param phone - 手机号
- * @returns - 返回boolean值表示是否发送成功
- */
-export function fetchSmsCode(phone: string) {
-  return mockRequest.post<boolean>('/getSmsCode', { phone });
-}
-
-/**
- * 登录
- * @param userName - 用户名
- * @param password - 密码
+ * login
+ * @param userName user name
+ * @param password password
  */
 export function fetchLogin(userName: string, password: string) {
-  return mockRequest.post<ApiAuth.Token>('/login', { userName, password });
-}
-
-/** 获取用户信息 */
-export function fetchUserInfo() {
-  return mockRequest.get<ApiAuth.UserInfo>('/getUserInfo');
-}
-
-/**
- * 获取用户路由数据
- * @param userId - 用户id
- * @description 后端根据用户id查询到对应的角色类型，并将路由筛选出对应角色的路由数据返回前端
- */
-export function fetchUserRoutes(userId: string) {
-  return mockRequest.post<ApiRoute.Route>('/getUserRoutes', { userId });
+  return request<App.Service.Response<Api.Auth.LoginToken>>('/auth/login', {
+    method: 'post',
+    body: {
+      userName,
+      password
+    }
+  });
 }
 
 /**
- * 刷新token
- * @param refreshToken
+ * get user info
  */
-export function fetchUpdateToken(refreshToken: string) {
-  return mockRequest.post<ApiAuth.Token>('/updateToken', { refreshToken });
+export function fetchGetUserInfo() {
+  return request<App.Service.Response<Api.Auth.UserInfo>>('/auth/getUserInfo');
+}
+
+/**
+ * refresh token
+ * @param refreshToken refresh token
+ */
+export function fetchRefreshToken(refreshToken: string) {
+  return request<App.Service.Response<Api.Auth.LoginToken>>('/auth/refreshToken', {
+    method: 'post',
+    body: {
+      refreshToken
+    }
+  });
 }

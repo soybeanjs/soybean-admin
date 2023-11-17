@@ -1,0 +1,17 @@
+{
+  "name": "@sa/color-palette",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "colord": "2.9.3"
+  }
+}

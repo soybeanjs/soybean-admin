@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "moduleResolution": "node",
     "isolatedModules": true,
     "resolveJsonModule": true,
@@ -15,10 +16,16 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "~/*": ["./*"]
     },
-    "types": ["vite/client", "node", "unplugin-icons/types/vue", "naive-ui/volar"]
+    "types": [
+      "vite/client",
+      "node",
+      "unplugin-icons/types/vue",
+      "naive-ui/volar"
+    ]
   },
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,11 +1,9 @@
-import zhCN from './lang/zh-CN';
-import en from './lang/en';
-import kmKH from './lang/km-KH';
+import zhCN from './lang/zh-cn';
+import enUS from './lang/en-us';
 
-const locales: Record<I18nType.LangType, I18nType.Schema> = {
+const locales: Record<App.I18n.LangType, App.I18n.Schema> = {
   'zh-CN': zhCN,
-  en,
-  'km-KH': kmKH
+  'en-US': enUS
 };
 
 export default locales;

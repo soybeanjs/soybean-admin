@@ -1,181 +1,173 @@
+import { ref, computed, effectScope, onScopeDispose, watch, toRefs } from 'vue';
+import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
-import { darkTheme } from 'naive-ui';
-import { sessionStg } from '@/utils';
-import { getNaiveThemeOverrides, initThemeSettings } from './helpers';
+import { usePreferredColorScheme, useEventListener } from '@vueuse/core';
+import { SetupStoreId } from '@/enum';
+import { localStg } from '@/utils/storage';
+import { createThemeToken, initThemeSettings, addThemeVarsToHtml, toggleCssDarkMode, getNaiveTheme } from './shared';
 
-type ThemeState = Theme.Setting;
+/**
+ * theme store
+ */
+export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
+  const scope = effectScope();
+  const osTheme = usePreferredColorScheme();
 
-export const useThemeStore = defineStore('theme-store', {
-  state: (): ThemeState => initThemeSettings(),
-  getters: {
-    /** naiveUI的主题配置 */
-    naiveThemeOverrides(state) {
-      const overrides = getNaiveThemeOverrides({ primary: state.themeColor, ...state.otherColor });
-      return overrides;
-    },
-    /** naive-ui暗黑主题 */
-    naiveTheme(state) {
-      return state.darkMode ? darkTheme : undefined;
-    },
-    /** 页面动画模式 */
-    pageAnimateMode(state) {
-      return state.page.animate ? state.page.animateMode : undefined;
+  /**
+   * theme settings
+   */
+  const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
+
+  /**
+   * dark mode
+   */
+  const darkMode = computed(() => {
+    if (settings.value.themeScheme === 'auto') {
+      return osTheme.value === 'dark';
     }
-  },
-  actions: {
-    /** 重置theme状态 */
-    resetThemeStore() {
-      sessionStg.remove('themeSettings');
-      this.$reset();
-    },
-    /** 缓存主题配置 */
-    cacheThemeSettings() {
-      const isProd = import.meta.env.PROD;
-      if (isProd) {
-        sessionStg.set('themeSettings', this.$state);
-      }
-    },
-    /** 设置暗黑模式 */
-    setDarkMode(darkMode: boolean) {
-      this.darkMode = darkMode;
-    },
-    /** 设置自动跟随系统主题 */
-    setFollowSystemTheme(visible: boolean) {
-      this.followSystemTheme = visible;
-    },
-    /** 设置自动跟随系统主题 */
-    setIsCustomizeDarkModeTransition(isCustomize: boolean) {
-      this.isCustomizeDarkModeTransition = isCustomize;
-    },
-    /** 自动跟随系统主题 */
-    setAutoFollowSystemMode(darkMode: boolean) {
-      if (this.followSystemTheme) {
-        this.darkMode = darkMode;
-      }
-    },
-    /** 切换/关闭 暗黑模式 */
-    toggleDarkMode() {
-      this.darkMode = !this.darkMode;
-    },
-    /** 设置布局最小宽度 */
-    setLayoutMinWidth(minWidth: number) {
-      this.layout.minWidth = minWidth;
-    },
-    /** 设置布局模式 */
-    setLayoutMode(mode: UnionKey.ThemeLayoutMode) {
-      this.layout.mode = mode;
-    },
-    /** 设置滚动模式 */
-    setScrollMode(mode: UnionKey.ThemeScrollMode) {
-      this.scrollMode = mode;
-    },
-    /** 设置侧边栏反转色 */
-    setSiderInverted(isInverted: boolean) {
-      this.sider.inverted = isInverted;
-    },
-    /** 设置头部反转色 */
-    setHeaderInverted(isInverted: boolean) {
-      this.header.inverted = isInverted;
-    },
-    /** 设置系统主题颜色 */
-    setThemeColor(themeColor: string) {
-      this.themeColor = themeColor;
-    },
-    /** 设置固定头部和多页签 */
-    setIsFixedHeaderAndTab(isFixed: boolean) {
-      this.fixedHeaderAndTab = isFixed;
-    },
-    /** 设置重载按钮可见状态 */
-    setReloadVisible(visible: boolean) {
-      this.showReload = visible;
-    },
-    /** 设置头部高度 */
-    setHeaderHeight(height: number | null) {
-      if (height) {
-        this.header.height = height;
-      }
-    },
-    /** 设置头部面包屑可见 */
-    setHeaderCrumbVisible(visible: boolean) {
-      this.header.crumb.visible = visible;
-    },
-    /** 设置头部面包屑图标可见 */
-    setHeaderCrumbIconVisible(visible: boolean) {
-      this.header.crumb.showIcon = visible;
-    },
-    /** 设置多页签可见 */
-    setTabVisible(visible: boolean) {
-      this.tab.visible = visible;
-    },
-    /** 设置多页签高度 */
-    setTabHeight(height: number | null) {
-      if (height) {
-        this.tab.height = height;
-      }
-    },
-    /** 设置多页签风格 */
-    setTabMode(mode: UnionKey.ThemeTabMode) {
-      this.tab.mode = mode;
-    },
-    /** 设置多页签缓存 */
-    setTabIsCache(isCache: boolean) {
-      this.tab.isCache = isCache;
-    },
-    /** 侧边栏宽度 */
-    setSiderWidth(width: number | null) {
-      if (width) {
-        this.sider.width = width;
-      }
-    },
-    /** 侧边栏折叠时的宽度 */
-    setSiderCollapsedWidth(width: number) {
-      this.sider.collapsedWidth = width;
-    },
-    /** vertical-mix模式下侧边栏宽度 */
-    setMixSiderWidth(width: number | null) {
-      if (width) {
-        this.sider.mixWidth = width;
-      }
-    },
-    /** vertical-mix模式下侧边栏折叠时的宽度 */
-    setMixSiderCollapsedWidth(width: number) {
-      this.sider.mixCollapsedWidth = width;
-    },
-    /** vertical-mix模式下侧边栏展示子菜单的宽度 */
-    setMixSiderChildMenuWidth(width: number) {
-      this.sider.mixChildMenuWidth = width;
-    },
-    /** 设置水平模式的菜单的位置 */
-    setHorizontalMenuPosition(position: UnionKey.ThemeHorizontalMenuPosition) {
-      this.menu.horizontalPosition = position;
-    },
-    /** 设置底部是否显示 */
-    setFooterVisible(isVisible: boolean) {
-      this.footer.visible = isVisible;
-    },
-    /** 设置底部是否固定 */
-    setFooterIsFixed(isFixed: boolean) {
-      this.footer.fixed = isFixed;
-    },
-    /** 设置底部是否固定 */
-    setFooterIsRight(right: boolean) {
-      this.footer.right = right;
-    },
-    /** 设置底部高度 */
-    setFooterHeight(height: number) {
-      this.footer.height = height;
-    },
-    /** 设置底部高度 */
-    setFooterInverted(inverted: boolean) {
-      this.footer.inverted = inverted;
-    },
-    /** 设置切换页面时是否过渡动画 */
-    setPageIsAnimate(animate: boolean) {
-      this.page.animate = animate;
-    },
-    /** 设置页面过渡动画类型 */
-    setPageAnimateMode(mode: UnionKey.ThemeAnimateMode) {
-      this.page.animateMode = mode;
+
+    return settings.value.themeScheme === 'dark';
+  });
+
+  /**
+   * theme colors
+   */
+  const themeColors = computed(() => {
+    const { themeColor, otherColor, isInfoFollowPrimary } = settings.value;
+    const colors: App.Theme.ThemeColor = {
+      primary: themeColor,
+      ...otherColor,
+      info: isInfoFollowPrimary ? themeColor : otherColor.info
+    };
+    return colors;
+  });
+
+  /**
+   * naive theme
+   */
+  const naiveTheme = computed(() => getNaiveTheme(themeColors.value));
+
+  /**
+   * settings json
+   * @description it is for copy settings
+   */
+  const settingsJson = computed(() => JSON.stringify(settings.value));
+
+  /**
+   * reset store
+   */
+  function resetStore() {
+    const themeStore = useThemeStore();
+
+    themeStore.$reset();
+  }
+
+  /**
+   * set theme scheme
+   * @param themeScheme
+   */
+  function setThemeScheme(themeScheme: UnionKey.ThemeScheme) {
+    settings.value.themeScheme = themeScheme;
+  }
+
+  /**
+   * toggle theme scheme
+   */
+  function toggleThemeScheme() {
+    const themeSchemes: UnionKey.ThemeScheme[] = ['light', 'dark', 'auto'];
+
+    const index = themeSchemes.findIndex(item => item === settings.value.themeScheme);
+
+    const nextIndex = index === themeSchemes.length - 1 ? 0 : index + 1;
+
+    const nextThemeScheme = themeSchemes[nextIndex];
+
+    setThemeScheme(nextThemeScheme);
+  }
+
+  /**
+   * update theme colors
+   * @param key theme color key
+   * @param color theme color
+   */
+  function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
+    if (key === 'primary') {
+      settings.value.themeColor = color;
+    } else {
+      settings.value.otherColor[key] = color;
     }
   }
+
+  /**
+   * set theme layout
+   * @param mode theme layout mode
+   */
+  function setThemeLayout(mode: UnionKey.ThemeLayoutMode) {
+    settings.value.layout.mode = mode;
+  }
+
+  /**
+   * setup theme vars to html
+   */
+  function setupThemeVarsToHtml() {
+    const { themeTokens, darkThemeTokens } = createThemeToken(themeColors.value);
+    addThemeVarsToHtml(themeTokens, darkThemeTokens);
+  }
+
+  /**
+   * cache theme settings
+   */
+  function cacheThemeSettings() {
+    const isProd = import.meta.env.PROD;
+
+    if (!isProd) return;
+
+    localStg.set('themeSettings', settings.value);
+  }
+
+  // cache theme settings when page is closed or refreshed
+  useEventListener(window, 'beforeunload', () => {
+    cacheThemeSettings();
+  });
+
+  // watch store
+  scope.run(() => {
+    // watch dark mode
+    watch(
+      darkMode,
+      val => {
+        toggleCssDarkMode(val);
+      },
+      { immediate: true }
+    );
+
+    // themeColors change, update css vars
+    watch(
+      themeColors,
+      () => {
+        setupThemeVarsToHtml();
+      },
+      { immediate: true }
+    );
+  });
+
+  /**
+   * on scope dispose
+   */
+  onScopeDispose(() => {
+    scope.stop();
+  });
+
+  return {
+    ...toRefs(settings.value),
+    darkMode,
+    themeColors,
+    naiveTheme,
+    settingsJson,
+    resetStore,
+    setThemeScheme,
+    toggleThemeScheme,
+    updateThemeColors,
+    setThemeLayout
+  };
 });

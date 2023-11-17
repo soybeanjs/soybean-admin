@@ -11,10 +11,8 @@ node_modules
 .DS_Store
 dist
 dist-ssr
-dist.zip
 coverage
 *.local
-stats.html
 
 /cypress/videos/
 /cypress/screenshots/
@@ -22,8 +20,8 @@ stats.html
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-!.vscode/launch.json
 !.vscode/settings.json
+!.vscode/launch.json
 .idea
 *.suo
 *.ntvs*
@@ -31,7 +29,7 @@ stats.html
 *.sln
 *.sw?
 
-/src/typings/components.d.ts
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
+
+.VSCodeCounter

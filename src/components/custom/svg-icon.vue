@@ -1,14 +1,3 @@
-<template>
-  <template v-if="renderLocalIcon">
-    <svg aria-hidden="true" width="1em" height="1em" v-bind="bindAttrs">
-      <use :xlink:href="symbolId" fill="currentColor" />
-    </svg>
-  </template>
-  <template v-else>
-    <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" />
-  </template>
-</template>
-
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue';
 import { Icon } from '@iconify/vue';
@@ -16,14 +5,18 @@ import { Icon } from '@iconify/vue';
 defineOptions({ name: 'SvgIcon' });
 
 /**
- * 图标组件
- * - 支持iconify和本地svg图标
- * - 同时传递了icon和localIcon，localIcon会优先渲染
+ * props
+ * - support iconify and local svg icon
+ * - if icon and localIcon are passed at the same time, localIcon will be rendered first
  */
 interface Props {
-  /** 图标名称 */
+  /**
+   * iconify icon name
+   */
   icon?: string;
-  /** 本地svg的文件名 */
+  /**
+   * local svg icon name
+   */
   localIcon?: string;
 }
 
@@ -46,8 +39,21 @@ const symbolId = computed(() => {
   return `#${prefix}-${icon}`;
 });
 
-/** 渲染本地icon */
+/**
+ * if localIcon is passed, render localIcon first
+ */
 const renderLocalIcon = computed(() => props.localIcon || !props.icon);
 </script>
+
+<template>
+  <template v-if="renderLocalIcon">
+    <svg aria-hidden="true" width="1em" height="1em" v-bind="bindAttrs">
+      <use :xlink:href="symbolId" fill="currentColor" />
+    </svg>
+  </template>
+  <template v-else>
+    <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" />
+  </template>
+</template>
 
 <style scoped></style>

@@ -1,7 +1,23 @@
 interface Window {
+  /**
+   * NProgress instance
+   */
+  NProgress?: import('nprogress').NProgress;
+  /**
+   * loading bar instance
+   */
   $loadingBar?: import('naive-ui').LoadingBarProviderInst;
+  /**
+   * dialog instance
+   */
   $dialog?: import('naive-ui').DialogProviderInst;
+  /**
+   * message instance
+   */
   $message?: import('naive-ui').MessageProviderInst;
+  /**
+   * notification instance
+   */
   $notification?: import('naive-ui').NotificationProviderInst;
 }
 
@@ -13,17 +29,11 @@ interface Document {
   startViewTransition?: (callback: () => Promise<void> | void) => ViewTransition;
 }
 
-/** 通用类型 */
-declare namespace Common {
-  /**
-   * 策略模式
-   * [状态, 为true时执行的回调函数]
-   */
-  type StrategyAction = [boolean, () => void];
-
-  /** 选项数据 */
-  type OptionWithKey<K> = { value: K; label: string };
+interface ImportMeta {
+  readonly env: Env.ImportMeta;
 }
 
-/** 构建时间 */
-declare const PROJECT_BUILD_TIME: string;
+/**
+ * build time of the project
+ */
+declare const BUILD_TIME: string;

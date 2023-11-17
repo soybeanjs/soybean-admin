@@ -1,77 +1,76 @@
 /**
- *后台服务的环境类型
- * - dev: 后台开发环境
- * - test: 后台测试环境
- * - prod: 后台生产环境
+ * namespace Env
+ * @description it is used to declare the type of the import.meta object
  */
-type ServiceEnvType = 'dev' | 'test' | 'prod';
-
-/** 后台服务的环境配置 */
-interface ServiceEnvConfig {
-  /** 请求地址 */
-  url: string;
-}
-
-interface ServiceEnvConfigWithProxyPattern extends ServiceEnvConfig {
+declare namespace Env {
   /**
-   * 匹配路径的正则字符串
-   * - 用于拦截地址转发代理(任意以 /开头 + 字符串, 单个/不起作用)
-   * - 和后端请求地址的前缀无关
-   * - 有多个后端请求实例时，需要创建不同的值
+   * the router history mode
    */
-  proxyPattern: '/proxy-pattern';
-}
+  type RouterHistoryMode = 'hash' | 'history' | 'memory';
 
-interface ImportMetaEnv {
-  /** 项目基本地址 */
-  readonly VITE_BASE_URL: string;
-  /** 项目名称 */
-  readonly VITE_APP_NAME: string;
-  /** 项目标题 */
-  readonly VITE_APP_TITLE: string;
-  /** 项目描述 */
-  readonly VITE_APP_DESC: string;
   /**
-   * 权限路由模式:
-   * - static - 前端声明的静态
-   * - dynamic - 后端返回的动态
+   *  interface for import.meta
    */
-  readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic';
-  /** 路由首页的路径 */
-  readonly VITE_ROUTE_HOME_PATH: AuthRoute.RoutePath;
-  /** iconify图标作为组件的前缀 */
-  readonly VITE_ICON_PREFIX: string;
-  /**
-   * 本地SVG图标作为组件的前缀, 请注意一定要包含 VITE_ICON_PREFIX
-   * - 格式 {VITE_ICON_PREFIX}-{本地图标集合名称}
-   * - 例如：icon-local
-   */
-  readonly VITE_ICON_LOCAL_PREFIX: string;
-  /** 后端服务的环境类型 */
-  readonly VITE_SERVICE_ENV?: ServiceEnvType;
-  /** 开启请求代理 */
-  readonly VITE_HTTP_PROXY?: 'Y' | 'N';
-  /** 是否开启打包文件大小结果分析 */
-  readonly VITE_VISUALIZER?: 'Y' | 'N';
-  /** 是否开启打包压缩 */
-  readonly VITE_COMPRESS?: 'Y' | 'N';
-  /** 压缩算法类型 */
-  readonly VITE_COMPRESS_TYPE?: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw';
-  /** 是否应用pwa */
-  readonly VITE_PWA?: 'Y' | 'N';
-  /**
-   * 是否开启生产模式下的mock
-   * @description 生产模式下会拦截XHR，导致无法获取response，不使用mock请求时设置为N
-   */
-  readonly VITE_PROD_MOCK?: 'Y' | 'N';
-  /** hash路由模式 */
-  readonly VITE_HASH_ROUTE?: 'Y' | 'N';
-  /** 是否应用自动生成路由的插件 */
-  readonly VITE_SOYBEAN_ROUTE_PLUGIN?: 'Y' | 'N';
-  /** 是否是部署的vercel */
-  readonly VITE_VERCEL?: 'Y' | 'N';
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+  interface ImportMeta extends ImportMetaEnv {
+    /**
+     * the base url of the application
+     */
+    readonly VITE_BASE_URL: string;
+    /**
+     * the title of the application
+     */
+    readonly VITE_APP_TITLE: string;
+    /**
+     * the description of the application
+     */
+    readonly VITE_APP_DESC: string;
+    /**
+     * the router history mode
+     */
+    readonly VITE_ROUTER_HISTORY_MODE?: RouterHistoryMode;
+    /**
+     * the prefix of the iconify icon
+     */
+    readonly VITE_ICON_PREFIX: 'icon';
+    /**
+     * the prefix of the local icon
+     * @description this prefix is start with the icon prefix
+     */
+    readonly VITE_ICON_LOCAL_PREFIX: 'local-icon';
+    /**
+     * whether to enable the http proxy
+     * @description only valid in the development environment
+     */
+    readonly VITE_HTTP_PROXY?: Common.YesOrNo;
+    /**
+     * the back service env
+     */
+    readonly VITE_SERVICE_ENV?: App.Service.EnvType;
+    /**
+     * the auth route mode
+     * - static: the auth routes is generated in front-end
+     * - dynamic: the auth routes is generated in back-end
+     */
+    readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic';
+    /**
+     * the home route key
+     * @description it only has effect when the auth route mode is static, if the route mode is dynamic, the home route key is defined in the back-end
+     */
+    readonly VITE_ROUTE_HOME: import('@elegant-router/types').LastLevelRouteKey;
+    /**
+     * default menu icon if menu icon is not set
+     * @description iconify icon name
+     */
+    readonly VITE_MENU_ICON: string;
+    /**
+     * whether to build with sourcemap
+     */
+    readonly VITE_SOURCE_MAP?: Common.YesOrNo;
+    /**
+     * iconify api provider url
+     * @description if the project is deployed in intranet, you can set the api provider url to the local iconify server
+     * @link https://docs.iconify.design/api/providers.html
+     */
+    readonly VITE_ICONIFY_URL?: string;
+  }
 }

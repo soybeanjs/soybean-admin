@@ -1,8 +1,13 @@
-@import "./transition.css";
 @import "./reset.css";
+@import "./nprogress.css";
+@import "./transition.css";
 
 html,
 body,
 #app {
-	height: 100%;
+  height: 100%;
+}
+
+html {
+  overflow-x: hidden;
 }

@@ -1,30 +1,34 @@
 import type { App } from 'vue';
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
-import { transformRouteNameToRoutePath } from '@/utils';
-import { transformAuthRouteToVueRoutes } from '@/utils/router/transform';
-import { constantRoutes } from './routes';
-import { scrollBehavior } from './helpers';
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+  createMemoryHistory,
+  type RouterHistory
+} from 'vue-router';
+import { createRoutes } from './routes';
 import { createRouterGuard } from './guard';
 
-const { VITE_HASH_ROUTE = 'N', VITE_BASE_URL } = import.meta.env;
+const { VITE_ROUTER_HISTORY_MODE = 'history', VITE_BASE_URL } = import.meta.env;
+
+const historyCreatorMap: Record<Env.RouterHistoryMode, (base?: string) => RouterHistory> = {
+  hash: createWebHashHistory,
+  history: createWebHistory,
+  memory: createMemoryHistory
+};
+
+const { constantVueRoutes } = createRoutes();
 
 export const router = createRouter({
-  history: VITE_HASH_ROUTE === 'Y' ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
-  routes: transformAuthRouteToVueRoutes(constantRoutes),
-  scrollBehavior
+  history: historyCreatorMap[VITE_ROUTER_HISTORY_MODE](VITE_BASE_URL),
+  routes: constantVueRoutes
 });
 
-/** setup vue router. - [安装vue路由] */
+/**
+ * setup Vue Router
+ */
 export async function setupRouter(app: App) {
   app.use(router);
   createRouterGuard(router);
   await router.isReady();
 }
-
-/** 路由名称 */
-export const routeName = (key: AuthRoute.AllRouteKey) => key;
-/** 路由路径 */
-export const routePath = (key: Exclude<AuthRoute.AllRouteKey, 'not-found'>) => transformRouteNameToRoutePath(key);
-
-export * from './routes';
-export * from './modules';

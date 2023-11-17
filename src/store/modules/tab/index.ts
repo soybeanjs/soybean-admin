@@ -1,264 +1,267 @@
-import type { RouteLocationNormalizedLoaded, Router } from 'vue-router';
+import { computed, ref } from 'vue';
+import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
-import { useRouteStore } from '@/store';
-import { useRouterPush } from '@/composables';
-import { localStg } from '@/utils';
-import { useThemeStore } from '../theme';
+import { useEventListener } from '@vueuse/core';
+import { SetupStoreId } from '@/enum';
 import {
-  clearTabRoutes,
-  getIndexInTabRoutes,
-  getIndexInTabRoutesByRouteName,
-  getTabRouteByVueRoute,
-  getTabRoutes,
-  isInTabRoutes
-} from './helpers';
+  getAllTabs,
+  getDefaultHomeTab,
+  getTabByRoute,
+  isTabInTabs,
+  filterTabsById,
+  getFixedTabIds,
+  filterTabsByIds,
+  updateTabsByI18nKey,
+  updateTabByI18nKey
+} from './shared';
+import { useRouterPush } from '@/hooks/common/router';
+import { localStg } from '@/utils/storage';
+import { useThemeStore } from '../theme';
 
-interface TabState {
-  /** 多页签数据 */
-  tabs: App.GlobalTabRoute[];
-  /** 多页签首页 */
-  homeTab: App.GlobalTabRoute;
-  /** 当前激活状态的页签(路由fullPath) */
-  activeTab: string;
-}
+export const useTabStore = defineStore(SetupStoreId.Tab, () => {
+  const themeStore = useThemeStore();
+  const { routerPush } = useRouterPush(false);
 
-export const useTabStore = defineStore('tab-store', {
-  state: (): TabState => ({
-    tabs: [],
-    homeTab: {
-      name: 'root',
-      fullPath: '/',
-      meta: {
-        title: 'Root'
-      },
-      scrollPosition: {
-        left: 0,
-        top: 0
-      }
-    },
-    activeTab: ''
-  }),
-  getters: {
-    /** 当前激活状态的页签索引 */
-    activeTabIndex(state) {
-      const { tabs, activeTab } = state;
-      return tabs.findIndex(tab => tab.fullPath === activeTab);
+  /**
+   * tabs
+   */
+  const tabs = ref<App.Global.Tab[]>([]);
+
+  /**
+   * get active tab
+   */
+  const homeTab = ref<App.Global.Tab>();
+
+  /**
+   * init home tab
+   * @param router router instance
+   */
+  function initHomeTab(router: Router) {
+    homeTab.value = getDefaultHomeTab(router);
+  }
+
+  /**
+   * get all tabs
+   */
+  const allTabs = computed(() => getAllTabs(tabs.value, homeTab.value));
+
+  /**
+   * active tab id
+   */
+  const activeTabId = ref<string>('');
+
+  /**
+   * set active tab id
+   * @param id tab id
+   */
+  function setActiveTabId(id: string) {
+    activeTabId.value = id;
+  }
+
+  /**
+   * init tab store
+   * @param currentRoute current route
+   */
+  function initTabStore(currentRoute: App.Global.TabRoute) {
+    const storageTabs = localStg.get('globalTabs');
+
+    if (themeStore.tab.cache && storageTabs) {
+      tabs.value = updateTabsByI18nKey(storageTabs);
     }
-  },
-  actions: {
-    /** 重置Tab状态 */
-    resetTabStore() {
-      clearTabRoutes();
-      this.$reset();
-    },
-    /** 缓存页签路由数据 */
-    cacheTabRoutes() {
-      localStg.set('multiTabRoutes', this.tabs);
-    },
-    /**
-     * 设置当前路由对应的页签为激活状态
-     * @param fullPath - 路由fullPath
-     */
-    setActiveTab(fullPath: string) {
-      this.activeTab = fullPath;
-    },
-    /**
-     * 设置当前路由对应的页签title
-     * @param title - tab名称
-     */
-    setActiveTabTitle(title: string) {
-      const item = this.tabs.find(tab => tab.fullPath === this.activeTab);
-      if (item) {
-        if (item.meta.i18nTitle) {
-          item.meta.i18nTitle = title as I18nType.I18nKey;
-        } else {
-          item.meta.title = title;
-        }
-      }
-    },
-    /**
-     * 初始化首页页签路由
-     * @param routeHomeName - 路由首页的name
-     * @param router - 路由实例
-     */
-    initHomeTab(routeHomeName: string, router: Router) {
-      const routes = router.getRoutes();
-      const findHome = routes.find(item => item.name === routeHomeName);
-      if (findHome && !findHome.children.length) {
-        // 有子路由的不能作为Tab
-        this.homeTab = getTabRouteByVueRoute(findHome);
-      }
-    },
-    /**
-     * 添加多页签
-     * @param route - 路由
-     */
-    addTab(route: RouteLocationNormalizedLoaded) {
-      const tab = getTabRouteByVueRoute(route);
 
-      if (isInTabRoutes(this.tabs, tab.fullPath)) {
-        return;
-      }
+    addTab(currentRoute);
+  }
 
-      const index = getIndexInTabRoutesByRouteName(this.tabs, route.name as string);
+  /**
+   * add tab
+   * @param route tab route
+   * @param active whether to activate the added tab
+   */
+  function addTab(route: App.Global.TabRoute, active = true) {
+    const tab = getTabByRoute(route);
 
-      if (index === -1) {
-        this.tabs.push(tab);
-        return;
-      }
+    const isHomeTab = tab.id === homeTab.value?.id;
 
-      const { multiTab = false } = route.meta;
-      if (!multiTab) {
-        this.tabs.splice(index, 1, tab);
-        return;
-      }
+    if (!isHomeTab && !isTabInTabs(tab.id, tabs.value)) {
+      tabs.value.push(tab);
+    }
 
-      this.tabs.push(tab);
-    },
-    /**
-     * 删除多页签
-     * @param fullPath - 路由fullPath
-     */
-    async removeTab(fullPath: string) {
-      const { reCacheRoute } = useRouteStore();
-      const { routerPush } = useRouterPush(false);
-
-      const tabName = this.tabs.find(tab => tab.fullPath === fullPath)?.name as AuthRoute.AllRouteKey | undefined;
-      if (tabName) {
-        await reCacheRoute(tabName);
-      }
-
-      const isActive = this.activeTab === fullPath;
-      const updateTabs = this.tabs.filter(tab => tab.fullPath !== fullPath);
-      if (!isActive) {
-        this.tabs = updateTabs;
-      }
-      if (isActive && updateTabs.length) {
-        const activePath = updateTabs[updateTabs.length - 1].fullPath;
-        const navigationFailure = await routerPush(activePath);
-        if (!navigationFailure) {
-          this.tabs = updateTabs;
-          this.setActiveTab(activePath);
-        }
-      }
-    },
-    /**
-     * 清空多页签(多页签首页保留)
-     * @param excludes - 保留的多页签path
-     */
-    async clearTab(excludes: string[] = []) {
-      const { routerPush } = useRouterPush(false);
-
-      const homePath = this.homeTab.fullPath;
-      const remain = [homePath, ...excludes];
-      const hasActive = remain.includes(this.activeTab);
-      const updateTabs = this.tabs.filter(tab => remain.includes(tab.fullPath));
-      if (hasActive) this.tabs = updateTabs;
-      if (!hasActive && updateTabs.length) {
-        const activePath = updateTabs[updateTabs.length - 1].fullPath;
-        const navigationFailure = await routerPush(activePath);
-        if (!navigationFailure) {
-          this.tabs = updateTabs;
-          this.setActiveTab(activePath);
-        }
-      }
-    },
-    /**
-     * 清除左边多页签
-     * @param fullPath - 路由fullPath
-     */
-    clearLeftTab(fullPath: string) {
-      const index = getIndexInTabRoutes(this.tabs, fullPath);
-      if (index > -1) {
-        const excludes = this.tabs.slice(index).map(item => item.fullPath);
-        this.clearTab(excludes);
-      }
-    },
-    /**
-     * 清除右边多页签
-     * @param fullPath - 路由fullPath
-     */
-    clearRightTab(fullPath: string) {
-      const index = getIndexInTabRoutes(this.tabs, fullPath);
-      if (index > -1) {
-        const excludes = this.tabs.slice(0, index + 1).map(item => item.fullPath);
-        this.clearTab(excludes);
-      }
-    },
-    /** 清除所有多页签 */
-    clearAllTab() {
-      this.clearTab();
-    },
-    /**
-     * 点击单个tab
-     * @param fullPath - 路由fullPath
-     */
-    async handleClickTab(fullPath: string) {
-      const { routerPush } = useRouterPush(false);
-
-      const isActive = this.activeTab === fullPath;
-      if (!isActive) {
-        const navigationFailure = await routerPush(fullPath);
-        if (!navigationFailure) this.setActiveTab(fullPath);
-      }
-    },
-    /**
-     * 记录tab滚动位置
-     * @param fullPath - 路由fullPath
-     * @param position - tab当前页的滚动位置
-     */
-    recordTabScrollPosition(fullPath: string, position: { left: number; top: number }) {
-      const index = getIndexInTabRoutes(this.tabs, fullPath);
-      if (index > -1) {
-        this.tabs[index].scrollPosition = position;
-      }
-    },
-    /**
-     * 获取tab滚动位置
-     * @param fullPath - 路由fullPath
-     */
-    getTabScrollPosition(fullPath: string) {
-      const position = {
-        left: 0,
-        top: 0
-      };
-      const index = getIndexInTabRoutes(this.tabs, fullPath);
-      if (index > -1) {
-        Object.assign(position, this.tabs[index].scrollPosition);
-      }
-      return position;
-    },
-    /** 初始化Tab状态 */
-    iniTabStore(currentRoute: RouteLocationNormalizedLoaded) {
-      const theme = useThemeStore();
-
-      const tabs: App.GlobalTabRoute[] = theme.tab.isCache ? getTabRoutes() : [];
-
-      const hasHome = getIndexInTabRoutesByRouteName(tabs, this.homeTab.name as string) > -1;
-      if (!hasHome && this.homeTab.name !== 'root') {
-        tabs.unshift(this.homeTab);
-      }
-
-      const isHome = currentRoute.fullPath === this.homeTab.fullPath;
-      const index = getIndexInTabRoutesByRouteName(tabs, currentRoute.name as string);
-      if (!isHome) {
-        const currentTab = getTabRouteByVueRoute(currentRoute);
-        if (!currentRoute.meta.multiTab) {
-          if (index > -1) {
-            tabs.splice(index, 1, currentTab);
-          } else {
-            tabs.push(currentTab);
-          }
-        } else {
-          const hasCurrent = isInTabRoutes(tabs, currentRoute.fullPath);
-          if (!hasCurrent) {
-            tabs.push(currentTab);
-          }
-        }
-      }
-
-      this.tabs = tabs;
-      this.setActiveTab(currentRoute.fullPath);
+    if (active) {
+      setActiveTabId(tab.id);
     }
   }
+
+  /**
+   * remove tab
+   * @param tabId tab id
+   */
+  async function removeTab(tabId: string) {
+    const isRemoveActiveTab = activeTabId.value === tabId;
+    const updatedTabs = filterTabsById(tabId, tabs.value);
+
+    function update() {
+      tabs.value = updatedTabs;
+    }
+
+    if (!isRemoveActiveTab) {
+      update();
+      return;
+    }
+
+    const activeTab = updatedTabs.at(-1) || homeTab.value;
+
+    if (activeTab) {
+      await switchRouteByTab(activeTab);
+      update();
+    }
+  }
+
+  /**
+   * clear tabs
+   * @param excludes exclude tab ids
+   */
+  async function clearTabs(excludes: string[] = []) {
+    const remainTabIds = [...getFixedTabIds(tabs.value), ...excludes];
+    const removedTabsIds = tabs.value.map(tab => tab.id).filter(id => !remainTabIds.includes(id));
+
+    const isRemoveActiveTab = removedTabsIds.includes(activeTabId.value);
+    const updatedTabs = filterTabsByIds(removedTabsIds, tabs.value);
+
+    function update() {
+      tabs.value = updatedTabs;
+    }
+
+    if (!isRemoveActiveTab) {
+      update();
+      return;
+    }
+
+    const activeTab = updatedTabs[updatedTabs.length - 1] || homeTab.value;
+
+    await switchRouteByTab(activeTab);
+    update();
+  }
+
+  /**
+   * switch route by tab
+   * @param tab
+   */
+  async function switchRouteByTab(tab: App.Global.Tab) {
+    const fail = await routerPush(tab.fullPath);
+    if (!fail) {
+      setActiveTabId(tab.id);
+    }
+  }
+
+  /**
+   * clear left tabs
+   * @param tabId
+   */
+  async function clearLeftTabs(tabId: string) {
+    const tabIds = tabs.value.map(tab => tab.id);
+    const index = tabIds.indexOf(tabId);
+    if (index === -1) return;
+
+    const excludes = tabIds.slice(index);
+    await clearTabs(excludes);
+  }
+
+  /**
+   * clear right tabs
+   * @param tabId
+   */
+  async function clearRightTabs(tabId: string) {
+    const tabIds = tabs.value.map(tab => tab.id);
+    const index = tabIds.indexOf(tabId);
+    if (index === -1) return;
+
+    const excludes = tabIds.slice(0, index + 1);
+    await clearTabs(excludes);
+  }
+
+  /**
+   * set new label of tab
+   * @param label new tab label
+   * @param tabId tab id
+   * @default activeTabId
+   */
+  function setTabLabel(label: string, tabId?: string) {
+    const id = tabId || activeTabId.value;
+
+    const tab = tabs.value.find(item => item.id === id);
+    if (!tab) return;
+
+    tab.newLabel = label;
+  }
+
+  /**
+   * reset tab label
+   * @param tabId tab id
+   * @default activeTabId
+   */
+  function resetTabLabel(tabId?: string) {
+    const id = tabId || activeTabId.value;
+
+    const tab = tabs.value.find(item => item.id === id);
+    if (!tab) return;
+
+    tab.newLabel = undefined;
+  }
+
+  /**
+   * is tab retain
+   * @param tabId
+   */
+  function isTabRetain(tabId: string) {
+    if (tabId === homeTab.value?.id) return true;
+
+    const fixedTabIds = getFixedTabIds(tabs.value);
+
+    return fixedTabIds.includes(tabId);
+  }
+
+  /**
+   * update tabs by locale
+   */
+  function updateTabsByLocale() {
+    tabs.value = updateTabsByI18nKey(tabs.value);
+
+    if (homeTab.value) {
+      homeTab.value = updateTabByI18nKey(homeTab.value);
+    }
+  }
+
+  /**
+   * cache tabs
+   */
+  function cacheTabs() {
+    if (!themeStore.tab.cache) return;
+
+    localStg.set('globalTabs', tabs.value);
+  }
+
+  // cache tabs when page is closed or refreshed
+  useEventListener(window, 'beforeunload', () => {
+    cacheTabs();
+  });
+
+  return {
+    /**
+     * all tabs
+     */
+    tabs: allTabs,
+    activeTabId,
+    initHomeTab,
+    initTabStore,
+    addTab,
+    removeTab,
+    clearTabs,
+    clearLeftTabs,
+    clearRightTabs,
+    switchRouteByTab,
+    setTabLabel,
+    resetTabLabel,
+    isTabRetain,
+    updateTabsByLocale
+  };
 });

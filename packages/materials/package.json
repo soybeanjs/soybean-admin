@@ -1,0 +1,22 @@
+{
+  "name": "@sa/materials",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "@sa/utils": "workspace:*",
+    "@simonwep/pickr": "1.9.0",
+    "simplebar-vue": "2.3.3"
+  },
+  "devDependencies": {
+    "typed-css-modules": "0.8.1"
+  }
+}
