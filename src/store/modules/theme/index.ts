@@ -25,7 +25,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     if (settings.value.themeScheme === 'auto') {
       return osTheme.value === 'dark';
     }
-
     return settings.value.themeScheme === 'dark';
   });
 
