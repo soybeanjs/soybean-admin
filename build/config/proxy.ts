@@ -25,7 +25,7 @@ export function createViteProxy(env: Env.ImportMeta) {
   const otherURLEntries = Object.entries(otherBaseURL);
 
   for (const [key, url] of otherURLEntries) {
-    const proxyPattern = createProxyPattern(key);
+    const proxyPattern = createProxyPattern(key as App.Service.OtherBaseURLKey);
 
     proxy[proxyPattern] = {
       target: url,

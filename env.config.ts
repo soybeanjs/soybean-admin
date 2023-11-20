@@ -5,7 +5,7 @@
 export function createServiceConfig(env: Env.ImportMeta) {
   const mockURL = 'https://mock.apifox.com/m1/3109515-0-default';
 
-  const serviceConfigMap = {
+  const serviceConfigMap: App.Service.ServiceConfigMap = {
     dev: {
       baseURL: mockURL,
       otherBaseURL: {
@@ -24,7 +24,7 @@ export function createServiceConfig(env: Env.ImportMeta) {
         demo: 'http://localhost:9530'
       }
     }
-  } satisfies App.Service.ServiceConfigMap;
+  };
 
   const { VITE_SERVICE_ENV = 'dev' } = env;
 
@@ -35,7 +35,7 @@ export function createServiceConfig(env: Env.ImportMeta) {
  * get proxy pattern of service url
  * @param key if not set, will use the default key
  */
-export function createProxyPattern(key?: string) {
+export function createProxyPattern(key?: App.Service.OtherBaseURLKey) {
   if (!key) {
     return '/proxy';
   }

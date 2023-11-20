@@ -524,9 +524,14 @@ declare namespace App {
     type EnvType = 'dev' | 'test' | 'prod';
 
     /**
+     * other baseURL key
+     */
+    type OtherBaseURLKey = 'demo';
+
+    /**
      * the backend service config
      */
-    interface ServiceConfig {
+    interface ServiceConfig<T extends OtherBaseURLKey = OtherBaseURLKey> {
       /**
        * the backend service base url
        */
@@ -534,7 +539,7 @@ declare namespace App {
       /**
        * other backend service base url map
        */
-      otherBaseURL: Record<string, string>;
+      otherBaseURL: Record<T, string>;
     }
 
     /**
