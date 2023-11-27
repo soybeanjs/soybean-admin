@@ -5,7 +5,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
-## 注意
+## 注意 SoybeanAdmin 正在重构，全新 1.0 预计2024年底发布
 
 Soybean Admin v1.0 :
 
@@ -21,6 +21,7 @@ Soybean Admin v1.0 :
   1.0 源代码：[v1.0-beta](https://github.com/honghuangdc/soybean-admin/tree/v1.0-beta)
 
 > 同时推出需要商业授权的 AntDesignVue 版本 和 ElementPlus 版本
+
 
 
 ## 简介
