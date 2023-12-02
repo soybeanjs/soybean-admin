@@ -17,11 +17,11 @@ After migrate to Farm, this project is 2 times faster than Vite in Dev, and 6x t
 
 Performance Compare:
 
-||Cold Start(Server Ready + Page Rendered)|Cold Build|
-|---|---|---|
-|Farm| 3.5s | 4s |
-|Vite| 7.5s | 24.1s |
-|Compare| Farm is 2x faster than Vite| Farm is 6x faster than Vite|
+|         | Cold Start(Server Ready + Page Rendered) | Cold Build                  |
+| ------- | ---------------------------------------- | --------------------------- |
+| Farm    | 3.5s                                     | 4s                          |
+| Vite    | 7.5s                                     | 24.1s                       |
+| Compare | Farm is 2x faster than Vite              | Farm is 6x faster than Vite |
 
 So this means when using Farm, you can get better performance in both dev and prod, and you can avoid a lot of issues of Vite:
 

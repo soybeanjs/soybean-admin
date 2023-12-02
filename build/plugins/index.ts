@@ -55,18 +55,12 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
  */
 export function setupFarmVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | PluginOption[])[] {
   const plugins = [
-    () => ({
-      vitePlugin: vue({
-        script: {
-          defineModel: true
-        }
-      }),
-      filters: ['\\.vue$', '\\\\0.+']
+    vue({
+      script: {
+        defineModel: true
+      }
     }),
-    () => ({
-      vitePlugin: vueJsx(),
-      filters: ['\\.vue$', '\\\\0.+']
-    }),
+    vueJsx(),
     // VueDevtools(),
     ...unplugin(viteEnv, true),
     // unocss(),
