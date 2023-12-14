@@ -11,7 +11,8 @@ const i18n = createI18n({
 });
 
 /**
- * setup plugin i18n
+ * Setup plugin i18n
+ *
  * @param app
  */
 export function setupI18n(app: App) {

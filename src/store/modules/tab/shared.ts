@@ -1,12 +1,13 @@
 import type { Router } from 'vue-router';
-import type { RouteMap, LastLevelRouteKey } from '@elegant-router/types';
+import type { LastLevelRouteKey, RouteMap } from '@elegant-router/types';
 import { $t } from '@/locales';
 import { getRoutePath } from '@/router/elegant/transform';
 
 /**
- * get all tabs
- * @param tabs tabs
- * @param homeTab home tab
+ * Get all tabs
+ *
+ * @param tabs Tabs
+ * @param homeTab Home tab
  */
 export function getAllTabs(tabs: App.Global.Tab[], homeTab?: App.Global.Tab) {
   if (!homeTab) {
@@ -23,7 +24,8 @@ export function getAllTabs(tabs: App.Global.Tab[], homeTab?: App.Global.Tab) {
 }
 
 /**
- * get tab id by route
+ * Get tab id by route
+ *
  * @param route
  */
 export function getTabIdByRoute(route: App.Global.TabRoute) {
@@ -42,7 +44,8 @@ export function getTabIdByRoute(route: App.Global.TabRoute) {
 }
 
 /**
- * get tab by route
+ * Get tab by route
+ *
  * @param route
  */
 export function getTabByRoute(route: App.Global.TabRoute) {
@@ -67,7 +70,8 @@ export function getTabByRoute(route: App.Global.TabRoute) {
 }
 
 /**
- * get default home tab
+ * Get default home tab
+ *
  * @param router
  */
 export function getDefaultHomeTab(router: Router) {
@@ -93,7 +97,8 @@ export function getDefaultHomeTab(router: Router) {
 }
 
 /**
- * is tab in tabs
+ * Is tab in tabs
+ *
  * @param tab
  * @param tabs
  */
@@ -102,7 +107,8 @@ export function isTabInTabs(tabId: string, tabs: App.Global.Tab[]) {
 }
 
 /**
- * filter tabs by id
+ * Filter tabs by id
+ *
  * @param tabId
  * @param tabs
  */
@@ -111,7 +117,8 @@ export function filterTabsById(tabId: string, tabs: App.Global.Tab[]) {
 }
 
 /**
- * filter tabs by ids
+ * Filter tabs by ids
+ *
  * @param tabIds
  * @param tabs
  */
@@ -120,7 +127,8 @@ export function filterTabsByIds(tabIds: string[], tabs: App.Global.Tab[]) {
 }
 
 /**
- * get fixed tabs
+ * Get fixed tabs
+ *
  * @param tabs
  */
 export function getFixedTabs(tabs: App.Global.Tab[]) {
@@ -128,7 +136,8 @@ export function getFixedTabs(tabs: App.Global.Tab[]) {
 }
 
 /**
- * get fixed tab ids
+ * Get fixed tab ids
+ *
  * @param tabs
  */
 export function getFixedTabIds(tabs: App.Global.Tab[]) {
@@ -138,7 +147,8 @@ export function getFixedTabIds(tabs: App.Global.Tab[]) {
 }
 
 /**
- * update tabs label
+ * Update tabs label
+ *
  * @param tabs
  */
 function updateTabsLabel(tabs: App.Global.Tab[]) {
@@ -149,7 +159,8 @@ function updateTabsLabel(tabs: App.Global.Tab[]) {
 }
 
 /**
- * update tab by i18n key
+ * Update tab by i18n key
+ *
  * @param tab
  */
 export function updateTabByI18nKey(tab: App.Global.Tab) {
@@ -162,7 +173,8 @@ export function updateTabByI18nKey(tab: App.Global.Tab) {
 }
 
 /**
- * update tabs by i18n key
+ * Update tabs by i18n key
+ *
  * @param tabs
  */
 export function updateTabsByI18nKey(tabs: App.Global.Tab[]) {

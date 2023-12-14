@@ -1,8 +1,6 @@
 import NProgress from 'nprogress';
 
-/**
- * setup plugin NProgress
- */
+/** Setup plugin NProgress */
 export function setupNProgress() {
   NProgress.configure({ easing: 'ease', speed: 500 });
 

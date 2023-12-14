@@ -4,23 +4,20 @@ import { Icon } from '@iconify/vue';
 
 defineOptions({ name: 'SvgIcon' });
 
+const props = defineProps<Props>();
+
 /**
- * props
- * - support iconify and local svg icon
- * - if icon and localIcon are passed at the same time, localIcon will be rendered first
+ * Props
+ *
+ * - Support iconify and local svg icon
+ * - If icon and localIcon are passed at the same time, localIcon will be rendered first
  */
 interface Props {
-  /**
-   * iconify icon name
-   */
+  /** Iconify icon name */
   icon?: string;
-  /**
-   * local svg icon name
-   */
+  /** Local svg icon name */
   localIcon?: string;
 }
-
-const props = defineProps<Props>();
 
 const attrs = useAttrs();
 
@@ -39,9 +36,7 @@ const symbolId = computed(() => {
   return `#${prefix}-${icon}`;
 });
 
-/**
- * if localIcon is passed, render localIcon first
- */
+/** If localIcon is passed, render localIcon first */
 const renderLocalIcon = computed(() => props.localIcon || !props.icon);
 </script>
 

@@ -1,6 +1,4 @@
-/**
- * create color palette vars
- */
+/** Create color palette vars */
 function createColorPaletteVars() {
   const colors: App.Theme.ThemeColorKey[] = ['primary', 'info', 'success', 'warning', 'error'];
   const colorPaletteNumbers: App.Theme.ColorPaletteNumber[] = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
@@ -19,9 +17,7 @@ function createColorPaletteVars() {
 
 const colorPaletteVars = createColorPaletteVars();
 
-/**
- * theme vars
- */
+/** Theme vars */
 export const themeVars: App.Theme.ThemeToken = {
   colors: {
     ...colorPaletteVars,

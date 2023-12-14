@@ -14,4 +14,5 @@ declare const styles: {
   readonly 'sider-padding-top': string;
   readonly 'sider-padding-bottom': string;
 };
-export = styles;
+
+export default styles;

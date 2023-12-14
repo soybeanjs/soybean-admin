@@ -1,9 +1,7 @@
 import CryptoJS from 'crypto-js';
 
 export class Crypto<T extends object> {
-  /**
-   * secret
-   */
+  /** Secret */
   secret: string;
 
   constructor(secret: string) {

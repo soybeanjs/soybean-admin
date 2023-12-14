@@ -1,7 +1,7 @@
 import cac from 'cac';
 import { blue, lightGreen } from 'kolorist';
 import { version } from '../package.json';
-import { cleanup, updatePkg, gitCommit, gitCommitVerify, prettierWrite, execLintStaged } from './commands';
+import { cleanup, execLintStaged, gitCommit, gitCommitVerify, prettierWrite, updatePkg } from './commands';
 import { loadCliOptions } from './config';
 
 type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify' | 'prettier-write' | 'lint-staged';

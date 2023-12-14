@@ -4,7 +4,8 @@ import 'dayjs/locale/en';
 import { localStg } from '@/utils/storage';
 
 /**
- * set dayjs locale
+ * Set dayjs locale
+ *
  * @param lang
  */
 export function setDayjsLocale(lang: App.I18n.LangType = 'zh-CN') {

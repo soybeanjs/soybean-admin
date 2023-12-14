@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import ColorPicker from '@simonwep/pickr';
 import '@simonwep/pickr/dist/themes/nano.min.css';
 
 defineOptions({
   name: 'ColorPicker'
 });
-
-interface Props {
-  color: string;
-  palettes?: string[];
-  disabled?: boolean;
-}
 
 const props = withDefaults(defineProps<Props>(), {
   palettes: () => [
@@ -35,11 +29,17 @@ const props = withDefaults(defineProps<Props>(), {
   ]
 });
 
+const emit = defineEmits<Emits>();
+
+interface Props {
+  color: string;
+  palettes?: string[];
+  disabled?: boolean;
+}
+
 interface Emits {
   (e: 'update:color', value: string): void;
 }
-
-const emit = defineEmits<Emits>();
 
 const domRef = ref<HTMLElement | null>(null);
 const instance = ref<ColorPicker | null>(null);

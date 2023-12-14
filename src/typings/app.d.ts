@@ -1,16 +1,10 @@
-/**
- * the global namespace for the app
- */
+/** The global namespace for the app */
 declare namespace App {
-  /**
-   * theme namespace
-   */
+  /** Theme namespace */
   namespace Theme {
     type ColorPaletteNumber = import('@sa/color-palette').ColorPaletteNumber;
 
-    /**
-     * theme token
-     */
+    /** Theme token */
     type ThemeToken = {
       colors: ThemeTokenColor;
       boxShadow: {
@@ -20,148 +14,83 @@ declare namespace App {
       };
     };
 
-    /**
-     * theme setting
-     */
+    /** Theme setting */
     interface ThemeSetting {
-      /**
-       * theme scheme
-       */
+      /** Theme scheme */
       themeScheme: UnionKey.ThemeScheme;
-      /**
-       * theme color
-       */
+      /** Theme color */
       themeColor: string;
-      /**
-       * other color
-       */
+      /** Other color */
       otherColor: OtherColor;
-      /**
-       * whether info color is followed by the primary color
-       */
+      /** Whether info color is followed by the primary color */
       isInfoFollowPrimary: boolean;
-      /**
-       * layout
-       */
+      /** Layout */
       layout: {
-        /**
-         * layout mode
-         */
+        /** Layout mode */
         mode: UnionKey.ThemeLayoutMode;
-        /**
-         * scroll mode
-         */
+        /** Scroll mode */
         scrollMode: UnionKey.ThemeScrollMode;
       };
-      /**
-       * page
-       */
+      /** Page */
       page: {
-        /**
-         * whether to show the page transition
-         */
+        /** Whether to show the page transition */
         animate: boolean;
-        /**
-         * page animate mode
-         */
+        /** Page animate mode */
         animateMode: UnionKey.ThemePageAnimateMode;
       };
-      /**
-       * header
-       */
+      /** Header */
       header: {
-        /**
-         * header height
-         */
+        /** Header height */
         height: number;
-        /**
-         * header breadcrumb
-         */
+        /** Header breadcrumb */
         breadcrumb: {
-          /**
-           * whether to show the breadcrumb
-           */
+          /** Whether to show the breadcrumb */
           visible: boolean;
-          /**
-           * whether to show the breadcrumb icon
-           */
+          /** Whether to show the breadcrumb icon */
           showIcon: boolean;
         };
       };
-      /**
-       * tab
-       */
+      /** Tab */
       tab: {
-        /**
-         * whether to show the tab
-         */
+        /** Whether to show the tab */
         visible: boolean;
         /**
-         * whether to cache the tab
-         * @description if cache, the tabs will get from the local storage when the page is refreshed
+         * Whether to cache the tab
+         *
+         * If cache, the tabs will get from the local storage when the page is refreshed
          */
         cache: boolean;
-        /**
-         * tab height
-         */
+        /** Tab height */
         height: number;
-        /**
-         * tab mode
-         */
+        /** Tab mode */
         mode: UnionKey.ThemeTabMode;
       };
-      /**
-       * fixed header and tab
-       */
+      /** Fixed header and tab */
       fixedHeaderAndTab: boolean;
-      /**
-       * sider
-       */
+      /** Sider */
       sider: {
-        /**
-         * inverted sider
-         */
+        /** Inverted sider */
         inverted: boolean;
-        /**
-         * sider width
-         */
+        /** Sider width */
         width: number;
-        /**
-         * collapsed sider width
-         */
+        /** Collapsed sider width */
         collapsedWidth: number;
-        /**
-         * sider width when the layout is 'vertical-mix' or 'horizontal-mix'
-         */
+        /** Sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
         mixWidth: number;
-        /**
-         * collapsed sider width when the layout is 'vertical-mix' or 'horizontal-mix'
-         */
+        /** Collapsed sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
         mixCollapsedWidth: number;
-        /**
-         * child menu width when the layout is 'vertical-mix' or 'horizontal-mix'
-         */
+        /** Child menu width when the layout is 'vertical-mix' or 'horizontal-mix' */
         mixChildMenuWidth: number;
       };
-      /**
-       * footer
-       */
+      /** Footer */
       footer: {
-        /**
-         * whether to show the footer
-         */
+        /** Whether to show the footer */
         visible: boolean;
-        /**
-         * whether fixed the footer
-         */
+        /** Whether fixed the footer */
         fixed: boolean;
-        /**
-         * footer height
-         */
+        /** Footer height */
         height: number;
-        /**
-         * whether float the footer to the right when the layout is 'horizontal-mix'
-         */
+        /** Whether float the footer to the right when the layout is 'horizontal-mix' */
         right: boolean;
       };
     }
@@ -195,9 +124,7 @@ declare namespace App {
     }
   }
 
-  /**
-   * global namespace
-   */
+  /** Global namespace */
   namespace Global {
     type VNode = import('vue').VNode;
     type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded;
@@ -206,56 +133,35 @@ declare namespace App {
     type RoutePath = import('@elegant-router/types').RoutePath;
     type LastLevelRouteKey = import('@elegant-router/types').LastLevelRouteKey;
 
-    /**
-     * the global header props
-     */
+    /** The global header props */
     interface HeaderProps {
-      /**
-       * whether to show the logo
-       */
+      /** Whether to show the logo */
       showLogo?: boolean;
-      /**
-       * whether to show the menu toggler
-       */
+      /** Whether to show the menu toggler */
       showMenuToggler?: boolean;
-      /**
-       * whether to show the menu
-       */
+      /** Whether to show the menu */
       showMenu?: boolean;
     }
 
-    /**
-     * the global menu
-     */
+    /** The global menu */
     interface Menu {
       /**
-       * the menu key
-       * @description equal to the route key
+       * The menu key
+       *
+       * Equal to the route key
        */
       key: string;
-      /**
-       * the menu label
-       */
+      /** The menu label */
       label: string;
-      /**
-       * the menu i18n key
-       */
+      /** The menu i18n key */
       i18nKey?: I18n.I18nKey;
-      /**
-       * the route key
-       */
+      /** The route key */
       routeKey: RouteKey;
-      /**
-       * the route path
-       */
+      /** The route path */
       routePath: RoutePath;
-      /**
-       * the menu icon
-       */
+      /** The menu icon */
       icon?: () => VNode;
-      /**
-       * the menu children
-       */
+      /** The menu children */
       children?: Menu[];
     }
 
@@ -263,75 +169,57 @@ declare namespace App {
       options?: Breadcrumb[];
     };
 
-    /**
-     * tab route
-     */
+    /** Tab route */
     type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> &
       Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query'>>;
 
-    /**
-     * the global tab
-     */
+    /** The global tab */
     type Tab = {
-      /**
-       * the tab id
-       */
+      /** The tab id */
       id: string;
-      /**
-       * the tab label
-       */
+      /** The tab label */
       label: string;
       /**
-       * the new tab label
-       * @description if set, the tab label will be replaced by this value
+       * The new tab label
+       *
+       * If set, the tab label will be replaced by this value
        */
       newLabel?: string;
-      /**
-       * the tab route key
-       */
+      /** The tab route key */
       routeKey: LastLevelRouteKey;
-      /**
-       * the tab route path
-       */
+      /** The tab route path */
       routePath: RouteMap[LastLevelRouteKey];
-      /**
-       * the tab route full path
-       */
+      /** The tab route full path */
       fullPath: string;
-      /**
-       * the tab fixed index
-       */
+      /** The tab fixed index */
       fixedIndex?: number;
       /**
-       * tab icon
-       * @description iconify icon
+       * Tab icon
+       *
+       * Iconify icon
        */
       icon?: string;
       /**
-       * tab local icon
-       * @description local icon
+       * Tab local icon
+       *
+       * Local icon
        */
       localIcon?: string;
-      /**
-       * i18n key
-       */
+      /** I18n key */
       i18nKey?: I18n.I18nKey;
     };
 
-    /**
-     * form rule
-     */
+    /** Form rule */
     type FormRule = import('naive-ui').FormItemRule;
 
-    /**
-     * the global dropdown key
-     */
+    /** The global dropdown key */
     type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll';
   }
 
   /**
-   * i18n namespace
-   * @description locales type
+   * I18n namespace
+   *
+   * Locales type
    */
   namespace I18n {
     type RouteKey = import('@elegant-router/types').RouteKey;
@@ -514,54 +402,32 @@ declare namespace App {
     }
   }
 
-  /**
-   * service namespace
-   */
+  /** Service namespace */
   namespace Service {
-    /**
-     * the backend service env type
-     */
+    /** The backend service env type */
     type EnvType = 'dev' | 'test' | 'prod';
 
-    /**
-     * other baseURL key
-     */
+    /** Other baseURL key */
     type OtherBaseURLKey = 'demo';
 
-    /**
-     * the backend service config
-     */
+    /** The backend service config */
     interface ServiceConfig<T extends OtherBaseURLKey = OtherBaseURLKey> {
-      /**
-       * the backend service base url
-       */
+      /** The backend service base url */
       baseURL: string;
-      /**
-       * other backend service base url map
-       */
+      /** Other backend service base url map */
       otherBaseURL: Record<T, string>;
     }
 
-    /**
-     * the backend service config map
-     */
+    /** The backend service config map */
     type ServiceConfigMap = Record<EnvType, ServiceConfig>;
 
-    /**
-     * the backend service response data
-     */
+    /** The backend service response data */
     type Response<T = unknown> = {
-      /**
-       * the backend service response code
-       */
+      /** The backend service response code */
       code: string;
-      /**
-       * the backend service response message
-       */
+      /** The backend service response message */
       message: string;
-      /**
-       * the backend service response data
-       */
+      /** The backend service response data */
       data: T;
     };
   }

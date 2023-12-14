@@ -1,129 +1,7 @@
-<template>
-  <div :class="['relative h-full', commonClass]" :style="cssVars">
-    <div
-      :id="isWrapperScroll ? scrollElId : undefined"
-      :class="['flex flex-col h-full', commonClass, scrollWrapperClass, { 'overflow-y-auto': isWrapperScroll }]"
-    >
-      <!-- Header -->
-      <template v-if="showHeader">
-        <header
-          v-show="!fullContent"
-          :class="[
-            style['layout-header'],
-            'flex-shrink-0',
-            commonClass,
-            headerClass,
-            headerLeftGapClass,
-            { 'absolute top-0 left-0 w-full': fixedHeaderAndTab }
-          ]"
-        >
-          <slot name="header"></slot>
-        </header>
-        <div
-          v-show="!fullContent && fixedHeaderAndTab"
-          :class="[style['layout-header-placement'], 'flex-shrink-0 overflow-hidden']"
-        ></div>
-      </template>
-
-      <!-- Tab -->
-      <template v-if="showTab">
-        <div
-          :class="[
-            style['layout-tab'],
-            'flex-shrink-0',
-            commonClass,
-            tabClass,
-            { 'top-0!': fullContent || !showHeader },
-            leftGapClass,
-            { 'absolute left-0 w-full': fixedHeaderAndTab }
-          ]"
-        >
-          <slot name="tab"></slot>
-        </div>
-        <div
-          v-show="fullContent || fixedHeaderAndTab"
-          :class="[style['layout-tab-placement'], 'flex-shrink-0 overflow-hidden']"
-        ></div>
-      </template>
-
-      <!-- Sider -->
-      <template v-if="showSider">
-        <aside
-          v-show="!fullContent"
-          :class="[
-            'absolute left-0 top-0 h-full',
-            commonClass,
-            siderClass,
-            siderPaddingClass,
-            siderCollapse ? style['layout-sider_collapsed'] : style['layout-sider']
-          ]"
-        >
-          <slot name="sider"></slot>
-        </aside>
-      </template>
-
-      <!-- Mobile Sider -->
-      <template v-if="showMobileSider">
-        <aside
-          :class="[
-            'absolute left-0 top-0 w-0 h-full bg-white',
-            commonClass,
-            mobileSiderClass,
-            style['layout-mobile-sider'],
-            siderCollapse ? 'overflow-hidden' : style['layout-sider']
-          ]"
-        >
-          <slot name="sider"></slot>
-        </aside>
-        <div
-          v-show="!siderCollapse"
-          :class="['absolute left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.2)]', style['layout-mobile-sider-mask']]"
-          @click="handleClickMask"
-        ></div>
-      </template>
-
-      <!-- Main Content -->
-      <main
-        :id="isContentScroll ? scrollElId : undefined"
-        :class="[
-          'flex flex-col flex-grow',
-          commonClass,
-          contentClass,
-          leftGapClass,
-          { 'overflow-y-auto': isContentScroll }
-        ]"
-      >
-        <slot></slot>
-      </main>
-
-      <!-- Footer -->
-      <template v-if="showFooter">
-        <footer
-          v-show="!fullContent"
-          :class="[
-            style['layout-footer'],
-            'flex-shrink-0',
-            commonClass,
-            footerClass,
-            footerLeftGapClass,
-            { 'absolute left-0 bottom-0 w-full': fixedFooter }
-          ]"
-        >
-          <slot name="footer"></slot>
-        </footer>
-        <div
-          v-show="!fullContent && fixedFooter"
-          :class="[style['layout-footer-placement'], 'flex-shrink-0 overflow-hidden']"
-        ></div>
-      </template>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { AdminLayoutProps } from '../../types';
-import { LAYOUT_SCROLL_EL_ID, LAYOUT_MAX_Z_INDEX, createLayoutCssVars } from './shared';
+import { LAYOUT_MAX_Z_INDEX, LAYOUT_SCROLL_EL_ID, createLayoutCssVars } from './shared';
 import style from './index.module.css';
 
 defineOptions({
@@ -150,31 +28,29 @@ const props = withDefaults(defineProps<AdminLayoutProps>(), {
   rightFooter: false
 });
 
+const emit = defineEmits<Emits>();
+
+const slots = defineSlots<Slots>();
+
 interface Emits {
-  /**
-   * update siderCollapse
-   */
+  /** Update siderCollapse */
   (e: 'update:siderCollapse', collapse: boolean): void;
 }
-
-const emit = defineEmits<Emits>();
 
 type SlotFn = (props?: Record<string, unknown>) => any;
 
 type Slots = {
-  /** main */
+  /** Main */
   default?: SlotFn;
-  /** header */
+  /** Header */
   header?: SlotFn;
-  /** tab */
+  /** Tab */
   tab?: SlotFn;
-  /** sider */
+  /** Sider */
   sider?: SlotFn;
-  /** footer */
+  /** Footer */
   footer?: SlotFn;
 };
-const slots = defineSlots<Slots>();
-
 const cssVars = computed(() => createLayoutCssVars(props));
 
 // config visible
@@ -234,5 +110,127 @@ function handleClickMask() {
   emit('update:siderCollapse', true);
 }
 </script>
+
+<template>
+  <div class="relative h-full" :class="[commonClass]" :style="cssVars">
+    <div
+      :id="isWrapperScroll ? scrollElId : undefined"
+      class="flex flex-col h-full"
+      :class="[commonClass, scrollWrapperClass, { 'overflow-y-auto': isWrapperScroll }]"
+    >
+      <!-- Header -->
+      <template v-if="showHeader">
+        <header
+          v-show="!fullContent"
+          class="flex-shrink-0"
+          :class="[
+            style['layout-header'],
+            commonClass,
+            headerClass,
+            headerLeftGapClass,
+            { 'absolute top-0 left-0 w-full': fixedHeaderAndTab }
+          ]"
+        >
+          <slot name="header"></slot>
+        </header>
+        <div
+          v-show="!fullContent && fixedHeaderAndTab"
+          class="flex-shrink-0 overflow-hidden"
+          :class="[style['layout-header-placement']]"
+        ></div>
+      </template>
+
+      <!-- Tab -->
+      <template v-if="showTab">
+        <div
+          class="flex-shrink-0"
+          :class="[
+            style['layout-tab'],
+            commonClass,
+            tabClass,
+            { 'top-0!': fullContent || !showHeader },
+            leftGapClass,
+            { 'absolute left-0 w-full': fixedHeaderAndTab }
+          ]"
+        >
+          <slot name="tab"></slot>
+        </div>
+        <div
+          v-show="fullContent || fixedHeaderAndTab"
+          class="flex-shrink-0 overflow-hidden"
+          :class="[style['layout-tab-placement']]"
+        ></div>
+      </template>
+
+      <!-- Sider -->
+      <template v-if="showSider">
+        <aside
+          v-show="!fullContent"
+          class="absolute left-0 top-0 h-full"
+          :class="[
+            commonClass,
+            siderClass,
+            siderPaddingClass,
+            siderCollapse ? style['layout-sider_collapsed'] : style['layout-sider']
+          ]"
+        >
+          <slot name="sider"></slot>
+        </aside>
+      </template>
+
+      <!-- Mobile Sider -->
+      <template v-if="showMobileSider">
+        <aside
+          class="absolute left-0 top-0 w-0 h-full bg-white"
+          :class="[
+            commonClass,
+            mobileSiderClass,
+            style['layout-mobile-sider'],
+            siderCollapse ? 'overflow-hidden' : style['layout-sider']
+          ]"
+        >
+          <slot name="sider"></slot>
+        </aside>
+        <div
+          v-show="!siderCollapse"
+          class="absolute left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.2)]"
+          :class="[style['layout-mobile-sider-mask']]"
+          @click="handleClickMask"
+        ></div>
+      </template>
+
+      <!-- Main Content -->
+      <main
+        :id="isContentScroll ? scrollElId : undefined"
+        class="flex flex-col flex-grow"
+        :class="[commonClass, contentClass, leftGapClass, { 'overflow-y-auto': isContentScroll }]"
+      >
+        <slot></slot>
+      </main>
+
+      <!-- Footer -->
+      <template v-if="showFooter">
+        <footer
+          v-show="!fullContent"
+          class="flex-shrink-0"
+          :class="[
+            style['layout-footer'],
+            commonClass,
+            footerClass,
+            footerLeftGapClass,
+            { 'absolute left-0 bottom-0 w-full': fixedFooter }
+          ]"
+        >
+          <slot name="footer"></slot>
+        </footer>
+        <div
+          v-show="!fullContent && fixedFooter"
+          class="flex-shrink-0 overflow-hidden"
+          :class="[style['layout-footer-placement']]"
+        ></div>
+      </template>
+    </div>
+  </div>
+</template>
 
 <style scoped></style>

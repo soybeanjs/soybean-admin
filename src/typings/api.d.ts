@@ -1,11 +1,13 @@
 /**
- * namespace Api
- * @description all backend api type
+ * Namespace Api
+ *
+ * All backend api type
  */
 declare namespace Api {
   /**
-   * namespace Auth
-   * @description backend api module: "auth"
+   * Namespace Auth
+   *
+   * Backend api module: "auth"
    */
   namespace Auth {
     interface LoginToken {
@@ -21,8 +23,9 @@ declare namespace Api {
   }
 
   /**
-   * namespace Route
-   * @description backend api module: "route"
+   * Namespace Route
+   *
+   * Backend api module: "route"
    */
   namespace Route {
     type ElegantConstRoute = import('@elegant-router/types').ElegantConstRoute;

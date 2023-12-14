@@ -7,27 +7,21 @@ defineOptions({
   name: 'LayoutModeCard'
 });
 
+const props = defineProps<Props>();
+
+const emit = defineEmits<Emits>();
+
 interface Props {
-  /**
-   * layout mode
-   */
+  /** Layout mode */
   mode: UnionKey.ThemeLayoutMode;
-  /**
-   * disabled
-   */
+  /** Disabled */
   disabled?: boolean;
 }
 
-const props = defineProps<Props>();
-
 interface Emits {
-  /**
-   * layout mode change
-   */
+  /** Layout mode change */
   (e: 'update:mode', mode: UnionKey.ThemeLayoutMode): void;
 }
-
-const emit = defineEmits<Emits>();
 
 type LayoutConfig = Record<
   UnionKey.ThemeLayoutMode,

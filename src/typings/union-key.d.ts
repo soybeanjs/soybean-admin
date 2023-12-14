@@ -1,53 +1,49 @@
-/**
- * the union key namespace
- */
+/** The union key namespace */
 declare namespace UnionKey {
   /**
-   * the login module
-   * - pwd-login: password login
-   * - code-login: phone code login
-   * - register: register
-   * - reset-pwd: reset password
-   * - bind-wechat: bind wechat
+   * The login module
+   *
+   * - Pwd-login: password login
+   * - Code-login: phone code login
+   * - Register: register
+   * - Reset-pwd: reset password
+   * - Bind-wechat: bind wechat
    */
   type LoginModule = 'pwd-login' | 'code-login' | 'register' | 'reset-pwd' | 'bind-wechat';
 
-  /**
-   * theme scheme
-   */
+  /** Theme scheme */
   type ThemeScheme = 'light' | 'dark' | 'auto';
 
   /**
-   * the layout mode
-   * - vertical: the vertical menu in left
-   * - horizontal: the horizontal menu in top
-   * - vertical-mix: two vertical mixed menus in left
-   * - horizontal-mix: the vertical menu in left and horizontal menu in top
+   * The layout mode
+   *
+   * - Vertical: the vertical menu in left
+   * - Horizontal: the horizontal menu in top
+   * - Vertical-mix: two vertical mixed menus in left
+   * - Horizontal-mix: the vertical menu in left and horizontal menu in top
    */
   type ThemeLayoutMode = 'vertical' | 'horizontal' | 'vertical-mix' | 'horizontal-mix';
 
   /**
-   * the scroll mode when content overflow
-   * - wrapper the wrapper component's root element overflow
-   * - content the content component overflow
+   * The scroll mode when content overflow
+   *
+   * - Wrapper the wrapper component's root element overflow
+   * - Content the content component overflow
    */
   type ThemeScrollMode = import('@sa/materials').LayoutScrollMode;
 
-  /**
-   * page animate mode
-   */
+  /** Page animate mode */
   type ThemePageAnimateMode = 'fade' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out' | 'none';
 
   /**
-   * tab mode
-   * - chrome: chrome style
-   * - button: button style
+   * Tab mode
+   *
+   * - Chrome: chrome style
+   * - Button: button style
    */
   type ThemeTabMode = import('@sa/materials').PageTabMode;
 
-  /**
-   * unocss animate key
-   */
+  /** Unocss animate key */
   type UnoCssAnimateKey =
     | 'pulse'
     | 'bounce'

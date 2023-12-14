@@ -13,9 +13,7 @@ import ResetPwd from './components/reset-pwd.vue';
 import BindWechat from './components/bind-wechat.vue';
 
 interface Props {
-  /**
-   * the login module
-   */
+  /** The login module */
   module?: UnionKey.LoginModule;
 }
 

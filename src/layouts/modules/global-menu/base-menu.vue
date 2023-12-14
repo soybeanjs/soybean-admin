@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import type { MenuProps, MentionOption } from 'naive-ui';
+import type { MentionOption, MenuProps } from 'naive-ui';
 import { SimpleScrollbar } from '@sa/materials';
 import type { RouteKey } from '@elegant-router/types';
 import { useAppStore } from '@/store/modules/app';
@@ -13,15 +13,15 @@ defineOptions({
   name: 'BaseMenu'
 });
 
+const props = withDefaults(defineProps<Props>(), {
+  mode: 'vertical'
+});
+
 interface Props {
   darkTheme?: boolean;
   mode?: MenuProps['mode'];
   menus: App.Global.Menu[];
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  mode: 'vertical'
-});
 
 const route = useRoute();
 const appStore = useAppStore();

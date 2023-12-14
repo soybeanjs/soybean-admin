@@ -1,21 +1,17 @@
 <script lang="ts" setup>
-import { $t } from '@/locales';
 import { computed } from 'vue';
+import { $t } from '@/locales';
 
 defineOptions({ name: 'MenuToggler' });
 
+const props = defineProps<Props>();
+
 interface Props {
-  /**
-   * show collapsed icon
-   */
+  /** Show collapsed icon */
   collapsed?: boolean;
-  /**
-   * arrow style icon
-   */
+  /** Arrow style icon */
   arrowIcon?: boolean;
 }
-
-const props = defineProps<Props>();
 
 type NumberBool = 0 | 1;
 

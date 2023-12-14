@@ -2,11 +2,11 @@
   "name": "@sa/docs",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vitepress dev",
     "build": "vitepress build",
+    "dev": "vitepress dev",
     "serve": "vitepress serve"
   },
   "devDependencies": {
-    "vitepress": "1.0.0-rc.27"
+    "vitepress": "1.0.0-rc.31"
   }
 }

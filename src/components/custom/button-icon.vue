@@ -8,31 +8,23 @@ defineOptions({
   inheritAttrs: false
 });
 
-interface Props {
-  /**
-   * button class
-   */
-  class?: string;
-  /**
-   * iconify icon name
-   */
-  icon?: string;
-  /**
-   * tooltip content
-   */
-  tooltipContent?: string;
-  /**
-   * tooltip placement
-   */
-  tooltipPlacement?: PopoverPlacement;
-}
-
 const props = withDefaults(defineProps<Props>(), {
   class: 'h-36px text-icon',
   icon: '',
   tooltipContent: '',
   tooltipPlacement: 'bottom'
 });
+
+interface Props {
+  /** Button class */
+  class?: string;
+  /** Iconify icon name */
+  icon?: string;
+  /** Tooltip content */
+  tooltipContent?: string;
+  /** Tooltip placement */
+  tooltipPlacement?: PopoverPlacement;
+}
 
 interface ButtonProps {
   className: string;

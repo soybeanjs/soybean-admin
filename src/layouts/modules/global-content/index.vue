@@ -7,16 +7,14 @@ defineOptions({
   name: 'GlobalContent'
 });
 
-interface Props {
-  /**
-   * show padding for content
-   */
-  showPadding?: boolean;
-}
-
 withDefaults(defineProps<Props>(), {
   showPadding: true
 });
+
+interface Props {
+  /** Show padding for content */
+  showPadding?: boolean;
+}
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();

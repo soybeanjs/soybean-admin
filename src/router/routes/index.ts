@@ -1,4 +1,4 @@
-import type { ElegantConstRoute, ElegantRoute, CustomRoute } from '@elegant-router/types';
+import type { CustomRoute, ElegantConstRoute, ElegantRoute } from '@elegant-router/types';
 import { generatedRoutes } from '../elegant/routes';
 import { layouts, views } from '../elegant/imports';
 import { transformElegantRoutesToVueRoutes } from '../elegant/transform';
@@ -26,9 +26,7 @@ const customRoutes: CustomRoute[] = [
   }
 ];
 
-/**
- * create routes
- */
+/** Create routes */
 export function createRoutes() {
   const constantRoutes: ElegantRoute[] = [];
 
@@ -51,8 +49,9 @@ export function createRoutes() {
 }
 
 /**
- * get auth vue routes
- * @param routes elegant routes
+ * Get auth vue routes
+ *
+ * @param routes Elegant routes
  */
 export function getAuthVueRoutes(routes: ElegantConstRoute[]) {
   return transformElegantRoutesToVueRoutes(routes, layouts, views);

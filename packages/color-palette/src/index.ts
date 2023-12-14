@@ -1,12 +1,13 @@
 import { getColorPaletteFamily } from './palette';
 import { getColorName } from './name';
-import type { ColorPalette, ColorPaletteNumber, ColorPaletteItem, ColorPaletteFamily } from './type';
+import type { ColorPalette, ColorPaletteFamily, ColorPaletteItem, ColorPaletteNumber } from './type';
 import defaultPalettes from './json/palette.json';
 
 /**
- * get color palette by provided color and color name
- * @param color the provided color
- * @param colorName color name
+ * Get color palette by provided color and color name
+ *
+ * @param color The provided color
+ * @param colorName Color name
  */
 export function getColorPalette(color: string, colorName: string) {
   const colorPaletteFamily = getColorPaletteFamily(color, colorName);
@@ -31,10 +32,11 @@ export function getColorPalette(color: string, colorName: string) {
 }
 
 /**
- * get color by color palette number
- * @param color color
- * @param num color palette number
- * @return color hexcode
+ * Get color by color palette number
+ *
+ * @param color Color
+ * @param num Color palette number
+ * @returns Color hexcode
  */
 export function getColorByColorPaletteNumber(color: string, num: ColorPaletteNumber) {
   const colorPalette = getColorPalette(color, color);
@@ -46,9 +48,7 @@ export function getColorByColorPaletteNumber(color: string, num: ColorPaletteNum
 
 export default getColorPalette;
 
-/**
- * the builtin color palettes
- */
+/** The builtin color palettes */
 const colorPalettes = defaultPalettes as ColorPaletteFamily[];
 
 export { getColorName, colorPalettes };

@@ -1,18 +1,15 @@
-import type { AdminLayoutProps, LayoutCssVarsProps, LayoutCssVars } from '../../types';
+import type { AdminLayoutProps, LayoutCssVars, LayoutCssVarsProps } from '../../types';
 
-/**
- * the id of the scroll element of the layout
- */
+/** The id of the scroll element of the layout */
 export const LAYOUT_SCROLL_EL_ID = '__SCROLL_EL_ID__';
 
-/**
- * the max z-index of the layout
- */
+/** The max z-index of the layout */
 export const LAYOUT_MAX_Z_INDEX = 100;
 
 /**
- * create layout css vars by css vars props
- * @param props css vars props
+ * Create layout css vars by css vars props
+ *
+ * @param props Css vars props
  */
 function createLayoutCssVarsByCssVarsProps(props: LayoutCssVarsProps) {
   const cssVars: LayoutCssVars = {
@@ -32,7 +29,8 @@ function createLayoutCssVarsByCssVarsProps(props: LayoutCssVarsProps) {
 }
 
 /**
- * create layout css vars
+ * Create layout css vars
+ *
  * @param props
  */
 export function createLayoutCssVars(props: AdminLayoutProps) {

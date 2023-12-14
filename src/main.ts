@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import './plugins/assets';
-import { setupNProgress, setupIconifyOffline, setupDayjs } from './plugins';
+import { setupDayjs, setupIconifyOffline, setupNProgress } from './plugins';
 import { setupStore } from './store';
 import { setupRouter } from './router';
 import { setupI18n } from './locales';

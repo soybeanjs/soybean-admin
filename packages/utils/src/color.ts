@@ -6,29 +6,32 @@ import type { AnyColor, HsvColor, RgbColor } from 'colord';
 extend([namesPlugin, mixPlugin]);
 
 /**
- * add color alpha
- * @param color - color
- * @param alpha - alpha (0 - 1)
+ * Add color alpha
+ *
+ * @param color - Color
+ * @param alpha - Alpha (0 - 1)
  */
 export function addColorAlpha(color: string, alpha: number) {
   return colord(color).alpha(alpha).toHex();
 }
 
 /**
- * mix color
- * @param firstColor - first color
- * @param secondColor - second color
- * @param ratio - the ratio of the second color (0 - 1)
+ * Mix color
+ *
+ * @param firstColor - First color
+ * @param secondColor - Second color
+ * @param ratio - The ratio of the second color (0 - 1)
  */
 export function mixColor(firstColor: string, secondColor: string, ratio: number) {
   return colord(firstColor).mix(secondColor, ratio).toHex();
 }
 
 /**
- * transform color with opacity to similar color without opacity
- * @param color - color
- * @param alpha - alpha (0 - 1)
- * @param bgColor background color (usually white or black)
+ * Transform color with opacity to similar color without opacity
+ *
+ * @param color - Color
+ * @param alpha - Alpha (0 - 1)
+ * @param bgColor Background color (usually white or black)
  */
 export function transformColorWithOpacity(color: string, alpha: number, bgColor = '#ffffff') {
   const originColor = addColorAlpha(color, alpha);
@@ -50,67 +53,57 @@ export function transformColorWithOpacity(color: string, alpha: number, bgColor 
 }
 
 /**
- * is white color
- * @param color - color
+ * Is white color
+ *
+ * @param color - Color
  */
 export function isWhiteColor(color: string) {
   return colord(color).isEqual('#ffffff');
 }
 
 /**
- * get rgb of color
- * @param color color
+ * Get rgb of color
+ *
+ * @param color Color
  */
 export function getRgbOfColor(color: string) {
   return colord(color).toRgb();
 }
 
-/**
- * hue step
- */
+/** Hue step */
 const hueStep = 2;
-/**
- * saturation step, light color part
- */
+/** Saturation step, light color part */
 const saturationStep = 16;
-/**
- * saturation step, dark color part
- */
+/** Saturation step, dark color part */
 const saturationStep2 = 5;
-/**
- * brightness step, light color part
- */
+/** Brightness step, light color part */
 const brightnessStep1 = 5;
-/**
- * brightness step, dark color part
- */
+/** Brightness step, dark color part */
 const brightnessStep2 = 15;
-/**
- * light color count, main color up
- */
+/** Light color count, main color up */
 const lightColorCount = 5;
-/**
- * dark color count, main color down
- */
+/** Dark color count, main color down */
 const darkColorCount = 4;
 
 /**
- * the color index of color palette
- * @description from left to right, the color is from light to dark, 6 is main color
+ * The color index of color palette
+ *
+ * From left to right, the color is from light to dark, 6 is main color
  */
 type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 /**
- * get color palette (from left to right, the color is from light to dark, 6 is main color)
- * @param color - color
- * @param index - the color index of color palette (the main color index is 6)
- * @returns hex color
+ * Get color palette (from left to right, the color is from light to dark, 6 is main color)
+ *
+ * @param color - Color
+ * @param index - The color index of color palette (the main color index is 6)
+ * @returns Hex color
  */
 export function getColorPalette(color: AnyColor, index: ColorIndex): string {
   const transformColor = colord(color);
 
   if (!transformColor.isValid()) {
-    throw Error('invalid input color value');
+    throw new Error('invalid input color value');
   }
 
   if (index === 6) {
@@ -130,9 +123,7 @@ export function getColorPalette(color: AnyColor, index: ColorIndex): string {
   return colord(newHsv).toHex();
 }
 
-/**
- * map of dark color index and opacity
- */
+/** Map of dark color index and opacity */
 const darkColorMap = [
   { index: 7, opacity: 0.15 },
   { index: 6, opacity: 0.25 },
@@ -147,10 +138,11 @@ const darkColorMap = [
 ];
 
 /**
- * get color palettes
- * @param color - color
- * @param darkTheme - dark theme
- * @param darkThemeMixColor - dark theme mix color (default: #141414)
+ * Get color palettes
+ *
+ * @param color - Color
+ * @param darkTheme - Dark theme
+ * @param darkThemeMixColor - Dark theme mix color (default: #141414)
  */
 export function getColorPalettes(color: AnyColor, darkTheme = false, darkThemeMixColor = '#141414'): string[] {
   const indexes: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -171,10 +163,11 @@ export function getColorPalettes(color: AnyColor, darkTheme = false, darkThemeMi
 }
 
 /**
- * get hue
- * @param hsv - hsv format color
- * @param i - the relative distance from 6
- * @param isLight - is light color
+ * Get hue
+ *
+ * @param hsv - Hsv format color
+ * @param i - The relative distance from 6
+ * @param isLight - Is light color
  */
 function getHue(hsv: HsvColor, i: number, isLight: boolean) {
   let hue: number;
@@ -199,10 +192,11 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
 }
 
 /**
- * get saturation
- * @param hsv - hsv format color
- * @param i - the relative distance from 6
- * @param isLight - is light color
+ * Get saturation
+ *
+ * @param hsv - Hsv format color
+ * @param i - The relative distance from 6
+ * @param isLight - Is light color
  */
 function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
   if (hsv.h === 0 && hsv.s === 0) {
@@ -235,10 +229,11 @@ function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
 }
 
 /**
- * get value of hsv
- * @param hsv - hsv format color
- * @param i - the relative distance from 6
- * @param isLight - is light color
+ * Get value of hsv
+ *
+ * @param hsv - Hsv format color
+ * @param i - The relative distance from 6
+ * @param isLight - Is light color
  */
 function getValue(hsv: HsvColor, i: number, isLight: boolean) {
   let value: number;

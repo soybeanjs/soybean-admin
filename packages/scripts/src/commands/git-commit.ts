@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import enquirer from 'enquirer';
-import { bgRed, red, green } from 'kolorist';
+import { bgRed, green, red } from 'kolorist';
 import { execCommand } from '../shared';
 import type { CliOption } from '../types';
 

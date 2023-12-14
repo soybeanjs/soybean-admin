@@ -6,30 +6,24 @@ defineOptions({
   name: 'LangSwitch'
 });
 
-interface Props {
-  /**
-   * current language
-   */
-  lang: App.I18n.LangType;
-  /**
-   * language options
-   */
-  langOptions: App.I18n.LangOption[];
-  /**
-   * show tooltip
-   */
-  showTooltip?: boolean;
-}
-
 const props = withDefaults(defineProps<Props>(), {
   showTooltip: true
 });
 
+const emit = defineEmits<Emits>();
+
+interface Props {
+  /** Current language */
+  lang: App.I18n.LangType;
+  /** Language options */
+  langOptions: App.I18n.LangOption[];
+  /** Show tooltip */
+  showTooltip?: boolean;
+}
+
 type Emits = {
   (e: 'changeLang', lang: App.I18n.LangType): void;
 };
-
-const emits = defineEmits<Emits>();
 
 const tooltipContent = computed(() => {
   if (!props.showTooltip) return '';
@@ -38,7 +32,7 @@ const tooltipContent = computed(() => {
 });
 
 function changeLang(lang: App.I18n.LangType) {
-  emits('changeLang', lang);
+  emit('changeLang', lang);
 }
 </script>
 

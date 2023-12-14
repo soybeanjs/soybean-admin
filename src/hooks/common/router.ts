@@ -4,9 +4,11 @@ import type { RouteKey } from '@elegant-router/types';
 import { router as globalRouter } from '@/router';
 
 /**
- * router push
- * @description jump to the specified route, it can replace function router.push
- * @param inSetup whether is in vue script setup
+ * Router push
+ *
+ * Jump to the specified route, it can replace function router.push
+ *
+ * @param inSetup Whether is in vue script setup
  */
 export function useRouterPush(inSetup = true) {
   const router = inSetup ? useRouter() : globalRouter;
@@ -44,9 +46,10 @@ export function useRouterPush(inSetup = true) {
   }
 
   /**
-   * navigate to login page
-   * @param loginModule the login module
-   * @param redirectUrl the redirect url, if not specified, it will be the current route fullPath
+   * Navigate to login page
+   *
+   * @param loginModule The login module
+   * @param redirectUrl The redirect url, if not specified, it will be the current route fullPath
    */
   async function toLogin(loginModule?: UnionKey.LoginModule, redirectUrl?: string) {
     const module = loginModule || 'pwd-login';
@@ -67,7 +70,8 @@ export function useRouterPush(inSetup = true) {
   }
 
   /**
-   * toggle login module
+   * Toggle login module
+   *
    * @param module
    */
   async function toggleLoginModule(module: UnionKey.LoginModule) {
@@ -76,9 +80,7 @@ export function useRouterPush(inSetup = true) {
     return routerPushByKey('login', { query, params: { module } });
   }
 
-  /**
-   * redirect from login
-   */
+  /** Redirect from login */
   async function redirectFromLogin() {
     const redirect = route.value.query?.redirect as string;
 

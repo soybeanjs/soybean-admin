@@ -1,6 +1,4 @@
-/**
- * default theme settings
- */
+/** Default theme settings */
 export const themeSettings: App.Theme.ThemeSetting = {
   themeScheme: 'light',
   themeColor: '#646cff',
@@ -50,7 +48,8 @@ export const themeSettings: App.Theme.ThemeSetting = {
 };
 
 /**
- * override theme settings
- * @description if publish new version, use `overrideThemeSettings` to override certain theme settings
+ * Override theme settings
+ *
+ * If publish new version, use `overrideThemeSettings` to override certain theme settings
  */
 export const overrideThemeSettings: Partial<App.Theme.ThemeSetting> = {};

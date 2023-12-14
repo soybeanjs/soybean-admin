@@ -1,4 +1,4 @@
-import { isValidColor, getHsl, getDeltaE, transformHslToHex } from './color';
+import { getDeltaE, getHsl, isValidColor, transformHslToHex } from './color';
 import { getColorName } from './name';
 import type { ColorPaletteFamily, ColorPaletteFamilyWithNearestPalette } from './type';
 import defaultPalettes from './json/palette.json';

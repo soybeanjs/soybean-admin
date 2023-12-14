@@ -4,8 +4,9 @@ import { createDocumentTitleGuard } from './title';
 import { createPermissionGuard } from './permission';
 
 /**
- * router guard
- * @param router - router instance
+ * Router guard
+ *
+ * @param router - Router instance
  */
 export function createRouterGuard(router: Router) {
   createProgressGuard(router);

@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { REG_USER_NAME, REG_PHONE, REG_PWD, REG_CODE_SIX, REG_EMAIL } from '@/constants/reg';
+import { REG_CODE_SIX, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/constants/reg';
 import { $t } from '@/locales';
 
 export function useFormRules() {

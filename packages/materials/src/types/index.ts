@@ -1,146 +1,156 @@
-/**
- * header config
- */
+/** Header config */
 interface AdminLayoutHeaderConfig {
   /**
-   * whether header is visible
+   * Whether header is visible
+   *
    * @default true
    */
   headerVisible?: boolean;
   /**
-   * header class
+   * Header class
+   *
    * @default ''
    */
   headerClass?: string;
   /**
-   * header height
+   * Header height
+   *
    * @default 56px
    */
   headerHeight?: number;
 }
 
-/**
- * tab config
- */
+/** Tab config */
 interface AdminLayoutTabConfig {
   /**
-   * whether tab is visible
+   * Whether tab is visible
+   *
    * @default true
    */
   tabVisible?: boolean;
   /**
-   * tab class
+   * Tab class
+   *
    * @default ''
    */
   tabClass?: string;
   /**
-   * tab height
+   * Tab height
+   *
    * @default 48px
    */
   tabHeight?: number;
 }
 
-/**
- * sider config
- */
+/** Sider config */
 interface AdminLayoutSiderConfig {
   /**
-   * whether sider is visible
+   * Whether sider is visible
+   *
    * @default true
    */
   siderVisible?: boolean;
   /**
-   * sider class
+   * Sider class
+   *
    * @default ''
    */
   siderClass?: string;
   /**
-   * mobile sider class
+   * Mobile sider class
+   *
    * @default ''
    */
   mobileSiderClass?: string;
   /**
-   * sider collapse status
+   * Sider collapse status
+   *
    * @default false
    */
   siderCollapse?: boolean;
   /**
-   * sider width when collapse is false
+   * Sider width when collapse is false
+   *
    * @default '220px'
    */
   siderWidth?: number;
   /**
-   * sider width when collapse is true
+   * Sider width when collapse is true
+   *
    * @default '64px'
    */
   siderCollapsedWidth?: number;
 }
 
-/**
- * content config
- */
+/** Content config */
 export interface AdminLayoutContentConfig {
   /**
-   * content class
+   * Content class
+   *
    * @default ''
    */
   contentClass?: string;
   /**
-   * whether content is full the page
-   * @description if true, other elements will be hidden by `display: none`
+   * Whether content is full the page
+   *
+   * If true, other elements will be hidden by `display: none`
    */
   fullContent?: boolean;
 }
 
-/**
- * footer config
- */
+/** Footer config */
 export interface AdminLayoutFooterConfig {
   /**
-   * whether footer is visible
+   * Whether footer is visible
+   *
    * @default true
    */
   footerVisible?: boolean;
   /**
-   * whether footer is fixed
+   * Whether footer is fixed
+   *
    * @default true
    */
   fixedFooter?: boolean;
   /**
-   * footer class
+   * Footer class
+   *
    * @default ''
    */
   footerClass?: string;
   /**
-   * footer height
+   * Footer height
+   *
    * @default 48px
    */
   footerHeight?: number;
   /**
-   * whether footer is on the right side
-   * @description when the layout is vertical, the footer is on the right side
+   * Whether footer is on the right side
+   *
+   * When the layout is vertical, the footer is on the right side
    */
   rightFooter?: boolean;
 }
 
 /**
- * layout mode
- * - horizontal
- * - vertical
+ * Layout mode
+ *
+ * - Horizontal
+ * - Vertical
  */
 export type LayoutMode = 'horizontal' | 'vertical';
 
 /**
- * the scroll mode when content overflow
- * - wrapper: the layout component's wrapper element has a scrollbar
- * - content: the layout component's content element has a scrollbar
+ * The scroll mode when content overflow
+ *
+ * - Wrapper: the layout component's wrapper element has a scrollbar
+ * - Content: the layout component's content element has a scrollbar
+ *
  * @default 'wrapper'
  */
 export type LayoutScrollMode = 'wrapper' | 'content';
 
-/**
- * admin layout props
- */
+/** Admin layout props */
 export interface AdminLayoutProps
   extends AdminLayoutHeaderConfig,
     AdminLayoutTabConfig,
@@ -148,52 +158,58 @@ export interface AdminLayoutProps
     AdminLayoutContentConfig,
     AdminLayoutFooterConfig {
   /**
-   * layout mode
+   * Layout mode
+   *
    * - {@link LayoutMode}
    */
   mode?: LayoutMode;
-  /** is mobile layout */
+  /** Is mobile layout */
   isMobile?: boolean;
   /**
-   * scroll mode
+   * Scroll mode
+   *
    * - {@link ScrollMode}
    */
   scrollMode?: LayoutScrollMode;
   /**
-   * the id of the scroll element of the layout
-   * @description it can be used to get the corresponding Dom and scroll it
+   * The id of the scroll element of the layout
+   *
+   * It can be used to get the corresponding Dom and scroll it
+   *
+   * @example
+   *   use the default id by import
+   *   ```ts
+   *   import { adminLayoutScrollElId } from '@sa/vue-materials';
+   *   ```
+   *
    * @default
    * ```ts
    * const adminLayoutScrollElId = '__ADMIN_LAYOUT_SCROLL_EL_ID__'
    * ```
-   * @example use the default id by import
-   * ```ts
-   * import { adminLayoutScrollElId } from '@sa/vue-materials';
-   * ```
    */
   scrollElId?: string;
-  /**
-   * the class of the scroll element
-   */
+  /** The class of the scroll element */
   scrollElClass?: string;
-  /**
-   * the class of the scroll wrapper element
-   */
+  /** The class of the scroll wrapper element */
   scrollWrapperClass?: string;
   /**
-   * the common class of the layout
-   * @description is can be used to configure the transition animation
+   * The common class of the layout
+   *
+   * Is can be used to configure the transition animation
+   *
    * @default 'transition-all-300'
    */
   commonClass?: string;
   /**
-   * whether fix the header and tab
+   * Whether fix the header and tab
+   *
    * @default true
    */
   fixedTop?: boolean;
   /**
-   * the max z-index of the layout
-   * @description the z-index of Header,Tab,Sider and Footer will not exceed this value
+   * The max z-index of the layout
+   *
+   * The z-index of Header,Tab,Sider and Footer will not exceed this value
    */
   maxZIndex?: number;
 }
@@ -222,48 +238,44 @@ export type LayoutCssVars = {
 };
 
 /**
- * the mode of the tab
- * - button: button style
- * - chrome: chrome style
+ * The mode of the tab
+ *
+ * - Button: button style
+ * - Chrome: chrome style
+ *
  * @default chrome
  */
 export type PageTabMode = 'button' | 'chrome';
 
 export interface PageTabProps {
-  /**
-   * whether is dark mode
-   */
+  /** Whether is dark mode */
   darkMode?: boolean;
   /**
-   * the mode of the tab
+   * The mode of the tab
+   *
    * - {@link TabMode}
    */
   mode?: PageTabMode;
   /**
-   * the common class of the layout
-   * @description is can be used to configure the transition animation
+   * The common class of the layout
+   *
+   * Is can be used to configure the transition animation
+   *
    * @default 'transition-all-300'
    */
   commonClass?: string;
-  /**
-   * the class of the button tab
-   */
+  /** The class of the button tab */
   buttonClass?: string;
-  /**
-   * the class of the chrome tab
-   */
+  /** The class of the chrome tab */
   chromeClass?: string;
-  /**
-   * whether the tab is active
-   */
+  /** Whether the tab is active */
   active?: boolean;
-  /**
-   * the color of the active tab
-   */
+  /** The color of the active tab */
   activeColor?: string;
   /**
-   * whether the tab is closable
-   * @description show the close icon when true
+   * Whether the tab is closable
+   *
+   * Show the close icon when true
    */
   closable?: boolean;
 }

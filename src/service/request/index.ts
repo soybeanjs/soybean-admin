@@ -1,6 +1,6 @@
-import { localStg } from '@/utils/storage';
 import { createOfetch as createRequest } from '@sa/request';
-import { createServiceConfig, createProxyPattern } from '~/env.config';
+import { localStg } from '@/utils/storage';
+import { createProxyPattern, createServiceConfig } from '~/env.config';
 
 const { baseURL, otherBaseURL } = createServiceConfig(import.meta.env);
 

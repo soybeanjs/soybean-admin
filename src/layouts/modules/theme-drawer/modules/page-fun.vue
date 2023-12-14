@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { $t } from '@/locales';
 import { useThemeStore } from '@/store/modules/theme';
-import { themeScrollModeOptions, themePageAnimationModeOptions, themeTabModeOptions } from '@/constants/app';
+import { themePageAnimationModeOptions, themeScrollModeOptions, themeTabModeOptions } from '@/constants/app';
 import SettingItem from '../components/setting-item.vue';
 
 defineOptions({

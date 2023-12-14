@@ -1,9 +1,10 @@
 import type { ProxyOptions } from 'vite';
-import { createServiceConfig, createProxyPattern } from '../../env.config';
+import { createProxyPattern, createServiceConfig } from '../../env.config';
 
 /**
- * set http proxy
- * @param env - the current env
+ * Set http proxy
+ *
+ * @param env - The current env
  */
 export function createViteProxy(env: Env.ImportMeta) {
   const isEnableHttpProxy = env.VITE_HTTP_PROXY === 'Y';

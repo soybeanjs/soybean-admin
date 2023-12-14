@@ -1,23 +1,13 @@
 interface Window {
-  /**
-   * NProgress instance
-   */
+  /** NProgress instance */
   NProgress?: import('nprogress').NProgress;
-  /**
-   * loading bar instance
-   */
+  /** Loading bar instance */
   $loadingBar?: import('naive-ui').LoadingBarProviderInst;
-  /**
-   * dialog instance
-   */
+  /** Dialog instance */
   $dialog?: import('naive-ui').DialogProviderInst;
-  /**
-   * message instance
-   */
+  /** Message instance */
   $message?: import('naive-ui').MessageProviderInst;
-  /**
-   * notification instance
-   */
+  /** Notification instance */
   $notification?: import('naive-ui').NotificationProviderInst;
 }
 
@@ -33,7 +23,5 @@ interface ImportMeta {
   readonly env: Env.ImportMeta;
 }
 
-/**
- * build time of the project
- */
+/** Build time of the project */
 declare const BUILD_TIME: string;

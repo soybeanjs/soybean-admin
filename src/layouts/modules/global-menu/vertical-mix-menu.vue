@@ -5,9 +5,9 @@ import { useAppStore } from '@/store/modules/app';
 import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
+import { useMixMenu } from '../../hooks/use-mix-menu';
 import FirstLevelMenu from './first-level-menu.vue';
 import BaseMenu from './base-menu.vue';
-import { useMixMenu } from '../../hooks/use-mix-menu';
 
 defineOptions({
   name: 'VerticalMixMenu'

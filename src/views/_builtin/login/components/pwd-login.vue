@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 import { $t } from '@/locales';
 import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
-import { useNaiveForm, useFormRules } from '@/hooks/common/form';
+import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
 
 defineOptions({
@@ -48,7 +48,7 @@ async function handleSubmit() {
         :placeholder="$t('page.login.common.passwordPlaceholder')"
       />
     </NFormItem>
-    <NSpace :vertical="true" :size="24">
+    <NSpace vertical :size="24">
       <div class="flex-y-center justify-between">
         <NCheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</NCheckbox>
         <NButton quaternary>{{ $t('page.login.pwdLogin.forgetPassword') }}</NButton>

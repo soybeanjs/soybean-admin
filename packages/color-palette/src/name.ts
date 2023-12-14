@@ -1,4 +1,4 @@
-import { getHex, getRgb, getHsl } from './color';
+import { getHex, getHsl, getRgb } from './color';
 import colorNames from './json/color-name.json';
 
 export function getColorName(color: string) {

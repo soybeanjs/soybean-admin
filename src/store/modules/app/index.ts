@@ -1,4 +1,4 @@
-import { ref, watch, effectScope, onScopeDispose } from 'vue';
+import { effectScope, onScopeDispose, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { breakpointsTailwind, useBreakpoints, useTitle } from '@vueuse/core';
 import { useBoolean } from '@sa/hooks';
@@ -24,14 +24,13 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean();
   const { bool: mixSiderFixed, setBool: setMixSiderFixed, toggle: toggleMixSiderFixed } = useBoolean();
 
-  /**
-   * is mobile layout
-   */
+  /** Is mobile layout */
   const isMobile = breakpoints.smaller('sm');
 
   /**
-   * reload page
-   * @param duration duration time
+   * Reload page
+   *
+   * @param duration Duration time
    */
   async function reloadPage(duration = 0) {
     setReloadFlag(false);
@@ -64,9 +63,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     localStg.set('lang', lang);
   }
 
-  /**
-   * update document title by locale
-   */
+  /** Update document title by locale */
   function updateDocumentTitleByLocale() {
     const { i18nKey, title } = router.currentRoute.value.meta;
 
@@ -110,9 +107,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     });
   });
 
-  /**
-   * on scope dispose
-   */
+  /** On scope dispose */
   onScopeDispose(() => {
     scope.stop();
   });

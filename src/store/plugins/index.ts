@@ -3,7 +3,8 @@ import { cloneDeep } from 'lodash-es';
 import { SetupStoreId } from '@/enum';
 
 /**
- * the plugin reset the state of the store which is written by setup syntax
+ * The plugin reset the state of the store which is written by setup syntax
+ *
  * @param context
  */
 export function resetSetupStore(context: PiniaPluginContext) {

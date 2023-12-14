@@ -1,26 +1,20 @@
-import { ref, computed, effectScope, onScopeDispose, watch, toRefs } from 'vue';
+import { computed, effectScope, onScopeDispose, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
-import { usePreferredColorScheme, useEventListener } from '@vueuse/core';
+import { useEventListener, usePreferredColorScheme } from '@vueuse/core';
 import { SetupStoreId } from '@/enum';
 import { localStg } from '@/utils/storage';
-import { createThemeToken, initThemeSettings, addThemeVarsToHtml, toggleCssDarkMode, getNaiveTheme } from './shared';
+import { addThemeVarsToHtml, createThemeToken, getNaiveTheme, initThemeSettings, toggleCssDarkMode } from './shared';
 
-/**
- * theme store
- */
+/** Theme store */
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const scope = effectScope();
   const osTheme = usePreferredColorScheme();
 
-  /**
-   * theme settings
-   */
+  /** Theme settings */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
 
-  /**
-   * dark mode
-   */
+  /** Dark mode */
   const darkMode = computed(() => {
     if (settings.value.themeScheme === 'auto') {
       return osTheme.value === 'dark';
@@ -28,9 +22,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     return settings.value.themeScheme === 'dark';
   });
 
-  /**
-   * theme colors
-   */
+  /** Theme colors */
   const themeColors = computed(() => {
     const { themeColor, otherColor, isInfoFollowPrimary } = settings.value;
     const colors: App.Theme.ThemeColor = {
@@ -41,20 +33,17 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     return colors;
   });
 
-  /**
-   * naive theme
-   */
+  /** Naive theme */
   const naiveTheme = computed(() => getNaiveTheme(themeColors.value));
 
   /**
-   * settings json
-   * @description it is for copy settings
+   * Settings json
+   *
+   * It is for copy settings
    */
   const settingsJson = computed(() => JSON.stringify(settings.value));
 
-  /**
-   * reset store
-   */
+  /** Reset store */
   function resetStore() {
     const themeStore = useThemeStore();
 
@@ -62,16 +51,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   }
 
   /**
-   * set theme scheme
+   * Set theme scheme
+   *
    * @param themeScheme
    */
   function setThemeScheme(themeScheme: UnionKey.ThemeScheme) {
     settings.value.themeScheme = themeScheme;
   }
 
-  /**
-   * toggle theme scheme
-   */
+  /** Toggle theme scheme */
   function toggleThemeScheme() {
     const themeSchemes: UnionKey.ThemeScheme[] = ['light', 'dark', 'auto'];
 
@@ -85,9 +73,10 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   }
 
   /**
-   * update theme colors
-   * @param key theme color key
-   * @param color theme color
+   * Update theme colors
+   *
+   * @param key Theme color key
+   * @param color Theme color
    */
   function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
     if (key === 'primary') {
@@ -98,24 +87,21 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   }
 
   /**
-   * set theme layout
-   * @param mode theme layout mode
+   * Set theme layout
+   *
+   * @param mode Theme layout mode
    */
   function setThemeLayout(mode: UnionKey.ThemeLayoutMode) {
     settings.value.layout.mode = mode;
   }
 
-  /**
-   * setup theme vars to html
-   */
+  /** Setup theme vars to html */
   function setupThemeVarsToHtml() {
     const { themeTokens, darkThemeTokens } = createThemeToken(themeColors.value);
     addThemeVarsToHtml(themeTokens, darkThemeTokens);
   }
 
-  /**
-   * cache theme settings
-   */
+  /** Cache theme settings */
   function cacheThemeSettings() {
     const isProd = import.meta.env.PROD;
 
@@ -150,9 +136,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     );
   });
 
-  /**
-   * on scope dispose
-   */
+  /** On scope dispose */
   onScopeDispose(() => {
     scope.stop();
   });

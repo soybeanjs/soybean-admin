@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { VNode } from 'vue';
-import { $t } from '@/locales';
 import { useSvgIconRender } from '@sa/hooks';
+import { $t } from '@/locales';
 import { useTabStore } from '@/store/modules/tab';
 import SvgIcon from '@/components/custom/svg-icon.vue';
 
@@ -10,24 +10,20 @@ defineOptions({
   name: 'ContextMenu'
 });
 
+const props = withDefaults(defineProps<Props>(), {
+  excludeKeys: () => [],
+  disabledKeys: () => []
+});
+
 interface Props {
-  /**
-   * clientX
-   */
+  /** ClientX */
   x: number;
-  /**
-   * clientY
-   */
+  /** ClientY */
   y: number;
   tabId: string;
   excludeKeys?: App.Global.DropdownKey[];
   disabledKeys?: App.Global.DropdownKey[];
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  excludeKeys: () => [],
-  disabledKeys: () => []
-});
 
 const visible = defineModel<boolean>('visible');
 

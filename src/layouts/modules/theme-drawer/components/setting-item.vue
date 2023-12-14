@@ -3,14 +3,12 @@ defineOptions({
   name: 'SettingItem'
 });
 
+defineProps<Props>();
+
 interface Props {
-  /**
-   * label
-   */
+  /** Label */
   label: string;
 }
-
-defineProps<Props>();
 </script>
 
 <template>

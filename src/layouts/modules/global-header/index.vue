@@ -7,36 +7,28 @@ import { useRouteStore } from '@/store/modules/route';
 import HorizontalMenu from '../global-menu/base-menu.vue';
 import GlobalLogo from '../global-logo/index.vue';
 import GlobalBreadcrumb from '../global-breadcrumb/index.vue';
+import { useMixMenuContext } from '../../hooks/use-mix-menu';
 import ThemeButton from './components/theme-button.vue';
 import UserAvatar from './components/user-avatar.vue';
-import { useMixMenuContext } from '../../hooks/use-mix-menu';
 
+defineOptions({
+  name: 'GlobalHeader'
+});
+defineProps<Props>();
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const routeStore = useRouteStore();
 const { isFullscreen, toggle } = useFullscreen();
 const { menus } = useMixMenuContext();
 
-defineOptions({
-  name: 'GlobalHeader'
-});
-
 interface Props {
-  /**
-   * whether to show the logo
-   */
+  /** Whether to show the logo */
   showLogo?: App.Global.HeaderProps['showLogo'];
-  /**
-   * whether to show the menu toggler
-   */
+  /** Whether to show the menu toggler */
   showMenuToggler?: App.Global.HeaderProps['showMenuToggler'];
-  /**
-   * whether to show the menu
-   */
+  /** Whether to show the menu */
   showMenu?: App.Global.HeaderProps['showMenu'];
 }
-
-defineProps<Props>();
 
 const headerMenus = computed(() => {
   if (themeStore.layout.mode === 'horizontal') {

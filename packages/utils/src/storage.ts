@@ -1,8 +1,6 @@
 import localforage from 'localforage';
 
-/**
- * the storage type
- */
+/** The storage type */
 export type StorageType = 'local' | 'session';
 
 export function createStorage<T extends object>(type: StorageType) {
@@ -10,9 +8,10 @@ export function createStorage<T extends object>(type: StorageType) {
 
   const storage = {
     /**
-     * set session
-     * @param key session key
-     * @param value session value
+     * Set session
+     *
+     * @param key Session key
+     * @param value Session value
      */
     set<K extends keyof T>(key: K, value: T[K]) {
       const json = JSON.stringify(value);
@@ -20,8 +19,9 @@ export function createStorage<T extends object>(type: StorageType) {
       stg.setItem(key as string, json);
     },
     /**
-     * get session
-     * @param key session key
+     * Get session
+     *
+     * @param key Session key
      */
     get<K extends keyof T>(key: K): T[K] | null {
       const json = stg.getItem(key as string);

@@ -1,5 +1,5 @@
-import { zhCN, enUS, dateZhCN, dateEnUS } from 'naive-ui';
-import type { NLocale, NDateLocale } from 'naive-ui';
+import { dateEnUS, dateZhCN, enUS, zhCN } from 'naive-ui';
+import type { NDateLocale, NLocale } from 'naive-ui';
 
 export const naiveLocales: Record<App.I18n.LangType, NLocale> = {
   'zh-CN': zhCN,

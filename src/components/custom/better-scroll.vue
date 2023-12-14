@@ -6,15 +6,16 @@ import type { Options } from '@better-scroll/core';
 
 defineOptions({ name: 'BetterScroll' });
 
+const props = defineProps<Props>();
+
 interface Props {
   /**
    * BetterScroll options
+   *
    * @link https://better-scroll.github.io/docs/zh-CN/guide/base-scroll-options.html
    */
   options: Options;
 }
-
-const props = defineProps<Props>();
 
 const bsWrap = ref<HTMLElement>();
 const bsContent = ref<HTMLElement>();

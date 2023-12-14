@@ -1,13 +1,13 @@
-import { ref, reactive, computed } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
-import { fetchLogin, fetchGetUserInfo } from '@/service/api';
+import { fetchGetUserInfo, fetchLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
-import { useRouteStore } from '../route';
-import { getToken, getUserInfo, clearAuthStorage } from './shared';
 import { $t } from '@/locales';
+import { useRouteStore } from '../route';
+import { clearAuthStorage, getToken, getUserInfo } from './shared';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const routeStore = useRouteStore();
@@ -18,14 +18,10 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   const userInfo: Api.Auth.UserInfo = reactive(getUserInfo());
 
-  /**
-   * is login
-   */
+  /** Is login */
   const isLogin = computed(() => Boolean(token.value));
 
-  /**
-   * reset auth store
-   */
+  /** Reset auth store */
   async function resetStore() {
     const authStore = useAuthStore();
 
@@ -41,9 +37,10 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   }
 
   /**
-   * login
-   * @param userName user name
-   * @param password password
+   * Login
+   *
+   * @param userName User name
+   * @param password Password
    */
   async function login(userName: string, password: string) {
     startLoading();

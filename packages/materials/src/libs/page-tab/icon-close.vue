@@ -1,3 +1,19 @@
+<script setup lang="ts">
+defineOptions({
+  name: 'IconClose'
+});
+
+const emit = defineEmits<Emits>();
+
+interface Emits {
+  (e: 'click'): void;
+}
+
+function handleClick() {
+  emit('click');
+}
+</script>
+
 <template>
   <div
     class=":soy: relative inline-flex justify-center items-center w-16px h-16px text-14px rd-50%"
@@ -11,21 +27,5 @@
     </svg>
   </div>
 </template>
-
-<script setup lang="ts">
-defineOptions({
-  name: 'IconClose'
-});
-
-interface Emits {
-  (e: 'click'): void;
-}
-
-const emit = defineEmits<Emits>();
-
-function handleClick() {
-  emit('click');
-}
-</script>
 
 <style scoped></style>

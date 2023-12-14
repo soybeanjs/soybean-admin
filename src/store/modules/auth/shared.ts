@@ -1,15 +1,11 @@
 import { localStg } from '@/utils/storage';
 
-/**
- * get token
- */
+/** Get token */
 export function getToken() {
   return localStg.get('token') || '';
 }
 
-/**
- * get user info
- */
+/** Get user info */
 export function getUserInfo() {
   const emptyInfo: Api.Auth.UserInfo = {
     userId: '',
@@ -21,9 +17,7 @@ export function getUserInfo() {
   return userInfo;
 }
 
-/**
- * clear auth storage
- */
+/** Clear auth storage */
 export function clearAuthStorage() {
   localStg.remove('token');
   localStg.remove('refreshToken');

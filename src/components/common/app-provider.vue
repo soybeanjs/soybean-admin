@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineComponent, createTextVNode } from 'vue';
+import { createTextVNode, defineComponent } from 'vue';
 import { useDialog, useLoadingBar, useMessage, useNotification } from 'naive-ui';
 
 defineOptions({
@@ -17,9 +17,8 @@ const ContextHolder = defineComponent({
     }
 
     register();
-  },
-  render() {
-    return createTextVNode();
+
+    return () => createTextVNode();
   }
 });
 </script>
