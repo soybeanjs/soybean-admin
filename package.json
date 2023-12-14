@@ -46,6 +46,7 @@
     "@iconify/json": "2.2.143",
     "@sa/scripts": "workspace:*",
     "@sa/uno-preset": "workspace:*",
+    "@soybeanjs/eslint-config": "^1.1.2",
     "@types/lodash-es": "4.17.11",
     "@types/node": "20.9.1",
     "@types/nprogress": "0.2.3",
@@ -57,7 +58,6 @@
     "@vitejs/plugin-vue": "4.5.0",
     "@vitejs/plugin-vue-jsx": "3.1.0",
     "cross-env": "7.0.3",
-    "eslint-config-sa": "workspace:*",
     "npm-run-all": "4.1.5",
     "sass": "1.69.5",
     "simple-git-hooks": "2.9.0",
@@ -72,6 +72,6 @@
   },
   "simple-git-hooks": {
     "commit-msg": "pnpm sa git-commit-verify",
-    "pre-commit": "pnpm typecheck && pnpm sa lint-staged"
+    "pre-commit": "pnpm typecheck"
   }
 }
