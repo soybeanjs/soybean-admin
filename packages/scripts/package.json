@@ -2,7 +2,7 @@
   "name": "@sa/scripts",
   "version": "1.0.0",
   "bin": {
-    "sa": "./bin.cjs"
+    "sa": "./bin.ts"
   },
   "exports": {
     ".": "./src/index.ts"
@@ -18,8 +18,6 @@
     "consola": "3.2.3",
     "enquirer": "2.4.1",
     "execa": "8.0.1",
-    "jiti": "1.21.0",
-    "lint-staged": "15.2.0",
     "npm-check-updates": "16.14.12",
     "rimraf": "5.0.5"
   }

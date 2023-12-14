@@ -1,10 +1,10 @@
 import cac from 'cac';
 import { blue, lightGreen } from 'kolorist';
 import { version } from '../package.json';
-import { cleanup, execLintStaged, gitCommit, gitCommitVerify, prettierWrite, updatePkg } from './commands';
+import { cleanup, gitCommit, gitCommitVerify, updatePkg } from './commands';
 import { loadCliOptions } from './config';
 
-type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify' | 'prettier-write' | 'lint-staged';
+type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify';
 
 type CommandAction<A extends object> = (args?: A) => Promise<void> | void;
 
@@ -44,18 +44,6 @@ export async function setupCli() {
       desc: 'verify git commit message, make sure it match Conventional Commits standard',
       action: async () => {
         await gitCommitVerify();
-      }
-    },
-    'prettier-write': {
-      desc: 'run prettier --write',
-      action: async () => {
-        await prettierWrite(cliOptions.prettierWriteGlob);
-      }
-    },
-    'lint-staged': {
-      desc: 'run lint-staged',
-      action: async () => {
-        await execLintStaged(cliOptions.lintStagedConfig);
       }
     }
   };
