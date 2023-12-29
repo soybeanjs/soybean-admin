@@ -5,7 +5,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
-## 注意 SoybeanAdmin 正在重构，全新 1.0 预计12月份期间发布
+## 注意 SoybeanAdmin 正在重构，全新 1.0 预计12月底发布
 
 Soybean Admin v1.0 :
 
@@ -20,7 +20,7 @@ Soybean Admin v1.0 :
 
   1.0 源代码：[v1.0-beta](https://github.com/honghuangdc/soybean-admin/tree/v1.0-beta)
 
-> 同时推出需要商业授权的 AntDesignVue 版本 和 ElementPlus 版本
+> 同时推出开源的 [AntDesignVue 版本](https://github.com/soybeanjs/soybean-admin-antd) 和 ElementPlus 版本
 
 
 
@@ -184,7 +184,7 @@ docker run -d -p 80:80 soybean-admin-image
       <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
   	</div>
 		<div>
-			<p>添加本人微信，欢迎来技术交流，业务咨询</p>
+			<p>添加本人微信，欢迎来业务咨询(技术交流请加QQ群)</p>
 			<img src="https://s2.loli.net/2023/06/07/sVyCUFBvzQ9f5b7.jpg" style="width:200px" />
 		</div>
   </div>
