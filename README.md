@@ -5,7 +5,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
-## 注意 SoybeanAdmin 正在重构，全新 1.0 预计12月底发布
+## 注意 SoybeanAdmin 正在重构，全新 1.0 即将发布
 
 Soybean Admin v1.0 :
 
