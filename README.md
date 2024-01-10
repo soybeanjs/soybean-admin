@@ -22,7 +22,7 @@ Soybean Admin v1.0 :
 
 > 同时推出开源的 [AntDesignVue 版本](https://github.com/soybeanjs/soybean-admin-antd) 和 ElementPlus 版本
 
-
+> 新开项目建议直接使用 [v1.0-beta](https://github.com/honghuangdc/soybean-admin/tree/v1.0-beta) 或 [AntDesignVue 版本](https://github.com/soybeanjs/soybean-admin-antd)
 
 ## 简介
 
