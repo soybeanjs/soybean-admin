@@ -18,6 +18,7 @@ import {
   getGlobalMenusByAuthRoutes,
   getSelectedMenuKeyPathByKey,
   isRouteExistByRouteName,
+  sortRoutesByOrder,
   updateLocaleOfGlobalMenus
 } from './shared';
 
@@ -185,11 +186,13 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * @param routes Auth routes
    */
   function handleAuthRoutes(routes: ElegantConstRoute[]) {
-    const vueRoutes = getAuthVueRoutes(routes);
+    const sortRoutes = sortRoutesByOrder(routes);
+
+    const vueRoutes = getAuthVueRoutes(sortRoutes);
 
     addRoutesToVueRouter(vueRoutes);
 
-    getGlobalMenus(routes);
+    getGlobalMenus(sortRoutes);
 
     getCacheRoutes(vueRoutes);
   }
