@@ -426,9 +426,19 @@ declare namespace App {
       /** The backend service response code */
       code: string;
       /** The backend service response message */
-      message: string;
+      msg: string;
       /** The backend service response data */
       data: T;
+    };
+
+    /** The demo backend service response data */
+    type DemoResponse<T = unknown> = {
+      /** The backend service response code */
+      status: string;
+      /** The backend service response message */
+      message: string;
+      /** The backend service response data */
+      result: T;
     };
   }
 }

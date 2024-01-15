@@ -45,27 +45,28 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   async function login(userName: string, password: string) {
     startLoading();
 
-    try {
-      const { data: loginToken } = await fetchLogin(userName, password);
+    const { data: loginToken, error } = await fetchLogin(userName, password);
 
-      await loginByToken(loginToken);
+    if (!error) {
+      const pass = await loginByToken(loginToken);
 
-      await routeStore.initAuthRoute();
+      if (pass) {
+        await routeStore.initAuthRoute();
 
-      await redirectFromLogin();
+        await redirectFromLogin();
 
-      if (routeStore.isInitAuthRoute) {
-        window.$notification?.success({
-          title: $t('page.login.common.loginSuccess'),
-          content: $t('page.login.common.welcomeBack', { userName: userInfo.userName }),
-          duration: 4500
-        });
+        if (routeStore.isInitAuthRoute) {
+          window.$notification?.success({
+            title: $t('page.login.common.loginSuccess'),
+            content: $t('page.login.common.welcomeBack', { userName: userInfo.userName })
+          });
+        }
       }
-    } catch {
+    } else {
       resetStore();
-    } finally {
-      endLoading();
     }
+
+    endLoading();
   }
 
   async function loginByToken(loginToken: Api.Auth.LoginToken) {
@@ -73,14 +74,20 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     localStg.set('token', loginToken.token);
     localStg.set('refreshToken', loginToken.refreshToken);
 
-    const { data: info } = await fetchGetUserInfo();
+    const { data: info, error } = await fetchGetUserInfo();
 
-    // 2. store user info
-    localStg.set('userInfo', info);
+    if (!error) {
+      // 2. store user info
+      localStg.set('userInfo', info);
 
-    // 3. update auth route
-    token.value = loginToken.token;
-    Object.assign(userInfo, info);
+      // 3. update auth route
+      token.value = loginToken.token;
+      Object.assign(userInfo, info);
+
+      return true;
+    }
+
+    return false;
   }
 
   return {

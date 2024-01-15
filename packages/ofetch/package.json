@@ -1,5 +1,5 @@
 {
-  "name": "@sa/hooks",
+  "name": "@sa/fetch",
   "version": "1.0.0",
   "exports": {
     ".": "./src/index.ts"
@@ -10,6 +10,6 @@
     }
   },
   "dependencies": {
-    "@sa/axios": "workspace:*"
+    "ofetch": "1.3.3"
   }
 }
