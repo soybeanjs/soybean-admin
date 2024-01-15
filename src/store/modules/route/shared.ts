@@ -48,20 +48,30 @@ function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]) {
 }
 
 /**
- * Sort routes by order
+ * sort route by order
  *
- * @param routes An array of routes
- * @returns A new array of routes sorted by order
- *
- *   This function sorts the routes by their order property, which is a number. If the order property is missing or
- *   invalid, it is treated as 0. The routes with lower order values are placed before the routes with higher order
- *   values. The function also sorts the children routes recursively, if any.
+ * @param route route
  */
-export const sortRoutesByOrder = (routes: ElegantConstRoute[]): ElegantConstRoute[] => {
-  return routes
-    .sort((next, prev) => (Number(next.meta?.order) || 0) - (Number(prev.meta?.order) || 0))
-    .map(route => (route.children ? { ...route, children: sortRoutesByOrder(route.children) } : route));
-};
+function sortRouteByOrder(route: ElegantConstRoute) {
+  if (route.children?.length) {
+    route.children.sort((next, prev) => (Number(next.meta?.order) || 0) - (Number(prev.meta?.order) || 0));
+    route.children.forEach(sortRouteByOrder);
+  }
+
+  return route;
+}
+
+/**
+ * sort routes by order
+ *
+ * @param routes routes
+ */
+export function sortRoutesByOrder(routes: ElegantConstRoute[]) {
+  routes.sort((next, prev) => (Number(next.meta?.order) || 0) - (Number(prev.meta?.order) || 0));
+  routes.forEach(sortRouteByOrder);
+
+  return routes;
+}
 
 /**
  * Get global menus by auth routes
