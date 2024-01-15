@@ -25,6 +25,10 @@ export function createPermissionGuard(router: Router) {
     const loginRoute: RouteKey = 'login';
     const noPermissionRoute: RouteKey = '403';
 
+    // check whether the user has permission to access the route
+    // 1. if the route's "roles" is empty, then it is allowed to access
+    // 2. if the user is super admin, then it is allowed to access
+    // 3. if the user's role is included in the route's "roles", then it is allowed to access
     const SUPER_ADMIN = 'R_SUPER';
     const hasPermission =
       !routeRoles.length ||

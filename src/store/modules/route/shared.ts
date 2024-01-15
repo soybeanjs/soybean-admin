@@ -13,6 +13,7 @@ import SvgIcon from '@/components/custom/svg-icon.vue';
 export function filterAuthRoutesByRoles(routes: ElegantConstRoute[], roles: string[]) {
   const SUPER_ROLE = 'R_SUPER';
 
+  // if the user is super admin, then it is allowed to access all routes
   if (roles.includes(SUPER_ROLE)) {
     return routes;
   }
@@ -29,10 +30,12 @@ export function filterAuthRoutesByRoles(routes: ElegantConstRoute[], roles: stri
 function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]) {
   const routeRoles = (route.meta && route.meta.roles) || [];
 
+  // if the route's "roles" is empty, then it is allowed to access
   if (!routeRoles.length) {
     return [route];
   }
 
+  // if the user's role is included in the route's "roles", then it is allowed to access
   const hasPermission = routeRoles.some(role => roles.includes(role));
 
   const filterRoute = { ...route };
