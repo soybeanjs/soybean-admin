@@ -6,6 +6,10 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
+>[!IMPORTANT]
+> the old version of soybean-admin is moved to branch [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy). It is recommended to use the latest version of soybean-admin.
+> the documents of new version is processing, please wait patiently.
+
 ## Introduction
 
 [Soybean Admin](https://github.com/soybeanjs/soybean-admin) is a fresh and elegant admin template based on Vue3, Vite5, TypeScript, Pinia and UnoCSS. It uses the latest popular front-end technology stack, built-in rich theme configuration, has a very high code specification, and is has an automatic, intelligent file routing system. It use ApiFox to generate mock data, out-of-the-box admin solutions, can also be used for learning reference.

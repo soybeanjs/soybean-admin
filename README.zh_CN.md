@@ -6,6 +6,11 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
+>[!IMPORTANT]
+> 旧版本的 soybean-admin 已经移动到分支 [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy)。建议使用最新版本的 soybean-admin。
+> 新版本的文档正在编写中，请耐心等待。
+
+
 ## 简介
 
 [Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个基于 Vue3、Vite5、TypeScript、NaiveUI、Pinia 和 UnoCSS 的清新优雅的后台管理模板。采用最新流行的前端技术栈，内置丰富的主题配置，代码规范性极高，拥有自动化、智能化的文件路由系统。使用 ApiFox 生成模拟数据，开箱即用的后台管理解决方案，也可用于学习参考。
