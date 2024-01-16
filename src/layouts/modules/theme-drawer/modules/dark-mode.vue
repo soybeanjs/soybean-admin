@@ -28,9 +28,15 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
   <NDivider>{{ $t('theme.themeSchema.title') }}</NDivider>
   <div class="flex-vertical-stretch gap-16px">
     <div class="i-flex-center">
-      <NTabs type="segment" size="small" :value="themeStore.themeScheme" @update:value="handleSegmentChange">
+      <NTabs
+        type="segment"
+        size="small"
+        class="w-214px"
+        :value="themeStore.themeScheme"
+        @update:value="handleSegmentChange"
+      >
         <NTab v-for="(_, key) in themeSchemaRecord" :key="key" :name="key">
-          <SvgIcon :icon="icons[key]" class="h-28px text-icon-small" />
+          <SvgIcon :icon="icons[key]" class="h-23px text-icon-small" />
         </NTab>
       </NTabs>
     </div>
