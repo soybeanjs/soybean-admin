@@ -9,8 +9,7 @@ export default defineConfig(
         {
           ignores: ['index', 'App', '[id]']
         }
-      ],
-      'no-empty-function': 'off'
+      ]
     }
   }
 );
