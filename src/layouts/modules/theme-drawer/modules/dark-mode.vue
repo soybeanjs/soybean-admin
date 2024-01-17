@@ -31,7 +31,7 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
       <NTabs
         type="segment"
         size="small"
-        class="w-214px"
+        class="relative w-214px"
         :value="themeStore.themeScheme"
         @update:value="handleSegmentChange"
       >
