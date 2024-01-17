@@ -10,20 +10,21 @@ const loadingClasses = [
   'right-0 bottom-0 animate-delay-1500'
 ];
 
+const style = addThemeColorCssVars();
+
 function addThemeColorCssVars() {
   const themeColor = localStg.get('themeColor') || '#646cff';
 
   const { r, g, b } = getRgbOfColor(themeColor);
 
   const cssVars = `--primary-color: ${r} ${g} ${b}`;
-  document.documentElement.style.cssText = cssVars;
-}
 
-addThemeColorCssVars();
+  return cssVars;
+}
 </script>
 
 <template>
-  <div class="fixed-center flex-col">
+  <div class="fixed-center flex-col" :style="style">
     <SystemLogo class="text-128px text-primary" />
     <div class="w-56px h-56px my-36px">
       <div class="relative h-full animate-spin">

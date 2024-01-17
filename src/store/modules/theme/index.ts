@@ -126,11 +126,13 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       { immediate: true }
     );
 
-    // themeColors change, update css vars
+    // themeColors change, update css vars and storage theme color
     watch(
       themeColors,
-      () => {
+      val => {
         setupThemeVarsToHtml();
+
+        localStg.set('themeColor', val.primary);
       },
       { immediate: true }
     );
