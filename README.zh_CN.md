@@ -3,6 +3,7 @@
 	<h1>Soybean Admin</h1>
   <span><a href="./README.zh_CN.md">English</a> | 中文</span>
 </div>
+<br />
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
@@ -12,6 +13,10 @@
 
 > [!TIP]
 > 如果您觉得 Soybean Admin对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
+
+<br />
+
+[![Star History Chart](https://api.star-history.com/svg?repos=honghuangdc/soybean-admin&type=Date)](https://star-history.com/#honghuangdc/soybean-admin&Date)
 
 
 ## 简介
