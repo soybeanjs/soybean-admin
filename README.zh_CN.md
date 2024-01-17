@@ -10,20 +10,28 @@
 > 旧版本的 soybean-admin 已经移动到分支 [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy)。建议使用最新版本的 soybean-admin。
 > 新版本的文档正在编写中，请耐心等待。
 
+> [!TIP]
+> 如果您觉得 Soybean Admin对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
+
 
 ## 简介
 
-[Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个基于 Vue3、Vite5、TypeScript、NaiveUI、Pinia 和 UnoCSS 的清新优雅的后台管理模板。采用最新流行的前端技术栈，内置丰富的主题配置，代码规范性极高，拥有自动化、智能化的文件路由系统。使用 ApiFox 生成模拟数据，开箱即用的后台管理解决方案，也可用于学习参考。
+[Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个优雅且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。Soybean Admin 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习新技术的最佳实践。
 
 ## 特性
 
-- **最新流行技术栈**：Vue3、Vite5、TypeScript、NaiveUI、Pinia 和 UnoCSS。
-- **清晰的项目结构**：采用 pnpm monorepo，结构清晰优雅，易于维护。
-- **TypeScript**：严格的类型检查，易于维护。
-- **主题**：内置丰富的主题配置，轻松结合 UnoCSS。
-- **文件路由系统**：自动化、智能化的文件路由系统。更多细节请查看 [Elegant Router](https://github.com/soybeanjs/elegant-router)。
-- **权限路由**：支持前端静态路由和后端动态路由。
-- **代码规范**：代码规范性极高。更多细节请查看 [SoybeanJS Code Standard]()。
+- **前沿技术应用**：采用 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS 等最新流行的技术栈。
+- **清晰的项目架构**：采用 pnpm monorepo 架构，结构清晰，优雅易懂。
+- **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，集成了eslint, prettier 和 simple-git-hooks，保证代码的规范性。
+- **TypeScript**： 支持严格的类型检查，提高代码的可维护性。
+- **丰富的主题配置**：内置多样的主题配置，与 UnoCSS 完美结合。
+- **内置国际化方案**：轻松实现多语言支持。
+- **自动化文件路由系统**：自动生成路由导入、声明和类型。更多细节请查看 [Elegant Router](https://github.com/soybeanjs/elegant-router)。
+- **灵活的权限路由**：同时支持前端静态路由和后端动态路由。
+- **丰富的页面组件**：内置多样页面和组件，包括403、404、500页面，以及布局组件、标签组件、主题配置组件等。
+- **命令行工具**：内置高效的命令行工具，git提交、删除文件、发布等。
+- **移动端适配**：完美支持移动端，实现自适应布局。
+
 
 ## 预览
 
@@ -40,6 +48,7 @@
 | --- | --- | --- | --- |
 | NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://admin.soybeanjs.cn) |
 | AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
+| 文档 | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
 
 ## 示例图片
 
@@ -55,33 +64,35 @@
 
 ## 使用
 
-- 环境准备
+**环境准备**
 
-  - **NodeJS**: >= 18.0.0 (推荐 >=18.19.0)
-  > 推荐使用 [fnm](https://github.com/Schniz/fnm) 管理NodeJS版本. [安装教程](https://juejin.cn/post/7113462239734022158)
-  - **pnpm**: >= 8.0.0 (推荐 >=8.14.0)
-  - **git**
+确保你的环境满足以下要求：
 
-- 克隆项目
+- **git**: 你需要git来克隆和管理项目版本。
+- **NodeJS**: >=18.0.0，推荐 18.19.0 或更高。
+  > 你可以使用 [fnm](https://github.com/Schniz/fnm) 来管理你的NodeJS版本，[安装教程](https://juejin.cn/post/7113462239734022158)。
+- **pnpm**: >= 8.0.0，推荐 8.14.0 或更高。
+
+**克隆项目**
 
 ```bash
 git clone https://github.com/honghuangdc/soybean-admin.git
 ```
 
-- 安装依赖
+**安装依赖**
 
 ```bash
 pnpm i
 ```
-> 项目采用 pnpm monorepo，所以不能使用 npm 或 yarn 安装依赖。
+> 由于本项目采用了 pnpm monorepo 的管理方式，因此请不要使用 npm 或 yarn 来安装依赖。
 
-- 启动项目
+**启动项目**
 
 ```bash
 pnpm dev
 ```
 
-- 构建项目
+**构建项目**
 
 ```bash
 pnpm build
@@ -89,11 +100,12 @@ pnpm build
 
 ## 如何贡献
 
-我们欢迎所有的贡献。您可以将任何想法提交为 [pull requests](https://github.com/honghuangdc/soybean-admin/pulls) 或 GitHub [issue](https://github.com/honghuangdc/soybean-admin/issues/new)。
+我们热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://github.com/honghuangdc/soybean-admin/pulls) 或创建 GitHub [issue](https://github.com/honghuangdc/soybean-admin/issues/new) 来分享。
 
 ## Git 提交规范
 
-项目内置了 `commit` 命令，通过执行 `pnpm commit` 可以创建符合 [Conventional Commits](conventionalcommits) 的提交信息。
+本项目已内置 `commit` 命令，您可以通过执行 `pnpm commit` 来生成符合 [Conventional Commits](conventionalcommits) 规范的提交信息。在提交PR时，请务必使用 `commit` 命令来创建提交信息，以确保信息的规范性。
+
 
 ## 浏览器支持
 
@@ -123,7 +135,7 @@ pnpm build
 
 ## 捐赠
 
-如果您认为本项目对您有所帮助，可以请 Soybean 喝杯咖啡以示支持，Soybean 的开源动力离不开您的支持和鼓励。
+如果您觉得本项目对您有所帮助，欢迎您以买杯咖啡的方式来支持 Soybean。您的支持和鼓励是 Soybean 持续开源的重要动力。
 
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png)
 

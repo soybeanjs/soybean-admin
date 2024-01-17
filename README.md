@@ -10,19 +10,29 @@
 > the old version of soybean-admin is moved to branch [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy). It is recommended to use the latest version of soybean-admin.
 > the documents of new version is processing, please wait patiently.
 
+> [!TIP]
+> If you think Soybean Admin is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
+
 ## Introduction
 
-[Soybean Admin](https://github.com/soybeanjs/soybean-admin) is a fresh and elegant admin template based on Vue3, Vite5, TypeScript, Pinia and UnoCSS. It uses the latest popular front-end technology stack, built-in rich theme configuration, has a very high code specification, and is has an automatic, intelligent file routing system. It use ApiFox to generate mock data, out-of-the-box admin solutions, can also be used for learning reference.
+[Soybean Admin](https://github.com/soybeanjs/soybean-admin) is an elegant and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. Soybean Admin provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning new technologies quickly.
+
+
 
 ## Features
 
-- **Popular technology stack**：Vue3, Vite5, TypeScript, Pinia, UnoCSS.
-- **Clean Structure**：Use pnpm monorepo, clean and elegant structure, easy to maintain.
-- **TypeScript**：Strictly typed, easy to maintain.
-- **Theme**：Built-in rich theme configuration, easy to incorporate UnoCSS.
-- **File routing System**：Automatic, intelligent file routing system. more details in [Elegant Router](https://github.com/soybeanjs/elegant-router).
-- **Auth Router**: Support front-end static routing and back-end dynamic routing.
-- **Code Specification**：Very high code specification. more details in [SoybeanJS Code Standard]().
+- **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite5, TypeScript, Pinia and UnoCSS.
+- **Clear project architecture**: using pnpm monorepo architecture, clear structure, elegant and easy to understand.
+- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, prettier and simple-git-hooks to ensure the code is standardized.
+- **TypeScript**: support strict type checking to improve code maintainability.
+- **Rich theme configuration**: built-in a variety of theme configurations, perfectly integrated with UnoCSS.
+- **Built-in internationalization solution**: easily realize multi-language support.
+- **Automated file routing system**: automatically generate route import, declaration and type. For more details, please refer to [Elegant Router](https://github.com/soybeanjs/elegant-router).
+- **Flexible permission routing**: support both front-end static routing and back-end dynamic routing.
+- **Rich page components**: built-in a variety of pages and components, including 403, 404, 500 pages, as well as layout components, tag components, theme configuration components, etc.
+- **Command line tool**: built-in efficient command line tool, git commit, delete file, release, etc.
+- **Mobile adaptation**: perfectly support mobile terminal to realize adaptive layout.
+
 
 ## Preview
 
@@ -39,6 +49,7 @@
 | --- | --- | --- | --- |
 | NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://admin.soybeanjs.cn) |
 | AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
+| Documentation | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
 
 ## Example Images
 
@@ -54,33 +65,35 @@
 
 ## Usage
 
-- Environment Prepare
+**Environment Preparation**
 
-  - **NodeJS**: >= 18.0.0 (recommend >=18.19.0)
-  > recommend use [fnm](https://github.com/Schniz/fnm) to manage nodejs version. [Installation Tutorial](https://juejin.cn/post/7113462239734022158)
-  - **pnpm**: >= 8.0.0 (recommend >=8.14.0)
-  - **git**
+Make sure your environment meets the following requirements:
 
-- Clone Project
+- **git**: you need git to clone and manage project versions.
+- **NodeJS**: >=18.0.0, recommended 18.19.0 or higher.
+  > You can use [fnm](https://github.com/Schniz/fnm) to manage your NodeJS version, [installation tutorial](https://juejin.cn/post/7113462239734022158).
+- **pnpm**: >= 8.0.0, recommended 8.14.0 or higher.
+
+**Clone Project**
 
 ```bash
 git clone https://github.com/honghuangdc/soybean-admin.git
 ```
 
-- Install Dependencies
+**Install Dependencies**
 
 ```bash
 pnpm i
 ```
-> The project uses pnpm monorepo, so you can't use npm or yarn to install dependencies.
+> Since this project uses the pnpm monorepo management method, please do not use npm or yarn to install dependencies.
 
-- Start Project
+**Start Project**
 
 ```bash
 pnpm dev
 ```
 
-- Build Project
+**Build Project**
 
 ```bash
 pnpm build
@@ -88,11 +101,11 @@ pnpm build
 
 ## How to Contribute
 
-We welcome all contributions. You can submit any ideas as [pull requests](https://github.com/honghuangdc/soybean-admin/pulls) or as a GitHub [issue](https://github.com/honghuangdc/soybean-admin/issues/new).
+We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/honghuangdc/soybean-admin/pulls) or creating GitHub [issue](https://github.com/honghuangdc/soybean-admin/issues/new).
 
 ## Git Commit Guidelines
 
-The project has built-in command `commit`, so by executing `pnpm commit` you can create a commit message following [Conventional Commits](conventionalcommits)
+This project has built-in `commit` command, you can execute `pnpm commit` to generate commit information that conforms to [Conventional Commits](conventionalcommits) specification. When submitting PR, please be sure to use `commit` command to create commit information to ensure the standardization of information.
 
 ## Browser Support
 
@@ -120,7 +133,7 @@ It is recommended to use the latest version of Chrome in development for a bette
 
   <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" style="width:200px" />
 
-## Donation
+## Donate
 
 If you think this project is helpful to you, you can buy Soybean a drink to show your support, Soybean open source power can not be separated from your support and encouragement.
 
