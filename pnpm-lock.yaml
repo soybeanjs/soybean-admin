@@ -61,8 +61,8 @@ importers:
         version: 4.2.5(vue@3.4.15)
     devDependencies:
       '@elegant-router/vue':
-        specifier: 0.3.2
-        version: 0.3.2
+        specifier: 0.3.4
+        version: 0.3.4
       '@iconify/json':
         specifier: 2.2.170
         version: 2.2.170
@@ -835,8 +835,8 @@ packages:
       - '@algolia/client-search'
     dev: true
 
-  /@elegant-router/core@0.3.2:
-    resolution: {integrity: sha512-JEBnk3WpknXrtVtKhzkY/qbN+OkwuDhEJbxC0ciP/YIHB/yZ3nQ0bLEtJgbFRIiq+eJRQVZThp+oB3mPcSmO+w==}
+  /@elegant-router/core@0.3.4:
+    resolution: {integrity: sha512-kSiYz0SZF3kI14FYng8j71sa+gVw/Q9RX4eJ2ap8i0cEFxfQBJ9vtXOcIcPfVtCbpEYJZFHoYUb3/zpI/XOSRA==}
     dependencies:
       chokidar: 3.5.3
       consola: 3.2.3
@@ -845,17 +845,17 @@ packages:
       micromatch: 4.0.5
     dev: true
 
-  /@elegant-router/vue@0.3.2:
-    resolution: {integrity: sha512-F0RsEiFM7eb1MvTjxx1Ppr+MDo/Al2oP6YJxsTh/A80BY9l7BUz98J/Ev3t/gOVMtksSRLkolMUfQ81CEdwDTQ==}
+  /@elegant-router/vue@0.3.4:
+    resolution: {integrity: sha512-IKKLg1/m8tXZZwrZs7rx1MOKnLxQpGqIA5d1QGmIl5E0bcxA08Avi4AK75fZp1I1QZx7ku9vu7uewpnpXaf4wg==}
     dependencies:
-      '@elegant-router/core': 0.3.2
+      '@elegant-router/core': 0.3.4
       consola: 3.2.3
       kolorist: 1.8.0
       magic-string: 0.30.5
-      magicast: 0.3.2
-      prettier: 3.1.0
+      magicast: 0.3.3
+      prettier: 3.2.2
       recast: 0.23.4
-      unplugin: 1.5.1
+      unplugin: 1.6.0
     dev: true
 
   /@emotion/hash@0.8.0:
@@ -5546,8 +5546,8 @@ packages:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /magicast@0.3.2:
-    resolution: {integrity: sha512-Fjwkl6a0syt9TFN0JSYpOybxiMCkYNEeOTnOTNRbjphirLakznZXAqrXgj/7GG3D1dvETONNwrBfinvAbpunDg==}
+  /magicast@0.3.3:
+    resolution: {integrity: sha512-ZbrP1Qxnpoes8sz47AM0z08U+jW6TyRgZzcWy3Ma3vDhJttwMwAFDMMQFobwdBxByBD46JYmxRzeF7w2+wJEuw==}
     dependencies:
       '@babel/parser': 7.23.6
       '@babel/types': 7.23.6
@@ -6882,12 +6882,6 @@ packages:
       prettier: '>=2.0.0'
     dependencies:
       prettier: 3.2.2
-    dev: true
-
-  /prettier@3.1.0:
-    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
-    engines: {node: '>=14'}
-    hasBin: true
     dev: true
 
   /prettier@3.2.2:
@@ -8261,15 +8255,6 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
-    dev: true
-
-  /unplugin@1.5.1:
-    resolution: {integrity: sha512-0QkvG13z6RD+1L1FoibQqnvTwVBXvS4XSPwAyinVgoOCl2jAgwzdUKmEj05o4Lt8xwQI85Hb6mSyYkcAGwZPew==}
-    dependencies:
-      acorn: 8.11.3
-      chokidar: 3.5.3
-      webpack-sources: 3.2.3
-      webpack-virtual-modules: 0.6.1
     dev: true
 
   /unplugin@1.6.0:
