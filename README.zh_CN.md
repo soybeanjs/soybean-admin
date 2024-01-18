@@ -42,6 +42,7 @@
 
 - [NaiveUI](https://admin.soybeanjs.cn)
 - [AntDesign Vue](https://antd.soybeanjs.cn)
+- [旧版本](https://admin.soybeanjs.cn)
 
 ## 文档
 
@@ -53,6 +54,7 @@
 | --- | --- | --- | --- |
 | NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://admin.soybeanjs.cn) |
 | AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
+| 旧版本 | [github](https://github.com/honghuangdc/soybean-admin/tree/legacy) | [gitee](https://gitee.com/honghuangdc/soybean-admin/tree/legacy/) | [preview](https://admin.soybeanjs.cn) |
 | 文档 | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
 
 ## 示例图片
@@ -126,23 +128,18 @@ pnpm build
 
 ## 交流
 
-- [GitHub Issue](https://github.com/honghuangdc/soybean-admin/issues)
-<br />
-
-- QQ 群 :
-
-  <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq.jpeg" style="width:200px" />
-<br />
-
-- Soybean's 微信 (业务咨询或合作) :
-
-  <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" style="width:200px" />
+| 交流方式 | 链接或二维码 |
+| --- | --- |
+| GitHub Issue | [地址](https://github.com/honghuangdc/soybean-admin/issues) |
+| Discord | [地址](https://discord.gg/mEFKh8xm9y) |
+| QQ 群<br />技术交流、问题请教 | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq.jpeg" width="160" /> |
+| Soybean 的微信 <br />业务咨询、合作、项目架构、一对一指导等 | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" width="160" /> |
 
 ## 捐赠
 
 如果您觉得本项目对您有所帮助，欢迎您以买杯咖啡的方式来支持 Soybean。您的支持和鼓励是 Soybean 持续开源的重要动力。
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png)
+<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png" width="480" />
 
 ## 开源协议
 

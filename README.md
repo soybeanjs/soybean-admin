@@ -43,6 +43,7 @@
 
 - [NaiveUI](https://naive.soybeanjs.cn)
 - [AntDesign Vue](https://antd.soybeanjs.cn)
+- [Legacy](https://admin.soybeanjs.cn)
 
 ## Documentation
 
@@ -54,6 +55,7 @@
 | --- | --- | --- | --- |
 | NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://naive.soybeanjs.cn) |
 | AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
+| Legacy | [github](https://github.com/honghuangdc/soybean-admin/tree/legacy) | [gitee](https://gitee.com/honghuangdc/soybean-admin/tree/legacy/) | [preview](https://admin.soybeanjs.cn) |
 | Documentation | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
 
 ## Example Images
@@ -126,23 +128,18 @@ It is recommended to use the latest version of Chrome in development for a bette
 
 ## Communication
 
-- [GitHub Issue](https://github.com/honghuangdc/soybean-admin/issues)
-<br />
-
-- QQ Group :
-
-  <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq.jpeg" style="width:200px" />
-<br />
-
-- Soybean's Wechat (Business Consultancy or Cooperation) :
-
-  <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" style="width:200px" />
+| Communication | Link or QR Code |
+| --- | --- |
+| GitHub Issue | [Link](https://github.com/honghuangdc/soybean-admin/issues) |
+| Discord | [Link](https://discord.gg/mEFKh8xm9y) |
+| QQ Group<br />Technical communication, questions and answers | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq.jpeg" width="160" /> |
+| Soybean's WeChat <br />Business consulting, cooperation, project architecture, one-to-one guidance, etc. | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" width="160" /> |
 
 ## Donate
 
 If you think this project is helpful to you, you can buy Soybean a drink to show your support, Soybean open source power can not be separated from your support and encouragement.
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png)
+<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png" width="480" />
 
 ## License
 
