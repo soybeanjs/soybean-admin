@@ -22,6 +22,9 @@ export default defineConfig<Theme>({
       'icon-xl': '2rem'
     }
   },
+  shortcuts: {
+    'card-wrapper': 'rd-8px shadow-sm'
+  },
   transformers: [transformerDirectives(), transformerVariantGroup()],
   presets: [presetUno({ dark: 'class' }), presetSoybeanAdmin()]
 });

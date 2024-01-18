@@ -9,6 +9,24 @@
     "email": "soybeanjs@outlook.com",
     "url": "https://github.com/soybeanjs"
   },
+  "license": "MIT",
+  "homepage": "https://github.com/honghuangdc/soybean-admin",
+  "repository": {
+    "url": "https://github.com/honghuangdc/soybean-admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/honghuangdc/soybean-admin/issues"
+  },
+  "keywords": [
+    "Vue3 admin ",
+    "vue-admin-template",
+    "Vite5",
+    "TypeScript",
+    "naive-ui",
+    "naive-ui-admin",
+    "ant-design-vue v4",
+    "UnoCSS"
+  ],
   "scripts": {
     "build": "run-s typecheck build-only",
     "build-only": "vite build",
@@ -82,5 +100,6 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
-  }
+  },
+  "website": "https://admin.soybeanjs.cn"
 }
