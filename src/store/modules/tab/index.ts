@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue';
-import type { Router } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useEventListener } from '@vueuse/core';
 import { SetupStoreId } from '@/enum';
@@ -7,6 +7,7 @@ import { useRouterPush } from '@/hooks/common/router';
 import { localStg } from '@/utils/storage';
 import { useThemeStore } from '../theme';
 import {
+  filterTabsByAllRoutes,
   filterTabsById,
   filterTabsByIds,
   getAllTabs,
@@ -19,6 +20,7 @@ import {
 } from './shared';
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
+  const router = useRouter();
   const themeStore = useThemeStore();
   const { routerPush } = useRouterPush(false);
 
@@ -28,12 +30,8 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   /** Get active tab */
   const homeTab = ref<App.Global.Tab>();
 
-  /**
-   * Init home tab
-   *
-   * @param router Router instance
-   */
-  function initHomeTab(router: Router) {
+  /** Init home tab */
+  function initHomeTab() {
     homeTab.value = getDefaultHomeTab(router);
   }
 
@@ -61,7 +59,8 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const storageTabs = localStg.get('globalTabs');
 
     if (themeStore.tab.cache && storageTabs) {
-      tabs.value = updateTabsByI18nKey(storageTabs);
+      const filteredTabs = filterTabsByAllRoutes(router, storageTabs);
+      tabs.value = updateTabsByI18nKey(filteredTabs);
     }
 
     addTab(currentRoute);

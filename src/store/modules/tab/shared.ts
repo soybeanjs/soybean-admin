@@ -127,6 +127,20 @@ export function filterTabsByIds(tabIds: string[], tabs: App.Global.Tab[]) {
 }
 
 /**
+ * filter tabs by all routes
+ *
+ * @param router
+ * @param tabs
+ */
+export function filterTabsByAllRoutes(router: Router, tabs: App.Global.Tab[]) {
+  const routes = router.getRoutes();
+
+  const routeNames = routes.map(route => route.name);
+
+  return tabs.filter(tab => routeNames.includes(tab.routeKey));
+}
+
+/**
  * Get fixed tabs
  *
  * @param tabs

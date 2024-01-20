@@ -151,7 +151,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       await initDynamicAuthRoute();
     }
 
-    tabStore.initHomeTab(router);
+    tabStore.initHomeTab();
   }
 
   /** Init static auth route */
