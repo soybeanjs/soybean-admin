@@ -58,7 +58,7 @@ const cls = computed(() => {
   </DefineButton>
 
   <!-- template -->
-  <NTooltip v-if="tooltipContent" :placement="tooltipPlacement" :z-index="10">
+  <NTooltip v-if="tooltipContent" :placement="tooltipPlacement" :z-index="98">
     <template #trigger>
       <Button :class-name="cls" v-bind="$attrs">
         <slot>
