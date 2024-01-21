@@ -33,6 +33,7 @@
     "cleanup": "sa cleanup",
     "commit": "sa git-commit",
     "dev": "vite",
+    "gen-route": "sa gen-route",
     "lint": "eslint . --fix",
     "prepare": "simple-git-hooks",
     "preview": "vite preview",

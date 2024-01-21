@@ -1,10 +1,10 @@
 import cac from 'cac';
 import { blue, lightGreen } from 'kolorist';
 import { version } from '../package.json';
-import { cleanup, genChangelog, gitCommit, gitCommitVerify, release, updatePkg } from './commands';
+import { cleanup, genChangelog, generateRoute, gitCommit, gitCommitVerify, release, updatePkg } from './commands';
 import { loadCliOptions } from './config';
 
-type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify' | 'changelog' | 'release';
+type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify' | 'changelog' | 'release' | 'gen-route';
 
 type CommandAction<A extends object> = (args?: A) => Promise<void> | void;
 
@@ -81,6 +81,12 @@ export async function setupCli() {
       desc: 'release: update version, generate changelog, commit code',
       action: async args => {
         await release(args?.execute, args?.push);
+      }
+    },
+    'gen-route': {
+      desc: 'generate route',
+      action: async () => {
+        await generateRoute();
       }
     }
   };
