@@ -1,3 +1,5 @@
+import type { ChangelogOption } from '@soybeanjs/changelog';
+
 export interface CliOption {
   /** The project root directory */
   cwd: string;
@@ -23,11 +25,9 @@ export interface CliOption {
    */
   ncuCommandArgs: string[];
   /**
-   * Prettier write glob
+   * Options of generate changelog
    *
-   * Glob pattern syntax {@link https://github.com/micromatch/micromatch}
+   * @link https://github.com/soybeanjs/changelog
    */
-  prettierWriteGlob: string[];
-  /** Lint-staged config */
-  lintStagedConfig: Record<string, string | string[]>;
+  changelogOptions: Partial<ChangelogOption>;
 }

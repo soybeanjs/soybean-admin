@@ -2,8 +2,6 @@ import process from 'node:process';
 import { loadConfig } from 'c12';
 import type { CliOption } from '../types';
 
-const eslintExt = '*.{js,jsx,mjs,cjs,ts,tsx,vue}';
-
 const defaultOptions: CliOption = {
   cwd: process.cwd(),
   cleanupDirs: [
@@ -39,27 +37,7 @@ const defaultOptions: CliOption = {
     ['other', 'other changes']
   ],
   ncuCommandArgs: ['--deep', '-u'],
-  prettierWriteGlob: [
-    `!**/${eslintExt}`,
-    '!*.min.*',
-    '!CHANGELOG.md',
-    '!dist',
-    '!LICENSE*',
-    '!output',
-    '!coverage',
-    '!public',
-    '!temp',
-    '!package-lock.json',
-    '!pnpm-lock.yaml',
-    '!yarn.lock',
-    '!.github',
-    '!__snapshots__',
-    '!node_modules'
-  ],
-  lintStagedConfig: {
-    [eslintExt]: 'eslint --fix',
-    '*': 'sa prettier-write'
-  }
+  changelogOptions: {}
 };
 
 export async function loadCliOptions(overrides?: Partial<CliOption>, cwd = process.cwd()) {
