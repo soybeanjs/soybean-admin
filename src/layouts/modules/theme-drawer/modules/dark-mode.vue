@@ -29,6 +29,7 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
   <div class="flex-vertical-stretch gap-16px">
     <div class="i-flex-center">
       <NTabs
+        :key="themeStore.themeScheme"
         type="segment"
         size="small"
         class="relative w-214px"
