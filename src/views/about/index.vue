@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { $t } from '@/locales';
+import { useAppStore } from '@/store/modules/app';
 import pkg from '~/package.json';
+
+const appStore = useAppStore();
+
+const column = computed(() => (appStore.isMobile ? 1 : 2));
 
 interface PkgJson {
   name: string;
@@ -40,7 +46,7 @@ const latestBuildTime = BUILD_TIME;
       <p>{{ $t('page.about.introduction') }}</p>
     </NCard>
     <NCard :title="$t('page.about.projectInfo.title')" :bordered="false" size="large" class="card-wrapper">
-      <NDescriptions label-placement="left" bordered size="small" :column="2">
+      <NDescriptions label-placement="left" bordered size="small" :column="column">
         <NDescriptionsItem :label="$t('page.about.projectInfo.version')">
           <NTag type="primary">{{ pkgJson.version }}</NTag>
         </NDescriptionsItem>
@@ -60,14 +66,14 @@ const latestBuildTime = BUILD_TIME;
       </NDescriptions>
     </NCard>
     <NCard :title="$t('page.about.prdDep')" :bordered="false" size="large" class="card-wrapper">
-      <NDescriptions label-placement="left" bordered size="small">
+      <NDescriptions label-placement="left" bordered size="small" :column="column">
         <NDescriptionsItem v-for="item in pkgJson.dependencies" :key="item.name" :label="item.name">
           {{ item.version }}
         </NDescriptionsItem>
       </NDescriptions>
     </NCard>
     <NCard :title="$t('page.about.devDep')" :bordered="false" size="large" class="card-wrapper">
-      <NDescriptions label-placement="left" bordered size="small">
+      <NDescriptions label-placement="left" bordered size="small" :column="column">
         <NDescriptionsItem v-for="item in pkgJson.devDependencies" :key="item.name" :label="item.name">
           {{ item.version }}
         </NDescriptionsItem>
