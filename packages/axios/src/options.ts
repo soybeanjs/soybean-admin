@@ -1,5 +1,6 @@
 import type { CreateAxiosDefaults } from 'axios';
 import type { IAxiosRetryConfig } from 'axios-retry';
+import { stringify } from 'qs';
 import { isHttpSuccess } from './shared';
 import type { RequestOption } from './type';
 
@@ -35,7 +36,10 @@ export function createAxiosConfig(config?: Partial<CreateAxiosDefaults>) {
     headers: {
       'Content-Type': 'application/json'
     },
-    validateStatus: isHttpSuccess
+    validateStatus: isHttpSuccess,
+    paramsSerializer: params => {
+      return stringify(params);
+    }
   };
 
   Object.assign(axiosConfig, config);
