@@ -141,6 +141,14 @@ pnpm build
 
 <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png" width="480" />
 
+## 贡献者
+
+感谢以下贡献者的贡献。如果您想为本项目做出贡献，请参考 [如何贡献](#如何贡献)。
+
+<a href="https://github.com/honghuangdc/soybean-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=honghuangdc/soybean-admin" />
+</a>
+
 ## 开源协议
 
 项目基于 [MIT © 2021 Soybean](./LICENSE) 协议，仅供学习参考，商业使用请保留作者版权信息，作者不保证也不承担任何软件的使用风险。

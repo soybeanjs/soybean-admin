@@ -141,6 +141,14 @@ If you think this project is helpful to you, you can buy Soybean a drink to show
 
 <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png" width="480" />
 
+## Contributors
+
+Thanks the following people for their contributions. If you want to contribute to this project, please refer to [How to Contribute](#how-to-contribute).
+
+<a href="https://github.com/honghuangdc/soybean-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=honghuangdc/soybean-admin" />
+</a>
+
 ## License
 
 This project is based on the [MIT © 2021 Soybean](./LICENSE) protocol, for learning purposes only, please retain the author's copyright information for commercial use, the author does not guarantee and is not responsible for the software.
