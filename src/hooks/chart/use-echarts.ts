@@ -1,5 +1,4 @@
-import { effectScope, nextTick, onScopeDispose, ref, watch } from 'vue';
-import type { ComputedRef, Ref } from 'vue';
+import { computed, effectScope, nextTick, onScopeDispose, ref, watch } from 'vue';
 import * as echarts from 'echarts/core';
 import { BarChart, GaugeChart, LineChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
 import type {
@@ -31,6 +30,7 @@ import type {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useElementSize } from '@vueuse/core';
+import { useThemeStore } from '@/store/modules/theme';
 
 export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
@@ -70,58 +70,95 @@ echarts.use([
 
 interface ChartHooks {
   onRender?: (chart: echarts.ECharts) => void | Promise<void>;
+  onUpdated?: (chart: echarts.ECharts) => void | Promise<void>;
   onDestroy?: (chart: echarts.ECharts) => void | Promise<void>;
 }
 
 /**
  * use echarts
  *
- * @param options echarts options
+ * @param optionsFactory echarts options factory function
  * @param darkMode dark mode
  */
-export function useEcharts(options: ECOption, darkMode: Ref<boolean> | ComputedRef<boolean>, hooks?: ChartHooks) {
+export function useEcharts<T extends ECOption>(
+  optionsFactory: () => T,
+  hooks: ChartHooks = {
+    onRender(chart) {
+      chart.showLoading();
+    },
+    onUpdated(chart) {
+      chart.hideLoading();
+    }
+  }
+) {
   const scope = effectScope();
 
-  const domRef = ref<HTMLElement | null>(null);
+  const themeStore = useThemeStore();
+  const darkMode = computed(() => themeStore.darkMode);
 
+  const domRef = ref<HTMLElement | null>(null);
   const initialSize = { width: 0, height: 0 };
   const { width, height } = useElementSize(domRef, initialSize);
 
   let chart: echarts.ECharts | null = null;
+  const chartOptions: T = optionsFactory();
 
+  /**
+   * whether can render chart
+   *
+   * when domRef is ready and initialSize is valid
+   */
   function canRender() {
-    return initialSize.width > 0 && initialSize.height > 0;
+    return domRef.value && initialSize.width > 0 && initialSize.height > 0;
   }
 
+  /** is chart rendered */
   function isRendered() {
     return Boolean(domRef.value && chart);
   }
 
-  function setOptions(opts: ECOption) {
+  /**
+   * update chart options
+   *
+   * @param callback callback function
+   */
+  async function updateOptions(callback: (opts: T, optsFactory: () => T) => ECOption = () => chartOptions) {
+    if (!isRendered()) return;
+
+    const updatedOpts = callback(chartOptions, optionsFactory);
+
+    Object.assign(chartOptions, updatedOpts);
+
     if (isRendered()) {
       chart?.clear();
-      chart?.setOption({ ...opts, backgroundColor: 'transparent' });
     }
+
+    chart?.setOption({ ...updatedOpts, backgroundColor: 'transparent' });
+
+    await hooks?.onUpdated?.(chart!);
   }
 
+  /** render chart */
   async function render() {
-    if (domRef.value) {
+    if (!isRendered()) {
       const chartTheme = darkMode.value ? 'dark' : 'light';
 
       await nextTick();
 
       chart = echarts.init(domRef.value, chartTheme);
 
-      setOptions(options);
+      chart.setOption({ ...chartOptions, backgroundColor: 'transparent' });
 
       await hooks?.onRender?.(chart);
     }
   }
 
+  /** resize chart */
   function resize() {
     chart?.resize();
   }
 
+  /** destroy chart */
   async function destroy() {
     if (!chart) return;
 
@@ -130,16 +167,18 @@ export function useEcharts(options: ECOption, darkMode: Ref<boolean> | ComputedR
     chart = null;
   }
 
+  /** change chart theme */
   async function changeTheme() {
     await destroy();
     await render();
+    await hooks?.onUpdated?.(chart!);
   }
 
   /**
    * render chart by size
    *
-   * @param w
-   * @param h
+   * @param w width
+   * @param h height
    */
   async function renderChartBySize(w: number, h: number) {
     initialSize.width = w;
@@ -152,14 +191,13 @@ export function useEcharts(options: ECOption, darkMode: Ref<boolean> | ComputedR
       return;
     }
 
-    // render chart
-    if (!isRendered()) {
-      await render();
-      return;
+    // resize chart
+    if (isRendered()) {
+      resize();
     }
 
-    // resize chart
-    resize();
+    // render chart
+    await render();
   }
 
   scope.run(() => {
@@ -179,6 +217,6 @@ export function useEcharts(options: ECOption, darkMode: Ref<boolean> | ComputedR
 
   return {
     domRef,
-    setOptions
+    updateOptions
   };
 }

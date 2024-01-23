@@ -369,6 +369,18 @@ declare namespace App {
           prdDep: string;
           devDep: string;
         };
+        home: {
+          downloadCount: string;
+          registerCount: string;
+          schedule: string;
+          study: string;
+          work: string;
+          rest: string;
+          entertainment: string;
+          visit: string;
+          amount: string;
+          trade: string;
+        };
       };
       form: {
         userName: FormMsg;

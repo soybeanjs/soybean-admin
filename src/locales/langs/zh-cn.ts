@@ -184,6 +184,18 @@ const local: App.I18n.Schema = {
       },
       prdDep: '生产依赖',
       devDep: '开发依赖'
+    },
+    home: {
+      downloadCount: '下载量',
+      registerCount: '注册量',
+      schedule: '作息安排',
+      study: '学习',
+      work: '工作',
+      rest: '休息',
+      entertainment: '娱乐',
+      visit: '访问量',
+      amount: '成交额',
+      trade: '成交量'
     }
   },
   form: {

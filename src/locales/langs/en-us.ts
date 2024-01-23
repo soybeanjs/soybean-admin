@@ -184,6 +184,18 @@ const local: App.I18n.Schema = {
       },
       prdDep: 'Production Dependency',
       devDep: 'Development Dependency'
+    },
+    home: {
+      downloadCount: 'Download Count',
+      registerCount: 'Register Count',
+      schedule: 'Work and rest Schedule',
+      study: 'Study',
+      work: 'Work',
+      rest: 'Rest',
+      entertainment: 'Entertainment',
+      visit: 'Visit Count',
+      amount: 'Amount',
+      trade: 'Trade Count'
     }
   },
   form: {
