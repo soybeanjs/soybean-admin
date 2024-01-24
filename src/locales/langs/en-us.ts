@@ -111,6 +111,9 @@ const local: App.I18n.Schema = {
     home: 'Home',
     'user-center': 'User Center',
     about: 'About',
+    function: 'System Function',
+    function_tab: 'Tab',
+    'function_multi-tab': 'Multi Tab',
     manage: 'System Manage',
     manage_user: 'User Manage',
     'manage_user-detail': 'User Detail',
@@ -211,6 +214,32 @@ const local: App.I18n.Schema = {
         desc5: 'Soybean just wrote some of the workbench pages casually, and it was enough to see!'
       },
       creativity: 'Creativity'
+    },
+    function: {
+      tab: {
+        tabOperate: {
+          title: 'Tab Operation',
+          addTab: 'Add Tab',
+          addTabDesc: 'To about page',
+          closeTab: 'Close Tab',
+          closeCurrentTab: 'Close Current Tab',
+          closeAboutTab: 'Close "About" Tab',
+          addMultiTab: 'Add Multi Tab',
+          addMultiTabDesc1: 'To MultiTab page',
+          addMultiTabDesc2: 'To MultiTab page(with query params)'
+        },
+        tabTitle: {
+          title: 'Tab Title',
+          changeTitle: 'Change Title',
+          change: 'Change',
+          resetTitle: 'Reset Title',
+          reset: 'Reset'
+        }
+      },
+      multiTab: {
+        routeParam: 'Route Param',
+        backTab: 'Back function_tab'
+      }
     }
   },
   form: {

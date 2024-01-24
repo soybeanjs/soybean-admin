@@ -1,5 +1,5 @@
 import type { Router } from 'vue-router';
-import type { LastLevelRouteKey, RouteMap } from '@elegant-router/types';
+import type { LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types';
 import { $t } from '@/locales';
 import { getRoutePath } from '@/router/elegant/transform';
 
@@ -166,10 +166,12 @@ export function getFixedTabIds(tabs: App.Global.Tab[]) {
  * @param tabs
  */
 function updateTabsLabel(tabs: App.Global.Tab[]) {
-  return tabs.map(tab => ({
+  const updated = tabs.map(tab => ({
     ...tab,
-    label: tab.newLabel || tab.label
+    label: tab.newLabel || tab.oldLabel || tab.label
   }));
+
+  return updated;
 }
 
 /**
@@ -193,4 +195,19 @@ export function updateTabByI18nKey(tab: App.Global.Tab) {
  */
 export function updateTabsByI18nKey(tabs: App.Global.Tab[]) {
   return tabs.map(tab => updateTabByI18nKey(tab));
+}
+
+/**
+ * find tab by route name
+ *
+ * @param name
+ * @param tabs
+ */
+export function findTabByRouteName(name: RouteKey, tabs: App.Global.Tab[]) {
+  const routePath = getRoutePath(name);
+
+  const tabId = routePath;
+  const multiTabId = `${routePath}?`;
+
+  return tabs.find(tab => tab.id === tabId || tab.id.startsWith(multiTabId));
 }

@@ -2,6 +2,7 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useEventListener } from '@vueuse/core';
+import type { RouteKey } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
 import { localStg } from '@/utils/storage';
@@ -10,6 +11,7 @@ import {
   filterTabsByAllRoutes,
   filterTabsById,
   filterTabsByIds,
+  findTabByRouteName,
   getAllTabs,
   getDefaultHomeTab,
   getFixedTabIds,
@@ -112,6 +114,23 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     }
   }
 
+  /** remove active tab */
+  async function removeActiveTab() {
+    await removeTab(activeTabId.value);
+  }
+
+  /**
+   * remove tab by route name
+   *
+   * @param routeName route name
+   */
+  async function removeTabByRouteName(routeName: RouteKey) {
+    const tab = findTabByRouteName(routeName, tabs.value);
+    if (!tab) return;
+
+    await removeTab(tab.id);
+  }
+
   /**
    * Clear tabs
    *
@@ -192,6 +211,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const tab = tabs.value.find(item => item.id === id);
     if (!tab) return;
 
+    tab.oldLabel = tab.label;
     tab.newLabel = label;
   }
 
@@ -252,6 +272,8 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     initTabStore,
     addTab,
     removeTab,
+    removeActiveTab,
+    removeTabByRouteName,
     clearTabs,
     clearLeftTabs,
     clearRightTabs,

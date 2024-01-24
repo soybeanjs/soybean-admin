@@ -185,6 +185,12 @@ declare namespace App {
        * If set, the tab label will be replaced by this value
        */
       newLabel?: string;
+      /**
+       * The old tab label
+       *
+       * when reset the tab label, the tab label will be replaced by this value
+       */
+      oldLabel?: string;
       /** The tab route key */
       routeKey: LastLevelRouteKey;
       /** The tab route path */
@@ -395,6 +401,32 @@ declare namespace App {
             desc5: string;
           };
           creativity: string;
+        };
+        function: {
+          tab: {
+            tabOperate: {
+              title: string;
+              addTab: string;
+              addTabDesc: string;
+              closeTab: string;
+              closeCurrentTab: string;
+              closeAboutTab: string;
+              addMultiTab: string;
+              addMultiTabDesc1: string;
+              addMultiTabDesc2: string;
+            };
+            tabTitle: {
+              title: string;
+              changeTitle: string;
+              change: string;
+              resetTitle: string;
+              reset: string;
+            };
+          };
+          multiTab: {
+            routeParam: string;
+            backTab: string;
+          };
         };
       };
       form: {

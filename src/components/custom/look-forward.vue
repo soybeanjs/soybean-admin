@@ -11,7 +11,9 @@ defineOptions({
     <div class="flex text-400px text-primary">
       <SvgIcon local-icon="expectation" />
     </div>
-    <h3 class="text-28px font-500 text-primary">{{ $t('common.lookForward') }}</h3>
+    <slot>
+      <h3 class="text-28px font-500 text-primary">{{ $t('common.lookForward') }}</h3>
+    </slot>
   </div>
 </template>
 

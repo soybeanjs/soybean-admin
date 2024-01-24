@@ -111,6 +111,9 @@ const local: App.I18n.Schema = {
     home: '首页',
     'user-center': '个人中心',
     about: '关于',
+    function: '系统功能',
+    function_tab: '标签页',
+    'function_multi-tab': '多标签页',
     manage: '系统管理',
     manage_user: '用户管理',
     'manage_user-detail': '用户详情',
@@ -211,6 +214,32 @@ const local: App.I18n.Schema = {
         desc5: 'Soybean 刚才把工作台页面随便写了一些，凑合能看了！'
       },
       creativity: '创意'
+    },
+    function: {
+      tab: {
+        tabOperate: {
+          title: '标签页操作',
+          addTab: '添加标签页',
+          addTabDesc: '跳转到关于页面',
+          closeTab: '关闭标签页',
+          closeCurrentTab: '关闭当前标签页',
+          closeAboutTab: '关闭"关于"标签页',
+          addMultiTab: '添加多标签页',
+          addMultiTabDesc1: '跳转到多标签页页面',
+          addMultiTabDesc2: '跳转到多标签页页面(带有查询参数)'
+        },
+        tabTitle: {
+          title: '标签页标题',
+          changeTitle: '修改标题',
+          change: '修改',
+          resetTitle: '重置标题',
+          reset: '重置'
+        }
+      },
+      multiTab: {
+        routeParam: '路由参数',
+        backTab: '返回 function_tab'
+      }
     }
   },
   form: {

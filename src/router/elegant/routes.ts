@@ -48,6 +48,42 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'function',
+    path: '/function',
+    component: 'layout.base',
+    meta: {
+      title: 'function',
+      i18nKey: 'route.function',
+      icon: 'icon-park-outline:all-application',
+      order: 6
+    },
+    children: [
+      {
+        name: 'function_multi-tab',
+        path: '/function/multi-tab',
+        component: 'view.function_multi-tab',
+        meta: {
+          title: 'function_multi-tab',
+          i18nKey: 'route.function_multi-tab',
+          icon: 'ic:round-tab',
+          multiTab: true,
+          hideInMenu: true,
+          activeMenu: 'function_tab'
+        }
+      },
+      {
+        name: 'function_tab',
+        path: '/function/tab',
+        component: 'view.function_tab',
+        meta: {
+          title: 'function_tab',
+          i18nKey: 'route.function_tab',
+          icon: 'ic:round-tab'
+        }
+      }
+    ]
+  },
+  {
     name: 'home',
     path: '/home',
     component: 'layout.base$view.home',
