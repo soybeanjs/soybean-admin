@@ -370,6 +370,11 @@ declare namespace App {
           devDep: string;
         };
         home: {
+          greeting: string;
+          weatherDesc: string;
+          projectCount: string;
+          todo: string;
+          message: string;
           downloadCount: string;
           registerCount: string;
           schedule: string;
@@ -377,9 +382,19 @@ declare namespace App {
           work: string;
           rest: string;
           entertainment: string;
-          visit: string;
-          amount: string;
-          trade: string;
+          visitCount: string;
+          turnover: string;
+          dealCount: string;
+          projectNews: {
+            title: string;
+            moreNews: string;
+            desc1: string;
+            desc2: string;
+            desc3: string;
+            desc4: string;
+            desc5: string;
+          };
+          creativity: string;
         };
       };
       form: {

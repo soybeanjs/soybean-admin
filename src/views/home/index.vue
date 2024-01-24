@@ -3,7 +3,9 @@ import { computed, watch } from 'vue';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useEcharts } from '@/hooks/chart/use-echarts';
-import GradientBg from './components/gradient-bg.vue';
+import HeaderBanner from './components/header-banner.vue';
+import CardData from './components/card-data.vue';
+import ProjectNews from './components/project-news.vue';
 
 const appStore = useAppStore();
 
@@ -201,50 +203,6 @@ function updatePieLocale() {
   });
 }
 
-interface CardData {
-  key: string;
-  title: string;
-  value: number;
-  unit: string;
-  colors: [string, string];
-  icon: string;
-}
-
-const cardData = computed<CardData[]>(() => [
-  {
-    key: 'visit',
-    title: $t('page.home.visit'),
-    value: 1000000,
-    unit: '',
-    colors: ['#ec4786', '#b955a4'],
-    icon: 'ant-design:bar-chart-outlined'
-  },
-  {
-    key: 'amount',
-    title: $t('page.home.amount'),
-    value: 234567.89,
-    unit: '$',
-    colors: ['#865ec0', '#5144b4'],
-    icon: 'ant-design:money-collect-outlined'
-  },
-  {
-    key: 'download',
-    title: $t('page.home.downloadCount'),
-    value: 666666,
-    unit: '',
-    colors: ['#56cdf3', '#719de3'],
-    icon: 'carbon:document-download'
-  },
-  {
-    key: 'trade',
-    title: $t('page.home.trade'),
-    value: 999999,
-    unit: '',
-    colors: ['#fcbc25', '#f68057'],
-    icon: 'ant-design:trademark-circle-outlined'
-  }
-]);
-
 async function init() {
   mockLineData();
   mockPieData();
@@ -264,53 +222,32 @@ init();
 
 <template>
   <NSpace vertical :size="16">
+    <HeaderBanner />
     <NGrid :x-gap="gap" :y-gap="16" responsive="screen" item-responsive>
-      <NGi span="24 s:24 m:6">
-        <NCard :bordered="false" class="card-wrapper">
-          <div class="w-full h-360px py-12px">
-            <h3 class="text-16px font-bold">Dashboard</h3>
-            <p class="text-#aaa">Overview Of Lasted Month</p>
-            <h3 class="pt-32px text-24px font-bold">
-              <CountTo prefix="$" :start-value="0" :end-value="7754" />
-            </h3>
-            <p class="text-#aaa">Current Month Earnings</p>
-            <h3 class="pt-32px text-24px font-bold">
-              <CountTo :start-value="0" :end-value="1234" />
-            </h3>
-            <p class="text-#aaa">Current Month Sales</p>
-            <NButton class="mt-24px whitespace-pre-wrap" type="primary">Last Month Summary</NButton>
-          </div>
-        </NCard>
-      </NGi>
-      <NGi span="24 s:24 m:10">
+      <NGi span="24 s:24 m:14">
         <NCard :bordered="false" class="card-wrapper">
           <div ref="lineRef" class="h-360px overflow-hidden"></div>
         </NCard>
       </NGi>
-      <NGi span="24 s:24 m:8">
+      <NGi span="24 s:24 m:10">
         <NCard :bordered="false" class="card-wrapper">
           <div ref="pieRef" class="h-360px"></div>
         </NCard>
       </NGi>
     </NGrid>
-    <NCard :bordered="false" class="card-wrapper">
-      <NGrid cols="s:1 m:2 l:4" responsive="screen" :x-gap="16" :y-gap="16">
-        <NGi v-for="item in cardData" :key="item.key">
-          <GradientBg :start-color="item.colors[0]" :end-color="item.colors[1]" class="flex-1">
-            <h3 class="text-16px">{{ item.title }}</h3>
-            <div class="flex justify-between pt-12px">
-              <SvgIcon :icon="item.icon" class="text-32px" />
-              <CountTo
-                :prefix="item.unit"
-                :start-value="1"
-                :end-value="item.value"
-                class="text-30px text-white dark:text-dark"
-              />
-            </div>
-          </GradientBg>
-        </NGi>
-      </NGrid>
-    </NCard>
+    <CardData />
+    <NGrid :x-gap="gap" :y-gap="16" responsive="screen" item-responsive>
+      <NGi span="24 s:24 m:14">
+        <ProjectNews />
+      </NGi>
+      <NGi span="24 s:24 m:10">
+        <NCard :title="$t('page.home.creativity')" :bordered="false" size="small" class="card-wrapper h-full">
+          <div class="flex-center h-full">
+            <IconLocalBanner class="text-400px sm:text-320px text-primary" />
+          </div>
+        </NCard>
+      </NGi>
+    </NGrid>
   </NSpace>
 </template>
 
