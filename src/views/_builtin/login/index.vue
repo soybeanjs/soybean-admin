@@ -6,11 +6,11 @@ import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { loginModuleRecord } from '@/constants/app';
-import PwdLogin from './components/pwd-login.vue';
-import CodeLogin from './components/code-login.vue';
-import Register from './components/register.vue';
-import ResetPwd from './components/reset-pwd.vue';
-import BindWechat from './components/bind-wechat.vue';
+import PwdLogin from './modules/pwd-login.vue';
+import CodeLogin from './modules/code-login.vue';
+import Register from './modules/register.vue';
+import ResetPwd from './modules/reset-pwd.vue';
+import BindWechat from './modules/bind-wechat.vue';
 
 interface Props {
   /** The login module */
