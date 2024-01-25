@@ -27,37 +27,26 @@ function resetTabLabel() {
       segmented
       class="card-wrapper"
     >
-      <NList>
-        <NListItem>
-          <NThing :title="$t('page.function.tab.tabOperate.addTab')">
-            <NButton @click="routerPushByKey('about')">{{ $t('page.function.tab.tabOperate.addTabDesc') }}</NButton>
-          </NThing>
-        </NListItem>
-        <NListItem>
-          <NThing :title="$t('page.function.tab.tabOperate.closeTab')">
-            <NSpace>
-              <NButton @click="tabStore.removeActiveTab">
-                {{ $t('page.function.tab.tabOperate.closeCurrentTab') }}
-              </NButton>
-              <NButton @click="tabStore.removeTabByRouteName('about')">
-                {{ $t('page.function.tab.tabOperate.closeAboutTab') }}
-              </NButton>
-            </NSpace>
-          </NThing>
-        </NListItem>
-        <NListItem>
-          <NThing :title="$t('page.function.tab.tabOperate.addMultiTab')">
-            <NSpace>
-              <NButton @click="routerPushByKey('function_multi-tab')">
-                {{ $t('page.function.tab.tabOperate.addMultiTabDesc1') }}
-              </NButton>
-              <NButton @click="routerPushByKey('function_multi-tab', { query: { a: '1' } })">
-                {{ $t('page.function.tab.tabOperate.addMultiTabDesc2') }}
-              </NButton>
-            </NSpace>
-          </NThing>
-        </NListItem>
-      </NList>
+      <NDivider title-placement="left">{{ $t('page.function.tab.tabOperate.addTab') }}</NDivider>
+      <NButton @click="routerPushByKey('about')">{{ $t('page.function.tab.tabOperate.addTabDesc') }}</NButton>
+      <NDivider title-placement="left">{{ $t('page.function.tab.tabOperate.closeTab') }}</NDivider>
+      <NSpace>
+        <NButton @click="tabStore.removeActiveTab">
+          {{ $t('page.function.tab.tabOperate.closeCurrentTab') }}
+        </NButton>
+        <NButton @click="tabStore.removeTabByRouteName('about')">
+          {{ $t('page.function.tab.tabOperate.closeAboutTab') }}
+        </NButton>
+      </NSpace>
+      <NDivider title-placement="left">{{ $t('page.function.tab.tabOperate.addMultiTab') }}</NDivider>
+      <NSpace>
+        <NButton @click="routerPushByKey('function_multi-tab')">
+          {{ $t('page.function.tab.tabOperate.addMultiTabDesc1') }}
+        </NButton>
+        <NButton @click="routerPushByKey('function_multi-tab', { query: { a: '1' } })">
+          {{ $t('page.function.tab.tabOperate.addMultiTabDesc2') }}
+        </NButton>
+      </NSpace>
     </NCard>
     <NCard
       :title="$t('page.function.tab.tabTitle.title')"
@@ -66,21 +55,15 @@ function resetTabLabel() {
       segmented
       class="card-wrapper"
     >
-      <NList>
-        <NListItem>
-          <NThing :title="$t('page.function.tab.tabTitle.changeTitle')">
-            <NInputGroup class="w-240px">
-              <NInput v-model:value="tabLabel" />
-              <NButton @click="changeTabLabel">{{ $t('page.function.tab.tabTitle.change') }}</NButton>
-            </NInputGroup>
-          </NThing>
-        </NListItem>
-        <NListItem>
-          <NThing :title="$t('page.function.tab.tabTitle.resetTitle')">
-            <NButton @click="resetTabLabel">{{ $t('page.function.tab.tabTitle.reset') }}</NButton>
-          </NThing>
-        </NListItem>
-      </NList>
+      <NDivider title-placement="left">{{ $t('page.function.tab.tabTitle.changeTitle') }}</NDivider>
+      <NInputGroup class="max-w-240px">
+        <NInput v-model:value="tabLabel" />
+        <NButton type="primary" @click="changeTabLabel">{{ $t('page.function.tab.tabTitle.change') }}</NButton>
+      </NInputGroup>
+      <NDivider title-placement="left">{{ $t('page.function.tab.tabTitle.resetTitle') }}</NDivider>
+      <NButton type="error" ghost class="w-80px" @click="resetTabLabel">
+        {{ $t('page.function.tab.tabTitle.reset') }}
+      </NButton>
     </NCard>
   </NSpace>
 </template>
