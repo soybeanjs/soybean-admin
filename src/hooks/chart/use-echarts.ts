@@ -80,17 +80,7 @@ interface ChartHooks {
  * @param optionsFactory echarts options factory function
  * @param darkMode dark mode
  */
-export function useEcharts<T extends ECOption>(
-  optionsFactory: () => T,
-  hooks: ChartHooks = {
-    onRender(chart) {
-      chart.showLoading();
-    },
-    onUpdated(chart) {
-      chart.hideLoading();
-    }
-  }
-) {
+export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: ChartHooks = {}) {
   const scope = effectScope();
 
   const themeStore = useThemeStore();
@@ -102,6 +92,24 @@ export function useEcharts<T extends ECOption>(
 
   let chart: echarts.ECharts | null = null;
   const chartOptions: T = optionsFactory();
+
+  const {
+    onRender = instance => {
+      const textColor = darkMode.value ? 'rgb(224, 224, 224)' : 'rgb(31, 31, 31)';
+      const maskColor = darkMode.value ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.8)';
+
+      instance.showLoading({
+        color: themeStore.themeColor,
+        textColor,
+        fontSize: 14,
+        maskColor
+      });
+    },
+    onUpdated = instance => {
+      instance.hideLoading();
+    },
+    onDestroy
+  } = hooks;
 
   /**
    * whether can render chart
@@ -135,7 +143,7 @@ export function useEcharts<T extends ECOption>(
 
     chart?.setOption({ ...updatedOpts, backgroundColor: 'transparent' });
 
-    await hooks?.onUpdated?.(chart!);
+    await onUpdated?.(chart!);
   }
 
   /** render chart */
@@ -149,7 +157,7 @@ export function useEcharts<T extends ECOption>(
 
       chart.setOption({ ...chartOptions, backgroundColor: 'transparent' });
 
-      await hooks?.onRender?.(chart);
+      await onRender?.(chart);
     }
   }
 
@@ -162,7 +170,7 @@ export function useEcharts<T extends ECOption>(
   async function destroy() {
     if (!chart) return;
 
-    await hooks?.onDestroy?.(chart);
+    await onDestroy?.(chart);
     chart?.dispose();
     chart = null;
   }
@@ -171,7 +179,7 @@ export function useEcharts<T extends ECOption>(
   async function changeTheme() {
     await destroy();
     await render();
-    await hooks?.onUpdated?.(chart!);
+    await onUpdated?.(chart!);
   }
 
   /**
