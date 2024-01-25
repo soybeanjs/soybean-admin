@@ -35,9 +35,7 @@ const isHorizontal = computed(() => props.mode === 'horizontal');
 
 const siderCollapse = computed(() => themeStore.layout.mode === 'vertical' && appStore.siderCollapse);
 
-const menuHeightStyle = computed(() =>
-  isHorizontal.value ? { '--n-item-height': `${themeStore.header.height}px` } : {}
-);
+const headerHeight = computed(() => `${themeStore.header.height}px`);
 
 const selectedKey = computed(() => {
   const { hideInMenu, activeMenu } = route.meta;
@@ -83,11 +81,14 @@ watch(
       :options="naiveMenus"
       :inverted="darkTheme"
       :indent="18"
-      class="transition-300"
-      :style="menuHeightStyle"
+      responsive
       @update:value="handleClickMenu"
     />
   </SimpleScrollbar>
 </template>
 
-<style scoped></style>
+<style scoped>
+:deep(.n-menu--horizontal) {
+  --n-item-height: v-bind(headerHeight) !important;
+}
+</style>
