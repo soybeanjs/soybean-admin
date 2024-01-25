@@ -8,8 +8,6 @@ defineOptions({
 
 defineProps<PageTabProps>();
 
-defineSlots<Slots>();
-
 type SlotFn = (props?: Record<string, unknown>) => any;
 
 type Slots = {
@@ -32,6 +30,8 @@ type Slots = {
    */
   suffix?: SlotFn;
 };
+
+defineSlots<Slots>();
 </script>
 
 <template>

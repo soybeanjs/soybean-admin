@@ -10,11 +10,6 @@ defineOptions({
   name: 'ContextMenu'
 });
 
-const props = withDefaults(defineProps<Props>(), {
-  excludeKeys: () => [],
-  disabledKeys: () => []
-});
-
 interface Props {
   /** ClientX */
   x: number;
@@ -24,6 +19,11 @@ interface Props {
   excludeKeys?: App.Global.DropdownKey[];
   disabledKeys?: App.Global.DropdownKey[];
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  excludeKeys: () => [],
+  disabledKeys: () => []
+});
 
 const visible = defineModel<boolean>('visible');
 

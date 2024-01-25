@@ -5,11 +5,11 @@ defineOptions({
   name: 'FullScreen'
 });
 
-defineProps<Props>();
-
 interface Props {
   full?: boolean;
 }
+
+defineProps<Props>();
 </script>
 
 <template>

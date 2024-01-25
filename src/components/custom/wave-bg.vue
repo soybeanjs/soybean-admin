@@ -2,6 +2,8 @@
 import { computed } from 'vue';
 import { getColorPalette } from '@sa/utils';
 
+defineOptions({ name: 'WaveBg' });
+
 interface Props {
   /** Theme color */
   themeColor: string;

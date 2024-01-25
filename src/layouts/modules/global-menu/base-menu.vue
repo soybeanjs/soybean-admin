@@ -13,15 +13,15 @@ defineOptions({
   name: 'BaseMenu'
 });
 
-const props = withDefaults(defineProps<Props>(), {
-  mode: 'vertical'
-});
-
 interface Props {
   darkTheme?: boolean;
   mode?: MenuProps['mode'];
   menus: App.Global.Menu[];
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  mode: 'vertical'
+});
 
 const route = useRoute();
 const appStore = useAppStore();

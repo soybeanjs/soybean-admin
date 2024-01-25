@@ -19,13 +19,11 @@ const props = withDefaults(defineProps<PageTabProps>(), {
   closable: true
 });
 
-const emit = defineEmits<Emits>();
-
-defineSlots<Slots>();
-
 interface Emits {
   (e: 'close'): void;
 }
+
+const emit = defineEmits<Emits>();
 
 type SlotFn = (props?: Record<string, unknown>) => any;
 
@@ -49,6 +47,8 @@ type Slots = {
    */
   suffix?: SlotFn;
 };
+
+defineSlots<Slots>();
 
 const activeTabComponent = computed(() => {
   const { mode, chromeClass, buttonClass } = props;

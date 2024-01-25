@@ -6,6 +6,20 @@ defineOptions({
   name: 'CountTo'
 });
 
+interface Props {
+  startValue?: number;
+  endValue?: number;
+  duration?: number;
+  autoplay?: boolean;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+  separator?: string;
+  decimal?: string;
+  useEasing?: boolean;
+  transition?: keyof typeof TransitionPresets;
+}
+
 const props = withDefaults(defineProps<Props>(), {
   startValue: 0,
   endValue: 2021,
@@ -19,22 +33,6 @@ const props = withDefaults(defineProps<Props>(), {
   useEasing: true,
   transition: 'linear'
 });
-
-type TransitionKey = keyof typeof TransitionPresets;
-
-interface Props {
-  startValue?: number;
-  endValue?: number;
-  duration?: number;
-  autoplay?: boolean;
-  decimals?: number;
-  prefix?: string;
-  suffix?: string;
-  separator?: string;
-  decimal?: string;
-  useEasing?: boolean;
-  transition?: TransitionKey;
-}
 
 const source = ref(props.startValue);
 

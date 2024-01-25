@@ -8,13 +8,6 @@ defineOptions({
   inheritAttrs: false
 });
 
-const props = withDefaults(defineProps<Props>(), {
-  class: 'h-36px text-icon',
-  icon: '',
-  tooltipContent: '',
-  tooltipPlacement: 'bottom'
-});
-
 interface Props {
   /** Button class */
   class?: string;
@@ -25,6 +18,13 @@ interface Props {
   /** Tooltip placement */
   tooltipPlacement?: PopoverPlacement;
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  class: 'h-36px text-icon',
+  icon: '',
+  tooltipContent: '',
+  tooltipPlacement: 'bottom'
+});
 
 interface ButtonProps {
   className: string;

@@ -14,12 +14,6 @@ import UserAvatar from './components/user-avatar.vue';
 defineOptions({
   name: 'GlobalHeader'
 });
-defineProps<Props>();
-const appStore = useAppStore();
-const themeStore = useThemeStore();
-const routeStore = useRouteStore();
-const { isFullscreen, toggle } = useFullscreen();
-const { menus } = useMixMenuContext();
 
 interface Props {
   /** Whether to show the logo */
@@ -29,6 +23,14 @@ interface Props {
   /** Whether to show the menu */
   showMenu?: App.Global.HeaderProps['showMenu'];
 }
+
+defineProps<Props>();
+
+const appStore = useAppStore();
+const themeStore = useThemeStore();
+const routeStore = useRouteStore();
+const { isFullscreen, toggle } = useFullscreen();
+const { menus } = useMixMenuContext();
 
 const headerMenus = computed(() => {
   if (themeStore.layout.mode === 'horizontal') {

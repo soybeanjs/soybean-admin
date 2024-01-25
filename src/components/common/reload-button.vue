@@ -5,11 +5,11 @@ defineOptions({
   name: 'ReloadButton'
 });
 
-defineProps<Props>();
-
 interface Props {
   loading?: boolean;
 }
+
+defineProps<Props>();
 </script>
 
 <template>

@@ -4,14 +4,14 @@ import { $t } from '@/locales';
 
 defineOptions({ name: 'MenuToggler' });
 
-const props = defineProps<Props>();
-
 interface Props {
   /** Show collapsed icon */
   collapsed?: boolean;
   /** Arrow style icon */
   arrowIcon?: boolean;
 }
+
+const props = defineProps<Props>();
 
 type NumberBool = 0 | 1;
 

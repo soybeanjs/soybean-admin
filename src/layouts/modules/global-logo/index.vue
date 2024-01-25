@@ -5,14 +5,14 @@ defineOptions({
   name: 'GlobalLogo'
 });
 
-withDefaults(defineProps<Props>(), {
-  showTitle: true
-});
-
 interface Props {
   /** Whether to show the title */
   showTitle?: boolean;
 }
+
+withDefaults(defineProps<Props>(), {
+  showTitle: true
+});
 </script>
 
 <template>
