@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ColorPicker } from '@sa/materials';
 import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
 import SettingItem from '../components/setting-item.vue';
@@ -13,6 +12,25 @@ const themeStore = useThemeStore();
 function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
   themeStore.updateThemeColors(key, color);
 }
+
+const swatches: string[] = [
+  '#3b82f6',
+  '#6366f1',
+  '#8b5cf6',
+  '#a855f7',
+  '#0ea5e9',
+  '#06b6d4',
+  '#f43f5e',
+  '#ef4444',
+  '#ec4899',
+  '#d946ef',
+  '#f97316',
+  '#f59e0b',
+  '#eab308',
+  '#84cc16',
+  '#22c55e',
+  '#10b981'
+];
 </script>
 
 <template>
@@ -24,10 +42,13 @@ function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
           {{ $t('theme.themeColor.followPrimary') }}
         </NCheckbox>
       </template>
-      <ColorPicker
-        :color="themeStore.themeColors[key]"
+      <NColorPicker
+        class="w-90px"
+        :value="themeStore.themeColors[key]"
         :disabled="key === 'info' && themeStore.isInfoFollowPrimary"
-        @update:color="handleUpdateColor($event, key)"
+        :show-alpha="false"
+        :swatches="swatches"
+        @update:value="handleUpdateColor($event, key)"
       />
     </SettingItem>
   </div>
