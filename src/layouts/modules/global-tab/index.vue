@@ -183,7 +183,7 @@ init();
             <template #prefix>
               <SvgIcon :icon="tab.icon" :local-icon="tab.localIcon" class="inline-block align-text-bottom text-16px" />
             </template>
-            {{ tab.label }}
+            <span>{{ tab.label }}</span>
           </PageTab>
         </div>
       </BetterScroll>
