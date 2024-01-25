@@ -42,10 +42,10 @@ const latestBuildTime = BUILD_TIME;
 
 <template>
   <NSpace vertical :size="16">
-    <NCard :title="$t('page.about.title')" :bordered="false" size="large" class="card-wrapper">
+    <NCard :title="$t('page.about.title')" :bordered="false" size="small" segmented class="card-wrapper">
       <p>{{ $t('page.about.introduction') }}</p>
     </NCard>
-    <NCard :title="$t('page.about.projectInfo.title')" :bordered="false" size="large" class="card-wrapper">
+    <NCard :title="$t('page.about.projectInfo.title')" :bordered="false" size="small" segmented class="card-wrapper">
       <NDescriptions label-placement="left" bordered size="small" :column="column">
         <NDescriptionsItem :label="$t('page.about.projectInfo.version')">
           <NTag type="primary">{{ pkgJson.version }}</NTag>
@@ -65,14 +65,14 @@ const latestBuildTime = BUILD_TIME;
         </NDescriptionsItem>
       </NDescriptions>
     </NCard>
-    <NCard :title="$t('page.about.prdDep')" :bordered="false" size="large" class="card-wrapper">
+    <NCard :title="$t('page.about.prdDep')" :bordered="false" size="small" segmented class="card-wrapper">
       <NDescriptions label-placement="left" bordered size="small" :column="column">
         <NDescriptionsItem v-for="item in pkgJson.dependencies" :key="item.name" :label="item.name">
           {{ item.version }}
         </NDescriptionsItem>
       </NDescriptions>
     </NCard>
-    <NCard :title="$t('page.about.devDep')" :bordered="false" size="large" class="card-wrapper">
+    <NCard :title="$t('page.about.devDep')" :bordered="false" size="small" segmented class="card-wrapper">
       <NDescriptions label-placement="left" bordered size="small" :column="column">
         <NDescriptionsItem v-for="item in pkgJson.devDependencies" :key="item.name" :label="item.name">
           {{ item.version }}

@@ -41,7 +41,7 @@ const statisticData = computed<StatisticData[]>(() => [
 <template>
   <NCard :bordered="false" class="card-wrapper">
     <NGrid :x-gap="gap" :y-gap="16" responsive="screen" item-responsive>
-      <NGi span="24 s:24 m:20">
+      <NGi span="24 s:24 m:18">
         <div class="flex-y-center">
           <div class="shrink-0 size-72px rd-1/2 overflow-hidden">
             <img src="@/assets/imgs/soybean.jpg" class="size-full" />
@@ -54,7 +54,7 @@ const statisticData = computed<StatisticData[]>(() => [
           </div>
         </div>
       </NGi>
-      <NGi span="24 s:24 m:4">
+      <NGi span="24 s:24 m:6">
         <NSpace :size="24" justify="end">
           <NStatistic v-for="item in statisticData" :key="item.id" class="whitespace-nowrap" v-bind="item" />
         </NSpace>
