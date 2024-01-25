@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { TransitionPresets, useTransition } from '@vueuse/core';
 
 defineOptions({
@@ -8,32 +8,42 @@ defineOptions({
 
 const props = withDefaults(defineProps<Props>(), {
   startValue: 0,
-  endValue: 2024,
+  endValue: 2021,
+  duration: 1500,
   autoplay: true,
   decimals: 0,
   prefix: '',
   suffix: '',
   separator: ',',
-  decimal: '.'
+  decimal: '.',
+  useEasing: true,
+  transition: 'linear'
 });
+
+type TransitionKey = keyof typeof TransitionPresets;
 
 interface Props {
   startValue?: number;
   endValue?: number;
+  duration?: number;
   autoplay?: boolean;
   decimals?: number;
   prefix?: string;
   suffix?: string;
   separator?: string;
   decimal?: string;
+  useEasing?: boolean;
+  transition?: TransitionKey;
 }
 
-const source = ref(0);
+const source = ref(props.startValue);
+
+const transition = computed(() => (props.useEasing ? TransitionPresets[props.transition] : undefined));
 
 const outputValue = useTransition(source, {
   disabled: false,
-  duration: 1500,
-  transition: TransitionPresets.easeOutCubic
+  duration: props.duration,
+  transition: transition.value
 });
 
 const value = computed(() => formatValue(outputValue.value));
@@ -57,11 +67,16 @@ function formatValue(num: number) {
   return prefix + x1 + x2 + suffix;
 }
 
+async function start() {
+  await nextTick();
+  source.value = props.endValue;
+}
+
 watch(
   [() => props.startValue, () => props.endValue],
   () => {
     if (props.autoplay) {
-      source.value = props.endValue;
+      start();
     }
   },
   { immediate: true }
