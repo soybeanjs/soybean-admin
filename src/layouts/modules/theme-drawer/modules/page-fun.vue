@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { $t } from '@/locales';
 import { useThemeStore } from '@/store/modules/theme';
 import { themePageAnimationModeOptions, themeScrollModeOptions, themeTabModeOptions } from '@/constants/app';
+import { translateOptions } from '@/utils/common';
 import SettingItem from '../components/setting-item.vue';
 
 defineOptions({
@@ -16,13 +17,6 @@ const layoutMode = computed(() => themeStore.layout.mode);
 const isMixLayoutMode = computed(() => layoutMode.value.includes('mix'));
 
 const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wrapper');
-
-function translateOptions(options: Common.Option<string>[]) {
-  return options.map(option => ({
-    ...option,
-    label: $t(option.label as App.I18n.I18nKey)
-  }));
-}
 </script>
 
 <template>

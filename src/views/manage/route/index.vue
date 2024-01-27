@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { onActivated } from 'vue';
+import { fetchGetRoleList } from '@/service/api';
 
-console.log('setup');
-
-onActivated(() => {
-  console.log('onActivated');
+fetchGetRoleList().then(res => {
+  console.log(res);
 });
 </script>
 

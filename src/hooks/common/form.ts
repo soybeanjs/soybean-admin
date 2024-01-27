@@ -47,7 +47,10 @@ export function useFormRules() {
     ]
   } satisfies Record<string, App.Global.FormRule[]>;
 
-  function createRequiredRule(message: string) {
+  /** the default required rule */
+  const defaultRequiredRule = createRequiredRule($t('form.required'));
+
+  function createRequiredRule(message: string): App.Global.FormRule {
     return {
       required: true,
       message
@@ -56,6 +59,7 @@ export function useFormRules() {
 
   return {
     constantRules,
+    defaultRequiredRule,
     createRequiredRule
   };
 }

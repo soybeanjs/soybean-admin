@@ -9,6 +9,13 @@ export default defineConfig(
         {
           ignores: ['index', 'App', '[id]']
         }
+      ],
+      'vue/component-name-in-template-casing': [
+        'warn',
+        'PascalCase',
+        {
+          ignores: ['/^icon-/']
+        }
       ]
     }
   }

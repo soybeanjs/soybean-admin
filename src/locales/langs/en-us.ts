@@ -3,23 +3,34 @@ const local: App.I18n.Schema = {
     title: 'SoybeanAdmin'
   },
   common: {
-    tip: 'Tip',
+    action: 'Action',
     add: 'Add',
     addSuccess: 'Add Success',
-    edit: 'Edit',
-    editSuccess: 'Edit Success',
+    backToHome: 'Back to home',
+    batchDelete: 'Batch Delete',
+    cancel: 'Cancel',
+    check: 'Check',
+    columnSetting: 'Column Setting',
+    confirm: 'Confirm',
     delete: 'Delete',
     deleteSuccess: 'Delete Success',
-    batchDelete: 'Batch Delete',
-    confirm: 'Confirm',
-    cancel: 'Cancel',
-    pleaseCheckValue: 'Please check whether the value is valid',
-    action: 'Action',
-    backToHome: 'Back to home',
-    lookForward: 'Coming soon',
-    userCenter: 'User Center',
+    confirmDelete: 'Are you sure you want to delete?',
+    edit: 'Edit',
+    index: 'Index',
     logout: 'Logout',
-    logoutConfirm: 'Are you sure you want to log out?'
+    logoutConfirm: 'Are you sure you want to log out?',
+    lookForward: 'Coming soon',
+    modify: 'Modify',
+    modifySuccess: 'Modify Success',
+    operate: 'Operate',
+    pleaseCheckValue: 'Please check whether the value is valid',
+    refresh: 'Refresh',
+    reset: 'Reset',
+    search: 'Search',
+    tip: 'Tip',
+    update: 'Update',
+    updateSuccess: 'Update Success',
+    userCenter: 'User Center'
   },
   theme: {
     themeSchema: {
@@ -240,9 +251,31 @@ const local: App.I18n.Schema = {
         routeParam: 'Route Param',
         backTab: 'Back function_tab'
       }
+    },
+    manage: {
+      role: {
+        title: 'Role List',
+        form: {
+          roleName: 'Please enter role name',
+          roleCode: 'Please enter role code',
+          roleStatus: 'Please select role status',
+          roleDesc: 'Please enter role description'
+        },
+        roleName: 'Role Name',
+        roleCode: 'Role Code',
+        roleStatus: 'Role Status',
+        roleDesc: 'Role Description',
+        addRole: 'Add Role',
+        editRole: 'Edit Role',
+        status: {
+          enable: 'Enable',
+          disable: 'Disable'
+        }
+      }
     }
   },
   form: {
+    required: 'Cannot be empty',
     userName: {
       required: 'Please enter user name',
       invalid: 'User name format is incorrect'

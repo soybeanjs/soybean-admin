@@ -3,23 +3,34 @@ const local: App.I18n.Schema = {
     title: 'Soybean 管理系统'
   },
   common: {
-    tip: '提示',
+    action: '操作',
     add: '添加',
     addSuccess: '添加成功',
-    edit: '修改',
-    editSuccess: '修改成功',
+    backToHome: '返回首页',
+    batchDelete: '批量删除',
+    cancel: '取消',
+    check: '勾选',
+    columnSetting: '列设置',
+    confirm: '确认',
     delete: '删除',
     deleteSuccess: '删除成功',
-    batchDelete: '批量删除',
-    confirm: '确认',
-    cancel: '取消',
-    pleaseCheckValue: '请检查输入的值是否合法',
-    action: '操作',
-    backToHome: '返回首页',
-    lookForward: '敬请期待',
-    userCenter: '个人中心',
+    confirmDelete: '确认删除吗？',
+    edit: '编辑',
+    index: '序号',
     logout: '退出登录',
-    logoutConfirm: '确认退出登录吗？'
+    logoutConfirm: '确认退出登录吗？',
+    lookForward: '敬请期待',
+    modify: '修改',
+    modifySuccess: '修改成功',
+    operate: '操作',
+    pleaseCheckValue: '请检查输入的值是否合法',
+    refresh: '刷新',
+    reset: '重置',
+    search: '搜索',
+    tip: '提示',
+    update: '更新',
+    updateSuccess: '更新成功',
+    userCenter: '个人中心'
   },
   theme: {
     themeSchema: {
@@ -240,9 +251,31 @@ const local: App.I18n.Schema = {
         routeParam: '路由参数',
         backTab: '返回 function_tab'
       }
+    },
+    manage: {
+      role: {
+        title: '角色列表',
+        form: {
+          roleName: '请输入角色名称',
+          roleCode: '请输入角色编码',
+          roleStatus: '请选择角色状态',
+          roleDesc: '请输入角色描述'
+        },
+        roleName: '角色名称',
+        roleCode: '角色编码',
+        roleStatus: '角色状态',
+        roleDesc: '角色描述',
+        addRole: '添加角色',
+        editRole: '编辑角色',
+        status: {
+          enable: '启用',
+          disable: '禁用'
+        }
+      }
     }
   },
   form: {
+    required: '不能为空',
     userName: {
       required: '请输入用户名',
       invalid: '用户名格式不正确'

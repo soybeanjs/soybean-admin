@@ -15,7 +15,7 @@ const appStore = useAppStore();
 </script>
 
 <template>
-  <NDrawer v-model:show="appStore.themeDrawerVisible" display-directive="show" :width="378">
+  <NDrawer v-model:show="appStore.themeDrawerVisible" display-directive="show" :width="360">
     <NDrawerContent :title="$t('theme.themeDrawerTitle')" :native-scrollbar="false" closable>
       <DarkMode />
       <LayoutMode />

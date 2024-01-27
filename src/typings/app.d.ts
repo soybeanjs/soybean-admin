@@ -249,23 +249,34 @@ declare namespace App {
         title: string;
       };
       common: {
-        tip: string;
+        action: string;
         add: string;
         addSuccess: string;
-        edit: string;
-        editSuccess: string;
+        backToHome: string;
+        batchDelete: string;
+        cancel: string;
+        check: string;
+        columnSetting: string;
+        confirm: string;
         delete: string;
         deleteSuccess: string;
-        batchDelete: string;
-        confirm: string;
-        cancel: string;
-        pleaseCheckValue: string;
-        action: string;
-        backToHome: string;
-        lookForward: string;
-        userCenter: string;
+        confirmDelete: string;
+        edit: string;
+        index: string;
         logout: string;
         logoutConfirm: string;
+        lookForward: string;
+        modify: string;
+        modifySuccess: string;
+        operate: string;
+        pleaseCheckValue: string;
+        refresh: string;
+        reset: string;
+        search: string;
+        tip: string;
+        update: string;
+        updateSuccess: string;
+        userCenter: string;
       };
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
@@ -428,8 +439,30 @@ declare namespace App {
             backTab: string;
           };
         };
+        manage: {
+          role: {
+            title: string;
+            form: {
+              roleName: string;
+              roleCode: string;
+              roleStatus: string;
+              roleDesc: string;
+            };
+            roleName: string;
+            roleCode: string;
+            roleStatus: string;
+            roleDesc: string;
+            addRole: string;
+            editRole: string;
+            status: {
+              enable: string;
+              disable: string;
+            };
+          };
+        };
       };
       form: {
+        required: string;
         userName: FormMsg;
         phone: FormMsg;
         pwd: FormMsg;
