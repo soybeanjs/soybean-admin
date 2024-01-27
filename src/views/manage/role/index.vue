@@ -6,9 +6,9 @@ import { fetchGetRoleList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { roleStatusOptions } from '@/constants/business';
-import { translateOptions } from '@/utils/common';
 import OperateRoleDrawer, { type OperateType } from './operate-role-drawer.vue';
+import RoleSearch from './role-search.vue';
+import { setupRoleSearchContext } from './context';
 
 const appStore = useAppStore();
 const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
@@ -21,7 +21,12 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
   apiFn: fetchGetRoleList,
   apiParams: {
     current: 1,
-    size: 10
+    size: 10,
+    // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
+    // the value can not be undefined, otherwise the property in Form will not be reactive
+    roleName: null,
+    roleCode: null,
+    roleStatus: null
   },
   transformer: res => {
     const { records = [], current = 1, size = 10, total = 0 } = res.data || {};
@@ -90,6 +95,9 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
   ]
 });
 
+// provide searchParams
+setupRoleSearchContext(searchParams);
+
 const operateType = ref<OperateType>('add');
 
 function handleAdd() {
@@ -135,70 +143,17 @@ function getIndex(index: number) {
 
 <template>
   <div class="flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
-    <NCard :title="$t('common.search')" :bordered="false" size="small" class="card-wrapper">
-      <NForm :model="searchParams" label-placement="left">
-        <NGrid responsive="screen" item-responsive>
-          <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleName')" path="roleName" class="pr-24px">
-            <NInput v-model:value="searchParams.roleName" :placeholder="$t('page.manage.role.form.roleName')" />
-          </NFormItemGi>
-          <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleCode')" path="roleCode" class="pr-24px">
-            <NInput v-model:value="searchParams.roleCode" :placeholder="$t('page.manage.role.form.roleCode')" />
-          </NFormItemGi>
-          <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleStatus')" path="roleStatus" class="pr-24px">
-            <NSelect
-              v-model:value="searchParams.roleStatus"
-              :placeholder="$t('page.manage.role.form.roleStatus')"
-              :options="translateOptions(roleStatusOptions)"
-              clearable
-            />
-          </NFormItemGi>
-          <NFormItemGi span="24 s:12 m:6">
-            <NSpace class="w-full" justify="end">
-              <NButton @click="resetSearchParams">
-                <template #icon>
-                  <icon-ic-round-refresh class="text-icon" />
-                </template>
-                {{ $t('common.reset') }}
-              </NButton>
-              <NButton type="primary" ghost @click="getData">
-                <template #icon>
-                  <icon-ic-round-search class="text-icon" />
-                </template>
-                {{ $t('common.search') }}
-              </NButton>
-            </NSpace>
-          </NFormItemGi>
-        </NGrid>
-      </NForm>
-    </NCard>
+    <RoleSearch @reset="resetSearchParams" @search="getData" />
     <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="card-wrapper sm:flex-1-hidden">
       <template #header-extra>
-        <NSpace wrap justify="end" class="<sm:w-200px">
-          <NButton size="small" ghost type="primary" @click="handleAdd">
-            <template #icon>
-              <icon-ic-round-plus class="text-icon" />
-            </template>
-            {{ $t('common.add') }}
-          </NButton>
-          <NPopconfirm @positive-click="handleBatchDelete">
-            <template #trigger>
-              <NButton size="small" ghost type="error" :disabled="checkedRowKeys.length === 0">
-                <template #icon>
-                  <icon-ic-round-delete class="text-icon" />
-                </template>
-                {{ $t('common.batchDelete') }}
-              </NButton>
-            </template>
-            {{ $t('common.confirmDelete') }}
-          </NPopconfirm>
-          <NButton size="small" @click="getData">
-            <template #icon>
-              <icon-mdi-refresh class="text-icon" :class="{ 'animate-spin': loading }" />
-            </template>
-            {{ $t('common.refresh') }}
-          </NButton>
-          <TableColumnSetting v-model:columns="filteredColumns" />
-        </NSpace>
+        <TableHeaderOperation
+          v-model:columns="filteredColumns"
+          :disabled-delete="checkedRowKeys.length === 0"
+          :loading="loading"
+          @add="handleAdd"
+          @delete="handleBatchDelete"
+          @refresh="getData"
+        />
       </template>
       <NDataTable
         v-model:checked-row-keys="checkedRowKeys"

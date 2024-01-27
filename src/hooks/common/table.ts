@@ -71,7 +71,7 @@ export function useTable<TableData extends BaseData, Fn extends ApiFn, CustomCol
 
   const { apiFn, apiParams, transformer, onPaginationChanged, immediate = true } = config;
 
-  const searchParams: NonNullable<Parameters<Fn>[0]> = reactive(apiParams || {});
+  const searchParams: NonNullable<Parameters<Fn>[0]> = reactive({ ...apiParams });
 
   const { columns, filteredColumns, reloadColumns } = useTableColumn(config.columns);
 
@@ -125,9 +125,7 @@ export function useTable<TableData extends BaseData, Fn extends ApiFn, CustomCol
 
   /** reset search params */
   function resetSearchParams() {
-    Object.keys(searchParams).forEach(key => {
-      searchParams[key as keyof typeof searchParams] = undefined;
-    });
+    Object.assign(searchParams, apiParams);
   }
 
   if (immediate) {
@@ -158,8 +156,8 @@ export function useTable<TableData extends BaseData, Fn extends ApiFn, CustomCol
     updatePagination,
     getData,
     searchParams,
-    resetSearchParams,
-    updateSearchParams
+    updateSearchParams,
+    resetSearchParams
   };
 }
 
