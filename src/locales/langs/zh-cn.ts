@@ -4,7 +4,7 @@ const local: App.I18n.Schema = {
   },
   common: {
     action: '操作',
-    add: '添加',
+    add: '新增',
     addSuccess: '添加成功',
     backToHome: '返回首页',
     batchDelete: '批量删除',
@@ -265,7 +265,7 @@ const local: App.I18n.Schema = {
         roleCode: '角色编码',
         roleStatus: '角色状态',
         roleDesc: '角色描述',
-        addRole: '添加角色',
+        addRole: '新增角色',
         editRole: '编辑角色',
         status: {
           enable: '启用',

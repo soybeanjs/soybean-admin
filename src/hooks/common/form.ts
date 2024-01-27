@@ -71,8 +71,13 @@ export function useNaiveForm() {
     await formRef.value?.validate();
   }
 
+  async function restoreValidation() {
+    formRef.value?.restoreValidation();
+  }
+
   return {
     formRef,
-    validate
+    validate,
+    restoreValidation
   };
 }

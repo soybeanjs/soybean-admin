@@ -4,6 +4,7 @@ import type { DataTableBaseColumn, DataTableExpandColumn, DataTableSelectionColu
 import type { TableColumnGroup } from 'naive-ui/es/data-table/src/interface';
 import { useBoolean, useLoading } from '@sa/hooks';
 import { useAppStore } from '@/store/modules/app';
+import { $t } from '@/locales';
 
 type BaseData = Record<string, unknown>;
 
@@ -174,6 +175,7 @@ function useTableColumn<TableData extends BaseData, CustomColumnKey = never>(
 
   function reloadColumns() {
     allColumns.value = factory();
+    filteredColumns.value = getFilteredColumns(factory());
   }
 
   function getFilteredColumns(aColumns: TableColumn<TableData, CustomColumnKey>[]) {
@@ -191,7 +193,7 @@ function useTableColumn<TableData extends BaseData, CustomColumnKey = never>(
       if (column.type === 'selection') {
         cols.push({
           key: SELECTION_KEY,
-          title: '勾选',
+          title: $t('common.check'),
           checked: true
         });
       }

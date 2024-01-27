@@ -36,7 +36,7 @@ const visible = defineModel<boolean>('visible', {
   default: false
 });
 
-const { formRef, validate } = useNaiveForm();
+const { formRef, validate, restoreValidation } = useNaiveForm();
 const { defaultRequiredRule } = useFormRules();
 
 const title = computed(() => {
@@ -94,6 +94,7 @@ async function handleSubmit() {
 watch(visible, () => {
   if (visible.value) {
     handleUpdateModelWhenEdit();
+    restoreValidation();
   }
 });
 </script>
