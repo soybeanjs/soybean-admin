@@ -3,10 +3,9 @@ import { computed, reactive, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { roleStatusOptions } from '@/constants/business';
-import { translateOptions } from '@/utils/common';
 
 defineOptions({
-  name: 'OperateRoleDrawer'
+  name: 'RoleOperateDrawer'
 });
 
 /**
@@ -110,11 +109,9 @@ watch(visible, () => {
           <NInput v-model:value="model.roleCode" :placeholder="$t('page.manage.role.form.roleCode')" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.role.roleStatus')" path="roleStatus">
-          <NSelect
-            v-model:value="model.roleStatus"
-            :placeholder="$t('page.manage.role.form.roleStatus')"
-            :options="translateOptions(roleStatusOptions)"
-          />
+          <NRadioGroup v-model:value="model.roleStatus">
+            <NRadio v-for="item in roleStatusOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
+          </NRadioGroup>
         </NFormItem>
         <NFormItem :label="$t('page.manage.role.roleDesc')" path="roleDesc">
           <NInput v-model:value="model.roleDesc" :placeholder="$t('page.manage.role.form.roleDesc')" />

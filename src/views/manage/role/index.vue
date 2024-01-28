@@ -1,14 +1,14 @@
 <script setup lang="tsx">
 import { ref } from 'vue';
-import { NButton, NPopconfirm } from 'naive-ui';
+import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useBoolean } from '@sa/hooks';
 import { fetchGetRoleList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import OperateRoleDrawer, { type OperateType } from './operate-role-drawer.vue';
-import RoleSearch from './role-search.vue';
-import { setupRoleSearchContext } from './context';
+import { roleStatusRecord } from '@/constants/business';
+import RoleOperateDrawer, { type OperateType } from './modules/role-operate-drawer.vue';
+import RoleSearch from './modules/role-search.vue';
 
 const appStore = useAppStore();
 const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
@@ -67,7 +67,21 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
     {
       key: 'roleStatus',
       title: $t('page.manage.role.roleStatus'),
-      align: 'center'
+      align: 'center',
+      render: row => {
+        if (row.roleStatus === null) {
+          return null;
+        }
+
+        const tagMap: Record<Api.SystemManage.RoleStatus, NaiveUI.ThemeColor> = {
+          1: 'success',
+          2: 'warning'
+        };
+
+        const label = $t(roleStatusRecord[row.roleStatus]);
+
+        return <NTag type={tagMap[row.roleStatus]}>{label}</NTag>;
+      }
     },
     {
       key: 'operate',
@@ -94,9 +108,6 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
     }
   ]
 });
-
-// provide searchParams
-setupRoleSearchContext(searchParams);
 
 const operateType = ref<OperateType>('add');
 
@@ -143,7 +154,7 @@ function getIndex(index: number) {
 
 <template>
   <div class="flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
-    <RoleSearch @reset="resetSearchParams" @search="getData" />
+    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getData" />
     <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="card-wrapper sm:flex-1-hidden">
       <template #header-extra>
         <TableHeaderOperation
@@ -167,7 +178,7 @@ function getIndex(index: number) {
         :row-key="item => item.id"
         class="sm:h-full"
       />
-      <OperateRoleDrawer
+      <RoleOperateDrawer
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"
