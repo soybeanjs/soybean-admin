@@ -459,6 +459,35 @@ declare namespace App {
               disable: string;
             };
           };
+          user: {
+            title: string;
+            form: {
+              userName: string;
+              userGender: string;
+              nickName: string;
+              userPhone: string;
+              userEmail: string;
+              userStatus: string;
+              userRole: string;
+            };
+            userName: string;
+            userGender: string;
+            nickName: string;
+            userPhone: string;
+            userEmail: string;
+            userStatus: string;
+            userRole: string;
+            addUser: string;
+            editUser: string;
+            gender: {
+              male: string;
+              female: string;
+            };
+            status: {
+              enable: string;
+              disable: string;
+            };
+          };
         };
       };
       form: {

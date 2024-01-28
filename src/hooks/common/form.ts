@@ -4,47 +4,40 @@ import { REG_CODE_SIX, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/co
 import { $t } from '@/locales';
 
 export function useFormRules() {
-  const constantRules = {
-    userName: [
-      createRequiredRule($t('form.userName.required')),
-      {
-        pattern: REG_USER_NAME,
-        message: $t('form.userName.invalid'),
-        trigger: 'change'
-      }
-    ],
-    phone: [
-      createRequiredRule($t('form.phone.required')),
-      {
-        pattern: REG_PHONE,
-        message: $t('form.phone.invalid'),
-        trigger: 'change'
-      }
-    ],
-    pwd: [
-      createRequiredRule($t('form.pwd.required')),
-      {
-        pattern: REG_PWD,
-        message: $t('form.pwd.invalid'),
-        trigger: 'change'
-      }
-    ],
-    code: [
-      createRequiredRule($t('form.code.required')),
-      {
-        pattern: REG_CODE_SIX,
-        message: $t('form.code.invalid'),
-        trigger: 'change'
-      }
-    ],
-    email: [
-      createRequiredRule($t('form.email.required')),
-      {
-        pattern: REG_EMAIL,
-        message: $t('form.email.invalid'),
-        trigger: 'change'
-      }
-    ]
+  const patternRules = {
+    userName: {
+      pattern: REG_USER_NAME,
+      message: $t('form.userName.invalid'),
+      trigger: 'change'
+    },
+    phone: {
+      pattern: REG_PHONE,
+      message: $t('form.phone.invalid'),
+      trigger: 'change'
+    },
+    pwd: {
+      pattern: REG_PWD,
+      message: $t('form.pwd.invalid'),
+      trigger: 'change'
+    },
+    code: {
+      pattern: REG_CODE_SIX,
+      message: $t('form.code.invalid'),
+      trigger: 'change'
+    },
+    email: {
+      pattern: REG_EMAIL,
+      message: $t('form.email.invalid'),
+      trigger: 'change'
+    }
+  } satisfies Record<string, App.Global.FormRule>;
+
+  const formRules = {
+    userName: [createRequiredRule($t('form.userName.required')), patternRules.userName],
+    phone: [createRequiredRule($t('form.phone.required')), patternRules.phone],
+    pwd: [createRequiredRule($t('form.pwd.required')), patternRules.pwd],
+    code: [createRequiredRule($t('form.code.required')), patternRules.code],
+    email: [createRequiredRule($t('form.email.required')), patternRules.email]
   } satisfies Record<string, App.Global.FormRule[]>;
 
   /** the default required rule */
@@ -58,7 +51,8 @@ export function useFormRules() {
   }
 
   return {
-    constantRules,
+    patternRules,
+    formRules,
     defaultRequiredRule,
     createRequiredRule
   };

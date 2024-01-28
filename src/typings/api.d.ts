@@ -77,6 +77,8 @@ declare namespace Api {
    * backend api module: "systemManage"
    */
   namespace SystemManage {
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
+
     /**
      * role status
      *
@@ -99,11 +101,56 @@ declare namespace Api {
 
     /** role search params */
     type RoleSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'roleStatus'> &
-        Pick<Common.PaginatingCommonParams, 'current' | 'size'>
+      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'roleStatus'> & CommonSearchParams
     >;
 
     /** role list */
     type RoleList = Common.PaginatingQueryRecord<Role>;
+
+    /** all role */
+    type AllRole = Pick<Role, 'id' | 'roleName' | 'roleCode'>;
+
+    /**
+     * user gender
+     *
+     * - "1": "male"
+     * - "2": "female"
+     */
+    type UserGender = '1' | '2';
+
+    /**
+     * user status
+     *
+     * - "1": enabled
+     * - "2": disabled
+     */
+    type UserStatus = '1' | '2';
+
+    /** user */
+    type User = Common.CommonRecord<{
+      /** user name */
+      userName: string;
+      /** user gender */
+      userGender: UserGender | null;
+      /** user nick name */
+      nickName: string;
+      /** user phone */
+      userPhone: string;
+      /** user email */
+      userEmail: string;
+      /** user role code collection */
+      userRoles: string[];
+      /** user status */
+      userStatus: UserStatus | null;
+    }>;
+
+    /** user search params */
+    type UserSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userStatus'> &
+        CommonSearchParams
+    >;
+
+    /** user list */
+    type UserList = Common.PaginatingQueryRecord<User>;
   }
 }

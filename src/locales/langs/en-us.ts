@@ -271,6 +271,35 @@ const local: App.I18n.Schema = {
           enable: 'Enable',
           disable: 'Disable'
         }
+      },
+      user: {
+        title: 'User List',
+        form: {
+          userName: 'Please enter user name',
+          userGender: 'Please select gender',
+          nickName: 'Please enter nick name',
+          userPhone: 'Please enter phone number',
+          userEmail: 'Please enter email',
+          userStatus: 'Please select user status',
+          userRole: 'Please select user role'
+        },
+        userName: 'User Name',
+        userGender: 'Gender',
+        nickName: 'Nick Name',
+        userPhone: 'Phone Number',
+        userEmail: 'Email',
+        userStatus: 'User Status',
+        userRole: 'User Role',
+        addUser: 'Add User',
+        editUser: 'Edit User',
+        gender: {
+          male: 'Male',
+          female: 'Female'
+        },
+        status: {
+          enable: 'Enable',
+          disable: 'Disable'
+        }
       }
     }
   },

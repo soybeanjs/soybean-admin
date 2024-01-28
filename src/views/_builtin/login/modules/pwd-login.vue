@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import { $t } from '@/locales';
 import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
@@ -13,7 +13,6 @@ defineOptions({
 const authStore = useAuthStore();
 const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
-const { constantRules } = useFormRules();
 
 interface FormModel {
   userName: string;
@@ -25,10 +24,14 @@ const model: FormModel = reactive({
   password: '123456'
 });
 
-const rules: Record<keyof FormModel, App.Global.FormRule[]> = {
-  userName: constantRules.userName,
-  password: constantRules.pwd
-};
+const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
+  const { formRules } = useFormRules(); // inside computed to make locale reactive
+
+  return {
+    userName: formRules.userName,
+    password: formRules.pwd
+  };
+});
 
 async function handleSubmit() {
   await validate();
