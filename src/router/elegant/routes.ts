@@ -118,6 +118,19 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'manage_menu',
+        path: '/manage/menu',
+        component: 'view.manage_menu',
+        meta: {
+          title: 'manage_menu',
+          i18nKey: 'route.manage_menu',
+          icon: 'material-symbols:route',
+          order: 3,
+          roles: ['R_ADMIN'],
+          keepAlive: true
+        }
+      },
+      {
         name: 'manage_role',
         path: '/manage/role',
         component: 'view.manage_role',
@@ -127,19 +140,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           icon: 'carbon:user-role',
           order: 2,
           roles: ['R_ADMIN']
-        }
-      },
-      {
-        name: 'manage_route',
-        path: '/manage/route',
-        component: 'view.manage_route',
-        meta: {
-          title: 'manage_route',
-          i18nKey: 'route.manage_route',
-          icon: 'material-symbols:route',
-          order: 3,
-          roles: ['R_ADMIN'],
-          keepAlive: true
         }
       },
       {
