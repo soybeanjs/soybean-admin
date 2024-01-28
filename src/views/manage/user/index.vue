@@ -51,18 +51,20 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
       key: 'index',
       title: $t('common.index'),
       render: (_, index): string => getIndex(index),
-      width: 64,
-      align: 'center'
+      align: 'center',
+      width: 64
     },
     {
       key: 'userName',
       title: $t('page.manage.user.userName'),
-      align: 'center'
+      align: 'center',
+      minWidth: 100
     },
     {
       key: 'userGender',
       title: $t('page.manage.user.userGender'),
       align: 'center',
+      width: 100,
       render: row => {
         if (row.userGender === null) {
           return null;
@@ -80,20 +82,27 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
     },
     {
       key: 'nickName',
-      title: $t('page.manage.user.nickName')
+      title: $t('page.manage.user.nickName'),
+      align: 'center',
+      minWidth: 100
     },
     {
       key: 'userPhone',
-      title: $t('page.manage.user.userPhone')
+      title: $t('page.manage.user.userPhone'),
+      align: 'center',
+      width: 120
     },
     {
       key: 'userEmail',
-      title: $t('page.manage.user.userEmail')
+      title: $t('page.manage.user.userEmail'),
+      align: 'center',
+      minWidth: 200
     },
     {
       key: 'userStatus',
       title: $t('page.manage.user.userStatus'),
       align: 'center',
+      width: 100,
       render: row => {
         if (row.userStatus === null) {
           return null;

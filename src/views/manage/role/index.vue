@@ -54,20 +54,25 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
     {
       key: 'roleName',
       title: $t('page.manage.role.roleName'),
-      align: 'center'
+      align: 'center',
+      minWidth: 120
     },
     {
       key: 'roleCode',
-      title: $t('page.manage.role.roleCode')
+      title: $t('page.manage.role.roleCode'),
+      align: 'center',
+      minWidth: 120
     },
     {
       key: 'roleDesc',
-      title: $t('page.manage.role.roleDesc')
+      title: $t('page.manage.role.roleDesc'),
+      minWidth: 120
     },
     {
       key: 'roleStatus',
       title: $t('page.manage.role.roleStatus'),
       align: 'center',
+      width: 100,
       render: row => {
         if (row.roleStatus === null) {
           return null;
