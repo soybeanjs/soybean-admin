@@ -39,6 +39,7 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
     {
       key: 'index',
       title: $t('common.index'),
+      width: 120,
       render: (_, index) => {
         return <span>{getIndex(index)}</span>;
       },
@@ -48,7 +49,7 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
       key: 'menuType',
       title: $t('page.manage.menu.menuType'),
       align: 'center',
-      width: 100,
+      width: 120,
       render: row => {
         const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
           1: 'default',
@@ -63,6 +64,8 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
     {
       key: 'menuName',
       title: $t('page.manage.menu.menuName'),
+      align: 'center',
+      minWidth: 120,
       render: row => {
         const { i18nKey, menuName } = row;
 
@@ -90,17 +93,21 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
     },
     {
       key: 'routeName',
-      title: $t('page.manage.menu.routeName')
+      title: $t('page.manage.menu.routeName'),
+      align: 'center',
+      minWidth: 120
     },
     {
       key: 'routePath',
-      title: $t('page.manage.menu.routePath')
+      title: $t('page.manage.menu.routePath'),
+      align: 'center',
+      minWidth: 120
     },
     {
       key: 'status',
       title: $t('page.manage.menu.menuStatus'),
       align: 'center',
-      width: 100,
+      width: 120,
       render: row => {
         if (row.status === null) {
           return null;
@@ -138,7 +145,7 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
       key: 'order',
       title: $t('page.manage.menu.order'),
       align: 'center',
-      width: 64
+      width: 80
     },
     {
       key: 'operate',
