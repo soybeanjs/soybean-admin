@@ -46,7 +46,8 @@
 
 ## Documentation
 
-- [Docs](https://docs.soybeanjs.cn)
+- [Legacy Docs](https://docs.soybeanjs.cn)
+> new version documentation is processing, please wait patiently.
 
 ## Repositories
 
@@ -54,8 +55,8 @@
 | --- | --- | --- | --- |
 | NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://naive.soybeanjs.cn) |
 | AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
-| Legacy | [github](https://github.com/honghuangdc/soybean-admin/tree/legacy) | [gitee](https://gitee.com/honghuangdc/soybean-admin/tree/legacy/) | [preview](https://admin.soybeanjs.cn) |
-| Documentation | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
+| Legacy | [github](https://github.com/honghuangdc/soybean-admin/tree/legacy) | [gitee](https://gitee.com/honghuangdc/soybean-admin/tree/legacy/) | [preview](https://legacy.soybeanjs.cn) |
+| Legacy Documentation | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
 
 ## Example Images
 
