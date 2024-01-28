@@ -33,7 +33,7 @@ export type TableConfig<TableData extends BaseData = BaseData, Fn extends ApiFn 
   /** api function to get table data */
   apiFn: Fn;
   /** api params */
-  apiParams: Parameters<Fn>[0];
+  apiParams?: Parameters<Fn>[0];
   /** transform api response to table data */
   transformer: Transformer<TableData, Awaited<ReturnType<Fn>>>;
   /** pagination */

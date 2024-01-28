@@ -1,11 +1,11 @@
 import { transformRecordToOption } from '@/utils/common';
 
-export const roleStatusRecord: Record<Api.SystemManage.RoleStatus, App.I18n.I18nKey> = {
-  '1': 'page.manage.role.status.enable',
-  '2': 'page.manage.role.status.disable'
+export const enableStatusRecord: Record<Api.Common.EnableStatus, App.I18n.I18nKey> = {
+  '1': 'page.manage.common.status.enable',
+  '2': 'page.manage.common.status.disable'
 };
 
-export const roleStatusOptions = transformRecordToOption(roleStatusRecord);
+export const enableStatusOptions = transformRecordToOption(enableStatusRecord);
 
 export const userGenderRecord: Record<Api.SystemManage.UserGender, App.I18n.I18nKey> = {
   '1': 'page.manage.user.gender.male',
@@ -14,9 +14,9 @@ export const userGenderRecord: Record<Api.SystemManage.UserGender, App.I18n.I18n
 
 export const userGenderOptions = transformRecordToOption(userGenderRecord);
 
-export const userStatusRecord: Record<Api.SystemManage.UserStatus, App.I18n.I18nKey> = {
-  '1': 'page.manage.user.status.enable',
-  '2': 'page.manage.user.status.disable'
+export const menuTypeRecord: Record<Api.SystemManage.MenuType, App.I18n.I18nKey> = {
+  '1': 'page.manage.menu.type.directory',
+  '2': 'page.manage.menu.type.menu'
 };
 
-export const userStatusOptions = transformRecordToOption(userStatusRecord);
+export const menuTypeOptions = transformRecordToOption(menuTypeRecord);

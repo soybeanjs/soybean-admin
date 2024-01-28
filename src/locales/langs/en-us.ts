@@ -30,7 +30,11 @@ const local: App.I18n.Schema = {
     tip: 'Tip',
     update: 'Update',
     updateSuccess: 'Update Success',
-    userCenter: 'User Center'
+    userCenter: 'User Center',
+    yesOrNo: {
+      yes: 'Yes',
+      no: 'No'
+    }
   },
   theme: {
     themeSchema: {
@@ -253,27 +257,36 @@ const local: App.I18n.Schema = {
       }
     },
     manage: {
+      common: {
+        status: {
+          enable: 'Enable',
+          disable: 'Disable'
+        }
+      },
       role: {
         title: 'Role List',
+        roleName: 'Role Name',
+        roleCode: 'Role Code',
+        roleStatus: 'Role Status',
+        roleDesc: 'Role Description',
         form: {
           roleName: 'Please enter role name',
           roleCode: 'Please enter role code',
           roleStatus: 'Please select role status',
           roleDesc: 'Please enter role description'
         },
-        roleName: 'Role Name',
-        roleCode: 'Role Code',
-        roleStatus: 'Role Status',
-        roleDesc: 'Role Description',
         addRole: 'Add Role',
-        editRole: 'Edit Role',
-        status: {
-          enable: 'Enable',
-          disable: 'Disable'
-        }
+        editRole: 'Edit Role'
       },
       user: {
         title: 'User List',
+        userName: 'User Name',
+        userGender: 'Gender',
+        nickName: 'Nick Name',
+        userPhone: 'Phone Number',
+        userEmail: 'Email',
+        userStatus: 'User Status',
+        userRole: 'User Role',
         form: {
           userName: 'Please enter user name',
           userGender: 'Please select gender',
@@ -283,22 +296,64 @@ const local: App.I18n.Schema = {
           userStatus: 'Please select user status',
           userRole: 'Please select user role'
         },
-        userName: 'User Name',
-        userGender: 'Gender',
-        nickName: 'Nick Name',
-        userPhone: 'Phone Number',
-        userEmail: 'Email',
-        userStatus: 'User Status',
-        userRole: 'User Role',
         addUser: 'Add User',
         editUser: 'Edit User',
         gender: {
           male: 'Male',
           female: 'Female'
+        }
+      },
+      menu: {
+        title: 'Menu List',
+        menuType: 'Menu Type',
+        menuName: 'Menu Name',
+        routeName: 'Route Name',
+        routePath: 'Route Path',
+        page: 'Page Component',
+        layout: 'Layout Component',
+        i18nKey: 'I18n Key',
+        icon: 'Icon',
+        localIcon: 'Local Icon',
+        order: 'Order',
+        keepAlive: 'Keep Alive',
+        href: 'Href',
+        hideInMenu: 'Hide In Menu',
+        activeMenu: 'Active Menu',
+        multiTab: 'Multi Tab',
+        fixedIndexInTab: 'Fixed Index In Tab',
+        button: 'Button',
+        buttonCode: 'Button Code',
+        buttonDesc: 'Button Desc',
+        menuStatus: 'Menu Status',
+        form: {
+          menuType: 'Please select menu type',
+          menuName: 'Please enter menu name',
+          routeName: 'Please enter route name',
+          routePath: 'Please enter route path',
+          page: 'Please select page component',
+          layout: 'Please select layout component',
+          i18nKey: 'Please enter i18n key',
+          icon: 'Please enter icon',
+          localIcon: 'Please select local icon',
+          order: 'Please enter order',
+          keepAlive: 'Please select whether to cache route',
+          href: 'Please enter href',
+          hideInMenu: 'Please select whether to hide menu',
+          activeMenu: 'Please enter the route name of the highlighted menu',
+          multiTab: 'Please select whether to support multiple tabs',
+          fixedInTab: 'Please select whether to fix in the tab',
+          fixedIndexInTab: 'Please enter the index fixed in the tab',
+          button: 'Please select whether it is a button',
+          buttonCode: 'Please enter button code',
+          buttonDesc: 'Please enter button description',
+          menuStatus: 'Please select menu status'
         },
-        status: {
-          enable: 'Enable',
-          disable: 'Disable'
+        addMenu: 'Add Menu',
+        editMenu: 'Edit Menu',
+        addChildMenu: 'Add Child Menu',
+        type: {
+          directory: 'Directory',
+          menu: 'Menu'
         }
       }
     }

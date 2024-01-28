@@ -2,17 +2,16 @@
 import { computed, reactive, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { enableStatusOptions } from '@/constants/business';
 
 defineOptions({
-  name: 'RoleOperateDrawer'
+  name: 'MenuOperateDrawer'
 });
 
 /**
  * the type of operation
  *
- * - add: add role
- * - edit: edit role
+ * - add: add user
+ * - edit: edit user
  */
 export type OperateType = 'add' | 'edit';
 
@@ -20,7 +19,7 @@ interface Props {
   /** the type of operation */
   operateType: OperateType;
   /** the edit row data */
-  rowData?: Api.SystemManage.Role | null;
+  rowData?: Api.SystemManage.Menu | null;
 }
 
 const props = defineProps<Props>();
@@ -40,31 +39,30 @@ const { defaultRequiredRule } = useFormRules();
 
 const title = computed(() => {
   const titles: Record<OperateType, string> = {
-    add: $t('page.manage.role.addRole'),
-    edit: $t('page.manage.role.editRole')
+    add: $t('page.manage.menu.addMenu'),
+    edit: $t('page.manage.menu.editMenu')
   };
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'roleDesc' | 'status'>;
+type Model = Pick<Api.SystemManage.Menu, 'menuType' | 'menuName' | 'routeName' | 'routePath'>;
 
 const model: Model = reactive(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
-    roleName: '',
-    roleCode: '',
-    roleDesc: '',
-    status: null
+    menuType: '1',
+    menuName: '',
+    routeName: '',
+    routePath: ''
   };
 }
 
-type RuleKey = Exclude<keyof Model, 'roleDesc'>;
+type RuleKey = Extract<keyof Model, 'userName' | 'userStatus'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
-  roleName: defaultRequiredRule,
-  roleCode: defaultRequiredRule,
-  status: defaultRequiredRule
+  userName: defaultRequiredRule,
+  userStatus: defaultRequiredRule
 };
 
 function handleUpdateModelWhenEdit() {
@@ -101,22 +99,7 @@ watch(visible, () => {
 <template>
   <NDrawer v-model:show="visible" :title="title" display-directive="show" :width="360">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
-      <NForm ref="formRef" :model="model" :rules="rules">
-        <NFormItem :label="$t('page.manage.role.roleName')" path="roleName">
-          <NInput v-model:value="model.roleName" :placeholder="$t('page.manage.role.form.roleName')" />
-        </NFormItem>
-        <NFormItem :label="$t('page.manage.role.roleCode')" path="roleCode">
-          <NInput v-model:value="model.roleCode" :placeholder="$t('page.manage.role.form.roleCode')" />
-        </NFormItem>
-        <NFormItem :label="$t('page.manage.role.roleStatus')" path="status">
-          <NRadioGroup v-model:value="model.status">
-            <NRadio v-for="item in enableStatusOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
-          </NRadioGroup>
-        </NFormItem>
-        <NFormItem :label="$t('page.manage.role.roleDesc')" path="roleDesc">
-          <NInput v-model:value="model.roleDesc" :placeholder="$t('page.manage.role.form.roleDesc')" />
-        </NFormItem>
-      </NForm>
+      <NForm ref="formRef" :model="model" :rules="rules"></NForm>
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>

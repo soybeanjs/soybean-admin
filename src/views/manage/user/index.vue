@@ -6,7 +6,7 @@ import { fetchGetUserList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { userGenderRecord, userStatusRecord } from '@/constants/business';
+import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import UserOperateDrawer, { type OperateType } from './modules/user-operate-drawer.vue';
 import UserSearch from './modules/user-search.vue';
 
@@ -24,12 +24,12 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
     size: 10,
     // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
     // the value can not be undefined, otherwise the property in Form will not be reactive
+    status: null,
     userName: null,
     userGender: null,
     nickName: null,
     userPhone: null,
-    userEmail: null,
-    userStatus: null
+    userEmail: null
   },
   transformer: res => {
     const { records = [], current = 1, size = 10, total = 0 } = res.data || {};
@@ -99,23 +99,23 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
       minWidth: 200
     },
     {
-      key: 'userStatus',
+      key: 'status',
       title: $t('page.manage.user.userStatus'),
       align: 'center',
       width: 100,
       render: row => {
-        if (row.userStatus === null) {
+        if (row.status === null) {
           return null;
         }
 
-        const tagMap: Record<Api.SystemManage.UserStatus, NaiveUI.ThemeColor> = {
+        const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
           1: 'success',
           2: 'warning'
         };
 
-        const label = $t(userStatusRecord[row.userStatus]);
+        const label = $t(enableStatusRecord[row.status]);
 
-        return <NTag type={tagMap[row.userStatus]}>{label}</NTag>;
+        return <NTag type={tagMap[row.status]}>{label}</NTag>;
       }
     },
     {

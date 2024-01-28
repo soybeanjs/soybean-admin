@@ -3,7 +3,7 @@ import { computed, reactive, ref, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
-import { userGenderOptions, userStatusOptions } from '@/constants/business';
+import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -49,7 +49,7 @@ const title = computed(() => {
 
 type Model = Pick<
   Api.SystemManage.User,
-  'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles' | 'userStatus'
+  'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles' | 'status'
 >;
 
 const model: Model = reactive(createDefaultModel());
@@ -62,15 +62,15 @@ function createDefaultModel(): Model {
     userPhone: '',
     userEmail: '',
     userRoles: [],
-    userStatus: null
+    status: null
   };
 }
 
-type RuleKey = Extract<keyof Model, 'userName' | 'userStatus'>;
+type RuleKey = Extract<keyof Model, 'userName' | 'status'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
   userName: defaultRequiredRule,
-  userStatus: defaultRequiredRule
+  status: defaultRequiredRule
 };
 
 /** the enabled role options */
@@ -150,9 +150,9 @@ watch(visible, () => {
         <NFormItem :label="$t('page.manage.user.userEmail')" path="email">
           <NInput v-model:value="model.userEmail" :placeholder="$t('page.manage.user.form.userEmail')" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.user.userStatus')" path="userStatus">
-          <NRadioGroup v-model:value="model.userStatus">
-            <NRadio v-for="item in userStatusOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
+        <NFormItem :label="$t('page.manage.user.userStatus')" path="status">
+          <NRadioGroup v-model:value="model.status">
+            <NRadio v-for="item in enableStatusOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
           </NRadioGroup>
         </NFormItem>
         <NFormItem :label="$t('page.manage.user.userRole')" path="roles">

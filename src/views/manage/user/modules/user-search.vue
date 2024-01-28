@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { $t } from '@/locales';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
-import { userGenderOptions, userStatusOptions } from '@/constants/business';
+import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 import { translateOptions } from '@/utils/common';
 
 defineOptions({
@@ -68,9 +68,9 @@ async function search() {
         </NFormItemGi>
         <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.user.userStatus')" path="userStatus" class="pr-24px">
           <NSelect
-            v-model:value="model.userStatus"
+            v-model:value="model.status"
             :placeholder="$t('page.manage.user.form.userStatus')"
-            :options="translateOptions(userStatusOptions)"
+            :options="translateOptions(enableStatusOptions)"
             clearable
           />
         </NFormItemGi>

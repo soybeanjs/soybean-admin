@@ -277,6 +277,10 @@ declare namespace App {
         update: string;
         updateSuccess: string;
         userCenter: string;
+        yesOrNo: {
+          yes: string;
+          no: string;
+        };
       };
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
@@ -440,27 +444,36 @@ declare namespace App {
           };
         };
         manage: {
+          common: {
+            status: {
+              enable: string;
+              disable: string;
+            };
+          };
           role: {
             title: string;
+            roleName: string;
+            roleCode: string;
+            roleStatus: string;
+            roleDesc: string;
             form: {
               roleName: string;
               roleCode: string;
               roleStatus: string;
               roleDesc: string;
             };
-            roleName: string;
-            roleCode: string;
-            roleStatus: string;
-            roleDesc: string;
             addRole: string;
             editRole: string;
-            status: {
-              enable: string;
-              disable: string;
-            };
           };
           user: {
             title: string;
+            userName: string;
+            userGender: string;
+            nickName: string;
+            userPhone: string;
+            userEmail: string;
+            userStatus: string;
+            userRole: string;
             form: {
               userName: string;
               userGender: string;
@@ -470,22 +483,64 @@ declare namespace App {
               userStatus: string;
               userRole: string;
             };
-            userName: string;
-            userGender: string;
-            nickName: string;
-            userPhone: string;
-            userEmail: string;
-            userStatus: string;
-            userRole: string;
             addUser: string;
             editUser: string;
             gender: {
               male: string;
               female: string;
             };
-            status: {
-              enable: string;
-              disable: string;
+          };
+          menu: {
+            title: string;
+            menuType: string;
+            menuName: string;
+            routeName: string;
+            routePath: string;
+            page: string;
+            layout: string;
+            i18nKey: string;
+            icon: string;
+            localIcon: string;
+            order: string;
+            keepAlive: string;
+            href: string;
+            hideInMenu: string;
+            activeMenu: string;
+            multiTab: string;
+            fixedIndexInTab: string;
+            button: string;
+            buttonCode: string;
+            buttonDesc: string;
+            menuStatus: string;
+            form: {
+              menuType: string;
+              menuName: string;
+              routeName: string;
+              routePath: string;
+              page: string;
+              layout: string;
+              i18nKey: string;
+              icon: string;
+              localIcon: string;
+              order: string;
+              keepAlive: string;
+              href: string;
+              hideInMenu: string;
+              activeMenu: string;
+              multiTab: string;
+              fixedInTab: string;
+              fixedIndexInTab: string;
+              button: string;
+              buttonCode: string;
+              buttonDesc: string;
+              menuStatus: string;
+            };
+            addMenu: string;
+            editMenu: string;
+            addChildMenu: string;
+            type: {
+              directory: string;
+              menu: string;
             };
           };
         };

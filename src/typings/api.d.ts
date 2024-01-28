@@ -20,6 +20,14 @@ declare namespace Api {
       records: T[];
     }
 
+    /**
+     * enable status
+     *
+     * - "1": enabled
+     * - "2": disabled
+     */
+    type EnableStatus = '1' | '2';
+
     /** common record */
     type CommonRecord<T extends NonNullable<unknown>> = {
       /** record id */
@@ -32,6 +40,8 @@ declare namespace Api {
       updateBy: string;
       /** record update time */
       updateTime: string;
+      /** record status */
+      status: EnableStatus | null;
     } & T;
   }
 
@@ -79,14 +89,6 @@ declare namespace Api {
   namespace SystemManage {
     type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
 
-    /**
-     * role status
-     *
-     * - "1": enabled
-     * - "2": disabled
-     */
-    type RoleStatus = '1' | '2';
-
     /** role */
     type Role = Common.CommonRecord<{
       /** role name */
@@ -95,13 +97,11 @@ declare namespace Api {
       roleCode: string;
       /** role description */
       roleDesc: string;
-      /** role status */
-      roleStatus: RoleStatus | null;
     }>;
 
     /** role search params */
     type RoleSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'roleStatus'> & CommonSearchParams
+      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'> & CommonSearchParams
     >;
 
     /** role list */
@@ -118,14 +118,6 @@ declare namespace Api {
      */
     type UserGender = '1' | '2';
 
-    /**
-     * user status
-     *
-     * - "1": enabled
-     * - "2": disabled
-     */
-    type UserStatus = '1' | '2';
-
     /** user */
     type User = Common.CommonRecord<{
       /** user name */
@@ -140,17 +132,90 @@ declare namespace Api {
       userEmail: string;
       /** user role code collection */
       userRoles: string[];
-      /** user status */
-      userStatus: UserStatus | null;
     }>;
 
     /** user search params */
     type UserSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userStatus'> &
+      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
         CommonSearchParams
     >;
 
     /** user list */
     type UserList = Common.PaginatingQueryRecord<User>;
+
+    /**
+     * menu type
+     *
+     * - "1": directory
+     * - "2": menu
+     */
+    type MenuType = '1' | '2';
+
+    type MenuButton = {
+      /**
+       * button code
+       *
+       * it can be used to control the button permission
+       */
+      code: string;
+      /** button description */
+      desc: string;
+    };
+
+    /**
+     * icon type
+     *
+     * - "1": iconify icon
+     * - "2": local icon
+     */
+    type IconType = '1' | '2';
+
+    type Menu = Common.CommonRecord<{
+      /** menu type */
+      menuType: MenuType;
+      /** menu name */
+      menuName: string;
+      /** route name */
+      routeName: string;
+      /** route path */
+      routePath: string;
+      /** component */
+      component?: string;
+      /**
+       * i18n key
+       *
+       * it is for internationalization
+       */
+      i18nKey?: App.I18n.I18nKey;
+      /** iconify icon name or local icon name */
+      icon: string;
+      /** icon type */
+      iconType: IconType;
+      /** menu order */
+      order: number;
+      /** whether to cache the route */
+      keepAlive?: boolean;
+      /** outer link */
+      href?: string;
+      /** whether to hide the route in the menu */
+      hideInMenu?: boolean;
+      /**
+       * The menu key will be activated when entering the route
+       *
+       * The route is not in the menu
+       *
+       * @example
+       *   the route is "user_detail", if it is set to "user_list", the menu "user_list" will be activated
+       */
+      activeMenu?: import('@elegant-router/types').LastLevelRouteKey;
+      /** By default, the same route path will use one tab, if set to true, it will use multiple tabs */
+      multiTab?: boolean;
+      /** If set, the route will be fixed in tabs, and the value is the order of fixed tabs */
+      fixedIndexInTab?: number;
+      /** menu buttons */
+      buttons?: MenuButton[];
+      /** children menu */
+      children?: Menu[];
+    }>;
   }
 }

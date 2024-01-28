@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { $t } from '@/locales';
-import { roleStatusOptions } from '@/constants/business';
+import { enableStatusOptions } from '@/constants/business';
 import { translateOptions } from '@/utils/common';
 
 defineOptions({
@@ -35,11 +35,11 @@ function search() {
         <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleCode')" path="roleCode" class="pr-24px">
           <NInput v-model:value="model.roleCode" :placeholder="$t('page.manage.role.form.roleCode')" />
         </NFormItemGi>
-        <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleStatus')" path="roleStatus" class="pr-24px">
+        <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleStatus')" path="status" class="pr-24px">
           <NSelect
-            v-model:value="model.roleStatus"
+            v-model:value="model.status"
             :placeholder="$t('page.manage.role.form.roleStatus')"
-            :options="translateOptions(roleStatusOptions)"
+            :options="translateOptions(enableStatusOptions)"
             clearable
           />
         </NFormItemGi>

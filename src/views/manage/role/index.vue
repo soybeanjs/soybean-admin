@@ -6,7 +6,7 @@ import { fetchGetRoleList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { roleStatusRecord } from '@/constants/business';
+import { enableStatusRecord } from '@/constants/business';
 import RoleOperateDrawer, { type OperateType } from './modules/role-operate-drawer.vue';
 import RoleSearch from './modules/role-search.vue';
 
@@ -24,9 +24,9 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
     size: 10,
     // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
     // the value can not be undefined, otherwise the property in Form will not be reactive
+    status: null,
     roleName: null,
-    roleCode: null,
-    roleStatus: null
+    roleCode: null
   },
   transformer: res => {
     const { records = [], current = 1, size = 10, total = 0 } = res.data || {};
@@ -69,23 +69,23 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
       minWidth: 120
     },
     {
-      key: 'roleStatus',
+      key: 'status',
       title: $t('page.manage.role.roleStatus'),
       align: 'center',
       width: 100,
       render: row => {
-        if (row.roleStatus === null) {
+        if (row.status === null) {
           return null;
         }
 
-        const tagMap: Record<Api.SystemManage.RoleStatus, NaiveUI.ThemeColor> = {
+        const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
           1: 'success',
           2: 'warning'
         };
 
-        const label = $t(roleStatusRecord[row.roleStatus]);
+        const label = $t(enableStatusRecord[row.status]);
 
-        return <NTag type={tagMap[row.roleStatus]}>{label}</NTag>;
+        return <NTag type={tagMap[row.status]}>{label}</NTag>;
       }
     },
     {

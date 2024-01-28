@@ -30,7 +30,11 @@ const local: App.I18n.Schema = {
     tip: '提示',
     update: '更新',
     updateSuccess: '更新成功',
-    userCenter: '个人中心'
+    userCenter: '个人中心',
+    yesOrNo: {
+      yes: '是',
+      no: '否'
+    }
   },
   theme: {
     themeSchema: {
@@ -253,27 +257,36 @@ const local: App.I18n.Schema = {
       }
     },
     manage: {
+      common: {
+        status: {
+          enable: '启用',
+          disable: '禁用'
+        }
+      },
       role: {
         title: '角色列表',
+        roleName: '角色名称',
+        roleCode: '角色编码',
+        roleStatus: '角色状态',
+        roleDesc: '角色描述',
         form: {
           roleName: '请输入角色名称',
           roleCode: '请输入角色编码',
           roleStatus: '请选择角色状态',
           roleDesc: '请输入角色描述'
         },
-        roleName: '角色名称',
-        roleCode: '角色编码',
-        roleStatus: '角色状态',
-        roleDesc: '角色描述',
         addRole: '新增角色',
-        editRole: '编辑角色',
-        status: {
-          enable: '启用',
-          disable: '禁用'
-        }
+        editRole: '编辑角色'
       },
       user: {
         title: '用户列表',
+        userName: '用户名',
+        userGender: '性别',
+        nickName: '昵称',
+        userPhone: '手机号',
+        userEmail: '邮箱',
+        userStatus: '用户状态',
+        userRole: '用户角色',
         form: {
           userName: '请输入用户名',
           userGender: '请选择性别',
@@ -283,22 +296,64 @@ const local: App.I18n.Schema = {
           userStatus: '请选择用户状态',
           userRole: '请选择用户角色'
         },
-        userName: '用户名',
-        userGender: '性别',
-        nickName: '昵称',
-        userPhone: '手机号',
-        userEmail: '邮箱',
-        userStatus: '用户状态',
-        userRole: '用户角色',
         addUser: '新增用户',
         editUser: '编辑用户',
         gender: {
           male: '男',
           female: '女'
+        }
+      },
+      menu: {
+        title: '菜单列表',
+        menuType: '菜单类型',
+        menuName: '菜单名称',
+        routeName: '路由名称',
+        routePath: '路由路径',
+        page: '页面组件',
+        layout: '布局',
+        i18nKey: '国际化key',
+        icon: '图标',
+        localIcon: '本地图标',
+        order: '排序',
+        keepAlive: '缓存路由',
+        href: '外链',
+        hideInMenu: '隐藏菜单',
+        activeMenu: '高亮的菜单',
+        multiTab: '支持多页签',
+        fixedIndexInTab: '固定在页签中的序号',
+        button: '按钮',
+        buttonCode: '按钮编码',
+        buttonDesc: '按钮描述',
+        menuStatus: '菜单状态',
+        form: {
+          menuType: '请选择菜单类型',
+          menuName: '请输入菜单名称',
+          routeName: '请输入路由名称',
+          routePath: '请输入路由路径',
+          page: '请选择页面组件',
+          layout: '请选择布局组件',
+          i18nKey: '请输入国际化key',
+          icon: '请输入图标',
+          localIcon: '请选择本地图标',
+          order: '请输入排序',
+          keepAlive: '请选择是否缓存路由',
+          href: '请输入外链',
+          hideInMenu: '请选择是否隐藏菜单',
+          activeMenu: '请输入高亮的菜单的路由名称',
+          multiTab: '请选择是否支持多标签',
+          fixedInTab: '请选择是否固定在页签中',
+          fixedIndexInTab: '请输入固定在页签中的序号',
+          button: '请选择是否按钮',
+          buttonCode: '请输入按钮编码',
+          buttonDesc: '请输入按钮描述',
+          menuStatus: '请选择菜单状态'
         },
-        status: {
-          enable: '启用',
-          disable: '禁用'
+        addMenu: '新增菜单',
+        editMenu: '编辑菜单',
+        addChildMenu: '新增子菜单',
+        type: {
+          directory: '目录',
+          menu: '菜单'
         }
       }
     }
