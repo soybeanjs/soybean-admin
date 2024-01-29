@@ -305,6 +305,8 @@ const local: App.I18n.Schema = {
       },
       menu: {
         title: 'Menu List',
+        id: 'ID',
+        parentId: 'Parent ID',
         menuType: 'Menu Type',
         menuName: 'Menu Name',
         routeName: 'Route Name',
@@ -314,6 +316,7 @@ const local: App.I18n.Schema = {
         i18nKey: 'I18n Key',
         icon: 'Icon',
         localIcon: 'Local Icon',
+        iconTypeTitle: 'Icon Type',
         order: 'Order',
         keepAlive: 'Keep Alive',
         href: 'Href',
@@ -333,8 +336,8 @@ const local: App.I18n.Schema = {
           page: 'Please select page component',
           layout: 'Please select layout component',
           i18nKey: 'Please enter i18n key',
-          icon: 'Please enter icon',
-          localIcon: 'Please select local icon',
+          icon: 'Please enter iconify name',
+          localIcon: 'Please enter local icon name',
           order: 'Please enter order',
           keepAlive: 'Please select whether to cache route',
           href: 'Please enter href',
@@ -354,6 +357,10 @@ const local: App.I18n.Schema = {
         type: {
           directory: 'Directory',
           menu: 'Menu'
+        },
+        iconType: {
+          iconify: 'Iconify Icon',
+          local: 'Local Icon'
         }
       }
     }

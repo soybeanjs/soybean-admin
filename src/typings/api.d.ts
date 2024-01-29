@@ -171,6 +171,8 @@ declare namespace Api {
     type IconType = '1' | '2';
 
     type Menu = Common.CommonRecord<{
+      /** parent menu id */
+      parentId: number;
       /** menu type */
       menuType: MenuType;
       /** menu name */

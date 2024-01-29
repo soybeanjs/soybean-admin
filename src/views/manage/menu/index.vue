@@ -37,19 +37,15 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
       width: 48
     },
     {
-      key: 'index',
-      title: $t('common.index'),
-      width: 120,
-      render: (_, index) => {
-        return <span>{getIndex(index)}</span>;
-      },
+      key: 'id',
+      title: $t('page.manage.menu.id'),
       align: 'center'
     },
     {
       key: 'menuType',
       title: $t('page.manage.menu.menuType'),
       align: 'center',
-      width: 120,
+      width: 80,
       render: row => {
         const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
           1: 'default',
@@ -107,7 +103,7 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
       key: 'status',
       title: $t('page.manage.menu.menuStatus'),
       align: 'center',
-      width: 120,
+      width: 80,
       render: row => {
         if (row.status === null) {
           return null;
@@ -127,7 +123,7 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
       key: 'hideInMenu',
       title: $t('page.manage.menu.hideInMenu'),
       align: 'center',
-      width: 100,
+      width: 80,
       render: row => {
         const hide: CommonType.YesOrNo = row.hideInMenu ? 'Y' : 'N';
 
@@ -142,10 +138,16 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
       }
     },
     {
+      key: 'parentId',
+      title: $t('page.manage.menu.parentId'),
+      width: 90,
+      align: 'center'
+    },
+    {
       key: 'order',
       title: $t('page.manage.menu.order'),
       align: 'center',
-      width: 80
+      width: 60
     },
     {
       key: 'operate',
@@ -218,12 +220,6 @@ async function handleDelete(id: number) {
   window.$message?.success($t('common.deleteSuccess'));
 
   getData();
-}
-
-function getIndex(index: number) {
-  const { page = 0, pageSize = 10 } = pagination;
-
-  return String((page - 1) * pageSize + index + 1);
 }
 </script>
 

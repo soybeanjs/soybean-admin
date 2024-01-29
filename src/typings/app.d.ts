@@ -492,6 +492,8 @@ declare namespace App {
           };
           menu: {
             title: string;
+            id: string;
+            parentId: string;
             menuType: string;
             menuName: string;
             routeName: string;
@@ -501,6 +503,7 @@ declare namespace App {
             i18nKey: string;
             icon: string;
             localIcon: string;
+            iconTypeTitle: string;
             order: string;
             keepAlive: string;
             href: string;
@@ -541,6 +544,10 @@ declare namespace App {
             type: {
               directory: string;
               menu: string;
+            };
+            iconType: {
+              iconify: string;
+              local: string;
             };
           };
         };

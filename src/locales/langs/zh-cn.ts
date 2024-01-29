@@ -305,6 +305,8 @@ const local: App.I18n.Schema = {
       },
       menu: {
         title: '菜单列表',
+        id: 'ID',
+        parentId: '父级菜单ID',
         menuType: '菜单类型',
         menuName: '菜单名称',
         routeName: '路由名称',
@@ -314,6 +316,7 @@ const local: App.I18n.Schema = {
         i18nKey: '国际化key',
         icon: '图标',
         localIcon: '本地图标',
+        iconTypeTitle: '图标类型',
         order: '排序',
         keepAlive: '缓存路由',
         href: '外链',
@@ -354,6 +357,10 @@ const local: App.I18n.Schema = {
         type: {
           directory: '目录',
           menu: '菜单'
+        },
+        iconType: {
+          iconify: 'iconify图标',
+          local: '本地图标'
         }
       }
     }
