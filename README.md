@@ -42,7 +42,7 @@
 
 - [NaiveUI](https://naive.soybeanjs.cn)
 - [AntDesign Vue](https://antd.soybeanjs.cn)
-- [Legacy](https://admin.soybeanjs.cn)
+- [Legacy](https://legacy.soybeanjs.cn)
 
 ## Documentation
 

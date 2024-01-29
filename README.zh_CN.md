@@ -40,9 +40,9 @@
 
 ## 预览
 
-- [NaiveUI](https://admin.soybeanjs.cn)
+- [NaiveUI](https://naive.soybeanjs.cn)
 - [AntDesign Vue](https://antd.soybeanjs.cn)
-- [旧版本](https://admin.soybeanjs.cn)
+- [旧版本](https://legacy.soybeanjs.cn)
 
 ## 文档
 
