@@ -39,7 +39,7 @@ export function createServiceConfig(env: Env.ImportMeta) {
  */
 export function createProxyPattern(key?: App.Service.OtherBaseURLKey) {
   if (!key) {
-    return '/proxy';
+    return '/proxy-default';
   }
 
   return `/proxy-${key}`;
