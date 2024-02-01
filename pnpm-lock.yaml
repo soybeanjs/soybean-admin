@@ -67,8 +67,8 @@ importers:
         version: 4.2.5(vue@3.4.15)
     devDependencies:
       '@elegant-router/vue':
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.3.6
+        version: 0.3.6
       '@iconify/json':
         specifier: 2.2.177
         version: 2.2.177
@@ -854,8 +854,8 @@ packages:
       - '@algolia/client-search'
     dev: true
 
-  /@elegant-router/core@0.3.5:
-    resolution: {integrity: sha512-De7KsVNiYiiNPWNmSGYHQFSmbsE0cvF3gWl9JDbdsE+Orlr5Kshgl2TQOoOxB1Kc9JgTNtS48/LMGXL9a1/krw==}
+  /@elegant-router/core@0.3.6:
+    resolution: {integrity: sha512-cIsAqqfI7MGjcMBEAilVDTaJJeEzUchQ8bjIe+9r61btg55rc7h0wOl3Xt8BragHJ0CnTWL7R7pyXgz4Cu+9YQ==}
     dependencies:
       chokidar: 3.5.3
       consola: 3.2.3
@@ -864,15 +864,15 @@ packages:
       micromatch: 4.0.5
     dev: true
 
-  /@elegant-router/vue@0.3.5:
-    resolution: {integrity: sha512-pD2Z37UCE5xf1JHktBLgcxvK/K7icCyEojAkSuZIGrLOR9WLHSvVSOaslgOsNoN9chuAOO8gaSDd/brdVe1AnQ==}
+  /@elegant-router/vue@0.3.6:
+    resolution: {integrity: sha512-++FxR2AmPymmXqnZYh5RZkzWgNqL75pigvoQP8FXlYs3XnpYwVK4nnjoKscqlaK0TIUQ3w7v38IPsgyGyulIFw==}
     dependencies:
-      '@elegant-router/core': 0.3.5
+      '@elegant-router/core': 0.3.6
       consola: 3.2.3
       kolorist: 1.8.0
-      magic-string: 0.30.5
+      magic-string: 0.30.6
       magicast: 0.3.3
-      prettier: 3.2.2
+      prettier: 3.2.4
       recast: 0.23.4
       unplugin: 1.6.0
     dev: true
@@ -5483,13 +5483,6 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /magic-string@0.30.5:
-    resolution: {integrity: sha512-7xlpfBaQaP/T6Vh8MO/EqXSW5En6INHEvEXQiuff7Gku0PWjU3uf6w/j9o7O+SpB5fOAkrI5HeoNgwjEO0pFsA==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
-    dev: true
-
   /magic-string@0.30.6:
     resolution: {integrity: sha512-n62qCLbPjNjyo+owKtveQxZFZTBm+Ms6YoGD23Wew6Vw337PElFNifQpknPruVRQV57kVShPnLGo9vWxVhpPvA==}
     engines: {node: '>=12'}
@@ -6827,12 +6820,6 @@ packages:
       prettier: '>=2.0.0'
     dependencies:
       prettier: 3.2.4
-    dev: true
-
-  /prettier@3.2.2:
-    resolution: {integrity: sha512-HTByuKZzw7utPiDO523Tt2pLtEyK7OibUD9suEJQrPUCYQqrHr74GGX6VidMrovbf/I50mPqr8j/II6oBAuc5A==}
-    engines: {node: '>=14'}
-    hasBin: true
     dev: true
 
   /prettier@3.2.4:
