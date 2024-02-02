@@ -7,12 +7,13 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
-> [!NOTE]
-> If you think `Soybean Admin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
 
 >[!CAUTION]
 > the old version of `Soybean Admin` is moved to branch [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy). It is recommended to use the latest version of `Soybean Admin`.
 > the documents of new version is processing, please wait patiently.
+
+> [!NOTE]
+> If you think `Soybean Admin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
 
 <br />
 
@@ -128,21 +129,6 @@ It is recommended to use the latest version of Chrome in development for a bette
 ## OpenSource Author
 
 [Soybean](https://github.com/honghuangdc)
-
-## Communication
-
-| Communication | Link or QR Code |
-| --- | --- |
-| GitHub Issue | [Link](https://github.com/honghuangdc/soybean-admin/issues) |
-| Discord | [Link](https://discord.gg/mEFKh8xm9y) |
-| QQ Group<br />Technical communication, questions and answers | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq.jpeg" width="160" /> |
-| Soybean's WeChat <br />Business consulting, cooperation, project architecture, one-to-one guidance, etc. | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" width="160" /> |
-
-## Donate
-
-If you think this project is helpful to you, you can buy Soybean a drink to show your support, Soybean open source power can not be separated from your support and encouragement.
-
-<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png" width="480" />
 
 ## Contributors
 

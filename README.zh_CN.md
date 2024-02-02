@@ -7,12 +7,12 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
-> [!NOTE]
-> 如果您觉得 `Soybean Admin`对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
-
 >[!CAUTION]
 > 旧版本的 `Soybean Admin` 已经移动到分支 [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy)。建议使用最新版本的 `Soybean Admin`。
 > 新版本的文档正在编写中，请耐心等待。
+
+> [!NOTE]
+> 如果您觉得 `Soybean Admin`对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
 
 <br />
 
@@ -129,21 +129,6 @@ pnpm build
 ## 开源作者
 
 [Soybean](https://github.com/honghuangdc)
-
-## 交流
-
-| 交流方式 | 链接或二维码 |
-| --- | --- |
-| GitHub Issue | [地址](https://github.com/honghuangdc/soybean-admin/issues) |
-| Discord | [地址](https://discord.gg/mEFKh8xm9y) |
-| QQ 群<br />技术交流、问题请教 | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq.jpeg" width="160" /> |
-| Soybean 的微信 <br />业务咨询、合作、项目架构、一对一指导等 | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" width="160" /> |
-
-## 捐赠
-
-如果您觉得本项目对您有所帮助，欢迎您以买杯咖啡的方式来支持 Soybean。您的支持和鼓励是 Soybean 持续开源的重要动力。
-
-<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png" width="480" />
 
 ## 贡献者
 
