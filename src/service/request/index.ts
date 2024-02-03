@@ -30,7 +30,7 @@ export const request = createFlatRequest<App.Service.Response>(
       return response.data.code === '0000';
     },
     async onBackendFail(_response) {
-      // when the backend response code is not 200, it means the request is fail
+      // when the backend response code is not "0000", it means the request is fail
       // for example: the token is expired, refetch token and retry request
     },
     transformBackendResponse(response) {
@@ -43,7 +43,7 @@ export const request = createFlatRequest<App.Service.Response>(
 
       // show backend error message
       if (error.code === BACKEND_ERROR_CODE) {
-        message = error.request?.data.msg || message;
+        message = error.response?.data?.msg || message;
       }
 
       window.$message?.error(message);
@@ -67,12 +67,12 @@ export const demoRequest = createRequest<App.Service.DemoResponse>(
       return config;
     },
     isBackendSuccess(response) {
-      // when the backend response code is 200, it means the request is success
+      // when the backend response code is "200", it means the request is success
       // you can change this logic by yourself
       return response.data.status === '200';
     },
     async onBackendFail(_response) {
-      // when the backend response code is not 200, it means the request is fail
+      // when the backend response code is not "200", it means the request is fail
       // for example: the token is expired, refetch token and retry request
     },
     transformBackendResponse(response) {
@@ -85,7 +85,7 @@ export const demoRequest = createRequest<App.Service.DemoResponse>(
 
       // show backend error message
       if (error.code === BACKEND_ERROR_CODE) {
-        message = error.request?.data.message || message;
+        message = error.response?.data?.message || message;
       }
 
       window.$message?.error(message);
