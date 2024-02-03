@@ -61,8 +61,8 @@ function createCommonRequest<ResponseData = any>(
         'the backend request error',
         BACKEND_ERROR_CODE,
         response.config,
-        response,
-        response.request
+        response.request,
+        response
       );
 
       await opts.onError(backendError);
