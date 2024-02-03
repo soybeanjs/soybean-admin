@@ -5,11 +5,11 @@
 </div>
 <br />
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
 
 
 >[!CAUTION]
-> the old version of `Soybean Admin` is moved to branch [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy). It is recommended to use the latest version of `Soybean Admin`.
+> the old version of `Soybean Admin` is moved to branch [legacy](https://github.com/soybeanjs/soybean-admin/tree/legacy). It is recommended to use the latest version of `Soybean Admin`.
 > the documents of new version is processing, please wait patiently.
 
 > [!NOTE]
@@ -17,11 +17,11 @@
 
 <br />
 
-[![Star History Chart](https://api.star-history.com/svg?repos=honghuangdc/soybean-admin&type=Date)](https://star-history.com/#honghuangdc/soybean-admin&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
 
 ## Introduction
 
-[`Soybean Admin`](https://github.com/honghuangdc/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `Soybean Admin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
+[`Soybean Admin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `Soybean Admin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
 
 
 ## Features
@@ -54,10 +54,10 @@
 
 | Repository | Github | Gitee | Preview |
 | --- | --- | --- | --- |
-| NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://naive.soybeanjs.cn) |
-| AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
-| Legacy | [github](https://github.com/honghuangdc/soybean-admin/tree/legacy) | [gitee](https://gitee.com/honghuangdc/soybean-admin/tree/legacy/) | [preview](https://legacy.soybeanjs.cn) |
-| Legacy Documentation | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
+| NaiveUI | [github](https://github.com/soybeanjs/soybean-admin) | [gitee](https://gitee.com/soybeanjs/soybean-admin) | [preview](https://naive.soybeanjs.cn) |
+| AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/soybeanjs/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
+| Legacy | [github](https://github.com/soybeanjs/soybean-admin/tree/legacy) | [gitee](https://gitee.com/soybeanjs/soybean-admin/tree/legacy/) | [preview](https://legacy.soybeanjs.cn) |
+| Legacy Documentation | [github](https://github.com/soybeanjs/soybean-admin-docs) | [gitee](https://gitee.com/soybeanjs/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
 
 ## Example Images
 
@@ -88,7 +88,7 @@ Make sure your environment meets the following requirements:
 **Clone Project**
 
 ```bash
-git clone https://github.com/honghuangdc/soybean-admin.git
+git clone https://github.com/soybeanjs/soybean-admin.git
 ```
 
 **Install Dependencies**
@@ -112,7 +112,7 @@ pnpm build
 
 ## How to Contribute
 
-We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/honghuangdc/soybean-admin/pulls) or creating GitHub [issue](https://github.com/honghuangdc/soybean-admin/issues/new).
+We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) or creating GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new).
 
 ## Git Commit Guidelines
 
@@ -134,8 +134,8 @@ It is recommended to use the latest version of Chrome in development for a bette
 
 Thanks the following people for their contributions. If you want to contribute to this project, please refer to [How to Contribute](#how-to-contribute).
 
-<a href="https://github.com/honghuangdc/soybean-admin/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=honghuangdc/soybean-admin" />
+<a href="https://github.com/soybeanjs/soybean-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
 </a>
 
 ## License

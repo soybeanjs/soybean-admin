@@ -5,10 +5,10 @@
 </div>
 <br />
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
 
 >[!CAUTION]
-> 旧版本的 `Soybean Admin` 已经移动到分支 [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy)。建议使用最新版本的 `Soybean Admin`。
+> 旧版本的 `Soybean Admin` 已经移动到分支 [legacy](https://github.com/soybeanjs/soybean-admin/tree/legacy)。建议使用最新版本的 `Soybean Admin`。
 > 新版本的文档正在编写中，请耐心等待。
 
 > [!NOTE]
@@ -16,12 +16,12 @@
 
 <br />
 
-[![Star History Chart](https://api.star-history.com/svg?repos=honghuangdc/soybean-admin&type=Date)](https://star-history.com/#honghuangdc/soybean-admin&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
 
 
 ## 简介
 
-[`Soybean Admin`](https://github.com/honghuangdc/soybean-admin) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。`Soybean Admin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
+[`Soybean Admin`](https://github.com/soybeanjs/soybean-admin) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。`Soybean Admin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
 
 ## 特性
 
@@ -53,10 +53,10 @@
 
 | 仓库 | Github | Gitee | 预览 |
 | --- | --- | --- | --- |
-| NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://admin.soybeanjs.cn) |
-| AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
-| 旧版本 | [github](https://github.com/honghuangdc/soybean-admin/tree/legacy) | [gitee](https://gitee.com/honghuangdc/soybean-admin/tree/legacy/) | [preview](https://legacy.soybeanjs.cn) |
-| 旧版本文档 | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
+| NaiveUI | [github](https://github.com/soybeanjs/soybean-admin) | [gitee](https://gitee.com/soybeanjs/soybean-admin) | [preview](https://admin.soybeanjs.cn) |
+| AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/soybeanjs/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
+| 旧版本 | [github](https://github.com/soybeanjs/soybean-admin/tree/legacy) | [gitee](https://gitee.com/soybeanjs/soybean-admin/tree/legacy/) | [preview](https://legacy.soybeanjs.cn) |
+| 旧版本文档 | [github](https://github.com/soybeanjs/soybean-admin-docs) | [gitee](https://gitee.com/soybeanjs/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
 
 ## 示例图片
 
@@ -87,7 +87,7 @@
 **克隆项目**
 
 ```bash
-git clone https://github.com/honghuangdc/soybean-admin.git
+git clone https://github.com/soybeanjs/soybean-admin.git
 ```
 
 **安装依赖**
@@ -111,7 +111,7 @@ pnpm build
 
 ## 如何贡献
 
-我们热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://github.com/honghuangdc/soybean-admin/pulls) 或创建 GitHub [issue](https://github.com/honghuangdc/soybean-admin/issues/new) 来分享。
+我们热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) 或创建 GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new) 来分享。
 
 ## Git 提交规范
 
@@ -134,8 +134,8 @@ pnpm build
 
 感谢以下贡献者的贡献。如果您想为本项目做出贡献，请参考 [如何贡献](#如何贡献)。
 
-<a href="https://github.com/honghuangdc/soybean-admin/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=honghuangdc/soybean-admin" />
+<a href="https://github.com/soybeanjs/soybean-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
 </a>
 
 ## 开源协议
