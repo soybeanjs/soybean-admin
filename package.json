@@ -28,11 +28,14 @@
     "UnoCSS"
   ],
   "scripts": {
-    "build": "run-s typecheck build-only",
-    "build-only": "vite build",
+    "build": "cross-env VITE_SERVICE_ENV=prod vite build",
+    "build:dev": "vite build",
+    "build:test": "cross-env VITE_SERVICE_ENV=test vite build",
     "cleanup": "sa cleanup",
     "commit": "sa git-commit",
     "dev": "vite",
+    "dev:prod": "cross-env VITE_SERVICE_ENV=prod vite",
+    "dev:test": "cross-env VITE_SERVICE_ENV=test vite",
     "gen-route": "sa gen-route",
     "lint": "eslint . --fix",
     "prepare": "simple-git-hooks",
