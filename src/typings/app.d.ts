@@ -170,7 +170,7 @@ declare namespace App {
     };
 
     /** Tab route */
-    type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> &
+    type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta' | 'matched'> &
       Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query'>>;
 
     /** The global tab */

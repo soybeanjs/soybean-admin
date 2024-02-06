@@ -50,7 +50,11 @@ export function getTabIdByRoute(route: App.Global.TabRoute) {
  */
 export function getTabByRoute(route: App.Global.TabRoute) {
   const { name, path, fullPath = path, meta } = route;
-  const { title, i18nKey, fixedIndexInTab, icon = import.meta.env.VITE_MENU_ICON, localIcon } = meta;
+
+  const { title, i18nKey, fixedIndexInTab } = meta;
+
+  // Get icon and localIcon from getRouteIcons function
+  const { icon, localIcon } = getRouteIcons(route);
 
   const label = i18nKey ? $t(i18nKey) : title;
 
@@ -67,6 +71,29 @@ export function getTabByRoute(route: App.Global.TabRoute) {
   };
 
   return tab;
+}
+
+/**
+ * The vue router will automatically merge the metas of all matched items, and the icons here may be affected by other
+ * matching items, so they need to be processed separately
+ *
+ * @param route
+ */
+export function getRouteIcons(route: App.Global.TabRoute) {
+  // Set default value for icon at the beginning
+  let icon: string = import.meta.env.VITE_MENU_ICON;
+  let localIcon: string | undefined;
+
+  // Route.matched only appears when there are multiple matches,so check if route.matched exists
+  if (route.matched) {
+    // Find the meta of the current route from matched
+    const currentRoute = route.matched.find(r => r.name === route.name);
+    // If icon exists in currentRoute.meta, it will overwrite the default value
+    icon = currentRoute?.meta?.icon || icon;
+    localIcon = currentRoute?.meta?.localIcon;
+  }
+
+  return { icon, localIcon };
 }
 
 /**
