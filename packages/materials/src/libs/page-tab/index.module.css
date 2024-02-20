@@ -23,13 +23,13 @@
   background-color: var(--soy-primary-color-opacity2);
 }
 
-.button-tab .icon_close:hover {
+.button-tab .svg-close:hover {
   font-size: 12px;
   color: #ffffff;
   background-color: var(--soy-primary-color);
 }
 
-.button-tab_dark .icon_close:hover {
+.button-tab_dark .svg-close:hover {
   color: #000000;
 }
 
@@ -70,17 +70,17 @@
   color: var(--soy-primary-color2);
 }
 
-.chrome-tab .icon_close:hover {
+.chrome-tab .svg-close:hover {
   font-size: 12px;
   color: #ffffff;
   background-color: #9ca3af;
 }
 
-.chrome-tab_active .icon_close:hover {
+.chrome-tab_active .svg-close:hover {
   background-color: var(--soy-primary-color);
 }
 
-.chrome-tab_dark .icon_close:hover {
+.chrome-tab_dark .svg-close:hover {
   color: #000000;
 }
 

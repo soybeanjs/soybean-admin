@@ -5,7 +5,7 @@ import type { PageTabMode, PageTabProps } from '../../types';
 import { ACTIVE_COLOR, createTabCssVars } from './shared';
 import ChromeTab from './chrome-tab.vue';
 import ButtonTab from './button-tab.vue';
-import SvgIconClose from './icon-close.vue';
+import SvgClose from './svg-close.vue';
 import style from './index.module.css';
 
 defineOptions({
@@ -88,7 +88,7 @@ function handleClose() {
     <slot></slot>
     <template #suffix>
       <slot name="suffix">
-        <SvgIconClose v-if="closable" :class="[style['icon_close']]" @click="handleClose" />
+        <SvgClose v-if="closable" :class="[style['svg-close']]" @click="handleClose" />
       </slot>
     </template>
   </component>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'IconClose'
+  name: 'SvgClose'
 });
 
 const emit = defineEmits<Emits>();
