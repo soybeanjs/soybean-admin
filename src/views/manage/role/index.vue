@@ -177,7 +177,7 @@ function getIndex(index: number) {
         :data="data"
         size="small"
         :flex-height="!appStore.isMobile"
-        :scroll-x="640"
+        :scroll-x="702"
         :loading="loading"
         :pagination="pagination"
         :row-key="item => item.id"

@@ -14,6 +14,8 @@ import MenuOperateDrawer, { type OperateType } from './modules/menu-operate-draw
 const appStore = useAppStore();
 const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
 
+const wrapperRef = ref<HTMLElement | null>(null);
+
 const { columns, filteredColumns, data, loading, pagination, getData } = useTable<
   Api.SystemManage.Menu,
   typeof fetchGetMenuList,
@@ -224,7 +226,7 @@ async function handleDelete(id: number) {
 </script>
 
 <template>
-  <div class="flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
+  <div ref="wrapperRef" class="flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
     <NCard :title="$t('page.manage.menu.title')" :bordered="false" size="small" class="card-wrapper sm:flex-1-hidden">
       <template #header-extra>
         <TableHeaderOperation
@@ -242,7 +244,7 @@ async function handleDelete(id: number) {
         :data="data"
         size="small"
         :flex-height="!appStore.isMobile"
-        :scroll-x="640"
+        :scroll-x="1088"
         :loading="loading"
         :pagination="pagination"
         :row-key="item => item.id"
