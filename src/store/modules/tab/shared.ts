@@ -81,8 +81,8 @@ export function getTabByRoute(route: App.Global.TabRoute) {
  */
 export function getRouteIcons(route: App.Global.TabRoute) {
   // Set default value for icon at the beginning
-  let icon: string = import.meta.env.VITE_MENU_ICON;
-  let localIcon: string | undefined;
+  let icon: string = route?.meta?.icon || import.meta.env.VITE_MENU_ICON;
+  let localIcon: string | undefined = route?.meta?.localIcon;
 
   // Route.matched only appears when there are multiple matches,so check if route.matched exists
   if (route.matched) {
