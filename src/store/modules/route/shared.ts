@@ -85,7 +85,7 @@ export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[]) {
     if (!route.meta?.hideInMenu) {
       const menu = getGlobalMenuByBaseRoute(route);
 
-      if (route.children?.length) {
+      if (route.children?.some(child => !child.meta?.hideInMenu)) {
         menu.children = getGlobalMenusByAuthRoutes(route.children);
       }
 
