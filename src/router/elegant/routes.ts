@@ -194,7 +194,9 @@ export const generatedRoutes: GeneratedRoute[] = [
             component: 'view.multi-menu_first_child',
             meta: {
               title: 'multi-menu_first_child',
-              i18nKey: 'route.multi-menu_first_child'
+              i18nKey: 'route.multi-menu_first_child',
+              hideInMenu: true,
+              // activeMenu: 'multi-menu_first'
             }
           }
         ]
