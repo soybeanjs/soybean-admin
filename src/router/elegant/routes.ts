@@ -63,7 +63,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         path: '/function/hide-child',
         meta: {
           title: 'function_hide-child',
-          i18nKey: 'route.function_hide-child'
+          i18nKey: 'route.function_hide-child',
+          icon: 'material-symbols:filter-list-off',
         },
         redirect: '/function/hide-child/one',
         children: [
@@ -74,6 +75,7 @@ export const generatedRoutes: GeneratedRoute[] = [
             meta: {
               title: 'function_hide-child_one',
               i18nKey: 'route.function_hide-child_one',
+              icon: 'material-symbols:filter-list-off',
               hideInMenu: true,
               activeMenu: 'function_hide-child'
             }
