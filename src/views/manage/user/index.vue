@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { ref } from 'vue';
+import type { PaginationProps } from 'naive-ui';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useBoolean } from '@sa/hooks';
 import { fetchGetUserList } from '@/service/api';
@@ -141,7 +142,18 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
         </div>
       )
     }
-  ]
+  ],
+
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  async onPaginationChanged(pagination: PaginationProps) {
+    // If you need to use parameters to control the back-end paginated data
+    searchParams.current = pagination.page;
+    searchParams.size = pagination.pageSize;
+
+    // eslint-disable-next-line no-console
+    console.log(pagination);
+    await getData();
+  }
 });
 
 const operateType = ref<OperateType>('add');
@@ -155,6 +167,7 @@ const checkedRowKeys = ref<string[]>([]);
 
 async function handleBatchDelete() {
   // request
+  // eslint-disable-next-line no-console
   console.log(checkedRowKeys.value);
   window.$message?.success($t('common.deleteSuccess'));
 
@@ -174,6 +187,7 @@ function handleEdit(id: number) {
 
 async function handleDelete(id: number) {
   // request
+  // eslint-disable-next-line no-console
   console.log(id);
   window.$message?.success($t('common.deleteSuccess'));
 
@@ -209,7 +223,6 @@ function getIndex(index: number) {
         :flex-height="!appStore.isMobile"
         :scroll-x="962"
         :loading="loading"
-        :pagination="pagination"
         :row-key="item => item.id"
         class="sm:h-full"
       />
@@ -220,6 +233,20 @@ function getIndex(index: number) {
         @submitted="getData"
       />
     </NCard>
+
+    <div class="flex-center">
+      <n-pagination
+        :page="pagination.page"
+        :page-size="pagination.pageSize"
+        :item-count="pagination.itemCount"
+        :page-sizes="pagination.pageSizes"
+        show-size-picker
+        @update:page="pagination.onUpdatePage"
+        @update:page-size="pagination.onUpdatePageSize"
+      >
+        <template #prefix="{ itemCount }">共 {{ itemCount }} 项</template>
+      </n-pagination>
+    </div>
   </div>
 </template>
 
