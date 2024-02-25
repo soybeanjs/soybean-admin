@@ -13,11 +13,17 @@ import UserSearch from './modules/user-search.vue';
 const appStore = useAppStore();
 const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
 
-const { columns, filteredColumns, data, loading, pagination, getData, searchParams, resetSearchParams } = useTable<
-  Api.SystemManage.User,
-  typeof fetchGetUserList,
-  'index' | 'operate'
->({
+const {
+  columns,
+  filteredColumns,
+  data,
+  loading,
+  pagination,
+  getData,
+  searchParams,
+  updateSearchParams,
+  resetSearchParams
+} = useTable<Api.SystemManage.User, typeof fetchGetUserList, 'index' | 'operate'>({
   apiFn: fetchGetUserList,
   apiParams: {
     current: 1,
@@ -40,6 +46,16 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
       pageSize: size,
       total
     };
+  },
+  onPaginationChanged(pg) {
+    const { page, pageSize } = pg;
+
+    updateSearchParams({
+      current: page,
+      size: pageSize
+    });
+
+    getData();
   },
   columns: () => [
     {
@@ -209,6 +225,7 @@ function getIndex(index: number) {
         :flex-height="!appStore.isMobile"
         :scroll-x="962"
         :loading="loading"
+        remote
         :pagination="pagination"
         :row-key="item => item.id"
         class="sm:h-full"

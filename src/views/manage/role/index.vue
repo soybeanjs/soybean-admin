@@ -13,11 +13,17 @@ import RoleSearch from './modules/role-search.vue';
 const appStore = useAppStore();
 const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
 
-const { columns, filteredColumns, data, loading, pagination, getData, searchParams, resetSearchParams } = useTable<
-  Api.SystemManage.Role,
-  typeof fetchGetRoleList,
-  'index' | 'operate'
->({
+const {
+  columns,
+  filteredColumns,
+  data,
+  loading,
+  pagination,
+  getData,
+  searchParams,
+  updateSearchParams,
+  resetSearchParams
+} = useTable<Api.SystemManage.Role, typeof fetchGetRoleList, 'index' | 'operate'>({
   apiFn: fetchGetRoleList,
   apiParams: {
     current: 1,
@@ -37,6 +43,16 @@ const { columns, filteredColumns, data, loading, pagination, getData, searchPara
       pageSize: size,
       total
     };
+  },
+  onPaginationChanged(pg) {
+    const { page, pageSize } = pg;
+
+    updateSearchParams({
+      current: page,
+      size: pageSize
+    });
+
+    getData();
   },
   columns: () => [
     {
@@ -179,6 +195,7 @@ function getIndex(index: number) {
         :flex-height="!appStore.isMobile"
         :scroll-x="702"
         :loading="loading"
+        remote
         :pagination="pagination"
         :row-key="item => item.id"
         class="sm:h-full"

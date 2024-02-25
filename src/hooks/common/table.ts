@@ -104,7 +104,9 @@ export function useTable<TableData extends BaseData, Fn extends ApiFn, CustomCol
   async function getData() {
     startLoading();
 
-    const response = await apiFn(searchParams);
+    const formattedParams = formatSearchParams(searchParams);
+
+    const response = await apiFn(formattedParams);
 
     const { data: tableData, pageNum, pageSize, total } = transformer(response as Awaited<ReturnType<Fn>>);
 
@@ -113,6 +115,18 @@ export function useTable<TableData extends BaseData, Fn extends ApiFn, CustomCol
     setEmpty(tableData.length === 0);
     updatePagination({ page: pageNum, pageSize, itemCount: total });
     endLoading();
+  }
+
+  function formatSearchParams(params: Record<string, unknown>) {
+    const formattedParams: Record<string, unknown> = {};
+
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formattedParams[key] = value;
+      }
+    });
+
+    return formattedParams;
   }
 
   /**
