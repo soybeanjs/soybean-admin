@@ -6,7 +6,7 @@ defineOptions({
 });
 
 interface Props {
-  itemAlign?: 'stretch' | 'baseline' | 'start' | 'end' | 'center' | 'flex-end' | 'flex-start';
+  itemAlign?: NaiveUI.Align;
   disabledDelete?: boolean;
   loading?: boolean;
 }
