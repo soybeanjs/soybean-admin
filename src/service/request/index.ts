@@ -31,7 +31,7 @@ export const request = createFlatRequest<App.Service.Response>(
     },
     async onBackendFail(_response) {
       // when the backend response code is not "0000", it means the request is fail
-      // for example: the token is expired, refetch token and retry request
+      // for example: the token is expired, refresh token and retry request
     },
     transformBackendResponse(response) {
       return response.data.data;
@@ -73,7 +73,7 @@ export const demoRequest = createRequest<App.Service.DemoResponse>(
     },
     async onBackendFail(_response) {
       // when the backend response code is not "200", it means the request is fail
-      // for example: the token is expired, refetch token and retry request
+      // for example: the token is expired, refresh token and retry request
     },
     transformBackendResponse(response) {
       return response.data.result;

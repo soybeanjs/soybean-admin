@@ -30,7 +30,6 @@ export interface RequestOption<ResponseData = any> {
    *
    * @param response Axios response
    * @param instance Axios instance
-   * @returns
    */
   onBackendFail: (
     response: AxiosResponse<ResponseData>,
