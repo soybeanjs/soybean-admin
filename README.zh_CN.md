@@ -9,7 +9,6 @@
 
 >[!CAUTION]
 > 旧版本的 `Soybean Admin` 已经移动到分支 [legacy](https://github.com/soybeanjs/soybean-admin/tree/legacy)。建议使用最新版本的 `Soybean Admin`。
-> 新版本的文档正在编写中，请耐心等待。
 
 > [!NOTE]
 > 如果您觉得 `Soybean Admin`对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
@@ -38,25 +37,27 @@
 - **移动端适配**：完美支持移动端，实现自适应布局。
 
 
-## 预览
+## 版本
 
-- [NaiveUI](https://naive.soybeanjs.cn)
-- [AntDesign Vue](https://antd.soybeanjs.cn)
-- [旧版本](https://legacy.soybeanjs.cn)
+- **NaiveUI 版本:**
+  - [预览地址](https://naive.soybeanjs.cn/)
+  - [Github 仓库](https://github.com/soybeanjs/soybean-admin)
+  - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin)
+
+- **AntDesignVue 版本:**
+  - [预览地址](https://antd.soybeanjs.cn/)
+  - [Github 仓库](https://github.com/soybeanjs/soybean-admin-antd)
+  - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin-antd)
+  -
+- **旧版:**
+  - [预览地址](https://legacy.soybeanjs.cn/)
+  - [Github 仓库](https://github.com/soybeanjs/soybean-admin/tree/legacy)
+
 
 ## 文档
 
-- [Legacy Docs](https://docs.soybeanjs.cn)
-> 新版本的文档正在编写中，请耐心等待。
-
-## 仓库
-
-| 仓库 | Github | Gitee | 预览 |
-| --- | --- | --- | --- |
-| NaiveUI | [github](https://github.com/soybeanjs/soybean-admin) | [gitee](https://gitee.com/soybeanjs/soybean-admin) | [preview](https://admin.soybeanjs.cn) |
-| AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/soybeanjs/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
-| 旧版本 | [github](https://github.com/soybeanjs/soybean-admin/tree/legacy) | [gitee](https://gitee.com/soybeanjs/soybean-admin/tree/legacy/) | [preview](https://legacy.soybeanjs.cn) |
-| 旧版本文档 | [github](https://github.com/soybeanjs/soybean-admin-docs) | [gitee](https://gitee.com/soybeanjs/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
+- [地址](https://docs.soybeanjs.cn)
+- [旧版文档](https://legacy-docs.soybeanjs.cn)
 
 ## 示例图片
 

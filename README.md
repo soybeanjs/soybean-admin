@@ -10,7 +10,6 @@
 
 >[!CAUTION]
 > the old version of `Soybean Admin` is moved to branch [legacy](https://github.com/soybeanjs/soybean-admin/tree/legacy). It is recommended to use the latest version of `Soybean Admin`.
-> the documents of new version is processing, please wait patiently.
 
 > [!NOTE]
 > If you think `Soybean Admin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
@@ -35,25 +34,27 @@
 - **Mobile adaptation**: perfectly support mobile terminal to realize adaptive layout.
 
 
-## Preview
+## Version
 
-- [NaiveUI](https://naive.soybeanjs.cn)
-- [AntDesign Vue](https://antd.soybeanjs.cn)
-- [Legacy](https://legacy.soybeanjs.cn)
+- **NaiveUI Version:**
+  - [Preview Link](https://naive.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin)
+
+- **AntDesignVue Version:**
+  - [Preview Link](https://antd.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin-antd)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-antd)
+
+- **Legacy Version:**
+  - [Preview Link](https://legacy.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin/tree/legacy)
+
 
 ## Documentation
 
-- [Legacy Docs](https://docs.soybeanjs.cn)
-> new version documentation is processing, please wait patiently.
-
-## Repositories
-
-| Repository | Github | Gitee | Preview |
-| --- | --- | --- | --- |
-| NaiveUI | [github](https://github.com/soybeanjs/soybean-admin) | [gitee](https://gitee.com/soybeanjs/soybean-admin) | [preview](https://naive.soybeanjs.cn) |
-| AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/soybeanjs/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
-| Legacy | [github](https://github.com/soybeanjs/soybean-admin/tree/legacy) | [gitee](https://gitee.com/soybeanjs/soybean-admin/tree/legacy/) | [preview](https://legacy.soybeanjs.cn) |
-| Legacy Documentation | [github](https://github.com/soybeanjs/soybean-admin-docs) | [gitee](https://gitee.com/soybeanjs/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
+- [Link](https://docs.soybeanjs.cn)
+- [Legacy Docs](https://legacy-docs.soybeanjs.cn)
 
 ## Example Images
 
