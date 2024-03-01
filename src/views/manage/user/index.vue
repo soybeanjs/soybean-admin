@@ -7,8 +7,8 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
+import TableSearch from '@/components/advanced/table-search.vue';
 import UserOperateDrawer, { type OperateType } from './modules/user-operate-drawer.vue';
-import UserSearch from './modules/user-search.vue';
 
 const appStore = useAppStore();
 const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
@@ -21,6 +21,7 @@ const {
   pagination,
   getData,
   searchParams,
+  rule,
   updateSearchParams,
   resetSearchParams
 } = useTable<Api.SystemManage.User, typeof fetchGetUserList, 'index' | 'operate'>({
@@ -37,6 +38,42 @@ const {
     userPhone: null,
     userEmail: null
   },
+  paramsRule: [
+    { label: 'page.manage.user.userName', model: 'userName', placeholder: 'page.manage.user.form.userName' },
+    {
+      label: 'page.manage.user.userGender',
+      model: 'userGender',
+      placeholder: 'page.manage.user.form.userGender',
+      options: {
+        '1': 'page.manage.user.gender.male',
+        '2': 'page.manage.user.gender.female'
+      }
+    },
+    {
+      label: 'page.manage.user.nickName',
+      model: 'nickName',
+      placeholder: 'page.manage.user.form.nickName'
+    },
+    {
+      label: 'page.manage.user.userPhone',
+      model: 'userPhone',
+      placeholder: 'page.manage.user.form.userPhone'
+    },
+    {
+      label: 'page.manage.user.userEmail',
+      model: 'userEmail',
+      placeholder: 'page.manage.user.form.userEmail'
+    },
+    {
+      label: 'page.manage.user.userStatus',
+      model: 'status',
+      placeholder: 'page.manage.user.form.userStatus',
+      options: {
+        '1': 'page.manage.common.status.enable',
+        '2': 'page.manage.common.status.disable'
+      }
+    }
+  ],
   transformer: res => {
     const { records = [], current = 1, size = 10, total = 0 } = res.data || {};
 
@@ -205,7 +242,7 @@ function getIndex(index: number) {
 
 <template>
   <div class="flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
-    <UserSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getData" />
+    <TableSearch v-model:model="searchParams" :rule="rule" @reset="resetSearchParams" @search="getData" />
     <NCard :title="$t('page.manage.user.title')" :bordered="false" size="small" class="card-wrapper sm:flex-1-hidden">
       <template #header-extra>
         <TableHeaderOperation

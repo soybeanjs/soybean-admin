@@ -10,6 +10,13 @@ type BaseData = Record<string, unknown>;
 
 type ApiFn = (args: any) => Promise<unknown>;
 
+type ParamType = {
+  label: string;
+  model: string;
+  placeholder: string;
+  options?: Record<string, App.I18n.I18nKey>;
+};
+
 export type TableColumn<T extends BaseData = BaseData, CustomColumnKey = never> =
   | (Omit<TableColumnGroup<T>, 'key'> & { key: keyof T | CustomColumnKey })
   | (Omit<DataTableBaseColumn<T>, 'key'> & { key: keyof T | CustomColumnKey })
@@ -34,6 +41,8 @@ export type TableConfig<TableData extends BaseData = BaseData, Fn extends ApiFn 
   apiFn: Fn;
   /** api params */
   apiParams?: Parameters<Fn>[0];
+  /** params rule */
+  paramsRule?: ParamType[];
   /** transform api response to table data */
   transformer: Transformer<TableData, Awaited<ReturnType<Fn>>>;
   /** pagination */
@@ -70,9 +79,11 @@ export function useTable<TableData extends BaseData, Fn extends ApiFn, CustomCol
   const { loading, startLoading, endLoading } = useLoading();
   const { bool: empty, setBool: setEmpty } = useBoolean();
 
-  const { apiFn, apiParams, transformer, onPaginationChanged, immediate = true } = config;
+  const { apiFn, apiParams, paramsRule, transformer, onPaginationChanged, immediate = true } = config;
 
   const searchParams: NonNullable<Parameters<Fn>[0]> = reactive({ ...apiParams });
+
+  const rule = ref({ ...paramsRule });
 
   const { columns, filteredColumns, reloadColumns } = useTableColumn(config.columns);
 
@@ -172,6 +183,7 @@ export function useTable<TableData extends BaseData, Fn extends ApiFn, CustomCol
     updatePagination,
     getData,
     searchParams,
+    rule,
     updateSearchParams,
     resetSearchParams
   };

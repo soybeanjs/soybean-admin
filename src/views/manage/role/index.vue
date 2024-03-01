@@ -7,8 +7,8 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { enableStatusRecord } from '@/constants/business';
+import TableSearch from '@/components/advanced/table-search.vue';
 import RoleOperateDrawer, { type OperateType } from './modules/role-operate-drawer.vue';
-import RoleSearch from './modules/role-search.vue';
 
 const appStore = useAppStore();
 const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
@@ -21,6 +21,7 @@ const {
   pagination,
   getData,
   searchParams,
+  rule,
   updateSearchParams,
   resetSearchParams
 } = useTable<Api.SystemManage.Role, typeof fetchGetRoleList, 'index' | 'operate'>({
@@ -34,6 +35,19 @@ const {
     roleName: null,
     roleCode: null
   },
+  paramsRule: [
+    { label: 'page.manage.role.roleName', model: 'roleName', placeholder: 'page.manage.role.form.roleName' },
+    { label: 'page.manage.role.roleCode', model: 'roleCode', placeholder: 'page.manage.role.form.roleCode' },
+    {
+      label: 'page.manage.role.roleStatus',
+      model: 'status',
+      placeholder: 'page.manage.role.form.roleStatus',
+      options: {
+        '1': 'page.manage.common.status.enable',
+        '2': 'page.manage.common.status.disable'
+      }
+    }
+  ],
   transformer: res => {
     const { records = [], current = 1, size = 10, total = 0 } = res.data || {};
 
@@ -175,7 +189,7 @@ function getIndex(index: number) {
 
 <template>
   <div class="flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
-    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getData" />
+    <TableSearch v-model:model="searchParams" :rule="rule" @reset="resetSearchParams" @search="getData" />
     <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="card-wrapper sm:flex-1-hidden">
       <template #header-extra>
         <TableHeaderOperation
