@@ -100,9 +100,9 @@ export function getRouteIcons(route: App.Global.TabRoute) {
  * Get default home tab
  *
  * @param router
+ * @param homeRouteName routeHome in useRouteStore
  */
-export function getDefaultHomeTab(router: Router) {
-  const homeRouteName = import.meta.env.VITE_ROUTE_HOME;
+export function getDefaultHomeTab(router: Router, homeRouteName: LastLevelRouteKey) {
   const homeRoutePath = getRoutePath(homeRouteName);
   const i18nLabel = $t(`route.${homeRouteName}`);
 

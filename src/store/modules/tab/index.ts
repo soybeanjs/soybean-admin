@@ -6,6 +6,7 @@ import type { RouteKey } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
 import { localStg } from '@/utils/storage';
+import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '../theme';
 import {
   filterTabsByAllRoutes,
@@ -23,6 +24,7 @@ import {
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   const router = useRouter();
+  const routeStore = useRouteStore();
   const themeStore = useThemeStore();
   const { routerPush } = useRouterPush(false);
 
@@ -34,7 +36,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
   /** Init home tab */
   function initHomeTab() {
-    homeTab.value = getDefaultHomeTab(router);
+    homeTab.value = getDefaultHomeTab(router, routeStore.routeHome);
   }
 
   /** Get all tabs */
