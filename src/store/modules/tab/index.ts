@@ -9,7 +9,7 @@ import { localStg } from '@/utils/storage';
 import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '../theme';
 import {
-  filterTabsByAllRoutes,
+  extractTabsByAllRoutes,
   filterTabsById,
   filterTabsByIds,
   findTabByRouteName,
@@ -63,8 +63,8 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const storageTabs = localStg.get('globalTabs');
 
     if (themeStore.tab.cache && storageTabs) {
-      const filteredTabs = filterTabsByAllRoutes(router, storageTabs);
-      tabs.value = updateTabsByI18nKey(filteredTabs);
+      const extractedTabs = extractTabsByAllRoutes(router, storageTabs);
+      tabs.value = updateTabsByI18nKey(extractedTabs);
     }
 
     addTab(currentRoute);
