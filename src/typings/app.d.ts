@@ -600,22 +600,29 @@ declare namespace App {
 
   /** Service namespace */
   namespace Service {
-    /** The backend service env type */
-    type EnvType = 'dev' | 'test' | 'prod';
-
     /** Other baseURL key */
     type OtherBaseURLKey = 'demo';
 
-    /** The backend service config */
-    interface ServiceConfig<T extends OtherBaseURLKey = OtherBaseURLKey> {
+    interface ServiceConfigItem {
       /** The backend service base url */
       baseURL: string;
-      /** Other backend service base url map */
-      otherBaseURL: Record<T, string>;
+      /** The proxy pattern of the backend service base url */
+      proxyPattern: string;
     }
 
-    /** The backend service config map */
-    type ServiceConfigMap = Record<EnvType, ServiceConfig>;
+    interface OtherServiceConfigItem extends ServiceConfigItem {
+      key: OtherBaseURLKey;
+    }
+
+    /** The backend service config */
+    interface ServiceConfig extends ServiceConfigItem {
+      /** Other backend service config */
+      other: OtherServiceConfigItem[];
+    }
+
+    interface SimpleServiceConfig extends Pick<ServiceConfigItem, 'baseURL'> {
+      other: Record<OtherBaseURLKey, string>;
+    }
 
     /** The backend service response data */
     type Response<T = unknown> = {

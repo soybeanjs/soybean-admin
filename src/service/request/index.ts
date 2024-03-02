@@ -1,14 +1,13 @@
 import { BACKEND_ERROR_CODE, createFlatRequest, createRequest } from '@sa/axios';
 import { localStg } from '@/utils/storage';
-import { createProxyPattern, createServiceConfig } from '~/env.config';
-
-const { baseURL, otherBaseURL } = createServiceConfig(import.meta.env);
+import { getServiceBaseURL } from '@/utils/service';
 
 const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'Y';
+const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 
 export const request = createFlatRequest<App.Service.Response>(
   {
-    baseURL: isHttpProxy ? createProxyPattern() : baseURL,
+    baseURL,
     headers: {
       apifoxToken: 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2'
     }
@@ -53,7 +52,7 @@ export const request = createFlatRequest<App.Service.Response>(
 
 export const demoRequest = createRequest<App.Service.DemoResponse>(
   {
-    baseURL: isHttpProxy ? createProxyPattern('demo') : otherBaseURL.demo
+    baseURL: otherBaseURL.demo
   },
   {
     async onRequest(config) {
