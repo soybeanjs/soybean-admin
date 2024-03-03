@@ -1,9 +1,15 @@
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
-import prompts from 'prompts';
+import { prompt } from 'enquirer';
 import { bgRed, green, red, yellow } from 'kolorist';
 import { execCommand } from '../shared';
 import type { CliOption } from '../types';
+
+interface PromptObject {
+  types: string;
+  scopes: string;
+  description: string;
+}
 
 /**
  * Git commit with Conventional Commits standard
@@ -18,20 +24,20 @@ export async function gitCommit(
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
     const nameWithSuffix = `${value}:`;
 
-    const title = `${nameWithSuffix.padEnd(12)}${msg}`;
+    const message = `${nameWithSuffix.padEnd(12)}${msg}`;
 
     return {
-      value,
-      title
+      name: value,
+      message
     };
   });
 
   const scopesChoices = gitCommitScopes.map(([value, msg]) => ({
-    value,
-    title: `${value.padEnd(30)} (${msg})`
+    name: value,
+    message: `${value.padEnd(30)} (${msg})`
   }));
 
-  const result = await prompts([
+  const result = await prompt<PromptObject>([
     {
       name: 'types',
       type: 'select',

@@ -2,31 +2,42 @@ import process from 'node:process';
 import path from 'node:path';
 import { writeFile } from 'node:fs/promises';
 import { existsSync, mkdirSync } from 'node:fs';
-import prompts from 'prompts';
+import { prompt } from 'enquirer';
 import { green, red } from 'kolorist';
+
+interface PromptObject {
+  routeName: string;
+  addRouteParams: boolean;
+  routeParams: string;
+}
 
 /** generate route */
 export async function generateRoute() {
-  const result = await prompts([
+  const result = await prompt<PromptObject>([
     {
-      type: 'text',
       name: 'routeName',
+      type: 'text',
       message: 'please enter route name',
       initial: 'demo-route_child'
     },
     {
-      type: 'confirm',
       name: 'addRouteParams',
+      type: 'confirm',
       message: 'add route params?',
       initial: false
-    },
-    {
-      type: pre => (pre ? 'text' : null),
-      name: 'routeParams',
-      message: 'please enter route params',
-      initial: 'id'
     }
   ]);
+
+  if (result.addRouteParams) {
+    const answers = await prompt<PromptObject>({
+      name: 'routeParams',
+      type: 'text',
+      message: 'please enter route params',
+      initial: 'id'
+    });
+
+    Object.assign(result, answers);
+  }
 
   const PAGE_DIR_NAME_PATTERN = /^[\w-]+[0-9a-zA-Z]+$/;
 
@@ -42,7 +53,7 @@ For example:
 
   const PARAM_REG = /^\w+$/g;
 
-  if (!PARAM_REG.test(result.routeParams)) {
+  if (result.routeParams && !PARAM_REG.test(result.routeParams)) {
     throw new Error(red('route params is invalid, it only allow letters, numbers or "_".'));
   }
 
