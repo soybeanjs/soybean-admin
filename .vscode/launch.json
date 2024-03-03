@@ -4,17 +4,17 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "Vue debugger",
+      "name": "Vue Debugger",
       "url": "http://localhost:9527",
       "webRoot": "${workspaceFolder}"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "TS debugger",
-      "skipFiles": ["<node_internals>/**"],
-      "runtimeArgs": ["--loader", "tsx"],
-      "program": "${relativeFile}"
+      "name": "TS Debugger",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/tsx",
+      "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"],
+      "program": "${file}"
     }
   ]
 }
