@@ -5,7 +5,7 @@ defineOptions({
 </script>
 
 <template>
-  <div class="size-72px rd-1/2 overflow-hidden">
+  <div class="size-72px overflow-hidden rd-1/2">
     <img src="@/assets/imgs/soybean.jpg" class="size-full" />
   </div>
 </template>

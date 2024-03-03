@@ -16,7 +16,7 @@ function handleClick() {
 
 <template>
   <div
-    class=":soy: relative inline-flex justify-center items-center w-16px h-16px text-14px rd-50%"
+    class=":soy: relative h-16px w-16px inline-flex items-center justify-center rd-50% text-14px"
     @click.stop="handleClick"
   >
     <svg width="1em" height="1em" viewBox="0 0 1024 1024">

@@ -7,9 +7,9 @@ defineOptions({
 </script>
 
 <template>
-  <NCard :title="$t('page.home.creativity')" :bordered="false" size="small" class="card-wrapper h-full">
-    <div class="flex-center h-full">
-      <IconLocalBanner class="text-400px sm:text-320px text-primary" />
+  <NCard :title="$t('page.home.creativity')" :bordered="false" size="small" class="h-full card-wrapper">
+    <div class="h-full flex-center">
+      <IconLocalBanner class="text-400px text-primary sm:text-320px" />
     </div>
   </NCard>
 </template>

@@ -18,10 +18,10 @@ const { toggleLoginModule } = useRouterPush();
       <NInput :placeholder="$t('page.login.common.codePlaceholder')" />
     </NFormItem>
     <NSpace vertical :size="18" class="w-full">
-      <NButton type="primary" size="large" block round>
+      <NButton type="primary" size="large" round block>
         {{ $t('common.confirm') }}
       </NButton>
-      <NButton size="large" block round @click="toggleLoginModule('pwd-login')">
+      <NButton size="large" round block @click="toggleLoginModule('pwd-login')">
         {{ $t('page.login.common.back') }}
       </NButton>
     </NSpace>

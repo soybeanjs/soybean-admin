@@ -116,7 +116,7 @@ function handleClickMask() {
   <div class="relative h-full" :class="[commonClass]" :style="cssVars">
     <div
       :id="isWrapperScroll ? scrollElId : undefined"
-      class="flex flex-col h-full"
+      class="h-full flex flex-col"
       :class="[commonClass, scrollWrapperClass, { 'overflow-y-auto': isWrapperScroll }]"
     >
       <!-- Header -->
@@ -182,7 +182,7 @@ function handleClickMask() {
       <!-- Mobile Sider -->
       <template v-if="showMobileSider">
         <aside
-          class="absolute left-0 top-0 w-0 h-full bg-white"
+          class="absolute left-0 top-0 h-full w-0 bg-white"
           :class="[
             commonClass,
             mobileSiderClass,
@@ -194,7 +194,7 @@ function handleClickMask() {
         </aside>
         <div
           v-show="!siderCollapse"
-          class="absolute left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.2)]"
+          class="absolute left-0 top-0 h-full w-full bg-[rgba(0,0,0,0.2)]"
           :class="[style['layout-mobile-sider-mask']]"
           @click="handleClickMask"
         ></div>
@@ -203,7 +203,7 @@ function handleClickMask() {
       <!-- Main Content -->
       <main
         :id="isContentScroll ? scrollElId : undefined"
-        class="flex flex-col flex-grow"
+        class="flex flex-grow flex-col"
         :class="[commonClass, contentClass, leftGapClass, { 'overflow-y-auto': isContentScroll }]"
       >
         <slot></slot>

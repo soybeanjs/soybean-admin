@@ -37,7 +37,7 @@ defineSlots<Slots>();
 
 <template>
   <div
-    class=":soy: relative inline-flex justify-center items-center gap-16px -mr-18px px-24px py-6px cursor-pointer whitespace-nowrap"
+    class=":soy: relative inline-flex cursor-pointer items-center justify-center gap-16px whitespace-nowrap px-24px py-6px -mr-18px"
     :class="[
       style['chrome-tab'],
       { [style['chrome-tab_dark']]: darkMode },
@@ -45,13 +45,13 @@ defineSlots<Slots>();
       { [style['chrome-tab_active_dark']]: active && darkMode }
     ]"
   >
-    <div class=":soy: absolute left-0 top-0 -z-1 w-full h-full pointer-events-none" :class="[style['chrome-tab__bg']]">
+    <div class=":soy: pointer-events-none absolute left-0 top-0 h-full w-full -z-1" :class="[style['chrome-tab__bg']]">
       <ChromeTabBg />
     </div>
     <slot name="prefix"></slot>
     <slot></slot>
     <slot name="suffix"></slot>
-    <div class=":soy: absolute right-7px w-1px h-16px bg-#1f2225" :class="[style['chrome-tab-divider']]"></div>
+    <div class=":soy: absolute right-7px h-16px w-1px bg-#1f2225" :class="[style['chrome-tab-divider']]"></div>
   </div>
 </template>
 

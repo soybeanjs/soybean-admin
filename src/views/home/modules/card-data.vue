@@ -81,7 +81,7 @@ function getGradientColor(color: CardData['color']) {
   <NCard :bordered="false" size="small" class="card-wrapper">
     <!-- define component start: GradientBg -->
     <DefineGradientBg v-slot="{ $slots, gradientColor }">
-      <div class="px-16px pt-8px pb-4px rd-8px text-white" :style="{ backgroundImage: gradientColor }">
+      <div class="rd-8px px-16px pb-4px pt-8px text-white" :style="{ backgroundImage: gradientColor }">
         <component :is="$slots.default" />
       </div>
     </DefineGradientBg>

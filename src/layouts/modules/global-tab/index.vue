@@ -159,12 +159,12 @@ init();
 </script>
 
 <template>
-  <DarkModeContainer class="flex-y-center size-full px-16px shadow-tab">
-    <div ref="bsWrapper" class="flex-1-hidden h-full">
+  <DarkModeContainer class="size-full flex-y-center px-16px shadow-tab">
+    <div ref="bsWrapper" class="h-full flex-1-hidden">
       <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: appStore.isMobile }">
         <div
           ref="tabRef"
-          class="flex h-full pr-18px"
+          class="h-full flex pr-18px"
           :class="[themeStore.tab.mode === 'chrome' ? 'items-end' : 'items-center gap-12px']"
         >
           <PageTab

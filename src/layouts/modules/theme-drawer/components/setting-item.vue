@@ -12,9 +12,9 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex-y-center justify-between w-full">
+  <div class="w-full flex-y-center justify-between">
     <div>
-      <span class="text-base_text pr-8px">{{ label }}</span>
+      <span class="pr-8px text-base_text">{{ label }}</span>
       <slot name="suffix"></slot>
     </div>
     <slot></slot>

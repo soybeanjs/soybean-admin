@@ -16,15 +16,15 @@ const themeStore = useThemeStore();
   <NDivider>{{ $t('theme.layoutMode.title') }}</NDivider>
   <LayoutModeCard v-model:mode="themeStore.layout.mode" :disabled="appStore.isMobile">
     <template #vertical>
-      <div class="layout-sider w-18px h-full"></div>
+      <div class="layout-sider h-full w-18px"></div>
       <div class="vertical-wrapper">
         <div class="layout-header"></div>
         <div class="layout-main"></div>
       </div>
     </template>
     <template #vertical-mix>
-      <div class="layout-sider w-8px h-full"></div>
-      <div class="layout-sider w-16px h-full"></div>
+      <div class="layout-sider h-full w-8px"></div>
+      <div class="layout-sider h-full w-16px"></div>
       <div class="vertical-wrapper">
         <div class="layout-header"></div>
         <div class="layout-main"></div>
