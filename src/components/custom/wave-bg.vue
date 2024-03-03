@@ -16,7 +16,7 @@ const darkColor = computed(() => getColorPalette(props.themeColor, 6));
 </script>
 
 <template>
-  <div class="absolute-lt z-1 wh-full overflow-hidden">
+  <div class="absolute-lt z-1 size-full overflow-hidden">
     <div class="absolute -right-300px -top-900px <sm:(-right-100px -top-1170px)">
       <svg height="1337" width="1337">
         <defs>

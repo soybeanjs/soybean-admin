@@ -57,7 +57,7 @@ const bgColor = computed(() => {
 </script>
 
 <template>
-  <div class="relative flex-center wh-full overflow-hidden" :style="{ backgroundColor: bgColor }">
+  <div class="relative flex-center size-full overflow-hidden" :style="{ backgroundColor: bgColor }">
     <WaveBg :theme-color="bgThemeColor" />
     <NCard :bordered="false" class="relative w-auto rd-12px z-4">
       <div class="w-400px <sm:w-300px">

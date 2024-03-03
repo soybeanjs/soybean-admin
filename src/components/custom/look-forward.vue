@@ -7,7 +7,7 @@ defineOptions({
 </script>
 
 <template>
-  <div class="flex-vertical-center gap-24px min-h-520px wh-full overflow-hidden">
+  <div class="flex-vertical-center gap-24px min-h-520px size-full overflow-hidden">
     <div class="flex text-400px text-primary">
       <SvgIcon local-icon="expectation" />
     </div>

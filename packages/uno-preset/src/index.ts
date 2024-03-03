@@ -8,9 +8,6 @@ export function presetSoybeanAdmin(): Preset<Theme> {
     name: 'preset-soybean-admin',
     shortcuts: [
       {
-        'wh-full': 'w-full h-full'
-      },
-      {
         'flex-center': 'flex justify-center items-center',
         'flex-x-center': 'flex justify-center',
         'flex-y-center': 'flex items-center',
@@ -33,7 +30,7 @@ export function presetSoybeanAdmin(): Preset<Theme> {
         'absolute-tr': 'absolute-rt',
         'absolute-bl': 'absolute-lb',
         'absolute-br': 'absolute-rb',
-        'absolute-center': 'absolute-lt flex-center wh-full',
+        'absolute-center': 'absolute-lt flex-center size-full',
         'fixed-lt': 'fixed left-0 top-0',
         'fixed-lb': 'fixed left-0 bottom-0',
         'fixed-rt': 'fixed right-0 top-0',
@@ -42,7 +39,7 @@ export function presetSoybeanAdmin(): Preset<Theme> {
         'fixed-tr': 'fixed-rt',
         'fixed-bl': 'fixed-lb',
         'fixed-br': 'fixed-rb',
-        'fixed-center': 'fixed-lt flex-center wh-full'
+        'fixed-center': 'fixed-lt flex-center size-full'
       },
       {
         'nowrap-hidden': 'overflow-hidden whitespace-nowrap',

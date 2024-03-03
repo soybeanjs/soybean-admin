@@ -159,7 +159,7 @@ init();
 </script>
 
 <template>
-  <DarkModeContainer class="flex-y-center wh-full px-16px shadow-tab">
+  <DarkModeContainer class="flex-y-center size-full px-16px shadow-tab">
     <div ref="bsWrapper" class="flex-1-hidden h-full">
       <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: appStore.isMobile }">
         <div

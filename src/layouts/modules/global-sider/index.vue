@@ -23,7 +23,7 @@ const showLogo = computed(() => !isVerticalMix.value && !isHorizontalMix.value);
 </script>
 
 <template>
-  <DarkModeContainer class="flex-vertical-stretch wh-full shadow-sider" :inverted="darkMenu">
+  <DarkModeContainer class="flex-vertical-stretch size-full shadow-sider" :inverted="darkMenu">
     <GlobalLogo
       v-if="showLogo"
       :show-title="!appStore.siderCollapse"
