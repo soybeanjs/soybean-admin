@@ -6,7 +6,6 @@ import { setupVitePlugins } from './build/plugins';
 import { createViteProxy } from './build/config';
 
 export default defineConfig(configEnv => {
-  console.log('configEnv: ', configEnv);
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as Env.ImportMeta;
 
   const buildTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
