@@ -19,6 +19,7 @@ import {
   getSelectedMenuKeyPathByKey,
   isRouteExistByRouteName,
   sortRoutesByOrder,
+  transformMenuToSearchMenus,
   updateLocaleOfGlobalMenus
 } from './shared';
 
@@ -52,6 +53,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   /** Global menus */
   const menus = ref<App.Global.Menu[]>([]);
+  const searchMenus = computed(() => transformMenuToSearchMenus(menus.value));
 
   /** Get global menus */
   function getGlobalMenus(routes: ElegantConstRoute[]) {
@@ -275,6 +277,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     resetStore,
     routeHome,
     menus,
+    searchMenus,
     updateGlobalMenusByLocale,
     cacheRoutes,
     reCacheRoutesByKey,
