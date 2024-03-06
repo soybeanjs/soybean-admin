@@ -310,3 +310,22 @@ export function getBreadcrumbsByRoute(
 
   return [];
 }
+
+/**
+ * Transform menu to searchMenus
+ *
+ * @param menus - menus
+ * @param treeMap
+ */
+export function transformMenuToSearchMenus(menus: App.Global.Menu[], treeMap: App.Global.Menu[] = []) {
+  if (menus && menus.length === 0) return [];
+  return menus.reduce((acc, cur) => {
+    if (!cur.children) {
+      acc.push(cur);
+    }
+    if (cur.children && cur.children.length > 0) {
+      transformMenuToSearchMenus(cur.children, treeMap);
+    }
+    return acc;
+  }, treeMap);
+}

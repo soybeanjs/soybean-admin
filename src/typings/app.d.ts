@@ -255,6 +255,7 @@ declare namespace App {
         backToHome: string;
         batchDelete: string;
         cancel: string;
+        close: string;
         check: string;
         columnSetting: string;
         confirm: string;
@@ -263,16 +264,19 @@ declare namespace App {
         confirmDelete: string;
         edit: string;
         index: string;
+        keywordSearch: string;
         logout: string;
         logoutConfirm: string;
         lookForward: string;
         modify: string;
         modifySuccess: string;
+        noData: string;
         operate: string;
         pleaseCheckValue: string;
         refresh: string;
         reset: string;
         search: string;
+        switch: string;
         tip: string;
         update: string;
         updateSuccess: string;
