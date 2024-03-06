@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useBoolean } from '@sa/hooks';
+import { $t } from '@/locales';
 import SearchModal from './components/search-modal.vue';
 
 defineOptions({ name: 'GlobalSearch' });
@@ -11,7 +12,7 @@ function handleSearch() {
 </script>
 
 <template>
-  <ButtonIcon tooltip-content="搜索" @click="handleSearch">
+  <ButtonIcon :tooltip-content="$t('common.search')" @click="handleSearch">
     <icon-uil-search class="text-20px" />
   </ButtonIcon>
   <SearchModal v-model:show="show" />

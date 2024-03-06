@@ -94,16 +94,16 @@ onKeyStroke('ArrowDown', handleDown);
     @after-leave="handleClose"
   >
     <NInputGroup>
-      <NInput v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
+      <NInput v-model:value="keyword" clearable :placeholder="$t('common.keywordSearch')" @input="handleSearch">
         <template #prefix>
           <icon-uil-search class="text-15px text-#c2c2c2" />
         </template>
       </NInput>
-      <NButton v-if="isMobile" type="primary" ghost @click="handleClose">取消</NButton>
+      <NButton v-if="isMobile" type="primary" ghost @click="handleClose">{{ $t('common.cancel') }}</NButton>
     </NInputGroup>
 
     <div class="mt-20px">
-      <NEmpty v-if="resultOptions.length === 0" description="暂无搜索结果" />
+      <NEmpty v-if="resultOptions.length === 0" :description="$t('common.noData')" />
       <SearchResult v-else v-model:path="activePath" :options="resultOptions" @enter="handleEnter" />
     </div>
     <template #footer>
