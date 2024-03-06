@@ -31,7 +31,7 @@ function handleTo() {
 </script>
 
 <template>
-  <n-scrollbar>
+  <NScrollbar>
     <div class="pb-12px">
       <template v-for="item in options" :key="item.routePath">
         <div
@@ -51,7 +51,7 @@ function handleTo() {
         </div>
       </template>
     </div>
-  </n-scrollbar>
+  </NScrollbar>
 </template>
 
 <style lang="scss" scoped></style>

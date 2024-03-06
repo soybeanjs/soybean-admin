@@ -82,7 +82,7 @@ onKeyStroke('ArrowDown', handleDown);
 </script>
 
 <template>
-  <n-modal
+  <NModal
     v-model:show="modelShow"
     :segmented="{ footer: 'soft' }"
     :closable="false"
@@ -93,23 +93,23 @@ onKeyStroke('ArrowDown', handleDown);
     :class="[isMobile ? 'size-full top-0px rounded-0' : 'w-630px top-50px']"
     @after-leave="handleClose"
   >
-    <n-input-group>
-      <n-input v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
+    <NInputGroup>
+      <NInput v-model:value="keyword" clearable placeholder="请输入关键词搜索" @input="handleSearch">
         <template #prefix>
           <icon-uil-search class="text-15px text-#c2c2c2" />
         </template>
-      </n-input>
-      <n-button v-if="isMobile" type="primary" ghost @click="handleClose">取消</n-button>
-    </n-input-group>
+      </NInput>
+      <NButton v-if="isMobile" type="primary" ghost @click="handleClose">取消</NButton>
+    </NInputGroup>
 
     <div class="mt-20px">
-      <n-empty v-if="resultOptions.length === 0" description="暂无搜索结果" />
+      <NEmpty v-if="resultOptions.length === 0" description="暂无搜索结果" />
       <SearchResult v-else v-model:path="activePath" :options="resultOptions" @enter="handleEnter" />
     </div>
     <template #footer>
       <SearchFooter v-if="!isMobile" />
     </template>
-  </n-modal>
+  </NModal>
 </template>
 
 <style lang="scss" scoped></style>
