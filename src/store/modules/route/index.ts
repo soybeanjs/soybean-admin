@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue';
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteMeta, RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
 import type { CustomRoute, ElegantConstRoute, LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types';
@@ -273,6 +273,16 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     return getSelectedMenuKeyPathByKey(selectedKey, menus.value);
   }
 
+  /**
+   * Get selected menu meta by key
+   *
+   * @param selectedKey Selected menu key
+   */
+  function getSelectedMenuMetaByKey(selectedKey: string): RouteMeta | null {
+    // The routes in router.options.routes are static, you need to use router.getRoutes() to get all the routes.
+    return router.getRoutes().find(route => route.name === selectedKey)?.meta || null;
+  }
+
   return {
     resetStore,
     routeHome,
@@ -287,6 +297,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     isInitAuthRoute,
     setIsInitAuthRoute,
     getIsAuthRouteExist,
-    getSelectedMenuKeyPath
+    getSelectedMenuKeyPath,
+    getSelectedMenuMetaByKey
   };
 });
