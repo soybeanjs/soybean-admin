@@ -57,14 +57,9 @@ function updateExpandedKeys() {
 }
 
 function handleClickMenu(key: RouteKey) {
-  const meta = routeStore.getSelectedMenuMetaByKey(key);
-  if (meta?.fixedQuery) {
-    routerPushByKey(key, {
-      query: meta.fixedQuery
-    });
-    return;
-  }
-  routerPushByKey(key);
+  const { query } = routeStore.getSelectedMenuMetaByKey(key) || {};
+
+  routerPushByKey(key, { query });
 }
 
 watch(
