@@ -13,7 +13,7 @@ function handleSearch() {
 
 <template>
   <ButtonIcon :tooltip-content="$t('common.search')" @click="handleSearch">
-    <icon-uil-search class="text-20px" />
+    <icon-uil-search />
   </ButtonIcon>
   <SearchModal v-model:show="show" />
 </template>
