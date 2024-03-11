@@ -1,6 +1,7 @@
 <script setup lang="tsx">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
+import type { PaginationProps } from 'naive-ui';
 import { useBoolean } from '@sa/hooks';
 import { fetchGetUserList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
@@ -160,6 +161,16 @@ const {
   ]
 });
 
+// this is for mobile, if the system does not support mobile, you can use `pagination` directly
+const mobilePagination = computed(() => {
+  const p: PaginationProps = {
+    ...pagination,
+    pageSlot: appStore.isMobile ? 3 : 9
+  };
+
+  return p;
+});
+
 const operateType = ref<OperateType>('add');
 
 function handleAdd() {
@@ -204,7 +215,7 @@ function getIndex(index: number) {
 </script>
 
 <template>
-  <div class="flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
+  <div class="min-h-500px flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
     <UserSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getData" />
     <NCard :title="$t('page.manage.user.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
@@ -226,7 +237,7 @@ function getIndex(index: number) {
         :scroll-x="962"
         :loading="loading"
         remote
-        :pagination="pagination"
+        :pagination="mobilePagination"
         :row-key="item => item.id"
         class="sm:h-full"
       />

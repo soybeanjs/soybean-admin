@@ -27,7 +27,7 @@ function search() {
 
 <template>
   <NCard :title="$t('common.search')" :bordered="false" size="small" class="card-wrapper">
-    <NForm :model="model" label-placement="left">
+    <NForm :model="model" label-placement="left" :label-width="80">
       <NGrid responsive="screen" item-responsive>
         <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleName')" path="roleName" class="pr-24px">
           <NInput v-model:value="model.roleName" :placeholder="$t('page.manage.role.form.roleName')" />

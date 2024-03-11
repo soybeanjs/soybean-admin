@@ -44,7 +44,7 @@ async function search() {
 
 <template>
   <NCard :title="$t('common.search')" :bordered="false" size="small" class="card-wrapper">
-    <NForm ref="formRef" :model="model" :rules="rules" label-placement="left">
+    <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="80">
       <NGrid responsive="screen" item-responsive>
         <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.user.userName')" path="userName" class="pr-24px">
           <NInput v-model:value="model.userName" :placeholder="$t('page.manage.user.form.userName')" />
@@ -74,7 +74,7 @@ async function search() {
             clearable
           />
         </NFormItemGi>
-        <NFormItemGi span="24 s:12" class="pr-24px">
+        <NFormItemGi span="24 m:12" class="pr-24px">
           <NSpace class="w-full" justify="end">
             <NButton @click="reset">
               <template #icon>
