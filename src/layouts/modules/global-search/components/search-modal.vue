@@ -10,10 +10,11 @@ import SearchFooter from './search-footer.vue';
 
 defineOptions({ name: 'SearchModal' });
 
-const appStore = useAppStore();
-const isMobile = computed(() => appStore.isMobile);
 const router = useRouter();
+const appStore = useAppStore();
 const routeStore = useRouteStore();
+
+const isMobile = computed(() => appStore.isMobile);
 
 const keyword = ref('');
 const activePath = ref('');
@@ -21,9 +22,8 @@ const resultOptions = shallowRef<App.Global.Menu[]>([]);
 
 const handleSearch = useDebounceFn(search, 300);
 
-const modelShow = defineModel<boolean>('show', { required: true });
+const visible = defineModel<boolean>('show', { required: true });
 
-/** 查询 */
 function search() {
   resultOptions.value = routeStore.searchMenus.filter(menu => {
     const trimKeyword = keyword.value.toLocaleLowerCase().trim();
@@ -34,8 +34,8 @@ function search() {
 }
 
 function handleClose() {
-  modelShow.value = false;
-  /** 延时处理防止用户看到某些操作 */
+  visible.value = false;
+  // handle with setTimeout to prevent user from seeing some operations
   setTimeout(() => {
     resultOptions.value = [];
     keyword.value = '';
@@ -46,44 +46,54 @@ function handleClose() {
 function handleUp() {
   const { length } = resultOptions.value;
   if (length === 0) return;
-  const index = resultOptions.value.findIndex(item => item.routePath === activePath.value);
-  if (index === 0) {
-    activePath.value = resultOptions.value[length - 1].routePath;
-  } else {
-    activePath.value = resultOptions.value[index - 1].routePath;
-  }
+
+  const index = getActivePathIndex();
+  if (index === -1) return;
+
+  const activeIndex = index === 0 ? length - 1 : index - 1;
+
+  activePath.value = resultOptions.value[activeIndex].routePath;
 }
 
 /** key down */
 function handleDown() {
   const { length } = resultOptions.value;
   if (length === 0) return;
-  const index = resultOptions.value.findIndex(item => item.routePath === activePath.value);
-  if (index + 1 === length) {
-    activePath.value = resultOptions.value[0].routePath;
-  } else {
-    activePath.value = resultOptions.value[index + 1].routePath;
-  }
+
+  const index = getActivePathIndex();
+  if (index === -1) return;
+
+  const activeIndex = index === length - 1 ? 0 : index + 1;
+
+  activePath.value = resultOptions.value[activeIndex].routePath;
+}
+
+function getActivePathIndex() {
+  return resultOptions.value.findIndex(item => item.routePath === activePath.value);
 }
 
 /** key enter */
 function handleEnter(e: Event | undefined) {
-  const { length } = resultOptions.value;
-  if (length === 0 || activePath.value === '') return;
+  if (resultOptions.value?.length === 0 || activePath.value === '') return;
+
   e?.preventDefault();
   handleClose();
   router.push(activePath.value);
 }
 
-onKeyStroke('Escape', handleClose);
-onKeyStroke('Enter', handleEnter);
-onKeyStroke('ArrowUp', handleUp);
-onKeyStroke('ArrowDown', handleDown);
+function registerShortcut() {
+  onKeyStroke('Escape', handleClose);
+  onKeyStroke('Enter', handleEnter);
+  onKeyStroke('ArrowUp', handleUp);
+  onKeyStroke('ArrowDown', handleDown);
+}
+
+registerShortcut();
 </script>
 
 <template>
   <NModal
-    v-model:show="modelShow"
+    v-model:show="visible"
     :segmented="{ footer: 'soft' }"
     :closable="false"
     preset="card"

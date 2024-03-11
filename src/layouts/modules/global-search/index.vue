@@ -6,13 +6,10 @@ import SearchModal from './components/search-modal.vue';
 defineOptions({ name: 'GlobalSearch' });
 
 const { bool: show, toggle } = useBoolean();
-function handleSearch() {
-  toggle();
-}
 </script>
 
 <template>
-  <ButtonIcon :tooltip-content="$t('common.search')" @click="handleSearch">
+  <ButtonIcon :tooltip-content="$t('common.search')" @click="toggle">
     <icon-uil-search />
   </ButtonIcon>
   <SearchModal v-model:show="show" />

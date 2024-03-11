@@ -20,8 +20,7 @@ const theme = useThemeStore();
 
 const active = defineModel<string>('path', { required: true });
 
-/** 鼠标移入 */
-async function handleMouse(item: App.Global.Menu) {
+async function handleMouseEnter(item: App.Global.Menu) {
   active.value = item.routePath;
 }
 
@@ -41,7 +40,7 @@ function handleTo() {
             color: item.routePath === active ? '#fff' : ''
           }"
           @click="handleTo"
-          @mouseenter="handleMouse(item)"
+          @mouseenter="handleMouseEnter(item)"
         >
           <component :is="item.icon" />
           <span class="ml-5px flex-1">
