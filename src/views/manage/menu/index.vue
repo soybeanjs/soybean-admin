@@ -223,6 +223,10 @@ async function handleDelete(id: number) {
 
   getData();
 }
+
+function getRowKey(row: Api.SystemManage.Menu) {
+  return row.id;
+}
 </script>
 
 <template>
@@ -246,8 +250,9 @@ async function handleDelete(id: number) {
         :flex-height="!appStore.isMobile"
         :scroll-x="1088"
         :loading="loading"
+        :row-key="getRowKey"
+        remote
         :pagination="pagination"
-        :row-key="item => item.id"
         class="sm:h-full"
       />
       <MenuOperateDrawer

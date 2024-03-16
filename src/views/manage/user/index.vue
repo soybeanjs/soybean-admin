@@ -212,6 +212,10 @@ function getIndex(index: number) {
 
   return String((page - 1) * pageSize + index + 1);
 }
+
+function getRowKey(row: Api.SystemManage.User) {
+  return row.id;
+}
 </script>
 
 <template>
@@ -237,8 +241,8 @@ function getIndex(index: number) {
         :scroll-x="962"
         :loading="loading"
         remote
+        :row-key="getRowKey"
         :pagination="mobilePagination"
-        :row-key="item => item.id"
         class="sm:h-full"
       />
       <UserOperateDrawer
