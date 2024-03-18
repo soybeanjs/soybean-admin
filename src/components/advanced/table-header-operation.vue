@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { FilteredColumn } from '@/hooks/common/table';
-
 defineOptions({
   name: 'TableHeaderOperation'
 });
@@ -21,7 +19,7 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
-const columns = defineModel<FilteredColumn[]>('columns', {
+const columns = defineModel<NaiveUI.TableColumnCheck[]>('columns', {
   default: () => []
 });
 

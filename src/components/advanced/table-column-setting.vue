@@ -1,13 +1,12 @@
 <script setup lang="ts" generic="T extends Record<string, unknown>, K = never">
 import { VueDraggable } from 'vue-draggable-plus';
-import type { FilteredColumn } from '@/hooks/common/table';
 import { $t } from '@/locales';
 
 defineOptions({
   name: 'TableColumnSetting'
 });
 
-const columns = defineModel<FilteredColumn[]>('columns', {
+const columns = defineModel<NaiveUI.TableColumnCheck[]>('columns', {
   required: true
 });
 </script>
