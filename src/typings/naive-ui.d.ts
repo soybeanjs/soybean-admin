@@ -16,17 +16,12 @@ declare namespace NaiveUI {
 
   type TableData = Api.Common.CommonRecord<object>;
 
-  type TableColumnWithKey<T extends TableData = TableData> =
-    | SetTableColumnKey<DataTableBaseColumn<T>, T>
-    | SetTableColumnKey<TableColumnGroup<T>, T>;
+  type TableColumnWithKey<T> = SetTableColumnKey<DataTableBaseColumn<T>, T> | SetTableColumnKey<TableColumnGroup<T>, T>;
 
-  type TableColumn<T extends TableData = TableData> =
-    | TableColumnWithKey<T>
-    | DataTableSelectionColumn<T>
-    | DataTableExpandColumn<T>;
+  type TableColumn<T> = TableColumnWithKey<T> | DataTableSelectionColumn<T> | DataTableExpandColumn<T>;
 
-  type TableApiFn<T extends TableData = TableData> = (
-    params: Api.SystemManage.CommonSearchParams
+  type TableApiFn<T = any, R = Api.SystemManage.CommonSearchParams> = (
+    params: R
   ) => Promise<FlatResponseData<Api.Common.PaginatingQueryRecord<T>>>;
 
   /**
@@ -37,8 +32,10 @@ declare namespace NaiveUI {
    */
   type TableOperateType = 'add' | 'edit';
 
-  type NaiveTableConfig<T extends TableData = TableData, A extends TableApiFn<T> = TableApiFn<T>> = Pick<
-    import('@sa/hooks').TableConfig<A, T, TableColumn<T>>,
+  type GetTableData<A extends TableApiFn> = A extends TableApiFn<infer T> ? T : never;
+
+  type NaiveTableConfig<A extends TableApiFn> = Pick<
+    import('@sa/hooks').TableConfig<A, GetTableData<A>, TableColumn<GetTableData<A>>>,
     'apiFn' | 'apiParams' | 'columns' | 'immediate'
   >;
 }

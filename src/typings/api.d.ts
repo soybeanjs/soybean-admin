@@ -16,7 +16,7 @@ declare namespace Api {
     }
 
     /** common params of paginating query list data */
-    interface PaginatingQueryRecord<T extends NonNullable<unknown>> extends PaginatingCommonParams {
+    interface PaginatingQueryRecord<T = any> extends PaginatingCommonParams {
       records: T[];
     }
 
@@ -29,7 +29,7 @@ declare namespace Api {
     type EnableStatus = '1' | '2';
 
     /** common record */
-    type CommonRecord<T extends NonNullable<unknown>> = {
+    type CommonRecord<T = any> = {
       /** record id */
       id: number;
       /** record creator */

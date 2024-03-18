@@ -6,10 +6,10 @@ import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
 
 type TableData = NaiveUI.TableData;
+type GetTableData<A extends NaiveUI.TableApiFn> = NaiveUI.GetTableData<A>;
+type TableColumn<T> = NaiveUI.TableColumn<T>;
 
-export function useNaiveTable<T extends TableData = TableData, A extends NaiveUI.TableApiFn<T> = NaiveUI.TableApiFn<T>>(
-  config: NaiveUI.NaiveTableConfig<T, A>
-) {
+export function useNaiveTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTableConfig<A>) {
   const scope = effectScope();
   const appStore = useAppStore();
 
@@ -28,7 +28,7 @@ export function useNaiveTable<T extends TableData = TableData, A extends NaiveUI
     searchParams,
     updateSearchParams,
     resetSearchParams
-  } = useTable<A, T, NaiveUI.TableColumn<T>>({
+  } = useTable<A, GetTableData<A>, TableColumn<GetTableData<A>>>({
     apiFn,
     apiParams,
     columns: config.columns,
@@ -64,7 +64,7 @@ export function useNaiveTable<T extends TableData = TableData, A extends NaiveUI
       return checks;
     },
     getColumns: (cols, checks) => {
-      const columnMap = new Map<string, NaiveUI.TableColumn<T>>();
+      const columnMap = new Map<string, TableColumn<GetTableData<A>>>();
 
       cols.forEach(column => {
         if (isTableColumnHasKey(column)) {
@@ -76,7 +76,7 @@ export function useNaiveTable<T extends TableData = TableData, A extends NaiveUI
 
       const filteredColumns = checks
         .filter(item => item.checked)
-        .map(check => columnMap.get(check.key) as NaiveUI.TableColumn<T>);
+        .map(check => columnMap.get(check.key) as TableColumn<GetTableData<A>>);
 
       return filteredColumns;
     },
@@ -225,8 +225,6 @@ export function getNaiveTableRowKey<T extends TableData>(row: T) {
   return row.id;
 }
 
-function isTableColumnHasKey<T extends TableData>(
-  column: NaiveUI.TableColumn<T>
-): column is NaiveUI.TableColumnWithKey<T> {
+function isTableColumnHasKey<T>(column: TableColumn<T>): column is NaiveUI.TableColumnWithKey<T> {
   return Boolean((column as NaiveUI.TableColumnWithKey<T>).key);
 }

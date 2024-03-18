@@ -1,7 +1,4 @@
 <script setup lang="tsx">
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { fetchGetUserList } from '@/service/api';
 import { $t } from '@/locales';

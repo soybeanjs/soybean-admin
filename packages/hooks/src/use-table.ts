@@ -17,22 +17,16 @@ export type TableColumnCheck = {
   checked: boolean;
 };
 
-export type TransformedData<T extends TableData = TableData> = {
+export type TransformedData<T> = {
   data: T[];
   pageNum: number;
   pageSize: number;
   total: number;
 };
 
-export type Transformer<T extends TableData = TableData, Response = object> = (
-  response: Response
-) => TransformedData<T>;
+export type Transformer<T, Response> = (response: Response) => TransformedData<T>;
 
-export type TableConfig<
-  A extends ApiFn = ApiFn,
-  T extends TableData = TableData,
-  C extends TableColumn = TableColumn
-> = {
+export type TableConfig<A extends ApiFn, T, C> = {
   /** api function to get table data */
   apiFn: A;
   /** api params */
@@ -67,11 +61,7 @@ export type TableConfig<
   immediate?: boolean;
 };
 
-export default function useTable<
-  A extends ApiFn = ApiFn,
-  T extends TableData = TableData,
-  C extends TableColumn = TableColumn
->(config: TableConfig<A, T, C>) {
+export default function useTable<A extends ApiFn, T, C>(config: TableConfig<A, T, C>) {
   const { loading, startLoading, endLoading } = useLoading();
   const { bool: empty, setBool: setEmpty } = useBoolean();
 
