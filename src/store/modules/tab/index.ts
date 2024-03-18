@@ -192,6 +192,12 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @param tabId
    */
   async function clearRightTabs(tabId: string) {
+    const isHomeTab = tabId === homeTab.value?.id;
+    if (isHomeTab) {
+      clearTabs();
+      return;
+    }
+
     const tabIds = tabs.value.map(tab => tab.id);
     const index = tabIds.indexOf(tabId);
     if (index === -1) return;
