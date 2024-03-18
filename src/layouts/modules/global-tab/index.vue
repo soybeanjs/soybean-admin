@@ -73,7 +73,8 @@ function getContextMenuDisabledKeys(tabId: string) {
   const disabledKeys: App.Global.DropdownKey[] = [];
 
   if (tabStore.isTabRetain(tabId)) {
-    disabledKeys.push('closeCurrent');
+    const homeDisable: App.Global.DropdownKey[] = ['closeCurrent', 'closeLeft'];
+    disabledKeys.push(...homeDisable);
   }
 
   return disabledKeys;
