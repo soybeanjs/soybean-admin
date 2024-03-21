@@ -9,17 +9,9 @@ defineOptions({
   name: 'UserOperateDrawer'
 });
 
-/**
- * the type of operation
- *
- * - add: add user
- * - edit: edit user
- */
-export type OperateType = 'add' | 'edit';
-
 interface Props {
   /** the type of operation */
-  operateType: OperateType;
+  operateType: NaiveUI.TableOperateType;
   /** the edit row data */
   rowData?: Api.SystemManage.User | null;
 }
@@ -40,7 +32,7 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 const { defaultRequiredRule } = useFormRules();
 
 const title = computed(() => {
-  const titles: Record<OperateType, string> = {
+  const titles: Record<NaiveUI.TableOperateType, string> = {
     add: $t('page.manage.user.addUser'),
     edit: $t('page.manage.user.editUser')
   };
