@@ -6,7 +6,7 @@ import { $t } from '@/locales';
 import { enableStatusOptions, menuIconTypeOptions, menuTypeOptions } from '@/constants/business';
 import SvgIcon from '@/components/custom/svg-icon.vue';
 import { getLocalIcons } from '@/utils/icon';
-import { getLayoutAndPage } from './shared';
+import { getLayoutAndPage, transformLayoutAndPageToComponent } from './shared';
 
 defineOptions({
   name: 'MenuOperateDrawer'
@@ -162,6 +162,9 @@ function closeDrawer() {
 
 async function handleSubmit() {
   await validate();
+
+  model.component = transformLayoutAndPageToComponent(model.layout, model.page);
+
   // request
   window.$message?.success($t('common.updateSuccess'));
   closeDrawer();

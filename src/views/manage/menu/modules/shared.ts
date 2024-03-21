@@ -1,9 +1,8 @@
 const LAYOUT_PREFIX = 'layout.';
 const VIEW_PREFIX = 'view.';
+const FIRST_LEVEL_ROUTE_COMPONENT_SPLIT = '$';
 
 export function getLayoutAndPage(component?: string | null) {
-  const FIRST_LEVEL_ROUTE_COMPONENT_SPLIT = '$';
-
   let layout = '';
   let page = '';
 
@@ -21,4 +20,23 @@ function getLayout(layout: string) {
 
 function getPage(page: string) {
   return page.startsWith(VIEW_PREFIX) ? page.replace(VIEW_PREFIX, '') : '';
+}
+
+export function transformLayoutAndPageToComponent(layout: string, page: string) {
+  const hasLayout = Boolean(layout);
+  const hasPage = Boolean(page);
+
+  if (hasLayout && hasPage) {
+    return `${LAYOUT_PREFIX}${layout}${FIRST_LEVEL_ROUTE_COMPONENT_SPLIT}${VIEW_PREFIX}${page}`;
+  }
+
+  if (hasLayout) {
+    return `${LAYOUT_PREFIX}${layout}`;
+  }
+
+  if (hasPage) {
+    return `${VIEW_PREFIX}${page}`;
+  }
+
+  return '';
 }
