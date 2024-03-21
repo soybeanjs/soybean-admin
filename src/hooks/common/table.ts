@@ -212,14 +212,15 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
 
   return {
     drawerVisible,
+    openDrawer,
+    closeDrawer,
     operateType,
     handleAdd,
     editingData,
     handleEdit,
     checkedRowKeys,
     onBatchDeleted,
-    onDeleted,
-    closeDrawer
+    onDeleted
   };
 }
 

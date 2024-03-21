@@ -502,8 +502,9 @@ declare namespace App {
             menuName: string;
             routeName: string;
             routePath: string;
-            page: string;
+            routeParams: string;
             layout: string;
+            page: string;
             i18nKey: string;
             icon: string;
             localIcon: string;
@@ -524,8 +525,8 @@ declare namespace App {
               menuName: string;
               routeName: string;
               routePath: string;
-              page: string;
               layout: string;
+              page: string;
               i18nKey: string;
               icon: string;
               localIcon: string;

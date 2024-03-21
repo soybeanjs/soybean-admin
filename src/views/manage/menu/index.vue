@@ -1,16 +1,20 @@
 <script setup lang="tsx">
 import { ref } from 'vue';
+import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
-import { fetchGetMenuList } from '@/service/api';
+import { useBoolean } from '@sa/hooks';
+import { fetchGetAllPages, fetchGetMenuList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { yesOrNoRecord } from '@/constants/common';
 import { enableStatusRecord, menuTypeRecord } from '@/constants/business';
 import SvgIcon from '@/components/custom/svg-icon.vue';
-import MenuOperateDrawer from './modules/menu-operate-drawer.vue';
+import MenuOperateDrawer, { type OperateType } from './modules/menu-operate-drawer.vue';
 
 const appStore = useAppStore();
+
+const { bool: drawerVisible, setTrue: openDrawer, setFalse: _closeDrawer } = useBoolean();
 
 const wrapperRef = ref<HTMLElement | null>(null);
 
@@ -143,11 +147,11 @@ const { columns, columnChecks, data, loading, pagination, getData } = useTable({
       render: row => (
         <div class="flex-center justify-end gap-8px">
           {row.menuType === '1' && (
-            <NButton type="primary" ghost size="small" onClick={() => handleAddChildMenu(row.id)}>
+            <NButton type="primary" ghost size="small" onClick={() => handleAddChildMenu(row)}>
               {$t('page.manage.menu.addChildMenu')}
             </NButton>
           )}
-          <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
+          <NButton type="primary" ghost size="small" onClick={() => handleEdit(row)}>
             {$t('common.edit')}
           </NButton>
           <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
@@ -166,17 +170,14 @@ const { columns, columnChecks, data, loading, pagination, getData } = useTable({
   ]
 });
 
-const {
-  drawerVisible,
-  operateType,
-  editingData,
-  handleAdd,
-  handleEdit,
-  checkedRowKeys,
-  onBatchDeleted,
-  onDeleted
-  // closeDrawer
-} = useTableOperate(data, getData);
+const { checkedRowKeys, onBatchDeleted, onDeleted } = useTableOperate(data, getData);
+
+const operateType = ref<OperateType>('add');
+
+function handleAdd() {
+  operateType.value = 'add';
+  openDrawer();
+}
 
 async function handleBatchDelete() {
   // request
@@ -192,15 +193,37 @@ function handleDelete(id: number) {
   onDeleted();
 }
 
-function handleAddChildMenu(id: number) {
-  console.log(id);
+/** the edit menu data or the parent menu data when adding a child menu */
+const editingData: Ref<Api.SystemManage.Menu | null> = ref(null);
 
-  handleAdd();
+function handleEdit(item: Api.SystemManage.Menu) {
+  operateType.value = 'edit';
+  editingData.value = { ...item };
+
+  openDrawer();
 }
 
-function edit(id: number) {
-  handleEdit(id);
+function handleAddChildMenu(item: Api.SystemManage.Menu) {
+  operateType.value = 'addChild';
+
+  editingData.value = { ...item };
+
+  openDrawer();
 }
+
+const allPages = ref<string[]>([]);
+
+async function getAllPages() {
+  const { data: pages } = await fetchGetAllPages();
+  allPages.value = pages || [];
+}
+
+function init() {
+  getAllPages();
+}
+
+// init
+init();
 </script>
 
 <template>
@@ -233,6 +256,7 @@ function edit(id: number) {
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"
+        :all-pages="allPages"
         @submitted="getData"
       />
     </NCard>

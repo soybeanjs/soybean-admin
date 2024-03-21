@@ -49,3 +49,11 @@ export function fetchGetMenuList() {
     method: 'get'
   });
 }
+
+/** get all pages */
+export function fetchGetAllPages() {
+  return request<string[]>({
+    url: '/systemManage/getAllPages',
+    method: 'get'
+  });
+}

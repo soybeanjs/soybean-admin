@@ -6,16 +6,21 @@ import { $t } from '@/locales';
 import { enableStatusOptions, menuIconTypeOptions, menuTypeOptions } from '@/constants/business';
 import SvgIcon from '@/components/custom/svg-icon.vue';
 import { getLocalIcons } from '@/utils/icon';
+import { getLayoutAndPage } from './shared';
 
 defineOptions({
   name: 'MenuOperateDrawer'
 });
 
+export type OperateType = NaiveUI.TableOperateType | 'addChild';
+
 interface Props {
   /** the type of operation */
-  operateType: NaiveUI.TableOperateType;
-  /** the edit row data */
+  operateType: OperateType;
+  /** the edit menu data or the parent menu data when adding a child menu */
   rowData?: Api.SystemManage.Menu | null;
+  /** all pages */
+  allPages: string[];
 }
 
 const props = defineProps<Props>();
@@ -34,8 +39,9 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 const { defaultRequiredRule } = useFormRules();
 
 const title = computed(() => {
-  const titles: Record<NaiveUI.TableOperateType, string> = {
+  const titles: Record<OperateType, string> = {
     add: $t('page.manage.menu.addMenu'),
+    addChild: $t('page.manage.menu.addChildMenu'),
     edit: $t('page.manage.menu.editMenu')
   };
   return titles[props.operateType];
@@ -43,8 +49,21 @@ const title = computed(() => {
 
 type Model = Pick<
   Api.SystemManage.Menu,
-  'menuType' | 'menuName' | 'icon' | 'iconType' | 'routeName' | 'routePath' | 'status' | 'hideInMenu' | 'order'
->;
+  | 'menuType'
+  | 'menuName'
+  | 'icon'
+  | 'iconType'
+  | 'routeName'
+  | 'routePath'
+  | 'component'
+  | 'status'
+  | 'hideInMenu'
+  | 'order'
+  | 'parentId'
+> & {
+  layout: string;
+  page: string;
+};
 
 const model: Model = reactive(createDefaultModel());
 
@@ -56,9 +75,12 @@ function createDefaultModel(): Model {
     iconType: '1',
     routeName: '',
     routePath: '',
+    layout: '',
+    page: '',
     status: null,
     hideInMenu: false,
-    order: 0
+    order: 0,
+    parentId: 0
   };
 }
 
@@ -68,6 +90,8 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
   userName: defaultRequiredRule,
   userStatus: defaultRequiredRule
 };
+
+const disabledMenuType = computed(() => props.operateType === 'edit');
 
 const localIcons = getLocalIcons();
 const localIconOptions = localIcons.map<SelectOption>(item => ({
@@ -80,14 +104,55 @@ const localIconOptions = localIcons.map<SelectOption>(item => ({
   value: item
 }));
 
-function handleUpdateModelWhenEdit() {
+const showLayout = computed(() => model.parentId === 0);
+
+const showPage = computed(() => model.menuType === '2');
+
+const pageOptions = computed(() => {
+  const allPages = [...props.allPages];
+
+  if (model.routeName && !allPages.includes(model.routeName)) {
+    allPages.unshift(model.routeName);
+  }
+
+  const opts: CommonType.Option[] = allPages.map(page => ({
+    label: page,
+    value: page
+  }));
+
+  return opts;
+});
+
+const layoutOptions: CommonType.Option[] = [
+  {
+    label: 'base',
+    value: 'base'
+  },
+  {
+    label: 'blank',
+    value: 'blank'
+  }
+];
+
+function handleUpdateModel() {
   if (props.operateType === 'add') {
     Object.assign(model, createDefaultModel());
+
     return;
   }
 
+  if (props.operateType === 'addChild' && props.rowData) {
+    const { id } = props.rowData;
+
+    Object.assign(model, createDefaultModel(), { parentId: id });
+  }
+
   if (props.operateType === 'edit' && props.rowData) {
-    Object.assign(model, props.rowData);
+    const { component, ...rest } = props.rowData;
+
+    const { layout, page } = getLayoutAndPage(component);
+
+    Object.assign(model, rest, { layout, page });
   }
 }
 
@@ -105,7 +170,7 @@ async function handleSubmit() {
 
 watch(visible, () => {
   if (visible.value) {
-    handleUpdateModelWhenEdit();
+    handleUpdateModel();
     restoreValidation();
   }
 });
@@ -116,7 +181,7 @@ watch(visible, () => {
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="80">
         <NFormItem :label="$t('page.manage.menu.menuType')" path="menuType">
-          <NRadioGroup v-model:value="model.menuType">
+          <NRadioGroup v-model:value="model.menuType" :disabled="disabledMenuType">
             <NRadio v-for="item in menuTypeOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
           </NRadioGroup>
         </NFormItem>
@@ -149,6 +214,16 @@ watch(visible, () => {
         </NFormItem>
         <NFormItem :label="$t('page.manage.menu.routePath')" path="routePath">
           <NInput v-model:value="model.routePath" :placeholder="$t('page.manage.menu.form.routePath')" />
+        </NFormItem>
+        <NFormItem v-if="showLayout" :label="$t('page.manage.menu.layout')" path="layout">
+          <NSelect
+            v-model:value="model.layout"
+            :options="layoutOptions"
+            :placeholder="$t('page.manage.menu.form.layout')"
+          />
+        </NFormItem>
+        <NFormItem v-if="showPage" :label="$t('page.manage.menu.page')" path="page">
+          <NSelect v-model:value="model.page" :options="pageOptions" :placeholder="$t('page.manage.menu.form.page')" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.menu.menuStatus')" path="status">
           <NRadioGroup v-model:value="model.status">
