@@ -221,10 +221,6 @@ export function getNaiveTableIndex(pagination: PaginationProps, index: number) {
   return (page - 1) * pageSize + index + 1;
 }
 
-export function getNaiveTableRowKey<T extends TableData>(row: T) {
-  return row.id;
-}
-
 function isTableColumnHasKey<T>(column: TableColumn<T>): column is NaiveUI.TableColumnWithKey<T> {
   return Boolean((column as NaiveUI.TableColumnWithKey<T>).key);
 }

@@ -4,12 +4,7 @@ import { fetchGetUserList } from '@/service/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
-import {
-  getNaiveTableIndex,
-  getNaiveTableRowKey,
-  useNaiveTable,
-  useNaiveTableOperate
-} from '@/hooks/common/naive-table';
+import { getNaiveTableIndex, useNaiveTable, useNaiveTableOperate } from '@/hooks/common/naive-table';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import UserSearch from './modules/user-search.vue';
 
@@ -178,7 +173,7 @@ function edit(id: number) {
         :scroll-x="962"
         :loading="loading"
         remote
-        :row-key="getNaiveTableRowKey"
+        :row-key="row => row.id"
         :pagination="mobilePagination"
         class="sm:h-full"
       />
