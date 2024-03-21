@@ -225,7 +225,8 @@ export function getNaiveTheme(colors: App.Theme.ThemeColor) {
 
   const theme: GlobalThemeOverrides = {
     common: {
-      ...getNaiveThemeColors(colors)
+      ...getNaiveThemeColors(colors),
+      borderRadius: '6px'
     },
     LoadingBar: {
       colorLoading
