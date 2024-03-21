@@ -1,37 +1,21 @@
 <script setup lang="tsx">
 import { ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
-import { useBoolean } from '@sa/hooks';
 import { fetchGetMenuList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
-import { useTable } from '@/hooks/common/table';
+import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { yesOrNoRecord } from '@/constants/common';
 import { enableStatusRecord, menuTypeRecord } from '@/constants/business';
 import SvgIcon from '@/components/custom/svg-icon.vue';
-import MenuOperateDrawer, { type OperateType } from './modules/menu-operate-drawer.vue';
+import MenuOperateDrawer from './modules/menu-operate-drawer.vue';
 
 const appStore = useAppStore();
-const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
 
 const wrapperRef = ref<HTMLElement | null>(null);
 
-const { columns, filteredColumns, data, loading, pagination, getData } = useTable<
-  Api.SystemManage.Menu,
-  typeof fetchGetMenuList,
-  'index' | 'operate'
->({
+const { columns, columnChecks, data, loading, pagination, getData } = useTable({
   apiFn: fetchGetMenuList,
-  transformer: res => {
-    const menus = res.data || [];
-
-    return {
-      data: menus,
-      pageNum: 1,
-      pageSize: 10,
-      total: menus.length
-    };
-  },
   columns: () => [
     {
       type: 'selection',
@@ -163,7 +147,7 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
               {$t('page.manage.menu.addChildMenu')}
             </NButton>
           )}
-          <NButton type="primary" ghost size="small" onClick={() => handleEdit(row.id)}>
+          <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
             {$t('common.edit')}
           </NButton>
           <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
@@ -182,50 +166,40 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
   ]
 });
 
-const operateType = ref<OperateType>('add');
-
-function handleAdd() {
-  operateType.value = 'add';
-  openDrawer();
-}
-
-const checkedRowKeys = ref<string[]>([]);
+const {
+  drawerVisible,
+  operateType,
+  editingData,
+  handleAdd,
+  handleEdit,
+  checkedRowKeys,
+  onBatchDeleted,
+  onDeleted
+  // closeDrawer
+} = useTableOperate(data, getData);
 
 async function handleBatchDelete() {
   // request
   console.log(checkedRowKeys.value);
-  window.$message?.success($t('common.deleteSuccess'));
 
-  checkedRowKeys.value = [];
+  onBatchDeleted();
+}
 
-  getData();
+function handleDelete(id: number) {
+  // request
+  console.log(id);
+
+  onDeleted();
 }
 
 function handleAddChildMenu(id: number) {
-  console.log('id: ', id);
-  operateType.value = 'add';
-  openDrawer();
-}
-
-/** the editing row data */
-const editingData = ref<Api.SystemManage.Menu | null>(null);
-
-function handleEdit(id: number) {
-  operateType.value = 'edit';
-  editingData.value = data.value.find(item => item.id === id) || null;
-  openDrawer();
-}
-
-async function handleDelete(id: number) {
-  // request
   console.log(id);
-  window.$message?.success($t('common.deleteSuccess'));
 
-  getData();
+  handleAdd();
 }
 
-function getRowKey(row: Api.SystemManage.Menu) {
-  return row.id;
+function edit(id: number) {
+  handleEdit(id);
 }
 </script>
 
@@ -234,7 +208,7 @@ function getRowKey(row: Api.SystemManage.Menu) {
     <NCard :title="$t('page.manage.menu.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
         <TableHeaderOperation
-          v-model:columns="filteredColumns"
+          v-model:columns="columnChecks"
           :disabled-delete="checkedRowKeys.length === 0"
           :loading="loading"
           @add="handleAdd"
@@ -250,7 +224,7 @@ function getRowKey(row: Api.SystemManage.Menu) {
         :flex-height="!appStore.isMobile"
         :scroll-x="1088"
         :loading="loading"
-        :row-key="getRowKey"
+        :row-key="row => row.id"
         remote
         :pagination="pagination"
         class="sm:h-full"

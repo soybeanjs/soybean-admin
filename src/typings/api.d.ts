@@ -219,5 +219,8 @@ declare namespace Api {
       /** children menu */
       children?: Menu[];
     }>;
+
+    /** menu list */
+    type MenuList = Common.PaginatingQueryRecord<Menu>;
   }
 }

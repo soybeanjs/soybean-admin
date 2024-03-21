@@ -8,17 +8,9 @@ defineOptions({
   name: 'RoleOperateDrawer'
 });
 
-/**
- * the type of operation
- *
- * - add: add role
- * - edit: edit role
- */
-export type OperateType = 'add' | 'edit';
-
 interface Props {
   /** the type of operation */
-  operateType: OperateType;
+  operateType: NaiveUI.TableOperateType;
   /** the edit row data */
   rowData?: Api.SystemManage.Role | null;
 }
@@ -39,7 +31,7 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 const { defaultRequiredRule } = useFormRules();
 
 const title = computed(() => {
-  const titles: Record<OperateType, string> = {
+  const titles: Record<NaiveUI.TableOperateType, string> = {
     add: $t('page.manage.role.addRole'),
     edit: $t('page.manage.role.editRole')
   };

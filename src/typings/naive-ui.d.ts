@@ -8,9 +8,15 @@ declare namespace NaiveUI {
   type TableColumnGroup<T> = import('naive-ui/es/data-table/src/interface').TableColumnGroup<T>;
   type PaginationProps = import('naive-ui').PaginationProps;
   type TableColumnCheck = import('@sa/hooks').TableColumnCheck;
+  type TableDataWithIndex<T> = import('@sa/hooks').TableDataWithIndex<T>;
   type FlatResponseData<T> = import('@sa/axios').FlatResponseData<T>;
 
-  type CustomColumnKey = 'index' | 'operate';
+  /**
+   * the custom column key
+   *
+   * if you want to add a custom column, you should add a key to this type
+   */
+  type CustomColumnKey = 'operate';
 
   type SetTableColumnKey<C, T> = Omit<C, 'key'> & { key: keyof T | CustomColumnKey };
 
@@ -35,7 +41,7 @@ declare namespace NaiveUI {
   type GetTableData<A extends TableApiFn> = A extends TableApiFn<infer T> ? T : never;
 
   type NaiveTableConfig<A extends TableApiFn> = Pick<
-    import('@sa/hooks').TableConfig<A, GetTableData<A>, TableColumn<GetTableData<A>>>,
+    import('@sa/hooks').TableConfig<A, GetTableData<A>, TableColumn<NaiveUI.TableDataWithIndex<GetTableData<A>>>>,
     'apiFn' | 'apiParams' | 'columns' | 'immediate'
   >;
 }

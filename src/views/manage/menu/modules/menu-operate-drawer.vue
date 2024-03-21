@@ -11,17 +11,9 @@ defineOptions({
   name: 'MenuOperateDrawer'
 });
 
-/**
- * the type of operation
- *
- * - add: add user
- * - edit: edit user
- */
-export type OperateType = 'add' | 'edit';
-
 interface Props {
   /** the type of operation */
-  operateType: OperateType;
+  operateType: NaiveUI.TableOperateType;
   /** the edit row data */
   rowData?: Api.SystemManage.Menu | null;
 }
@@ -42,7 +34,7 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 const { defaultRequiredRule } = useFormRules();
 
 const title = computed(() => {
-  const titles: Record<OperateType, string> = {
+  const titles: Record<NaiveUI.TableOperateType, string> = {
     add: $t('page.manage.menu.addMenu'),
     edit: $t('page.manage.menu.editMenu')
   };

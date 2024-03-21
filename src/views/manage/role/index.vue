@@ -1,30 +1,16 @@
 <script setup lang="tsx">
-import { computed, ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
-import type { PaginationProps } from 'naive-ui';
-import { useBoolean } from '@sa/hooks';
 import { fetchGetRoleList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
-import { useTable } from '@/hooks/common/table';
+import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { enableStatusRecord } from '@/constants/business';
-import RoleOperateDrawer, { type OperateType } from './modules/role-operate-drawer.vue';
+import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 import RoleSearch from './modules/role-search.vue';
 
 const appStore = useAppStore();
-const { bool: drawerVisible, setTrue: openDrawer } = useBoolean();
 
-const {
-  columns,
-  filteredColumns,
-  data,
-  loading,
-  pagination,
-  getData,
-  searchParams,
-  updateSearchParams,
-  resetSearchParams
-} = useTable<Api.SystemManage.Role, typeof fetchGetRoleList, 'index' | 'operate'>({
+const { columns, columnChecks, data, loading, getData, mobilePagination, searchParams, resetSearchParams } = useTable({
   apiFn: fetchGetRoleList,
   apiParams: {
     current: 1,
@@ -35,26 +21,6 @@ const {
     roleName: null,
     roleCode: null
   },
-  transformer: res => {
-    const { records = [], current = 1, size = 10, total = 0 } = res.data || {};
-
-    return {
-      data: records,
-      pageNum: current,
-      pageSize: size,
-      total
-    };
-  },
-  onPaginationChanged(pg) {
-    const { page, pageSize } = pg;
-
-    updateSearchParams({
-      current: page,
-      size: pageSize
-    });
-
-    getData();
-  },
   columns: () => [
     {
       type: 'selection',
@@ -64,7 +30,6 @@ const {
     {
       key: 'index',
       title: $t('common.index'),
-      render: (_, index): string => getIndex(index),
       width: 64,
       align: 'center'
     },
@@ -112,7 +77,7 @@ const {
       width: 130,
       render: row => (
         <div class="flex-center gap-8px">
-          <NButton type="primary" ghost size="small" onClick={() => handleEdit(row.id)}>
+          <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
             {$t('common.edit')}
           </NButton>
           <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
@@ -131,60 +96,34 @@ const {
   ]
 });
 
-// this is for mobile, if the system does not support mobile, you can use `pagination` directly
-const mobilePagination = computed(() => {
-  const p: PaginationProps = {
-    ...pagination,
-    pageSlot: appStore.isMobile ? 3 : 9
-  };
-
-  return p;
-});
-
-const operateType = ref<OperateType>('add');
-
-function handleAdd() {
-  operateType.value = 'add';
-  openDrawer();
-}
-
-const checkedRowKeys = ref<string[]>([]);
+const {
+  drawerVisible,
+  operateType,
+  editingData,
+  handleAdd,
+  handleEdit,
+  checkedRowKeys,
+  onBatchDeleted,
+  onDeleted
+  // closeDrawer
+} = useTableOperate(data, getData);
 
 async function handleBatchDelete() {
   // request
   console.log(checkedRowKeys.value);
-  window.$message?.success($t('common.deleteSuccess'));
 
-  checkedRowKeys.value = [];
-
-  getData();
+  onBatchDeleted();
 }
 
-/** the editing row data */
-const editingData = ref<Api.SystemManage.Role | null>(null);
-
-function handleEdit(id: number) {
-  operateType.value = 'edit';
-  editingData.value = data.value.find(item => item.id === id) || null;
-  openDrawer();
-}
-
-async function handleDelete(id: number) {
+function handleDelete(id: number) {
   // request
   console.log(id);
-  window.$message?.success($t('common.deleteSuccess'));
 
-  getData();
+  onDeleted();
 }
 
-function getIndex(index: number) {
-  const { page = 0, pageSize = 10 } = pagination;
-
-  return String((page - 1) * pageSize + index + 1);
-}
-
-function getRowKey(row: Api.SystemManage.User) {
-  return row.id;
+function edit(id: number) {
+  handleEdit(id);
 }
 </script>
 
@@ -194,7 +133,7 @@ function getRowKey(row: Api.SystemManage.User) {
     <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
         <TableHeaderOperation
-          v-model:columns="filteredColumns"
+          v-model:columns="columnChecks"
           :disabled-delete="checkedRowKeys.length === 0"
           :loading="loading"
           @add="handleAdd"
@@ -211,7 +150,7 @@ function getRowKey(row: Api.SystemManage.User) {
         :scroll-x="702"
         :loading="loading"
         remote
-        :row-key="getRowKey"
+        :row-key="row => row.id"
         :pagination="mobilePagination"
         class="sm:h-full"
       />

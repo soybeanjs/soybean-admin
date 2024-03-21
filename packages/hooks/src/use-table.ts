@@ -7,18 +7,16 @@ export type MaybePromise<T> = T | Promise<T>;
 
 export type ApiFn = (args: any) => Promise<unknown>;
 
-export type TableData = Record<string, unknown>;
-
-export type TableColumn = Record<string, any>;
-
 export type TableColumnCheck = {
   key: string;
   title: string;
   checked: boolean;
 };
 
+export type TableDataWithIndex<T> = T & { index: number };
+
 export type TransformedData<T> = {
-  data: T[];
+  data: TableDataWithIndex<T>[];
   pageNum: number;
   pageSize: number;
   total: number;
@@ -61,7 +59,7 @@ export type TableConfig<A extends ApiFn, T, C> = {
   immediate?: boolean;
 };
 
-export default function useTable<A extends ApiFn, T, C>(config: TableConfig<A, T, C>) {
+export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<A, T, C>) {
   const { loading, startLoading, endLoading } = useLoading();
   const { bool: empty, setBool: setEmpty } = useBoolean();
 
