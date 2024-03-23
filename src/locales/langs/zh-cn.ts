@@ -12,6 +12,7 @@ const local: App.I18n.Schema = {
     close: '关闭',
     check: '勾选',
     columnSetting: '列设置',
+    config: '配置',
     confirm: '确认',
     delete: '删除',
     deleteSuccess: '删除成功',
@@ -277,6 +278,8 @@ const local: App.I18n.Schema = {
         roleCode: '角色编码',
         roleStatus: '角色状态',
         roleDesc: '角色描述',
+        menuAuth: '菜单权限',
+        buttonAuth: '按钮权限',
         form: {
           roleName: '请输入角色名称',
           roleCode: '请输入角色编码',
@@ -312,6 +315,7 @@ const local: App.I18n.Schema = {
         }
       },
       menu: {
+        home: '首页',
         title: '菜单列表',
         id: 'ID',
         parentId: '父级菜单ID',
@@ -338,6 +342,7 @@ const local: App.I18n.Schema = {
         buttonDesc: '按钮描述',
         menuStatus: '菜单状态',
         form: {
+          home: '请选择首页',
           menuType: '请选择菜单类型',
           menuName: '请输入菜单名称',
           routeName: '请输入路由名称',

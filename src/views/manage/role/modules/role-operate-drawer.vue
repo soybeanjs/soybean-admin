@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed, reactive, watch } from 'vue';
+import { useBoolean } from '@sa/hooks';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { enableStatusOptions } from '@/constants/business';
+import MenuAuthModal from './menu-auth-modal.vue';
+import ButtonAuthModal from './button-auth-modal.vue';
 
 defineOptions({
   name: 'RoleOperateDrawer'
@@ -29,6 +32,8 @@ const visible = defineModel<boolean>('visible', {
 
 const { formRef, validate, restoreValidation } = useNaiveForm();
 const { defaultRequiredRule } = useFormRules();
+const { bool: menuAuthVisible, setTrue: openMenuAuthModal } = useBoolean();
+const { bool: buttonAuthVisible, setTrue: openButtonAuthModal } = useBoolean();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
@@ -58,6 +63,10 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
   roleCode: defaultRequiredRule,
   status: defaultRequiredRule
 };
+
+const roleId = computed(() => props.rowData?.id || -1);
+
+const isEdit = computed(() => props.operateType === 'edit');
 
 function handleUpdateModelWhenEdit() {
   if (props.operateType === 'add') {
@@ -109,6 +118,12 @@ watch(visible, () => {
           <NInput v-model:value="model.roleDesc" :placeholder="$t('page.manage.role.form.roleDesc')" />
         </NFormItem>
       </NForm>
+      <NSpace v-if="isEdit">
+        <NButton @click="openMenuAuthModal">{{ $t('page.manage.role.menuAuth') }}</NButton>
+        <MenuAuthModal v-model:visible="menuAuthVisible" :role-id="roleId" />
+        <NButton @click="openButtonAuthModal">{{ $t('page.manage.role.buttonAuth') }}</NButton>
+        <ButtonAuthModal v-model:visible="buttonAuthVisible" :role-id="roleId" />
+      </NSpace>
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>

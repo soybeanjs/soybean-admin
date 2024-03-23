@@ -258,6 +258,7 @@ declare namespace App {
         close: string;
         check: string;
         columnSetting: string;
+        config: string;
         confirm: string;
         delete: string;
         deleteSuccess: string;
@@ -468,6 +469,8 @@ declare namespace App {
             };
             addRole: string;
             editRole: string;
+            menuAuth: string;
+            buttonAuth: string;
           };
           user: {
             title: string;
@@ -495,6 +498,7 @@ declare namespace App {
             };
           };
           menu: {
+            home: string;
             title: string;
             id: string;
             parentId: string;
@@ -521,6 +525,7 @@ declare namespace App {
             buttonDesc: string;
             menuStatus: string;
             form: {
+              home: string;
               menuType: string;
               menuName: string;
               routeName: string;

@@ -57,3 +57,11 @@ export function fetchGetAllPages() {
     method: 'get'
   });
 }
+
+/** get menu tree */
+export function fetchGetMenuTree() {
+  return request<Api.SystemManage.MenuTree[]>({
+    url: '/systemManage/getMenuTree',
+    method: 'get'
+  });
+}

@@ -222,5 +222,12 @@ declare namespace Api {
 
     /** menu list */
     type MenuList = Common.PaginatingQueryRecord<Menu>;
+
+    type MenuTree = {
+      id: number;
+      label: string;
+      pId: number;
+      children?: MenuTree[];
+    };
   }
 }
