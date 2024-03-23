@@ -567,6 +567,7 @@ declare namespace App {
         userName: FormMsg;
         phone: FormMsg;
         pwd: FormMsg;
+        confirmPwd: FormMsg;
         code: FormMsg;
         email: FormMsg;
       };

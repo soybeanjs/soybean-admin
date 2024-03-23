@@ -80,7 +80,7 @@ function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
         <template #trigger>
           <div
             class="h-64px w-96px gap-6px rd-4px p-6px shadow dark:shadow-coolGray-5"
-            :class="[key.includes('vertical') ? 'flex' : 'flex-vertical']"
+            :class="[key.includes('vertical') ? 'flex' : 'flex-col']"
           >
             <slot :name="key"></slot>
           </div>

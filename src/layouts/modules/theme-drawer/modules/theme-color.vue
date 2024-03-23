@@ -35,7 +35,7 @@ const swatches: string[] = [
 
 <template>
   <NDivider>{{ $t('theme.themeColor.title') }}</NDivider>
-  <div class="flex-vertical-stretch gap-12px">
+  <div class="flex-col-stretch gap-12px">
     <SettingItem v-for="(_, key) in themeStore.themeColors" :key="key" :label="$t(`theme.themeColor.${key}`)">
       <template v-if="key === 'info'" #suffix>
         <NCheckbox v-model:checked="themeStore.isInfoFollowPrimary">

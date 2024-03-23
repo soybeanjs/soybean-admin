@@ -78,7 +78,7 @@ export function getTabByRoute(route: App.Global.TabRoute) {
 }
 
 /**
- * The vue router will automatically merge the metas of all matched items, and the icons here may be affected by other
+ * The vue router will automatically merge the meta of all matched items, and the icons here may be affected by other
  * matching items, so they need to be processed separately
  *
  * @param route

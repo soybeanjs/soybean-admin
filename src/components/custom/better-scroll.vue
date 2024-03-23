@@ -17,17 +17,17 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const bsWrap = ref<HTMLElement>();
+const bsWrapper = ref<HTMLElement>();
 const bsContent = ref<HTMLElement>();
-const { width: wrapWidth } = useElementSize(bsWrap);
+const { width: wrapWidth } = useElementSize(bsWrapper);
 const { width, height } = useElementSize(bsContent);
 
 const instance = ref<BScroll>();
 const isScrollY = computed(() => Boolean(props.options.scrollY));
 
 function initBetterScroll() {
-  if (!bsWrap.value) return;
-  instance.value = new BScroll(bsWrap.value, props.options);
+  if (!bsWrapper.value) return;
+  instance.value = new BScroll(bsWrapper.value, props.options);
 }
 
 // refresh BS when scroll element size changed
@@ -43,7 +43,7 @@ defineExpose({ instance });
 </script>
 
 <template>
-  <div ref="bsWrap" class="h-full text-left">
+  <div ref="bsWrapper" class="h-full text-left">
     <div ref="bsContent" class="inline-block" :class="{ 'h-full': !isScrollY }">
       <slot></slot>
     </div>

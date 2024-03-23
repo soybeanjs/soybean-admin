@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { VNode } from 'vue';
-import { useSvgIconRender } from '@sa/hooks';
 import { $t } from '@/locales';
 import { useTabStore } from '@/store/modules/tab';
-import SvgIcon from '@/components/custom/svg-icon.vue';
+import { useSvgIcon } from '@/hooks/common/icon';
 
 defineOptions({
   name: 'ContextMenu'
@@ -28,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 const visible = defineModel<boolean>('visible');
 
 const { removeTab, clearTabs, clearLeftTabs, clearRightTabs } = useTabStore();
-const { SvgIconVNode } = useSvgIconRender(SvgIcon);
+const { SvgIconVNode } = useSvgIcon();
 
 type DropdownOption = {
   key: App.Global.DropdownKey;

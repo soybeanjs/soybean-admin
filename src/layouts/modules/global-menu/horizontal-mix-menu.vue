@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouterPush } from '@/hooks/common/router';
-import { useMixMenuContext } from '../../hooks/use-mix-menu';
+import { useMixMenuContext } from '../../context';
 import FirstLevelMenu from './first-level-menu.vue';
 
 defineOptions({

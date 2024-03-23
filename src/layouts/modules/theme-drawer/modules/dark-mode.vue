@@ -26,7 +26,7 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
 
 <template>
   <NDivider>{{ $t('theme.themeSchema.title') }}</NDivider>
-  <div class="flex-vertical-stretch gap-16px">
+  <div class="flex-col-stretch gap-16px">
     <div class="i-flex-center">
       <NTabs
         :key="themeStore.themeScheme"
@@ -50,20 +50,13 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
 </template>
 
 <style scoped>
-.sider-inverted-enter-active {
-  height: 22px;
-  transition: all 0.3s ease-in-out;
-}
-
+.sider-inverted-enter-active,
 .sider-inverted-leave-active {
-  height: 22px;
-  transition: all 0.3s ease-in-out;
+  --uno: h-22px transition-all-300;
 }
 
 .sider-inverted-enter-from,
 .sider-inverted-leave-to {
-  transform: translateX(20px);
-  opacity: 0;
-  height: 0;
+  --uno: translate-x-20px opacity-0 h-0;
 }
 </style>

@@ -5,7 +5,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
-import { useMixMenu } from '../../hooks/use-mix-menu';
+import { useMixMenu } from '../../hooks';
 import FirstLevelMenu from './first-level-menu.vue';
 import BaseMenu from './base-menu.vue';
 
@@ -52,7 +52,7 @@ function handleResetActiveMenu() {
       :style="{ width: appStore.mixSiderFixed ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
     >
       <DarkModeContainer
-        class="absolute-lt h-full flex-vertical-stretch nowrap-hidden shadow-sm transition-all-300"
+        class="absolute-lt h-full flex-col-stretch nowrap-hidden shadow-sm transition-all-300"
         :inverted="siderInverted"
         :style="{ width: showDrawer ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
       >

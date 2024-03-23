@@ -60,7 +60,7 @@ const themeStore = useThemeStore();
 }
 
 .vertical-wrapper {
-  --uno: flex-1 flex-vertical gap-6px;
+  --uno: flex-1 flex-col gap-6px;
 }
 
 .horizontal-wrapper {

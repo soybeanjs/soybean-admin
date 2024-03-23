@@ -10,7 +10,7 @@ import GlobalTab from '../modules/global-tab/index.vue';
 import GlobalContent from '../modules/global-content/index.vue';
 import GlobalFooter from '../modules/global-footer/index.vue';
 import ThemeDrawer from '../modules/theme-drawer/index.vue';
-import { setupMixMenuContext } from '../hooks/use-mix-menu';
+import { setupMixMenuContext } from '../context';
 
 defineOptions({
   name: 'BaseLayout'

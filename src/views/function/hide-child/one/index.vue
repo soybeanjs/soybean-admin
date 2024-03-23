@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>one</div>
+  <LookForward />
 </template>
 
 <style scoped></style>

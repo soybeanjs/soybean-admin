@@ -25,23 +25,19 @@ const appStore = useAppStore();
 const themeStore = useThemeStore();
 
 interface LoginModule {
-  key: UnionKey.LoginModule;
   label: string;
   component: Component;
 }
 
-const modules: LoginModule[] = [
-  { key: 'pwd-login', label: loginModuleRecord['pwd-login'], component: PwdLogin },
-  { key: 'code-login', label: loginModuleRecord['code-login'], component: CodeLogin },
-  { key: 'register', label: loginModuleRecord.register, component: Register },
-  { key: 'reset-pwd', label: loginModuleRecord['reset-pwd'], component: ResetPwd },
-  { key: 'bind-wechat', label: loginModuleRecord['bind-wechat'], component: BindWechat }
-];
+const moduleMap: Record<UnionKey.LoginModule, LoginModule> = {
+  'pwd-login': { label: loginModuleRecord['pwd-login'], component: PwdLogin },
+  'code-login': { label: loginModuleRecord['code-login'], component: CodeLogin },
+  register: { label: loginModuleRecord.register, component: Register },
+  'reset-pwd': { label: loginModuleRecord['reset-pwd'], component: ResetPwd },
+  'bind-wechat': { label: loginModuleRecord['bind-wechat'], component: BindWechat }
+};
 
-const activeModule = computed(() => {
-  const findItem = modules.find(item => item.key === props.module);
-  return findItem || modules[0];
-});
+const activeModule = computed(() => moduleMap[props.module]);
 
 const bgThemeColor = computed(() =>
   themeStore.darkMode ? getColorPalette(themeStore.themeColor, 7) : themeStore.themeColor
@@ -60,15 +56,15 @@ const bgColor = computed(() => {
   <div class="relative size-full flex-center overflow-hidden" :style="{ backgroundColor: bgColor }">
     <WaveBg :theme-color="bgThemeColor" />
     <NCard :bordered="false" class="relative z-4 w-auto rd-12px">
-      <div class="w-400px <sm:w-300px">
+      <div class="w-400px lt-sm:w-300px">
         <header class="flex-y-center justify-between">
-          <SystemLogo class="text-64px text-primary <sm:text-48px" />
-          <h3 class="text-28px text-primary font-500 <sm:text-22px">{{ $t('system.title') }}</h3>
-          <div class="i-flex-vertical">
+          <SystemLogo class="text-64px text-primary lt-sm:text-48px" />
+          <h3 class="text-28px text-primary font-500 lt-sm:text-22px">{{ $t('system.title') }}</h3>
+          <div class="i-flex-col">
             <ThemeSchemaSwitch
               :theme-schema="themeStore.themeScheme"
               :show-tooltip="false"
-              class="text-20px <sm:text-18px"
+              class="text-20px lt-sm:text-18px"
               @switch="themeStore.toggleThemeScheme"
             />
             <LangSwitch

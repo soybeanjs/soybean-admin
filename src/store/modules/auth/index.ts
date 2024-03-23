@@ -81,7 +81,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
       // 2. store user info
       localStg.set('userInfo', info);
 
-      // 3. update auth route
+      // 3. update store
       token.value = loginToken.token;
       Object.assign(userInfo, info);
 

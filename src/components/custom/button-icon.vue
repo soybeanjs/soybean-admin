@@ -48,7 +48,7 @@ const cls = computed(() => {
 </script>
 
 <template>
-  <!-- define component: Button -->
+  <!-- define component start: Button -->
   <DefineButton v-slot="{ $slots, className }">
     <NButton quaternary :class="className">
       <div class="flex-center gap-8px">
@@ -56,8 +56,8 @@ const cls = computed(() => {
       </div>
     </NButton>
   </DefineButton>
+  <!-- define component end: Button -->
 
-  <!-- template -->
   <NTooltip v-if="tooltipContent" :placement="tooltipPlacement" :z-index="98">
     <template #trigger>
       <Button :class-name="cls" v-bind="$attrs">

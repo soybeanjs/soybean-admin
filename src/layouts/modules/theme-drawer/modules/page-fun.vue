@@ -21,14 +21,14 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
 
 <template>
   <NDivider>{{ $t('theme.pageFunTitle') }}</NDivider>
-  <TransitionGroup tag="div" name="setting-list" class="flex-vertical-stretch gap-12px">
+  <TransitionGroup tag="div" name="setting-list" class="flex-col-stretch gap-12px">
     <SettingItem key="1" :label="$t('theme.scrollMode.title')">
       <NSelect
         v-model:value="themeStore.layout.scrollMode"
         :options="translateOptions(themeScrollModeOptions)"
         size="small"
         class="w-120px"
-      ></NSelect>
+      />
     </SettingItem>
     <SettingItem key="1-1" :label="$t('theme.page.animate')">
       <NSwitch v-model:value="themeStore.page.animate" />
@@ -108,16 +108,15 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
 .setting-list-move,
 .setting-list-enter-active,
 .setting-list-leave-active {
-  transition: all 0.3s ease-in-out;
+  --uno: transition-all-300;
 }
 
 .setting-list-enter-from,
 .setting-list-leave-to {
-  opacity: 0;
-  transform: translateX(-30px);
+  --uno: opacity-0 -translate-x-30px;
 }
 
 .setting-list-leave-active {
-  position: absolute;
+  --uno: absolute;
 }
 </style>

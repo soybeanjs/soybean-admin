@@ -199,7 +199,7 @@ init();
     :x="dropdown.x"
     :y="dropdown.y"
     @update:visible="handleDropdownVisible"
-  ></ContextMenu>
+  />
 </template>
 
 <style scoped></style>

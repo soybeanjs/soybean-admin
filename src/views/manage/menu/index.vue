@@ -227,7 +227,7 @@ init();
 </script>
 
 <template>
-  <div ref="wrapperRef" class="flex-vertical-stretch gap-16px overflow-hidden <sm:overflow-auto">
+  <div ref="wrapperRef" class="flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :title="$t('page.manage.menu.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
         <TableHeaderOperation

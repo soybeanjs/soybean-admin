@@ -1,4 +1,5 @@
-import { ref } from 'vue';
+import { ref, toValue } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import type { FormInst } from 'naive-ui';
 import { REG_CODE_SIX, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/constants/reg';
 import { $t } from '@/locales';
@@ -50,11 +51,30 @@ export function useFormRules() {
     };
   }
 
+  /** create a rule for confirming the password */
+  function createConfirmPwdRule(pwd: string | Ref<string> | ComputedRef<string>) {
+    const confirmPwdRule: App.Global.FormRule[] = [
+      { required: true, message: $t('form.confirmPwd.required') },
+      {
+        asyncValidator: (rule, value) => {
+          if (value.trim() !== '' && value !== toValue(pwd)) {
+            return Promise.reject(rule.message);
+          }
+          return Promise.resolve();
+        },
+        message: $t('form.confirmPwd.invalid'),
+        trigger: 'input'
+      }
+    ];
+    return confirmPwdRule;
+  }
+
   return {
     patternRules,
     formRules,
     defaultRequiredRule,
-    createRequiredRule
+    createRequiredRule,
+    createConfirmPwdRule
   };
 }
 

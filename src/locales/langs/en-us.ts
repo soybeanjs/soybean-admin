@@ -393,6 +393,10 @@ const local: App.I18n.Schema = {
       required: 'Please enter password',
       invalid: 'Password format is incorrect'
     },
+    confirmPwd: {
+      required: 'Please enter password again',
+      invalid: 'The two passwords are inconsistent'
+    },
     code: {
       required: 'Please enter verification code',
       invalid: 'Verification code format is incorrect'

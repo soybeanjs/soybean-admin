@@ -14,7 +14,7 @@ defineProps<Props>();
 
 <template>
   <ButtonIcon :tooltip-content="$t('icon.reload')">
-    <IconAntDesignReloadOutlined :class="{ 'animate-spin animate-duration-750': loading }" />
+    <icon-ant-design-reload-outlined :class="{ 'animate-spin animate-duration-750': loading }" />
   </ButtonIcon>
 </template>
 

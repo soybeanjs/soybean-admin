@@ -25,7 +25,8 @@ const model: FormModel = reactive({
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
-  const { formRules } = useFormRules(); // inside computed to make locale reactive
+  // inside computed to make locale reactive, if not apply i18n, you can define it without computed
+  const { formRules } = useFormRules();
 
   return {
     userName: formRules.userName,
@@ -48,13 +49,16 @@ async function handleSubmit() {
       <NInput
         v-model:value="model.password"
         type="password"
+        show-password-on="mousedown"
         :placeholder="$t('page.login.common.passwordPlaceholder')"
       />
     </NFormItem>
     <NSpace vertical :size="24">
       <div class="flex-y-center justify-between">
         <NCheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</NCheckbox>
-        <NButton quaternary>{{ $t('page.login.pwdLogin.forgetPassword') }}</NButton>
+        <NButton quaternary @click="toggleLoginModule('reset-pwd')">
+          {{ $t('page.login.pwdLogin.forgetPassword') }}
+        </NButton>
       </div>
       <NButton type="primary" size="large" round block :loading="authStore.loginLoading" @click="handleSubmit">
         {{ $t('common.confirm') }}
