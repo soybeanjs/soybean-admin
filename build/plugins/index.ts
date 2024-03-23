@@ -4,7 +4,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import unocss from '@unocss/vite';
 // import progress from 'vite-plugin-progress';
 import VueDevtools from 'vite-plugin-vue-devtools';
-import pageRoute from '@soybeanjs/vite-plugin-vue-page-route';
+// import pageRoute from '@soybeanjs/vite-plugin-vue-page-route';
 import unplugin from './unplugin';
 import mock from './mock';
 import visualizer from './visualizer';
@@ -42,7 +42,7 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
     plugins.push(pwa());
   }
   if (viteEnv.VITE_SOYBEAN_ROUTE_PLUGIN === 'Y') {
-    plugins.push(pageRoute());
+    // plugins.push(pageRoute());
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -80,7 +80,7 @@ export function setupFarmVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Pl
     plugins.push(pwa());
   }
   if (viteEnv.VITE_SOYBEAN_ROUTE_PLUGIN === 'Y') {
-    plugins.push(pageRoute());
+    // plugins.push(pageRoute());
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
