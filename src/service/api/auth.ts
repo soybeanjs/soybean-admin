@@ -37,13 +37,12 @@ export function fetchRefreshToken(refreshToken: string) {
   });
 }
 
-export function fetchDebug() {
-  return request<string>({
-    url: '/debug-post',
-    method: 'post',
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    data: {
-      a: '1'
-    }
-  });
+/**
+ * return custom backend error
+ *
+ * @param code error code
+ * @param msg error message
+ */
+export function fetchCustomBackendError(code: string, msg: string) {
+  return request({ url: '/auth/error', params: { code, msg } });
 }

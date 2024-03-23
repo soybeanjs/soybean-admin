@@ -34,7 +34,7 @@ export interface RequestOption<ResponseData = any> {
   onBackendFail: (
     response: AxiosResponse<ResponseData>,
     instance: AxiosInstance
-  ) => Promise<AxiosResponse> | Promise<void>;
+  ) => Promise<AxiosResponse | null> | Promise<void>;
   /**
    * transform backend response when the responseType is json
    *
@@ -68,11 +68,16 @@ export type CustomAxiosRequestConfig<R extends ResponseType = 'json'> = Omit<Axi
   responseType?: R;
 };
 
-/** The request instance */
-export interface RequestInstance {
-  <T = any, R extends ResponseType = 'json'>(config: CustomAxiosRequestConfig<R>): Promise<MappedType<R, T>>;
+export interface RequestInstanceCommon<T> {
   cancelRequest: (requestId: string) => void;
   cancelAllRequest: () => void;
+  /** you can set custom state in the request instance */
+  state: T;
+}
+
+/** The request instance */
+export interface RequestInstance<S = Record<string, unknown>> extends RequestInstanceCommon<S> {
+  <T = any, R extends ResponseType = 'json'>(config: CustomAxiosRequestConfig<R>): Promise<MappedType<R, T>>;
 }
 
 export type FlatResponseSuccessData<T = any> = {
@@ -87,10 +92,8 @@ export type FlatResponseFailData<T = any> = {
 
 export type FlatResponseData<T = any> = FlatResponseSuccessData<T> | FlatResponseFailData<T>;
 
-export interface FlatRequestInstance {
+export interface FlatRequestInstance<S = Record<string, unknown>> extends RequestInstanceCommon<S> {
   <T = any, R extends ResponseType = 'json'>(
     config: CustomAxiosRequestConfig<R>
   ): Promise<FlatResponseData<MappedType<R, T>>>;
-  cancelRequest: (requestId: string) => void;
-  cancelAllRequest: () => void;
 }
