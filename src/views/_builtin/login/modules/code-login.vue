@@ -34,6 +34,7 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
 
 async function handleSubmit() {
   await validate();
+  // request
   window.$message?.success($t('page.login.common.validateSuccess'));
 }
 </script>

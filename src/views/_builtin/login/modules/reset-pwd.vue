@@ -40,6 +40,7 @@ const rules = computed<RuleRecord>(() => {
 async function handleSubmit() {
   await validate();
   // request to reset password
+  window.$message?.success($t('page.login.common.validateSuccess'));
 }
 </script>
 
@@ -55,7 +56,7 @@ async function handleSubmit() {
       <NInput
         v-model:value="model.password"
         type="password"
-        show-password-on="mousedown"
+        show-password-on="click"
         :placeholder="$t('page.login.common.passwordPlaceholder')"
       />
     </NFormItem>
@@ -63,7 +64,7 @@ async function handleSubmit() {
       <NInput
         v-model:value="model.confirmPassword"
         type="password"
-        show-password-on="mousedown"
+        show-password-on="click"
         :placeholder="$t('page.login.common.confirmPasswordPlaceholder')"
       />
     </NFormItem>
