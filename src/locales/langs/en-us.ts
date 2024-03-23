@@ -184,6 +184,8 @@ const local: App.I18n.Schema = {
       codeLogin: {
         title: 'Verification Code Login',
         getCode: 'Get verification code',
+        reGetCode: 'Reacquire after {time}s',
+        sendCodeSuccess: 'Verification code sent successfully',
         imageCodePlaceholder: 'Please enter image verification code'
       },
       register: {
@@ -391,7 +393,7 @@ const local: App.I18n.Schema = {
     },
     pwd: {
       required: 'Please enter password',
-      invalid: 'Password format is incorrect'
+      invalid: '6-18 characters, including letters, numbers, and underscores'
     },
     confirmPwd: {
       required: 'Please enter password again',

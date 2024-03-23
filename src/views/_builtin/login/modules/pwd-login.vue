@@ -49,7 +49,7 @@ async function handleSubmit() {
       <NInput
         v-model:value="model.password"
         type="password"
-        show-password-on="mousedown"
+        show-password-on="click"
         :placeholder="$t('page.login.common.passwordPlaceholder')"
       />
     </NFormItem>

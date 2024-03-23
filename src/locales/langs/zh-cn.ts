@@ -184,6 +184,8 @@ const local: App.I18n.Schema = {
       codeLogin: {
         title: '验证码登录',
         getCode: '获取验证码',
+        reGetCode: '{time}秒后重新获取',
+        sendCodeSuccess: '验证码发送成功',
         imageCodePlaceholder: '请输入图片验证码'
       },
       register: {
@@ -391,7 +393,7 @@ const local: App.I18n.Schema = {
     },
     pwd: {
       required: '请输入密码',
-      invalid: '密码格式不正确'
+      invalid: '密码格式不正确，6-18位字符，包含字母、数字、下划线'
     },
     confirmPwd: {
       required: '请输入确认密码',
