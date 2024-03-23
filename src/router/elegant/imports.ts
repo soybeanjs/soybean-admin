@@ -24,6 +24,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   "function_hide-child_three": () => import("@/views/function/hide-child/three/index.vue"),
   "function_hide-child_two": () => import("@/views/function/hide-child/two/index.vue"),
   "function_multi-tab": () => import("@/views/function/multi-tab/index.vue"),
+  function_request: () => import("@/views/function/request/index.vue"),
   function_tab: () => import("@/views/function/tab/index.vue"),
   home: () => import("@/views/home/index.vue"),
   manage_menu: () => import("@/views/manage/menu/index.vue"),

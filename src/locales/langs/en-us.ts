@@ -33,6 +33,7 @@ const local: App.I18n.Schema = {
     search: 'Search',
     switch: 'Switch',
     tip: 'Tip',
+    trigger: 'Trigger',
     update: 'Update',
     updateSuccess: 'Update Success',
     userCenter: 'User Center',
@@ -40,6 +41,14 @@ const local: App.I18n.Schema = {
       yes: 'Yes',
       no: 'No'
     }
+  },
+  request: {
+    logout: 'Logout user after request failed',
+    logoutMsg: 'User status is invalid, please log in again',
+    logoutWithModal: 'Pop up modal after request failed and then log out user',
+    logoutWithModalMsg: 'User status is invalid, please log in again',
+    refreshToken: 'The requested token has expired, refresh the token',
+    tokenExpired: 'The requested token has expired'
   },
   theme: {
     themeSchema: {
@@ -138,6 +147,7 @@ const local: App.I18n.Schema = {
     'function_hide-child_one': 'Hide Child',
     'function_hide-child_two': 'Two',
     'function_hide-child_three': 'Three',
+    function_request: 'Request',
     manage: 'System Manage',
     manage_user: 'User Manage',
     'manage_user-detail': 'User Detail',

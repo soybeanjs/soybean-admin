@@ -279,6 +279,7 @@ declare namespace App {
         search: string;
         switch: string;
         tip: string;
+        trigger: string;
         update: string;
         updateSuccess: string;
         userCenter: string;
@@ -286,6 +287,14 @@ declare namespace App {
           yes: string;
           no: string;
         };
+      };
+      request: {
+        logout: string;
+        logoutMsg: string;
+        logoutWithModal: string;
+        logoutWithModalMsg: string;
+        refreshToken: string;
+        tokenExpired: string;
       };
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;

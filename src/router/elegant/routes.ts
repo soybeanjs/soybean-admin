@@ -118,6 +118,16 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'function_request',
+        path: '/function/request',
+        component: 'view.function_request',
+        meta: {
+          title: 'function_request',
+          i18nKey: 'route.function_request',
+          icon: 'carbon:network-overlay'
+        }
+      },
+      {
         name: 'function_tab',
         path: '/function/tab',
         component: 'view.function_tab',

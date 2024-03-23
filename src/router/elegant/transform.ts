@@ -157,6 +157,7 @@ const routeMap: RouteMap = {
   "function_hide-child_three": "/function/hide-child/three",
   "function_hide-child_two": "/function/hide-child/two",
   "function_multi-tab": "/function/multi-tab",
+  "function_request": "/function/request",
   "function_tab": "/function/tab",
   "home": "/home",
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",

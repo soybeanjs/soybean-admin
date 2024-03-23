@@ -33,6 +33,7 @@ const local: App.I18n.Schema = {
     search: '搜索',
     switch: '切换',
     tip: '提示',
+    trigger: '触发',
     update: '更新',
     updateSuccess: '更新成功',
     userCenter: '个人中心',
@@ -40,6 +41,14 @@ const local: App.I18n.Schema = {
       yes: '是',
       no: '否'
     }
+  },
+  request: {
+    logout: '请求失败后登出用户',
+    logoutMsg: '用户状态失效，请重新登录',
+    logoutWithModal: '请求失败后弹出模态框再登出用户',
+    logoutWithModalMsg: '用户状态失效，请重新登录',
+    refreshToken: '请求的token已过期，刷新token',
+    tokenExpired: 'token已过期'
   },
   theme: {
     themeSchema: {
@@ -138,6 +147,7 @@ const local: App.I18n.Schema = {
     'function_hide-child_one': '隐藏子菜单',
     'function_hide-child_two': '菜单二',
     'function_hide-child_three': '菜单三',
+    function_request: '请求',
     manage: '系统管理',
     manage_user: '用户管理',
     'manage_user-detail': '用户详情',
