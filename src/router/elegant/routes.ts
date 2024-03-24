@@ -14,7 +14,7 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: '403',
       i18nKey: 'route.403',
       constant: true,
-hideInMenu: true
+      hideInMenu: true
     }
   },
   {
@@ -25,7 +25,7 @@ hideInMenu: true
       title: '404',
       i18nKey: 'route.404',
       constant: true,
-hideInMenu: true
+      hideInMenu: true
     }
   },
   {
@@ -36,7 +36,7 @@ hideInMenu: true
       title: '500',
       i18nKey: 'route.500',
       constant: true,
-hideInMenu: true
+      hideInMenu: true
     }
   },
   {
@@ -140,7 +140,8 @@ hideInMenu: true
           title: 'function_super-page',
           i18nKey: 'route.function_super-page',
           icon: 'ic:round-supervisor-account',
-          order: 5
+          order: 5,
+          roles: ['R_SUPER']
         }
       },
       {
@@ -162,8 +163,7 @@ hideInMenu: true
           title: 'function_toggle-auth',
           i18nKey: 'route.function_toggle-auth',
           icon: 'ic:round-construction',
-          order: 4,
-          roles: ['R_SUPER']
+          order: 4
         }
       }
     ]
@@ -188,7 +188,7 @@ hideInMenu: true
       title: 'login',
       i18nKey: 'route.login',
       constant: true,
-hideInMenu: true
+      hideInMenu: true
     }
   },
   {
@@ -225,7 +225,7 @@ hideInMenu: true
           i18nKey: 'route.manage_role',
           icon: 'carbon:user-role',
           order: 2,
-          roles: ['R_ADMIN']
+          roles: ['R_SUPER']
         }
       },
       {
