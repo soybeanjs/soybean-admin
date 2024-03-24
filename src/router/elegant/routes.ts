@@ -64,7 +64,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'function_hide-child',
           i18nKey: 'route.function_hide-child',
-          icon: 'material-symbols:filter-list-off'
+          icon: 'material-symbols:filter-list-off',
+          order: 2
         },
         redirect: '/function/hide-child/one',
         children: [
@@ -124,7 +125,19 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'function_request',
           i18nKey: 'route.function_request',
-          icon: 'carbon:network-overlay'
+          icon: 'carbon:network-overlay',
+          order: 3
+        }
+      },
+      {
+        name: 'function_super-page',
+        path: '/function/super-page',
+        component: 'view.function_super-page',
+        meta: {
+          title: 'function_super-page',
+          i18nKey: 'route.function_super-page',
+          icon: 'ic:round-supervisor-account',
+          order: 5
         }
       },
       {
@@ -134,7 +147,20 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'function_tab',
           i18nKey: 'route.function_tab',
-          icon: 'ic:round-tab'
+          icon: 'ic:round-tab',
+          order: 1
+        }
+      },
+      {
+        name: 'function_toggle-auth',
+        path: '/function/toggle-auth',
+        component: 'view.function_toggle-auth',
+        meta: {
+          title: 'function_toggle-auth',
+          i18nKey: 'route.function_toggle-auth',
+          icon: 'ic:round-construction',
+          order: 4,
+          roles: ['R_SUPER']
         }
       }
     ]

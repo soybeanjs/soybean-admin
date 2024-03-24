@@ -194,6 +194,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
     const vueRoutes = getAuthVueRoutes(sortRoutes);
 
+    resetVueRoutes();
+
     addRoutesToVueRouter(vueRoutes);
 
     getGlobalMenus(sortRoutes);

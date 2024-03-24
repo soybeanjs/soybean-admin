@@ -57,6 +57,8 @@ declare namespace Env {
      * use "," to separate multiple codes
      */
     readonly VITE_SERVICE_EXPIRED_TOKEN_CODES: string;
+    /** when the route mode is static, the defined super role */
+    readonly VITE_STATIC_SUPER_ROLE: string;
     /**
      * other backend service base url
      *

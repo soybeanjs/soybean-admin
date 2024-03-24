@@ -27,13 +27,10 @@ export function createPermissionGuard(router: Router) {
 
     // check whether the user has permission to access the route
     // 1. if the route's "roles" is empty, then it is allowed to access
-    // 2. if the user is super admin, then it is allowed to access
+    // 2. if the user is super admin in static route, then it is allowed to access
     // 3. if the user's role is included in the route's "roles", then it is allowed to access
-    const SUPER_ADMIN = 'R_SUPER';
     const hasPermission =
-      !routeRoles.length ||
-      authStore.userInfo.roles.includes(SUPER_ADMIN) ||
-      authStore.userInfo.roles.some(role => routeRoles.includes(role));
+      !routeRoles.length || authStore.isStaticSuper || authStore.userInfo.roles.some(role => routeRoles.includes(role));
 
     const strategicPatterns: CommonType.StrategicPattern[] = [
       // 1. if it is login route when logged in, change to the root page

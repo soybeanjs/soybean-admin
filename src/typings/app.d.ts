@@ -458,6 +458,13 @@ declare namespace App {
             routeParam: string;
             backTab: string;
           };
+          toggleAuth: {
+            toggleAccount: string;
+            authHook: string;
+            superAdminVisible: string;
+            adminVisible: string;
+            adminOrUserVisible: string;
+          };
         };
         manage: {
           common: {

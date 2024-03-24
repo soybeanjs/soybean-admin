@@ -148,6 +148,8 @@ const local: App.I18n.Schema = {
     'function_hide-child_two': '菜单二',
     'function_hide-child_three': '菜单三',
     function_request: '请求',
+    'function_toggle-auth': '切换权限',
+    'function_super-page': '超级管理员可见',
     manage: '系统管理',
     manage_user: '用户管理',
     'manage_user-detail': '用户详情',
@@ -275,6 +277,13 @@ const local: App.I18n.Schema = {
       multiTab: {
         routeParam: '路由参数',
         backTab: '返回 function_tab'
+      },
+      toggleAuth: {
+        toggleAccount: '切换账号',
+        authHook: '权限钩子函数 `hasAuth`',
+        superAdminVisible: '超级管理员可见',
+        adminVisible: '管理员可见',
+        adminOrUserVisible: '管理员和用户可见'
       }
     },
     manage: {

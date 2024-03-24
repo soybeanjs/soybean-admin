@@ -148,6 +148,8 @@ const local: App.I18n.Schema = {
     'function_hide-child_two': 'Two',
     'function_hide-child_three': 'Three',
     function_request: 'Request',
+    'function_toggle-auth': 'Toggle Auth',
+    'function_super-page': 'Super Admin Visible',
     manage: 'System Manage',
     manage_user: 'User Manage',
     'manage_user-detail': 'User Detail',
@@ -187,9 +189,9 @@ const local: App.I18n.Schema = {
         register: 'Register',
         otherAccountLogin: 'Other Account Login',
         otherLoginMode: 'Other Login Mode',
-        superAdmin: 'Super Administrator',
-        admin: 'Administrator',
-        user: 'Ordinary User'
+        superAdmin: 'Super Admin',
+        admin: 'Admin',
+        user: 'User'
       },
       codeLogin: {
         title: 'Verification Code Login',
@@ -275,6 +277,13 @@ const local: App.I18n.Schema = {
       multiTab: {
         routeParam: 'Route Param',
         backTab: 'Back function_tab'
+      },
+      toggleAuth: {
+        toggleAccount: 'Toggle Account',
+        authHook: 'Auth Hook Function `hasAuth`',
+        superAdminVisible: 'Super Admin Visible',
+        adminVisible: 'Admin Visible',
+        adminOrUserVisible: 'Admin and User Visible'
       }
     },
     manage: {

@@ -18,6 +18,13 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   const userInfo: Api.Auth.UserInfo = reactive(getUserInfo());
 
+  /** is super role in static route */
+  const isStaticSuper = computed(() => {
+    const { VITE_AUTH_ROUTE_MODE, VITE_STATIC_SUPER_ROLE } = import.meta.env;
+
+    return VITE_AUTH_ROUTE_MODE === 'static' && userInfo.roles.includes(VITE_STATIC_SUPER_ROLE);
+  });
+
   /** Is login */
   const isLogin = computed(() => Boolean(token.value));
 
@@ -41,8 +48,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
    *
    * @param userName User name
    * @param password Password
+   * @param [redirect=true] Whether to redirect after login. Default is `true`
    */
-  async function login(userName: string, password: string) {
+  async function login(userName: string, password: string, redirect = true) {
     startLoading();
 
     const { data: loginToken, error } = await fetchLogin(userName, password);
@@ -53,7 +61,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
       if (pass) {
         await routeStore.initAuthRoute();
 
-        await redirectFromLogin();
+        if (redirect) {
+          await redirectFromLogin();
+        }
 
         if (routeStore.isInitAuthRoute) {
           window.$notification?.success({
@@ -94,6 +104,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   return {
     token,
     userInfo,
+    isStaticSuper,
     isLogin,
     loginLoading,
     resetStore,
