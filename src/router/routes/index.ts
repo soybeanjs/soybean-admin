@@ -1,29 +1,14 @@
 import type { CustomRoute, ElegantConstRoute, ElegantRoute } from '@elegant-router/types';
 import { generatedRoutes } from '../elegant/routes';
 import { layouts, views } from '../elegant/imports';
-import { getRoutePath, transformElegantRoutesToVueRoutes } from '../elegant/transform';
+import { transformElegantRoutesToVueRoutes } from '../elegant/transform';
 
-export const ROOT_ROUTE: CustomRoute = {
-  name: 'root',
-  path: '/',
-  redirect: getRoutePath(import.meta.env.VITE_ROUTE_HOME) || '/home',
-  meta: {
-    title: 'root',
-    constant: true
-  }
-};
-
+/**
+ * custom routes
+ *
+ * @link https://github.com/soybeanjs/elegant-router?tab=readme-ov-file#custom-route
+ */
 const customRoutes: CustomRoute[] = [
-  ROOT_ROUTE,
-  {
-    name: 'not-found',
-    path: '/:pathMatch(.*)*',
-    component: 'layout.blank$view.404',
-    meta: {
-      title: 'not-found',
-      constant: true
-    }
-  },
   {
     name: 'exception',
     path: '/exception',
@@ -69,8 +54,8 @@ const customRoutes: CustomRoute[] = [
   }
 ];
 
-/** Create routes */
-export function createRoutes() {
+/** create routes when the auth route mode is static */
+export function createStaticRoutes() {
   const constantRoutes: ElegantRoute[] = [];
 
   const authRoutes: ElegantRoute[] = [];
@@ -83,10 +68,8 @@ export function createRoutes() {
     }
   });
 
-  const constantVueRoutes = transformElegantRoutesToVueRoutes(constantRoutes, layouts, views);
-
   return {
-    constantVueRoutes,
+    constantRoutes,
     authRoutes
   };
 }

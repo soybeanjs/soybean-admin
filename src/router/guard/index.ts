@@ -1,7 +1,8 @@
 import type { Router } from 'vue-router';
+import { createRouteGuard } from './route';
 import { createProgressGuard } from './progress';
 import { createDocumentTitleGuard } from './title';
-import { createPermissionGuard } from './permission';
+// import { createPermissionGuard } from './permission';
 
 /**
  * Router guard
@@ -10,6 +11,7 @@ import { createPermissionGuard } from './permission';
  */
 export function createRouterGuard(router: Router) {
   createProgressGuard(router);
-  createPermissionGuard(router);
+  createRouteGuard(router);
+  // createPermissionGuard(router);
   createDocumentTitleGuard(router);
 }

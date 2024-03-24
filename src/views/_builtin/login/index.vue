@@ -17,9 +17,7 @@ interface Props {
   module?: UnionKey.LoginModule;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  module: 'pwd-login'
-});
+const props = defineProps<Props>();
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
@@ -37,7 +35,7 @@ const moduleMap: Record<UnionKey.LoginModule, LoginModule> = {
   'bind-wechat': { label: loginModuleRecord['bind-wechat'], component: BindWechat }
 };
 
-const activeModule = computed(() => moduleMap[props.module]);
+const activeModule = computed(() => moduleMap[props.module || 'pwd-login']);
 
 const bgThemeColor = computed(() =>
   themeStore.darkMode ? getColorPalette(themeStore.themeColor, 7) : themeStore.themeColor
