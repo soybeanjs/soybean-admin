@@ -28,6 +28,8 @@ declare namespace App {
       layout: {
         /** Layout mode */
         mode: UnionKey.ThemeLayoutMode;
+        /** User Config mode */
+        userMode: UnionKey.ThemeLayoutMode;
         /** Scroll mode */
         scrollMode: UnionKey.ThemeScrollMode;
       };

@@ -82,10 +82,12 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     watch(
       isMobile,
       newValue => {
+        setSiderCollapse(newValue);
         if (newValue) {
-          setSiderCollapse(true);
-
+          themeStore.layout.userMode = themeStore.layout.mode;
           themeStore.setThemeLayout('vertical');
+        } else {
+          themeStore.setThemeLayout(themeStore.layout.userMode);
         }
       },
       { immediate: true }
