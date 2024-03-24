@@ -10,14 +10,6 @@ import { useSvgIcon } from '@/hooks/common/icon';
  * @param roles Roles
  */
 export function filterAuthRoutesByRoles(routes: ElegantConstRoute[], roles: string[]) {
-  // in static mode of auth route, the super admin role is defined in front-end
-  const SUPER_ROLE = 'R_SUPER';
-
-  // if the user is super admin, then it is allowed to access all routes
-  if (roles.includes(SUPER_ROLE)) {
-    return routes;
-  }
-
   return routes.flatMap(route => filterAuthRouteByRoles(route, roles));
 }
 
