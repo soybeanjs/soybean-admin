@@ -135,6 +135,23 @@ Thanks the following people for their contributions. If you want to contribute t
   <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
 </a>
 
+## Communication
+
+`Soybean Admin` is a completely open source and free project, helping developers to develop medium and large-scale management systems more conveniently. It also provides WeChat and QQ communication groups. If you have any questions, please feel free to ask in the group.
+
+  <div>
+  	<p>QQ Group</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-2.jpg" style="width:200px" />
+  </div>
+	<div>
+		<p>add the following WeChat to invite to the WeChat group</p>
+		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
+	</div>
+  <div>
+    <p>add Soybean's WeChat for business consultation, cooperation, project architecture, one-on-one guidance, etc.</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybean.jpg" style="width:200px" />
+  </div>
+
 ## Star Trend
 
 [![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
