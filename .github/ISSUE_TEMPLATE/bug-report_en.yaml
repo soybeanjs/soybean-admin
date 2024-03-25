@@ -1,0 +1,90 @@
+name: Bug Report
+description: Encountered an error while using the software or feature
+title: '[Bug]: '
+labels: [ "bug?" ]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Please submit according to the following requirements
+        ### 1. After submission, you need to specify the label and deadline.
+        ---
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Environment Information
+        Please modify the following information according to the actual usage environment.
+
+  - type: input
+    id: env-program-ver
+    attributes:
+      label: Software Version
+    validations:
+      required: true
+
+  - type: dropdown
+    id: env-vm-ver
+    attributes:
+      label: Operating Environment
+      description: Select the system version on which the software is running
+      options:
+        - Windows (64)
+        - Windows (32/x84)
+        - MacOS
+        - Linux
+        - Ubuntu
+        - CentOS
+        - ArchLinux
+        - UNIX (Android)
+        - Other (please specify below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: env-vm-arch
+    attributes:
+      label: Operating Architecture
+      description: (Optional) Select the system architecture on which the software is running
+      options:
+        - AMD64
+        - x86
+        - ARM [32] (Alias：AArch32 / ARMv7）
+        - ARM [64] (Alias：AArch64 / ARMv8）
+        - Other
+
+  - type: textarea
+    id: reproduce-steps
+    attributes:
+      label: Reproduce Steps
+      description: |
+        What operations do we need to perform to make the bug appear?
+        The concise and clear reproduction steps can help us locate the problem more quickly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What is the expected result?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What is the actual result?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logging
+    attributes:
+      label: Logging (Optional)
+      render: golang
+
+  - type: textarea
+    id: extra-desc
+    attributes:
+      label: Additional Description (Optional)
