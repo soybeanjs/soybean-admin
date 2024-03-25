@@ -151,6 +151,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     routeStore.$reset();
 
     resetVueRoutes();
+
+    // after reset store, need to re-init constant route
+    await initConstantRoute();
   }
 
   /** Reset vue routes */
