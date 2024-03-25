@@ -1,0 +1,30 @@
+---
+name: Lint Code
+
+permissions:
+  contents: write
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint All Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          # To change branch master or main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: (docs|.github)
+          VALIDATE_MARKDOWN: false

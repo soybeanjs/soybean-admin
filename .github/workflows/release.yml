@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    permissions:
+      id-token: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: pnpm
+          registry-url: "https://registry.npmjs.org"
+
+      - run: npx githublogen
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
