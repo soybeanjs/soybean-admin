@@ -1,6 +1,37 @@
 # Changelog
 
 
+## [v1.0.0-beta.2](https://github.com/soybeanjs/soybean-admin/compare/v1.0.0-beta.1...v1.0.0-beta.2) (24-03-27)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: fix pin-toggler toolTip zIndex &nbsp;-&nbsp; by @honghuangdc [<samp>(f89e6)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f89e6c0)
+
+### &nbsp;&nbsp;&nbsp;🔥 Performance
+
+- **projects**: perf code &nbsp;-&nbsp; by @honghuangdc [<samp>(a0bad)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a0bad57)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - add communication &nbsp;-&nbsp; by @honghuangdc [<samp>(8c7ea)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8c7ea23)
+  - update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(07d8d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/07d8d25)
+  - update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(1a707)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1a7070f)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(6b513)</samp>](https://github.com/soybeanjs/soybean-admin/commit/6b5132c)
+
+### &nbsp;&nbsp;&nbsp;🤖 CI
+
+- **projects**:
+  - update release.yml &nbsp;-&nbsp; by @honghuangdc [<samp>(7b298)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7b298c6)
+  - add issue template &nbsp;-&nbsp; by @honghuangdc [<samp>(06e20)</samp>](https://github.com/soybeanjs/soybean-admin/commit/06e204a)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v1.0.0-beta.1](https://github.com/honghuangdc/soybean-admin/compare/v0.10.4...v1.0.0-beta.1) (24-03-25)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
