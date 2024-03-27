@@ -10,6 +10,8 @@ const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === '
 const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 
 interface InstanceState {
+  /** whether the request is logout */
+  isLogout: boolean;
   /** whether the request is refreshing token */
   isRefreshingToken: boolean;
 }
@@ -62,18 +64,24 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
         // prevent the user from refreshing the page
         window.addEventListener('beforeunload', handleLogout);
 
-        window.$dialog?.error({
-          title: 'Error',
-          content: response.data.msg,
-          positiveText: $t('common.confirm'),
-          maskClosable: false,
-          onPositiveClick() {
-            logoutAndCleanup();
-          },
-          onClose() {
-            logoutAndCleanup();
-          }
-        });
+        // prevent repeated pop-ups
+        if (!request.state.isLogout) {
+          request.state.isLogout = true;
+          window.$dialog?.error({
+            title: 'Error',
+            content: response.data.msg,
+            positiveText: $t('common.confirm'),
+            maskClosable: false,
+            onPositiveClick() {
+              request.state.isLogout = false;
+              logoutAndCleanup();
+            },
+            onClose() {
+              request.state.isLogout = false;
+              logoutAndCleanup();
+            }
+          });
+        }
 
         return null;
       }
