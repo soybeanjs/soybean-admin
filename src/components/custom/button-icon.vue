@@ -17,13 +17,15 @@ interface Props {
   tooltipContent?: string;
   /** Tooltip placement */
   tooltipPlacement?: PopoverPlacement;
+  zIndex?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   class: 'h-36px text-icon',
   icon: '',
   tooltipContent: '',
-  tooltipPlacement: 'bottom'
+  tooltipPlacement: 'bottom',
+  zIndex: 98
 });
 
 interface ButtonProps {
@@ -58,7 +60,7 @@ const cls = computed(() => {
   </DefineButton>
   <!-- define component end: Button -->
 
-  <NTooltip v-if="tooltipContent" :placement="tooltipPlacement" :z-index="98">
+  <NTooltip v-if="tooltipContent" :placement="tooltipPlacement" :z-index="zIndex">
     <template #trigger>
       <Button :class-name="cls" v-bind="$attrs">
         <slot>

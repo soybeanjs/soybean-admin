@@ -17,7 +17,7 @@ const icon = computed(() => (props.pin ? 'mdi-pin-off' : 'mdi-pin'));
   <ButtonIcon
     :tooltip-content="pin ? $t('icon.pin') : $t('icon.unpin')"
     tooltip-placement="bottom-start"
-    trigger-parent
+    :z-index="100"
   >
     <SvgIcon :icon="icon" />
   </ButtonIcon>
