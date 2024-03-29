@@ -147,13 +147,13 @@ Thanks the following people for their contributions. If you want to contribute t
 		<p>WeChat Group</p>
 		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-0402.jpg" style="width:200px" />
 	</div>
-	<!-- <div>
-		<p>add the following WeChat to invite to the WeChat group</p>
+	<div>
+		<p>Add the following WeChat to invite to the WeChat group</p>
 		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
-	</div> -->
-  <div>
+	</div>
+  <!-- <div>
     <p>Add Soybean's WeChat for business consultation, cooperation, project architecture, one-on-one guidance, etc.</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybean.jpg" style="width:200px" />
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybean.jpg" style="width:200px" /> -->
   </div>
 
 ## Star Trend
