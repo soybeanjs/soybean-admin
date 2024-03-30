@@ -4,6 +4,9 @@
  * All backend api type
  */
 declare namespace Api {
+  namespace ErrorCode {
+    type Code = '1' | '2';
+  }
   namespace Common {
     /** common params of paginating */
     interface PaginatingCommonParams {

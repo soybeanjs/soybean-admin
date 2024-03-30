@@ -373,6 +373,9 @@ declare namespace App {
             admin: string;
             user: string;
           };
+          ssoLogin: {
+            title: string;
+          };
           codeLogin: {
             title: string;
             getCode: string;

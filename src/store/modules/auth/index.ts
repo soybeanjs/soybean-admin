@@ -1,9 +1,16 @@
 import { computed, reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
-import { SetupStoreId } from '@/enum';
+import {SetupStoreId, SsoAuthor} from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
-import { fetchGetUserInfo, fetchLogin } from '@/service/api';
+import {
+  doLoginSso,
+  doLogoutSso,
+  fetchGetUserInfo,
+  fetchLogin,
+  fetchLoginSsoCheck,
+  fetchLoginSsoUrl, fetchSsoUserInfo
+} from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
@@ -101,6 +108,85 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     return false;
   }
 
+  async function fetchSsoUrl(author: string) {
+    startLoading();
+
+    const {data: url, error} = await fetchLoginSsoUrl(author);
+
+    if (error) {
+      resetStore();
+      endLoading();
+      return null;
+    }
+    // 若发生幂等
+    if (!url) {
+      const res = await fetchUser(author);
+      if (res) {
+        await redirectFromLogin();
+        endLoading();
+        if (routeStore.isInitAuthRoute) {
+          window.$notification?.success({
+            title: $t('page.login.common.loginSuccess'),
+            content: $t('page.login.common.welcomeBack', {userName: userInfo.userName}),
+            duration: 4500
+          });
+        }
+      }
+    }
+    endLoading();
+    return url;
+  }
+
+  async function loginSso(author: string, code: string, state: string) {
+    startLoading();
+    const {error} = await doLoginSso(author, code, state);
+
+    if (!error) {
+      await fetchUser(author);
+      endLoading();
+      return true;
+    }
+    await resetStore();
+    endLoading();
+    return false;
+  }
+
+  async function fetchUser(author: string) {
+    const {data: info, error: err} = await fetchSsoUserInfo(author);
+    if (!err && info !== null) {
+      info.roles = ['R_SUPER'];
+      localStg.set('token', info.userId);
+      // 2. store user info
+      localStg.set('userInfo', info);
+      localStg.set('author', author);
+
+      // 3. update auth route
+      token.value = info.userId;
+      Object.assign(userInfo, info);
+
+      await routeStore.initAuthRoute();
+
+      return true;
+    }
+    return false;
+  }
+
+  async function logoutSso() {
+    await resetStore();
+    await doLogoutSso(localStg.get('author') || '');
+  }
+
+  async function checkLogin() {
+    if (!token.value) {
+      return false;
+    }
+    const {data: check, error} = await fetchLoginSsoCheck(localStg.get('author') || SsoAuthor.Authing);
+    if (!error) {
+      return check;
+    }
+    return false;
+  }
+
   return {
     token,
     userInfo,
@@ -108,6 +194,10 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     isLogin,
     loginLoading,
     resetStore,
-    login
+    login,
+    fetchSsoUrl,
+    loginSso,
+    logoutSso,
+    checkLogin
   };
 });

@@ -5,3 +5,7 @@ export enum SetupStoreId {
   Route = 'route-store',
   Tab = 'tab-store'
 }
+
+export enum SsoAuthor {
+  Authing = 'authing'
+}

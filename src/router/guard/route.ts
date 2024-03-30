@@ -30,7 +30,7 @@ export function createRouteGuard(router: Router) {
     const loginRoute: RouteKey = 'login';
     const noAuthorizationRoute: RouteKey = '403';
 
-    const isLogin = Boolean(localStg.get('token'));
+    const isLogin = Boolean(await checkLogin());
     const needLogin = !to.meta.constant;
     const routeRoles = to.meta.roles || [];
 
@@ -182,12 +182,21 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   return null;
 }
 
+async function checkLogin() {
+  return await useAuthStore().checkLogin();
+}
+
 function handleRouteSwitch(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
   // route with href
   if (to.meta.href) {
     window.open(to.meta.href, '_blank');
 
-    next({ path: from.fullPath, replace: true, query: from.query, hash: to.hash });
+    next({
+      path: from.fullPath,
+      replace: true,
+      query: from.query,
+      hash: to.hash
+    });
 
     return;
   }

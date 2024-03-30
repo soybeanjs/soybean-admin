@@ -23,3 +23,23 @@ jobs:
       - run: npx githublogen
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - uses: softprops/action-gh-release@v2
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@latest
+      - name: Login to Docker Hub
+        uses: docker/login-action@latest
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@latest
+        with:
+          context: .
+          push: true
+          tags: v1.0.0

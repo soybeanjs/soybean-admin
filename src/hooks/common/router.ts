@@ -52,7 +52,7 @@ export function useRouterPush(inSetup = true) {
    * @param redirectUrl The redirect url, if not specified, it will be the current route fullPath
    */
   async function toLogin(loginModule?: UnionKey.LoginModule, redirectUrl?: string) {
-    const module = loginModule || 'pwd-login';
+    const module = loginModule || 'sso-login';
 
     const options: RouterPushOptions = {
       params: {

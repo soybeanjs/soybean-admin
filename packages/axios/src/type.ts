@@ -35,12 +35,14 @@ export interface RequestOption<ResponseData = any> {
     response: AxiosResponse<ResponseData>,
     instance: AxiosInstance
   ) => Promise<AxiosResponse | null> | Promise<void>;
+
   /**
    * transform backend response when the responseType is json
    *
    * @param response Axios response
    */
   transformBackendResponse(response: AxiosResponse<ResponseData>): any | Promise<any>;
+
   /**
    * The hook to handle error
    *
@@ -51,6 +53,13 @@ export interface RequestOption<ResponseData = any> {
   onError: (error: AxiosError<ResponseData>) => void | Promise<void>;
 }
 
+export interface ErrorCodeHandle<ResponseData = any> {
+  handle: (
+    response: AxiosResponse<ResponseData>,
+    instance: AxiosInstance
+  ) => Promise<AxiosResponse | null> | Promise<void>;
+}
+
 interface ResponseMap {
   blob: Blob;
   text: string;
@@ -58,6 +67,7 @@ interface ResponseMap {
   stream: ReadableStream<Uint8Array>;
   document: Document;
 }
+
 export type ResponseType = keyof ResponseMap | 'json';
 
 export type MappedType<R extends ResponseType, JsonType = any> = R extends keyof ResponseMap

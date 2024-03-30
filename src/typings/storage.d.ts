@@ -12,6 +12,7 @@ declare namespace StorageType {
   interface Local {
     /** The i18n language */
     lang: App.I18n.LangType;
+    author: string;
     /** The token */
     token: string;
     /** The refresh token */

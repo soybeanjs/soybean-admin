@@ -193,6 +193,9 @@ const local: App.I18n.Schema = {
         admin: 'Admin',
         user: 'User'
       },
+      ssoLogin: {
+        title: 'SSO Login',
+      },
       codeLogin: {
         title: 'Verification Code Login',
         getCode: 'Get verification code',
