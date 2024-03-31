@@ -3,10 +3,24 @@ name: Release
 permissions:
   contents: write
 
+# 触发条件
 on:
+  workflow_dispatch:
   push:
+    branches:
+      - 'dev/**'
+      - 'release/**'
     tags:
-      - "v*"
+      - 'v**'
+
+env:
+  #  仓库地址
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ${{ vars.REGISTRY }}
+  # github.repository as <account>/<repo>
+  #  {用户名}/{仓库名}
+  IMAGE_NAME: ${{ github.repository }}
+  BUILD_ENV: prod
 
 jobs:
   release:
@@ -18,28 +32,97 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20.x
 
       - run: npx githublogen
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - uses: softprops/action-gh-release@v2
-
-  build-and-push:
+  build:
+    # 运行环境
     runs-on: ubuntu-latest
+    # 运行步骤
     steps:
-      - name: Checkout code
-        uses: actions/checkout@latest
-      - name: Login to Docker Hub
-        uses: docker/login-action@latest
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ secrets.DOCKER_USERNAME }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          # list of Docker images to use as base name for tags
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
       - name: Build and push Docker image
-        uses: docker/build-push-action@latest
+        id: build-and-push
+        uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
-          tags: v1.0.0
+          file: { context }/docker/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            - BUILD_ENV=${{ env.BUILD_ENV }}
+
+  deploy:
+    needs: build
+
+    # 运行环境
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    # 运行步骤
+    steps:
+      - uses: actions/checkout@v2
+      # 部署服务器
+      - name: deploy
+        uses: appleboy/ssh-action@master
+        # 传递给脚本的环境变量，不能用secrets
+        env:
+          IMAGE_NAME: ${{ needs.build.outputs.image-tag }}
+          BUILD_ENV: ${{ env.BUILD_ENV }}
+          DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+          DOCKER_PASSWORD_PATH: ${{ vars.DOCKER_PASSWORD_PATH }}
+          DOCKER_RUN_ARGS: ${{ vars.DOCKER_RUN_ARGS }}
+        with:
+          host: ${{ vars.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.HOST_USERNAME }}
+          envs: IMAGE_NAME,BUILD_ENV,DOCKER_USERNAME,DOCKER_PASSWORD_PATH,DOCKER_RUN_ARGS
+          key: ${{ secrets.HOST_SSHKEY }}
+          script: |
+            echo "i=$IMAGE_NAME e=$BUILD_ENV u=$DOCKER_USERNAME p=DOCKER_PASSWORD_PATH s=$DOCKER_RUN_ARGS"
+            if [[ -e "${{ github.repository_owner }}_docker_run.sh" ]] ;then
+              echo "执行脚本已存在"
+            else
+              echo "执行脚本不存在，开始写入..."
+              echo `apt install wget`
+              echo `wget -O ${{ github.repository_owner }}_docker_run.sh ${{ vars.DEPLOY_SCRIPT }}`
+            fi
+            echo `sh ./${{ github.repository_owner }}_docker_run.sh -i $IMAGE_NAME -e $BUILD_ENV -u $DOCKER_USERNAME -p $DOCKER_PASSWORD_PATH -s $DOCKER_RUN_ARGS`
+
