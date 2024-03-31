@@ -1,6 +1,21 @@
 # Changelog
 
 
+## [v1.0.0-beta.3](https://github.com/soybeanjs/soybean-admin/compare/v1.0.0-beta.2...v1.0.0-beta.3) (24-03-31)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(f69e1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f69e152)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(82b53)</samp>](https://github.com/soybeanjs/soybean-admin/commit/82b53d7)
+- **projects**: add .gitattributes &nbsp;-&nbsp; by @honghuangdc [<samp>(c0009)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c000920)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v1.0.0-beta.2](https://github.com/soybeanjs/soybean-admin/compare/v1.0.0-beta.1...v1.0.0-beta.2) (24-03-27)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
