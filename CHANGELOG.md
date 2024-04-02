@@ -1,6 +1,28 @@
 # Changelog
 
 
+## [v1.0.1](https://github.com/soybeanjs/soybean-admin/compare/tauri-v1.0.0...v1.0.1) (24-04-03)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix flatRequest error type. fixed #376 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/376 [<samp>(1ec5e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1ec5ea0)
+  - add maxWidth for GlobalTab to fix bg with gap. fixed #350 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/350 [<samp>(cc539)</samp>](https://github.com/soybeanjs/soybean-admin/commit/cc53997)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(76011)</samp>](https://github.com/soybeanjs/soybean-admin/commit/76011af)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **projects**:
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(4babb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4babbe1)
+  - update pnpm version &nbsp;-&nbsp; by @honghuangdc [<samp>(9125c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9125cc9)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v1.0.0](https://github.com/soybeanjs/soybean-admin/compare/v0.10.4...v1.0.0) (24-03-31)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
