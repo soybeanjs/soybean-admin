@@ -85,15 +85,17 @@ export type FlatResponseSuccessData<T = any> = {
   error: null;
 };
 
-export type FlatResponseFailData<T = any> = {
+export type FlatResponseFailData<ResponseData = any> = {
   data: null;
-  error: AxiosError<T>;
+  error: AxiosError<ResponseData>;
 };
 
-export type FlatResponseData<T = any> = FlatResponseSuccessData<T> | FlatResponseFailData<T>;
+export type FlatResponseData<T = any, ResponseData = any> =
+  | FlatResponseSuccessData<T>
+  | FlatResponseFailData<ResponseData>;
 
-export interface FlatRequestInstance<S = Record<string, unknown>> extends RequestInstanceCommon<S> {
+export interface FlatRequestInstance<S = Record<string, unknown>, ResponseData = any> extends RequestInstanceCommon<S> {
   <T = any, R extends ResponseType = 'json'>(
     config: CustomAxiosRequestConfig<R>
-  ): Promise<FlatResponseData<MappedType<R, T>>>;
+  ): Promise<FlatResponseData<MappedType<R, T>, ResponseData>>;
 }
