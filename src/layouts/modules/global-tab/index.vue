@@ -184,7 +184,7 @@ init();
             <template #prefix>
               <SvgIcon :icon="tab.icon" :local-icon="tab.localIcon" class="inline-block align-text-bottom text-16px" />
             </template>
-            <span>{{ tab.label }}</span>
+            <div class="max-w-240px ellipsis-text">{{ tab.label }}</div>
           </PageTab>
         </div>
       </BetterScroll>
