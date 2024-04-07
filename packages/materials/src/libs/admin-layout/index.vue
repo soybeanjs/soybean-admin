@@ -203,7 +203,7 @@ function handleClickMask() {
       <!-- Main Content -->
       <main
         :id="isContentScroll ? scrollElId : undefined"
-        class="flex flex-grow flex-col"
+        class="flex flex-col flex-grow"
         :class="[commonClass, contentClass, leftGapClass, { 'overflow-y-auto': isContentScroll }]"
       >
         <slot></slot>
