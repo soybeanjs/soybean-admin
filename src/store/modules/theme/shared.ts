@@ -1,6 +1,7 @@
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { getColorByColorPaletteNumber, getColorPalette } from '@sa/color-palette';
 import { addColorAlpha, getRgbOfColor } from '@sa/utils';
+import { useStyleTag } from '@vueuse/core';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 import { localStg } from '@/utils/storage';
@@ -129,6 +130,7 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
   return styleStr;
 }
 
+const { css: themeVarCss } = useStyleTag('', { id: 'theme-var-css' });
 /**
  * Add theme vars to html
  *
@@ -150,11 +152,7 @@ export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.
     }
   `;
 
-  const style = document.createElement('style');
-
-  style.textContent = css + darkCss;
-
-  document.head.appendChild(style);
+  themeVarCss.value = css + darkCss;
 }
 
 /**
