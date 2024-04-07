@@ -17,7 +17,8 @@ export default defineConfig(
           registeredComponentsOnly: false,
           ignores: ['/^icon-/']
         }
-      ]
+      ],
+      'order-attributify': 'off'
     }
   }
 );
