@@ -228,6 +228,9 @@ export function getNaiveTheme(colors: App.Theme.ThemeColor) {
     },
     LoadingBar: {
       colorLoading
+    },
+    Tag: {
+      borderRadius: '6px'
     }
   };
 
