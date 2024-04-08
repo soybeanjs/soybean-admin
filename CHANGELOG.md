@@ -1,6 +1,27 @@
 # Changelog
 
 
+## [v1.0.2](https://github.com/soybeanjs/soybean-admin/compare/tauri-v1.0.1...v1.0.2) (24-04-08)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: unify border-radius of Tag. fixed #378 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/378 [<samp>(2f15a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2f15a2a)
+- **styles**: fix css var is inserted repeatedly &nbsp;-&nbsp; by **燕博文** [<samp>(769d8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/769d84a)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**: refactor addThemeVarsToHtml &nbsp;-&nbsp; by @honghuangdc [<samp>(41e47)</samp>](https://github.com/soybeanjs/soybean-admin/commit/41e470e)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(a1b48)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a1b484a)
+- **projects**: disabled unocss eslint rule: order-attributify &nbsp;-&nbsp; by @honghuangdc [<samp>(1c72d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1c72dc7)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[燕博文](mailto:349952469@qq.com)
+
 ## [v1.0.1](https://github.com/soybeanjs/soybean-admin/compare/tauri-v1.0.0...v1.0.1) (24-04-03)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
