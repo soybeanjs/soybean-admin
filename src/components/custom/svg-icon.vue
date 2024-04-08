@@ -47,7 +47,9 @@ const renderLocalIcon = computed(() => props.localIcon || !props.icon);
     </svg>
   </template>
   <template v-else>
-    <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" />
+    <div v-bind="bindAttrs">
+      <Icon v-if="icon" :icon="icon" />
+    </div>
   </template>
 </template>
 
