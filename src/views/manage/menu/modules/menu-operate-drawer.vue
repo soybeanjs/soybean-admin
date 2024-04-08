@@ -84,11 +84,13 @@ function createDefaultModel(): Model {
   };
 }
 
-type RuleKey = Extract<keyof Model, 'userName' | 'userStatus'>;
+type RuleKey = Extract<keyof Model, 'menuName' | 'status' | 'routeName' | 'routePath'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
-  userName: defaultRequiredRule,
-  userStatus: defaultRequiredRule
+  menuName: defaultRequiredRule,
+  status: defaultRequiredRule,
+  routeName: defaultRequiredRule,
+  routePath: defaultRequiredRule
 };
 
 const disabledMenuType = computed(() => props.operateType === 'edit');
