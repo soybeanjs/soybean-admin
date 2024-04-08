@@ -2,7 +2,7 @@
 import { computed, useAttrs } from 'vue';
 import { Icon } from '@iconify/vue';
 
-defineOptions({ name: 'SvgIcon' });
+defineOptions({ name: 'SvgIcon', inheritAttrs: false });
 
 /**
  * Props
