@@ -127,6 +127,7 @@ export function createRequest<ResponseData = any, State = Record<string, unknown
 
   request.cancelRequest = cancelRequest;
   request.cancelAllRequest = cancelAllRequest;
+  request.state = {} as State;
 
   return request;
 }
