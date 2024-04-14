@@ -27,8 +27,8 @@ declare namespace UnionKey {
   /**
    * The scroll mode when content overflow
    *
-   * - Wrapper the wrapper component's root element overflow
-   * - Content the content component overflow
+   * - wrapper: the wrapper component's root element overflow
+   * - content: the content component overflow
    */
   type ThemeScrollMode = import('@sa/materials').LayoutScrollMode;
 
