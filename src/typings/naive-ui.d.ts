@@ -41,7 +41,7 @@ declare namespace NaiveUI {
   type GetTableData<A extends TableApiFn> = A extends TableApiFn<infer T> ? T : never;
 
   type NaiveTableConfig<A extends TableApiFn> = Pick<
-    import('@sa/hooks').TableConfig<A, GetTableData<A>, TableColumn<NaiveUI.TableDataWithIndex<GetTableData<A>>>>,
+    import('@sa/hooks').TableConfig<A, GetTableData<A>, TableColumn<TableDataWithIndex<GetTableData<A>>>>,
     'apiFn' | 'apiParams' | 'columns' | 'immediate'
   >;
 }
