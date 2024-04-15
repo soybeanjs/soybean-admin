@@ -1,7 +1,7 @@
 import { computed, reactive, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
-import { useRoute } from 'vue-router';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
 import { fetchGetUserInfo, fetchLogin } from '@/service/api';
@@ -11,11 +11,10 @@ import { useRouteStore } from '../route';
 import { clearAuthStorage, getToken, getUserInfo } from './shared';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
+  const route = useRoute();
   const routeStore = useRouteStore();
   const { toLogin, redirectFromLogin } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
-
-  const route = useRoute();
 
   const token = ref(getToken());
 
