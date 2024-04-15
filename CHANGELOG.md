@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [v1.0.3](https://github.com/soybeanjs/soybean-admin/compare/tauri-v1.0.2...v1.0.3) (24-04-16)
+## [v1.0.3](https://github.com/soybeanjs/soybean-admin/compare/v1.0.2...v1.0.3) (24-04-16)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
 
@@ -37,7 +37,7 @@
 [![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
 [paynezhuang](mailto:paynezhuang@gmail.com)
 
-## [v1.0.2](https://github.com/soybeanjs/soybean-admin/compare/tauri-v1.0.1...v1.0.2) (24-04-08)
+## [v1.0.2](https://github.com/soybeanjs/soybean-admin/compare/v1.0.1...v1.0.2) (24-04-08)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
 
@@ -58,7 +58,7 @@
 [![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
 [燕博文](mailto:349952469@qq.com)
 
-## [v1.0.1](https://github.com/soybeanjs/soybean-admin/compare/tauri-v1.0.0...v1.0.1) (24-04-03)
+## [v1.0.1](https://github.com/soybeanjs/soybean-admin/compare/v1.0.0...v1.0.1) (24-04-03)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
 
