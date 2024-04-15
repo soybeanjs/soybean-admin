@@ -92,7 +92,6 @@ export function useRouterPush(inSetup = true) {
   }
 
   return {
-    route,
     routerPush,
     routerBack,
     routerPushByKey,
