@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
@@ -19,12 +20,14 @@ withDefaults(defineProps<Props>(), {
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const routeStore = useRouteStore();
+
+const transitionName = computed(() => (themeStore.page.animate ? themeStore.page.animateMode : ''));
 </script>
 
 <template>
   <RouterView v-slot="{ Component, route }">
     <Transition
-      :name="themeStore.page.animateMode"
+      :name="transitionName"
       mode="out-in"
       @before-leave="appStore.setContentXScrollable(true)"
       @after-enter="appStore.setContentXScrollable(false)"

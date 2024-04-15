@@ -35,11 +35,11 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   async function reloadPage(duration = 300) {
     setReloadFlag(false);
 
-    if (duration > 0) {
-      await new Promise(resolve => {
-        setTimeout(resolve, duration);
-      });
-    }
+    const d = themeStore.page.animate ? duration : 40;
+
+    await new Promise(resolve => {
+      setTimeout(resolve, d);
+    });
 
     setReloadFlag(true);
   }
