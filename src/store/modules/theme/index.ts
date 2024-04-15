@@ -2,6 +2,7 @@ import { computed, effectScope, onScopeDispose, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
 import { useEventListener, usePreferredColorScheme } from '@vueuse/core';
+import { getColorPalette } from '@sa/color-palette';
 import { SetupStoreId } from '@/enum';
 import { localStg } from '@/utils/storage';
 import { addThemeVarsToHtml, createThemeToken, getNaiveTheme, initThemeSettings, toggleCssDarkMode } from './shared';
@@ -79,10 +80,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    * @param color Theme color
    */
   function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
+    // get a color palette by provided color and color name, and use the suitable color
+    const colorPalette = getColorPalette(color, key);
+
+    const mainColor = colorPalette.main.hexcode;
+
     if (key === 'primary') {
-      settings.value.themeColor = color;
+      settings.value.themeColor = mainColor;
     } else {
-      settings.value.otherColor[key] = color;
+      settings.value.otherColor[key] = mainColor;
     }
   }
 

@@ -3,6 +3,7 @@ import { getColorName } from './name';
 import type { ColorPalette, ColorPaletteFamily, ColorPaletteItem, ColorPaletteNumber } from './type';
 import defaultPalettes from './json/palette.json';
 
+// to do: there is a bug in the code below, when the color is '#1c5cff', the colorPaletteFamily is not similar to the provided color
 /**
  * Get color palette by provided color and color name
  *
