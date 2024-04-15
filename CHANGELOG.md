@@ -1,6 +1,42 @@
 # Changelog
 
 
+## [v1.0.3](https://github.com/soybeanjs/soybean-admin/compare/tauri-v1.0.2...v1.0.3) (24-04-16)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **hooks**: deleting the route export of useRoutePush, use vue-router &nbsp;-&nbsp; by **paynezhuang** [<samp>(c6648)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c6648b6)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix menu edit rules &nbsp;-&nbsp; by **paynezhuang** [<samp>(00105)</samp>](https://github.com/soybeanjs/soybean-admin/commit/001059c)
+  - fix SvgIcon inheritAttrs warning &nbsp;-&nbsp; by @honghuangdc [<samp>(efc0e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/efc0e25)
+  - fix axios createRequest: add default state &nbsp;-&nbsp; by @honghuangdc [<samp>(d6eda)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d6eda8f)
+  - update union-key.d.ts &nbsp;-&nbsp; by @honghuangdc [<samp>(60bef)</samp>](https://github.com/soybeanjs/soybean-admin/commit/60beff7)
+  - fix update theme color &nbsp;-&nbsp; by @honghuangdc [<samp>(27c53)</samp>](https://github.com/soybeanjs/soybean-admin/commit/27c53cd)
+
+### &nbsp;&nbsp;&nbsp;🔥 Performance
+
+- **projects**: perf code &nbsp;-&nbsp; by @honghuangdc [<samp>(b7f07)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b7f0749)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**: update naive-ui.d.ts &nbsp;-&nbsp; by @honghuangdc [<samp>(bb74d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/bb74d99)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(f4a9c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f4a9cf8)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **release**: release tauri v1.0.2 &nbsp;-&nbsp; by @honghuangdc [<samp>(ebdef)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ebdef72)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[paynezhuang](mailto:paynezhuang@gmail.com)
+
 ## [v1.0.2](https://github.com/soybeanjs/soybean-admin/compare/tauri-v1.0.1...v1.0.2) (24-04-08)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
