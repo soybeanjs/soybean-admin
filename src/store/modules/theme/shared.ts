@@ -1,5 +1,5 @@
 import type { GlobalThemeOverrides } from 'naive-ui';
-import { getColorByColorPaletteNumber, getColorPalette } from '@sa/color-palette';
+import { getColorByPaletteNumber, getColorPalette } from '@sa/color-palette';
 import { addColorAlpha, getRgbOfColor } from '@sa/utils';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
@@ -81,12 +81,12 @@ function createThemePaletteColors(colors: App.Theme.ThemeColor) {
   const colorPaletteVar = {} as App.Theme.ThemePaletteColor;
 
   colorKeys.forEach(key => {
-    const { palettes, main } = getColorPalette(colors[key], key);
+    const { palettes, main } = getColorPalette(colors[key]);
 
-    colorPaletteVar[key] = main.hexcode;
+    colorPaletteVar[key] = main.hex;
 
     palettes.forEach(item => {
-      colorPaletteVar[`${key}-${item.number}`] = item.hexcode;
+      colorPaletteVar[`${key}-${item.number}`] = item.hex;
     });
   });
 
@@ -199,8 +199,8 @@ function getNaiveThemeColors(colors: App.Theme.ThemeColor) {
   const colorActions: NaiveColorAction[] = [
     { scene: '', handler: color => color },
     { scene: 'Suppl', handler: color => color },
-    { scene: 'Hover', handler: color => getColorByColorPaletteNumber(color, 500) },
-    { scene: 'Pressed', handler: color => getColorByColorPaletteNumber(color, 700) },
+    { scene: 'Hover', handler: color => getColorByPaletteNumber(color, 500) },
+    { scene: 'Pressed', handler: color => getColorByPaletteNumber(color, 700) },
     { scene: 'Active', handler: color => addColorAlpha(color, 0.1) }
   ];
 

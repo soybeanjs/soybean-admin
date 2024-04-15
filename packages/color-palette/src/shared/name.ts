@@ -1,6 +1,11 @@
-import { getHex, getHsl, getRgb } from './color';
-import colorNames from './json/color-name.json';
+import { colorNames } from '../constant';
+import { getHex, getHsl, getRgb } from './colord';
 
+/**
+ * Get color name
+ *
+ * @param color
+ */
 export function getColorName(color: string) {
   const hex = getHex(color);
   const rgb = getRgb(color);
@@ -17,15 +22,13 @@ export function getColorName(color: string) {
   colorNames.some((item, index) => {
     const [hexValue, colorName] = item;
 
-    const hexcode = `#${hexValue}`;
-
-    const match = hex === hexcode;
+    const match = hex === hexValue;
 
     if (match) {
       name = colorName;
     } else {
-      const { r, g, b } = getRgb(hexcode);
-      const { h, s, l } = getHsl(hexcode);
+      const { r, g, b } = getRgb(hexValue);
+      const { h, s, l } = getHsl(hexValue);
 
       ndf1 = (rgb.r - r) ** 2 + (rgb.g - g) ** 2 + (rgb.b - b) ** 2;
       ndf2 = (hsl.h - h) ** 2 + (hsl.s - s) ** 2 + (hsl.l - l) ** 2;
@@ -40,7 +43,7 @@ export function getColorName(color: string) {
     return match;
   });
 
-  name = cl < 0 ? 'Invalid Color' : colorNames[cl][1];
+  name = colorNames[cl][1];
 
   return name;
 }

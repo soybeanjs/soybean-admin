@@ -81,14 +81,12 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    */
   function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
     // get a color palette by provided color and color name, and use the suitable color
-    const colorPalette = getColorPalette(color, key);
-
-    const mainColor = colorPalette.main.hexcode;
+    const { main } = getColorPalette(color);
 
     if (key === 'primary') {
-      settings.value.themeColor = mainColor;
+      settings.value.themeColor = main.hex;
     } else {
-      settings.value.otherColor[key] = mainColor;
+      settings.value.otherColor[key] = main.hex;
     }
   }
 
