@@ -71,6 +71,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settings.value.themeScheme = themeScheme;
   }
 
+  /**
+   * Set grayscale value
+   *
+   * @param isGrayscale
+   */
+  function setGrayscale(isGrayscale: boolean) {
+    settings.value.grayscale = isGrayscale;
+  }
+
   /** Toggle theme scheme */
   function toggleThemeScheme() {
     const themeSchemes: UnionKey.ThemeScheme[] = ['light', 'dark', 'auto'];
@@ -154,7 +163,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       themeColors,
       val => {
         setupThemeVarsToHtml();
-
         localStg.set('themeColor', val.primary);
       },
       { immediate: true }
@@ -172,6 +180,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     themeColors,
     naiveTheme,
     settingsJson,
+    setGrayscale,
     resetStore,
     setThemeScheme,
     toggleThemeScheme,

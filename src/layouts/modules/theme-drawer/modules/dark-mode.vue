@@ -21,6 +21,10 @@ function handleSegmentChange(value: string | number) {
   themeStore.setThemeScheme(value as UnionKey.ThemeScheme);
 }
 
+function handleGrayscaleChange(value: boolean) {
+  themeStore.setGrayscale(value);
+}
+
 const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layout.mode.includes('vertical'));
 </script>
 
@@ -46,8 +50,8 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
         <NSwitch v-model:value="themeStore.sider.inverted" />
       </SettingItem>
     </Transition>
-    <SettingItem :label="$t('theme.themeSchema.grayscale')">
-      <NSwitch v-model:value="themeStore.grayscale" />
+    <SettingItem :label="$t('theme.grayscale')">
+      <NSwitch :value="themeStore.grayscale" @update:value="handleGrayscaleChange" />
     </SettingItem>
   </div>
 </template>
