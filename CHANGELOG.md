@@ -1,6 +1,41 @@
 # Changelog
 
 
+## [v1.0.4](https://github.com/soybeanjs/soybean-admin/compare/v1.0.3...v1.0.4) (2024-04-24)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix CHANGELOG versions &nbsp;-&nbsp; by @honghuangdc [<samp>(d9af5)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d9af5aa)
+  - fix disabled page animate &nbsp;-&nbsp; by @honghuangdc [<samp>(23f28)</samp>](https://github.com/soybeanjs/soybean-admin/commit/23f283a)
+  - fix routes data when role is change. fixed #391 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/391 [<samp>(cb83d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/cb83d6d)
+  - fix tabs data when role is change. fixed #392 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/392 [<samp>(04aa0)</samp>](https://github.com/soybeanjs/soybean-admin/commit/04aa097)
+  - recovery pnpm-lock.yaml &nbsp;-&nbsp; by @honghuangdc [<samp>(c6952)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c695208)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **hooks**: refactor @sa/color-palette &nbsp;-&nbsp; by @honghuangdc [<samp>(93191)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9319173)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(5a523)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5a5232b)
+  - update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(79d9c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/79d9c51)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(ac928)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ac92817)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(3ceeb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3ceeb6f)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(9a669)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9a66979)
+- **projects**:
+  - update pnpm version &nbsp;-&nbsp; by @honghuangdc [<samp>(42e16)</samp>](https://github.com/soybeanjs/soybean-admin/commit/42e16a0)
+  - update deps & update pnpm version & update eslint config &nbsp;-&nbsp; by @honghuangdc [<samp>(7392b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7392beb)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v1.0.3](https://github.com/soybeanjs/soybean-admin/compare/v1.0.2...v1.0.3) (24-04-16)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
