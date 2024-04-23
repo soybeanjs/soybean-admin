@@ -15,7 +15,7 @@
     "types": ["vite/client", "node", "unplugin-icons/types/vue", "naive-ui/volar"],
     "strict": true,
     "strictNullChecks": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

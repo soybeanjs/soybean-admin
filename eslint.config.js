@@ -18,7 +18,7 @@ export default defineConfig(
           ignores: ['/^icon-/']
         }
       ],
-      'order-attributify': 'off'
+      'unocss/order-attributify': 'off'
     }
   }
 );
