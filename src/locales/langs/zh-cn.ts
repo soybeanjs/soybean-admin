@@ -55,7 +55,8 @@ const local: App.I18n.Schema = {
       title: '主题模式',
       light: '亮色模式',
       dark: '暗黑模式',
-      auto: '跟随系统'
+      auto: '跟随系统',
+      grayscale: '灰度模式'
     },
     layoutMode: {
       title: '布局模式',

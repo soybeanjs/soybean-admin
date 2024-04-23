@@ -14,6 +14,9 @@ declare namespace UnionKey {
   /** Theme scheme */
   type ThemeScheme = 'light' | 'dark' | 'auto';
 
+  /** Grayscale mode */
+  type Grayscale = 'grayscale';
+
   /**
    * The layout mode
    *

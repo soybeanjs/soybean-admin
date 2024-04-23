@@ -299,7 +299,7 @@ declare namespace App {
         tokenExpired: string;
       };
       theme: {
-        themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
+        themeSchema: { title: string } & Record<UnionKey.ThemeScheme | UnionKey.Grayscale, string>;
         layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string>;
         themeColor: {
           title: string;
