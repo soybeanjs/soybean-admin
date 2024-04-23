@@ -7,10 +7,6 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
 
-
->[!CAUTION]
-> the old version of `Soybean Admin` is moved to branch [legacy](https://github.com/soybeanjs/soybean-admin/tree/legacy). It is recommended to use the latest version of `Soybean Admin`.
-
 > [!NOTE]
 > If you think `Soybean Admin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
 
@@ -79,7 +75,6 @@ Make sure your environment meets the following requirements:
 
 - **git**: you need git to clone and manage project versions.
 - **NodeJS**: >=18.0.0, recommended 18.19.0 or higher.
-  > You can use [fnm](https://github.com/Schniz/fnm) to manage your NodeJS version, [installation tutorial](https://juejin.cn/post/7113462239734022158).
 - **pnpm**: >= 8.0.0, recommended 8.14.0 or higher.
 
 **Clone Project**

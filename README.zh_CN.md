@@ -7,16 +7,8 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
 
->[!CAUTION]
-> 旧版本的 `Soybean Admin` 已经移动到分支 [legacy](https://github.com/soybeanjs/soybean-admin/tree/legacy)。建议使用最新版本的 `Soybean Admin`。
-
 > [!NOTE]
 > 如果您觉得 `Soybean Admin`对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
-
-<br />
-
-[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
-
 
 ## 简介
 
@@ -82,7 +74,6 @@
 
 - **git**: 你需要git来克隆和管理项目版本。
 - **NodeJS**: >=18.0.0，推荐 18.19.0 或更高。
-  > 你可以使用 [fnm](https://github.com/Schniz/fnm) 来管理你的NodeJS版本，[安装教程](https://juejin.cn/post/7113462239734022158)。
 - **pnpm**: >= 8.0.0，推荐 8.14.0 或更高。
 
 **克隆项目**
