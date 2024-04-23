@@ -20,6 +20,8 @@ declare namespace App {
       themeScheme: UnionKey.ThemeScheme;
       /** Theme color */
       themeColor: string;
+      /** grayscale mode */
+      grayscale: boolean;
       /** Other color */
       otherColor: OtherColor;
       /** Whether info color is followed by the primary color */

@@ -11,3 +11,7 @@ body,
 html {
   overflow-x: hidden;
 }
+
+html.grayscale {
+  filter: grayscale(100%);
+}

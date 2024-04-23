@@ -46,6 +46,9 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
         <NSwitch v-model:value="themeStore.sider.inverted" />
       </SettingItem>
     </Transition>
+    <SettingItem label="灰度模式">
+      <NSwitch v-model:value="themeStore.grayscale" />
+    </SettingItem>
   </div>
 </template>
 

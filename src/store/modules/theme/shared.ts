@@ -5,7 +5,10 @@ import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 import { localStg } from '@/utils/storage';
 
-const DARK_CLASS = 'dark';
+export const DARK_CLASS = 'dark';
+export const GRAYSCALE_CLASS = 'grayscale';
+
+type ThemeMode = typeof DARK_CLASS | typeof GRAYSCALE_CLASS;
 
 /** Init theme settings */
 export function initThemeSettings() {
@@ -162,23 +165,24 @@ export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.
 }
 
 /**
- * Toggle css dark mode
+ * Toggle css dark mode or grayscale mode
  *
- * @param darkMode Is dark mode
+ * @param mode DARK_CLASS or GRAYSCALE_CLASS
+ * @param status
  */
-export function toggleCssDarkMode(darkMode = false) {
-  function addDarkClass() {
-    document.documentElement.classList.add(DARK_CLASS);
+export function toggleThemeMode(mode: ThemeMode, status = false) {
+  function addClass() {
+    document.documentElement.classList.add(mode);
   }
 
-  function removeDarkClass() {
-    document.documentElement.classList.remove(DARK_CLASS);
+  function removeClass() {
+    document.documentElement.classList.remove(mode);
   }
 
-  if (darkMode) {
-    addDarkClass();
+  if (status) {
+    addClass();
   } else {
-    removeDarkClass();
+    removeClass();
   }
 }
 
