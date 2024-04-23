@@ -213,8 +213,8 @@ importers:
   packages/scripts:
     devDependencies:
       '@soybeanjs/changelog':
-        specifier: 0.3.21
-        version: 0.3.21(@unocss/eslint-config@0.59.4(eslint@9.1.1)(typescript@5.4.5))(eslint-plugin-vue@9.25.0(eslint@9.1.1))(eslint@9.1.1)(typescript@5.4.5)(vue-eslint-parser@9.4.2(eslint@9.1.1))
+        specifier: 0.3.22
+        version: 0.3.22(@unocss/eslint-config@0.59.4(eslint@9.1.1)(typescript@5.4.5))(eslint-plugin-vue@9.25.0(eslint@9.1.1))(eslint@9.1.1)(typescript@5.4.5)(vue-eslint-parser@9.4.2(eslint@9.1.1))
       bumpp:
         specifier: 9.4.0
         version: 9.4.0
@@ -1042,8 +1042,8 @@ packages:
     resolution: {integrity: sha512-TV7t8GKYaJWsn00tFDqBw8+Uqmr8A0fRU1tvTQhyZzGv0sJCGRQL3JGMI3ucuKo3XIZdUP+Lx7/gh2t3lewy7g==}
     engines: {node: '>=14.16'}
 
-  '@soybeanjs/changelog@0.3.21':
-    resolution: {integrity: sha512-HwkHeCfCzGrqGF9KpKL3jk1FCtIM12s8WWrvX9AspKQpycbhv1f2DuULnGDmqf4c5SCO/+fUnQX6Frq4aEty5g==}
+  '@soybeanjs/changelog@0.3.22':
+    resolution: {integrity: sha512-MF2lAkHhVFnUEP4UK1+sipVq9e5Rsa62FMB+cYdEEF+r64GC4Nj5YMFzHYYJ9xCnuCf9ZSlIPWUwXVfz0DQ7mQ==}
     engines: {node: '>=14'}
 
   '@soybeanjs/eslint-config@1.3.2':
@@ -5499,7 +5499,7 @@ snapshots:
 
   '@sindresorhus/is@5.6.0': {}
 
-  '@soybeanjs/changelog@0.3.21(@unocss/eslint-config@0.59.4(eslint@9.1.1)(typescript@5.4.5))(eslint-plugin-vue@9.25.0(eslint@9.1.1))(eslint@9.1.1)(typescript@5.4.5)(vue-eslint-parser@9.4.2(eslint@9.1.1))':
+  '@soybeanjs/changelog@0.3.22(@unocss/eslint-config@0.59.4(eslint@9.1.1)(typescript@5.4.5))(eslint-plugin-vue@9.25.0(eslint@9.1.1))(eslint@9.1.1)(typescript@5.4.5)(vue-eslint-parser@9.4.2(eslint@9.1.1))':
     dependencies:
       '@soybeanjs/eslint-config': 1.3.2(@unocss/eslint-config@0.59.4(eslint@9.1.1)(typescript@5.4.5))(eslint-plugin-vue@9.25.0(eslint@9.1.1))(eslint@9.1.1)(typescript@5.4.5)(vue-eslint-parser@9.4.2(eslint@9.1.1))
       cli-progress: 3.12.0
