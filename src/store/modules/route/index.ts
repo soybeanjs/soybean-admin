@@ -52,6 +52,19 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     routeHome.value = routeKey;
   }
 
+  /** constant routes */
+  const constantRoutes = shallowRef<ElegantConstRoute[]>([]);
+
+  function addConstantRoutes(routes: ElegantConstRoute[]) {
+    const constantRoutesMap = new Map(constantRoutes.value.map(route => [route.name, route]));
+
+    routes.forEach(route => {
+      constantRoutesMap.set(route.name, route);
+    });
+
+    constantRoutes.value = Array.from(constantRoutesMap.values());
+  }
+
   /** auth routes */
   const authRoutes = shallowRef<ElegantConstRoute[]>([]);
 
@@ -167,18 +180,18 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     if (isInitConstantRoute.value) return;
 
     if (authRouteMode.value === 'static') {
-      const { constantRoutes } = createStaticRoutes();
+      const staticRoute = createStaticRoutes();
 
-      addAuthRoutes(constantRoutes);
+      addConstantRoutes(staticRoute.constantRoutes);
     } else {
       const { data, error } = await fetchGetConstantRoutes();
 
       if (!error) {
-        addAuthRoutes(data);
+        addConstantRoutes(data);
       }
     }
 
-    handleAuthRoutes();
+    handleConstantAndAuthRoutes();
 
     setIsInitConstantRoute(true);
   }
@@ -206,7 +219,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       addAuthRoutes(filteredAuthRoutes);
     }
 
-    handleAuthRoutes();
+    handleConstantAndAuthRoutes();
 
     setIsInitAuthRoute(true);
   }
@@ -220,7 +233,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
       addAuthRoutes(routes);
 
-      handleAuthRoutes();
+      handleConstantAndAuthRoutes();
 
       setRouteHome(home);
 
@@ -230,9 +243,11 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     }
   }
 
-  /** handle auth routes */
-  function handleAuthRoutes() {
-    const sortRoutes = sortRoutesByOrder(authRoutes.value);
+  /** handle constant and auth routes */
+  function handleConstantAndAuthRoutes() {
+    const allRoutes = [...constantRoutes.value, ...authRoutes.value];
+
+    const sortRoutes = sortRoutesByOrder(allRoutes);
 
     const vueRoutes = getAuthVueRoutes(sortRoutes);
 

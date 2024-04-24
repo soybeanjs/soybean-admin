@@ -1,7 +1,7 @@
 {
   "name": "soybean-admin",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "packageManager": "pnpm@9.0.5",
   "description": "A fresh and elegant admin template, based on Vue3、Vite3、TypeScript、NaiveUI and UnoCSS. 一个基于Vue3、Vite3、TypeScript、NaiveUI and UnoCSS的清新优雅的中后台模版。",
   "author": {
@@ -58,7 +58,7 @@
     "naive-ui": "2.38.1",
     "nprogress": "0.2.0",
     "pinia": "2.1.7",
-    "vue": "3.4.24",
+    "vue": "3.4.23",
     "vue-draggable-plus": "0.4.0",
     "vue-i18n": "9.13.1",
     "vue-router": "4.3.2"
@@ -92,7 +92,7 @@
     "vite": "5.2.10",
     "vite-plugin-progress": "0.0.7",
     "vite-plugin-svg-icons": "2.0.1",
-    "vite-plugin-vue-devtools": "7.0.27",
+    "vite-plugin-vue-devtools": "7.1.2",
     "vue-eslint-parser": "9.4.2",
     "vue-tsc": "2.0.14"
   },
