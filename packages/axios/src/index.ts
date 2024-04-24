@@ -48,6 +48,11 @@ function createCommonRequest<ResponseData = any>(
 
   instance.interceptors.response.use(
     async response => {
+      const responseType = response.config.headers.getContentType() || 'json';
+      if (responseType !== 'json') {
+        return Promise.resolve(response);
+      }
+
       if (opts.isBackendSuccess(response)) {
         return Promise.resolve(response);
       }
