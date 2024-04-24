@@ -5,7 +5,14 @@ import { useEventListener, usePreferredColorScheme } from '@vueuse/core';
 import { getColorPalette } from '@sa/color-palette';
 import { SetupStoreId } from '@/enum';
 import { localStg } from '@/utils/storage';
-import { addThemeVarsToHtml, createThemeToken, getNaiveTheme, initThemeSettings, toggleCssDarkMode } from './shared';
+import {
+  addThemeVarsToHtml,
+  createThemeToken,
+  getNaiveTheme,
+  initThemeSettings,
+  toggleCssDarkMode,
+  toggleGrayscaleMode
+} from './shared';
 
 /** Theme store */
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
@@ -22,6 +29,9 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     }
     return settings.value.themeScheme === 'dark';
   });
+
+  /** grayscale mode */
+  const grayscaleMode = computed(() => settings.value.grayscale);
 
   /** Theme colors */
   const themeColors = computed(() => {
@@ -58,6 +68,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    */
   function setThemeScheme(themeScheme: UnionKey.ThemeScheme) {
     settings.value.themeScheme = themeScheme;
+  }
+
+  /**
+   * Set grayscale value
+   *
+   * @param isGrayscale
+   */
+  function setGrayscale(isGrayscale: boolean) {
+    settings.value.grayscale = isGrayscale;
   }
 
   /** Toggle theme scheme */
@@ -130,12 +149,19 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       { immediate: true }
     );
 
+    watch(
+      grayscaleMode,
+      val => {
+        toggleGrayscaleMode(val);
+      },
+      { immediate: true }
+    );
+
     // themeColors change, update css vars and storage theme color
     watch(
       themeColors,
       val => {
         setupThemeVarsToHtml();
-
         localStg.set('themeColor', val.primary);
       },
       { immediate: true }
@@ -153,6 +179,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     themeColors,
     naiveTheme,
     settingsJson,
+    setGrayscale,
     resetStore,
     setThemeScheme,
     toggleThemeScheme,

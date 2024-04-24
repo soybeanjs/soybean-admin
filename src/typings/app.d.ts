@@ -20,6 +20,8 @@ declare namespace App {
       themeScheme: UnionKey.ThemeScheme;
       /** Theme color */
       themeColor: string;
+      /** grayscale mode */
+      grayscale: boolean;
       /** Other color */
       otherColor: OtherColor;
       /** Whether info color is followed by the primary color */
@@ -298,6 +300,7 @@ declare namespace App {
       };
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
+        grayscale: string;
         layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string>;
         themeColor: {
           title: string;

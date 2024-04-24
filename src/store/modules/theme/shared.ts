@@ -3,6 +3,7 @@ import { getColorByPaletteNumber, getColorPalette } from '@sa/color-palette';
 import { addColorAlpha, getRgbOfColor } from '@sa/utils';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
+import { toggleHtmlClass } from '@/utils/common';
 import { localStg } from '@/utils/storage';
 
 const DARK_CLASS = 'dark';
@@ -167,18 +168,29 @@ export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.
  * @param darkMode Is dark mode
  */
 export function toggleCssDarkMode(darkMode = false) {
-  function addDarkClass() {
-    document.documentElement.classList.add(DARK_CLASS);
-  }
-
-  function removeDarkClass() {
-    document.documentElement.classList.remove(DARK_CLASS);
-  }
+  const { add, remove } = toggleHtmlClass(DARK_CLASS);
 
   if (darkMode) {
-    addDarkClass();
+    add();
   } else {
-    removeDarkClass();
+    remove();
+  }
+}
+
+/**
+ * Toggle grayscale mode
+ *
+ * @param grayscaleMode Is grayscale mode
+ */
+export function toggleGrayscaleMode(grayscaleMode = false) {
+  const GRAYSCALE_CLASS = 'grayscale';
+
+  const { add, remove } = toggleHtmlClass(GRAYSCALE_CLASS);
+
+  if (grayscaleMode) {
+    add();
+  } else {
+    remove();
   }
 }
 

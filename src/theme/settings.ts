@@ -1,6 +1,7 @@
 /** Default theme settings */
 export const themeSettings: App.Theme.ThemeSetting = {
   themeScheme: 'light',
+  grayscale: false,
   themeColor: '#646cff',
   otherColor: {
     info: '#2080f0',

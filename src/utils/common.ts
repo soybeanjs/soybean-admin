@@ -36,3 +36,23 @@ export function translateOptions(options: CommonType.Option<string>[]) {
     label: $t(option.label as App.I18n.I18nKey)
   }));
 }
+
+/**
+ * Toggle html class
+ *
+ * @param className
+ */
+export function toggleHtmlClass(className: string) {
+  function add() {
+    document.documentElement.classList.add(className);
+  }
+
+  function remove() {
+    document.documentElement.classList.remove(className);
+  }
+
+  return {
+    add,
+    remove
+  };
+}

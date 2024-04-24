@@ -57,6 +57,7 @@ const local: App.I18n.Schema = {
       dark: '暗黑模式',
       auto: '跟随系统'
     },
+    grayscale: '灰度模式',
     layoutMode: {
       title: '布局模式',
       vertical: '左侧菜单模式',
