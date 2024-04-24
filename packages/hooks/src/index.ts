@@ -7,4 +7,5 @@ import useHookTable from './use-table';
 
 export { useBoolean, useLoading, useCountDown, useContext, useSvgIconRender, useHookTable };
 
+export * from './use-state';
 export * from './use-table';
