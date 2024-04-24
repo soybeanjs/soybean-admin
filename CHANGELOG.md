@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [v1.0.5](https://github.com/honghuangdc/soybean-admin/compare/v1.0.4...v1.0.5) (2024-04-24)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update CHANGELOG.md &nbsp;-&nbsp; by @honghuangdc [<samp>(cf5bc)</samp>](https://github.com/honghuangdc/soybean-admin/commit/cf5bc88)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **projects**:
+  - lower vue version to 3.4.23 &nbsp;-&nbsp; by @honghuangdc [<samp>(b5243)</samp>](https://github.com/honghuangdc/soybean-admin/commit/b52432a)
+  - update pnpm-lock.yaml &nbsp;-&nbsp; by @honghuangdc [<samp>(516f4)</samp>](https://github.com/honghuangdc/soybean-admin/commit/516f46a)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v1.0.4](https://github.com/soybeanjs/soybean-admin/compare/v1.0.3...v1.0.4) (2024-04-24)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
