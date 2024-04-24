@@ -5,6 +5,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
+import { $t } from '@/locales';
 import { useMixMenu } from '../../hooks';
 import FirstLevelMenu from './first-level-menu.vue';
 import BaseMenu from './base-menu.vue';
