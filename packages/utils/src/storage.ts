@@ -3,7 +3,7 @@ import localforage from 'localforage';
 /** The storage type */
 export type StorageType = 'local' | 'session';
 
-export function createStorage<T extends object>(type: StorageType) {
+export function createStorage<T extends object>(type: StorageType, storagePrefix: string) {
   const stg = type === 'session' ? window.sessionStorage : window.localStorage;
 
   const storage = {
@@ -16,7 +16,7 @@ export function createStorage<T extends object>(type: StorageType) {
     set<K extends keyof T>(key: K, value: T[K]) {
       const json = JSON.stringify(value);
 
-      stg.setItem(key as string, json);
+      stg.setItem(`${storagePrefix}${key as string}`, json);
     },
     /**
      * Get session
@@ -24,7 +24,7 @@ export function createStorage<T extends object>(type: StorageType) {
      * @param key Session key
      */
     get<K extends keyof T>(key: K): T[K] | null {
-      const json = stg.getItem(key as string);
+      const json = stg.getItem(`${storagePrefix}${key as string}`);
       if (json) {
         let storageData: T[K] | null = null;
 
@@ -37,12 +37,12 @@ export function createStorage<T extends object>(type: StorageType) {
         }
       }
 
-      stg.removeItem(key as string);
+      stg.removeItem(`${storagePrefix}${key as string}`);
 
       return null;
     },
     remove(key: keyof T) {
-      stg.removeItem(key as string);
+      stg.removeItem(`${storagePrefix}${key as string}`);
     },
     clear() {
       stg.clear();
