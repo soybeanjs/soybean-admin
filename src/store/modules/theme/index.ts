@@ -45,7 +45,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   });
 
   /** Naive theme */
-  const naiveTheme = computed(() => getNaiveTheme(themeColors.value));
+  const naiveTheme = computed(() => getNaiveTheme(themeColors.value, settings.value.recommendColor));
 
   /**
    * Settings json
@@ -125,7 +125,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
 
   /** Setup theme vars to html */
   function setupThemeVarsToHtml() {
-    const { themeTokens, darkThemeTokens } = createThemeToken(themeColors.value);
+    const { themeTokens, darkThemeTokens } = createThemeToken(themeColors.value, settings.value.recommendColor);
     addThemeVarsToHtml(themeTokens, darkThemeTokens);
   }
 

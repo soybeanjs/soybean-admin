@@ -33,9 +33,10 @@ export function initThemeSettings() {
  * Create theme token
  *
  * @param colors Theme colors
+ * @param [recommended=false] Use recommended color. Default is `false`
  */
-export function createThemeToken(colors: App.Theme.ThemeColor) {
-  const paletteColors = createThemePaletteColors(colors);
+export function createThemeToken(colors: App.Theme.ThemeColor, recommended = false) {
+  const paletteColors = createThemePaletteColors(colors, recommended);
 
   const themeTokens: App.Theme.ThemeToken = {
     colors: {
@@ -75,6 +76,7 @@ export function createThemeToken(colors: App.Theme.ThemeColor) {
  * Create theme palette colors
  *
  * @param colors Theme colors
+ * @param [recommended=false] Use recommended color. Default is `false`
  */
 function createThemePaletteColors(colors: App.Theme.ThemeColor, recommended = false) {
   const colorKeys = Object.keys(colors) as App.Theme.ThemeColorKey[];
@@ -205,6 +207,7 @@ interface NaiveColorAction {
  * Get naive theme colors
  *
  * @param colors Theme colors
+ * @param [recommended=false] Use recommended color. Default is `false`
  */
 function getNaiveThemeColors(colors: App.Theme.ThemeColor, recommended = false) {
   const colorActions: NaiveColorAction[] = [
@@ -234,13 +237,14 @@ function getNaiveThemeColors(colors: App.Theme.ThemeColor, recommended = false) 
  * Get naive theme
  *
  * @param colors Theme colors
+ * @param [recommended=false] Use recommended color. Default is `false`
  */
-export function getNaiveTheme(colors: App.Theme.ThemeColor) {
+export function getNaiveTheme(colors: App.Theme.ThemeColor, recommended = false) {
   const { primary: colorLoading } = colors;
 
   const theme: GlobalThemeOverrides = {
     common: {
-      ...getNaiveThemeColors(colors),
+      ...getNaiveThemeColors(colors, recommended),
       borderRadius: '6px'
     },
     LoadingBar: {
