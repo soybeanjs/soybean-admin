@@ -2,7 +2,6 @@
   "name": "soybean-admin",
   "type": "module",
   "version": "1.0.5",
-  "packageManager": "pnpm@9.0.5",
   "description": "A fresh and elegant admin template, based on Vue3、Vite3、TypeScript、NaiveUI and UnoCSS. 一个基于Vue3、Vite3、TypeScript、NaiveUI and UnoCSS的清新优雅的中后台模版。",
   "author": {
     "name": "Soybean",
@@ -27,6 +26,10 @@
     "ant-design-vue v4",
     "UnoCSS"
   ],
+  "engines": {
+    "node": ">=18.12.0",
+    "pnpm": ">=8.15.0"
+  },
   "scripts": {
     "build": "vite build --mode prod",
     "build:test": "vite build --mode test",
