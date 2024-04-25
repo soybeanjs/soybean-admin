@@ -13,6 +13,8 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
   const scope = effectScope();
   const appStore = useAppStore();
 
+  const isMobile = computed(() => appStore.isMobile);
+
   const { apiFn, apiParams, immediate } = config;
 
   const SELECTION_KEY = '__selection__';
@@ -104,6 +106,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     pageSize: 10,
     showSizePicker: true,
     pageSizes: [10, 15, 20, 25, 30],
+    prefix: page => $t('datatable.itemCount', { total: page.itemCount }),
     onUpdatePage: async (page: number) => {
       pagination.page = page;
 
@@ -131,7 +134,8 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
   const mobilePagination = computed(() => {
     const p: PaginationProps = {
       ...pagination,
-      pageSlot: appStore.isMobile ? 3 : 9
+      pageSlot: isMobile ? 3 : 9,
+      prefix: isMobile ? undefined : pagination.prefix
     };
 
     return p;

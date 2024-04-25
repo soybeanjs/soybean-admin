@@ -445,6 +445,9 @@ const local: App.I18n.Schema = {
     expand: 'Expand Menu',
     pin: 'Pin',
     unpin: 'Unpin'
+  },
+  datatable: {
+    itemCount: 'Total {total} items'
   }
 };
 
