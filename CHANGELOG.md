@@ -1,6 +1,20 @@
 # Changelog
 
 
+## [v1.0.7](https://github.com/soybeanjs/soybean-admin/compare/v1.0.6...v1.0.7) (2024-04-25)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: support iframe page with diffrent url of custom route &nbsp;-&nbsp; by @honghuangdc [<samp>(da12d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/da12d4a)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(fbd80)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fbd80c2)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v1.0.6](https://github.com/soybeanjs/soybean-admin/compare/v1.0.5...v1.0.6) (2024-04-25)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
