@@ -21,6 +21,14 @@ declare module "@elegant-router/types" {
     "exception_403": "/exception/403";
     "exception_404": "/exception/404";
     "exception_500": "/exception/500";
+    "document": "/document";
+    "document_project": "/document/project";
+    "document_project-link": "/document/project-link";
+    "document_vue": "/document/vue";
+    "document_vite": "/document/vite";
+    "document_unocss": "/document/unocss";
+    "document_naive": "/document/naive";
+    "document_antd": "/document/antd";
     "403": "/403";
     "404": "/404";
     "500": "/500";
@@ -36,6 +44,7 @@ declare module "@elegant-router/types" {
     "function_tab": "/function/tab";
     "function_toggle-auth": "/function/toggle-auth";
     "home": "/home";
+    "iframe-page": "/iframe-page/:url";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
     "manage": "/manage";
     "manage_menu": "/manage/menu";
@@ -72,6 +81,14 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
+    | "document"
+    | "document_project"
+    | "document_project-link"
+    | "document_vue"
+    | "document_vite"
+    | "document_unocss"
+    | "document_naive"
+    | "document_antd"
   >;
 
   /**
@@ -90,6 +107,7 @@ declare module "@elegant-router/types" {
     | "about"
     | "function"
     | "home"
+    | "iframe-page"
     | "login"
     | "manage"
     | "multi-menu"
@@ -104,6 +122,7 @@ declare module "@elegant-router/types" {
     | "root"
     | "not-found"
     | "exception"
+    | "document"
   >;
 
   /**
@@ -114,6 +133,7 @@ declare module "@elegant-router/types" {
     | "403"
     | "404"
     | "500"
+    | "iframe-page"
     | "login"
     | "about"
     | "function_hide-child_one"
@@ -144,6 +164,13 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
+    | "document_project"
+    | "document_project-link"
+    | "document_vue"
+    | "document_vite"
+    | "document_unocss"
+    | "document_naive"
+    | "document_antd"
   >;
 
   /**
