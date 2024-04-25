@@ -1,6 +1,45 @@
 # Changelog
 
 
+## [v1.0.6](https://github.com/soybeanjs/soybean-admin/compare/v1.0.5...v1.0.6) (2024-04-25)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **hooks**: add state hooks: useRef, useState, useSignal &nbsp;-&nbsp; by @honghuangdc [<samp>(09f64)</samp>](https://github.com/soybeanjs/soybean-admin/commit/09f6464)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - added responseType judgment. #396 &nbsp;-&nbsp; by **alleycharming** in https://github.com/soybeanjs/soybean-admin/issues/396 [<samp>(82eab)</samp>](https://github.com/soybeanjs/soybean-admin/commit/82eabab)
+  - supply $t import statement &nbsp;-&nbsp; by @honghuangdc [<samp>(b2660)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b266035)
+  - fix mix-menu blank. fixed #389 & cache mixMenuFixed &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/389 [<samp>(93c7f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/93c7ff7)
+
+### &nbsp;&nbsp;&nbsp;🔥 Performance
+
+- **hooks**:
+  - perf useSignal &nbsp;-&nbsp; by @honghuangdc [<samp>(5d45c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5d45cef)
+- **projects**:
+  - remove useless prop `title` of `NDrawer` &nbsp;-&nbsp; by @honghuangdc [<samp>(fdde6)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fdde679)
+  - add tsconfig.json for @sa/color-palette &nbsp;-&nbsp; by @honghuangdc [<samp>(d460e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d460e5c)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **hooks**: refactor useSignal, useComputed &nbsp;-&nbsp; by @honghuangdc [<samp>(3b5e4)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3b5e4b3)
+- **projects**: useMixMenuContext replace useMixMenu &nbsp;-&nbsp; by @honghuangdc [<samp>(1e142)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1e14293)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(e57bf)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e57bf0b)
+- **projects**:
+  - use `engines` replace `packageManager` &nbsp;-&nbsp; by @honghuangdc [<samp>(dcd51)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dcd51f4)
+  - update pnpm version requirement &nbsp;-&nbsp; by @honghuangdc [<samp>(19e65)</samp>](https://github.com/soybeanjs/soybean-admin/commit/19e65c1)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[alleycharming](mailto:alleycharming@gmail.com)
+
 ## [v1.0.5](https://github.com/honghuangdc/soybean-admin/compare/v1.0.4...v1.0.5) (2024-04-24)
 
 ### &nbsp;&nbsp;&nbsp;📖 Documentation
