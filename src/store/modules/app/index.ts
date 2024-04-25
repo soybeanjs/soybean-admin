@@ -1,6 +1,6 @@
 import { effectScope, onScopeDispose, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
-import { breakpointsTailwind, useBreakpoints, useTitle } from '@vueuse/core';
+import { breakpointsTailwind, useBreakpoints, useEventListener, useTitle } from '@vueuse/core';
 import { useBoolean } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
@@ -22,7 +22,11 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   const { bool: fullContent, toggle: toggleFullContent } = useBoolean();
   const { bool: contentXScrollable, setBool: setContentXScrollable } = useBoolean();
   const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean();
-  const { bool: mixSiderFixed, setBool: setMixSiderFixed, toggle: toggleMixSiderFixed } = useBoolean();
+  const {
+    bool: mixSiderFixed,
+    setBool: setMixSiderFixed,
+    toggle: toggleMixSiderFixed
+  } = useBoolean(localStg.get('mixSiderFixed') === 'Y');
 
   /** Is mobile layout */
   const isMobile = breakpoints.smaller('sm');
@@ -105,6 +109,11 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
       // sey dayjs locale
       setDayjsLocale(locale.value);
     });
+  });
+
+  // cache mixSiderFixed
+  useEventListener(window, 'beforeunload', () => {
+    localStg.set('mixSiderFixed', mixSiderFixed.value ? 'Y' : 'N');
   });
 
   /** On scope dispose */

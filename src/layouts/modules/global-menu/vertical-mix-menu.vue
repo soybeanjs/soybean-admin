@@ -21,7 +21,9 @@ const { menus, activeFirstLevelMenuKey, setActiveFirstLevelMenuKey, getActiveFir
 
 const siderInverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
 
-const showDrawer = computed(() => (drawerVisible.value && menus.value.length) || appStore.mixSiderFixed);
+const hasMenus = computed(() => menus.value.length > 0);
+
+const showDrawer = computed(() => hasMenus.value && (drawerVisible.value || appStore.mixSiderFixed));
 
 function handleSelectMixMenu(menu: App.Global.Menu) {
   setActiveFirstLevelMenuKey(menu.key);
@@ -46,7 +48,7 @@ function handleResetActiveMenu() {
     </FirstLevelMenu>
     <div
       class="relative h-full transition-width-300"
-      :style="{ width: appStore.mixSiderFixed ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
+      :style="{ width: appStore.mixSiderFixed && hasMenus ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
     >
       <DarkModeContainer
         class="absolute-lt h-full flex-col-stretch nowrap-hidden shadow-sm transition-all-300"
