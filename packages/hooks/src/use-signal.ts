@@ -1,5 +1,12 @@
-import { computed, shallowRef, triggerRef } from 'vue';
-import type { ComputedGetter, DebuggerOptions, ShallowRef, WritableComputedOptions, WritableComputedRef } from 'vue';
+import { computed, ref, shallowRef, triggerRef } from 'vue';
+import type {
+  ComputedGetter,
+  DebuggerOptions,
+  Ref,
+  ShallowRef,
+  WritableComputedOptions,
+  WritableComputedRef
+} from 'vue';
 
 type Updater<T> = (value: T) => T;
 type Mutator<T> = (value: T) => void;
@@ -7,26 +14,27 @@ type Mutator<T> = (value: T) => void;
 /**
  * Signal is a reactive value that can be set, updated or mutated
  *
- * ```ts
- * const count = useSignal(0);
+ * @example
+ *   ```ts
+ *   const count = useSignal(0);
  *
- * // `watchEffect`
- * watchEffect(() => {
+ *   // `watchEffect`
+ *   watchEffect(() => {
  *   console.log(count());
- * });
+ *   });
  *
- * // watch
- * watch(count, value => {
+ *   // watch
+ *   watch(count, value => {
  *   console.log(value);
- * });
+ *   });
  *
- * // useComputed
- * const double = useComputed(() => count() * 2);
- * const writeableDouble = useComputed({
+ *   // useComputed
+ *   const double = useComputed(() => count() * 2);
+ *   const writeableDouble = useComputed({
  *   get: () => count() * 2,
  *   set: value => count.set(value / 2)
- * });
- * ```
+ *   });
+ *   ```
  */
 export interface Signal<T> {
   (): Readonly<T>;
@@ -56,14 +64,43 @@ export interface Signal<T> {
    * @param mutator
    */
   mutate(mutator: Mutator<T>): void;
+  /**
+   * Get the reference of the signal
+   *
+   * Sometimes it can be useful to make `v-model` work with the signal
+   *
+   * ```vue
+   * <template>
+   *   <input v-model="model.count" />
+   * </template>;
+   *
+   * <script setup lang="ts">
+   *  const state = useSignal({ count: 0 }, { useRef: true });
+   *
+   *  const model = state.getRef();
+   * </script>
+   * ```
+   */
+  getRef(): Readonly<ShallowRef<Readonly<T>>>;
 }
 
 export interface ReadonlySignal<T> {
   (): Readonly<T>;
 }
 
-export function useSignal<T>(initialValue: T): Signal<T> {
-  const state = shallowRef(initialValue);
+export interface SignalOptions {
+  /**
+   * Whether to use `ref` to store the value
+   *
+   * @default false use `sharedRef` to store the value
+   */
+  useRef?: boolean;
+}
+
+export function useSignal<T>(initialValue: T, options?: SignalOptions): Signal<T> {
+  const { useRef } = options || {};
+
+  const state = useRef ? (ref(initialValue) as Ref<T>) : shallowRef(initialValue);
 
   return createSignal(state);
 }
@@ -100,6 +137,8 @@ function createSignal<T>(state: ShallowRef<T> | WritableComputedRef<T>): Signal<
     mutator(state.value);
     triggerRef(state);
   };
+
+  signal.getRef = () => state as Readonly<ShallowRef<Readonly<T>>>;
 
   return signal;
 }
