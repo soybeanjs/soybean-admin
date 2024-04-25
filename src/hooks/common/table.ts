@@ -13,7 +13,9 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
   const scope = effectScope();
   const appStore = useAppStore();
 
-  const { apiFn, apiParams, immediate } = config;
+  const isMobile = computed(() => appStore.isMobile);
+
+  const { apiFn, apiParams, immediate, showTotal } = config;
 
   const SELECTION_KEY = '__selection__';
 
@@ -124,14 +126,20 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
       });
 
       getData();
-    }
+    },
+    ...(showTotal
+      ? {
+          prefix: page => $t('datatable.itemCount', { total: page.itemCount })
+        }
+      : {})
   });
 
   // this is for mobile, if the system does not support mobile, you can use `pagination` directly
   const mobilePagination = computed(() => {
     const p: PaginationProps = {
       ...pagination,
-      pageSlot: appStore.isMobile ? 3 : 9
+      pageSlot: isMobile.value ? 3 : 9,
+      prefix: !isMobile.value && showTotal ? pagination.prefix : undefined
     };
 
     return p;
