@@ -57,6 +57,12 @@ export type TableConfig<A extends ApiFn, T, C> = {
    * @default true
    */
   immediate?: boolean;
+  /**
+   * whether to display the total items count
+   *
+   * @default false
+   */
+  showTotal?: boolean;
 };
 
 export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<A, T, C>) {

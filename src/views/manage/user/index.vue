@@ -12,6 +12,7 @@ const appStore = useAppStore();
 
 const { columns, columnChecks, data, getData, loading, mobilePagination, searchParams, resetSearchParams } = useTable({
   apiFn: fetchGetUserList,
+  showTotal: true,
   apiParams: {
     current: 1,
     size: 10,
