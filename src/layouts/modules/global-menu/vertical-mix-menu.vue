@@ -2,11 +2,10 @@
 import { computed } from 'vue';
 import { useBoolean } from '@sa/hooks';
 import { useAppStore } from '@/store/modules/app';
-import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
 import { $t } from '@/locales';
-import { useMixMenu } from '../../hooks';
+import { useMixMenuContext } from '../../context';
 import FirstLevelMenu from './first-level-menu.vue';
 import BaseMenu from './base-menu.vue';
 
@@ -16,14 +15,11 @@ defineOptions({
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
-const routeStore = useRouteStore();
 const { routerPushByKey } = useRouterPush();
 const { bool: drawerVisible, setBool: setDrawerVisible } = useBoolean();
-const { activeFirstLevelMenuKey, setActiveFirstLevelMenuKey, getActiveFirstLevelMenuKey } = useMixMenu();
+const { menus, activeFirstLevelMenuKey, setActiveFirstLevelMenuKey, getActiveFirstLevelMenuKey } = useMixMenuContext();
 
 const siderInverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
-
-const menus = computed(() => routeStore.menus.find(menu => menu.key === activeFirstLevelMenuKey.value)?.children || []);
 
 const showDrawer = computed(() => (drawerVisible.value && menus.value.length) || appStore.mixSiderFixed);
 
