@@ -9,12 +9,12 @@ import type {
 } from '../types';
 
 /**
- * get color palette by provided color and color name
+ * get recommended color palette by provided color
  *
  * @param color the provided color
  */
-export function getColorPalette(color: string) {
-  const colorPaletteFamily = getColorPaletteFamily(color);
+export function getRecommendedColorPalette(color: string) {
+  const colorPaletteFamily = getRecommendedColorPaletteFamily(color);
 
   const colorMap = new Map<ColorPaletteNumber, ColorPalette>();
 
@@ -36,13 +36,13 @@ export function getColorPalette(color: string) {
 }
 
 /**
- * get color by number
+ * get recommended palette color by provided color
  *
  * @param color the provided color
  * @param number the color palette number
  */
-export function getColorByPaletteNumber(color: string, number: ColorPaletteNumber) {
-  const colorPalette = getColorPalette(color);
+export function getRecommendedPaletteColorByNumber(color: string, number: ColorPaletteNumber) {
+  const colorPalette = getRecommendedColorPalette(color);
 
   const { hex } = colorPalette.colorMap.get(number)!;
 
@@ -54,7 +54,7 @@ export function getColorByPaletteNumber(color: string, number: ColorPaletteNumbe
  *
  * @param color the provided color
  */
-export function getColorPaletteFamily(color: string) {
+export function getRecommendedColorPaletteFamily(color: string) {
   if (!isValidColor(color)) {
     throw new Error('Invalid color, please check color value!');
   }

@@ -1,4 +1,4 @@
-import { addColorAlpha, transformColorWithOpacity } from '@sa/utils';
+import { addColorAlpha, transformColorWithOpacity } from '@sa/color';
 import type { PageTabCssVars, PageTabCssVarsProps } from '../../types';
 
 /** The active color of the tab */

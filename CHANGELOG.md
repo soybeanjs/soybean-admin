@@ -30,7 +30,7 @@
 
 ### &nbsp;&nbsp;&nbsp;💅 Refactors
 
-- **hooks**: refactor @sa/color-palette &nbsp;-&nbsp; by @honghuangdc [<samp>(93191)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9319173)
+- **hooks**: refactor @sa/color &nbsp;-&nbsp; by @honghuangdc [<samp>(93191)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9319173)
 
 ### &nbsp;&nbsp;&nbsp;📖 Documentation
 

@@ -65,6 +65,7 @@ const local: App.I18n.Schema = {
       horizontal: '顶部菜单模式',
       'horizontal-mix': '顶部菜单混合模式'
     },
+    recommendColor: '应用推荐算法的颜色',
     themeColor: {
       title: '主题颜色',
       primary: '主色',

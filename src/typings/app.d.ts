@@ -2,7 +2,7 @@
 declare namespace App {
   /** Theme namespace */
   namespace Theme {
-    type ColorPaletteNumber = import('@sa/color-palette').ColorPaletteNumber;
+    type ColorPaletteNumber = import('@sa/color').ColorPaletteNumber;
 
     /** Theme token */
     type ThemeToken = {
@@ -18,10 +18,12 @@ declare namespace App {
     interface ThemeSetting {
       /** Theme scheme */
       themeScheme: UnionKey.ThemeScheme;
-      /** Theme color */
-      themeColor: string;
       /** grayscale mode */
       grayscale: boolean;
+      /** Whether to recommend color */
+      recommendColor: boolean;
+      /** Theme color */
+      themeColor: string;
       /** Other color */
       otherColor: OtherColor;
       /** Whether info color is followed by the primary color */
@@ -302,6 +304,7 @@ declare namespace App {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
         grayscale: string;
         layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string>;
+        recommendColor: string;
         themeColor: {
           title: string;
           followPrimary: string;

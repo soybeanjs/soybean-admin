@@ -17,9 +17,9 @@ importers:
       '@sa/axios':
         specifier: workspace:*
         version: link:packages/axios
-      '@sa/color-palette':
+      '@sa/color':
         specifier: workspace:*
-        version: link:packages/color-palette
+        version: link:packages/color
       '@sa/hooks':
         specifier: workspace:*
         version: link:packages/hooks
@@ -179,8 +179,11 @@ importers:
         specifier: 6.9.15
         version: 6.9.15
 
-  packages/color-palette:
+  packages/color:
     dependencies:
+      '@sa/utils':
+        specifier: workspace:*
+        version: link:../utils
       colord:
         specifier: 2.9.3
         version: 2.9.3

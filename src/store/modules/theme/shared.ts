@@ -1,6 +1,5 @@
 import type { GlobalThemeOverrides } from 'naive-ui';
-import { getColorByPaletteNumber, getColorPalette } from '@sa/color-palette';
-import { addColorAlpha, getRgbOfColor } from '@sa/utils';
+import { addColorAlpha, getColorPalette, getPaletteColorByNumber, getRgb } from '@sa/color';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 import { toggleHtmlClass } from '@/utils/common';
@@ -77,17 +76,17 @@ export function createThemeToken(colors: App.Theme.ThemeColor) {
  *
  * @param colors Theme colors
  */
-function createThemePaletteColors(colors: App.Theme.ThemeColor) {
+function createThemePaletteColors(colors: App.Theme.ThemeColor, recommended = false) {
   const colorKeys = Object.keys(colors) as App.Theme.ThemeColorKey[];
   const colorPaletteVar = {} as App.Theme.ThemePaletteColor;
 
   colorKeys.forEach(key => {
-    const { palettes, main } = getColorPalette(colors[key]);
+    const colorMap = getColorPalette(colors[key], recommended);
 
-    colorPaletteVar[key] = main.hex;
+    colorPaletteVar[key] = colorMap.get(500)!;
 
-    palettes.forEach(item => {
-      colorPaletteVar[`${key}-${item.number}`] = item.hex;
+    colorMap.forEach((hex, number) => {
+      colorPaletteVar[`${key}-${number}`] = hex;
     });
   });
 
@@ -117,7 +116,7 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
 
       if (key === 'colors') {
         cssVarsKey = removeRgbPrefix(cssVarsKey);
-        const { r, g, b } = getRgbOfColor(cssValue);
+        const { r, g, b } = getRgb(cssValue);
         cssValue = `${r} ${g} ${b}`;
       }
 
@@ -207,12 +206,12 @@ interface NaiveColorAction {
  *
  * @param colors Theme colors
  */
-function getNaiveThemeColors(colors: App.Theme.ThemeColor) {
+function getNaiveThemeColors(colors: App.Theme.ThemeColor, recommended = false) {
   const colorActions: NaiveColorAction[] = [
     { scene: '', handler: color => color },
     { scene: 'Suppl', handler: color => color },
-    { scene: 'Hover', handler: color => getColorByPaletteNumber(color, 500) },
-    { scene: 'Pressed', handler: color => getColorByPaletteNumber(color, 700) },
+    { scene: 'Hover', handler: color => getPaletteColorByNumber(color, 500, recommended) },
+    { scene: 'Pressed', handler: color => getPaletteColorByNumber(color, 700, recommended) },
     { scene: 'Active', handler: color => addColorAlpha(color, 0.1) }
   ];
 

@@ -2,7 +2,7 @@ import { computed, effectScope, onScopeDispose, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
 import { useEventListener, usePreferredColorScheme } from '@vueuse/core';
-import { getColorPalette } from '@sa/color-palette';
+import { getPaletteColorByNumber } from '@sa/color';
 import { SetupStoreId } from '@/enum';
 import { localStg } from '@/utils/storage';
 import {
@@ -99,13 +99,18 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    * @param color Theme color
    */
   function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
-    // get a color palette by provided color and color name, and use the suitable color
-    const { main } = getColorPalette(color);
+    let colorValue = color;
+
+    if (settings.value.recommendColor) {
+      // get a color palette by provided color and color name, and use the suitable color
+
+      colorValue = getPaletteColorByNumber(color, 500, true);
+    }
 
     if (key === 'primary') {
-      settings.value.themeColor = main.hex;
+      settings.value.themeColor = colorValue;
     } else {
-      settings.value.otherColor[key] = main.hex;
+      settings.value.otherColor[key] = colorValue;
     }
   }
 
