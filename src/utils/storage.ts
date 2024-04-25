@@ -1,7 +1,9 @@
 import { createLocalforage, createStorage } from '@sa/utils';
 
-export const localStg = createStorage<StorageType.Local>('local');
+const storagePrefix = import.meta.env.VITE_STORAGE_PREFIX || '';
 
-export const sessionStg = createStorage<StorageType.Session>('session');
+export const localStg = createStorage<StorageType.Local>('local', storagePrefix);
+
+export const sessionStg = createStorage<StorageType.Session>('session', storagePrefix);
 
 export const localforage = createLocalforage<StorageType.Local>('local');
