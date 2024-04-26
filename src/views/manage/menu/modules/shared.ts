@@ -40,3 +40,21 @@ export function transformLayoutAndPageToComponent(layout: string, page: string) 
 
   return '';
 }
+
+export function transformToQueryObject(data: Record<string, string>[]) {
+  const query: Record<string, string> = {};
+  data.forEach(pair => {
+    if (pair.key && pair.value) {
+      query[pair.key] = pair.value;
+    }
+  });
+  return query;
+}
+
+export function transformToKeyValuePairs(query?: Record<string, string>) {
+  const safeQuery = query || {};
+  return Object.entries(safeQuery).map(([key, value]) => ({
+    key,
+    value
+  }));
+}

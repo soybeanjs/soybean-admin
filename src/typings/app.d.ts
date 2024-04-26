@@ -539,12 +539,15 @@ declare namespace App {
             localIcon: string;
             iconTypeTitle: string;
             order: string;
+            constant: string;
             keepAlive: string;
             href: string;
             hideInMenu: string;
             activeMenu: string;
             multiTab: string;
             fixedIndexInTab: string;
+            roles: string;
+            query: string;
             button: string;
             buttonCode: string;
             buttonDesc: string;
@@ -568,6 +571,9 @@ declare namespace App {
               multiTab: string;
               fixedInTab: string;
               fixedIndexInTab: string;
+              roles: string;
+              queryKey: string;
+              queryValue: string;
               button: string;
               buttonCode: string;
               buttonDesc: string;
