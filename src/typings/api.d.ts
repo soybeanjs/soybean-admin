@@ -198,6 +198,12 @@ declare namespace Api {
       order: number;
       /** whether to cache the route */
       keepAlive?: boolean;
+      /**
+       * Is constant route
+       *
+       * Does not need to login, and the route is defined in the front-end
+       */
+      constant?: boolean;
       /** outer link */
       href?: string;
       /** whether to hide the route in the menu */
@@ -215,8 +221,16 @@ declare namespace Api {
       multiTab?: boolean;
       /** If set, the route will be fixed in tabs, and the value is the order of fixed tabs */
       fixedIndexInTab?: number;
+      /** if set query parameters, it will be automatically carried when entering the route */
+      query: Record<string, string>;
       /** menu buttons */
       buttons?: MenuButton[];
+      /**
+       * Roles of the route
+       *
+       * Route can be accessed if the current user has at least one of the roles
+       */
+      roles?: string[];
       /** children menu */
       children?: Menu[];
     }>;
