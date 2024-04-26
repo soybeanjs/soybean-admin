@@ -58,7 +58,7 @@ declare module 'vue-router' {
     /** By default, the same route path will use one tab, if set to true, it will use multiple tabs */
     multiTab?: boolean;
     /** If set, the route will be fixed in tabs, and the value is the order of fixed tabs */
-    fixedIndexInTab?: number;
+    fixedIndexInTab?: number | null;
     /** if set query parameters, it will be automatically carried when entering the route */
     query?: Record<string, string>;
   }
