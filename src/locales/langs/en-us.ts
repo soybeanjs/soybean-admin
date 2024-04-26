@@ -287,6 +287,12 @@ const local: App.I18n.Schema = {
         superAdminVisible: 'Super Admin Visible',
         adminVisible: 'Admin Visible',
         adminOrUserVisible: 'Admin and User Visible'
+      },
+      request: {
+        repeatedErrorOccurOnce: 'Repeated Request Error Occurs Once',
+        repeatedError: 'Repeated Request Error',
+        repeatedErrorMsg1: 'Custom Request Error 1',
+        repeatedErrorMsg2: 'Custom Request Error 2'
       }
     },
     manage: {

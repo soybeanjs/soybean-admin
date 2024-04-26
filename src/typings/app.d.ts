@@ -472,6 +472,12 @@ declare namespace App {
             adminVisible: string;
             adminOrUserVisible: string;
           };
+          request: {
+            repeatedErrorOccurOnce: string;
+            repeatedError: string;
+            repeatedErrorMsg1: string;
+            repeatedErrorMsg2: string;
+          };
         };
         manage: {
           common: {
