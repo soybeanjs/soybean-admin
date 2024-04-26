@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   icon: '',
   tooltipContent: '',
   tooltipPlacement: 'bottom',
-  zIndex: 99
+  zIndex: 98
 });
 
 interface ButtonProps {
