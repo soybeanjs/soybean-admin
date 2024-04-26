@@ -105,7 +105,7 @@ function createDefaultModel(): Model {
     keepAlive: false,
     href: '',
     multiTab: false,
-    fixedIndexInTab: 0,
+    fixedIndexInTab: null,
     roles: [],
     buttons: [],
     query: {}
