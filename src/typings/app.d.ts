@@ -198,7 +198,7 @@ declare namespace App {
       /** The tab route full path */
       fullPath: string;
       /** The tab fixed index */
-      fixedIndex?: number;
+      fixedIndex?: number | null;
       /**
        * Tab icon
        *
