@@ -19,6 +19,7 @@ const defaultOptions: CliOption = {
     ['style', 'Changes that do not affect the meaning of the code'],
     ['refactor', 'A code change that neither fixes a bug nor adds a feature'],
     ['perf', 'A code change that improves performance'],
+    ['optimize', 'A code change that optimizes code quality'],
     ['test', 'Adding missing tests or correcting existing tests'],
     ['build', 'Changes that affect the build system or external dependencies'],
     ['ci', 'Changes to our CI configuration files and scripts'],
@@ -27,6 +28,7 @@ const defaultOptions: CliOption = {
   ],
   gitCommitScopes: [
     ['projects', 'project'],
+    ['packages', 'packages'],
     ['components', 'components'],
     ['hooks', 'hook functions'],
     ['utils', 'utils functions'],
