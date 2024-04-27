@@ -1,6 +1,30 @@
 # Changelog
 
 
+## [v1.0.8](https://github.com/soybeanjs/soybean-admin/compare/v1.0.7...v1.0.8) (2024-04-27)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **components**:
+  - fix PinToggler label. fixed #407 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/407 [<samp>(c0ed1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c0ed1f2)
+- **projects**:
+  - text level low. #409 &nbsp;-&nbsp; by **alleycharming** in https://github.com/soybeanjs/soybean-admin/issues/409 [<samp>(3ddb1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3ddb17a)
+  - fix tab fixedIndex as null case &nbsp;-&nbsp; by **paynezhuang** [<samp>(4708e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4708ede)
+  - recovery the layout config before is mobile. fixed #408, fixed #361 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/408 and https://github.com/soybeanjs/soybean-admin/issues/361 [<samp>(dae2a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dae2aa5)
+
+### &nbsp;&nbsp;&nbsp;🔥 Performance
+
+- **projects**: perf judgement the fixed tab &nbsp;-&nbsp; by @honghuangdc [<samp>(b3e9b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b3e9bba)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**: `Soybean Admin` to `SoybeanAdmin` &nbsp;-&nbsp; by @honghuangdc [<samp>(a8dbc)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a8dbc03)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[paynezhuang](mailto:paynezhuang@gmail.com),&nbsp;[alleycharming](mailto:alleycharming@gmail.com)
+
 ## [v1.0.7](https://github.com/soybeanjs/soybean-admin/compare/v1.0.6...v1.0.7) (2024-04-25)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
