@@ -32,5 +32,10 @@ declare namespace StorageType {
     overrideThemeFlag: string;
     /** The global tabs */
     globalTabs: App.Global.Tab[];
+    /** The backup theme setting before is mobile */
+    backupThemeSettingBeforeIsMobile: {
+      layout: UnionKey.ThemeLayoutMode;
+      siderCollapse: boolean;
+    };
   }
 }

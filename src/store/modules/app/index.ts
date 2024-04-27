@@ -1,4 +1,4 @@
-import { effectScope, onScopeDispose, ref, watch } from 'vue';
+import { effectScope, nextTick, onScopeDispose, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { breakpointsTailwind, useBreakpoints, useEventListener, useTitle } from '@vueuse/core';
 import { useBoolean } from '@sa/hooks';
@@ -87,9 +87,26 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
       isMobile,
       newValue => {
         if (newValue) {
-          setSiderCollapse(true);
+          // backup theme setting before is mobile
+          localStg.set('backupThemeSettingBeforeIsMobile', {
+            layout: themeStore.layout.mode,
+            siderCollapse: siderCollapse.value
+          });
 
           themeStore.setThemeLayout('vertical');
+          setSiderCollapse(true);
+        } else {
+          // when is not mobile, recover the backup theme setting
+          const backup = localStg.get('backupThemeSettingBeforeIsMobile');
+
+          if (backup) {
+            nextTick(() => {
+              themeStore.setThemeLayout(backup.layout);
+              setSiderCollapse(backup.siderCollapse);
+
+              localStg.remove('backupThemeSettingBeforeIsMobile');
+            });
+          }
         }
       },
       { immediate: true }
