@@ -106,6 +106,14 @@ pnpm dev
 pnpm build
 ```
 
+## Ecosystem
+
+- [electron-mock-admin](https://github.com/lixin59/electron-mock-api): A Mock Api management system that helps front-end developers quickly implement interface mocks.
+- [T-Shell](https://github.com/TheBlindM/T-Shell): A terminal emulator and SSH client with configurable command prompts.
+- [pea](https://github.com/haitang1894/pea) : Adopting SpringBoot3.2 + JDK21, MyBatis-Plus, SpringSecurity security framework, etc., suitable for the simple permission system developed by [soybean-admin](https://gitee.com/honghuangdc/soybean-admin).
+- [MalusAdmin](https://github.com/pridejoy/MalusAdmin): A backend management framework developed based on Vue3/TypeScript/NaiveUI and NET7 & Sqlsugar. It is implemented in the most original and simplest way, with a fresh and elegant front-end, a clear and elegant backend structure, and powerful functions.
+
+
 ## How to Contribute
 
 We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) or creating GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new).
