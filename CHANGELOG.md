@@ -1,6 +1,36 @@
 # Changelog
 
 
+## [v1.0.9](https://github.com/soybeanjs/soybean-admin/compare/v1.0.8...v1.0.9) (2024-05-05)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **packages**: @sa/scripts: add new commit type `optimize` and commit scope `packages` &nbsp;-&nbsp; by @honghuangdc [<samp>(fbc2e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fbc2e61)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: fix manage page drawer operate about data reset. fixed #415, fixed #417 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/415 and https://github.com/soybeanjs/soybean-admin/issues/417 [<samp>(f4513)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f4513e1)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - add ecosystem to README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(d0f17)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d0f17a4)
+  - add PanisAdmin to README &nbsp;-&nbsp; by **paynezhuang** [<samp>(ce2a7)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ce2a75b)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(413a8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/413a8b2)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(734ef)</samp>](https://github.com/soybeanjs/soybean-admin/commit/734ef98)
+- **projects**:
+  - update .npmrc &nbsp;-&nbsp; by @honghuangdc [<samp>(52188)</samp>](https://github.com/soybeanjs/soybean-admin/commit/52188d8)
+  - update vscode settings &nbsp;-&nbsp; by @honghuangdc [<samp>(c137b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c137b97)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[paynezhuang](mailto:paynezhuang@gmail.com)
+
 ## [v1.0.8](https://github.com/soybeanjs/soybean-admin/compare/v1.0.7...v1.0.8) (2024-04-27)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
