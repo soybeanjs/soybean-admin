@@ -16,15 +16,22 @@ export function getAllTabs(tabs: App.Global.Tab[], homeTab?: App.Global.Tab) {
 
   const filterHomeTabs = tabs.filter(tab => tab.id !== homeTab.id);
 
-  const fixedTabs = filterHomeTabs
-    .filter(tab => tab.fixedIndex !== undefined)
-    .sort((a, b) => a.fixedIndex! - b.fixedIndex!);
+  const fixedTabs = filterHomeTabs.filter(isFixedTab).sort((a, b) => a.fixedIndex! - b.fixedIndex!);
 
-  const remainTabs = filterHomeTabs.filter(tab => tab.fixedIndex === undefined);
+  const remainTabs = filterHomeTabs.filter(tab => !isFixedTab(tab));
 
   const allTabs = [homeTab, ...fixedTabs, ...remainTabs];
 
   return updateTabsLabel(allTabs);
+}
+
+/**
+ * Is fixed tab
+ *
+ * @param tab
+ */
+function isFixedTab(tab: App.Global.Tab) {
+  return tab.fixedIndex !== undefined && tab.fixedIndex !== null;
 }
 
 /**
@@ -177,7 +184,7 @@ export function extractTabsByAllRoutes(router: Router, tabs: App.Global.Tab[]) {
  * @param tabs
  */
 export function getFixedTabs(tabs: App.Global.Tab[]) {
-  return tabs.filter(tab => tab.fixedIndex !== undefined);
+  return tabs.filter(isFixedTab);
 }
 
 /**

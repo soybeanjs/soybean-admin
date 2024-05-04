@@ -1,6 +1,113 @@
 # Changelog
 
 
+## [v1.0.9](https://github.com/soybeanjs/soybean-admin/compare/v1.0.8...v1.0.9) (2024-05-05)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **packages**: @sa/scripts: add new commit type `optimize` and commit scope `packages` &nbsp;-&nbsp; by @honghuangdc [<samp>(fbc2e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fbc2e61)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: fix manage page drawer operate about data reset. fixed #415, fixed #417 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/415 and https://github.com/soybeanjs/soybean-admin/issues/417 [<samp>(f4513)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f4513e1)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - add ecosystem to README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(d0f17)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d0f17a4)
+  - add PanisAdmin to README &nbsp;-&nbsp; by **paynezhuang** [<samp>(ce2a7)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ce2a75b)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(413a8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/413a8b2)
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(734ef)</samp>](https://github.com/soybeanjs/soybean-admin/commit/734ef98)
+- **projects**:
+  - update .npmrc &nbsp;-&nbsp; by @honghuangdc [<samp>(52188)</samp>](https://github.com/soybeanjs/soybean-admin/commit/52188d8)
+  - update vscode settings &nbsp;-&nbsp; by @honghuangdc [<samp>(c137b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c137b97)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[paynezhuang](mailto:paynezhuang@gmail.com)
+
+## [v1.0.8](https://github.com/soybeanjs/soybean-admin/compare/v1.0.7...v1.0.8) (2024-04-27)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **components**:
+  - fix PinToggler label. fixed #407 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/407 [<samp>(c0ed1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c0ed1f2)
+- **projects**:
+  - text level low. #409 &nbsp;-&nbsp; by **alleycharming** in https://github.com/soybeanjs/soybean-admin/issues/409 [<samp>(3ddb1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3ddb17a)
+  - fix tab fixedIndex as null case &nbsp;-&nbsp; by **paynezhuang** [<samp>(4708e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4708ede)
+  - recovery the layout config before is mobile. fixed #408, fixed #361 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/408 and https://github.com/soybeanjs/soybean-admin/issues/361 [<samp>(dae2a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dae2aa5)
+
+### &nbsp;&nbsp;&nbsp;🔥 Performance
+
+- **projects**: perf judgement the fixed tab &nbsp;-&nbsp; by @honghuangdc [<samp>(b3e9b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b3e9bba)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**: `Soybean Admin` to `SoybeanAdmin` &nbsp;-&nbsp; by @honghuangdc [<samp>(a8dbc)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a8dbc03)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[paynezhuang](mailto:paynezhuang@gmail.com),&nbsp;[alleycharming](mailto:alleycharming@gmail.com)
+
+## [v1.0.7](https://github.com/soybeanjs/soybean-admin/compare/v1.0.6...v1.0.7) (2024-04-25)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: support iframe page with diffrent url of custom route &nbsp;-&nbsp; by @honghuangdc [<samp>(da12d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/da12d4a)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(fbd80)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fbd80c2)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
+## [v1.0.6](https://github.com/soybeanjs/soybean-admin/compare/v1.0.5...v1.0.6) (2024-04-25)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **hooks**: add state hooks: useRef, useState, useSignal &nbsp;-&nbsp; by @honghuangdc [<samp>(09f64)</samp>](https://github.com/soybeanjs/soybean-admin/commit/09f6464)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - added responseType judgment. #396 &nbsp;-&nbsp; by **alleycharming** in https://github.com/soybeanjs/soybean-admin/issues/396 [<samp>(82eab)</samp>](https://github.com/soybeanjs/soybean-admin/commit/82eabab)
+  - supply $t import statement &nbsp;-&nbsp; by @honghuangdc [<samp>(b2660)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b266035)
+  - fix mix-menu blank. fixed #389 & cache mixMenuFixed &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/389 [<samp>(93c7f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/93c7ff7)
+
+### &nbsp;&nbsp;&nbsp;🔥 Performance
+
+- **hooks**:
+  - perf useSignal &nbsp;-&nbsp; by @honghuangdc [<samp>(5d45c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5d45cef)
+- **projects**:
+  - remove useless prop `title` of `NDrawer` &nbsp;-&nbsp; by @honghuangdc [<samp>(fdde6)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fdde679)
+  - add tsconfig.json for @sa/color-palette &nbsp;-&nbsp; by @honghuangdc [<samp>(d460e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d460e5c)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **hooks**: refactor useSignal, useComputed &nbsp;-&nbsp; by @honghuangdc [<samp>(3b5e4)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3b5e4b3)
+- **projects**: useMixMenuContext replace useMixMenu &nbsp;-&nbsp; by @honghuangdc [<samp>(1e142)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1e14293)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(e57bf)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e57bf0b)
+- **projects**:
+  - use `engines` replace `packageManager` &nbsp;-&nbsp; by @honghuangdc [<samp>(dcd51)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dcd51f4)
+  - update pnpm version requirement &nbsp;-&nbsp; by @honghuangdc [<samp>(19e65)</samp>](https://github.com/soybeanjs/soybean-admin/commit/19e65c1)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[alleycharming](mailto:alleycharming@gmail.com)
+
 ## [v1.0.5](https://github.com/honghuangdc/soybean-admin/compare/v1.0.4...v1.0.5) (2024-04-24)
 
 ### &nbsp;&nbsp;&nbsp;📖 Documentation

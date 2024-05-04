@@ -14,6 +14,8 @@ declare namespace StorageType {
     lang: App.I18n.LangType;
     /** The token */
     token: string;
+    /** Fixed sider with mix-menu */
+    mixSiderFixed: CommonType.YesOrNo;
     /** The refresh token */
     refreshToken: string;
     /** The user info */
@@ -30,5 +32,10 @@ declare namespace StorageType {
     overrideThemeFlag: string;
     /** The global tabs */
     globalTabs: App.Global.Tab[];
+    /** The backup theme setting before is mobile */
+    backupThemeSettingBeforeIsMobile: {
+      layout: UnionKey.ThemeLayoutMode;
+      siderCollapse: boolean;
+    };
   }
 }

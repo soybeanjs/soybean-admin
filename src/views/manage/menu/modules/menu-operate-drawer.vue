@@ -187,20 +187,18 @@ async function getRoleOptions() {
   }
 }
 
-function handleUpdateModel() {
-  if (props.operateType === 'add') {
-    Object.assign(model, createDefaultModel());
+function handleInitModel() {
+  Object.assign(model, createDefaultModel());
 
-    return;
-  }
+  if (!props.rowData) return;
 
-  if (props.operateType === 'addChild' && props.rowData) {
+  if (props.operateType === 'addChild') {
     const { id } = props.rowData;
 
-    Object.assign(model, createDefaultModel(), { parentId: id });
+    Object.assign(model, { parentId: id });
   }
 
-  if (props.operateType === 'edit' && props.rowData) {
+  if (props.operateType === 'edit') {
     const { component, query, ...rest } = props.rowData;
 
     const { layout, page } = getLayoutAndPage(component);
@@ -233,7 +231,7 @@ async function handleSubmit() {
 
 watch(visible, () => {
   if (visible.value) {
-    handleUpdateModel();
+    handleInitModel();
     restoreValidation();
     getRoleOptions();
   }
@@ -241,9 +239,9 @@ watch(visible, () => {
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" :width="400">
-    <NDrawerContent :title="title" :native-scrollbar="false" closable>
-      <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="80">
+  <NModal v-model:show="visible" :title="title" preset="card" class="w-720px">
+    <NScrollbar class="h-400px">
+      <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="100">
         <NGrid>
           <NFormItemGi span="12" :label="$t('page.manage.menu.menuType')" path="menuType">
             <NRadioGroup v-model:value="model.menuType" :disabled="disabledMenuType">
@@ -384,14 +382,14 @@ watch(visible, () => {
           </NFormItemGi>
         </NGrid>
       </NForm>
-      <template #footer>
-        <NSpace :size="16">
-          <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>
-          <NButton type="primary" @click="handleSubmit">{{ $t('common.confirm') }}</NButton>
-        </NSpace>
-      </template>
-    </NDrawerContent>
-  </NDrawer>
+    </NScrollbar>
+    <template #footer>
+      <NSpace justify="end" :size="16">
+        <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>
+        <NButton type="primary" @click="handleSubmit">{{ $t('common.confirm') }}</NButton>
+      </NSpace>
+    </template>
+  </NModal>
 </template>
 
 <style scoped></style>

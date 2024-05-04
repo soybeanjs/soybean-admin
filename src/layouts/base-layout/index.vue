@@ -18,6 +18,7 @@ defineOptions({
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
+const { menus } = setupMixMenuContext();
 
 const layoutMode = computed(() => {
   const vertical: LayoutMode = 'vertical';
@@ -65,7 +66,7 @@ function getSiderWidth() {
 
   let w = isVerticalMix.value || isHorizontalMix.value ? mixWidth : width;
 
-  if (isVerticalMix.value && appStore.mixSiderFixed) {
+  if (isVerticalMix.value && appStore.mixSiderFixed && menus.value.length) {
     w += mixChildMenuWidth;
   }
 
@@ -77,14 +78,12 @@ function getSiderCollapsedWidth() {
 
   let w = isVerticalMix.value || isHorizontalMix.value ? mixCollapsedWidth : collapsedWidth;
 
-  if (isVerticalMix.value && appStore.mixSiderFixed) {
+  if (isVerticalMix.value && appStore.mixSiderFixed && menus.value.length) {
     w += mixChildMenuWidth;
   }
 
   return w;
 }
-
-setupMixMenuContext();
 </script>
 
 <template>

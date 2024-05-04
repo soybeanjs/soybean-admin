@@ -2,10 +2,10 @@
 import { computed } from 'vue';
 import { useBoolean } from '@sa/hooks';
 import { useAppStore } from '@/store/modules/app';
-import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
-import { useMixMenu } from '../../hooks';
+import { $t } from '@/locales';
+import { useMixMenuContext } from '../../context';
 import FirstLevelMenu from './first-level-menu.vue';
 import BaseMenu from './base-menu.vue';
 
@@ -15,16 +15,15 @@ defineOptions({
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
-const routeStore = useRouteStore();
 const { routerPushByKey } = useRouterPush();
 const { bool: drawerVisible, setBool: setDrawerVisible } = useBoolean();
-const { activeFirstLevelMenuKey, setActiveFirstLevelMenuKey, getActiveFirstLevelMenuKey } = useMixMenu();
+const { menus, activeFirstLevelMenuKey, setActiveFirstLevelMenuKey, getActiveFirstLevelMenuKey } = useMixMenuContext();
 
 const siderInverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
 
-const menus = computed(() => routeStore.menus.find(menu => menu.key === activeFirstLevelMenuKey.value)?.children || []);
+const hasMenus = computed(() => menus.value.length > 0);
 
-const showDrawer = computed(() => (drawerVisible.value && menus.value.length) || appStore.mixSiderFixed);
+const showDrawer = computed(() => hasMenus.value && (drawerVisible.value || appStore.mixSiderFixed));
 
 function handleSelectMixMenu(menu: App.Global.Menu) {
   setActiveFirstLevelMenuKey(menu.key);
@@ -49,7 +48,7 @@ function handleResetActiveMenu() {
     </FirstLevelMenu>
     <div
       class="relative h-full transition-width-300"
-      :style="{ width: appStore.mixSiderFixed ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
+      :style="{ width: appStore.mixSiderFixed && hasMenus ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
     >
       <DarkModeContainer
         class="absolute-lt h-full flex-col-stretch nowrap-hidden shadow-sm transition-all-300"
