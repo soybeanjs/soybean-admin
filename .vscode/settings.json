@@ -13,7 +13,6 @@
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["src/locales/langs"],
   "prettier.enable": false,
-  "unocss.root": ["./"],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "vue.server.hybridMode": true
+  "unocss.root": ["./"]
 }
