@@ -89,11 +89,8 @@ async function getRoleOptions() {
   }
 }
 
-function handleUpdateModelWhenEdit() {
-  if (props.operateType === 'add') {
-    Object.assign(model, createDefaultModel());
-    return;
-  }
+function handleInitModel() {
+  Object.assign(model, createDefaultModel());
 
   if (props.operateType === 'edit' && props.rowData) {
     Object.assign(model, props.rowData);
@@ -114,7 +111,7 @@ async function handleSubmit() {
 
 watch(visible, () => {
   if (visible.value) {
-    handleUpdateModelWhenEdit();
+    handleInitModel();
     restoreValidation();
     getRoleOptions();
   }

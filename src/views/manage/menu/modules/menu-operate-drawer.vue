@@ -136,20 +136,18 @@ const layoutOptions: CommonType.Option[] = [
   }
 ];
 
-function handleUpdateModel() {
-  if (props.operateType === 'add') {
-    Object.assign(model, createDefaultModel());
+function handleInitModel() {
+  Object.assign(model, createDefaultModel());
 
-    return;
-  }
+  if (!props.rowData) return;
 
-  if (props.operateType === 'addChild' && props.rowData) {
+  if (props.operateType === 'addChild') {
     const { id } = props.rowData;
 
-    Object.assign(model, createDefaultModel(), { parentId: id });
+    Object.assign(model, { parentId: id });
   }
 
-  if (props.operateType === 'edit' && props.rowData) {
+  if (props.operateType === 'edit') {
     const { component, ...rest } = props.rowData;
 
     const { layout, page } = getLayoutAndPage(component);
@@ -175,7 +173,7 @@ async function handleSubmit() {
 
 watch(visible, () => {
   if (visible.value) {
-    handleUpdateModel();
+    handleInitModel();
     restoreValidation();
   }
 });
