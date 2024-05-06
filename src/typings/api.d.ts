@@ -171,6 +171,20 @@ declare namespace Api {
      */
     type IconType = '1' | '2';
 
+    type MenuPropsOfRoute = Pick<
+      import('vue-router').RouteMeta,
+      | 'i18nKey'
+      | 'keepAlive'
+      | 'constant'
+      | 'order'
+      | 'href'
+      | 'hideInMenu'
+      | 'activeMenu'
+      | 'multiTab'
+      | 'fixedIndexInTab'
+      | 'query'
+    >;
+
     type Menu = Common.CommonRecord<{
       /** parent menu id */
       parentId: number;
@@ -184,56 +198,16 @@ declare namespace Api {
       routePath: string;
       /** component */
       component?: string;
-      /**
-       * i18n key
-       *
-       * it is for internationalization
-       */
-      i18nKey?: App.I18n.I18nKey;
       /** iconify icon name or local icon name */
       icon: string;
       /** icon type */
       iconType: IconType;
-      /** menu order */
-      order: number;
-      /** whether to cache the route */
-      keepAlive?: boolean;
-      /**
-       * Is constant route
-       *
-       * Does not need to login, and the route is defined in the front-end
-       */
-      constant?: boolean;
-      /** outer link */
-      href?: string;
-      /** whether to hide the route in the menu */
-      hideInMenu?: boolean;
-      /**
-       * The menu key will be activated when entering the route
-       *
-       * The route is not in the menu
-       *
-       * @example
-       *   the route is "user_detail", if it is set to "user_list", the menu "user_list" will be activated
-       */
-      activeMenu?: import('@elegant-router/types').LastLevelRouteKey;
-      /** By default, the same route path will use one tab, if set to true, it will use multiple tabs */
-      multiTab?: boolean;
-      /** If set, the route will be fixed in tabs, and the value is the order of fixed tabs */
-      fixedIndexInTab?: number | null;
-      /** if set query parameters, it will be automatically carried when entering the route */
-      query: Record<string, string>;
-      /** menu buttons */
-      buttons?: MenuButton[];
-      /**
-       * Roles of the route
-       *
-       * Route can be accessed if the current user has at least one of the roles
-       */
-      roles?: string[];
+      /** buttons */
+      buttons?: MenuButton[] | null;
       /** children menu */
-      children?: Menu[];
-    }>;
+      children?: Menu[] | null;
+    }> &
+      MenuPropsOfRoute;
 
     /** menu list */
     type MenuList = Common.PaginatingQueryRecord<Menu>;
