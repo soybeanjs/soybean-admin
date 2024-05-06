@@ -92,6 +92,7 @@ function handleClickMixMenu(menu: App.Global.Menu) {
     <MenuToggler
       arrow-icon
       :collapsed="appStore.siderCollapse"
+      :z-index="99"
       :class="{ 'text-white:88 !hover:text-white': inverted }"
       @click="appStore.toggleSiderCollapse"
     />
