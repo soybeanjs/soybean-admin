@@ -30,18 +30,6 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
   });
 }
 
-/**
- * get menu list
- *
- * @deprecated this will removed in next version 1.1.0
- */
-export function fetchGetMenuListV1() {
-  return request<Api.SystemManage.Menu[]>({
-    url: '/systemManage/getMenuList',
-    method: 'get'
-  });
-}
-
 /** get menu list */
 export function fetchGetMenuList() {
   return request<Api.SystemManage.MenuList>({
