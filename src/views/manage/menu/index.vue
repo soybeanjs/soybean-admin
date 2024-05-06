@@ -10,11 +10,11 @@ import { $t } from '@/locales';
 import { yesOrNoRecord } from '@/constants/common';
 import { enableStatusRecord, menuTypeRecord } from '@/constants/business';
 import SvgIcon from '@/components/custom/svg-icon.vue';
-import MenuOperateDrawer, { type OperateType } from './modules/menu-operate-drawer.vue';
+import MenuOperateModal, { type OperateType } from './modules/menu-operate-modal.vue';
 
 const appStore = useAppStore();
 
-const { bool: drawerVisible, setTrue: openDrawer, setFalse: _closeDrawer } = useBoolean();
+const { bool: visible, setTrue: openModal } = useBoolean();
 
 const wrapperRef = ref<HTMLElement | null>(null);
 
@@ -176,7 +176,7 @@ const operateType = ref<OperateType>('add');
 
 function handleAdd() {
   operateType.value = 'add';
-  openDrawer();
+  openModal();
 }
 
 async function handleBatchDelete() {
@@ -200,7 +200,7 @@ function handleEdit(item: Api.SystemManage.Menu) {
   operateType.value = 'edit';
   editingData.value = { ...item };
 
-  openDrawer();
+  openModal();
 }
 
 function handleAddChildMenu(item: Api.SystemManage.Menu) {
@@ -208,7 +208,7 @@ function handleAddChildMenu(item: Api.SystemManage.Menu) {
 
   editingData.value = { ...item };
 
-  openDrawer();
+  openModal();
 }
 
 const allPages = ref<string[]>([]);
@@ -252,8 +252,8 @@ init();
         :pagination="pagination"
         class="sm:h-full"
       />
-      <MenuOperateDrawer
-        v-model:visible="drawerVisible"
+      <MenuOperateModal
+        v-model:visible="visible"
         :operate-type="operateType"
         :row-data="editingData"
         :all-pages="allPages"

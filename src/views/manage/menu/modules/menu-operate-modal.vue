@@ -16,7 +16,7 @@ import {
 } from './shared';
 
 defineOptions({
-  name: 'MenuOperateDrawer'
+  name: 'MenuOperateModal'
 });
 
 export type OperateType = NaiveUI.TableOperateType | 'addChild';
