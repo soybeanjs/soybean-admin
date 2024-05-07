@@ -331,6 +331,29 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'plugin',
+    path: '/plugin',
+    component: 'layout.base',
+    meta: {
+      title: '插件示例',
+      i18nKey: 'route.plugin',
+      order: 7,
+      icon: 'clarity:plugin-line',
+    },
+    children: [
+      {
+        name: 'plugin_copy',
+        path: '/plugin/copy',
+        component: 'view.plugin_copy',
+        meta: {
+          title: '剪贴板',
+          icon: 'mdi:clipboard-outline',
+          i18nKey: 'route.plugin_copy',
+        }
+      }
+    ]
+  },
+  {
     name: 'user-center',
     path: '/user-center',
     component: 'layout.base$view.user-center',
