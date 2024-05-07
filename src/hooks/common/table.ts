@@ -20,6 +20,8 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
 
   const SELECTION_KEY = '__selection__';
 
+  const EXPAND_KEY = '__expand__';
+
   const {
     loading,
     empty,
@@ -68,6 +70,12 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
             title: $t('common.check'),
             checked: true
           });
+        } else if (column.type === 'expand') {
+          checks.push({
+            key: EXPAND_KEY,
+            title: $t('common.expandColumn'),
+            checked: true
+          });
         }
       });
 
@@ -81,6 +89,8 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
           columnMap.set(column.key as string, column);
         } else if (column.type === 'selection') {
           columnMap.set(SELECTION_KEY, column);
+        } else if (column.type === 'expand') {
+          columnMap.set(EXPAND_KEY, column);
         }
       });
 

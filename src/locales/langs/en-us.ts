@@ -11,6 +11,7 @@ const local: App.I18n.Schema = {
     cancel: 'Cancel',
     close: 'Close',
     check: 'Check',
+    expandColumn: 'Expand Column',
     columnSetting: 'Column Setting',
     config: 'Config',
     confirm: 'Confirm',
