@@ -367,9 +367,90 @@ export const generatedRoutes: GeneratedRoute[] = [
         path: '/plugin/copy',
         component: 'view.plugin_copy',
         meta: {
-          title: '剪贴板',
-          icon: 'mdi:clipboard-outline',
-          i18nKey: 'route.plugin_copy'
+          title: 'plugin_copy',
+          i18nKey: 'route.plugin_copy',
+          icon: 'mdi:clipboard-outline'
+        }
+      },
+      {
+        name: 'plugin_editor',
+        path: '/plugin/editor',
+        meta: {
+          title: 'plugin_editor',
+          i18nKey: 'route.plugin_editor',
+          icon: 'icon-park-outline:editor'
+        },
+        children: [
+          {
+            name: 'plugin_editor_markdown',
+            path: '/plugin/editor/markdown',
+            component: 'view.plugin_editor_markdown',
+            meta: {
+              title: 'plugin_editor_markdown',
+              i18nKey: 'route.plugin_editor_markdown',
+              icon: 'ri:markdown-line'
+            }
+          },
+          {
+            name: 'plugin_editor_quill',
+            path: '/plugin/editor/quill',
+            component: 'view.plugin_editor_quill',
+            meta: {
+              title: 'plugin_editor_quill',
+              i18nKey: 'route.plugin_editor_quill',
+              icon: 'mdi:file-document-edit-outline'
+            }
+          }
+        ]
+      },
+      {
+        name: 'plugin_icon',
+        path: '/plugin/icon',
+        component: 'view.plugin_icon',
+        meta: {
+          title: 'plugin_icon',
+          i18nKey: 'route.plugin_icon',
+          localIcon: 'custom-icon'
+        }
+      },
+      {
+        name: 'plugin_map',
+        path: '/plugin/map',
+        component: 'view.plugin_map',
+        meta: {
+          title: 'plugin_map',
+          i18nKey: 'route.plugin_map',
+          icon: 'mdi:map'
+        }
+      },
+      {
+        name: 'plugin_print',
+        path: '/plugin/print',
+        component: 'view.plugin_print',
+        meta: {
+          title: 'plugin_print',
+          i18nKey: 'route.plugin_print',
+          icon: 'mdi:printer'
+        }
+      },
+      {
+        name: 'plugin_swiper',
+        path: '/plugin/swiper',
+        component: 'view.plugin_swiper',
+        meta: {
+          title: 'plugin_swiper',
+          i18nKey: 'route.plugin_swiper',
+          icon: 'simple-icons:swiper'
+        }
+      },
+      {
+        name: 'plugin_video',
+        path: '/plugin/video',
+        component: 'view.plugin_video',
+        meta: {
+          title: 'plugin_video',
+          i18nKey: 'route.plugin_video',
+          icon: 'mdi:video'
         }
       }
     ]

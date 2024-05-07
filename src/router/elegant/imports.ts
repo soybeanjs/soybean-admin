@@ -38,5 +38,12 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   "multi-menu_second_child_home": () => import("@/views/multi-menu/second_child_home/index.vue"),
   plugin_charts_echarts: () => import("@/views/plugin/charts/echarts/index.vue"),
   plugin_copy: () => import("@/views/plugin/copy/index.vue"),
+  plugin_editor_markdown: () => import("@/views/plugin/editor/markdown/index.vue"),
+  plugin_editor_quill: () => import("@/views/plugin/editor/quill/index.vue"),
+  plugin_icon: () => import("@/views/plugin/icon/index.vue"),
+  plugin_map: () => import("@/views/plugin/map/index.vue"),
+  plugin_print: () => import("@/views/plugin/print/index.vue"),
+  plugin_swiper: () => import("@/views/plugin/swiper/index.vue"),
+  plugin_video: () => import("@/views/plugin/video/index.vue"),
   "user-center": () => import("@/views/user-center/index.vue"),
 };

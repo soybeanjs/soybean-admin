@@ -181,7 +181,15 @@ const local: App.I18n.Schema = {
     plugin: 'Plugin',
     plugin_copy: 'Copy',
     plugin_charts: 'Charts',
-    plugin_charts_echarts: 'ECharts'
+    plugin_charts_echarts: 'ECharts',
+    plugin_editor: 'Editor',
+    plugin_editor_quill: 'Quill',
+    plugin_editor_markdown: 'Markdown',
+    plugin_icon: 'Icon',
+    plugin_map: 'Map',
+    plugin_print: 'Print',
+    plugin_swiper: 'Swiper',
+    plugin_video: 'Video'
   },
   page: {
     login: {

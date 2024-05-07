@@ -61,6 +61,14 @@ declare module "@elegant-router/types" {
     "plugin_charts": "/plugin/charts";
     "plugin_charts_echarts": "/plugin/charts/echarts";
     "plugin_copy": "/plugin/copy";
+    "plugin_editor": "/plugin/editor";
+    "plugin_editor_markdown": "/plugin/editor/markdown";
+    "plugin_editor_quill": "/plugin/editor/quill";
+    "plugin_icon": "/plugin/icon";
+    "plugin_map": "/plugin/map";
+    "plugin_print": "/plugin/print";
+    "plugin_swiper": "/plugin/swiper";
+    "plugin_video": "/plugin/video";
     "user-center": "/user-center";
   };
 
@@ -158,6 +166,13 @@ declare module "@elegant-router/types" {
     | "multi-menu_second_child_home"
     | "plugin_charts_echarts"
     | "plugin_copy"
+    | "plugin_editor_markdown"
+    | "plugin_editor_quill"
+    | "plugin_icon"
+    | "plugin_map"
+    | "plugin_print"
+    | "plugin_swiper"
+    | "plugin_video"
     | "user-center"
   >;
 
