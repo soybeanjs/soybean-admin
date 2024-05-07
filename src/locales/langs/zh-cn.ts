@@ -179,7 +179,9 @@ const local: App.I18n.Schema = {
     exception_404: '404',
     exception_500: '500',
     plugin: '插件示例',
-    plugin_copy: '剪贴板'
+    plugin_copy: '剪贴板',
+    plugin_charts: '图表',
+    plugin_charts_echart: 'ECharts'
   },
   page: {
     login: {

@@ -338,9 +338,30 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: '插件示例',
       i18nKey: 'route.plugin',
       order: 7,
-      icon: 'clarity:plugin-line',
+      icon: 'clarity:plugin-line'
     },
     children: [
+      {
+        name: 'plugin_charts',
+        path: '/plugin/charts',
+        meta: {
+          title: 'plugin_charts',
+          i18nKey: 'route.plugin_charts',
+          icon: 'mdi:chart-areaspline'
+        },
+        children: [
+          {
+            name: 'plugin_charts_echart',
+            path: '/plugin/charts/echart',
+            component: 'view.plugin_charts_echart',
+            meta: {
+              title: 'plugin_charts_echart',
+              i18nKey: 'route.plugin_charts_echart',
+              icon: 'simple-icons:apacheecharts'
+            }
+          }
+        ]
+      },
       {
         name: 'plugin_copy',
         path: '/plugin/copy',
@@ -348,7 +369,7 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: '剪贴板',
           icon: 'mdi:clipboard-outline',
-          i18nKey: 'route.plugin_copy',
+          i18nKey: 'route.plugin_copy'
         }
       }
     ]
