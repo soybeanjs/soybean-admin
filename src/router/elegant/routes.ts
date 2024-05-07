@@ -351,12 +351,12 @@ export const generatedRoutes: GeneratedRoute[] = [
         },
         children: [
           {
-            name: 'plugin_charts_echarts',
-            path: '/plugin/charts/echarts',
-            component: 'view.plugin_charts_echarts',
+            name: 'plugin_charts_echart',
+            path: '/plugin/charts/echart',
+            component: 'view.plugin_charts_echart',
             meta: {
-              title: 'plugin_charts_echarts',
-              i18nKey: 'route.plugin_charts_echarts',
+              title: 'plugin_charts_echart',
+              i18nKey: 'route.plugin_charts_echart',
               icon: 'simple-icons:apacheecharts'
             }
           }

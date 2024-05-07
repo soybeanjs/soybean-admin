@@ -181,7 +181,7 @@ const local: App.I18n.Schema = {
     plugin: '插件示例',
     plugin_copy: '剪贴板',
     plugin_charts: '图表',
-    plugin_charts_echarts: 'ECharts'
+    plugin_charts_echart: 'ECharts'
   },
   page: {
     login: {
