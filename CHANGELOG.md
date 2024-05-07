@@ -1,6 +1,31 @@
 # Changelog
 
 
+## [v1.1.0-beta.2](https://github.com/honghuangdc/soybean-admin/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2024-05-07)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: useTable adds expand to display &nbsp;-&nbsp; by **paynezhuang** [<samp>(0a90d)</samp>](https://github.com/honghuangdc/soybean-admin/commit/0a90dd3)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix manage_menu modal style &nbsp;-&nbsp; by @honghuangdc [<samp>(60f3b)</samp>](https://github.com/honghuangdc/soybean-admin/commit/60f3b14)
+  - fix menu data when role is changed. fixed #391 &nbsp;-&nbsp; by @honghuangdc in https://github.com/honghuangdc/soybean-admin/issues/391 [<samp>(3b47b)</samp>](https://github.com/honghuangdc/soybean-admin/commit/3b47b5a)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: remove deprecated code &nbsp;-&nbsp; by @honghuangdc [<samp>(72ccb)</samp>](https://github.com/honghuangdc/soybean-admin/commit/72ccb6b)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: add CHANGELOG.zh_CN.md &nbsp;-&nbsp; by @honghuangdc [<samp>(18b3f)</samp>](https://github.com/honghuangdc/soybean-admin/commit/18b3f05)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[paynezhuang](mailto:paynezhuang@gmail.com)
+
 ## [v1.1.0-beta.1](https://github.com/soybeanjs/soybean-admin/compare/v1.0.9...v1.1.0-beta.1) (2024-05-07)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
