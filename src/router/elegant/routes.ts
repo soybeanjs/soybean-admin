@@ -342,6 +342,27 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'plugin_charts',
+        path: '/plugin/charts',
+        meta: {
+          title: 'plugin_charts',
+          i18nKey: 'route.plugin_charts',
+          icon: 'mdi:chart-areaspline'
+        },
+        children: [
+          {
+            name: 'plugin_charts_echarts',
+            path: '/plugin/charts/echarts',
+            component: 'view.plugin_charts_echarts',
+            meta: {
+              title: 'plugin_charts_echarts',
+              i18nKey: 'route.plugin_charts_echarts',
+              icon: 'simple-icons:apacheecharts'
+            }
+          }
+        ]
+      },
+      {
         name: 'plugin_copy',
         path: '/plugin/copy',
         component: 'view.plugin_copy',
