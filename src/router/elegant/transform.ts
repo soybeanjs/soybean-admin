@@ -187,6 +187,14 @@ const routeMap: RouteMap = {
   "plugin_charts": "/plugin/charts",
   "plugin_charts_echarts": "/plugin/charts/echarts",
   "plugin_copy": "/plugin/copy",
+  "plugin_editor": "/plugin/editor",
+  "plugin_editor_markdown": "/plugin/editor/markdown",
+  "plugin_editor_quill": "/plugin/editor/quill",
+  "plugin_icon": "/plugin/icon",
+  "plugin_map": "/plugin/map",
+  "plugin_print": "/plugin/print",
+  "plugin_swiper": "/plugin/swiper",
+  "plugin_video": "/plugin/video",
   "user-center": "/user-center"
 };
 
