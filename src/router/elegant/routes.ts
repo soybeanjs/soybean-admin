@@ -338,7 +338,7 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: '插件示例',
       i18nKey: 'route.plugin',
       order: 7,
-      icon: 'clarity:plugin-line',
+      icon: 'clarity:plugin-line'
     },
     children: [
       {
@@ -348,7 +348,7 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: '剪贴板',
           icon: 'mdi:clipboard-outline',
-          i18nKey: 'route.plugin_copy',
+          i18nKey: 'route.plugin_copy'
         }
       }
     ]
