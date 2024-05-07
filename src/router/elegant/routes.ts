@@ -331,6 +331,41 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'plugins-example',
+    path: '/plugins-example',
+    component: 'layout.base',
+    meta: {
+      title: 'plugins-example',
+      i18nKey: 'route.plugins-example',
+      order: 6,
+      icon: 'clarity:plugin-line'
+    },
+    children: [
+      {
+        name: 'plugins-example_charts',
+        path: '/plugins-example/charts',
+        meta: {
+          title: 'plugins-example_charts',
+          i18nKey: 'route.plugins-example_charts',
+          icon: 'mdi:chart-areaspline'
+        },
+        children: [
+          {
+            name: 'plugins-example_charts_echarts',
+            path: '/plugins-example/charts/echarts',
+            component: 'view.plugins-example_charts_echarts',
+            meta: {
+              title: 'plugins-example_charts_echarts',
+              i18nKey: 'route.plugins-example_charts_echarts',
+              order: 1,
+              icon: 'simple-icons:apacheecharts'
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     name: 'user-center',
     path: '/user-center',
     component: 'layout.base$view.user-center',
