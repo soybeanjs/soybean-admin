@@ -261,6 +261,7 @@ declare namespace App {
         cancel: string;
         close: string;
         check: string;
+        expandColumn: string;
         columnSetting: string;
         config: string;
         confirm: string;
