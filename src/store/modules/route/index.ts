@@ -56,7 +56,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const constantRoutes = shallowRef<ElegantConstRoute[]>([]);
 
   function addConstantRoutes(routes: ElegantConstRoute[]) {
-    const constantRoutesMap = new Map(constantRoutes.value.map(route => [route.name, route]));
+    const constantRoutesMap = new Map<string, ElegantConstRoute>([]);
 
     routes.forEach(route => {
       constantRoutesMap.set(route.name, route);
@@ -69,7 +69,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const authRoutes = shallowRef<ElegantConstRoute[]>([]);
 
   function addAuthRoutes(routes: ElegantConstRoute[]) {
-    const authRoutesMap = new Map(authRoutes.value.map(route => [route.name, route]));
+    const authRoutesMap = new Map<string, ElegantConstRoute>([]);
 
     routes.forEach(route => {
       authRoutesMap.set(route.name, route);

@@ -362,6 +362,15 @@ export const generatedRoutes: GeneratedRoute[] = [
             }
           }
         ]
+      },
+      {
+        name: 'plugins-example_copy',
+        path: '/plugins-example/copy',
+        component: 'view.plugins-example_copy',
+        meta: {
+          title: 'plugins-example_copy',
+          i18nKey: 'route.plugins-example_copy'
+        }
       }
     ]
   },

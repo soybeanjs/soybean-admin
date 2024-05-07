@@ -37,5 +37,6 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   "multi-menu_first_child": () => import("@/views/multi-menu/first_child/index.vue"),
   "multi-menu_second_child_home": () => import("@/views/multi-menu/second_child_home/index.vue"),
   "plugins-example_charts_echarts": () => import("@/views/plugins-example/charts_echarts/index.vue"),
+  "plugins-example_copy": () => import("@/views/plugins-example/copy/index.vue"),
   "user-center": () => import("@/views/user-center/index.vue"),
 };

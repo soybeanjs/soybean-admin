@@ -11,6 +11,7 @@ const local: App.I18n.Schema = {
     cancel: 'Cancel',
     close: 'Close',
     check: 'Check',
+    expandColumn: 'Expand Column',
     columnSetting: 'Column Setting',
     config: 'Config',
     confirm: 'Confirm',
@@ -179,7 +180,8 @@ const local: App.I18n.Schema = {
     exception_500: '500',
     'plugins-example': 'Plugin-Example',
     'plugins-example_charts': 'Charts',
-    'plugins-example_charts_echarts': 'ECharts'
+    'plugins-example_charts_echarts': 'ECharts',
+    'plugins-example_copy': 'copy'
   },
   page: {
     login: {

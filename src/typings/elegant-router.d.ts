@@ -60,6 +60,7 @@ declare module "@elegant-router/types" {
     "plugins-example": "/plugins-example";
     "plugins-example_charts": "/plugins-example/charts";
     "plugins-example_charts_echarts": "/plugins-example/charts/echarts";
+    "plugins-example_copy": "/plugins-example/copy";
     "user-center": "/user-center";
   };
 
@@ -156,6 +157,7 @@ declare module "@elegant-router/types" {
     | "multi-menu_first_child"
     | "multi-menu_second_child_home"
     | "plugins-example_charts_echarts"
+    | "plugins-example_copy"
     | "user-center"
   >;
 

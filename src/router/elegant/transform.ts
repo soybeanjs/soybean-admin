@@ -186,6 +186,7 @@ const routeMap: RouteMap = {
   "plugins-example": "/plugins-example",
   "plugins-example_charts": "/plugins-example/charts",
   "plugins-example_charts_echarts": "/plugins-example/charts/echarts",
+  "plugins-example_copy": "/plugins-example/copy",
   "user-center": "/user-center"
 };
 

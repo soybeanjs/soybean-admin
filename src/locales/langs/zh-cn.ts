@@ -11,6 +11,7 @@ const local: App.I18n.Schema = {
     cancel: '取消',
     close: '关闭',
     check: '勾选',
+    expandColumn: '展开列',
     columnSetting: '列设置',
     config: '配置',
     confirm: '确认',
@@ -179,7 +180,8 @@ const local: App.I18n.Schema = {
     exception_500: '500',
     'plugins-example': '插件示例',
     'plugins-example_charts': '图表',
-    'plugins-example_charts_echarts': 'ECharts'
+    'plugins-example_charts_echarts': 'ECharts',
+    'plugins-example_copy': '剪贴板'
   },
   page: {
     login: {
