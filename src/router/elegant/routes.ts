@@ -331,24 +331,45 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
-    name: 'plugin',
-    path: '/plugin',
+    name: 'plugins-example',
+    path: '/plugins-example',
     component: 'layout.base',
     meta: {
-      title: '插件示例',
-      i18nKey: 'route.plugin',
-      order: 7,
-      icon: 'clarity:plugin-line',
+      title: 'plugins-example',
+      i18nKey: 'route.plugins-example',
+      order: 6,
+      icon: 'clarity:plugin-line'
     },
     children: [
       {
-        name: 'plugin_copy',
-        path: '/plugin/copy',
-        component: 'view.plugin_copy',
+        name: 'plugins-example_charts',
+        path: '/plugins-example/charts',
         meta: {
-          title: '剪贴板',
-          icon: 'mdi:clipboard-outline',
-          i18nKey: 'route.plugin_copy',
+          title: 'plugins-example_charts',
+          i18nKey: 'route.plugins-example_charts',
+          icon: 'mdi:chart-areaspline'
+        },
+        children: [
+          {
+            name: 'plugins-example_charts_echarts',
+            path: '/plugins-example/charts/echarts',
+            component: 'view.plugins-example_charts_echarts',
+            meta: {
+              title: 'plugins-example_charts_echarts',
+              i18nKey: 'route.plugins-example_charts_echarts',
+              order: 1,
+              icon: 'simple-icons:apacheecharts'
+            }
+          }
+        ]
+      },
+      {
+        name: 'plugins-example_copy',
+        path: '/plugins-example/copy',
+        component: 'view.plugins-example_copy',
+        meta: {
+          title: 'plugins-example_copy',
+          i18nKey: 'route.plugins-example_copy'
         }
       }
     ]

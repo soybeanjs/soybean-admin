@@ -178,8 +178,10 @@ const local: App.I18n.Schema = {
     exception_403: '403',
     exception_404: '404',
     exception_500: '500',
-    plugin: 'Plugin',
-    plugin_copy: 'copy'
+    'plugins-example': 'Plugin-Example',
+    'plugins-example_charts': 'Charts',
+    'plugins-example_charts_echarts': 'ECharts',
+    'plugins-example_copy': 'copy'
   },
   page: {
     login: {
