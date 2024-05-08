@@ -12,8 +12,7 @@ function renderXgPlayer() {
   player.value = new Player({
     el: domRef.value,
     url,
-    playbackRate: [0.5, 0.75, 1, 1.5, 2],
-    fluid: true
+    playbackRate: [0.5, 0.75, 1, 1.5, 2]
   });
 }
 function destroyXgPlayer() {
@@ -30,9 +29,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="h-full">
+  <div>
     <NCard title="视频播放器插件" :bordered="false" class="h-full card-wrapper">
-      <div ref="domRef" class=""></div>
+      <div class="flex-center">
+        <div ref="domRef" class="h-auto w-full shadow-md"></div>
+      </div>
     </NCard>
   </div>
 </template>
