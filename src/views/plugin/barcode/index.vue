@@ -1,91 +1,114 @@
 <script setup lang="ts">
 import JsBarcode from 'jsbarcode';
+import type { Options } from 'jsbarcode';
 import { onMounted } from 'vue';
 
 const text = 'Soybean';
 
+interface CodeConfig {
+  id: string;
+  title: string;
+  text: string;
+  options: Options;
+}
+
+const codes: CodeConfig[] = [
+  {
+    id: 'code39',
+    title: 'CODE 39 正常尺寸',
+    text: 'Hello',
+    options: { format: 'code39' }
+  },
+  {
+    id: 'code128',
+    title: 'CODE 128 正常尺寸',
+    text,
+    options: {}
+  },
+  {
+    id: 'ean-13',
+    title: 'ENA-13 商品条形码',
+    text: '1234567890128',
+    options: { format: 'ean13' }
+  },
+  {
+    id: 'upc-a',
+    title: 'UPC-A 商品条形码',
+    text: '123456789012',
+    options: { format: 'upc' }
+  },
+  {
+    id: 'barcode',
+    title: '不一样的高度，不一样的颜色',
+    text: 'Hello',
+    options: {
+      height: 30,
+      lineColor: '#9ca3af'
+    }
+  },
+  {
+    id: 'barcode1',
+    title: '加个背景色',
+    text,
+    options: {
+      background: '#9ca3af',
+      lineColor: '#ffffff'
+    }
+  },
+  {
+    id: 'barcode2',
+    title: '字体好大',
+    text,
+    options: {
+      fontSize: 40
+    }
+  },
+  {
+    id: 'barcode3',
+    title: '粗狂的条码，文字离远点',
+    text: 'Hi',
+    options: {
+      textMargin: 30,
+      width: 4
+    }
+  },
+  {
+    id: 'barcode4',
+    title: '字体跑上面来，还是粗体',
+    text,
+    options: {
+      textPosition: 'top',
+      fontOptions: 'bold'
+    }
+  }
+];
+
+function generateBarcode() {
+  codes.forEach(code => {
+    JsBarcode(`#${code.id}`, code.text, code.options);
+  });
+}
+
 onMounted(() => {
-  JsBarcode('#code39', 'Hello', { format: 'code39' });
-  JsBarcode('#code128', text);
-  JsBarcode('#ean-13', '1234567890128', { format: 'ean13' });
-  JsBarcode('#upc-a', '123456789012', { format: 'upc' });
-  JsBarcode('#barcode', 'Hello', {
-    height: 30,
-    lineColor: '#9ca3af'
-  });
-  JsBarcode('#barcode1', text, {
-    background: '#9ca3af',
-    lineColor: '#ffffff'
-  });
-  JsBarcode('#barcode2', text, {
-    fontSize: 40
-  });
-  JsBarcode('#barcode3', 'Hi', {
-    textMargin: 30,
-    width: 4
-  });
-  JsBarcode('#barcode4', text, {
-    textPosition: 'top',
-    fontOptions: 'bold'
-  });
+  generateBarcode();
 });
 </script>
 
 <template>
-  <div>
-    <NCard title="条形码" :bordered="false" class="h-full card-wrapper">
-      <NGrid cols="s:1 m:1 l:3" x-gap="12px" y-gap="24px" responsive="screen" item-responsive class="grid-wrapper">
-        <NGi>
-          CODE 39 正常尺寸
-          <svg id="code39" />
-        </NGi>
-        <NGi>
-          CODE 128 正常尺寸
-          <svg id="code128" />
-        </NGi>
-        <NGi>
-          ENA-13 商品条形码
-          <svg id="ean-13" />
-        </NGi>
-        <NGi>
-          UPC-A 商品条形码
-          <svg id="upc-a" />
-        </NGi>
-        <NGi>
-          不一样的高度，不一样的颜色
-          <svg id="barcode" />
-        </NGi>
-        <NGi>
-          加个背景色
-          <svg id="barcode1" />
-        </NGi>
-        <NGi>
-          字体好大
-          <svg id="barcode2" />
-        </NGi>
-        <NGi>
-          粗狂的条码，文字离远点
-          <svg id="barcode3" />
-        </NGi>
-        <NGi>
-          字体跑上面来，还是粗体
-          <svg id="barcode4" />
-        </NGi>
-      </NGrid>
+  <div class="overflow-hidden">
+    <NCard title="条形码" :bordered="false" class="h-full card-wrapper" content-class="overflow-hidden">
+      <NScrollbar class="h-full">
+        <NGrid cols="1 s:2 l:3" :x-gap="12" :y-gap="24" responsive="screen" item-responsive>
+          <NGi v-for="item in codes" :key="item.id">
+            <div class="flex-col-center">
+              <h3>{{ item.title }}</h3>
+              <svg :id="item.id" class="h-130px" />
+            </div>
+          </NGi>
+        </NGrid>
+      </NScrollbar>
     </NCard>
   </div>
 </template>
 
-<style scoped>
-.grid-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-.grid-wrapper > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-</style>
+<style scoped></style>
