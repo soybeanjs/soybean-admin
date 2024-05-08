@@ -342,6 +342,16 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'plugin_barcode',
+        path: '/plugin/barcode',
+        component: 'view.plugin_barcode',
+        meta: {
+          title: 'plugin_barcode',
+          i18nKey: 'route.plugin_barcode',
+          icon: 'ic:round-barcode'
+        }
+      },
+      {
         name: 'plugin_charts',
         path: '/plugin/charts',
         meta: {
