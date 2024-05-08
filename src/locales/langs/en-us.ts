@@ -189,7 +189,8 @@ const local: App.I18n.Schema = {
     plugin_map: 'Map',
     plugin_print: 'Print',
     plugin_swiper: 'Swiper',
-    plugin_video: 'Video'
+    plugin_video: 'Video',
+    plugin_barcode: 'Barcode'
   },
   page: {
     login: {
