@@ -5,6 +5,8 @@ import { BAIDU_MAP_SDK_URL } from '@/constants/map-sdk';
 
 defineOptions({ name: 'BaiduMap' });
 
+window.HOST_TYPE = '2';
+
 const { load } = useScriptTag(BAIDU_MAP_SDK_URL);
 
 const domRef = ref<HTMLDivElement>();
