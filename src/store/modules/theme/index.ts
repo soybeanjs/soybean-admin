@@ -5,6 +5,7 @@ import { useEventListener, usePreferredColorScheme } from '@vueuse/core';
 import { getPaletteColorByNumber } from '@sa/color';
 import { SetupStoreId } from '@/enum';
 import { localStg } from '@/utils/storage';
+import { themeSettings } from '@/theme/settings';
 import {
   addThemeVarsToHtml,
   createThemeToken,
@@ -57,8 +58,8 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   /** Reset store */
   function resetStore() {
     const themeStore = useThemeStore();
-
-    themeStore.$reset();
+    const reset = themeStore.$reset as (arg?: Partial<typeof themeSettings>) => void;
+    reset(themeSettings);
   }
 
   /**
