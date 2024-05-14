@@ -133,7 +133,9 @@ const local: App.I18n.Schema = {
       copyConfig: '复制配置',
       copySuccessMsg: '复制成功，请替换 src/theme/settings.ts 中的变量 themeSettings',
       resetConfig: '重置配置',
-      resetSuccessMsg: '重置成功'
+      resetSuccessMsg: '重置成功',
+      restoreConfig: '恢复默认配置',
+      restoreSuccessMsg: '恢复成功'
     }
   },
   route: {

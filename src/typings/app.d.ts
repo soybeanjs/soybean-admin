@@ -351,6 +351,8 @@ declare namespace App {
           copySuccessMsg: string;
           resetConfig: string;
           resetSuccessMsg: string;
+          restoreConfig: string;
+          restoreSuccessMsg: string;
         };
       };
       route: Record<I18nRouteKey, string>;

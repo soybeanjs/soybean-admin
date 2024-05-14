@@ -56,10 +56,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const settingsJson = computed(() => JSON.stringify(settings.value));
 
   /** Reset store */
-  function resetStore() {
+  function resetStore(state?: Partial<typeof themeSettings>) {
     const themeStore = useThemeStore();
     const reset = themeStore.$reset as (arg?: Partial<typeof themeSettings>) => void;
-    reset(themeSettings);
+    reset(state);
+  }
+
+  /** Restore theme settings */
+  function restoreThemeSettings() {
+    resetStore(themeSettings);
   }
 
   /**
@@ -187,6 +192,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settingsJson,
     setGrayscale,
     resetStore,
+    restoreThemeSettings,
     setThemeScheme,
     toggleThemeScheme,
     updateThemeColors,

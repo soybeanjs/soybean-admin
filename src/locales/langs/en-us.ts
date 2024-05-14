@@ -132,8 +132,10 @@ const local: App.I18n.Schema = {
     configOperation: {
       copyConfig: 'Copy Config',
       copySuccessMsg: 'Copy Success, Please replace the variable "themeSettings" in "src/theme/settings.ts"',
-      resetConfig: 'Reset Config',
-      resetSuccessMsg: 'Reset Success'
+      resetConfig: 'Reset',
+      resetSuccessMsg: 'Reset Success',
+      restoreConfig: 'Restore',
+      restoreSuccessMsg: 'Restore Success'
     }
   },
   route: {

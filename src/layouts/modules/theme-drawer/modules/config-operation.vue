@@ -38,6 +38,14 @@ function handleReset() {
   }, 50);
 }
 
+function handleRestore() {
+  themeStore.restoreThemeSettings();
+
+  setTimeout(() => {
+    window.$message?.success($t('theme.configOperation.restoreSuccessMsg'));
+  }, 50);
+}
+
 const dataClipboardText = computed(() => getClipboardText());
 
 onMounted(() => {
@@ -49,6 +57,7 @@ onMounted(() => {
   <div class="w-full flex justify-between">
     <textarea id="themeConfigCopyTarget" v-model="dataClipboardText" class="absolute opacity-0 -z-1" />
     <NButton type="error" ghost @click="handleReset">{{ $t('theme.configOperation.resetConfig') }}</NButton>
+    <NButton type="success" ghost @click="handleRestore">{{ $t('theme.configOperation.restoreConfig') }}</NButton>
     <div ref="domRef" data-clipboard-target="#themeConfigCopyTarget">
       <NButton type="primary">{{ $t('theme.configOperation.copyConfig') }}</NButton>
     </div>
