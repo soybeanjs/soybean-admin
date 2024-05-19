@@ -73,10 +73,8 @@ function getActivePathIndex() {
 }
 
 /** key enter */
-function handleEnter(e: Event | undefined) {
+function handleEnter() {
   if (resultOptions.value?.length === 0 || activePath.value === '') return;
-
-  e?.preventDefault();
   handleClose();
   router.push(activePath.value);
 }
@@ -114,7 +112,7 @@ registerShortcut();
 
     <div class="mt-20px">
       <NEmpty v-if="resultOptions.length === 0" :description="$t('common.noData')" />
-      <SearchResult v-else v-model:path="activePath" :options="resultOptions" @enter="handleEnter" />
+      <SearchResult v-else v-model:path="activePath" :options="resultOptions" @enter.prevent="handleEnter" />
     </div>
     <template #footer>
       <SearchFooter v-if="!isMobile" />
