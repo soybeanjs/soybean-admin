@@ -1,6 +1,38 @@
 # Changelog
 
 
+## [v1.1.1](https://github.com/soybeanjs/soybean-admin/compare/v1.1.0...v1.1.1) (2024-05-20)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **hooks**: add setOptions for useEcharts &nbsp;-&nbsp; by @honghuangdc [<samp>(e4d53)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e4d53aa)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix useRouter. fixed #436 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/436 [<samp>(0774a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/0774a51)
+  - add error handle when get routes in dynamic route mode. fixed 440 &nbsp;-&nbsp; by @honghuangdc [<samp>(57b4a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/57b4a9d)
+- **styles**:
+  - fix useTable type &nbsp;-&nbsp; by @honghuangdc [<samp>(07124)</samp>](https://github.com/soybeanjs/soybean-admin/commit/071241f)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - update CHANGELOG &nbsp;-&nbsp; by @honghuangdc [<samp>(19783)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1978397)
+  - update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(fa56e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fa56e9c)
+  - update README.md &nbsp;-&nbsp; by @honghuangdc [<samp>(419ea)</samp>](https://github.com/soybeanjs/soybean-admin/commit/419ea42)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **projects**:
+  - update deps & fix TS error &nbsp;-&nbsp; by @honghuangdc [<samp>(4ea9c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4ea9c85)
+  - update eslint-config & fix code &nbsp;-&nbsp; by @honghuangdc [<samp>(68ea9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/68ea974)
+  - update @elegant-router/vue & add error handle for resolve route. fixed #442 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/442 [<samp>(24ff8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/24ff852)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v1.1.0](https://github.com/honghuangdc/soybean-admin/compare/v1.0.9...v1.1.0) (2024-05-07)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
