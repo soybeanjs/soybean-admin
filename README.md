@@ -115,6 +115,7 @@ pnpm build
 - [PanisAdmin](https://github.com/paynezhuang/panis-admin): Adopting SpringBoot 3, SaToken, MySQL and other frameworks to develop and modify [soybean-admin](https://github.com/soybeanjs/soybean-admin) for the second time, adapting dynamic menu/button-level authorization. Retaining the original flavor, fresh and elegant, high-value back-end management system scaffold.
 - [snail-job](https://github.com/aizuda/snail-job): A distributed task retry and task scheduling platform with "high performance, high value and high activity".
 - [SuperApi](https://github.com/TmmTop/SuperApi): Quickly turn your idea into an online stable product! Entity-less library and table building, add, delete, change and check entity-less library table, support 15 kinds of condition query, as well as paging, list, unlimited tree list and other functions of the API deployment! With interface documentation, Auth authorisation, interface flow restriction, access to the client's real IP, advanced server caching components, dynamic APIs and other features, we look forward to your experience!
+- [FastSoyAdmin](https://github.com/sleep1223/fast-soy-admin): A modern Management Platform based on FastAPI+Vue3+Naive UI.
 
 
 ## How to Contribute
