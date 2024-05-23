@@ -17,6 +17,7 @@ import {
   getDefaultHomeTab,
   getFixedTabIds,
   getTabByRoute,
+  getTabIdByRoute,
   isTabInTabs,
   updateTabByI18nKey,
   updateTabsByI18nKey
@@ -288,6 +289,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     setTabLabel,
     resetTabLabel,
     isTabRetain,
-    updateTabsByLocale
+    updateTabsByLocale,
+    getTabIdByRoute
   };
 });
