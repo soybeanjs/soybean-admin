@@ -52,7 +52,7 @@ const cls = computed(() => {
 <template>
   <!-- define component start: Button -->
   <DefineButton v-slot="{ $slots, className }">
-    <NButton quaternary :class="className">
+    <NButton quaternary :class="className" :focusable="false">
       <div class="flex-center gap-8px">
         <component :is="$slots.default" />
       </div>
