@@ -47,7 +47,7 @@ const headerMenus = computed(() => {
 </script>
 
 <template>
-  <DarkModeContainer class="h-full flex-y-center shadow-header">
+  <DarkModeContainer class="h-full flex-y-center px-12px shadow-header">
     <GlobalLogo v-if="showLogo" class="h-full" :style="{ width: themeStore.sider.width + 'px' }" />
     <HorizontalMenu v-if="showMenu" mode="horizontal" :menus="headerMenus" class="px-12px" />
     <div v-else class="h-full flex-y-center flex-1-hidden">
