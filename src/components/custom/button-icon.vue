@@ -28,12 +28,6 @@ const props = withDefaults(defineProps<Props>(), {
   zIndex: 98
 });
 
-interface ButtonProps {
-  className: string;
-}
-
-const [DefineButton, Button] = createReusableTemplate<ButtonProps>();
-
 const cls = computed(() => {
   let clsStr = props.class;
 
@@ -47,12 +41,18 @@ const cls = computed(() => {
 
   return clsStr;
 });
+
+interface ButtonProps {
+  className: string;
+}
+
+const [DefineButton, Button] = createReusableTemplate<ButtonProps>();
 </script>
 
 <template>
   <!-- define component start: Button -->
   <DefineButton v-slot="{ $slots, className }">
-    <NButton quaternary :class="className">
+    <NButton quaternary :class="className" :focusable="false">
       <div class="flex-center gap-8px">
         <component :is="$slots.default" />
       </div>
