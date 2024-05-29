@@ -12,7 +12,7 @@
       "type": "node",
       "request": "launch",
       "name": "TS Debugger",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/tsx",
+      "runtimeExecutable": "tsx",
       "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"],
       "program": "${file}"
     }
