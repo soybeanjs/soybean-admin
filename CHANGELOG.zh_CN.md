@@ -1,5 +1,52 @@
 # 更新日志
 
+## [v1.1.2](https://github.com/soybeanjs/soybean-admin/compare/v1.1.1...v1.1.2) (2024-05-24)
+
+### &nbsp;&nbsp;&nbsp;🐞 错误修复
+
+- **项目**:
+  - 修复头部样式 & 修复点击全局标签时按钮高亮。修复了 #446 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/446 [<samp>(64fc0)</samp>](https://github.com/soybeanjs/soybean-admin/commit/64fc099)
+  - 修复多标签页只渲染一次。修复了 #441 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/441 [<samp>(e379d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e379d6c)
+
+### &nbsp;&nbsp;&nbsp;🛠 优化
+
+- **项目**: 优化代码 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(bc8dc)</samp>](https://github.com/soybeanjs/soybean-admin/commit/bc8dc47)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
+## [v1.1.1](https://github.com/soybeanjs/soybean-admin/compare/v1.1.0...v1.1.1) (2024-05-20)
+
+### &nbsp;&nbsp;&nbsp;🚀 功能
+
+- **hooks**: 为 useEcharts 添加 setOptions &nbsp;-&nbsp; 由 @honghuangdc 提交 [<samp>(e4d53)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e4d53aa)
+
+### &nbsp;&nbsp;&nbsp;🐞 修复错误
+
+- **projects**:
+  - 修复 useRouter。修复了 #436 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/436 提交 [<samp>(0774a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/0774a51)
+  - 在动态路由模式下获取路由时添加错误处理。修复了 440 &nbsp;-&nbsp; 由 @honghuangdc 提交 [<samp>(57b4a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/57b4a9d)
+- **styles**:
+  - 修复 useTable 类型 &nbsp;-&nbsp; 由 @honghuangdc 提交 [<samp>(07124)</samp>](https://github.com/soybeanjs/soybean-admin/commit/071241f)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **projects**:
+  - 更新 CHANGELOG &nbsp;-&nbsp; 由 @honghuangdc 提交 [<samp>(19783)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1978397)
+  - 更新 README.md &nbsp;-&nbsp; 由 @honghuangdc 提交 [<samp>(fa56e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fa56e9c)
+  - 更新 README.md &nbsp;-&nbsp; 由 @honghuangdc 提交 [<samp>(419ea)</samp>](https://github.com/soybeanjs/soybean-admin/commit/419ea42)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂项
+
+- **projects**:
+  - 更新依赖并修复 TS 错误 &nbsp;-&nbsp; 由 @honghuangdc 提交 [<samp>(4ea9c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4ea9c85)
+  - 更新 eslint-config 并修复代码 &nbsp;-&nbsp; 由 @honghuangdc 提交 [<samp>(68ea9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/68ea974)
+  - 更新 @elegant-router/vue 并为 resolve route 添加错误处理。修复了 #442 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/442 提交 [<samp>(24ff8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/24ff852)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
 
 ## [v1.1.0](https://github.com/honghuangdc/soybean-admin/compare/v1.0.9...v1.1.0) (2024-05-07)
 
