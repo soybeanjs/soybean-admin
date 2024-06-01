@@ -39,7 +39,7 @@ function handleTo() {
             background: item.routePath === active ? theme.themeColor : '',
             color: item.routePath === active ? '#fff' : ''
           }"
-          @click="handleTo"
+          @click.prevent="handleTo"
           @mouseenter="handleMouseEnter(item)"
         >
           <component :is="item.icon" />

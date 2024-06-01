@@ -33,7 +33,7 @@ const DEFAULT_CLASS = 'h-[36px] text-icon';
 <template>
   <NTooltip :placement="tooltipPlacement" :z-index="zIndex" :disabled="!tooltipContent">
     <template #trigger>
-      <NButton quaternary :class="twMerge(DEFAULT_CLASS, props.class)" v-bind="$attrs">
+      <NButton quaternary :class="twMerge(DEFAULT_CLASS, props.class)" v-bind="$attrs" :focusable="false">
         <div class="flex-center gap-8px">
           <slot>
             <SvgIcon :icon="icon" />
