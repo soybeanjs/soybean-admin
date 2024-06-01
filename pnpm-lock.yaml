@@ -53,6 +53,9 @@ importers:
       pinia:
         specifier: 2.1.7
         version: 2.1.7(typescript@5.4.5)(vue@3.4.27(typescript@5.4.5))
+      tailwind-merge:
+        specifier: ^2.3.0
+        version: 2.3.0
       vue:
         specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
@@ -129,9 +132,6 @@ importers:
       simple-git-hooks:
         specifier: 2.11.1
         version: 2.11.1
-      tailwind-merge:
-        specifier: ^2.3.0
-        version: 2.3.0
       tsx:
         specifier: 4.10.5
         version: 4.10.5
