@@ -112,7 +112,7 @@ registerShortcut();
 
     <div class="mt-20px">
       <NEmpty v-if="resultOptions.length === 0" :description="$t('common.noData')" />
-      <SearchResult v-else v-model:path="activePath" :options="resultOptions" @enter.prevent="handleEnter" />
+      <SearchResult v-else v-model:path="activePath" :options="resultOptions" @enter="handleEnter" />
     </div>
     <template #footer>
       <SearchFooter v-if="!isMobile" />
