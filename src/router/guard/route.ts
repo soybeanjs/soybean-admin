@@ -46,7 +46,7 @@ export function createRouteGuard(router: Router) {
           next({ name: rootRoute });
         }
       },
-      // if is is constant route, then it is allowed to access directly
+      // if it is constant route, then it is allowed to access directly
       {
         condition: !needLogin,
         callback: () => {

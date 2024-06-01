@@ -1,6 +1,40 @@
 # Changelog
 
 
+## [v1.1.3](https://github.com/soybeanjs/soybean-admin/compare/v1.1.2...v1.1.3) (2024-06-02)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **components**:
+  - Fix the issue of search box popping up repeatedly due to carriage return &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/468 [<samp>(5bd96)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5bd96b8)
+- **projects**:
+  - fix click menu search. fixed #466, close #467 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/466 and https://github.com/soybeanjs/soybean-admin/issues/467 [<samp>(8efdb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8efdb10)
+  - fix reCacheRoute. fixed #464 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/464 [<samp>(59faf)</samp>](https://github.com/soybeanjs/soybean-admin/commit/59faf15)
+- **styles**:
+  - fix FirstLevelMenu style. fixed #450 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/450 [<samp>(db64b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/db64b0e)
+  - fix PinToggler style. fixed #451 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/451 [<samp>(42b12)</samp>](https://github.com/soybeanjs/soybean-admin/commit/42b121a)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **components**: accuracy draggable area for TableColumnSetting with animation &nbsp;-&nbsp; by @orangelckc in https://github.com/soybeanjs/soybean-admin/issues/465 [<samp>(2aa85)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2aa85c6)
+- **projects**: unocss border shortcut &nbsp;-&nbsp; by @soybeanjs [<samp>(40d0f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/40d0f8a)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update CHANGELOG &nbsp;-&nbsp; by @soybeanjs [<samp>(87b18)</samp>](https://github.com/soybeanjs/soybean-admin/commit/87b1838)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **other**:
+  - correct spell mistake &nbsp;-&nbsp; by @orangelckc in https://github.com/soybeanjs/soybean-admin/issues/460 [<samp>(086ba)</samp>](https://github.com/soybeanjs/soybean-admin/commit/086bad4)
+  - correct spell mistake &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/462 [<samp>(f1850)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f185041)
+- **projects**:
+  - update vscode launch.json &nbsp;-&nbsp; by @soybeanjs [<samp>(4c1c7)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4c1c7e6)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![orangelckc](https://github.com/orangelckc.png?size=48)](https://github.com/orangelckc)&nbsp;&nbsp;
+
 ## [v1.1.2](https://github.com/soybeanjs/soybean-admin/compare/v1.1.1...v1.1.2) (2024-05-24)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes

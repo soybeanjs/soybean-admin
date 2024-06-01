@@ -34,9 +34,9 @@ function search() {
 }
 
 function handleClose() {
-  visible.value = false;
   // handle with setTimeout to prevent user from seeing some operations
   setTimeout(() => {
+    visible.value = false;
     resultOptions.value = [];
     keyword.value = '';
   }, 200);
@@ -112,7 +112,7 @@ registerShortcut();
 
     <div class="mt-20px">
       <NEmpty v-if="resultOptions.length === 0" :description="$t('common.noData')" />
-      <SearchResult v-else v-model:path="activePath" :options="resultOptions" @enter.prevent="handleEnter" />
+      <SearchResult v-else v-model:path="activePath" :options="resultOptions" @enter="handleEnter" />
     </div>
     <template #footer>
       <SearchFooter v-if="!isMobile" />

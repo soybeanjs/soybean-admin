@@ -123,7 +123,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
       // update tabs by locale
       tabStore.updateTabsByLocale();
 
-      // sey dayjs locale
+      // set dayjs locale
       setDayjsLocale(locale.value);
     });
   });
