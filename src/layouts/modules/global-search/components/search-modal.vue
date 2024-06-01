@@ -34,9 +34,9 @@ function search() {
 }
 
 function handleClose() {
-  visible.value = false;
   // handle with setTimeout to prevent user from seeing some operations
   setTimeout(() => {
+    visible.value = false;
     resultOptions.value = [];
     keyword.value = '';
   }, 200);
