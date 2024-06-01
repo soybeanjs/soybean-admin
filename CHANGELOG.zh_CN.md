@@ -1,5 +1,39 @@
 # 更新日志
 
+## [v1.1.3](https://github.com/soybeanjs/soybean-admin/compare/v1.1.2...v1.1.3) (2024-06-02)
+
+### &nbsp;&nbsp;&nbsp;🐞 错误修复
+
+- **组件**:
+  - 修复了由于回车导致搜索框反复弹出的问题 &nbsp;-&nbsp; 由 @Azir-11 在 https://github.com/soybeanjs/soybean-admin/issues/468 中修复 [<samp>(5bd96)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5bd96b8)
+- **项目**:
+  - 修复点击菜单搜索。修复了 #466，关闭 #467 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/soybeanjs/soybean-admin/issues/466 和 https://github.com/soybeanjs/soybean-admin/issues/467 中修复 [<samp>(8efdb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8efdb10)
+  - 修复 reCacheRoute。修复了 #464 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/soybeanjs/soybean-admin/issues/464 中修复 [<samp>(59faf)</samp>](https://github.com/soybeanjs/soybean-admin/commit/59faf15)
+- **样式**:
+  - 修复 FirstLevelMenu 样式。修复了 #450 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/soybeanjs/soybean-admin/issues/450 中修复 [<samp>(db64b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/db64b0e)
+  - 修复 PinToggler 样式。修复了 #451 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/soybeanjs/soybean-admin/issues/451 中修复 [<samp>(42b12)</samp>](https://github.com/soybeanjs/soybean-admin/commit/42b121a)
+
+### &nbsp;&nbsp;&nbsp;🛠 优化
+
+- **组件**: 提高 TableColumnSetting 的拖动区域精度，带有动画 &nbsp;-&nbsp; 由 @orangelckc 在 https://github.com/soybeanjs/soybean-admin/issues/465 中优化 [<samp>(2aa85)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2aa85c6)
+- **项目**: unocss 边框快捷方式 &nbsp;-&nbsp; 由 @soybeanjs 优化 [<samp>(40d0f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/40d0f8a)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新 CHANGELOG &nbsp;-&nbsp; 由 @soybeanjs 更新 [<samp>(87b18)</samp>](https://github.com/soybeanjs/soybean-admin/commit/87b1838)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂项
+
+- **其他**:
+  - 纠正拼写错误 &nbsp;-&nbsp; 由 @orangelckc 在 https://github.com/soybeanjs/soybean-admin/issues/460 中纠正 [<samp>(086ba)</samp>](https://github.com/soybeanjs/soybean-admin/commit/086bad4)
+  - 纠正拼写错误 &nbsp;-&nbsp; 由 @Azir-11 在 https://github.com/soybeanjs/soybean-admin/issues/462 中纠正 [<samp>(f1850)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f185041)
+- **项目**:
+  - 更新 vscode launch.json &nbsp;-&nbsp; 由 @soybeanjs 更新 [<samp>(4c1c7)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4c1c7e6)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![orangelckc](https://github.com/orangelckc.png?size=48)](https://github.com/orangelckc)&nbsp;&nbsp;
+
 ## [v1.1.2](https://github.com/soybeanjs/soybean-admin/compare/v1.1.1...v1.1.2) (2024-05-24)
 
 ### &nbsp;&nbsp;&nbsp;🐞 错误修复
