@@ -97,13 +97,19 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /** Cache routes */
   const cacheRoutes = ref<RouteKey[]>([]);
 
+  /** All cache routes */
+  const allCacheRoutes = shallowRef<RouteKey[]>([]);
+
   /**
    * Get cache routes
    *
    * @param routes Vue routes
    */
   function getCacheRoutes(routes: RouteRecordRaw[]) {
-    cacheRoutes.value = getCacheRouteNames(routes);
+    const alls = getCacheRouteNames(routes);
+
+    cacheRoutes.value = alls;
+    allCacheRoutes.value = [...alls];
   }
 
   /**
@@ -131,11 +137,22 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   /**
+   * Is cached route
+   *
+   * @param routeKey
+   */
+  function isCachedRoute(routeKey: RouteKey) {
+    return allCacheRoutes.value.includes(routeKey);
+  }
+
+  /**
    * Re cache routes by route key
    *
    * @param routeKey
    */
   async function reCacheRoutesByKey(routeKey: RouteKey) {
+    if (!isCachedRoute(routeKey)) return;
+
     removeCacheRoutes(routeKey);
 
     await appStore.reloadPage();
