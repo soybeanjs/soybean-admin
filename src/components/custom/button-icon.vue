@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { createReusableTemplate } from '@vueuse/core';
 import type { PopoverPlacement } from 'naive-ui';
+import { twMerge } from 'tailwind-merge';
 
 defineOptions({
   name: 'ButtonIcon',
@@ -21,60 +20,29 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  class: 'h-36px text-icon',
+  class: '',
   icon: '',
   tooltipContent: '',
   tooltipPlacement: 'bottom',
   zIndex: 98
 });
 
-interface ButtonProps {
-  className: string;
-}
-
-const [DefineButton, Button] = createReusableTemplate<ButtonProps>();
-
-const cls = computed(() => {
-  let clsStr = props.class;
-
-  if (!clsStr.includes('h-')) {
-    clsStr += ' h-36px';
-  }
-
-  if (!clsStr.includes('text-')) {
-    clsStr += ' text-icon';
-  }
-
-  return clsStr;
-});
+const DEFAULT_CLASS = 'h-[36px] text-icon';
 </script>
 
 <template>
-  <!-- define component start: Button -->
-  <DefineButton v-slot="{ $slots, className }">
-    <NButton quaternary :class="className">
-      <div class="flex-center gap-8px">
-        <component :is="$slots.default" />
-      </div>
-    </NButton>
-  </DefineButton>
-  <!-- define component end: Button -->
-
-  <NTooltip v-if="tooltipContent" :placement="tooltipPlacement" :z-index="zIndex">
+  <NTooltip :placement="tooltipPlacement" :z-index="zIndex" :disabled="!tooltipContent">
     <template #trigger>
-      <Button :class-name="cls" v-bind="$attrs">
-        <slot>
-          <SvgIcon :icon="icon" />
-        </slot>
-      </Button>
+      <NButton quaternary :class="twMerge(DEFAULT_CLASS, props.class)" v-bind="$attrs">
+        <div class="flex-center gap-8px">
+          <slot>
+            <SvgIcon :icon="icon" />
+          </slot>
+        </div>
+      </NButton>
     </template>
     {{ tooltipContent }}
   </NTooltip>
-  <Button v-else :class-name="cls" v-bind="$attrs">
-    <slot>
-      <SvgIcon :icon="icon" />
-    </slot>
-  </Button>
 </template>
 
 <style scoped></style>
