@@ -4,6 +4,7 @@ import { NConfigProvider, darkTheme } from 'naive-ui';
 import { useAppStore } from './store/modules/app';
 import { useThemeStore } from './store/modules/theme';
 import { naiveDateLocales, naiveLocales } from './locales/naive';
+import { useKeyboardShortcuts } from './utils/keyboard-shortcut';
 
 defineOptions({
   name: 'App'
@@ -21,6 +22,8 @@ const naiveLocale = computed(() => {
 const naiveDateLocale = computed(() => {
   return naiveDateLocales[appStore.locale];
 });
+
+useKeyboardShortcuts();
 </script>
 
 <template>
