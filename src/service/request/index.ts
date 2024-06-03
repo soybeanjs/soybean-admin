@@ -64,9 +64,10 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
 
         window.$dialog?.error({
           title: 'Error',
-          content: response.data.code,
+          content: response.data.msg,
           positiveText: $t('common.confirm'),
           maskClosable: false,
+          closeOnEsc: false,
           onPositiveClick() {
             logoutAndCleanup();
           },
