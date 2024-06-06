@@ -6,7 +6,7 @@ import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useCaptcha } from '@/hooks/business/captcha';
 
 defineOptions({
-  name: 'CodeLogin'
+  name: 'Register'
 });
 
 const { toggleLoginModule } = useRouterPush();
