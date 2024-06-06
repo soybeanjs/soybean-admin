@@ -251,6 +251,10 @@ declare namespace App {
     type Schema = {
       system: {
         title: string;
+        updateTitle: string;
+        updateContent: string;
+        updateConfirm: string;
+        updateCancel: string;
       };
       common: {
         action: string;

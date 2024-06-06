@@ -25,7 +25,7 @@ export default defineConfig(configEnv => {
         }
       }
     },
-    plugins: setupVitePlugins(viteEnv),
+    plugins: setupVitePlugins(viteEnv, buildTime),
     define: {
       BUILD_TIME: JSON.stringify(buildTime)
     },

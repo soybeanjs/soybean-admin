@@ -8,7 +8,7 @@ import { fetchGetUserInfo, fetchLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
-import { clearAuthStorage, getToken, getUserInfo } from './shared';
+import { clearAuthStorage, getToken } from './shared';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute();
@@ -18,7 +18,12 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   const token = ref(getToken());
 
-  const userInfo: Api.Auth.UserInfo = reactive(getUserInfo());
+  const userInfo: Api.Auth.UserInfo = reactive({
+    userId: '',
+    userName: '',
+    roles: [],
+    buttons: []
+  });
 
   /** is super role in static route */
   const isStaticSuper = computed(() => {
@@ -87,14 +92,23 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     localStg.set('token', loginToken.token);
     localStg.set('refreshToken', loginToken.refreshToken);
 
+    // 2. get user info and update store
+    const pass = await updateUserInfo();
+
+    if (pass) {
+      token.value = loginToken.token;
+
+      return true;
+    }
+
+    return false;
+  }
+
+  async function updateUserInfo() {
     const { data: info, error } = await fetchGetUserInfo();
 
     if (!error) {
-      // 2. store user info
-      localStg.set('userInfo', info);
-
-      // 3. update store
-      token.value = loginToken.token;
+      // update store
       Object.assign(userInfo, info);
 
       return true;
@@ -110,6 +124,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     isLogin,
     loginLoading,
     resetStore,
-    login
+    login,
+    updateUserInfo
   };
 });
