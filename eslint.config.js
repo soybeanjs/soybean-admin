@@ -7,7 +7,7 @@ export default defineConfig(
       'vue/multi-word-component-names': [
         'warn',
         {
-          ignores: ['index', 'App', '[id]', '[url]']
+          ignores: ['index', 'App', 'Register', '[id]', '[url]']
         }
       ],
       'vue/component-name-in-template-casing': [
