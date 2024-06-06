@@ -1,6 +1,36 @@
 # Changelog
 
 
+## [v1.1.4](https://github.com/honghuangdc/soybean-admin/compare/v1.1.3...v1.1.4) (2024-06-06)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **utils**: modalLogout bug when esc is pressed &nbsp;-&nbsp; by @sigma-plus in https://github.com/honghuangdc/soybean-admin/issues/470 [<samp>(bd69c)</samp>](https://github.com/honghuangdc/soybean-admin/commit/bd69c00)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: optimize RouteMeta remarks &nbsp;-&nbsp; by @soybeanjs [<samp>(ffb48)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ffb48b1)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - update CHANGELOG &nbsp;-&nbsp; by @soybeanjs [<samp>(756f8)</samp>](https://github.com/honghuangdc/soybean-admin/commit/756f84a)
+  - update Node&pnpm version &nbsp;-&nbsp; by @Azir-11 in https://github.com/honghuangdc/soybean-admin/issues/472 [<samp>(9b05d)</samp>](https://github.com/honghuangdc/soybean-admin/commit/9b05d73)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(d0380)</samp>](https://github.com/honghuangdc/soybean-admin/commit/d0380ce)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(1f464)</samp>](https://github.com/honghuangdc/soybean-admin/commit/1f4647b)
+- **projects**:
+  - close http proxy &nbsp;-&nbsp; by @soybeanjs [<samp>(d08a3)</samp>](https://github.com/honghuangdc/soybean-admin/commit/d08a381)
+  - update mock url &nbsp;-&nbsp; by @soybeanjs [<samp>(e6086)</samp>](https://github.com/honghuangdc/soybean-admin/commit/e6086f0)
+  - update vscode settings &nbsp;-&nbsp; by @soybeanjs [<samp>(910df)</samp>](https://github.com/honghuangdc/soybean-admin/commit/910dfca)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![sigma-plus](https://github.com/sigma-plus.png?size=48)](https://github.com/sigma-plus)&nbsp;&nbsp;
+
 ## [v1.1.3](https://github.com/soybeanjs/soybean-admin/compare/v1.1.2...v1.1.3) (2024-06-02)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
