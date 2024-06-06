@@ -1,5 +1,22 @@
 # 更新日志
 
+
+## [v1.2.0](https://github.com/soybeanjs/soybean-admin/compare/v1.1.5...v1.2.0) (2024-06-06)
+
+### &nbsp;&nbsp;&nbsp;🚀 功能
+
+- **项目**:
+  - 支持系统新版本更新通知。关闭 #420 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/soybeanjs/soybean-admin/issues/420 [<samp>(584cd)</samp>](https://github.com/soybeanjs/soybean-admin/commit/584cd54)
+  - 在路由守卫中获取用户信息并从localStorage中移除。关闭 #459 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/soybeanjs/soybean-admin/issues/459 [<samp>(5531a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5531a68)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新CHANGELOG &nbsp;-&nbsp; 由 @soybeanjs [<samp>(2bec8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2bec899)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.1.5](https://github.com/soybeanjs/soybean-admin/compare/v1.1.4...v1.1.5) (2024-06-06)
 
 ### &nbsp;&nbsp;&nbsp;🐞 错误修复
