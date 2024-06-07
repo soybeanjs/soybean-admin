@@ -19,7 +19,7 @@ export function setupAppVersionNotification() {
                   n?.destroy();
                 }
               },
-              $t('system.updateCancel')
+              () => $t('system.updateCancel')
             ),
             h(
               NButton,
@@ -29,7 +29,7 @@ export function setupAppVersionNotification() {
                   location.reload();
                 }
               },
-              $t('system.updateConfirm')
+              () => $t('system.updateConfirm')
             )
           ]);
         }
