@@ -6,7 +6,7 @@ export function setupAppVersionNotification() {
   document.addEventListener('visibilitychange', async () => {
     const buildTime = await getHtmlBuildTime();
 
-    if (buildTime !== BUILD_TIME && document.visibilityState === 'visible') {
+    if (!import.meta.env.DEV && buildTime !== BUILD_TIME && document.visibilityState === 'visible') {
       const n = window.$notification?.create({
         title: $t('system.updateTitle'),
         content: $t('system.updateContent'),
