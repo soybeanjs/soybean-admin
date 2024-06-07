@@ -92,8 +92,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     localStg.set('token', loginToken.token);
     localStg.set('refreshToken', loginToken.refreshToken);
 
-    // 2. get user info and update store
-    const pass = await updateUserInfo();
+    // 2. get user info
+    const pass = await getUserInfo();
 
     if (pass) {
       token.value = loginToken.token;
@@ -104,7 +104,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     return false;
   }
 
-  async function updateUserInfo() {
+  async function getUserInfo() {
     const { data: info, error } = await fetchGetUserInfo();
 
     if (!error) {
@@ -117,6 +117,18 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     return false;
   }
 
+  async function initUserInfo() {
+    const hasToken = getToken();
+
+    if (hasToken) {
+      const pass = await getUserInfo();
+
+      if (!pass) {
+        resetStore();
+      }
+    }
+  }
+
   return {
     token,
     userInfo,
@@ -125,6 +137,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     loginLoading,
     resetStore,
     login,
-    updateUserInfo
+    initUserInfo
   };
 });

@@ -126,9 +126,6 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   // the auth route is initialized
   // it is not the "not-found" route, then it is allowed to access
   if (routeStore.isInitAuthRoute && !isNotFoundRoute) {
-    // update user info
-    await authStore.updateUserInfo();
-
     return null;
   }
   // it is captured by the "not-found" route, then check whether the route exists
@@ -163,6 +160,8 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 
     return location;
   }
+
+  await authStore.initUserInfo();
 
   // initialize the auth route
   await routeStore.initAuthRoute();
