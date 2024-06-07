@@ -1,5 +1,67 @@
 # 更新日志
 
+
+## [v1.2.0](https://github.com/soybeanjs/soybean-admin/compare/v1.1.5...v1.2.0) (2024-06-06)
+
+### &nbsp;&nbsp;&nbsp;🚀 功能
+
+- **项目**:
+  - 支持系统新版本更新通知。关闭 #420 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/soybeanjs/soybean-admin/issues/420 [<samp>(584cd)</samp>](https://github.com/soybeanjs/soybean-admin/commit/584cd54)
+  - 在路由守卫中获取用户信息并从localStorage中移除。关闭 #459 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/soybeanjs/soybean-admin/issues/459 [<samp>(5531a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5531a68)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新CHANGELOG &nbsp;-&nbsp; 由 @soybeanjs [<samp>(2bec8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2bec899)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
+## [v1.1.5](https://github.com/soybeanjs/soybean-admin/compare/v1.1.4...v1.1.5) (2024-06-06)
+
+### &nbsp;&nbsp;&nbsp;🐞 错误修复
+
+- **项目**: 修复注册组件名，CodeLogin => Register &nbsp;-&nbsp; 由 @m-xlsea 在 https://github.com/soybeanjs/soybean-admin/issues/478 [<samp>(ddf38)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ddf3823)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂务
+
+- **依赖**: 更新依赖 &nbsp;-&nbsp; 由 @soybeanjs [<samp>(060c0)</samp>](https://github.com/soybeanjs/soybean-admin/commit/060c0a9)
+- **项目**: 更新 vscode 设置: vue 官方 &nbsp;-&nbsp; 由 @soybeanjs [<samp>(76649)</samp>](https://github.com/soybeanjs/soybean-admin/commit/76649e2)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![m-xlsea](https://github.com/m-xlsea.png?size=48)](https://github.com/m-xlsea)&nbsp;&nbsp;
+
+## [v1.1.4](https://github.com/honghuangdc/soybean-admin/compare/v1.1.3...v1.1.4) (2024-06-06)
+
+### &nbsp;&nbsp;&nbsp;🐞 错误修复
+
+- **utils**: 修复了按esc键时modalLogout的错误 &nbsp;-&nbsp; 由 @sigma-plus 在 https://github.com/honghuangdc/soybean-admin/issues/470 中提出 [<samp>(bd69c)</samp>](https://github.com/honghuangdc/soybean-admin/commit/bd69c00)
+
+### &nbsp;&nbsp;&nbsp;🛠 优化
+
+- **projects**: 优化了RouteMeta的备注 &nbsp;-&nbsp; 由 @soybeanjs 提出 [<samp>(ffb48)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ffb48b1)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **projects**:
+  - 更新了CHANGELOG &nbsp;-&nbsp; 由 @soybeanjs 提出 [<samp>(756f8)</samp>](https://github.com/honghuangdc/soybean-admin/commit/756f84a)
+  - 更新了Node&pnpm版本 &nbsp;-&nbsp; 由 @Azir-11 在 https://github.com/honghuangdc/soybean-admin/issues/472 中提出 [<samp>(9b05d)</samp>](https://github.com/honghuangdc/soybean-admin/commit/9b05d73)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂项
+
+- **deps**:
+  - 更新了依赖 &nbsp;-&nbsp; 由 @soybeanjs 提出 [<samp>(d0380)</samp>](https://github.com/honghuangdc/soybean-admin/commit/d0380ce)
+  - 更新了依赖 &nbsp;-&nbsp; 由 @soybeanjs 提出 [<samp>(1f464)</samp>](https://github.com/honghuangdc/soybean-admin/commit/1f4647b)
+- **projects**:
+  - 关闭了http代理 &nbsp;-&nbsp; 由 @soybeanjs 提出 [<samp>(d08a3)</samp>](https://github.com/honghuangdc/soybean-admin/commit/d08a381)
+  - 更新了mock url &nbsp;-&nbsp; 由 @soybeanjs 提出 [<samp>(e6086)</samp>](https://github.com/honghuangdc/soybean-admin/commit/e6086f0)
+  - 更新了vscode设置 &nbsp;-&nbsp; 由 @soybeanjs 提出 [<samp>(910df)</samp>](https://github.com/honghuangdc/soybean-admin/commit/910dfca)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![sigma-plus](https://github.com/sigma-plus.png?size=48)](https://github.com/sigma-plus)&nbsp;&nbsp;
+
 ## [v1.1.3](https://github.com/soybeanjs/soybean-admin/compare/v1.1.2...v1.1.3) (2024-06-02)
 
 ### &nbsp;&nbsp;&nbsp;🐞 错误修复

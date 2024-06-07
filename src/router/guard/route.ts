@@ -92,6 +92,7 @@ export function createRouteGuard(router: Router) {
  * @param to to route
  */
 async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw | null> {
+  const authStore = useAuthStore();
   const routeStore = useRouteStore();
 
   const notFoundRoute: RouteKey = 'not-found';
@@ -159,6 +160,8 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 
     return location;
   }
+
+  await authStore.initUserInfo();
 
   // initialize the auth route
   await routeStore.initAuthRoute();
