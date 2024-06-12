@@ -1,7 +1,7 @@
 <div align="center">
 	<img src="./public/favicon.svg" width="160" />
 	<h1>SoybeanAdmin</h1>
-  <span><a href="./README.zh_CN.md">English</a> | 中文</span>
+  <span><a href="./README.md">English</a> | 中文</span>
 </div>
 
 ---
