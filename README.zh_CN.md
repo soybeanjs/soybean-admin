@@ -11,6 +11,8 @@
 [![github forks](https://img.shields.io/github/forks/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
 [![gitee stars](https://gitee.com/honghuangdc/soybean-admin/badge/star.svg)](https://gitee.com/honghuangdc/soybean-admin)
 
+<a href="https://hellogithub.com/repository/1298f27d5fe54959a16cf9686516ddb3" target="_blank"><img src="https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=1298f27d5fe54959a16cf9686516ddb3&claim_uid=IiDXWmP4TEntjbV" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 > [!NOTE]
 > 如果您觉得 `SoybeanAdmin`对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
 

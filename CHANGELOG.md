@@ -1,6 +1,26 @@
 # Changelog
 
 
+## [v1.2.2](https://github.com/honghuangdc/soybean-admin/compare/v1.2.1...v1.2.2) (2024-06-12)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: reset scroll position when tab change &nbsp;-&nbsp; by @soybeanjs [<samp>(9094b)</samp>](https://github.com/honghuangdc/soybean-admin/commit/9094b21)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - hide AppVersionNotification in DEV mode &nbsp;-&nbsp; by @sigma-plus in https://github.com/honghuangdc/soybean-admin/issues/482 [<samp>(62592)</samp>](https://github.com/honghuangdc/soybean-admin/commit/6259287)
+  - fix menu-toggler hidden in mobile layout. fixed #483 &nbsp;-&nbsp; by @soybeanjs in https://github.com/honghuangdc/soybean-admin/issues/483 [<samp>(4470c)</samp>](https://github.com/honghuangdc/soybean-admin/commit/4470cb4)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README &nbsp;-&nbsp; by @soybeanjs [<samp>(8f9a7)</samp>](https://github.com/honghuangdc/soybean-admin/commit/8f9a705)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![sigma-plus](https://github.com/sigma-plus.png?size=48)](https://github.com/sigma-plus)&nbsp;&nbsp;
+
 ## [v1.2.1](https://github.com/honghuangdc/soybean-admin/compare/v1.2.0...v1.2.1) (2024-06-07)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
