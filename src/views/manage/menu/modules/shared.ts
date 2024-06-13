@@ -6,7 +6,7 @@ export function getLayoutAndPage(component?: string | null) {
   let layout = '';
   let page = '';
 
-  const [layoutOrPage, pageItem] = component?.split(FIRST_LEVEL_ROUTE_COMPONENT_SPLIT) || [];
+  const [layoutOrPage = '', pageItem = ''] = component?.split(FIRST_LEVEL_ROUTE_COMPONENT_SPLIT) || [];
 
   layout = getLayout(layoutOrPage);
   page = getPage(pageItem || layoutOrPage);
@@ -15,11 +15,11 @@ export function getLayoutAndPage(component?: string | null) {
 }
 
 function getLayout(layout: string) {
-  return layout.startsWith(LAYOUT_PREFIX) ? layout.replace(LAYOUT_PREFIX, '') : '';
+  return layout?.startsWith(LAYOUT_PREFIX) ? layout.replace(LAYOUT_PREFIX, '') : '';
 }
 
 function getPage(page: string) {
-  return page.startsWith(VIEW_PREFIX) ? page.replace(VIEW_PREFIX, '') : '';
+  return page?.startsWith(VIEW_PREFIX) ? page.replace(VIEW_PREFIX, '') : '';
 }
 
 export function transformLayoutAndPageToComponent(layout: string, page: string) {
