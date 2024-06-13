@@ -1,6 +1,31 @@
 # Changelog
 
 
+## [v1.2.3](https://github.com/soybeanjs/soybean-admin/compare/v1.2.2...v1.2.3) (2024-06-13)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix mobile browser theme issue by adding color-scheme meta tag to index.html &nbsp;-&nbsp; by @KickCashew in https://github.com/soybeanjs/soybean-admin/issues/488 [<samp>(c2125)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c212565)
+  - Fix secondary directory components is empty &nbsp;-&nbsp; by @paynezhuang in https://github.com/soybeanjs/soybean-admin/issues/491 [<samp>(aabb2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/aabb2a4)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - Fixed the hyperlink pointing error &nbsp;-&nbsp; by **Azir** [<samp>(20a81)</samp>](https://github.com/soybeanjs/soybean-admin/commit/20a8127)
+  - update README &nbsp;-&nbsp; by @soybeanjs [<samp>(70261)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7026126)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(813d8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/813d8ce)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(bf718)</samp>](https://github.com/soybeanjs/soybean-admin/commit/bf71837)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![paynezhuang](https://github.com/paynezhuang.png?size=48)](https://github.com/paynezhuang)&nbsp;&nbsp;[![KickCashew](https://github.com/KickCashew.png?size=48)](https://github.com/KickCashew)&nbsp;&nbsp;
+[Azir](mailto:2075125282@qq.com)
+
 ## [v1.2.2](https://github.com/honghuangdc/soybean-admin/compare/v1.2.1...v1.2.2) (2024-06-12)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
