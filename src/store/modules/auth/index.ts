@@ -8,11 +8,13 @@ import { fetchGetUserInfo, fetchLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
+import { useTabStore } from '../tab';
 import { clearAuthStorage, getToken } from './shared';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute();
   const routeStore = useRouteStore();
+  const tabStore = useTabStore();
   const { toLogin, redirectFromLogin } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
@@ -47,6 +49,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
       await toLogin();
     }
 
+    tabStore.cacheTabs();
     routeStore.resetStore();
   }
 
