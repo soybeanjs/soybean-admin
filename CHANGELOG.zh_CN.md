@@ -1,6 +1,84 @@
 # 更新日志
 
 
+## [v1.2.4](https://github.com/soybeanjs/soybean-admin/compare/v1.2.3...v1.2.4) (2024-06-14)
+
+### &nbsp;&nbsp;&nbsp;🛠 优化
+
+- **项目**:
+  - 优化 `setupAppVersionNotification` &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(b5a72)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b5a723c)
+  - 获取 'Asia/Shanghai' 时区的构建时间 &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(069fa)</samp>](https://github.com/soybeanjs/soybean-admin/commit/069fa8a)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
+## [v1.2.3](https://github.com/soybeanjs/soybean-admin/compare/v1.2.2...v1.2.3) (2024-06-13)
+
+### &nbsp;&nbsp;&nbsp;🐞 修复错误
+
+- **项目**:
+  - 通过在index.html中添加color-scheme元标签修复移动浏览器主题问题 &nbsp;-&nbsp; 由 @KickCashew 在 https://github.com/soybeanjs/soybean-admin/issues/488 中提交 [<samp>(c2125)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c212565)
+  - 修复二级目录组件为空 &nbsp;-&nbsp; 由 @paynezhuang 在 https://github.com/soybeanjs/soybean-admin/issues/491 中提交 [<samp>(aabb2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/aabb2a4)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**:
+  - 修复超链接指向错误 &nbsp;-&nbsp; 由 **Azir** 提交 [<samp>(20a81)</samp>](https://github.com/soybeanjs/soybean-admin/commit/20a8127)
+  - 更新 README &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(70261)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7026126)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂项
+
+- **依赖**:
+  - 更新依赖 &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(813d8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/813d8ce)
+  - 更新依赖 &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(bf718)</samp>](https://github.com/soybeanjs/soybean-admin/commit/bf71837)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![paynezhuang](https://github.com/paynezhuang.png?size=48)](https://github.com/paynezhuang)&nbsp;&nbsp;[![KickCashew](https://github.com/KickCashew.png?size=48)](https://github.com/KickCashew)&nbsp;&nbsp;
+[Azir](mailto:2075125282@qq.com)
+
+## [v1.2.2](https://github.com/honghuangdc/soybean-admin/compare/v1.2.1...v1.2.2) (2024-06-12)
+
+### &nbsp;&nbsp;&nbsp;🚀 特性
+
+- **项目**: 切换标签时重置滚动位置 &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(9094b)</samp>](https://github.com/honghuangdc/soybean-admin/commit/9094b21)
+
+### &nbsp;&nbsp;&nbsp;🐞 修复错误
+
+- **项目**:
+  - 在DEV模式下隐藏AppVersionNotification &nbsp;-&nbsp; 由 @sigma-plus 在 https://github.com/honghuangdc/soybean-admin/issues/482 中提交 [<samp>(62592)</samp>](https://github.com/honghuangdc/soybean-admin/commit/6259287)
+  - 修复在移动布局中隐藏menu-toggler。fixed #483 &nbsp;-&nbsp; 由 @soybeanjs 在 https://github.com/honghuangdc/soybean-admin/issues/483 中提交 [<samp>(4470c)</samp>](https://github.com/honghuangdc/soybean-admin/commit/4470cb4)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新 README &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(8f9a7)</samp>](https://github.com/honghuangdc/soybean-admin/commit/8f9a705)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![sigma-plus](https://github.com/sigma-plus.png?size=48)](https://github.com/sigma-plus)&nbsp;&nbsp;
+
+## [v1.2.1](https://github.com/honghuangdc/soybean-admin/compare/v1.2.0...v1.2.1) (2024-06-07)
+
+### &nbsp;&nbsp;&nbsp;🐞 修复错误
+
+- **项目**:
+  - 修复页面重新加载时获取用户信息 &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(ff51b)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ff51b72)
+  - 修复setupAppVersionNotification渲染 &nbsp;-&nbsp; 由 @soybeanjs 提交 [<samp>(6a6eb)</samp>](https://github.com/honghuangdc/soybean-admin/commit/6a6eb9a)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新CHANGELOG &nbsp;-&nbsp; 由 @soybeanjs [<samp>(fe06b)</samp>](https://github.com/honghuangdc/soybean-admin/commit/fe06b8c)完成
+
+### &nbsp;&nbsp;&nbsp;🏡 日常任务
+
+- **依赖**: 更新依赖 &nbsp;-&nbsp; 由 @soybeanjs [<samp>(08827)</samp>](https://github.com/honghuangdc/soybean-admin/commit/08827a4)完成
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
+
 ## [v1.2.0](https://github.com/soybeanjs/soybean-admin/compare/v1.1.5...v1.2.0) (2024-06-06)
 
 ### &nbsp;&nbsp;&nbsp;🚀 功能
