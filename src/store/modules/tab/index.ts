@@ -290,6 +290,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     resetTabLabel,
     isTabRetain,
     updateTabsByLocale,
-    getTabIdByRoute
+    getTabIdByRoute,
+    cacheTabs
   };
 });
