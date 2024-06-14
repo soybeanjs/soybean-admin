@@ -1,6 +1,36 @@
 # 更新日志
 
 
+## [v1.2.5](https://github.com/soybeanjs/soybean-admin/compare/v1.2.4...v1.2.5) (2024-06-15)
+
+### &nbsp;&nbsp;&nbsp;🐞 错误修复
+
+- **项目**: 修复登出后标签页异常缓存的问题。已修复 #495 &nbsp;-&nbsp; 由 @Azir-11 在 https://github.com/soybeanjs/soybean-admin/issues/495 [<samp>(3eeac)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3eeace9)
+
+### &nbsp;&nbsp;&nbsp;🔥 性能
+
+- **项目**: 初始化静态路由功能不需要异步 &nbsp;-&nbsp; 由 **CHENZL** 在 https://github.com/soybeanjs/soybean-admin/issues/493 [<samp>(2198b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2198b98)
+
+### &nbsp;&nbsp;&nbsp;🛠 优化
+
+- **项目**: 优化代码 &nbsp;-&nbsp; 由 @soybeanjs [<samp>(b94ba)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b94baa1)
+- **类型**: 提高全局类型的兼容性 &nbsp;-&nbsp; 由 @Azir-11 在 https://github.com/soybeanjs/soybean-admin/issues/494 [<samp>(cd9d5)</samp>](https://github.com/soybeanjs/soybean-admin/commit/cd9d58d)
+- **工具**: 减少代码缩进，提高可读性 &nbsp;-&nbsp; 由 @Azir-11 在 https://github.com/soybeanjs/soybean-admin/issues/496 [<samp>(ad2f2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ad2f247)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新CHANGELOG &nbsp;-&nbsp; 由 @soybeanjs [<samp>(f70d2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f70d29b)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂项
+
+- **依赖**: 更新依赖 &nbsp;-&nbsp; 由 @soybeanjs [<samp>(b094d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b094d68)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;
+[CHENZL](mailto:zlong5568863@qq.com)
+
+
 ## [v1.2.4](https://github.com/soybeanjs/soybean-admin/compare/v1.2.3...v1.2.4) (2024-06-14)
 
 ### &nbsp;&nbsp;&nbsp;🛠 优化
