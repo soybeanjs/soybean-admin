@@ -296,6 +296,8 @@ declare namespace App {
           yes: string;
           no: string;
         };
+        reLogin: string;
+        tryAgain: string;
         messageLevel: {
           success: string;
           error: string;

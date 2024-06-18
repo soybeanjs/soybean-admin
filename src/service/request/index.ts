@@ -36,53 +36,60 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
     async onBackendFail(response, instance) {
       const authStore = useAuthStore();
 
-      function handleLogout() {
-        authStore.resetStore();
+      async function handleLogout() {
+        await authStore.resetStore();
       }
 
-      function logoutAndCleanup() {
-        handleLogout();
+      function cleanup() {
         window.removeEventListener('beforeunload', handleLogout);
-
         request.state.errMsgStack = request.state.errMsgStack.filter(msg => msg !== response.data.msg);
       }
 
+      async function cleanupAndLogout() {
+        cleanup();
+        await handleLogout();
+      }
+
       // when the backend response code is in `logoutCodes`, it means the user will be logged out and redirected to login page
-      const logoutCodes = import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',') || [];
-      if (logoutCodes.includes(response.data.code)) {
-        handleLogout();
+      const logoutCodes = import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',');
+      if (logoutCodes?.includes(response.data.code)) {
+        await handleLogout();
         return null;
       }
 
       // when the backend response code is in `modalLogoutCodes`, it means the user will be logged out by displaying a modal
-      const modalLogoutCodes = import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',') || [];
-      if (modalLogoutCodes.includes(response.data.code) && !request.state.errMsgStack?.includes(response.data.msg)) {
+      const modalLogoutCodes = import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',');
+      if (modalLogoutCodes?.includes(response.data.code) && !request.state.errMsgStack?.includes(response.data.msg)) {
         request.state.errMsgStack = [...(request.state.errMsgStack || []), response.data.msg];
 
         // prevent the user from refreshing the page
         window.addEventListener('beforeunload', handleLogout);
 
-        window.$dialog?.error({
-          title: $t('common.messageLevel.error'),
-          content: response.data.msg,
-          positiveText: $t('common.confirm'),
-          maskClosable: false,
-          closeOnEsc: false,
-          onPositiveClick() {
-            logoutAndCleanup();
-          },
-          onClose() {
-            logoutAndCleanup();
-          }
+        return new Promise<AxiosResponse | null>((resolve, _reject) => {
+          window.$dialog?.error({
+            title: $t('common.messageLevel.error'),
+            content: response.data.msg,
+            positiveText: $t('common.reLogin'),
+            negativeText: $t('common.tryAgain'),
+            closable: false,
+            maskClosable: false,
+            closeOnEsc: false,
+            autoFocus: false,
+            onPositiveClick: async () => {
+              await cleanupAndLogout();
+            },
+            onClose() {
+              cleanup();
+              resolve(null);
+            }
+          });
         });
-
-        return null;
       }
 
       // when the backend response code is in `expiredTokenCodes`, it means the token is expired, and refresh token
       // the api `refreshToken` can not return error code in `expiredTokenCodes`, otherwise it will be a dead loop, should return `logoutCodes` or `modalLogoutCodes`
-      const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
-      if (expiredTokenCodes.includes(response.data.code) && !request.state.isRefreshingToken) {
+      const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',');
+      if (expiredTokenCodes?.includes(response.data.code) && !request.state.isRefreshingToken) {
         request.state.isRefreshingToken = true;
 
         const refreshConfig = await handleRefreshToken(response.config);

@@ -46,6 +46,8 @@ const local: App.I18n.Schema = {
       yes: '是',
       no: '否'
     },
+    reLogin: '重新登录',
+    tryAgain: '我再试试',
     messageLevel: {
       success: '成功',
       error: '错误',

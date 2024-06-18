@@ -46,6 +46,8 @@ const local: App.I18n.Schema = {
       yes: 'Yes',
       no: 'No'
     },
+    reLogin: 'Go to login',
+    tryAgain: 'Try again',
     messageLevel: {
       success: 'Success',
       error: 'Error',
