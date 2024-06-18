@@ -60,7 +60,8 @@ const local: App.I18n.Schema = {
     logoutWithModal: 'Pop up modal after request failed and then log out user',
     logoutWithModalMsg: 'User status is invalid, please log in again',
     refreshToken: 'The requested token has expired, refresh the token',
-    tokenExpired: 'The requested token has expired'
+    tokenExpired: 'The requested token has expired',
+    noPermission: 'The request has no permission'
   },
   theme: {
     themeSchema: {

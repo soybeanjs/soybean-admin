@@ -60,7 +60,8 @@ const local: App.I18n.Schema = {
     logoutWithModal: '请求失败后弹出模态框再登出用户',
     logoutWithModalMsg: '用户状态失效，请重新登录',
     refreshToken: '请求的token已过期，刷新token',
-    tokenExpired: 'token已过期'
+    tokenExpired: 'token已过期',
+    noPermission: '无接口访问权限'
   },
   theme: {
     themeSchema: {

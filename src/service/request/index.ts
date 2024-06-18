@@ -50,6 +50,13 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
         await handleLogout();
       }
 
+      // when the backend response code is in 'noPermissionCodes', displaying warning message.
+      const noPermissionCodes = import.meta.env.VITE_SERVICE_NO_PERMISSION_CODES?.split(',');
+      if (noPermissionCodes?.includes(response.data.code)) {
+        window.$message?.warning(response.data.msg || $t('request.noPermission'));
+        return null;
+      }
+
       // when the backend response code is in `logoutCodes`, it means the user will be logged out and redirected to login page
       const logoutCodes = import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',');
       if (logoutCodes?.includes(response.data.code)) {

@@ -34,6 +34,14 @@ declare namespace Env {
      */
     readonly VITE_SERVICE_SUCCESS_CODE: string;
     /**
+     * no permission codes of backend service
+     *
+     * when the code is received, it will displaying a warning message
+     *
+     * use "," to separate multiple codes
+     */
+    readonly VITE_SERVICE_NO_PERMISSION_CODES: string;
+    /**
      * logout codes of backend service
      *
      * when the code is received, the user will be logged out and redirected to login page

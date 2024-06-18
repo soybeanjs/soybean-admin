@@ -311,6 +311,7 @@ declare namespace App {
         logoutWithModalMsg: string;
         refreshToken: string;
         tokenExpired: string;
+        noPermission: string;
       };
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
