@@ -45,6 +45,11 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: 'Yes',
       no: 'No'
+    },
+    messageLevel: {
+      success: 'Success',
+      error: 'Error',
+      warning: 'Warning'
     }
   },
   request: {

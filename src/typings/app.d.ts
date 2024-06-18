@@ -296,6 +296,11 @@ declare namespace App {
           yes: string;
           no: string;
         };
+        messageLevel: {
+          success: string;
+          error: string;
+          warning: string;
+        };
       };
       request: {
         logout: string;
