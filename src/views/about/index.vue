@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
-import pkg from '~/package.json';
+import { dependencies, devDependencies, homepage, name, version, website } from '~/package.json';
 
 const appStore = useAppStore();
 
@@ -19,8 +19,6 @@ interface PkgVersionInfo {
   name: string;
   version: string;
 }
-
-const { name, version, dependencies, devDependencies } = pkg;
 
 function transformVersionData(tuple: [string, string]): PkgVersionInfo {
   const [$name, $version] = tuple;
@@ -54,12 +52,12 @@ const latestBuildTime = BUILD_TIME;
           <NTag type="primary">{{ latestBuildTime }}</NTag>
         </NDescriptionsItem>
         <NDescriptionsItem :label="$t('page.about.projectInfo.githubLink')">
-          <a class="text-primary" :href="pkg.homepage" target="_blank" rel="noopener noreferrer">
+          <a class="text-primary" :href="homepage" target="_blank" rel="noopener noreferrer">
             {{ $t('page.about.projectInfo.githubLink') }}
           </a>
         </NDescriptionsItem>
         <NDescriptionsItem :label="$t('page.about.projectInfo.previewLink')">
-          <a class="text-primary" :href="pkg.website" target="_blank" rel="noopener noreferrer">
+          <a class="text-primary" :href="website" target="_blank" rel="noopener noreferrer">
             {{ $t('page.about.projectInfo.previewLink') }}
           </a>
         </NDescriptionsItem>
