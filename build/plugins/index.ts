@@ -17,7 +17,7 @@ export function setupVitePlugins(viteEnv: Env.ImportMeta, buildTime: string) {
     }),
     vueJsx(),
     VueDevtools(),
-    setupElegantRouter(),
+    setupElegantRouter(viteEnv),
     setupUnocss(viteEnv),
     ...setupUnplugin(viteEnv),
     progress(),
