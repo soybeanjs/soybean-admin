@@ -6,6 +6,7 @@ import type {
   Router
 } from 'vue-router';
 import type { RouteKey, RoutePath } from '@elegant-router/types';
+import { getRouteName } from '@/router/elegant/transform';
 import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
 import { localStg } from '@/utils/storage';
@@ -150,8 +151,16 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   if (!isLogin) {
     const loginRoute: RouteKey = 'login';
     const redirect = to.fullPath;
+    const [redirectPath, redirectQuery] = redirect.split('?');
+    const redirectName = getRouteName(redirectPath as RoutePath);
 
-    const query: LocationQueryRaw = to.name !== loginRoute ? { redirect } : {};
+    const isRedirectHome = routeStore.routeHome === redirectName || import.meta.env.VITE_ROUTE_HOME === redirectName;
+
+    const query: LocationQueryRaw = to.name !== loginRoute && !isRedirectHome ? { redirect } : {};
+
+    if (isRedirectHome && redirectQuery) {
+      query.redirect = `/?${redirectQuery}`;
+    }
 
     const location: RouteLocationRaw = {
       name: loginRoute,
