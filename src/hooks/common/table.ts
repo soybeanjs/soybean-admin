@@ -160,6 +160,24 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     Object.assign(pagination, update);
   }
 
+  /**
+   * get data by page number
+   *
+   * @param pageNum the page number. default is 1
+   */
+  async function getDataByPage(pageNum: number = 1) {
+    updatePagination({
+      page: pageNum
+    });
+
+    updateSearchParams({
+      current: pageNum,
+      size: pagination.pageSize!
+    });
+
+    await getData();
+  }
+
   scope.run(() => {
     watch(
       () => appStore.locale,
@@ -184,6 +202,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     mobilePagination,
     updatePagination,
     getData,
+    getDataByPage,
     searchParams,
     updateSearchParams,
     resetSearchParams
