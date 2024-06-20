@@ -8,6 +8,12 @@ export function createDocumentTitleGuard(router: Router) {
 
     const documentTitle = i18nKey ? $t(i18nKey) : title;
 
-    useTitle(documentTitle);
+    changeDocumentTitle(documentTitle);
+  });
+}
+
+export function changeDocumentTitle(documentTitle: string) {
+  useTitle(documentTitle, {
+    titleTemplate: `%s | ${import.meta.env.VITE_APP_TITLE}`
   });
 }
