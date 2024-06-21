@@ -1,0 +1,48 @@
+---
+name: 🚀 功能请求
+description: 提出一个想法以帮助我们改进W&B
+title: "[功能]: "
+labels:
+  - "功能请求"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **感谢 :heart: 您花时间填写此功能请求报告！**
+        我们恳请您搜索看看您的功能是否[已经存在](https://github.com/soybeanjs/soybean-admin/issues?q=is%3Aissue+sort%3Acreated-desc+)。
+
+        我们也很乐意接受用户的贡献。有关更多详细信息，请参阅[此处](https://github.com/soybeanjs/soybean-admin/blob/main/README.zh_CN.md#%E5%A6%82%E4%BD%95%E8%B4%A1%E7%8C%AE)。
+
+  - type: textarea
+    attributes:
+      label: 描述
+      description: |
+        对您感兴趣的功能的清晰简洁的描述。
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 建议的解决方案
+      description: |
+        描述您想要的解决方案。对您希望发生的事情的清晰简洁的描述。
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 替代方案
+      description: |
+        描述您考虑过的替代方案。
+        对您考虑过的任何替代解决方案或功能的清晰简洁的描述。
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: 额外的上下文
+      description: |
+        在此处添加有关问题的其他上下文。
+    validations:
+      required: false

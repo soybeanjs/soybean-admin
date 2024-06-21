@@ -23,6 +23,7 @@ const local: App.I18n.Schema = {
     deleteSuccess: '删除成功',
     confirmDelete: '确认删除吗？',
     edit: '编辑',
+    error: '错误',
     index: '序号',
     keywordSearch: '请输入关键词搜索',
     logout: '退出登录',
