@@ -150,17 +150,7 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   // initialize the auth route requires the user to be logged in, if not, redirect to the login page
   if (!isLogin) {
     const loginRoute: RouteKey = 'login';
-    const redirect = to.fullPath;
-    const [redirectPath, redirectQuery] = redirect.split('?');
-    const redirectName = getRouteName(redirectPath as RoutePath);
-
-    const isRedirectHome = routeStore.routeHome === redirectName || import.meta.env.VITE_ROUTE_HOME === redirectName;
-
-    const query: LocationQueryRaw = to.name !== loginRoute && !isRedirectHome ? { redirect } : {};
-
-    if (isRedirectHome && redirectQuery) {
-      query.redirect = `/?${redirectQuery}`;
-    }
+    const query = getRouteQueryOfLoginRoute(to, routeStore.routeHome);
 
     const location: RouteLocationRaw = {
       name: loginRoute,
@@ -205,4 +195,21 @@ function handleRouteSwitch(to: RouteLocationNormalized, from: RouteLocationNorma
   }
 
   next();
+}
+
+function getRouteQueryOfLoginRoute(to: RouteLocationNormalized, routeHome: RouteKey) {
+  const loginRoute: RouteKey = 'login';
+  const redirect = to.fullPath;
+  const [redirectPath, redirectQuery] = redirect.split('?');
+  const redirectName = getRouteName(redirectPath as RoutePath);
+
+  const isRedirectHome = routeHome === redirectName;
+
+  const query: LocationQueryRaw = to.name !== loginRoute && !isRedirectHome ? { redirect } : {};
+
+  if (isRedirectHome && redirectQuery) {
+    query.redirect = `/?${redirectQuery}`;
+  }
+
+  return query;
 }
