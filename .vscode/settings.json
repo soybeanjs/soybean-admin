@@ -3,7 +3,7 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.useFlatConfig": true,
   "editor.formatOnSave": false,
   "eslint.validate": ["html", "css", "scss", "json", "jsonc"],
   "i18n-ally.displayLanguage": "zh-cn",
