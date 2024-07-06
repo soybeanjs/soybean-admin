@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import type { AxiosResponse, CancelTokenSource, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
+import type { AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 import axiosRetry from 'axios-retry';
 import { nanoid } from '@sa/utils';
 import { createAxiosConfig, createDefaultOptions, createRetryOptions } from './options';
@@ -22,11 +22,27 @@ function createCommonRequest<ResponseData = any>(
   const axiosConf = createAxiosConfig(axiosConfig);
   const instance = axios.create(axiosConf);
 
-  const cancelTokenSourceMap = new Map<string, CancelTokenSource>();
+  const abortControllerMap = new Map<string, AbortController>();
 
   // config axios retry
   const retryOptions = createRetryOptions(axiosConf);
   axiosRetry(instance, retryOptions);
+
+  function configAbortSignal(requestId: string, config: InternalAxiosRequestConfig) {
+    const controller = new AbortController();
+    if (config.signal instanceof AbortSignal) {
+      // proxy abort signal
+      const originalSignal = config.signal;
+      originalSignal.addEventListener!('abort', e => {
+        controller.abort((e.target as AbortSignal).reason);
+      });
+    }
+    config.signal = controller.signal;
+    abortControllerMap.set(requestId, controller);
+    controller.signal.addEventListener('abort', () => {
+      abortControllerMap.has(requestId) && abortControllerMap.delete(requestId);
+    });
+  }
 
   instance.interceptors.request.use(conf => {
     const config: InternalAxiosRequestConfig = { ...conf };
@@ -35,10 +51,8 @@ function createCommonRequest<ResponseData = any>(
     const requestId = nanoid();
     config.headers.set(REQUEST_ID_KEY, requestId);
 
-    // config cancel token
-    const cancelTokenSource = axios.CancelToken.source();
-    config.cancelToken = cancelTokenSource.token;
-    cancelTokenSourceMap.set(requestId, cancelTokenSource);
+    // config abort signal
+    configAbortSignal(requestId, config);
 
     // handle config by hook
     const handledConfig = opts.onRequest?.(config) || config;
@@ -79,18 +93,16 @@ function createCommonRequest<ResponseData = any>(
   );
 
   function cancelRequest(requestId: string) {
-    const cancelTokenSource = cancelTokenSourceMap.get(requestId);
+    const cancelTokenSource = abortControllerMap.get(requestId);
     if (cancelTokenSource) {
-      cancelTokenSource.cancel();
-      cancelTokenSourceMap.delete(requestId);
+      cancelTokenSource.abort('cancel request');
     }
   }
 
   function cancelAllRequest() {
-    cancelTokenSourceMap.forEach(cancelTokenSource => {
-      cancelTokenSource.cancel();
+    abortControllerMap.forEach(cancelTokenSource => {
+      cancelTokenSource.abort('cancel all request');
     });
-    cancelTokenSourceMap.clear();
   }
 
   return {
