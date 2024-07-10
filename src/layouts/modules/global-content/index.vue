@@ -43,13 +43,14 @@ function resetScroll() {
       @after-enter="appStore.setContentXScrollable(false)"
     >
       <KeepAlive :include="routeStore.cacheRoutes">
-        <component
-          :is="Component"
-          v-if="appStore.reloadFlag"
-          :key="tabStore.getTabIdByRoute(route)"
-          :class="{ 'p-16px': showPadding }"
-          class="flex-grow bg-layout transition-300"
-        />
+        <div class="size-full" :key="tabStore.getTabIdByRoute(route)"
+            :class="{ 'p-16px': showPadding }">
+          <component
+            :is="Component"
+            v-if="appStore.reloadFlag"
+            class="flex-grow bg-layout transition-300"
+          />
+        </div>
       </KeepAlive>
     </Transition>
   </RouterView>
