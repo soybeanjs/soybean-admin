@@ -16,10 +16,12 @@ interface PromptObject {
  *
  * @param gitCommitTypes
  * @param gitCommitScopes
+ * @param lang
  */
 export async function gitCommit(
   gitCommitTypes: CliOption['gitCommitTypes'],
-  gitCommitScopes: CliOption['gitCommitScopes']
+  gitCommitScopes: CliOption['gitCommitScopes'],
+  lang?: string
 ) {
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
     const nameWithSuffix = `${value}:`;
@@ -41,19 +43,22 @@ export async function gitCommit(
     {
       name: 'types',
       type: 'select',
-      message: 'Please select a type',
+      message: lang === 'en-us' ? 'Please select a type' : '请选择提交类型',
       choices: typesChoices
     },
     {
       name: 'scopes',
       type: 'select',
-      message: 'Please select a scope',
+      message: lang === 'en-us' ? 'Please select a scope' : '请选择提交范围',
       choices: scopesChoices
     },
     {
       name: 'description',
       type: 'text',
-      message: `Please enter a description (add prefix ${yellow('!')} to indicate breaking change)`
+      message:
+        lang === 'en-us'
+          ? `Please enter a description (add prefix ${yellow('!')} to indicate breaking change)`
+          : '请输入描述信息（！开头表示破坏性改动）'
     }
   ]);
 
