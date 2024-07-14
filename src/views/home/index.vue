@@ -15,6 +15,9 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
 
 <template>
   <NSpace vertical :size="16">
+    <NAlert :title="$t('common.warning')" type="warning" closable>
+      {{ $t('page.home.branchDesc') }}
+    </NAlert>
     <HeaderBanner />
     <CardData />
     <NGrid :x-gap="gap" :y-gap="16" responsive="screen" item-responsive>
