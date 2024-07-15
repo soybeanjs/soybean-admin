@@ -1,9 +1,10 @@
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { prompt } from 'enquirer';
-import { bgRed, green, red, yellow } from 'kolorist';
+import { bgRed, green, red } from 'kolorist';
 import { execCommand } from '../shared';
-import type { CliOption } from '../types';
+import { getLocalLanguage } from '../i18n';
+import type { LangTypeEnum } from '../types';
 
 interface PromptObject {
   types: string;
@@ -14,13 +15,11 @@ interface PromptObject {
 /**
  * Git commit with Conventional Commits standard
  *
- * @param gitCommitTypes
- * @param gitCommitScopes
+ * @param lang
  */
-export async function gitCommit(
-  gitCommitTypes: CliOption['gitCommitTypes'],
-  gitCommitScopes: CliOption['gitCommitScopes']
-) {
+export async function gitCommit(lang?: LangTypeEnum) {
+  const { gitCommitMessages, gitCommitTypes, gitCommitScopes } = getLocalLanguage(lang);
+
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
     const nameWithSuffix = `${value}:`;
 
@@ -41,19 +40,19 @@ export async function gitCommit(
     {
       name: 'types',
       type: 'select',
-      message: 'Please select a type',
+      message: gitCommitMessages.types,
       choices: typesChoices
     },
     {
       name: 'scopes',
       type: 'select',
-      message: 'Please select a scope',
+      message: gitCommitMessages.scopes,
       choices: scopesChoices
     },
     {
       name: 'description',
       type: 'text',
-      message: `Please enter a description (add prefix ${yellow('!')} to indicate breaking change)`
+      message: gitCommitMessages.description
     }
   ]);
 

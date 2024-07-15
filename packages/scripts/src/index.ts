@@ -3,6 +3,7 @@ import { blue, lightGreen } from 'kolorist';
 import { version } from '../package.json';
 import { cleanup, genChangelog, generateRoute, gitCommit, gitCommitVerify, release, updatePkg } from './commands';
 import { loadCliOptions } from './config';
+import { LangTypeEnum } from './types';
 
 type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify' | 'changelog' | 'release' | 'gen-route';
 
@@ -18,13 +19,16 @@ interface CommandArg {
   /** Generate changelog by total tags */
   total?: boolean;
   /**
-   * The glob pattern of dirs to cleanup
+   * The glob pattern of dirs to clean up
    *
    * If not set, it will use the default value
    *
    * Multiple values use "," to separate them
    */
   cleanupDir?: string;
+
+  /** Support for different language prompts, and the default is en-us */
+  lang?: LangTypeEnum;
 }
 
 export async function setupCli() {
@@ -44,6 +48,10 @@ export async function setupCli() {
       '-c, --cleanupDir <dir>',
       'The glob pattern of dirs to cleanup, If not set, it will use the default value, Multiple values use "," to separate them'
     )
+    .option('-l, --lang <lang>', 'Support for different language prompts, and the default is en-us', {
+      default: LangTypeEnum.ENGLISH,
+      type: [LangTypeEnum]
+    })
     .help();
 
   const commands: CommandWithAction<CommandArg> = {
@@ -61,8 +69,9 @@ export async function setupCli() {
     },
     'git-commit': {
       desc: 'git commit, generate commit message which match Conventional Commits standard',
-      action: async () => {
-        await gitCommit(cliOptions.gitCommitTypes, cliOptions.gitCommitScopes);
+      action: async args => {
+        // 选择中文后，不支持语言
+        await gitCommit(args?.lang);
       }
     },
     'git-commit-verify': {
@@ -98,4 +107,6 @@ export async function setupCli() {
   cli.parse();
 }
 
-setupCli();
+(async () => {
+  await setupCli();
+})();
