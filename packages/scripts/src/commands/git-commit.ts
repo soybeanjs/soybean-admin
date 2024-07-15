@@ -1,9 +1,10 @@
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { prompt } from 'enquirer';
-import { bgRed, green, red, yellow } from 'kolorist';
+import { bgRed, green, red } from 'kolorist';
 import { execCommand } from '../shared';
-import type { CliOption } from '../types';
+import { getLocalLanguage } from '../i18n';
+import type { LangTypeEnum } from '../types';
 
 interface PromptObject {
   types: string;
@@ -14,15 +15,11 @@ interface PromptObject {
 /**
  * Git commit with Conventional Commits standard
  *
- * @param gitCommitTypes
- * @param gitCommitScopes
  * @param lang
  */
-export async function gitCommit(
-  gitCommitTypes: CliOption['gitCommitTypes'],
-  gitCommitScopes: CliOption['gitCommitScopes'],
-  lang?: string
-) {
+export async function gitCommit(lang?: LangTypeEnum) {
+  const { gitCommitMessages, gitCommitTypes, gitCommitScopes } = getLocalLanguage(lang);
+
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
     const nameWithSuffix = `${value}:`;
 
@@ -43,22 +40,19 @@ export async function gitCommit(
     {
       name: 'types',
       type: 'select',
-      message: lang === 'en-us' ? 'Please select a type' : '请选择提交类型',
+      message: gitCommitMessages.types,
       choices: typesChoices
     },
     {
       name: 'scopes',
       type: 'select',
-      message: lang === 'en-us' ? 'Please select a scope' : '请选择提交范围',
+      message: gitCommitMessages.scopes,
       choices: scopesChoices
     },
     {
       name: 'description',
       type: 'text',
-      message:
-        lang === 'en-us'
-          ? `Please enter a description (add prefix ${yellow('!')} to indicate breaking change)`
-          : '请输入描述信息（！开头表示破坏性改动）'
+      message: gitCommitMessages.description
     }
   ]);
 
