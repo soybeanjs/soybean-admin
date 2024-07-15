@@ -14,10 +14,6 @@ export interface CliOption {
    * ```
    */
   cleanupDirs: string[];
-  /** Git commit types */
-  gitCommitTypes: [string, string][];
-  /** Git commit scopes */
-  gitCommitScopes: [string, string][];
   /**
    * Npm-check-updates command args
    *
