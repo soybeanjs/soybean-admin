@@ -31,3 +31,9 @@ export interface CliOption {
    */
   changelogOptions: Partial<ChangelogOption>;
 }
+
+/** 语言 */
+export enum LangTypeEnum {
+  CHINESE = 'zh-cn',
+  ENGLISH = 'en-us'
+}
