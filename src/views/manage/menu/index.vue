@@ -47,7 +47,7 @@ const { columns, filteredColumns, data, loading, pagination, getData } = useTabl
       align: 'center',
       width: 80,
       render: row => {
-        const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
+        const tagMap: Record<Api.SystemManage.MenuType, NaiveUI.ThemeColor> = {
           1: 'default',
           2: 'primary'
         };
