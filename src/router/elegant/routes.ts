@@ -434,6 +434,16 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'plugin_pinyin',
+        path: '/plugin/pinyin',
+        component: 'view.plugin_pinyin',
+        meta: {
+          title: 'plugin_pinyin',
+          i18nKey: 'route.plugin_pinyin',
+          icon:'entypo-social:google-hangouts'
+        }
+      },
+      {
         name: 'plugin_print',
         path: '/plugin/print',
         component: 'view.plugin_print',

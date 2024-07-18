@@ -212,6 +212,7 @@ const routeMap: RouteMap = {
   "plugin_editor_quill": "/plugin/editor/quill",
   "plugin_icon": "/plugin/icon",
   "plugin_map": "/plugin/map",
+  "plugin_pinyin": "/plugin/pinyin",
   "plugin_print": "/plugin/print",
   "plugin_swiper": "/plugin/swiper",
   "plugin_video": "/plugin/video",

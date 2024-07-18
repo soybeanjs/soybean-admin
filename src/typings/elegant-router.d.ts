@@ -68,6 +68,7 @@ declare module "@elegant-router/types" {
     "plugin_editor_quill": "/plugin/editor/quill";
     "plugin_icon": "/plugin/icon";
     "plugin_map": "/plugin/map";
+    "plugin_pinyin": "/plugin/pinyin";
     "plugin_print": "/plugin/print";
     "plugin_swiper": "/plugin/swiper";
     "plugin_video": "/plugin/video";
@@ -174,6 +175,7 @@ declare module "@elegant-router/types" {
     | "plugin_editor_quill"
     | "plugin_icon"
     | "plugin_map"
+    | "plugin_pinyin"
     | "plugin_print"
     | "plugin_swiper"
     | "plugin_video"
