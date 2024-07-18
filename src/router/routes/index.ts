@@ -158,6 +158,21 @@ const customRoutes: CustomRoute[] = [
           order: 3,
           icon: 'logos:vue'
         }
+      },
+      {
+        name: 'document_ppt',
+        path: '/document/ppt',
+        component: 'view.iframe-page',
+        props: {
+          url: 'https://pipipi-pikachu.github.io/PPTist'
+        },
+        meta: {
+          title: 'plugin_ppt',
+          i18nKey: 'route.document_ppt',
+          keepAlive: true,
+          order: 9,
+          icon: 'file-icons:microsoft-powerpoint'
+        }
       }
     ]
   }

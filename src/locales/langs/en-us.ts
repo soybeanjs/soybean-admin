@@ -156,6 +156,7 @@ const local: App.I18n.Schema = {
     document_unocss: 'UnoCSS Document',
     document_naive: 'Naive UI Document',
     document_antd: 'Ant Design Vue Document',
+    document_ppt: 'PPT Demo',
     'user-center': 'User Center',
     about: 'About',
     function: 'System Function',

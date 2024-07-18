@@ -156,6 +156,7 @@ const local: App.I18n.Schema = {
     document_unocss: 'UnoCSS文档',
     document_naive: 'Naive UI文档',
     document_antd: 'Ant Design Vue文档',
+    document_ppt: 'PPT 示例',
     'user-center': '个人中心',
     about: '关于',
     function: '系统功能',

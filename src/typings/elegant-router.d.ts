@@ -29,6 +29,7 @@ declare module "@elegant-router/types" {
     "document_unocss": "/document/unocss";
     "document_naive": "/document/naive";
     "document_antd": "/document/antd";
+    "document_ppt": "/document/ppt";
     "403": "/403";
     "404": "/404";
     "500": "/500";
@@ -102,6 +103,7 @@ declare module "@elegant-router/types" {
     | "document_unocss"
     | "document_naive"
     | "document_antd"
+    | "document_ppt"
   >;
 
   /**
@@ -195,6 +197,7 @@ declare module "@elegant-router/types" {
     | "document_unocss"
     | "document_naive"
     | "document_antd"
+    | "document_ppt"
   >;
 
   /**
