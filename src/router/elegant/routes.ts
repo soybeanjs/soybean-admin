@@ -434,6 +434,20 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'plugin_ppt',
+        path: '/plugin/ppt',
+        component: 'view.plugin_ppt',
+        props: {
+          url: 'https://pipipi-pikachu.github.io/PPTist/'
+        },
+        meta: {
+          title: 'plugin_ppt',
+          i18nKey: 'route.plugin_ppt',
+          keepAlive: true,
+          icon:'file-icons:microsoft-powerpoint'
+        }
+      },
+      {
         name: 'plugin_print',
         path: '/plugin/print',
         component: 'view.plugin_print',
