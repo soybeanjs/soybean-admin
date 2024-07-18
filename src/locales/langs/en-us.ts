@@ -196,8 +196,7 @@ const local: App.I18n.Schema = {
     plugin_print: 'Print',
     plugin_swiper: 'Swiper',
     plugin_video: 'Video',
-    plugin_barcode: 'Barcode',
-    plugin_ppt: 'PPT'
+    plugin_barcode: 'Barcode'
   },
   page: {
     login: {
