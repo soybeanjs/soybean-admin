@@ -1,6 +1,33 @@
 # Changelog
 
 
+## [v1.2.8](https://github.com/soybeanjs/soybean-admin/compare/v1.2.7...v1.2.8) (2024-07-20)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **packages**:
+  - @sa/hooks: fix searchParams of useHookTable. fixed #552 &nbsp;-&nbsp; by @honghuangdc in https://github.com/soybeanjs/soybean-admin/issues/552 [<samp>(96c10)</samp>](https://github.com/soybeanjs/soybean-admin/commit/96c1044)
+- **types**:
+  - Fixed the reference type error &nbsp;-&nbsp; by **dodu2014** in https://github.com/soybeanjs/soybean-admin/issues/551 [<samp>(3e2a9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3e2a993)
+  - fix data type of useHookTable &nbsp;-&nbsp; by @honghuangdc [<samp>(276ea)</samp>](https://github.com/soybeanjs/soybean-admin/commit/276ea7f)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**: replace `cloneDeep` of `lodash-es` with `klona` &nbsp;-&nbsp; by @honghuangdc [<samp>(a9133)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a91335d)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update CHANGELOG &nbsp;-&nbsp; by @honghuangdc [<samp>(58fc0)</samp>](https://github.com/soybeanjs/soybean-admin/commit/58fc096)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @honghuangdc [<samp>(cf019)</samp>](https://github.com/soybeanjs/soybean-admin/commit/cf0192a)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[dodu2014](mailto:dodu@live.cn)
+
 ## [v1.2.7](https://github.com/honghuangdc/soybean-admin/compare/v1.2.6...v1.2.7) (2024-07-12)
 
 ### &nbsp;&nbsp;&nbsp;🛠 Optimizations
