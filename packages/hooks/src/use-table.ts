@@ -70,7 +70,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   const allColumns = ref(config.columns()) as Ref<C[]>;
 
-  const data: Ref<T[]> = ref([]);
+  const data: Ref<TableDataWithIndex<T>[]> = ref([]);
 
   const columnChecks: Ref<TableColumnCheck[]> = ref(getColumnChecks(config.columns()));
 
