@@ -1,6 +1,60 @@
 # 更新日志
 
 
+## [v1.2.7](https://github.com/honghuangdc/soybean-admin/compare/v1.2.6...v1.2.7) (2024-07-12)
+
+### &nbsp;&nbsp;&nbsp;🛠 优化
+
+- **项目**: 支持自定义菜单图标大小 &nbsp;-&nbsp; 由 @wynn-w 在 https://github.com/honghuangdc/soybean-admin/issues/534 提出 [<samp>(e035e)</samp>](https://github.com/honghuangdc/soybean-admin/commit/e035eab)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂务
+
+- **依赖**:
+  - 更新依赖 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(72ede)</samp>](https://github.com/honghuangdc/soybean-admin/commit/72ede8b)
+  - 更新依赖 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(be13c)</samp>](https://github.com/honghuangdc/soybean-admin/commit/be13ca2)
+  - 更新依赖 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(752ec)</samp>](https://github.com/honghuangdc/soybean-admin/commit/752ec1e)
+- **项目**:
+  - 修复已弃用的配置配置 &nbsp;-&nbsp; 由 @paynezhuang 在 https://github.com/honghuangdc/soybean-admin/issues/524 提出 [<samp>(0d20e)</samp>](https://github.com/honghuangdc/soybean-admin/commit/0d20e4c)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;[![wynn-w](https://github.com/wynn-w.png?size=48)](https://github.com/wynn-w)&nbsp;&nbsp;[![paynezhuang](https://github.com/paynezhuang.png?size=48)](https://github.com/paynezhuang)&nbsp;&nbsp;
+
+## [v1.2.6](https://github.com/honghuangdc/soybean-admin/compare/v1.2.5...v1.2.6) (2024-06-21)
+
+### &nbsp;&nbsp;&nbsp;🐞 修复
+
+- **项目**:
+  - 请求模态标题使用 i18n。修复 #507 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/honghuangdc/soybean-admin/issues/507 提出 [<samp>(f7de3)</samp>](https://github.com/honghuangdc/soybean-admin/commit/f7de3fd)
+  - 为 `useTable` 添加 `getDataByPage`。修复 #499 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/honghuangdc/soybean-admin/issues/499 提出 [<samp>(425c6)</samp>](https://github.com/honghuangdc/soybean-admin/commit/425c69a)
+  - 修复登录重定向到 routeHome 时，动态路由的 routeHome 与静态路由不同的问题。修复 #511 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/honghuangdc/soybean-admin/issues/511 提出 [<samp>(49f60)</samp>](https://github.com/honghuangdc/soybean-admin/commit/49f60b2)
+
+### &nbsp;&nbsp;&nbsp;🛠 优化
+
+- **项目**: 优化 `getRouteQueryOfLoginRoute` &nbsp;-&nbsp; 由 @honghuangdc [<samp>(693f7)</samp>](https://github.com/honghuangdc/soybean-admin/commit/693f704)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**:
+  - 更新更新日志 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(5c67d)</samp>](https://github.com/honghuangdc/soybean-admin/commit/5c67d06)
+  - 更新自述文件 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(1e67a)</samp>](https://github.com/honghuangdc/soybean-admin/commit/1e67ae8)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂务
+
+- **依赖**:
+  - 更新依赖。关闭 #510 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/honghuangdc/soybean-admin/issues/510 提出 [<samp>(53143)</samp>](https://github.com/honghuangdc/soybean-admin/commit/531432d)
+  - 更新依赖 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(c7f6f)</samp>](https://github.com/honghuangdc/soybean-admin/commit/c7f6f2a)
+
+### &nbsp;&nbsp;&nbsp;🤖 CI
+
+- **项目**:
+  - 添加 github 问题模板 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(b5027)</samp>](https://github.com/honghuangdc/soybean-admin/commit/b5027c8)
+  - 更新 github 问题模板 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(ff1d5)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ff1d504)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+
 ## [v1.2.5](https://github.com/soybeanjs/soybean-admin/compare/v1.2.4...v1.2.5) (2024-06-15)
 
 ### &nbsp;&nbsp;&nbsp;🐞 错误修复
