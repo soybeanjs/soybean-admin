@@ -191,7 +191,7 @@ importers:
         specifier: workspace:*
         version: link:../axios
       '@sa/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../utils
 
   packages/materials:

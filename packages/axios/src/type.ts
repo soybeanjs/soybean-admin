@@ -69,7 +69,19 @@ export type CustomAxiosRequestConfig<R extends ResponseType = 'json'> = Omit<Axi
 };
 
 export interface RequestInstanceCommon<T> {
+  /**
+   * cancel the request by request id
+   *
+   * if the request provide abort controller sign from config, it will not collect in the abort controller map
+   *
+   * @param requestId
+   */
   cancelRequest: (requestId: string) => void;
+  /**
+   * cancel all request
+   *
+   * if the request provide abort controller sign from config, it will not collect in the abort controller map
+   */
   cancelAllRequest: () => void;
   /** you can set custom state in the request instance */
   state: T;
