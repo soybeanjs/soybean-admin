@@ -18,14 +18,14 @@ function createColorPaletteVars() {
 const colorPaletteVars = createColorPaletteVars();
 
 /** Theme vars */
-export const themeVars: App.Theme.ThemeToken = {
+export const themeVars: App.Theme.ThemeTokenCSSVars = {
   colors: {
     ...colorPaletteVars,
     nprogress: 'rgb(var(--nprogress-color))',
     container: 'rgb(var(--container-bg-color))',
     layout: 'rgb(var(--layout-bg-color))',
     inverted: 'rgb(var(--inverted-bg-color))',
-    base_text: 'rgb(var(--base-text-color))'
+    'base-text': 'rgb(var(--base-text-color))'
   },
   boxShadow: {
     header: 'var(--header-box-shadow)',

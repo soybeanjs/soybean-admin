@@ -4,16 +4,6 @@ declare namespace App {
   namespace Theme {
     type ColorPaletteNumber = import('@sa/color').ColorPaletteNumber;
 
-    /** Theme token */
-    type ThemeToken = {
-      colors: ThemeTokenColor;
-      boxShadow: {
-        header: string;
-        sider: string;
-        tab: string;
-      };
-    };
-
     /** Theme setting */
     interface ThemeSetting {
       /** Theme scheme */
@@ -97,6 +87,13 @@ declare namespace App {
         /** Whether float the footer to the right when the layout is 'horizontal-mix' */
         right: boolean;
       };
+      /** define some theme settings tokens, will transform to css variables */
+      tokens: {
+        light: ThemeSettingToken;
+        dark?: {
+          [K in keyof ThemeSettingToken]?: Partial<ThemeSettingToken[K]>;
+        };
+      };
     }
 
     interface OtherColor {
@@ -118,14 +115,33 @@ declare namespace App {
 
     type BaseToken = Record<string, Record<string, string>>;
 
-    interface ThemeTokenColor extends ThemePaletteColor {
-      nprogress: string;
+    interface ThemeSettingTokenColor {
+      /** the progress bar color, if not set, will use the primary color */
+      nprogress?: string;
       container: string;
       layout: string;
       inverted: string;
-      base_text: string;
-      [key: string]: string;
+      'base-text': string;
     }
+
+    interface ThemeSettingTokenBoxShadow {
+      header: string;
+      sider: string;
+      tab: string;
+    }
+
+    interface ThemeSettingToken {
+      colors: ThemeSettingTokenColor;
+      boxShadow: ThemeSettingTokenBoxShadow;
+    }
+
+    type ThemeTokenColor = ThemePaletteColor & ThemeSettingTokenColor;
+
+    /** Theme token CSS variables */
+    type ThemeTokenCSSVars = {
+      colors: ThemeTokenColor & { [key: string]: string };
+      boxShadow: ThemeSettingTokenBoxShadow & { [key: string]: string };
+    };
   }
 
   /** Global namespace */

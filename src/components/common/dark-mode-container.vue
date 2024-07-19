@@ -9,7 +9,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="bg-container text-base_text transition-300" :class="{ 'bg-inverted text-#1f1f1f': inverted }">
+  <div class="bg-container text-base-text transition-300" :class="{ 'bg-inverted text-#1f1f1f': inverted }">
     <slot></slot>
   </div>
 </template>
