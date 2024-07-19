@@ -75,8 +75,8 @@ export async function setupCli() {
     },
     'git-commit-verify': {
       desc: 'verify git commit message, make sure it match Conventional Commits standard',
-      action: async () => {
-        await gitCommitVerify();
+      action: async args => {
+        await gitCommitVerify(args?.lang, cliOptions.gitCommitVerifyIgnores);
       }
     },
     changelog: {

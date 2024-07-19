@@ -65,12 +65,14 @@ export async function gitCommit(lang: Lang = 'en-us') {
 }
 
 /** Git commit message verify */
-export async function gitCommitVerify(lang: Lang = 'en-us') {
+export async function gitCommitVerify(lang: Lang = 'en-us', ignores: RegExp[] = []) {
   const gitPath = await execCommand('git', ['rev-parse', '--show-toplevel']);
 
   const gitMsgPath = path.join(gitPath, '.git', 'COMMIT_EDITMSG');
 
   const commitMsg = readFileSync(gitMsgPath, 'utf8').trim();
+
+  if (ignores.some(regExp => regExp.test(commitMsg))) return;
 
   const REG_EXP = /(?<type>[a-z]+)(?:\((?<scope>.+)\))?(?<breaking>!)?: (?<description>.+)/i;
 
