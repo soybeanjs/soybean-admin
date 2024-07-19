@@ -6,7 +6,7 @@ import { getPaletteColorByNumber } from '@sa/color';
 import { SetupStoreId } from '@/enum';
 import { localStg } from '@/utils/storage';
 import {
-  addThemeVarsToHtml,
+  addThemeVarsToGlobal,
   createThemeToken,
   getNaiveTheme,
   initThemeSettings,
@@ -123,14 +123,14 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settings.value.layout.mode = mode;
   }
 
-  /** Setup theme vars to html */
-  function setupThemeVarsToHtml() {
+  /** Setup theme vars to global */
+  function setupThemeVarsToGlobal() {
     const { themeTokens, darkThemeTokens } = createThemeToken(
       themeColors.value,
       settings.value.tokens,
       settings.value.recommendColor
     );
-    addThemeVarsToHtml(themeTokens, darkThemeTokens);
+    addThemeVarsToGlobal(themeTokens, darkThemeTokens);
   }
 
   /** Cache theme settings */
@@ -170,7 +170,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     watch(
       themeColors,
       val => {
-        setupThemeVarsToHtml();
+        setupThemeVarsToGlobal();
         localStg.set('themeColor', val.primary);
       },
       { immediate: true }

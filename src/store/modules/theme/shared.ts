@@ -133,16 +133,16 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
 }
 
 /**
- * Add theme vars to html
+ * Add theme vars to global
  *
  * @param tokens
  */
-export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.Theme.BaseToken) {
+export function addThemeVarsToGlobal(tokens: App.Theme.BaseToken, darkTokens: App.Theme.BaseToken) {
   const cssVarStr = getCssVarByTokens(tokens);
   const darkCssVarStr = getCssVarByTokens(darkTokens);
 
   const css = `
-    html {
+    :root {
       ${cssVarStr}
     }
   `;
