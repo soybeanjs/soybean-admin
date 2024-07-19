@@ -1,5 +1,5 @@
 import type { PiniaPluginContext } from 'pinia';
-import { cloneDeep } from 'lodash-es';
+import { jsonClone } from '@sa/utils';
 import { SetupStoreId } from '@/enum';
 
 /**
@@ -13,7 +13,7 @@ export function resetSetupStore(context: PiniaPluginContext) {
   if (setupSyntaxIds.includes(context.store.$id)) {
     const { $state } = context.store;
 
-    const defaultStore = cloneDeep($state);
+    const defaultStore = jsonClone($state);
 
     context.store.$reset = () => {
       context.store.$patch(defaultStore);
