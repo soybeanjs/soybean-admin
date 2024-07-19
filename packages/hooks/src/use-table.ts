@@ -1,5 +1,6 @@
 import { computed, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
+import { jsonClone } from '@sa/utils';
 import useBoolean from './use-boolean';
 import useLoading from './use-loading';
 
@@ -65,11 +66,11 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   const { apiFn, apiParams, transformer, immediate = true, getColumnChecks, getColumns } = config;
 
-  const searchParams: NonNullable<Parameters<A>[0]> = reactive({ ...apiParams });
+  const searchParams: NonNullable<Parameters<A>[0]> = reactive(jsonClone({ ...apiParams }));
 
   const allColumns = ref(config.columns()) as Ref<C[]>;
 
-  const data: Ref<T[]> = ref([]);
+  const data: Ref<TableDataWithIndex<T>[]> = ref([]);
 
   const columnChecks: Ref<TableColumnCheck[]> = ref(getColumnChecks(config.columns()));
 
@@ -129,7 +130,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   /** reset search params */
   function resetSearchParams() {
-    Object.assign(searchParams, apiParams);
+    Object.assign(searchParams, jsonClone(apiParams));
   }
 
   if (immediate) {
