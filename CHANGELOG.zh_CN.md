@@ -1,6 +1,34 @@
 # 更新日志
 
 
+## [v1.2.8](https://github.com/soybeanjs/soybean-admin/compare/v1.2.7...v1.2.8) (2024-07-20)
+
+### &nbsp;&nbsp;&nbsp;🐞 修复
+
+- **包**:
+  - @sa/hooks: 修复 useHookTable 的 searchParams。修复了 #552 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/552 提出 [<samp>(96c10)</samp>](https://github.com/soybeanjs/soybean-admin/commit/96c1044)
+- **类型**:
+  - 修复了引用类型错误 &nbsp;-&nbsp; 由 **dodu2014** 在 https://github.com/soybeanjs/soybean-admin/issues/551 提出 [<samp>(3e2a9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3e2a993)
+  - 修复 useHookTable 的数据类型 &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(276ea)</samp>](https://github.com/soybeanjs/soybean-admin/commit/276ea7f)
+
+### &nbsp;&nbsp;&nbsp;💅 重构
+
+- **项目**: 用 `klona` 替换 `lodash-es` 的 `cloneDeep` &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(a9133)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a91335d)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新更新日志 &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(58fc0)</samp>](https://github.com/soybeanjs/soybean-admin/commit/58fc096)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂务
+
+- **依赖**: 更新依赖 &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(cf019)</samp>](https://github.com/soybeanjs/soybean-admin/commit/cf0192a)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[dodu2014](mailto:dodu@live.cn)
+
+
 ## [v1.2.7](https://github.com/honghuangdc/soybean-admin/compare/v1.2.6...v1.2.7) (2024-07-12)
 
 ### &nbsp;&nbsp;&nbsp;🛠 优化
