@@ -354,34 +354,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     return getSelectedMenuKeyPathByKey(selectedKey, menus.value);
   }
 
-  /**
-   * Get route meta by key
-   *
-   * @param key Route key
-   */
-  function getRouteMetaByKey(key: string) {
-    const allRoutes = router.getRoutes();
-
-    return allRoutes.find(route => route.name === key)?.meta || null;
-  }
-
-  /**
-   * Get route query of meta by key
-   *
-   * @param key
-   */
-  function getRouteQueryOfMetaByKey(key: string) {
-    const meta = getRouteMetaByKey(key);
-
-    const query: Record<string, string> = {};
-
-    meta?.query?.forEach(item => {
-      query[item.key] = item.value;
-    });
-
-    return query;
-  }
-
   return {
     resetStore,
     routeHome,
@@ -398,7 +370,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     isInitAuthRoute,
     setIsInitAuthRoute,
     getIsAuthRouteExist,
-    getSelectedMenuKeyPath,
-    getRouteQueryOfMetaByKey
+    getSelectedMenuKeyPath
   };
 });

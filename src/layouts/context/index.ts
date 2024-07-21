@@ -26,9 +26,29 @@ function useMixMenu() {
     setActiveFirstLevelMenuKey(firstLevelRouteName);
   }
 
-  const menus = computed(
+  const allMenus = computed<App.Global.Menu[]>(() => routeStore.menus);
+
+  const firstLevelMenus = computed<App.Global.Menu[]>(() =>
+    routeStore.menus.map(menu => {
+      const { children: _, ...rest } = menu;
+
+      return rest;
+    })
+  );
+
+  const childLevelMenus = computed<App.Global.Menu[]>(
     () => routeStore.menus.find(menu => menu.key === activeFirstLevelMenuKey.value)?.children || []
   );
+
+  const isActiveFirstLevelMenuHasChildren = computed(() => {
+    if (!activeFirstLevelMenuKey.value) {
+      return false;
+    }
+
+    const findItem = allMenus.value.find(item => item.key === activeFirstLevelMenuKey.value);
+
+    return Boolean(findItem?.children?.length);
+  });
 
   watch(
     () => route.name,
@@ -39,9 +59,12 @@ function useMixMenu() {
   );
 
   return {
+    allMenus,
+    firstLevelMenus,
+    childLevelMenus,
+    isActiveFirstLevelMenuHasChildren,
     activeFirstLevelMenuKey,
     setActiveFirstLevelMenuKey,
-    getActiveFirstLevelMenuKey,
-    menus
+    getActiveFirstLevelMenuKey
   };
 }

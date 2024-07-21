@@ -1,6 +1,73 @@
 # 更新日志
 
 
+## [v1.3.0](https://github.com/soybeanjs/soybean-admin/compare/v1.2.8...v1.3.0) (2024-07-22)
+
+### &nbsp;&nbsp;&nbsp;🚨 破坏性变更
+
+- **项目**: 重构全局菜单 & 支持 `reversed-horizontal-mix-menu`。关闭 #365 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/365 提出 [<samp>(087e5)</samp>](https://github.com/soybeanjs/soybean-admin/commit/087e532)
+
+### &nbsp;&nbsp;&nbsp;🚀 功能
+
+- **包**:
+  - `@sa/scripts`: 命令 `gitCommit` 支持中文 &nbsp;-&nbsp; 由 @mmdapl 在 https://github.com/soybeanjs/soybean-admin/issues/548 提出 [<samp>(06971)</samp>](https://github.com/soybeanjs/soybean-admin/commit/06971f3)
+  - @sa/axios: 用 AbortController 替换 CancelTokenSource。关闭 #530, 关闭 #532 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/530 和 https://github.com/soybeanjs/soybean-admin/issues/532 提出 [<samp>(527fd)</samp>](https://github.com/soybeanjs/soybean-admin/commit/527fd79)
+  - @sa/scripts: 为命令 `gitCommitVerify` 添加忽略模式列表。关闭 #504 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/504 提出 [<samp>(958d0)</samp>](https://github.com/soybeanjs/soybean-admin/commit/958d0ba)
+- **项目**:
+  - 使分支 `main` 更精简 & 修改请求重试次数为 0 &nbsp;-&nbsp; 由 @Azir-11 提出 [<samp>(793b1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/793b16e)
+
+### &nbsp;&nbsp;&nbsp;🐞 修复
+
+- **钩子**: 当 pagesize 返回 0 时防止程序冻结 &nbsp;-&nbsp; 由 @Azir-11 在 https://github.com/soybeanjs/soybean-admin/issues/545 提出 [<samp>(f4eeb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f4eeb2e)
+
+### &nbsp;&nbsp;&nbsp;💅 重构
+
+- **项目**:
+  - 合并 `theme tokens` 和 `theme settings`。关闭 #379 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/379 提出 [<samp>(1d1b1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1d1b148)
+  - 将 css 变量挂载到 root &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(00f41)</samp>](https://github.com/soybeanjs/soybean-admin/commit/00f41dd)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新更新日志 &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(a0b76)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a0b76da)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂务
+
+- **依赖**: 更新依赖 &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(f6bd6)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f6bd6b8)
+- **项目**: 添加脚本 `czh` &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(02069)</samp>](https://github.com/soybeanjs/soybean-admin/commit/0206969)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;[![mmdapl](https://github.com/mmdapl.png?size=48)](https://github.com/mmdapl)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;
+
+
+## [v1.2.8](https://github.com/soybeanjs/soybean-admin/compare/v1.2.7...v1.2.8) (2024-07-20)
+
+### &nbsp;&nbsp;&nbsp;🐞 修复
+
+- **包**:
+  - @sa/hooks: 修复 useHookTable 的 searchParams。修复了 #552 &nbsp;-&nbsp; 由 @honghuangdc 在 https://github.com/soybeanjs/soybean-admin/issues/552 提出 [<samp>(96c10)</samp>](https://github.com/soybeanjs/soybean-admin/commit/96c1044)
+- **类型**:
+  - 修复了引用类型错误 &nbsp;-&nbsp; 由 **dodu2014** 在 https://github.com/soybeanjs/soybean-admin/issues/551 提出 [<samp>(3e2a9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3e2a993)
+  - 修复 useHookTable 的数据类型 &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(276ea)</samp>](https://github.com/soybeanjs/soybean-admin/commit/276ea7f)
+
+### &nbsp;&nbsp;&nbsp;💅 重构
+
+- **项目**: 用 `klona` 替换 `lodash-es` 的 `cloneDeep` &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(a9133)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a91335d)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新更新日志 &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(58fc0)</samp>](https://github.com/soybeanjs/soybean-admin/commit/58fc096)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂务
+
+- **依赖**: 更新依赖 &nbsp;-&nbsp; 由 @honghuangdc 提出 [<samp>(cf019)</samp>](https://github.com/soybeanjs/soybean-admin/commit/cf0192a)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;
+[dodu2014](mailto:dodu@live.cn)
+
+
 ## [v1.2.7](https://github.com/honghuangdc/soybean-admin/compare/v1.2.6...v1.2.7) (2024-07-12)
 
 ### &nbsp;&nbsp;&nbsp;🛠 优化

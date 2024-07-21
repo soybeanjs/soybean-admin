@@ -1,9 +1,9 @@
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { prompt } from 'enquirer';
-import { bgRed, green, red, yellow } from 'kolorist';
 import { execCommand } from '../shared';
-import type { CliOption } from '../types';
+import { locales } from '../locales';
+import type { Lang } from '../locales';
 
 interface PromptObject {
   types: string;
@@ -14,13 +14,11 @@ interface PromptObject {
 /**
  * Git commit with Conventional Commits standard
  *
- * @param gitCommitTypes
- * @param gitCommitScopes
+ * @param lang
  */
-export async function gitCommit(
-  gitCommitTypes: CliOption['gitCommitTypes'],
-  gitCommitScopes: CliOption['gitCommitScopes']
-) {
+export async function gitCommit(lang: Lang = 'en-us') {
+  const { gitCommitMessages, gitCommitTypes, gitCommitScopes } = locales[lang];
+
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
     const nameWithSuffix = `${value}:`;
 
@@ -41,19 +39,19 @@ export async function gitCommit(
     {
       name: 'types',
       type: 'select',
-      message: 'Please select a type',
+      message: gitCommitMessages.types,
       choices: typesChoices
     },
     {
       name: 'scopes',
       type: 'select',
-      message: 'Please select a scope',
+      message: gitCommitMessages.scopes,
       choices: scopesChoices
     },
     {
       name: 'description',
       type: 'text',
-      message: `Please enter a description (add prefix ${yellow('!')} to indicate breaking change)`
+      message: gitCommitMessages.description
     }
   ]);
 
@@ -67,20 +65,20 @@ export async function gitCommit(
 }
 
 /** Git commit message verify */
-export async function gitCommitVerify() {
+export async function gitCommitVerify(lang: Lang = 'en-us', ignores: RegExp[] = []) {
   const gitPath = await execCommand('git', ['rev-parse', '--show-toplevel']);
 
   const gitMsgPath = path.join(gitPath, '.git', 'COMMIT_EDITMSG');
 
   const commitMsg = readFileSync(gitMsgPath, 'utf8').trim();
 
+  if (ignores.some(regExp => regExp.test(commitMsg))) return;
+
   const REG_EXP = /(?<type>[a-z]+)(?:\((?<scope>.+)\))?(?<breaking>!)?: (?<description>.+)/i;
 
   if (!REG_EXP.test(commitMsg)) {
-    throw new Error(
-      `${bgRed(' ERROR ')} ${red('git commit message must match the Conventional Commits standard!')}\n\n${green(
-        'Recommended to use the command `pnpm commit` to generate Conventional Commits compliant commit information.\nGet more info about Conventional Commits, follow this link: https://conventionalcommits.org'
-      )}`
-    );
+    const errorMsg = locales[lang].gitCommitVerify;
+
+    throw new Error(errorMsg);
   }
 }

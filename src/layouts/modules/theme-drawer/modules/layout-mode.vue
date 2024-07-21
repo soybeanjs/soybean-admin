@@ -3,6 +3,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
 import LayoutModeCard from '../components/layout-mode-card.vue';
+import SettingItem from '../components/setting-item.vue';
 
 defineOptions({
   name: 'LayoutMode'
@@ -10,6 +11,10 @@ defineOptions({
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
+
+function handleReverseHorizontalMixChange(value: boolean) {
+  themeStore.setLayoutReverseHorizontalMix(value);
+}
 </script>
 
 <template>
@@ -44,6 +49,13 @@ const themeStore = useThemeStore();
       </div>
     </template>
   </LayoutModeCard>
+  <SettingItem
+    v-if="themeStore.layout.mode === 'horizontal-mix'"
+    :label="$t('theme.layoutMode.reverseHorizontalMix')"
+    class="mt-16px"
+  >
+    <NSwitch :value="themeStore.layout.reverseHorizontalMix" @update:value="handleReverseHorizontalMixChange" />
+  </SettingItem>
 </template>
 
 <style scoped>

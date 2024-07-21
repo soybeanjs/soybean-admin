@@ -14,10 +14,6 @@ export interface CliOption {
    * ```
    */
   cleanupDirs: string[];
-  /** Git commit types */
-  gitCommitTypes: [string, string][];
-  /** Git commit scopes */
-  gitCommitScopes: [string, string][];
   /**
    * Npm-check-updates command args
    *
@@ -30,4 +26,6 @@ export interface CliOption {
    * @link https://github.com/soybeanjs/changelog
    */
   changelogOptions: Partial<ChangelogOption>;
+  /** The ignore pattern list of git commit verify */
+  gitCommitVerifyIgnores: RegExp[];
 }

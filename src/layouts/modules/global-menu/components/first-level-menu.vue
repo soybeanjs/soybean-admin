@@ -3,30 +3,28 @@ import { computed } from 'vue';
 import { createReusableTemplate } from '@vueuse/core';
 import { SimpleScrollbar } from '@sa/materials';
 import { transformColorWithOpacity } from '@sa/color';
-import { useAppStore } from '@/store/modules/app';
-import { useRouteStore } from '@/store/modules/route';
-import { useThemeStore } from '@/store/modules/theme';
 
 defineOptions({
   name: 'FirstLevelMenu'
 });
 
 interface Props {
+  menus: App.Global.Menu[];
   activeMenuKey?: string;
   inverted?: boolean;
+  siderCollapse?: boolean;
+  darkMode?: boolean;
+  themeColor: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 interface Emits {
   (e: 'select', menu: App.Global.Menu): boolean;
+  (e: 'toggleSiderCollapse'): void;
 }
 
 const emit = defineEmits<Emits>();
-
-const appStore = useAppStore();
-const themeStore = useThemeStore();
-const routeStore = useRouteStore();
 
 interface MixMenuItemProps {
   /** Menu item label */
@@ -36,12 +34,12 @@ interface MixMenuItemProps {
   /** Active menu item */
   active: boolean;
   /** Mini size */
-  isMini: boolean;
+  isMini?: boolean;
 }
 const [DefineMixMenuItem, MixMenuItem] = createReusableTemplate<MixMenuItemProps>();
 
 const selectedBgColor = computed(() => {
-  const { darkMode, themeColor } = themeStore;
+  const { darkMode, themeColor } = props;
 
   const light = transformColorWithOpacity(themeColor, 0.1, '#ffffff');
   const dark = transformColorWithOpacity(themeColor, 0.3, '#000000');
@@ -51,6 +49,10 @@ const selectedBgColor = computed(() => {
 
 function handleClickMixMenu(menu: App.Global.Menu) {
   emit('select', menu);
+}
+
+function toggleSiderCollapse() {
+  emit('toggleSiderCollapse');
 }
 </script>
 
@@ -80,21 +82,21 @@ function handleClickMixMenu(menu: App.Global.Menu) {
     <slot></slot>
     <SimpleScrollbar>
       <MixMenuItem
-        v-for="menu in routeStore.menus"
+        v-for="menu in menus"
         :key="menu.key"
         :label="menu.label"
         :icon="menu.icon"
         :active="menu.key === activeMenuKey"
-        :is-mini="appStore.siderCollapse"
+        :is-mini="siderCollapse"
         @click="handleClickMixMenu(menu)"
       />
     </SimpleScrollbar>
     <MenuToggler
       arrow-icon
-      :collapsed="appStore.siderCollapse"
+      :collapsed="siderCollapse"
       :z-index="99"
       :class="{ 'text-white:88 !hover:text-white': inverted }"
-      @click="appStore.toggleSiderCollapse"
+      @click="toggleSiderCollapse"
     />
   </div>
 </template>

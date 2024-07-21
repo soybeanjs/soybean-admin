@@ -12,34 +12,18 @@ const defaultOptions: CliOption = {
     '**/node_modules',
     '!node_modules/**'
   ],
-  gitCommitTypes: [
-    ['feat', 'A new feature'],
-    ['fix', 'A bug fix'],
-    ['docs', 'Documentation only changes'],
-    ['style', 'Changes that do not affect the meaning of the code'],
-    ['refactor', 'A code change that neither fixes a bug nor adds a feature'],
-    ['perf', 'A code change that improves performance'],
-    ['optimize', 'A code change that optimizes code quality'],
-    ['test', 'Adding missing tests or correcting existing tests'],
-    ['build', 'Changes that affect the build system or external dependencies'],
-    ['ci', 'Changes to our CI configuration files and scripts'],
-    ['chore', "Other changes that don't modify src or test files"],
-    ['revert', 'Reverts a previous commit']
-  ],
-  gitCommitScopes: [
-    ['projects', 'project'],
-    ['packages', 'packages'],
-    ['components', 'components'],
-    ['hooks', 'hook functions'],
-    ['utils', 'utils functions'],
-    ['types', 'TS declaration'],
-    ['styles', 'style'],
-    ['deps', 'project dependencies'],
-    ['release', 'release project'],
-    ['other', 'other changes']
-  ],
   ncuCommandArgs: ['--deep', '-u'],
-  changelogOptions: {}
+  changelogOptions: {},
+  gitCommitVerifyIgnores: [
+    /^((Merge pull request)|(Merge (.*?) into (.*?)|(Merge branch (.*?)))(?:\r?\n)*$)/m,
+    /^(Merge tag (.*?))(?:\r?\n)*$/m,
+    /^(R|r)evert (.*)/,
+    /^(amend|fixup|squash)!/,
+    /^(Merged (.*?)(in|into) (.*)|Merged PR (.*): (.*))/,
+    /^Merge remote-tracking branch(\s*)(.*)/,
+    /^Automatic merge(.*)/,
+    /^Auto-merged (.*?) into (.*)/
+  ]
 };
 
 export async function loadCliOptions(overrides?: Partial<CliOption>, cwd = process.cwd()) {
