@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 
-defineOptions({ name: 'IconSelect' });
+defineOptions({ name: 'CustomIconSelect' });
 
 interface Props {
   /** Selected icon */

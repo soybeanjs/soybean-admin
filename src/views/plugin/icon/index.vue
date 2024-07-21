@@ -19,7 +19,7 @@ const localIcons = ['custom-icon', 'activity', 'at-sign', 'cast', 'chrome', 'cop
       </div>
       <div class="mt-50px">
         <h1 class="mb-20px text-18px font-500">Icon图标选择器</h1>
-        <icon-select v-model:value="selectValue" :icons="icons" />
+        <CustomIconSelect v-model:value="selectValue" :icons="icons" />
       </div>
       <template #footer>
         <WebSiteLink label="iconify地址：" link="https://icones.js.org/" class="mt-10px" />
