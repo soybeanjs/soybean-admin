@@ -1,7 +1,6 @@
 <script setup lang="tsx">
 import { NButton, NTag } from 'naive-ui';
 import { utils, writeFile } from 'xlsx';
-import type { DataTableBaseColumn } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
@@ -104,7 +103,6 @@ const { columns, data, loading } = useTable({
   ]
 });
 
-const tableTitleList = columns.value.slice(2) as DataTableBaseColumn[];
 function exportExcel() {
   const exportColumns = columns.value.slice(2);
 
@@ -118,7 +116,7 @@ function exportExcel() {
 
   const workSheet = utils.aoa_to_sheet(excelList);
 
-  workSheet['!cols'] = tableTitleList.map(item => ({
+  workSheet['!cols'] = exportColumns.map(item => ({
     width: Math.round(Number(item.width) / 10 || 20)
   }));
 
