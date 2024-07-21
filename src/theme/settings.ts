@@ -13,7 +13,8 @@ export const themeSettings: App.Theme.ThemeSetting = {
   isInfoFollowPrimary: true,
   layout: {
     mode: 'vertical',
-    scrollMode: 'content'
+    scrollMode: 'content',
+    reverseHorizontalMix: false
   },
   page: {
     animate: true,

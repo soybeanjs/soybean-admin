@@ -20,7 +20,7 @@ declare namespace UnionKey {
    * - vertical: the vertical menu in left
    * - horizontal: the horizontal menu in top
    * - vertical-mix: two vertical mixed menus in left
-   * - horizontal-mix: the vertical menu in left and horizontal menu in top
+   * - horizontal-mix: the vertical first level menus in left and horizontal child level menus in top
    */
   type ThemeLayoutMode = 'vertical' | 'horizontal' | 'vertical-mix' | 'horizontal-mix';
 

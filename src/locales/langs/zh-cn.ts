@@ -70,7 +70,8 @@ const local: App.I18n.Schema = {
       vertical: '左侧菜单模式',
       'vertical-mix': '左侧菜单混合模式',
       horizontal: '顶部菜单模式',
-      'horizontal-mix': '顶部菜单混合模式'
+      'horizontal-mix': '顶部菜单混合模式',
+      reverseHorizontalMix: '一级菜单与子级菜单位置反转'
     },
     recommendColor: '应用推荐算法的颜色',
     recommendColorDesc: '推荐颜色的算法参照',
