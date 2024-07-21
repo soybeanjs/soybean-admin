@@ -414,6 +414,17 @@ export const generatedRoutes: GeneratedRoute[] = [
         ]
       },
       {
+        name: 'plugin_excel',
+        path: '/plugin/excel',
+        component: 'view.plugin_excel',
+        meta: {
+          title: 'plugin_excel',
+          i18nKey: 'route.plugin_excel',
+          icon: 'ri:file-excel-2-line',
+          keepAlive: true
+        }
+      },
+      {
         name: 'plugin_icon',
         path: '/plugin/icon',
         component: 'view.plugin_icon',

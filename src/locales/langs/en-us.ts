@@ -196,7 +196,8 @@ const local: App.I18n.Schema = {
     plugin_swiper: 'Swiper',
     plugin_video: 'Video',
     plugin_barcode: 'Barcode',
-    plugin_pinyin: 'pinyin'
+    plugin_pinyin: 'pinyin',
+    plugin_excel: 'Excel'
   },
   page: {
     login: {
