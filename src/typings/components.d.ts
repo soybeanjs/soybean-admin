@@ -18,6 +18,7 @@ declare module 'vue' {
     IconAntDesignEnterOutlined: typeof import('~icons/ant-design/enter-outlined')['default']
     IconAntDesignReloadOutlined: typeof import('~icons/ant-design/reload-outlined')['default']
     IconAntDesignSettingOutlined: typeof import('~icons/ant-design/setting-outlined')['default']
+    'IconFileIcons:microsoftExcel': typeof import('~icons/file-icons/microsoft-excel')['default']
     IconGridiconsFullscreen: typeof import('~icons/gridicons/fullscreen')['default']
     IconGridiconsFullscreenExit: typeof import('~icons/gridicons/fullscreen-exit')['default']
     'IconIc:roundPlus': typeof import('~icons/ic/round-plus')['default']

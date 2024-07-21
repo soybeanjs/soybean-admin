@@ -65,6 +65,7 @@ declare module "@elegant-router/types" {
     "plugin_editor": "/plugin/editor";
     "plugin_editor_markdown": "/plugin/editor/markdown";
     "plugin_editor_quill": "/plugin/editor/quill";
+    "plugin_excel": "/plugin/excel";
     "plugin_icon": "/plugin/icon";
     "plugin_map": "/plugin/map";
     "plugin_pinyin": "/plugin/pinyin";
@@ -171,6 +172,7 @@ declare module "@elegant-router/types" {
     | "plugin_copy"
     | "plugin_editor_markdown"
     | "plugin_editor_quill"
+    | "plugin_excel"
     | "plugin_icon"
     | "plugin_map"
     | "plugin_pinyin"
