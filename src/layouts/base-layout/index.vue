@@ -85,7 +85,12 @@ function getSiderWidth() {
 }
 
 function getSiderCollapsedWidth() {
+  const { reverseHorizontalMix } = themeStore.layout;
   const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider;
+
+  if (isHorizontalMix.value && reverseHorizontalMix) {
+    return isActiveFirstLevelMenuHasChildren.value ? collapsedWidth : 0;
+  }
 
   let w = isVerticalMix.value || isHorizontalMix.value ? mixCollapsedWidth : collapsedWidth;
 
