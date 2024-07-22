@@ -18,8 +18,6 @@ const themeStore = useThemeStore();
 const { allMenus, childLevelMenus, activeFirstLevelMenuKey, setActiveFirstLevelMenuKey } = useMixMenuContext();
 const { routerPushByKeyWithMetaQuery } = useRouterPush();
 
-const inverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
-
 const selectedKey = computed(() => {
   const { hideInMenu, activeMenu } = route.meta;
   const name = route.name as string;
@@ -53,7 +51,6 @@ function handleSelectMixMenu(menu: App.Global.Menu) {
     <FirstLevelMenu
       :menus="allMenus"
       :active-menu-key="activeFirstLevelMenuKey"
-      :inverted="inverted"
       :sider-collapse="appStore.siderCollapse"
       :dark-mode="themeStore.darkMode"
       :theme-color="themeStore.themeColor"

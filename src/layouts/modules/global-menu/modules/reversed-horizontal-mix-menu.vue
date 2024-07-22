@@ -27,8 +27,6 @@ const {
 } = useMixMenuContext();
 const { routerPushByKeyWithMetaQuery } = useRouterPush();
 
-const inverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
-
 const selectedKey = computed(() => {
   const { hideInMenu, activeMenu } = route.meta;
   const name = route.name as string;
@@ -86,7 +84,6 @@ watch(
         :collapsed-width="themeStore.sider.collapsedWidth"
         :collapsed-icon-size="22"
         :options="childLevelMenus"
-        :inverted="inverted"
         :indent="18"
         @update:value="routerPushByKeyWithMetaQuery"
       />
