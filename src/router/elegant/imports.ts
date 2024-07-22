@@ -44,6 +44,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   plugin_excel: () => import("@/views/plugin/excel/index.vue"),
   plugin_icon: () => import("@/views/plugin/icon/index.vue"),
   plugin_map: () => import("@/views/plugin/map/index.vue"),
+  plugin_pdf: () => import("@/views/plugin/pdf/index.vue"),
   plugin_pinyin: () => import("@/views/plugin/pinyin/index.vue"),
   plugin_print: () => import("@/views/plugin/print/index.vue"),
   plugin_swiper: () => import("@/views/plugin/swiper/index.vue"),
