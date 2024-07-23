@@ -117,6 +117,7 @@ watch(
             <NMenu
               v-model:expanded-keys="expandedKeys"
               mode="vertical"
+              :value="selectedKey"
               :options="childLevelMenus"
               :collapsed="appStore.siderCollapse"
               :collapsed-width="themeStore.sider.collapsedWidth"
