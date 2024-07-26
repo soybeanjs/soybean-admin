@@ -445,6 +445,16 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'plugin_pdf',
+        path: '/plugin/pdf',
+        component: 'view.plugin_pdf',
+        meta: {
+          title: 'plugin_pdf',
+          i18nKey: 'route.plugin_pdf',
+          icon:'uiw:file-pdf'
+        }
+      },
+      {
         name: 'plugin_pinyin',
         path: '/plugin/pinyin',
         component: 'view.plugin_pinyin',
