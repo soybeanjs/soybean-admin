@@ -65,6 +65,7 @@ const local: App.I18n.Schema = {
       auto: 'Follow System'
     },
     grayscale: 'Grayscale',
+    colourWeakness: 'Colour Weakness',
     layoutMode: {
       title: 'Layout Mode',
       vertical: 'Vertical Menu Mode',
