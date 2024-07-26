@@ -68,6 +68,7 @@ declare module "@elegant-router/types" {
     "plugin_excel": "/plugin/excel";
     "plugin_icon": "/plugin/icon";
     "plugin_map": "/plugin/map";
+    "plugin_pdf": "/plugin/pdf";
     "plugin_pinyin": "/plugin/pinyin";
     "plugin_print": "/plugin/print";
     "plugin_swiper": "/plugin/swiper";
@@ -175,6 +176,7 @@ declare module "@elegant-router/types" {
     | "plugin_excel"
     | "plugin_icon"
     | "plugin_map"
+    | "plugin_pdf"
     | "plugin_pinyin"
     | "plugin_print"
     | "plugin_swiper"

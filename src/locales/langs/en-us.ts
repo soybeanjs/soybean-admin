@@ -199,7 +199,8 @@ const local: App.I18n.Schema = {
     plugin_video: 'Video',
     plugin_barcode: 'Barcode',
     plugin_pinyin: 'pinyin',
-    plugin_excel: 'Excel'
+    plugin_excel: 'Excel',
+    plugin_pdf: 'PDF preview'
   },
   page: {
     login: {
