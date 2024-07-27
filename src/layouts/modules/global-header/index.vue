@@ -41,11 +41,7 @@ const { isFullscreen, toggle } = useFullscreen();
       <GlobalSearch />
       <FullScreen v-if="!appStore.isMobile" :full="isFullscreen" @click="toggle" />
       <LangSwitch :lang="appStore.locale" :lang-options="appStore.localeOptions" @change-lang="appStore.changeLocale" />
-      <ThemeSchemaSwitch
-        :theme-schema="themeStore.themeScheme"
-        :is-dark="themeStore.darkMode"
-        @switch="themeStore.toggleThemeScheme"
-      />
+      <ThemeSchemaSwitch />
       <ThemeButton />
       <UserAvatar />
     </div>
