@@ -10,6 +10,8 @@ declare namespace App {
       themeScheme: UnionKey.ThemeScheme;
       /** grayscale mode */
       grayscale: boolean;
+      /** colour weakness mode */
+      colourWeakness: boolean;
       /** Whether to recommend color */
       recommendColor: boolean;
       /** Theme color */
@@ -332,6 +334,7 @@ declare namespace App {
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
         grayscale: string;
+        colourWeakness: string;
         layoutMode: { title: string; reverseHorizontalMix: string } & Record<UnionKey.ThemeLayoutMode, string>;
         recommendColor: string;
         recommendColorDesc: string;

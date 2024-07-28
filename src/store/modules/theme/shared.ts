@@ -180,20 +180,16 @@ export function toggleCssDarkMode(darkMode = false) {
 }
 
 /**
- * Toggle grayscale mode
+ * Toggle auxiliary color modes
  *
- * @param grayscaleMode Is grayscale mode
+ * @param grayscaleMode
+ * @param colourWeakness
  */
-export function toggleGrayscaleMode(grayscaleMode = false) {
-  const GRAYSCALE_CLASS = 'grayscale';
-
-  const { add, remove } = toggleHtmlClass(GRAYSCALE_CLASS);
-
-  if (grayscaleMode) {
-    add();
-  } else {
-    remove();
-  }
+export function toggleAuxiliaryColorModes(grayscaleMode = false, colourWeakness = false) {
+  const htmlElement = document.documentElement;
+  htmlElement.style.filter = [grayscaleMode ? 'grayscale(100%)' : '', colourWeakness ? 'invert(80%)' : '']
+    .filter(Boolean)
+    .join(' ');
 }
 
 type NaiveColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active';
