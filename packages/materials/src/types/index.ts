@@ -132,6 +132,22 @@ export interface AdminLayoutFooterConfig {
   rightFooter?: boolean;
 }
 
+/** Watermark config */
+export interface AdminLayoutWatermarkConfig {
+  /**
+   * Whether watermark is visible
+   *
+   * @default: true
+   */
+  watermarkVisible?: boolean;
+  /**
+   * Watermark text
+   *
+   * @default: SoybeanAdmin
+   */
+  watermarkText?: string;
+}
+
 /**
  * Layout mode
  *
@@ -156,7 +172,8 @@ export interface AdminLayoutProps
     AdminLayoutTabConfig,
     AdminLayoutSiderConfig,
     AdminLayoutContentConfig,
-    AdminLayoutFooterConfig {
+    AdminLayoutFooterConfig,
+    AdminLayoutWatermarkConfig {
   /**
    * Layout mode
    *

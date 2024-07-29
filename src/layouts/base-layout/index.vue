@@ -9,6 +9,7 @@ import GlobalSider from '../modules/global-sider/index.vue';
 import GlobalTab from '../modules/global-tab/index.vue';
 import GlobalContent from '../modules/global-content/index.vue';
 import GlobalFooter from '../modules/global-footer/index.vue';
+import GlobalWatermark from '../modules/global-watermark/index.vue';
 import ThemeDrawer from '../modules/theme-drawer/index.vue';
 import { setupMixMenuContext } from '../context';
 
@@ -67,6 +68,11 @@ const siderWidth = computed(() => getSiderWidth());
 
 const siderCollapsedWidth = computed(() => getSiderCollapsedWidth());
 
+const watermarkProps = computed(() => {
+  const { text } = themeStore.watermark;
+  return { text };
+});
+
 function getSiderWidth() {
   const { reverseHorizontalMix } = themeStore.layout;
   const { width, mixWidth, mixChildMenuWidth } = themeStore.sider;
@@ -122,6 +128,8 @@ function getSiderCollapsedWidth() {
     :footer-height="themeStore.footer.height"
     :fixed-footer="themeStore.footer.fixed"
     :right-footer="themeStore.footer.right"
+    :watermark-visible="themeStore.watermark.visible"
+    :watermark-text="themeStore.watermark.text"
   >
     <template #header>
       <GlobalHeader v-bind="headerProps" />
@@ -137,6 +145,9 @@ function getSiderCollapsedWidth() {
     <ThemeDrawer />
     <template #footer>
       <GlobalFooter />
+    </template>
+    <template #watermark>
+      <GlobalWatermark v-bind="watermarkProps" />
     </template>
   </AdminLayout>
 </template>

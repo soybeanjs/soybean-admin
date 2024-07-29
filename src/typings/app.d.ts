@@ -93,6 +93,13 @@ declare namespace App {
         /** Whether float the footer to the right when the layout is 'horizontal-mix' */
         right: boolean;
       };
+      /** Watermark */
+      watermark: {
+        /** Whether to show the watermark */
+        visible: boolean;
+        /** Watermark text */
+        text: string;
+      };
       /** define some theme settings tokens, will transform to css variables */
       tokens: {
         light: ThemeSettingToken;
@@ -167,6 +174,12 @@ declare namespace App {
       showMenuToggler?: boolean;
       /** Whether to show the menu */
       showMenu?: boolean;
+    }
+
+    /** The global watermark props */
+    interface WatermarkProps {
+      /** Whether to show the watermark */
+      text?: string;
     }
 
     /** The global menu */
@@ -371,6 +384,10 @@ declare namespace App {
           fixed: string;
           height: string;
           right: string;
+        };
+        watermark: {
+          visible: string;
+          text: string;
         };
         themeDrawerTitle: string;
         pageFunTitle: string;

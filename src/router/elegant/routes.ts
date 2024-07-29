@@ -451,7 +451,7 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'plugin_pdf',
           i18nKey: 'route.plugin_pdf',
-          icon:'uiw:file-pdf'
+          icon: 'uiw:file-pdf'
         }
       },
       {

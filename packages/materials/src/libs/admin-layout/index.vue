@@ -25,7 +25,9 @@ const props = withDefaults(defineProps<AdminLayoutProps>(), {
   siderCollapsedWidth: 64,
   footerVisible: true,
   footerHeight: 48,
-  rightFooter: false
+  rightFooter: false,
+  watermarkVisible: true,
+  watermarkText: 'SoybeanAdmin'
 });
 
 interface Emits {
@@ -48,6 +50,8 @@ type Slots = {
   sider?: SlotFn;
   /** Footer */
   footer?: SlotFn;
+  /** Watermark */
+  watermark?: SlotFn;
 };
 
 const slots = defineSlots<Slots>();
@@ -60,6 +64,7 @@ const showTab = computed(() => Boolean(slots.tab) && props.tabVisible);
 const showSider = computed(() => !props.isMobile && Boolean(slots.sider) && props.siderVisible);
 const showMobileSider = computed(() => props.isMobile && Boolean(slots.sider) && props.siderVisible);
 const showFooter = computed(() => Boolean(slots.footer) && props.footerVisible);
+const showWatermark = computed(() => Boolean(slots.watermark) && props.watermarkVisible);
 
 // scroll mode
 const isWrapperScroll = computed(() => props.scrollMode === 'wrapper');
@@ -229,6 +234,11 @@ function handleClickMask() {
           class="flex-shrink-0 overflow-hidden"
           :class="[style['layout-footer-placement']]"
         ></div>
+      </template>
+
+      <!-- Watermark -->
+      <template v-if="showWatermark">
+        <slot name="watermark"></slot>
       </template>
     </div>
   </div>
