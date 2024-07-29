@@ -135,6 +135,10 @@ const local: App.I18n.Schema = {
       height: 'Footer Height',
       right: 'Right Footer'
     },
+    watermark: {
+      visible: 'Watermark Full Screen Visible',
+      text: 'Watermark Text'
+    },
     themeDrawerTitle: 'Theme Configuration',
     pageFunTitle: 'Page Function',
     configOperation: {

@@ -49,6 +49,10 @@ export const themeSettings: App.Theme.ThemeSetting = {
     height: 48,
     right: true
   },
+  watermark: {
+    visible: false,
+    text: 'SoybeanAdmin'
+  },
   tokens: {
     light: {
       colors: {
