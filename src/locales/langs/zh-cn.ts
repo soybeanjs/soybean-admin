@@ -135,6 +135,10 @@ const local: App.I18n.Schema = {
       height: '底部高度',
       right: '底部局右'
     },
+    watermark: {
+      visible: '显示全屏水印',
+      text: '水印文本'
+    },
     themeDrawerTitle: '主题配置',
     pageFunTitle: '页面功能',
     configOperation: {

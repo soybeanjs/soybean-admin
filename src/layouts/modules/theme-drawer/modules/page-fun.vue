@@ -101,6 +101,19 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
     >
       <NSwitch v-model:value="themeStore.footer.right" />
     </SettingItem>
+    <SettingItem key="8" :label="$t('theme.watermark.visible')">
+      <NSwitch v-model:value="themeStore.watermark.visible" />
+    </SettingItem>
+    <SettingItem v-if="themeStore.watermark.visible" key="8-1" :label="$t('theme.watermark.text')">
+      <NInput
+        v-model:value="themeStore.watermark.text"
+        autosize
+        type="text"
+        size="small"
+        class="w-120px"
+        placeholder="SoybeanAdmin"
+      />
+    </SettingItem>
   </TransitionGroup>
 </template>
 

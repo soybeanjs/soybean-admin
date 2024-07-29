@@ -21,6 +21,22 @@ const naiveLocale = computed(() => {
 const naiveDateLocale = computed(() => {
   return naiveDateLocales[appStore.locale];
 });
+
+const watermarkProps = computed(() => {
+  return {
+    content: themeStore.watermark.text,
+    cross: true,
+    fullscreen: true,
+    fontSize: 16,
+    lineHeight: 16,
+    width: 384,
+    height: 384,
+    xOffset: 12,
+    yOffset: 60,
+    rotate: -15,
+    zIndex: 9999
+  };
+});
 </script>
 
 <template>
@@ -33,6 +49,7 @@ const naiveDateLocale = computed(() => {
   >
     <AppProvider>
       <RouterView class="bg-layout" />
+      <NWatermark v-if="themeStore.watermark.visible" v-bind="watermarkProps" />
     </AppProvider>
   </NConfigProvider>
 </template>
