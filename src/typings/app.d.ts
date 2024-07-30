@@ -10,6 +10,8 @@ declare namespace App {
       themeScheme: UnionKey.ThemeScheme;
       /** grayscale mode */
       grayscale: boolean;
+      /** colour weakness mode */
+      colourWeakness: boolean;
       /** Whether to recommend color */
       recommendColor: boolean;
       /** Theme color */
@@ -92,6 +94,13 @@ declare namespace App {
         height: number;
         /** Whether float the footer to the right when the layout is 'horizontal-mix' */
         right: boolean;
+      };
+      /** Watermark */
+      watermark: {
+        /** Whether to show the watermark */
+        visible: boolean;
+        /** Watermark text */
+        text: string;
       };
       /** define some theme settings tokens, will transform to css variables */
       tokens: {
@@ -332,6 +341,7 @@ declare namespace App {
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
         grayscale: string;
+        colourWeakness: string;
         layoutMode: { title: string; reverseHorizontalMix: string } & Record<UnionKey.ThemeLayoutMode, string>;
         recommendColor: string;
         recommendColorDesc: string;
@@ -371,6 +381,10 @@ declare namespace App {
           fixed: string;
           height: string;
           right: string;
+        };
+        watermark: {
+          visible: string;
+          text: string;
         };
         themeDrawerTitle: string;
         pageFunTitle: string;

@@ -65,6 +65,7 @@ const local: App.I18n.Schema = {
       auto: '跟随系统'
     },
     grayscale: '灰色模式',
+    colourWeakness: '色弱模式',
     layoutMode: {
       title: '布局模式',
       vertical: '左侧菜单模式',
@@ -133,6 +134,10 @@ const local: App.I18n.Schema = {
       fixed: '固定底部',
       height: '底部高度',
       right: '底部局右'
+    },
+    watermark: {
+      visible: '显示全屏水印',
+      text: '水印文本'
     },
     themeDrawerTitle: '主题配置',
     pageFunTitle: '页面功能',

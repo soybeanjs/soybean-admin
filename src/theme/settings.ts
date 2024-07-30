@@ -2,6 +2,7 @@
 export const themeSettings: App.Theme.ThemeSetting = {
   themeScheme: 'light',
   grayscale: false,
+  colourWeakness: false,
   recommendColor: false,
   themeColor: '#646cff',
   otherColor: {
@@ -47,6 +48,10 @@ export const themeSettings: App.Theme.ThemeSetting = {
     fixed: false,
     height: 48,
     right: true
+  },
+  watermark: {
+    visible: false,
+    text: 'SoybeanAdmin'
   },
   tokens: {
     light: {
