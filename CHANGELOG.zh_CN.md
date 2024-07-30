@@ -1,5 +1,39 @@
 # 更新日志
 
+## [v1.3.2](https://github.com/honghuangdc/soybean-admin/compare/v1.3.1...v1.3.2) (2024-07-30)
+
+### &nbsp;&nbsp;&nbsp;🚀 新功能
+
+- **项目**:
+  - 添加颜色渐变模式。关闭 #567 &nbsp;-&nbsp; 由 @Azir-11 在 https://github.com/honghuangdc/soybean-admin/issues/569 和 https://github.com/honghuangdc/soybean-admin/issues/567 [<samp>(4dde4)</samp>](https://github.com/honghuangdc/soybean-admin/commit/4dde4c2)
+  - 添加全屏水印。关闭 #571 &nbsp;-&nbsp; 由 @paynezhuang 在 https://github.com/honghuangdc/soybean-admin/issues/573 和 https://github.com/honghuangdc/soybean-admin/issues/571 [<samp>(ea8aa)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ea8aa6c)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug 修复
+
+- **项目**: 修复 vertical-mix 菜单选中问题 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(59f07)</samp>](https://github.com/honghuangdc/soybean-admin/commit/59f07d8)
+
+### &nbsp;&nbsp;&nbsp;🛠 优化
+
+- **项目**:
+  - 添加类型 WatermarkProps &nbsp;-&nbsp; 由 @honghuangdc [<samp>(f26d0)</samp>](https://github.com/honghuangdc/soybean-admin/commit/f26d0a6)
+  - 移除 home NAlert 可关闭 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(98b75)</samp>](https://github.com/honghuangdc/soybean-admin/commit/98b75c2)
+  - 优化响应代码比较 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(cf67d)</samp>](https://github.com/honghuangdc/soybean-admin/commit/cf67d55)
+- **类型**:
+  - 移除无用类型。 &nbsp;-&nbsp; 由 **Azir** [<samp>(eed61)</samp>](https://github.com/honghuangdc/soybean-admin/commit/eed617f)
+
+### &nbsp;&nbsp;&nbsp;📖 文档
+
+- **项目**: 更新更新日志 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(d3759)</samp>](https://github.com/honghuangdc/soybean-admin/commit/d37591d)
+
+### &nbsp;&nbsp;&nbsp;🏡 杂项
+
+- **依赖**: 更新依赖 &nbsp;-&nbsp; 由 @honghuangdc [<samp>(993e9)</samp>](https://github.com/honghuangdc/soybean-admin/commit/993e9ca)
+
+### &nbsp;&nbsp;&nbsp;❤️ 贡献者
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;[![paynezhuang](https://github.com/paynezhuang.png?size=48)](https://github.com/paynezhuang)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;
+[Azir](mailto:2075125282@qq.com),&nbsp;
+
 ## [v1.3.1](https://github.com/honghuangdc/soybean-admin/compare/v1.3.0...v1.3.1) (2024-07-22)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug 修复
