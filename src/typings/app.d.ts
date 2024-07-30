@@ -96,7 +96,7 @@ declare namespace App {
         right: boolean;
       };
       /** Watermark */
-      watermark: {
+      watermark?: {
         /** Whether to show the watermark */
         visible: boolean;
         /** Watermark text */
