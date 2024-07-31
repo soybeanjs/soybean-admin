@@ -56,9 +56,7 @@ function handleSelectMixMenu(menu: App.Global.Menu) {
       :theme-color="themeStore.themeColor"
       @select="handleSelectMixMenu"
       @toggle-sider-collapse="appStore.toggleSiderCollapse"
-    >
-      <slot></slot>
-    </FirstLevelMenu>
+    />
   </Teleport>
 </template>
 
