@@ -425,6 +425,16 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'plugin_gantt',
+        path: '/plugin/gantt',
+        component: 'view.plugin_gantt',
+        meta: {
+          title: 'plugin_gantt',
+          i18nKey: 'route.plugin_gantt',
+          icon: 'ant-design:bar-chart-outlined'
+        }
+      },
+      {
         name: 'plugin_icon',
         path: '/plugin/icon',
         component: 'view.plugin_icon',

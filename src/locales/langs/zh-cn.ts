@@ -205,7 +205,8 @@ const local: App.I18n.Schema = {
     plugin_barcode: '条形码',
     plugin_pinyin: '拼音',
     plugin_excel: 'Excel',
-    plugin_pdf: 'PDF 预览'
+    plugin_pdf: 'PDF 预览',
+    plugin_gantt: '甘特图'
   },
   page: {
     login: {
