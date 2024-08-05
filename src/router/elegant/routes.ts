@@ -495,6 +495,16 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'plugin_typeit',
+        path: '/plugin/typeit',
+        component: 'view.plugin_typeit',
+        meta: {
+          title: 'plugin_typeit',
+          i18nKey: 'route.plugin_typeit',
+          icon:'mdi:typewriter'
+        }
+      },
+      {
         name: 'plugin_video',
         path: '/plugin/video',
         component: 'view.plugin_video',
