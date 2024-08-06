@@ -42,6 +42,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   plugin_editor_markdown: () => import("@/views/plugin/editor/markdown/index.vue"),
   plugin_editor_quill: () => import("@/views/plugin/editor/quill/index.vue"),
   plugin_excel: () => import("@/views/plugin/excel/index.vue"),
+  plugin_gantt: () => import("@/views/plugin/gantt/index.vue"),
   plugin_icon: () => import("@/views/plugin/icon/index.vue"),
   plugin_map: () => import("@/views/plugin/map/index.vue"),
   plugin_pdf: () => import("@/views/plugin/pdf/index.vue"),

@@ -205,7 +205,8 @@ const local: App.I18n.Schema = {
     plugin_barcode: 'Barcode',
     plugin_pinyin: 'pinyin',
     plugin_excel: 'Excel',
-    plugin_pdf: 'PDF preview'
+    plugin_pdf: 'PDF preview',
+    plugin_gantt: 'Gantt Chart'
   },
   page: {
     login: {

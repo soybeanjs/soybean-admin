@@ -49,8 +49,11 @@ function handleSelectMixMenu(menu: App.Global.Menu) {
 }
 
 function handleResetActiveMenu() {
-  getActiveFirstLevelMenuKey();
   setDrawerVisible(false);
+
+  if (!appStore.mixSiderFixed) {
+    getActiveFirstLevelMenuKey();
+  }
 }
 
 const selectedKey = computed(() => {
