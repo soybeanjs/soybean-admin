@@ -109,6 +109,8 @@ declare namespace App {
           [K in keyof ThemeSettingToken]?: Partial<ThemeSettingToken[K]>;
         };
       };
+      /** menu history max value */
+      menuSearchHistoryMaxValue: number
     }
 
     interface OtherColor {
@@ -198,6 +200,11 @@ declare namespace App {
       icon?: () => VNode;
       /** The menu children */
       children?: Menu[];
+    };
+
+    /** The global search history or collect */
+    type SearchHistoryOrCollect = Menu & {
+      type: 'history' | 'collect';
     };
 
     type Breadcrumb = Omit<Menu, 'children'> & {

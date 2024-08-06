@@ -35,5 +35,9 @@ declare namespace StorageType {
       layout: UnionKey.ThemeLayoutMode;
       siderCollapse: boolean;
     };
+    /** The search history  */
+    searchHistory: App.Global.SearchHistoryOrCollect[]
+    /** The search collect  */
+    searchCollect: App.Global.SearchHistoryOrCollect[]
   }
 }
