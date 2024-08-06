@@ -224,7 +224,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .my-gantt {
-  ::v-deep .gantt-container {
+  :deep(.gantt-container) {
     border-radius: 8px;
     overflow: hidden;
     height: 100%;
