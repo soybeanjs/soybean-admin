@@ -336,6 +336,8 @@ declare namespace App {
           yes: string;
           no: string;
         };
+        search_history: string;
+        collection_record: string;
       };
       request: {
         logout: string;

@@ -63,7 +63,7 @@ function handleCollect(item: App.Global.SearchHistoryOrCollect) {
   <NScrollbar>
     <div class="pb-12px">
       <template v-if="historyList.length">
-        <div :style="titleStyle">搜索历史</div>
+        <div :style="titleStyle">{{ $t('common.search_history') }}</div>
         <div  v-for="item in historyList" :key="item.routePath">
           <div
           class="mt-8px h-56px flex-y-center cursor-pointer justify-between rounded-4px bg-#e5e7eb px-14px dark:bg-dark"
@@ -88,7 +88,7 @@ function handleCollect(item: App.Global.SearchHistoryOrCollect) {
         </div>
       </template>
       <template v-if="collectList.length">
-        <div :style="titleStyle">收藏记录</div>
+        <div :style="titleStyle">{{ $t('common.collection_record') }}</div>
         <div  v-for="item in collectList" :key="item.routePath">
           <div
           class="mt-8px h-56px flex-y-center cursor-pointer justify-between rounded-4px bg-#e5e7eb px-14px dark:bg-dark"

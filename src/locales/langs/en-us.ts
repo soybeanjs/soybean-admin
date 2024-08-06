@@ -47,7 +47,9 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: 'Yes',
       no: 'No'
-    }
+    },
+    search_history: 'Search History',
+    collection_record: 'Collection Record'
   },
   request: {
     logout: 'Logout user after request failed',
