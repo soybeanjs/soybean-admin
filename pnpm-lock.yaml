@@ -44,6 +44,9 @@ importers:
       dayjs:
         specifier: 1.11.12
         version: 1.11.12
+      dhtmlx-gantt:
+        specifier: 8.0.9
+        version: 8.0.9
       dompurify:
         specifier: 3.1.6
         version: 3.1.6
@@ -2281,6 +2284,9 @@ packages:
 
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
+
+  dhtmlx-gantt@8.0.9:
+    resolution: {integrity: sha512-DONbnIjmVv7KiuHPmSEjZA2/XoSVGOviqx2vxRk/Vml+m8/YWMhoW+vP/rfkGEL8N764Gay41hI1ztfiNjWIVQ==}
 
   diff-match-patch@1.0.5:
     resolution: {integrity: sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==}
@@ -7186,6 +7192,8 @@ snapshots:
   devlop@1.1.0:
     dependencies:
       dequal: 2.0.3
+
+  dhtmlx-gantt@8.0.9: {}
 
   diff-match-patch@1.0.5: {}
 

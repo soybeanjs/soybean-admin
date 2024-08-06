@@ -1,17 +1,22 @@
 <script setup lang="tsx">
 import { onMounted, shallowRef } from 'vue';
 import { gantt } from 'dhtmlx-gantt';
-import type { ZoomLevels } from 'dhtmlx-gantt';
+import type { GanttConfigOptions, ZoomLevels } from 'dhtmlx-gantt';
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css';
-import { demoData } from './ganntData';
+import { ganttTasks } from './data';
 
-type ZoomConfig = {
-  levels: ZoomLevels[];
-};
+const ganttRef = shallowRef<HTMLElement>();
 
-const schema = shallowRef('quarter');
+type TimeType = 'day' | 'week' | 'month' | 'quarter' | 'year';
 
-const data = [
+const timeType = shallowRef<TimeType>('quarter');
+
+interface TimeData {
+  name: string;
+  code: TimeType;
+}
+
+const data: TimeData[] = [
   {
     name: '天',
     code: 'day'
@@ -34,8 +39,40 @@ const data = [
   }
 ];
 
-const zoomConfig: ZoomConfig = {
-  levels: [
+function initGantt() {
+  if (!ganttRef.value) return;
+
+  const config: Partial<GanttConfigOptions> = {
+    grid_width: 350,
+    add_column: false,
+    autofit: false,
+    row_height: 60,
+    bar_height: 34,
+    auto_types: true,
+    xml_date: '%Y-%m-%d',
+    columns: [
+      {
+        name: 'text',
+        label: '项目名称',
+        tree: true,
+        width: '*'
+      },
+      {
+        name: 'start_date',
+        label: '开始时间',
+        align: 'center',
+        width: 150
+      }
+    ]
+  };
+
+  Object.assign(gantt.config, config);
+
+  gantt.i18n.setLocale('cn');
+  gantt.init(ganttRef.value);
+  gantt.parse({ data: ganttTasks });
+
+  const zoomLevels: ZoomLevels[] = [
     {
       name: 'day',
       scale_height: 60,
@@ -121,77 +158,16 @@ const zoomConfig: ZoomConfig = {
         { unit: 'month', format: '%Y-%m' }
       ]
     }
-  ]
-};
-
-function scrollInit() {
-  const nav = document.querySelector<HTMLElement>('.gantt_task')!;
-  const parNav = document.querySelector<HTMLElement>('.gantt_hor_scroll')!;
-  parNav.scrollLeft = 0;
-  let flag: boolean = false;
-  let downX: number = 0;
-  let scrollLeft: number = 0;
-  nav.addEventListener('mousedown', event => {
-    flag = true;
-    downX = event.clientX;
-
-    scrollLeft = event.offsetX;
-  });
-  nav.addEventListener('mousemove', event => {
-    if (flag) {
-      const moveX = event.clientX;
-      const scrollX = moveX - downX;
-      parNav.scrollLeft = scrollLeft - scrollX;
-    }
-  });
-
-  nav.addEventListener('mouseup', () => {
-    flag = false;
-  });
-
-  nav.addEventListener('mouseleave', () => {
-    flag = false;
-  });
-}
-
-function initGantt() {
-  gantt.config.grid_width = 350;
-  gantt.config.add_column = false;
-
-  gantt.config.autofit = false;
-  gantt.config.row_height = 60;
-  gantt.config.bar_height = 34;
-
-  gantt.config.auto_types = true;
-  gantt.config.xml_date = '%Y-%m-%d';
-
-  gantt.config.columns = [
-    {
-      name: 'text',
-      label: '项目名称',
-      tree: true,
-      width: '*'
-    },
-    {
-      name: 'start_date',
-      label: '开始时间',
-      align: 'center',
-      width: 150
-    }
   ];
 
-  gantt.i18n.setLocale('cn');
-  gantt.init('gantt_here');
-  gantt.parse(demoData);
-
-  scrollInit();
-
-  gantt.ext.zoom.init(zoomConfig);
-  gantt.ext.zoom.setLevel(schema.value);
+  gantt.ext.zoom.init({
+    levels: zoomLevels
+  });
+  gantt.ext.zoom.setLevel(timeType.value);
 }
 
-function changeTime(value: string) {
-  schema.value = value;
+function changeTime(value: TimeType) {
+  timeType.value = value;
   gantt.ext.zoom.setLevel(value);
 }
 
@@ -201,58 +177,32 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="my-gantt min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+  <div class="overflow-hidden lt-sm:overflow-auto">
     <NCard
       title="甘特图演示"
       :bordered="false"
       size="small"
-      content-class="flex-x-center"
-      class="sm:flex-1-hidden card-wrapper"
+      content-class="overflow-y-hidden overflow-x-auto"
+      class="h-full card-wrapper"
     >
       <template #header-extra>
-        <NTabs :value="schema" type="segment" animated size="small" class="relative w-320px" @update:value="changeTime">
+        <NTabs
+          :value="timeType"
+          type="segment"
+          animated
+          size="small"
+          class="relative w-320px"
+          @update:value="changeTime"
+        >
           <NTab v-for="item in data" :key="item.code" :name="item.code">
             {{ item.name }}
           </NTab>
         </NTabs>
       </template>
 
-      <div id="gantt_here" class="gantt-container h-full w-full container"></div>
+      <div ref="ganttRef" class="size-full min-w-800px"></div>
     </NCard>
   </div>
 </template>
 
-<style scoped lang="scss">
-.my-gantt {
-  ::v-deep .gantt-container {
-    border-radius: 8px;
-    overflow: hidden;
-    height: 100%;
-    .gantt_task_content {
-      border-radius: 17px;
-    }
-    .gantt_task_line.gantt_project {
-      border-radius: 17px;
-      border: none;
-      --uno: bg-primary;
-    }
-    .gantt_task_line {
-      --uno: bg-primary-400;
-      border: none;
-      border-radius: 15px;
-    }
-    .gantt_grid_data .gantt_row.odd:hover,
-    .gantt_grid_data .gantt_row:hover {
-      --uno: bg-warning;
-    }
-    .gantt_task_row.gantt_selected .gantt_task_cell {
-      --uno: bg-warning;
-    }
-    .gantt_grid_data .gantt_row.gantt_selected,
-    .gantt_grid_data .gantt_row.odd.gantt_selected,
-    .gantt_task_row.gantt_selected {
-      --uno: bg-warning;
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
