@@ -29,6 +29,7 @@ declare module 'vue' {
     IconIcRoundRefresh: typeof import('~icons/ic/round-refresh')['default']
     IconIcRoundRemove: typeof import('~icons/ic/round-remove')['default']
     IconIcRoundSearch: typeof import('~icons/ic/round-search')['default']
+    IconIonClose: typeof import('~icons/ion/close')['default']
     IconLocalActivity: typeof import('~icons/local/activity')['default']
     IconLocalBanner: typeof import('~icons/local/banner')['default']
     IconLocalCast: typeof import('~icons/local/cast')['default']

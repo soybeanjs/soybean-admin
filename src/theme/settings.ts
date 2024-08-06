@@ -74,7 +74,8 @@ export const themeSettings: App.Theme.ThemeSetting = {
         'base-text': 'rgb(224, 224, 224)'
       }
     }
-  }
+  },
+  menuSearchHistoryMaxValue: 6
 };
 
 /**

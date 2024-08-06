@@ -47,7 +47,9 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: '是',
       no: '否'
-    }
+    },
+    search_history: '搜索历史',
+    collection_record: '收藏记录'
   },
   request: {
     logout: '请求失败后登出用户',
