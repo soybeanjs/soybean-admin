@@ -206,7 +206,8 @@ const local: App.I18n.Schema = {
     plugin_pinyin: 'pinyin',
     plugin_excel: 'Excel',
     plugin_pdf: 'PDF preview',
-    plugin_gantt: 'Gantt Chart'
+    plugin_gantt: 'Gantt Chart',
+    plugin_typeit: 'Typeit'
   },
   page: {
     login: {

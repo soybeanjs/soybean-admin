@@ -219,6 +219,7 @@ const routeMap: RouteMap = {
   "plugin_pinyin": "/plugin/pinyin",
   "plugin_print": "/plugin/print",
   "plugin_swiper": "/plugin/swiper",
+  "plugin_typeit": "/plugin/typeit",
   "plugin_video": "/plugin/video",
   "user-center": "/user-center"
 };
