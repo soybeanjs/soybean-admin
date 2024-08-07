@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref, watchEffect } from 'vue';
+import { useAuth } from '@/hooks/business/auth';
 import { $t } from '@/locales';
 
 defineOptions({
@@ -9,15 +11,38 @@ interface Props {
   itemAlign?: NaiveUI.Align;
   disabledDelete?: boolean;
   loading?: boolean;
+  showAdd?: boolean;
+  addCode?: string; // Button Add Permission Code
+  showDelete?: boolean;
+  deleteCode?: string; // Button Delete Permission Code
 }
 
-defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  itemAlign: 'center',
+  disabledDelete: false,
+  loading: false,
+  showAdd: true,
+  addCode: '',
+  showDelete: true,
+  deleteCode: ''
+});
 
 interface Emits {
   (e: 'add'): void;
   (e: 'delete'): void;
   (e: 'refresh'): void;
 }
+
+const { hasAuth } = useAuth();
+
+const showAddButton = ref(false);
+const showDeleteButton = ref(false);
+
+// Monitor changes in permission codes and update the display status of buttons
+watchEffect(() => {
+  showAddButton.value = props.showAdd && (!props.addCode || hasAuth(props.addCode));
+  showDeleteButton.value = props.showDelete && (!props.deleteCode || hasAuth(props.deleteCode));
+});
 
 const emit = defineEmits<Emits>();
 
@@ -42,13 +67,13 @@ function refresh() {
   <NSpace :align="itemAlign" wrap justify="end" class="lt-sm:w-200px">
     <slot name="prefix"></slot>
     <slot name="default">
-      <NButton size="small" ghost type="primary" @click="add">
+      <NButton v-if="showAddButton" size="small" ghost type="primary" @click="add">
         <template #icon>
           <icon-ic-round-plus class="text-icon" />
         </template>
         {{ $t('common.add') }}
       </NButton>
-      <NPopconfirm @positive-click="batchDelete">
+      <NPopconfirm v-if="showDeleteButton" @positive-click="batchDelete">
         <template #trigger>
           <NButton size="small" ghost type="error" :disabled="disabledDelete">
             <template #icon>
