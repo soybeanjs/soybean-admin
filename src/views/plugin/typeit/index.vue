@@ -6,16 +6,18 @@ import type { El } from 'typeit/dist/types';
 
 const textRef = shallowRef<El>();
 
-const options: Options = {
-  strings: 'SoybeanAdmin是一个清新优雅、高颜值且功能强大的后台管理模板',
-  lifeLike: true,
-  speed: 120,
-  loop: true
-};
-
 function init() {
   if (!textRef.value) return;
+
+  const options: Options = {
+    strings: 'SoybeanAdmin是一个清新优雅、高颜值且功能强大的后台管理模板',
+    lifeLike: true,
+    speed: 120,
+    loop: true
+  };
+
   const initTypeIt = new TypeIt(textRef.value, options);
+
   initTypeIt.go();
 }
 
@@ -32,13 +34,9 @@ onMounted(() => {
         <WebSiteLink label="文档地址：" link="https://www.typeitjs.com/docs/vanilla/usage/" />
       </NSpace>
       <NDivider title-placement="left">基本示例</NDivider>
-      <span ref="textRef" class="msg text-18px"></span>
+      <span ref="textRef" class="text-18px"></span>
     </NCard>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.msg :deep(.ti-cursor) {
-  margin-left: 4px;
-}
-</style>
+<style scoped></style>
