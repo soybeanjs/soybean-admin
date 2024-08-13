@@ -50,5 +50,12 @@ declare namespace NaiveUI {
      * @default false
      */
     showTotal?: boolean;
+    /**
+     * the custom transformer function
+     *
+     * @param res the response data
+     * @returns the transformed data
+     */
+    transformer?: (res: Awaited<ReturnType<A>>) => { data: any[]; pageNum: number; pageSize: number; total: number };
   };
 }

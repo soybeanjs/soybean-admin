@@ -16,11 +16,32 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
 
   const isMobile = computed(() => appStore.isMobile);
 
-  const { apiFn, apiParams, immediate, showTotal } = config;
+  const { apiFn, transformer, apiParams, immediate, showTotal } = config;
 
   const SELECTION_KEY = '__selection__';
 
   const EXPAND_KEY = '__expand__';
+
+  const defaultTransformer = (res: Awaited<ReturnType<A>>) => {
+    const { records = [], current = 1, size = 10, total = 0 } = res.data || {};
+
+    // Ensure that the size is greater than 0, If it is less than 0, it will cause paging calculation errors.
+    const pageSize = size <= 0 ? 10 : size;
+
+    const recordsWithIndex = records.map((item, index) => {
+      return {
+        ...item,
+        index: (current - 1) * pageSize + index + 1
+      };
+    });
+
+    return {
+      data: recordsWithIndex,
+      pageNum: current,
+      pageSize,
+      total
+    };
+  };
 
   const {
     loading,
@@ -37,26 +58,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     apiFn,
     apiParams,
     columns: config.columns,
-    transformer: res => {
-      const { records = [], current = 1, size = 10, total = 0 } = res.data || {};
-
-      // Ensure that the size is greater than 0, If it is less than 0, it will cause paging calculation errors.
-      const pageSize = size <= 0 ? 10 : size;
-
-      const recordsWithIndex = records.map((item, index) => {
-        return {
-          ...item,
-          index: (current - 1) * pageSize + index + 1
-        };
-      });
-
-      return {
-        data: recordsWithIndex,
-        pageNum: current,
-        pageSize,
-        total
-      };
-    },
+    transformer: transformer || defaultTransformer,
     getColumnChecks: cols => {
       const checks: NaiveUI.TableColumnCheck[] = [];
 
