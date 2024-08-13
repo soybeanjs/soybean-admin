@@ -20,6 +20,9 @@ declare namespace Api {
       records: T[];
     }
 
+    /** common search params of table */
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
+
     /**
      * enable status
      *
