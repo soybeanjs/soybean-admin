@@ -15,6 +15,9 @@ declare namespace Api {
       total: number;
     }
 
+    /** common search params of table */
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
+
     /** common params of paginating query list data */
     interface PaginatingQueryRecord<T = any> extends PaginatingCommonParams {
       records: T[];
