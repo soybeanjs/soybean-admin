@@ -166,10 +166,6 @@ pnpm build
 		<p>添加下面微信邀请进微信群</p>
 		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
 	</div>
-  <div>
-    <p>添加 Soybean 的微信，业务咨询、合作、项目架构、一对一指导等</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybean.jpg" style="width:200px" />
-  </div>
 
 ## Star 趋势
 

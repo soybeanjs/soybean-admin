@@ -166,10 +166,6 @@ Thanks the following people for their contributions. If you want to contribute t
 		<p>Add the following WeChat to invite to the WeChat group</p>
 		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
 	</div>
-  <div>
-    <p>Add Soybean's WeChat for business consultation, cooperation, project architecture, one-on-one guidance, etc.</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybean.jpg" style="width:200px" />
-  </div>
 
 ## Star Trend
 
