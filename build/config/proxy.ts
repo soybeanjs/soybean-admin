@@ -5,10 +5,10 @@ import { createServiceConfig } from '../../src/utils/service';
  * Set http proxy
  *
  * @param env - The current env
- * @param isDev - Is development environment
+ * @param enable - If enable http proxy
  */
-export function createViteProxy(env: Env.ImportMeta, isDev: boolean) {
-  const isEnableHttpProxy = isDev && env.VITE_HTTP_PROXY === 'Y';
+export function createViteProxy(env: Env.ImportMeta, enable: boolean) {
+  const isEnableHttpProxy = enable && env.VITE_HTTP_PROXY === 'Y';
 
   if (!isEnableHttpProxy) return undefined;
 
