@@ -156,7 +156,7 @@ Thanks the following people for their contributions. If you want to contribute t
 
   <div>
   	<p>QQ Group</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-2.jpg" style="width:200px" />
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-3.jpg" style="width:200px" />
   </div>
 	<!-- <div>
 		<p>WeChat Group</p>
