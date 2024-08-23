@@ -93,11 +93,15 @@ export function useRouterPush(inSetup = true) {
     return routerPushByKey('login', { query, params: { module } });
   }
 
-  /** Redirect from login */
-  async function redirectFromLogin() {
+  /**
+   * Redirect from login
+   *
+   * @param [needRedirect=true] Whether to redirect after login. Default is `true`
+   */
+  async function redirectFromLogin(needRedirect = true) {
     const redirect = route.value.query?.redirect as string;
 
-    if (redirect) {
+    if (needRedirect && redirect) {
       routerPush(redirect);
     } else {
       toHome();
