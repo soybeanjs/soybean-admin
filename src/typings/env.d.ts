@@ -103,6 +103,10 @@ declare namespace Env {
     readonly VITE_ICONIFY_URL?: string;
     /** Used to differentiate storage across different domains */
     readonly VITE_STORAGE_PREFIX?: string;
+    /** The port number on which the server is running */
+    readonly VITE_SERVER_PORT?: number;
+    /** The port number used for previewing the application */
+    readonly VITE_PREVIEW_PORT?: number;
   }
 }
 
