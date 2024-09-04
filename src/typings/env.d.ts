@@ -107,6 +107,8 @@ declare namespace Env {
     readonly VITE_SERVER_PORT?: number;
     /** The port number used for previewing the application */
     readonly VITE_PREVIEW_PORT?: number;
+    /** Whether to automatically detect updates after configuring application packaging */
+    readonly VITE_AUTOMATICALLY_DETECT_UPDATE?: CommonType.YesOrNo;
   }
 }
 

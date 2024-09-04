@@ -11,8 +11,10 @@ export const locales = {
     },
     gitCommitTypes: [
       ['feat', '新功能'],
+      ['feat-wip', '开发中的功能，比如某功能的部分代码'],
       ['fix', '修复Bug'],
       ['docs', '只涉及文档更新'],
+      ['typo', '代码或文档勘误，比如错误拼写'],
       ['style', '修改代码风格，不影响代码含义的变更'],
       ['refactor', '代码重构，既不修复 bug 也不添加功能的代码变更'],
       ['perf', '可提高性能的代码更改'],
@@ -47,8 +49,10 @@ export const locales = {
     },
     gitCommitTypes: [
       ['feat', 'A new feature'],
+      ['feat-wip', 'Features in development, such as partial code for a certain feature'],
       ['fix', 'A bug fix'],
       ['docs', 'Documentation only changes'],
+      ['typo', 'Code or document corrections, such as spelling errors'],
       ['style', 'Changes that do not affect the meaning of the code'],
       ['refactor', 'A code change that neither fixes a bug nor adds a feature'],
       ['perf', 'A code change that improves performance'],

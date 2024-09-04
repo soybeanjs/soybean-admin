@@ -1,8 +1,12 @@
 import { h } from 'vue';
 import { NButton } from 'naive-ui';
-import { $t } from '../locales';
+import { $t } from '@/locales';
 
 export function setupAppVersionNotification() {
+  const canAutoUpdateApp = import.meta.env.VITE_AUTOMATICALLY_DETECT_UPDATE === 'Y';
+
+  if (!canAutoUpdateApp) return;
+
   let isShow = false;
 
   document.addEventListener('visibilitychange', async () => {
