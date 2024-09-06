@@ -1,26 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
 import { GLOBAL_HEADER_MENU_ID } from '@/constants/app';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
+import { useMenu } from '../../../context';
 
 defineOptions({
   name: 'HorizontalMenu'
 });
 
-const route = useRoute();
 const routeStore = useRouteStore();
 const { routerPushByKeyWithMetaQuery } = useRouterPush();
-
-const selectedKey = computed(() => {
-  const { hideInMenu, activeMenu } = route.meta;
-  const name = route.name as string;
-
-  const routeName = (hideInMenu ? activeMenu : name) || name;
-
-  return routeName;
-});
+const { selectedKey } = useMenu();
 </script>
 
 <template>
