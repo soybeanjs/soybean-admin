@@ -8,6 +8,7 @@ export const { setupStore: setupMixMenuContext, useStore: useMixMenuContext } = 
 function useMixMenu() {
   const route = useRoute();
   const routeStore = useRouteStore();
+  const { selectedKey } = useMenu();
 
   const activeFirstLevelMenuKey = ref('');
 
@@ -16,12 +17,7 @@ function useMixMenu() {
   }
 
   function getActiveFirstLevelMenuKey() {
-    const { hideInMenu, activeMenu } = route.meta;
-    const name = route.name as string;
-
-    const routeName = (hideInMenu ? activeMenu : name) || name;
-
-    const [firstLevelRouteName] = routeName.split('_');
+    const [firstLevelRouteName] = selectedKey.value.split('_');
 
     setActiveFirstLevelMenuKey(firstLevelRouteName);
   }
@@ -66,5 +62,22 @@ function useMixMenu() {
     activeFirstLevelMenuKey,
     setActiveFirstLevelMenuKey,
     getActiveFirstLevelMenuKey
+  };
+}
+
+export function useMenu() {
+  const route = useRoute();
+
+  const selectedKey = computed(() => {
+    const { hideInMenu, activeMenu } = route.meta;
+    const name = route.name as string;
+
+    const routeName = (hideInMenu ? activeMenu : name) || name;
+
+    return routeName;
+  });
+
+  return {
+    selectedKey
   };
 }

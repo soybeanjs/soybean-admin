@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import type { RouteKey } from '@elegant-router/types';
 import { SimpleScrollbar } from '@sa/materials';
@@ -8,7 +8,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
-import { useMixMenuContext } from '../../../context';
+import { useMenu, useMixMenuContext } from '../../../context';
 
 defineOptions({
   name: 'ReversedHorizontalMixMenu'
@@ -18,6 +18,7 @@ const route = useRoute();
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const routeStore = useRouteStore();
+const { routerPushByKeyWithMetaQuery } = useRouterPush();
 const {
   firstLevelMenus,
   childLevelMenus,
@@ -25,16 +26,7 @@ const {
   setActiveFirstLevelMenuKey,
   isActiveFirstLevelMenuHasChildren
 } = useMixMenuContext();
-const { routerPushByKeyWithMetaQuery } = useRouterPush();
-
-const selectedKey = computed(() => {
-  const { hideInMenu, activeMenu } = route.meta;
-  const name = route.name as string;
-
-  const routeName = (hideInMenu ? activeMenu : name) || name;
-
-  return routeName;
-});
+const { selectedKey } = useMenu();
 
 function handleSelectMixMenu(key: RouteKey) {
   setActiveFirstLevelMenuKey(key);

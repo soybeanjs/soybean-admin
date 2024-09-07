@@ -1,8 +1,20 @@
 import { h } from 'vue';
+import type { App } from 'vue';
 import { NButton } from 'naive-ui';
-import { $t } from '../locales';
+import { $t } from '@/locales';
+
+export function setupAppErrorHandle(app: App) {
+  app.config.errorHandler = (err, vm, info) => {
+    // eslint-disable-next-line no-console
+    console.error(err, vm, info);
+  };
+}
 
 export function setupAppVersionNotification() {
+  const canAutoUpdateApp = import.meta.env.VITE_AUTOMATICALLY_DETECT_UPDATE === 'Y';
+
+  if (!canAutoUpdateApp) return;
+
   let isShow = false;
 
   document.addEventListener('visibilitychange', async () => {
@@ -52,9 +64,7 @@ export function setupAppVersionNotification() {
 }
 
 async function getHtmlBuildTime() {
-  const baseURL = import.meta.env.VITE_BASE_URL;
-
-  const res = await fetch(`${baseURL}index.html`);
+  const res = await fetch(`/index.html?time=${Date.now()}`);
 
   const html = await res.text();
 

@@ -9,7 +9,7 @@ import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
 import { $t } from '@/locales';
 import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
-import { useMixMenuContext } from '../../../context';
+import { useMenu, useMixMenuContext } from '../../../context';
 import FirstLevelMenu from '../components/first-level-menu.vue';
 import GlobalLogo from '../../global-logo/index.vue';
 
@@ -31,6 +31,7 @@ const {
   getActiveFirstLevelMenuKey
   //
 } = useMixMenuContext();
+const { selectedKey } = useMenu();
 
 const inverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
 
@@ -55,15 +56,6 @@ function handleResetActiveMenu() {
     getActiveFirstLevelMenuKey();
   }
 }
-
-const selectedKey = computed(() => {
-  const { hideInMenu, activeMenu } = route.meta;
-  const name = route.name as string;
-
-  const routeName = (hideInMenu ? activeMenu : name) || name;
-
-  return routeName;
-});
 
 const expandedKeys = ref<string[]>([]);
 
@@ -122,9 +114,6 @@ watch(
               mode="vertical"
               :value="selectedKey"
               :options="childLevelMenus"
-              :collapsed="appStore.siderCollapse"
-              :collapsed-width="themeStore.sider.collapsedWidth"
-              :collapsed-icon-size="22"
               :inverted="inverted"
               :indent="18"
               @update:value="routerPushByKeyWithMetaQuery"

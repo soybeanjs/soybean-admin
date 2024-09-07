@@ -92,18 +92,20 @@ export interface RequestInstance<S = Record<string, unknown>> extends RequestIns
   <T = any, R extends ResponseType = 'json'>(config: CustomAxiosRequestConfig<R>): Promise<MappedType<R, T>>;
 }
 
-export type FlatResponseSuccessData<T = any> = {
+export type FlatResponseSuccessData<T = any, ResponseData = any> = {
   data: T;
   error: null;
+  response: AxiosResponse<ResponseData>;
 };
 
 export type FlatResponseFailData<ResponseData = any> = {
   data: null;
   error: AxiosError<ResponseData>;
+  response: AxiosResponse<ResponseData>;
 };
 
 export type FlatResponseData<T = any, ResponseData = any> =
-  | FlatResponseSuccessData<T>
+  | FlatResponseSuccessData<T, ResponseData>
   | FlatResponseFailData<ResponseData>;
 
 export interface FlatRequestInstance<S = Record<string, unknown>, ResponseData = any> extends RequestInstanceCommon<S> {

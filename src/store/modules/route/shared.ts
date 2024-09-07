@@ -281,13 +281,23 @@ export function getBreadcrumbsByRoute(
   const key = route.name as string;
   const activeKey = route.meta?.activeMenu;
 
-  const menuKey = activeKey || key;
-
   for (const menu of menus) {
-    if (menu.key === menuKey) {
-      const breadcrumbMenu = menuKey !== activeKey ? menu : getGlobalMenuByBaseRoute(route);
-
+    if (menu.key === key) {
+      const breadcrumbMenu = menu;
       return [transformMenuToBreadcrumb(breadcrumbMenu)];
+    }
+
+    if (menu.key === activeKey) {
+      const ROUTE_DEGREE_SPLITTER = '_';
+
+      const parentKey = key.split(ROUTE_DEGREE_SPLITTER).slice(0, -1).join(ROUTE_DEGREE_SPLITTER);
+
+      const breadcrumbMenu = getGlobalMenuByBaseRoute(route);
+      if (parentKey !== activeKey) {
+        return [transformMenuToBreadcrumb(breadcrumbMenu)];
+      }
+
+      return [transformMenuToBreadcrumb(menu), transformMenuToBreadcrumb(breadcrumbMenu)];
     }
 
     if (menu.children?.length) {

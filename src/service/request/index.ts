@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/modules/auth';
 import { $t } from '@/locales';
 import { localStg } from '@/utils/storage';
 import { getServiceBaseURL } from '@/utils/service';
-import { handleRefreshToken, showErrorMsg } from './shared';
+import { getAuthorization, handleExpiredRequest, showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
@@ -19,12 +19,8 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
   },
   {
     async onRequest(config) {
-      const { headers } = config;
-
-      // set token
-      const token = localStg.get('token');
-      const Authorization = token ? `Bearer ${token}` : null;
-      Object.assign(headers, { Authorization });
+      const Authorization = getAuthorization();
+      Object.assign(config.headers, { Authorization });
 
       return config;
     },
@@ -83,15 +79,13 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       // when the backend response code is in `expiredTokenCodes`, it means the token is expired, and refresh token
       // the api `refreshToken` can not return error code in `expiredTokenCodes`, otherwise it will be a dead loop, should return `logoutCodes` or `modalLogoutCodes`
       const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
-      if (expiredTokenCodes.includes(responseCode) && !request.state.isRefreshingToken) {
-        request.state.isRefreshingToken = true;
+      if (expiredTokenCodes.includes(responseCode)) {
+        const success = await handleExpiredRequest(request.state);
+        if (success) {
+          const Authorization = getAuthorization();
+          Object.assign(response.config.headers, { Authorization });
 
-        const refreshConfig = await handleRefreshToken(response.config);
-
-        request.state.isRefreshingToken = false;
-
-        if (refreshConfig) {
-          return instance.request(refreshConfig) as Promise<AxiosResponse>;
+          return instance.request(response.config) as Promise<AxiosResponse>;
         }
       }
 

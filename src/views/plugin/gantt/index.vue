@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { onMounted, shallowRef } from 'vue';
 import { gantt } from 'dhtmlx-gantt';
-import type { GanttConfigOptions, ZoomLevels } from 'dhtmlx-gantt';
+import type { GanttConfigOptions, ZoomLevel } from 'dhtmlx-gantt';
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css';
 import { ganttTasks } from './data';
 
@@ -72,7 +72,7 @@ function initGantt() {
   gantt.init(ganttRef.value);
   gantt.parse({ data: ganttTasks });
 
-  const zoomLevels: ZoomLevels[] = [
+  const zoomLevels: ZoomLevel[] = [
     {
       name: 'day',
       scale_height: 60,
