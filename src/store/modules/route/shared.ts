@@ -283,8 +283,7 @@ export function getBreadcrumbsByRoute(
 
   for (const menu of menus) {
     if (menu.key === key) {
-      const breadcrumbMenu = menu;
-      return [transformMenuToBreadcrumb(breadcrumbMenu)];
+      return [transformMenuToBreadcrumb(menu)];
     }
 
     if (menu.key === activeKey) {
