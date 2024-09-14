@@ -166,11 +166,7 @@ init();
 <template>
   <DarkModeContainer class="size-full flex-y-center px-16px shadow-tab">
     <div ref="bsWrapper" class="h-full flex-1-hidden">
-      <BetterScroll
-        ref="bsScroll"
-        :options="{ scrollX: true, scrollY: false, click: appStore.isMobile }"
-        @click="removeFocus"
-      >
+      <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: true }" @click="removeFocus">
         <div
           ref="tabRef"
           class="h-full flex pr-18px"
