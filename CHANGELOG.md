@@ -1,6 +1,37 @@
 # Changelog
 
 
+## [v1.3.6](https://github.com/soybeanjs/soybean-admin/compare/v1.3.5...v1.3.6) (2024-09-20)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **components**:
+  - fix VerticalMixMenu name &nbsp;-&nbsp; by @soybeanjs [<samp>(20f8e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/20f8ed3)
+- **projects**:
+  - fix click global-tab in iPad. fixed #624 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/624 [<samp>(04d05)</samp>](https://github.com/soybeanjs/soybean-admin/commit/04d0564)
+  - when the roles filter submenu is empty, the parent menu is not excluded. fixed #621. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/626 and https://github.com/soybeanjs/soybean-admin/issues/621 [<samp>(0ac95)</samp>](https://github.com/soybeanjs/soybean-admin/commit/0ac95bd)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**:
+  - optimize code &nbsp;-&nbsp; by @soybeanjs [<samp>(6561f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/6561f0b)
+  - optimize code &nbsp;-&nbsp; by @soybeanjs [<samp>(38eeb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/38eeb67)
+  - remove defineModel setting，enabled by default &nbsp;-&nbsp; by @yanbowe in https://github.com/soybeanjs/soybean-admin/issues/620 [<samp>(60bbd)</samp>](https://github.com/soybeanjs/soybean-admin/commit/60bbd2d)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update CHANGELOG &nbsp;-&nbsp; by @soybeanjs [<samp>(5baf1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5baf19d)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(207d6)</samp>](https://github.com/soybeanjs/soybean-admin/commit/207d6eb)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(f3562)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f35627e)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![yanbowe](https://github.com/yanbowe.png?size=48)](https://github.com/yanbowe)&nbsp;&nbsp;
+
 ## [v1.3.5](https://github.com/soybeanjs/soybean-admin/compare/v1.3.4...v1.3.5) (2024-09-07)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
