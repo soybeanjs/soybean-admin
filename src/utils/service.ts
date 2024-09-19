@@ -11,7 +11,7 @@ export function createServiceConfig(env: Env.ImportMeta) {
   let other = {} as Record<App.Service.OtherBaseURLKey, string>;
   try {
     other = json5.parse(VITE_OTHER_SERVICE_BASE_URL);
-  } catch (error) {
+  } catch {
     // eslint-disable-next-line no-console
     console.error('VITE_OTHER_SERVICE_BASE_URL is not a valid json5 string');
   }
