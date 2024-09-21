@@ -1,6 +1,28 @@
 # Changelog
 
 
+## [v1.3.7](https://github.com/soybeanjs/soybean-admin/compare/v1.3.6...v1.3.7) (2024-09-21)
+
+### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
+
+- **projects**: update scss config &nbsp;-&nbsp; by @soybeanjs [<samp>(24e9e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/24e9e57)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: fix global-tab click conflict with contextmenu &nbsp;-&nbsp; by @soybeanjs [<samp>(3e72c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3e72c3b)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **packages**: @sa/materials: remove tab close shortcut by mouse &nbsp;-&nbsp; by @soybeanjs [<samp>(4da58)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4da588c)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(baefd)</samp>](https://github.com/soybeanjs/soybean-admin/commit/baefdfd)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.3.6](https://github.com/soybeanjs/soybean-admin/compare/v1.3.5...v1.3.6) (2024-09-20)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
