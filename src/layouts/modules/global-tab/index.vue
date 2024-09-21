@@ -8,6 +8,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 import { useTabStore } from '@/store/modules/tab';
+import { isPC } from '@/utils/agent';
 import ContextMenu from './context-menu.vue';
 
 defineOptions({
@@ -24,6 +25,7 @@ const bsWrapper = ref<HTMLElement>();
 const { width: bsWrapperWidth, left: bsWrapperLeft } = useElementBounding(bsWrapper);
 const bsScroll = ref<InstanceType<typeof BetterScroll>>();
 const tabRef = ref<HTMLElement>();
+const isPCFlag = isPC();
 
 const TAB_DATA_ID = 'data-tab-id';
 
@@ -166,7 +168,7 @@ init();
 <template>
   <DarkModeContainer class="size-full flex-y-center px-16px shadow-tab">
     <div ref="bsWrapper" class="h-full flex-1-hidden">
-      <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: true }" @click="removeFocus">
+      <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: !isPCFlag }" @click="removeFocus">
         <div
           ref="tabRef"
           class="h-full flex pr-18px"
