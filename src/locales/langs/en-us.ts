@@ -1,3 +1,5 @@
+import enUS from './en-us.json';
+
 const local: App.I18n.Schema = {
   system: {
     title: 'SoybeanAdmin',
@@ -281,7 +283,8 @@ const local: App.I18n.Schema = {
   },
   datatable: {
     itemCount: 'Total {total} items'
-  }
+  },
+  ...enUS
 };
 
 export default local;

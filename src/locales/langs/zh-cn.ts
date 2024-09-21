@@ -1,3 +1,5 @@
+import zhCN from './zh-cn.json';
+
 const local: App.I18n.Schema = {
   system: {
     title: 'Soybean 管理系统',
@@ -281,7 +283,8 @@ const local: App.I18n.Schema = {
   },
   datatable: {
     itemCount: '共 {total} 条'
-  }
+  },
+  ...zhCN
 };
 
 export default local;
