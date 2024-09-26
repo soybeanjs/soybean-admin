@@ -62,7 +62,7 @@ export const createAlovaRequest = (customConfig: CustomAlovaConfig<any>, options
             !isJSON(resp.headers.get('Content-Type') ?? '') ||
             (options.isBackendSuccess && (await options.isBackendSuccess(resp)))
           ) {
-            return resp;
+            return options.transformBackendResponse ? await options.transformBackendResponse(resp) : resp;
           }
           if (options.onBackendFail) {
             const fail = await options.onBackendFail(resp);
@@ -70,7 +70,6 @@ export const createAlovaRequest = (customConfig: CustomAlovaConfig<any>, options
               return fail;
             }
           }
-          return options.transformBackendResponse ? await options.transformBackendResponse(resp) : resp;
         }
         throw new Error(resp.statusText);
       },
@@ -84,3 +83,4 @@ export const createAlovaRequest = (customConfig: CustomAlovaConfig<any>, options
 
 export { BACKEND_ERROR_CODE, REQUEST_ID_KEY };
 export type * from './type';
+export type * from 'alova';

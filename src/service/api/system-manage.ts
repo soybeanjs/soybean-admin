@@ -1,4 +1,4 @@
-import { request } from '../request';
+import { alova, request } from '../request';
 
 /** get role list */
 export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
@@ -23,12 +23,12 @@ export function fetchGetAllRoles() {
 
 /** get user list */
 export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
-  return request<Api.SystemManage.UserList>({
-    url: '/systemManage/getUserList',
-    method: 'get',
-    params
-  });
-  // return alova.Get<Api.SystemManage.UserList>('/systemManage/getUserList', { params });
+  // return request<Api.SystemManage.UserList>({
+  //   url: '/systemManage/getUserList',
+  //   method: 'get',
+  //   params
+  // });
+  return alova.Get<Api.SystemManage.UserList>('/systemManage/getUserList', { params });
 }
 
 /** get menu list */

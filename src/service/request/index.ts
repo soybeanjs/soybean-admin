@@ -239,7 +239,7 @@ export const alova = createAlovaRequest(
       return null;
     },
     transformBackendResponse(response) {
-      return response.data.data;
+      return response.json();
     },
     onError(error) {
       // when the request is fail, you can show error message
