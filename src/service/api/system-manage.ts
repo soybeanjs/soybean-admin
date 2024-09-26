@@ -28,6 +28,7 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
     method: 'get',
     params
   });
+  // return alova.Get<Api.SystemManage.UserList>('/systemManage/getUserList', { params });
 }
 
 /** get menu list */

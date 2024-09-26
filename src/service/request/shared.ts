@@ -11,7 +11,7 @@ export function getAuthorization() {
 }
 
 /** refresh token */
-async function handleRefreshToken() {
+export async function handleRefreshToken() {
   const { resetStore } = useAuthStore();
 
   const rToken = localStg.get('refreshToken') || '';

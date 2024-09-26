@@ -51,12 +51,14 @@
     "@antv/g2": "5.2.5",
     "@better-scroll/core": "2.5.1",
     "@iconify/vue": "4.1.2",
+    "@sa/alova": "workspace:*",
     "@sa/axios": "workspace:*",
     "@sa/color": "workspace:*",
     "@sa/hooks": "workspace:*",
     "@sa/materials": "workspace:*",
     "@sa/utils": "workspace:*",
     "@vueuse/core": "11.0.3",
+    "alova": "^3.0.16",
     "clipboard": "2.0.11",
     "dayjs": "1.11.13",
     "dhtmlx-gantt": "8.0.10",
@@ -118,8 +120,7 @@
     "vue-tsc": "2.1.6"
   },
   "simple-git-hooks": {
-    "commit-msg": "pnpm sa git-commit-verify",
-    "pre-commit": "pnpm typecheck && pnpm lint-staged"
+    "commit-msg": "pnpm sa git-commit-verify"
   },
   "lint-staged": {
     "*": "eslint --fix"

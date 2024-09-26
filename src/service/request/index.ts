@@ -1,10 +1,11 @@
 import type { AxiosResponse } from 'axios';
 import { BACKEND_ERROR_CODE, createFlatRequest, createRequest } from '@sa/axios';
+import { createAlovaRequest } from '@sa/alova';
 import { useAuthStore } from '@/store/modules/auth';
 import { $t } from '@/locales';
 import { localStg } from '@/utils/storage';
 import { getServiceBaseURL } from '@/utils/service';
-import { getAuthorization, handleExpiredRequest, showErrorMsg } from './shared';
+import { getAuthorization, handleExpiredRequest, handleRefreshToken, showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
@@ -161,6 +162,110 @@ export const demoRequest = createRequest<App.Service.DemoResponse>(
       }
 
       window.$message?.error(message);
+    }
+  }
+);
+
+export const alova = createAlovaRequest(
+  {
+    baseURL,
+    expiredTokenCodes: import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || []
+  },
+  {
+    onRequest({ config }) {
+      const Authorization = getAuthorization();
+      config.headers.Authorization = Authorization;
+      config.headers.apifoxToken = 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2';
+    },
+    async refreshTokenHandler() {
+      await handleRefreshToken();
+    },
+    async isBackendSuccess(response) {
+      // when the backend response code is "0000"(default), it means the request is success
+      // to change this logic by yourself, you can modify the `VITE_SERVICE_SUCCESS_CODE` in `.env` file
+      const resp = response.clone();
+      const data = await resp.json();
+      return String(data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
+    },
+    async onBackendFail(response) {
+      const authStore = useAuthStore();
+      const resp = response.clone();
+      const data = await resp.json();
+
+      const responseCode = String(data.code);
+
+      function handleLogout() {
+        authStore.resetStore();
+      }
+
+      function logoutAndCleanup() {
+        handleLogout();
+        window.removeEventListener('beforeunload', handleLogout);
+
+        request.state.errMsgStack = request.state.errMsgStack.filter(msg => msg !== data.msg);
+      }
+
+      // when the backend response code is in `logoutCodes`, it means the user will be logged out and redirected to login page
+      const logoutCodes = import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',') || [];
+      if (logoutCodes.includes(responseCode)) {
+        handleLogout();
+        return null;
+      }
+
+      // when the backend response code is in `modalLogoutCodes`, it means the user will be logged out by displaying a modal
+      const modalLogoutCodes = import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',') || [];
+      if (modalLogoutCodes.includes(responseCode) && !request.state.errMsgStack?.includes(data.msg)) {
+        request.state.errMsgStack = [...(request.state.errMsgStack || []), data.msg];
+
+        // prevent the user from refreshing the page
+        window.addEventListener('beforeunload', handleLogout);
+
+        window.$dialog?.error({
+          title: $t('common.error'),
+          content: data.msg,
+          positiveText: $t('common.confirm'),
+          maskClosable: false,
+          closeOnEsc: false,
+          onPositiveClick() {
+            logoutAndCleanup();
+          },
+          onClose() {
+            logoutAndCleanup();
+          }
+        });
+
+        return null;
+      }
+      return null;
+    },
+    transformBackendResponse(response) {
+      return response.data.data;
+    },
+    onError(error) {
+      // when the request is fail, you can show error message
+
+      let message = error.message;
+      let backendErrorCode = '';
+
+      // get backend error message and code
+      if (error.code === BACKEND_ERROR_CODE) {
+        message = error.response?.data?.msg || message;
+        backendErrorCode = String(error.response?.data?.code || '');
+      }
+
+      // the error message is displayed in the modal
+      const modalLogoutCodes = import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',') || [];
+      if (modalLogoutCodes.includes(backendErrorCode)) {
+        return;
+      }
+
+      // when the token is expired, refresh token and retry request, so no need to show error message
+      const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
+      if (expiredTokenCodes.includes(backendErrorCode)) {
+        return;
+      }
+
+      showErrorMsg(request.state, message);
     }
   }
 );
