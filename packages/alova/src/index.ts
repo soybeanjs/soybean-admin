@@ -1,86 +1,76 @@
+import type { AlovaDefaultCacheAdapter, AlovaGenerics, AlovaGlobalCacheAdapter, AlovaRequestAdapter } from 'alova';
 import { createAlova } from 'alova';
 import VueHook from 'alova/vue';
+import type { FetchRequestInit } from 'alova/fetch';
 import adapterFetch from 'alova/fetch';
 import { createServerTokenAuthentication } from 'alova/client';
-import { BACKEND_ERROR_CODE, REQUEST_ID_KEY } from './constant';
-import { isJSON } from './shared';
+import { BACKEND_ERROR_CODE } from './constant';
 import type { CustomAlovaConfig, RequestOptions } from './type';
 
-export const createAlovaRequest = (customConfig: CustomAlovaConfig<any>, options: RequestOptions<any>) => {
-  const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication({
+export const createAlovaRequest = <
+  RequestConfig = FetchRequestInit,
+  ResponseType = Response,
+  ResponseHeader = Headers,
+  L1Cache extends AlovaGlobalCacheAdapter = AlovaDefaultCacheAdapter,
+  L2Cache extends AlovaGlobalCacheAdapter = AlovaDefaultCacheAdapter
+>(
+  customConfig: CustomAlovaConfig<
+    AlovaGenerics<any, any, RequestConfig, ResponseType, ResponseHeader, L1Cache, L2Cache, any>
+  >,
+  options: RequestOptions<AlovaGenerics<any, any, RequestConfig, ResponseType, ResponseHeader, L1Cache, L2Cache, any>>
+) => {
+  const { tokenRefresher } = options;
+  const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<
+    typeof VueHook,
+    AlovaRequestAdapter<RequestConfig, ResponseType, ResponseHeader>
+  >({
     refreshTokenOnSuccess: {
-      isExpired: async response => {
-        const contentType = response.headers.get('Content-Type');
-        if (isJSON(contentType ?? '')) {
-          const resp = response.clone();
-          const data = await resp.json();
-          const responseCode = String(data.code);
-          if (customConfig.expiredTokenCodes.includes(responseCode)) {
-            return true;
-          }
-        }
-        return false;
-      },
-      handler: async () => {
-        if (options.refreshTokenHandler) {
-          await options.refreshTokenHandler();
-        }
-      }
+      isExpired: (response, method) => tokenRefresher?.isExpired(response, method) || false,
+      handler: async (response, method) => tokenRefresher?.handler(response, method)
     },
     refreshTokenOnError: {
-      isExpired: async response => {
-        const contentType = response.headers.get('Content-Type');
-        if (isJSON(contentType ?? '')) {
-          const resp = response.clone();
-          const data = await resp.json();
-          const responseCode = String(data.code);
-          if (customConfig.expiredTokenCodes.includes(responseCode)) {
-            return true;
-          }
-        }
-        return false;
-      },
-      handler: async () => {
-        if (options.refreshTokenHandler) {
-          await options.refreshTokenHandler();
-        }
-      }
+      isExpired: (response, method) => tokenRefresher?.isExpired(response, method) || false,
+      handler: async (response, method) => tokenRefresher?.handler(response, method)
     }
   });
 
   const instance = createAlova({
     ...customConfig,
     timeout: customConfig.timeout ?? 10 * 1000,
-    requestAdapter: customConfig.requestAdapter ?? adapterFetch(),
+    requestAdapter: (customConfig.requestAdapter as any) ?? adapterFetch(),
     statesHook: VueHook,
-    beforeRequest: onAuthRequired(options.onRequest),
+    beforeRequest: onAuthRequired(options.onRequest as any),
     responded: onResponseRefreshToken({
-      onSuccess: async resp => {
+      onSuccess: async (response, method) => {
         // check if http status is success
-        if (resp.ok || resp.status === 304) {
-          if (
-            !isJSON(resp.headers.get('Content-Type') ?? '') ||
-            (options.isBackendSuccess && (await options.isBackendSuccess(resp)))
-          ) {
-            return resp;
+        let error: any = null;
+        let transformedData: any = null;
+        try {
+          if (await options.isBackendSuccess(response)) {
+            transformedData = await options.transformBackendResponse(response);
+          } else {
+            error = new Error('the backend request error');
+            error.code = BACKEND_ERROR_CODE;
           }
-          if (options.onBackendFail) {
-            const fail = await options.onBackendFail(resp);
-            if (fail) {
-              return fail;
-            }
-          }
-          return options.transformBackendResponse ? await options.transformBackendResponse(resp) : resp;
+        } catch (err) {
+          error = err;
         }
-        throw new Error(resp.statusText);
+
+        if (error) {
+          await options.onError?.(error, response, method);
+          throw error;
+        }
+
+        return transformedData;
       },
       onComplete: options.onComplete,
-      onError: options.onError
+      onError: (error, method) => options.onError?.(error, null, method)
     })
   });
 
   return instance;
 };
 
-export { BACKEND_ERROR_CODE, REQUEST_ID_KEY };
+export { BACKEND_ERROR_CODE };
 export type * from './type';
+export type * from 'alova';
