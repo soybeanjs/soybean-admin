@@ -1,0 +1,17 @@
+{
+  "name": "@sa/alova",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./src/*"]
+    }
+  },
+  "dependencies": {
+    "@sa/utils": "workspace:*",
+    "alova": "3.0.20"
+  }
+}
