@@ -23,9 +23,6 @@ importers:
       '@sa/alova':
         specifier: workspace:*
         version: link:packages/alova
-      '@sa/axios':
-        specifier: workspace:*
-        version: link:packages/axios
       '@sa/color':
         specifier: workspace:*
         version: link:packages/color
@@ -41,9 +38,6 @@ importers:
       '@vueuse/core':
         specifier: 11.0.3
         version: 11.0.3(vue@3.5.3(typescript@5.5.4))
-      alova:
-        specifier: ^3.0.16
-        version: 3.0.16
       clipboard:
         specifier: 2.0.11
         version: 2.0.11
@@ -223,8 +217,8 @@ importers:
         specifier: workspace:*
         version: link:../utils
       alova:
-        specifier: ^3.0.16
-        version: 3.0.16
+        specifier: ^3.0.19
+        version: 3.0.19
 
   packages/axios:
     dependencies:
@@ -1601,8 +1595,8 @@ packages:
     resolution: {integrity: sha512-GrTZLRpmp6wIC2ztrWW9MjjTgSKccffgFagbNDOX95/dcjEcYZibYTeaOntySQLcdw1ztBoFkviiUvTMbb9MYg==}
     engines: {node: '>=0.10.0'}
 
-  alova@3.0.16:
-    resolution: {integrity: sha512-iCMi/MFAyEU9ukt2Hy/htshT2gpDTa5L4b9IZzrtu/O1Oevj6zES/uC49hNEBuZWyBBky3M6tvynurMYusfFYA==}
+  alova@3.0.19:
+    resolution: {integrity: sha512-G8YEuGn06vwg/B8mvyfRfMtxq8S8t88TwdAPlncyvUKOG4Hz1rKc4aH++QF9H+9coCVTKQzDbE4pWrgl3I0kBw==}
     engines: {node: '>= 18.0.0'}
 
   amdefine@1.0.1:
@@ -6469,7 +6463,7 @@ snapshots:
       longest: 1.0.1
       repeat-string: 1.6.1
 
-  alova@3.0.16:
+  alova@3.0.19:
     dependencies:
       '@alova/shared': 1.0.5
       rate-limiter-flexible: 5.0.3

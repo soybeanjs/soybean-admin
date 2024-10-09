@@ -10,7 +10,7 @@ import UserSearch from './modules/user-search.vue';
 
 const appStore = useAppStore();
 
-const { columns, columnChecks, data, getData, reload, loading, mobilePagination, searchParams, resetSearchParams } =
+const { columns, columnChecks, data, refresh, reload, loading, mobilePagination, searchParams, resetSearchParams } =
   useTable({
     apiFn: fetchGetUserList,
     showTotal: true,
@@ -136,7 +136,7 @@ const {
   onBatchDeleted,
   onDeleted
   // closeDrawer
-} = useTableOperate(data, getData);
+} = useTableOperate(data, reload);
 
 async function handleBatchDelete() {
   // request
@@ -168,7 +168,7 @@ function edit(id: number) {
           :loading="loading"
           @add="handleAdd"
           @delete="handleBatchDelete"
-          @refresh="getData"
+          @refresh="refresh"
         />
       </template>
       <NDataTable

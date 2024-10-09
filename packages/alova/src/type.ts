@@ -1,18 +1,9 @@
-import type {
-  AlovaGenerics,
-  AlovaOptions,
-  AlovaRequestAdapter,
-  Method,
-  ResponseCompleteHandler,
-  ResponseErrorHandler
-} from 'alova';
+import type { AlovaGenerics, AlovaOptions, AlovaRequestAdapter, Method, ResponseCompleteHandler } from 'alova';
 
 export type CustomAlovaConfig<AG extends AlovaGenerics> = Omit<
   AlovaOptions<AG>,
   'statesHook' | 'beforeRequest' | 'responded' | 'requestAdapter'
 > & {
-  /** expired token codes */
-  expiredTokenCodes: string[];
   /** request adapter. all request of alova will be sent by it. */
   requestAdapter?: AlovaRequestAdapter<AG['RequestConfig'], AG['Response'], AG['ResponseHeader']>;
 };
@@ -25,26 +16,23 @@ export interface RequestOptions<AG extends AlovaGenerics> {
    *
    * @param method alova Method Instance
    */
-  onRequest?: (method: Method<AG>) => void | Promise<void>;
+  onRequest?: AlovaOptions<AG>['beforeRequest'];
   /**
    * The hook to check backend response is success or not
    *
-   * @param response Axios response
+   * @param response alova response
    */
-  isBackendSuccess?: (response: Response) => Promise<boolean>;
+  isBackendSuccess: (response: AG['Response']) => Promise<boolean>;
 
-  /** The hook to refresh token */
-  refreshTokenHandler?: () => Promise<void>;
-  /**
-   * The hook after backend request fail
-   *
-   * For example: You can handle the expired token in this hook
-   *
-   * @param response Axios response
-   * @param instance Axios instance
-   */
-  onBackendFail?: (response: Response) => Promise<Response | null> | Promise<void>;
+  /** The config to refresh token */
+  tokenRefresher?: {
+    /** detect the token is expired */
+    isExpired(response: AG['Response'], Method: Method<AG>): Promise<boolean> | boolean;
+    /** refhresh token handler */
+    handler(response: AG['Response'], Method: Method<AG>): Promise<void>;
+  };
 
+  /** The hook after backend request complete */
   onComplete?: ResponseCompleteHandler<AG>;
 
   /**
@@ -54,11 +42,11 @@ export interface RequestOptions<AG extends AlovaGenerics> {
    *
    * @param error
    */
-  onError?: ResponseErrorHandler<AG>;
+  onError?: (error: any, response: AG['Response'] | null, methodInstance: Method<AG>) => any | Promise<any>;
   /**
    * transform backend response when the responseType is json
    *
-   * @param response Axios response
+   * @param response alova response
    */
-  transformBackendResponse?: (response: AG['Response']) => any | Promise<any>;
+  transformBackendResponse: (response: AG['Response']) => any;
 }

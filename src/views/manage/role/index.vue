@@ -15,7 +15,8 @@ const {
   columnChecks,
   data,
   loading,
-  getData,
+  reload,
+  refresh,
   getDataByPage,
   mobilePagination,
   searchParams,
@@ -116,7 +117,7 @@ const {
   onBatchDeleted,
   onDeleted
   // closeDrawer
-} = useTableOperate(data, getData);
+} = useTableOperate(data, reload);
 
 async function handleBatchDelete() {
   // request
@@ -148,7 +149,7 @@ function edit(id: number) {
           :loading="loading"
           @add="handleAdd"
           @delete="handleBatchDelete"
-          @refresh="getData"
+          @refresh="refresh"
         />
       </template>
       <NDataTable

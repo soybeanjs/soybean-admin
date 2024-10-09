@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useBoolean } from '@sa/hooks';
-import { fetchGetAllPages, fetchGetMenuList } from '@/service/api';
+import { fetchGetMenuList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
@@ -18,7 +18,7 @@ const { bool: visible, setTrue: openModal } = useBoolean();
 
 const wrapperRef = ref<HTMLElement | null>(null);
 
-const { columns, columnChecks, data, loading, pagination, getData, getDataByPage } = useTable({
+const { columns, columnChecks, data, loading, pagination, refresh, reload, getDataByPage } = useTable({
   apiFn: fetchGetMenuList,
   columns: () => [
     {
@@ -170,7 +170,7 @@ const { columns, columnChecks, data, loading, pagination, getData, getDataByPage
   ]
 });
 
-const { checkedRowKeys, onBatchDeleted, onDeleted } = useTableOperate(data, getData);
+const { checkedRowKeys, onBatchDeleted, onDeleted } = useTableOperate(data, reload);
 
 const operateType = ref<OperateType>('add');
 
@@ -210,20 +210,6 @@ function handleAddChildMenu(item: Api.SystemManage.Menu) {
 
   openModal();
 }
-
-const allPages = ref<string[]>([]);
-
-async function getAllPages() {
-  const { data: pages } = await fetchGetAllPages();
-  allPages.value = pages || [];
-}
-
-function init() {
-  getAllPages();
-}
-
-// init
-init();
 </script>
 
 <template>
@@ -236,7 +222,7 @@ init();
           :loading="loading"
           @add="handleAdd"
           @delete="handleBatchDelete"
-          @refresh="getData"
+          @refresh="refresh"
         />
       </template>
       <NDataTable
@@ -256,7 +242,6 @@ init();
         v-model:visible="visible"
         :operate-type="operateType"
         :row-data="editingData"
-        :all-pages="allPages"
         @submitted="getDataByPage"
       />
     </NCard>

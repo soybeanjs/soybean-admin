@@ -17,14 +17,7 @@ export type TableColumnCheck = {
 
 export type TableDataWithIndex<T> = T & { index: number };
 
-export type TransformedData<T> = {
-  data: TableDataWithIndex<T>[];
-  pageNum: number;
-  pageSize: number;
-  total: number;
-};
-
-export type Transformer<T, Response> = (response: Response) => TransformedData<T>;
+export type Transformer<T, Response> = (response: Response) => TableDataWithIndex<T>[];
 
 export type TableConfig<A extends ApiFn, T, C> = {
   /** api function to get table data */
@@ -32,7 +25,7 @@ export type TableConfig<A extends ApiFn, T, C> = {
   /** api params */
   apiParams?: Parameters<A>[0];
   /** transform api response to table data */
-  transformer: Transformer<T, Awaited<ReturnType<A>>>;
+  transformer: Transformer<T, Awaited<ReturnType<ReturnType<A>['send']>>>;
   /** columns factory */
   columns: () => C[];
   /**
@@ -47,12 +40,6 @@ export type TableConfig<A extends ApiFn, T, C> = {
    * @param columns
    */
   getColumns: (columns: C[], checks: TableColumnCheck[]) => C[];
-  /**
-   * callback when response fetched
-   *
-   * @param transformed transformed data
-   */
-  onFetched?: (transformed: TransformedData<T>) => MaybePromise<void>;
   /**
    * whether to get data immediately
    *
@@ -74,17 +61,17 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   const columns = computed(() => getColumns(allColumns.value, columnChecks.value));
 
-  const states = usePagination(
-    (page, pageSize) => apiFn({ ...formatSearchParams(searchParams), page, size: pageSize }),
+  const states = usePagination<ReturnType<A> extends Method<infer AG> ? AG : never, ReturnType<typeof transformer>>(
+    (page, size) => apiFn({ ...formatSearchParams(searchParams), page, size }) as any,
     {
       immediate,
       data: transformer,
-      total: res => res.data.total
+      total: res => res.total
     }
-  ).onSuccess(event => {
-    setEmpty(event.data.length === 0);
+  ).onSuccess(({ data }) => {
+    setEmpty(data.length === 0);
   });
-  delete states.uploading;
+  Reflect.deleteProperty(states, 'uploading');
 
   function reloadColumns() {
     allColumns.value = config.columns();

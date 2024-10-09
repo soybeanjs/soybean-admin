@@ -39,5 +39,8 @@ export function fetchRefreshToken(refreshToken: string) {
  * @param msg error message
  */
 export function fetchCustomBackendError(code: string, msg: string) {
-  return alova.Get('/auth/error', { params: { code, msg } });
+  return alova.Get('/auth/error', {
+    params: { code, msg },
+    shareRequest: false
+  });
 }

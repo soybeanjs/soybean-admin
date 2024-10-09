@@ -63,9 +63,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   async function login(userName: string, password: string, redirect = true) {
     startLoading();
 
-    const { data: loginToken, error } = await fetchLogin(userName, password);
-
-    if (!error) {
+    try {
+      const loginToken = await fetchLogin(userName, password);
       const pass = await loginByToken(loginToken);
 
       if (pass) {
@@ -81,7 +80,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
           });
         }
       }
-    } else {
+    } catch (err) {
       resetStore();
     }
 
@@ -106,15 +105,13 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   }
 
   async function getUserInfo() {
-    const { data: info, error } = await fetchGetUserInfo();
-
-    if (!error) {
+    try {
+      const info = await fetchGetUserInfo();
       // update store
       Object.assign(userInfo, info);
 
       return true;
-    }
-
+    } catch (error) {}
     return false;
   }
 
