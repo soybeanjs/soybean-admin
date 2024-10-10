@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, reactive, watch } from 'vue';
+import { useWatcher } from '@sa/alova/client';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
@@ -66,28 +67,28 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
 };
 
 /** the enabled role options */
-const roleOptions = ref<CommonType.Option<string>[]>([]);
-
-async function getRoleOptions() {
-  const { error, data } = await fetchGetAllRoles();
-
-  if (!error) {
-    const options = data.map(item => ({
-      label: item.roleName,
-      value: item.roleCode
-    }));
-
-    // the mock data does not have the roleCode, so fill it
-    // if the real request, remove the following code
-    const userRoleOptions = model.userRoles.map(item => ({
-      label: item,
-      value: item
-    }));
-    // end
-
-    roleOptions.value = [...userRoleOptions, ...options];
+const { data: roleOptionsRaw, loading } = useWatcher(fetchGetAllRoles, [visible], {
+  initialData: [],
+  middleware(_, next) {
+    return visible.value ? next() : undefined;
   }
-}
+});
+const roleOptions = computed<CommonType.Option<string>[]>(() => {
+  const options = roleOptionsRaw.value.map(item => ({
+    label: item.roleName,
+    value: item.roleCode
+  }));
+
+  // the mock data does not have the roleCode, so fill it
+  // if the real request, remove the following code
+  const userRoleOptions = model.userRoles.map(item => ({
+    label: item,
+    value: item
+  }));
+  // end
+
+  return [...userRoleOptions, ...options];
+});
 
 function handleInitModel() {
   Object.assign(model, createDefaultModel());
@@ -113,7 +114,6 @@ watch(visible, () => {
   if (visible.value) {
     handleInitModel();
     restoreValidation();
-    getRoleOptions();
   }
 });
 </script>
@@ -148,6 +148,7 @@ watch(visible, () => {
           <NSelect
             v-model:value="model.userRoles"
             multiple
+            :loading="loading"
             :options="roleOptions"
             :placeholder="$t('page.manage.user.form.userRole')"
           />

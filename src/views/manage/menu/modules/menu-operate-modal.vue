@@ -1,12 +1,13 @@
 <script setup lang="tsx">
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, reactive, watch } from 'vue';
 import type { SelectOption } from 'naive-ui';
+import { useWatcher } from '@sa/alova/client';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { enableStatusOptions, menuIconTypeOptions, menuTypeOptions } from '@/constants/business';
 import SvgIcon from '@/components/custom/svg-icon.vue';
 import { getLocalIcons } from '@/utils/icon';
-import { fetchGetAllRoles } from '@/service/api';
+import { fetchGetAllPages } from '@/service/api';
 import {
   getLayoutAndPage,
   getPathParamFromRoutePath,
@@ -26,8 +27,6 @@ interface Props {
   operateType: OperateType;
   /** the edit menu data or the parent menu data when adding a child menu */
   rowData?: Api.SystemManage.Menu | null;
-  /** all pages */
-  allPages: string[];
 }
 
 const props = defineProps<Props>();
@@ -138,8 +137,14 @@ const showLayout = computed(() => model.parentId === 0);
 
 const showPage = computed(() => model.menuType === '2');
 
+const { data: allPagesRaw, loading: loadingPages } = useWatcher(fetchGetAllPages, [visible], {
+  initialData: [],
+  middleware(_, next) {
+    return visible.value ? next() : undefined;
+  }
+});
 const pageOptions = computed(() => {
-  const allPages = [...props.allPages];
+  const allPages = [...allPagesRaw.value];
 
   if (model.routeName && !allPages.includes(model.routeName)) {
     allPages.unshift(model.routeName);
@@ -165,20 +170,18 @@ const layoutOptions: CommonType.Option[] = [
 ];
 
 /** the enabled role options */
-const roleOptions = ref<CommonType.Option<string>[]>([]);
-
-async function getRoleOptions() {
-  const { error, data } = await fetchGetAllRoles();
-
-  if (!error) {
-    const options = data.map(item => ({
-      label: item.roleName,
-      value: item.roleCode
-    }));
-
-    roleOptions.value = [...options];
-  }
-}
+// const { data: roleOptionsRaw, loading } = useWatcher(fetchGetAllRoles, [visible], {
+//   initialData: [],
+//   middleware(_, next) {
+//     return visible.value ? next() : undefined;
+//   }
+// });
+// const roleOptions = computed<CommonType.Option<string>[]>(() => {
+//   return roleOptionsRaw.value.map(item => ({
+//     label: item.roleName,
+//     value: item.roleCode
+//   }));
+// });
 
 function handleInitModel() {
   Object.assign(model, createDefaultModel());
@@ -266,7 +269,6 @@ watch(visible, () => {
   if (visible.value) {
     handleInitModel();
     restoreValidation();
-    getRoleOptions();
   }
 });
 
@@ -311,6 +313,7 @@ watch(
           <NFormItemGi v-if="showPage" span="24 m:12" :label="$t('page.manage.menu.page')" path="page">
             <NSelect
               v-model:value="model.page"
+              :loading="loadingPages"
               :options="pageOptions"
               :placeholder="$t('page.manage.menu.form.page')"
             />

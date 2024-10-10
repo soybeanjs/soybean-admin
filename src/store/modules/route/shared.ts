@@ -19,7 +19,7 @@ export function filterAuthRoutesByRoles(routes: ElegantConstRoute[], roles: stri
  * @param route Auth route
  * @param roles Roles
  */
-function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]): ElegantConstRoute[] {
+function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]) {
   const routeRoles = (route.meta && route.meta.roles) || [];
 
   // if the route's "roles" is empty, then it is allowed to access
@@ -32,11 +32,6 @@ function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]): Eleg
 
   if (filterRoute.children?.length) {
     filterRoute.children = filterRoute.children.flatMap(item => filterAuthRouteByRoles(item, roles));
-  }
-
-  // Exclude the route if it has no children after filtering
-  if (filterRoute.children?.length === 0) {
-    return [];
   }
 
   return hasPermission || isEmptyRoles ? [filterRoute] : [];
@@ -288,7 +283,8 @@ export function getBreadcrumbsByRoute(
 
   for (const menu of menus) {
     if (menu.key === key) {
-      return [transformMenuToBreadcrumb(menu)];
+      const breadcrumbMenu = menu;
+      return [transformMenuToBreadcrumb(breadcrumbMenu)];
     }
 
     if (menu.key === activeKey) {

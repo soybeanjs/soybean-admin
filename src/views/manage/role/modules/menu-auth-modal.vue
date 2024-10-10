@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, shallowRef, watch } from 'vue';
+import { useWatcher } from '@sa/alova/client';
 import { $t } from '@/locales';
 import { fetchGetAllPages, fetchGetMenuTree } from '@/service/api';
 
@@ -38,16 +39,12 @@ async function updateHome(val: string) {
   home.value = val;
 }
 
-const pages = shallowRef<string[]>([]);
-
-async function getPages() {
-  const { error, data } = await fetchGetAllPages();
-
-  if (!error) {
-    pages.value = data;
+const { data: pages, loading: loadingPages } = useWatcher(fetchGetAllPages, [visible], {
+  initialData: [],
+  middleware(_, next) {
+    return visible.value ? next() : undefined;
   }
-}
-
+});
 const pageSelectOptions = computed(() => {
   const opts: CommonType.Option[] = pages.value.map(page => ({
     label: page,
@@ -57,15 +54,12 @@ const pageSelectOptions = computed(() => {
   return opts;
 });
 
-const tree = shallowRef<Api.SystemManage.MenuTree[]>([]);
-
-async function getTree() {
-  const { error, data } = await fetchGetMenuTree();
-
-  if (!error) {
-    tree.value = data;
+const { data: tree, loading: loadingTree } = useWatcher(fetchGetMenuTree, [visible], {
+  initialData: [],
+  middleware(_, next) {
+    return visible.value ? next() : undefined;
   }
-}
+});
 
 const checks = shallowRef<number[]>([]);
 
@@ -86,8 +80,6 @@ function handleSubmit() {
 
 function init() {
   getHome();
-  getPages();
-  getTree();
   getChecks();
 }
 
@@ -102,7 +94,14 @@ watch(visible, val => {
   <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
     <div class="flex-y-center gap-16px pb-12px">
       <div>{{ $t('page.manage.menu.home') }}</div>
-      <NSelect :value="home" :options="pageSelectOptions" size="small" class="w-160px" @update:value="updateHome" />
+      <NSelect
+        :loading="loadingPages"
+        :value="home"
+        :options="pageSelectOptions"
+        size="small"
+        class="w-160px"
+        @update:value="updateHome"
+      />
     </div>
     <NTree
       v-model:checked-keys="checks"
@@ -113,7 +112,11 @@ watch(visible, val => {
       virtual-scroll
       block-line
       class="h-280px"
-    />
+    >
+      <template v-if="loadingTree" #empty>
+        <NSpin size="small"></NSpin>
+      </template>
+    </NTree>
     <template #footer>
       <NSpace justify="end">
         <NButton size="small" class="mt-16px" @click="closeModal">
