@@ -14,7 +14,7 @@ import FirstLevelMenu from '../components/first-level-menu.vue';
 import GlobalLogo from '../../global-logo/index.vue';
 
 defineOptions({
-  name: 'VerticalMixMenu'
+  name: 'VerticalMenuMix'
 });
 
 const route = useRoute();

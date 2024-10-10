@@ -20,9 +20,9 @@ importers:
       '@iconify/vue':
         specifier: 4.1.2
         version: 4.1.2(vue@3.5.11(typescript@5.6.3))
-      '@sa/axios':
+      '@sa/alova':
         specifier: workspace:*
-        version: link:packages/axios
+        version: link:packages/alova
       '@sa/color':
         specifier: workspace:*
         version: link:packages/color

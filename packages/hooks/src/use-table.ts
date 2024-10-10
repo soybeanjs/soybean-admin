@@ -1,12 +1,13 @@
 import { computed, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { jsonClone } from '@sa/utils';
+import { usePagination } from '@sa/alova/client';
+import type { AlovaGenerics, Method } from '@sa/alova';
 import useBoolean from './use-boolean';
-import useLoading from './use-loading';
 
 export type MaybePromise<T> = T | Promise<T>;
 
-export type ApiFn = (args: any) => Promise<unknown>;
+export type ApiFn = (args: any) => Method<AlovaGenerics>;
 
 export type TableColumnCheck = {
   key: string;
@@ -16,14 +17,7 @@ export type TableColumnCheck = {
 
 export type TableDataWithIndex<T> = T & { index: number };
 
-export type TransformedData<T> = {
-  data: TableDataWithIndex<T>[];
-  pageNum: number;
-  pageSize: number;
-  total: number;
-};
-
-export type Transformer<T, Response> = (response: Response) => TransformedData<T>;
+export type Transformer<T, Response> = (response: Response) => TableDataWithIndex<T>[];
 
 export type TableConfig<A extends ApiFn, T, C> = {
   /** api function to get table data */
@@ -31,7 +25,7 @@ export type TableConfig<A extends ApiFn, T, C> = {
   /** api params */
   apiParams?: Parameters<A>[0];
   /** transform api response to table data */
-  transformer: Transformer<T, Awaited<ReturnType<A>>>;
+  transformer: Transformer<T, Awaited<ReturnType<ReturnType<A>['send']>>>;
   /** columns factory */
   columns: () => C[];
   /**
@@ -47,12 +41,6 @@ export type TableConfig<A extends ApiFn, T, C> = {
    */
   getColumns: (columns: C[], checks: TableColumnCheck[]) => C[];
   /**
-   * callback when response fetched
-   *
-   * @param transformed transformed data
-   */
-  onFetched?: (transformed: TransformedData<T>) => MaybePromise<void>;
-  /**
    * whether to get data immediately
    *
    * @default true
@@ -61,7 +49,6 @@ export type TableConfig<A extends ApiFn, T, C> = {
 };
 
 export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<A, T, C>) {
-  const { loading, startLoading, endLoading } = useLoading();
   const { bool: empty, setBool: setEmpty } = useBoolean();
 
   const { apiFn, apiParams, transformer, immediate = true, getColumnChecks, getColumns } = config;
@@ -70,11 +57,21 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   const allColumns = ref(config.columns()) as Ref<C[]>;
 
-  const data: Ref<TableDataWithIndex<T>[]> = ref([]);
-
   const columnChecks: Ref<TableColumnCheck[]> = ref(getColumnChecks(config.columns()));
 
   const columns = computed(() => getColumns(allColumns.value, columnChecks.value));
+
+  const states = usePagination<ReturnType<A> extends Method<infer AG> ? AG : never, ReturnType<typeof transformer>>(
+    (page, size) => apiFn({ ...formatSearchParams(searchParams), page, size }) as any,
+    {
+      immediate,
+      data: transformer,
+      total: res => res.total
+    }
+  ).onSuccess(({ data }) => {
+    setEmpty(data.length === 0);
+  });
+  Reflect.deleteProperty(states, 'uploading');
 
   function reloadColumns() {
     allColumns.value = config.columns();
@@ -89,33 +86,13 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     }));
   }
 
-  async function getData() {
-    startLoading();
-
-    const formattedParams = formatSearchParams(searchParams);
-
-    const response = await apiFn(formattedParams);
-
-    const transformed = transformer(response as Awaited<ReturnType<A>>);
-
-    data.value = transformed.data;
-
-    setEmpty(transformed.data.length === 0);
-
-    await config.onFetched?.(transformed);
-
-    endLoading();
-  }
-
   function formatSearchParams(params: Record<string, unknown>) {
     const formattedParams: Record<string, unknown> = {};
-
     Object.entries(params).forEach(([key, value]) => {
       if (value !== null && value !== undefined) {
         formattedParams[key] = value;
       }
     });
-
     return formattedParams;
   }
 
@@ -133,18 +110,13 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     Object.assign(searchParams, jsonClone(apiParams));
   }
 
-  if (immediate) {
-    getData();
-  }
-
   return {
-    loading,
+    ...states,
     empty,
-    data,
     columns,
     columnChecks,
     reloadColumns,
-    getData,
+    getData: states.send,
     searchParams,
     updateSearchParams,
     resetSearchParams
