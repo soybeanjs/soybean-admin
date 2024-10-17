@@ -113,7 +113,7 @@ const local: App.I18n.Schema = {
     },
     tab: {
       visible: '显示标签栏',
-      cache: '缓存标签页',
+      cache: '标签栏信息缓存',
       height: '标签栏高度',
       mode: {
         title: '标签栏风格',
@@ -163,9 +163,14 @@ const local: App.I18n.Schema = {
     document_unocss: 'UnoCSS文档',
     document_naive: 'Naive UI文档',
     document_antd: 'Ant Design Vue文档',
+    document_alova: 'Alova文档',
     'user-center': '个人中心',
     about: '关于',
     function: '系统功能',
+    alova: 'alova示例',
+    alova_request: 'alova请求',
+    alova_user: '用户列表',
+    alova_scenes: '场景化请求',
     function_tab: '标签页',
     'function_multi-tab': '多标签页',
     'function_hide-child': '隐藏子菜单',
@@ -335,6 +340,20 @@ const local: App.I18n.Schema = {
         repeatedError: '重复请求错误',
         repeatedErrorMsg1: '自定义请求错误 1',
         repeatedErrorMsg2: '自定义请求错误 2'
+      }
+    },
+    alova: {
+      scenes: {
+        captchaSend: '发送验证码',
+        autoRequest: '自动请求',
+        visibilityRequestTips: '浏览器窗口切换自动请求数据',
+        pollingRequestTips: '每3秒自动请求一次',
+        networkRequestTips: '网络重连后自动请求',
+        refreshTime: '更新时间',
+        startRequest: '开始请求',
+        stopRequest: '停止请求',
+        requestCrossComponent: '跨组件触发请求',
+        triggerAllRequest: '手动触发所有自动请求'
       }
     },
     manage: {

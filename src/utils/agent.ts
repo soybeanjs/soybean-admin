@@ -1,5 +1,7 @@
 export function isPC() {
   const agents = ['Android', 'iPhone', 'webOS', 'BlackBerry', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
 
-  return !agents.includes(window.navigator.userAgent);
+  const isMobile = agents.some(agent => window.navigator.userAgent.includes(agent));
+
+  return !isMobile;
 }

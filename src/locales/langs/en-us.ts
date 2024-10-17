@@ -113,7 +113,7 @@ const local: App.I18n.Schema = {
     },
     tab: {
       visible: 'Tab Visible',
-      cache: 'Tab Cache',
+      cache: 'Tag Bar Info Cache',
       height: 'Tab Height',
       mode: {
         title: 'Tab Mode',
@@ -163,9 +163,14 @@ const local: App.I18n.Schema = {
     document_unocss: 'UnoCSS Document',
     document_naive: 'Naive UI Document',
     document_antd: 'Ant Design Vue Document',
+    document_alova: 'Alova Document',
     'user-center': 'User Center',
     about: 'About',
     function: 'System Function',
+    alova: 'Alova Example',
+    alova_request: 'Alova Request',
+    alova_user: 'User List',
+    alova_scenes: 'Scenario Request',
     function_tab: 'Tab',
     'function_multi-tab': 'Multi Tab',
     'function_hide-child': 'Hide Child',
@@ -335,6 +340,20 @@ const local: App.I18n.Schema = {
         repeatedError: 'Repeated Request Error',
         repeatedErrorMsg1: 'Custom Request Error 1',
         repeatedErrorMsg2: 'Custom Request Error 2'
+      }
+    },
+    alova: {
+      scenes: {
+        captchaSend: 'Captcha Send',
+        autoRequest: 'Auto Request',
+        visibilityRequestTips: 'Automatically request when switching browser window',
+        pollingRequestTips: 'It will request every 3 seconds',
+        networkRequestTips: 'Automatically request after network reconnecting',
+        refreshTime: 'Refresh Time',
+        startRequest: 'Start Request',
+        stopRequest: 'Stop Request',
+        requestCrossComponent: 'Request Cross Component',
+        triggerAllRequest: 'Manually Trigger All Automated Requests'
       }
     },
     manage: {
