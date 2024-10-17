@@ -523,6 +523,20 @@ declare namespace App {
             repeatedErrorMsg2: string;
           };
         };
+        alova: {
+          scenes: {
+            captchaSend: string;
+            autoRequest: string;
+            visibilityRequestTips: string;
+            pollingRequestTips: string;
+            networkRequestTips: string;
+            refreshTime: string;
+            startRequest: string;
+            stopRequest: string;
+            requestCrossComponent: string;
+            triggerAllRequest: string;
+          };
+        };
         manage: {
           common: {
             status: {

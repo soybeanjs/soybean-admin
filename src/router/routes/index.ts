@@ -92,6 +92,20 @@ const customRoutes: CustomRoute[] = [
         }
       },
       {
+        name: 'document_alova',
+        path: '/document/alova',
+        component: 'view.iframe-page',
+        props: {
+          url: 'https://alova.js.org'
+        },
+        meta: {
+          title: 'document_alova',
+          i18nKey: 'route.document_alova',
+          order: 7,
+          localIcon: 'alova'
+        }
+      },
+      {
         name: 'document_project',
         path: '/document/project',
         component: 'view.iframe-page',
