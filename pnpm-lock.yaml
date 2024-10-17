@@ -162,6 +162,9 @@ importers:
 
   packages/alova:
     dependencies:
+      '@alova/mock':
+        specifier: 2.0.7
+        version: 2.0.7(alova@3.0.20)
       '@sa/utils':
         specifier: workspace:*
         version: link:../utils
@@ -284,8 +287,16 @@ importers:
 
 packages:
 
+  '@alova/mock@2.0.7':
+    resolution: {integrity: sha512-4W8Ncsmj7cdjzZk7f2zFqc32aoYQNoDJS3z7W0nqAkTJ7KR8ZiGaHA5dJovyXnLphmTeyWS3yHMVWnesI7y4ig==}
+    peerDependencies:
+      alova: ^3.0.20
+
   '@alova/shared@1.0.5':
     resolution: {integrity: sha512-/a2Qm+xebQJ1OlIgpslK+UL1J7yhkt1/Mqdq58a22+fSVdANukmUcF4j4w1DF3lxZ04SrqP+2oJprJ8UOvM+9Q==}
+
+  '@alova/shared@1.0.6':
+    resolution: {integrity: sha512-W89j64InjFIsW/u5YmYvpXGWz8JerBAYWyu/Fc7xfc5B+95SSA3ybW4nyHacBUW6yYQyGZwa8S8bVPePqa7bmA==}
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -4224,7 +4235,14 @@ packages:
 
 snapshots:
 
+  '@alova/mock@2.0.7(alova@3.0.20)':
+    dependencies:
+      '@alova/shared': 1.0.6
+      alova: 3.0.20
+
   '@alova/shared@1.0.5': {}
+
+  '@alova/shared@1.0.6': {}
 
   '@ampproject/remapping@2.3.0':
     dependencies:

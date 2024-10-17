@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "exports": {
     ".": "./src/index.ts",
-    "./client": "./src/client.ts"
+    "./fetch": "./src/fetch.ts",
+    "./client": "./src/client.ts",
+    "./mock": "./src/mock.ts"
   },
   "typesVersions": {
     "*": {
@@ -11,6 +13,7 @@
     }
   },
   "dependencies": {
+    "@alova/mock": "2.0.7",
     "@sa/utils": "workspace:*",
     "alova": "3.0.20"
   }
