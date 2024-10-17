@@ -113,7 +113,7 @@ const local: App.I18n.Schema = {
     },
     tab: {
       visible: 'Tab Visible',
-      cache: 'Tab Cache',
+      cache: 'Tag Bar Info Cache',
       height: 'Tab Height',
       mode: {
         title: 'Tab Mode',
