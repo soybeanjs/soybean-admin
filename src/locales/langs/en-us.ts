@@ -199,6 +199,7 @@ const local: App.I18n.Schema = {
     plugin_copy: 'Copy',
     plugin_charts: 'Charts',
     plugin_charts_echarts: 'ECharts',
+    plugin_charts_antv: 'AntV',
     plugin_editor: 'Editor',
     plugin_editor_quill: 'Quill',
     plugin_editor_markdown: 'Markdown',

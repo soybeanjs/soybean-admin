@@ -40,6 +40,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   "multi-menu_first_child": () => import("@/views/multi-menu/first_child/index.vue"),
   "multi-menu_second_child_home": () => import("@/views/multi-menu/second_child_home/index.vue"),
   plugin_barcode: () => import("@/views/plugin/barcode/index.vue"),
+  plugin_charts_antv: () => import("@/views/plugin/charts/antv/index.vue"),
   plugin_charts_echarts: () => import("@/views/plugin/charts/echarts/index.vue"),
   plugin_copy: () => import("@/views/plugin/copy/index.vue"),
   plugin_editor_markdown: () => import("@/views/plugin/editor/markdown/index.vue"),
