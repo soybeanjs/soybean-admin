@@ -424,6 +424,15 @@ export const generatedRoutes: GeneratedRoute[] = [
               i18nKey: 'route.plugin_charts_echarts',
               icon: 'simple-icons:apacheecharts'
             }
+          },
+          {
+            name: 'plugin_charts_vchart',
+            path: '/plugin/charts/vchart',
+            component: 'view.plugin_charts_vchart',
+            meta: {
+              title: 'plugin_charts_vchart',
+              i18nKey: 'route.plugin_charts_vchart'
+            }
           }
         ]
       },
@@ -548,6 +557,26 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.plugin_swiper',
           icon: 'simple-icons:swiper'
         }
+      },
+      {
+        name: 'plugin_tables',
+        path: '/plugin/tables',
+        meta: {
+          title: 'plugin_tables',
+          i18nKey: 'route.plugin_tables',
+          icon: 'icon-park-outline:table'
+        },
+        children: [
+          {
+            name: 'plugin_tables_vtable',
+            path: '/plugin/tables/vtable',
+            component: 'view.plugin_tables_vtable',
+            meta: {
+              title: 'plugin_tables_vtable',
+              i18nKey: 'route.plugin_tables_vtable'
+            }
+          }
+        ]
       },
       {
         name: 'plugin_typeit',

@@ -213,6 +213,7 @@ const routeMap: RouteMap = {
   "plugin_charts": "/plugin/charts",
   "plugin_charts_antv": "/plugin/charts/antv",
   "plugin_charts_echarts": "/plugin/charts/echarts",
+  "plugin_charts_vchart": "/plugin/charts/vchart",
   "plugin_copy": "/plugin/copy",
   "plugin_editor": "/plugin/editor",
   "plugin_editor_markdown": "/plugin/editor/markdown",
@@ -225,6 +226,8 @@ const routeMap: RouteMap = {
   "plugin_pinyin": "/plugin/pinyin",
   "plugin_print": "/plugin/print",
   "plugin_swiper": "/plugin/swiper",
+  "plugin_tables": "/plugin/tables",
+  "plugin_tables_vtable": "/plugin/tables/vtable",
   "plugin_typeit": "/plugin/typeit",
   "plugin_video": "/plugin/video",
   "user-center": "/user-center"
