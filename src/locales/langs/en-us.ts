@@ -214,6 +214,8 @@ const local: App.I18n.Schema = {
     plugin_excel: 'Excel',
     plugin_pdf: 'PDF preview',
     plugin_gantt: 'Gantt Chart',
+    plugin_gantt_dhtmlx: 'dhtmlxGantt',
+    plugin_gantt_vtable: 'VTableGantt',
     plugin_typeit: 'Typeit',
     plugin_tables: 'Tables',
     plugin_tables_vtable: 'VTable'

@@ -74,6 +74,8 @@ declare module "@elegant-router/types" {
     "plugin_editor_quill": "/plugin/editor/quill";
     "plugin_excel": "/plugin/excel";
     "plugin_gantt": "/plugin/gantt";
+    "plugin_gantt_dhtmlx": "/plugin/gantt/dhtmlx";
+    "plugin_gantt_vtable": "/plugin/gantt/vtable";
     "plugin_icon": "/plugin/icon";
     "plugin_map": "/plugin/map";
     "plugin_pdf": "/plugin/pdf";
@@ -192,7 +194,8 @@ declare module "@elegant-router/types" {
     | "plugin_editor_markdown"
     | "plugin_editor_quill"
     | "plugin_excel"
-    | "plugin_gantt"
+    | "plugin_gantt_dhtmlx"
+    | "plugin_gantt_vtable"
     | "plugin_icon"
     | "plugin_map"
     | "plugin_pdf"

@@ -492,12 +492,32 @@ export const generatedRoutes: GeneratedRoute[] = [
       {
         name: 'plugin_gantt',
         path: '/plugin/gantt',
-        component: 'view.plugin_gantt',
         meta: {
           title: 'plugin_gantt',
           i18nKey: 'route.plugin_gantt',
           icon: 'ant-design:bar-chart-outlined'
-        }
+        },
+        children: [
+          {
+            name: 'plugin_gantt_dhtmlx',
+            path: '/plugin/gantt/dhtmlx',
+            component: 'view.plugin_gantt_dhtmlx',
+            meta: {
+              title: 'plugin_gantt_dhtmlx',
+              i18nKey: 'route.plugin_gantt_dhtmlx'
+            }
+          },
+          {
+            name: 'plugin_gantt_vtable',
+            path: '/plugin/gantt/vtable',
+            component: 'view.plugin_gantt_vtable',
+            meta: {
+              title: 'plugin_gantt_vtable',
+              i18nKey: 'route.plugin_gantt_vtable',
+              localIcon: 'visactor'
+            }
+          }
+        ]
       },
       {
         name: 'plugin_icon',

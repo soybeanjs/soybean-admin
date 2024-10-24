@@ -47,6 +47,12 @@ importers:
       '@visactor/vchart-theme':
         specifier: 1.12.1
         version: 1.12.1(@visactor/vchart@1.12.8)
+      '@visactor/vtable-editors':
+        specifier: 1.10.1
+        version: 1.10.1
+      '@visactor/vtable-gantt':
+        specifier: 1.10.1
+        version: 1.10.1
       '@visactor/vue-vtable':
         specifier: 1.10.1
         version: 1.10.1
@@ -2812,6 +2818,17 @@ packages:
 
   /@visactor/vtable-editors@1.10.1:
     resolution: {integrity: sha512-iZ3iAmqJz6lYQgeHi5qThvnZJZEDtNTMQw93SxxMxBy6Xhz3KNGQMswKMMcdb7czs+48OB7SnDl4tXoq6foZOw==}
+    dev: false
+
+  /@visactor/vtable-gantt@1.10.1:
+    resolution: {integrity: sha512-QZ6U64JH7qLr8LkHa+LhNBjbHuPuIBFbGHVmh6HixVaV1IFZPsmQ2WV/VX8wMMyVuDHth4Z+7Yh89MJQdQeTkA==}
+    dependencies:
+      '@visactor/vdataset': 0.18.17
+      '@visactor/vscale': 0.18.17
+      '@visactor/vtable': 1.10.1
+      '@visactor/vtable-editors': 1.10.1
+      '@visactor/vutils': 0.18.17
+      cssfontparser: 1.2.1
     dev: false
 
   /@visactor/vtable@1.10.1:
