@@ -141,6 +141,11 @@ const local: App.I18n.Schema = {
     },
     themeDrawerTitle: 'Theme Configuration',
     pageFunTitle: 'Page Function',
+    resetCacheStrategy: {
+      title: 'Reset Cache Strategy',
+      close: 'Close Page',
+      refresh: 'Refresh Page'
+    },
     configOperation: {
       copyConfig: 'Copy Config',
       copySuccessMsg: 'Copy Success, Please replace the variable "themeSettings" in "src/theme/settings.ts"',

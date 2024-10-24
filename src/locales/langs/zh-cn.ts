@@ -141,6 +141,11 @@ const local: App.I18n.Schema = {
     },
     themeDrawerTitle: '主题配置',
     pageFunTitle: '页面功能',
+    resetCacheStrategy: {
+      title: '重置缓存策略',
+      close: '关闭页面',
+      refresh: '刷新页面'
+    },
     configOperation: {
       copyConfig: '复制配置',
       copySuccessMsg: '复制成功，请替换 src/theme/settings.ts 中的变量 themeSettings',
