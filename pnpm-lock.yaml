@@ -44,6 +44,9 @@ importers:
       '@visactor/vchart':
         specifier: 1.12.8
         version: 1.12.8
+      '@visactor/vchart-theme':
+        specifier: 1.12.1
+        version: 1.12.1(@visactor/vchart@1.12.8)
       '@visactor/vue-vtable':
         specifier: 1.10.1
         version: 1.10.1
@@ -2613,6 +2616,14 @@ packages:
       - rollup
       - supports-color
     dev: true
+
+  /@visactor/vchart-theme@1.12.1(@visactor/vchart@1.12.8):
+    resolution: {integrity: sha512-8994bN0+dnr/hrWH5nIBCFCl29MI7T2O5Q8/ZHDJKtgtt9zjzern11wAmP1sUPooZwT59feveGB3iWEonLCVuQ==}
+    peerDependencies:
+      '@visactor/vchart': '>=1.10.4'
+    dependencies:
+      '@visactor/vchart': 1.12.8
+    dev: false
 
   /@visactor/vchart@1.12.8:
     resolution: {integrity: sha512-QG8KY/KMcr78AL1DPOMNBVi1pDK2AyRlaP7uQueu0vgBmqCbJfFNsAy7RUSNvufw3cDk85wfBqmsckqOiEeiow==}

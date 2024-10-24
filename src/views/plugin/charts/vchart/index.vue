@@ -1,61 +1,36 @@
 <script setup lang="ts">
 import { onUnmounted } from 'vue';
-// import { useEcharts } from '@/hooks/common/echarts';
-// import {
-//   barOptions,
-//   gaugeOptions,
-//   getPictorialBarOption,
-//   getScatterOption,
-//   lineOptions,
-//   pieOptions,
-//   radarOptions
-// } from './data';
+import type {
+  IAreaChartSpec,
+  IBarChartSpec,
+  ICircularProgressChartSpec,
+  IHistogramChartSpec,
+  ILiquidChartSpec
+} from '@visactor/vchart';
+import { useVChart } from '@/hooks/common/vchart';
+import {
+  barMarkPointSpec,
+  circularProgressTickSpec,
+  histogramDifferentBinSpec,
+  liquidChartSmartInvertSpec,
+  rankingBarSpec,
+  shapeWordCloudSpec,
+  stackedDashAreaSpec
+} from './data';
 
-// const { domRef: pieRef } = useEcharts(() => pieOptions, { onRender() {} });
-// const { domRef: lineRef } = useEcharts(() => lineOptions, { onRender() {} });
-// const { domRef: barRef } = useEcharts(() => barOptions, { onRender() {} });
-// const { domRef: pictorialBarRef } = useEcharts(() => getPictorialBarOption(), { onRender() {} });
-// const { domRef: radarRef } = useEcharts(() => radarOptions, { onRender() {} });
-// const { domRef: scatterRef } = useEcharts(() => getScatterOption(), { onRender() {} });
-// const { domRef: gaugeRef, setOptions: setGaugeOptions } = useEcharts(() => gaugeOptions, { onRender() {} });
-
-// let intervalId: NodeJS.Timeout;
-
-// function initGaugeChart() {
-//   intervalId = setInterval(() => {
-//     const date = new Date();
-//     const second = date.getSeconds();
-//     const minute = date.getMinutes() + second / 60;
-//     const hour = (date.getHours() % 12) + minute / 60;
-
-//     setGaugeOptions({
-//       animationDurationUpdate: 300,
-//       series: [
-//         {
-//           name: 'hour',
-//           animation: hour !== 0,
-//           data: [{ value: hour }]
-//         },
-//         {
-//           name: 'minute',
-//           animation: minute !== 0,
-//           data: [{ value: minute }]
-//         },
-//         {
-//           animation: second !== 0,
-//           name: 'second',
-//           data: [{ value: second }]
-//         }
-//       ]
-//     });
-//   }, 1000);
-// }
-
-// function clearGaugeChart() {
-//   clearInterval(intervalId);
-// }
-
-// initGaugeChart();
+const { domRef: stackedDashAreaRef } = useVChart(() => stackedDashAreaSpec as IAreaChartSpec, { onRender() {} });
+const { domRef: barMarkPointRef } = useVChart(() => barMarkPointSpec as IBarChartSpec, { onRender() {} });
+const { domRef: histogramDifferentBinRef } = useVChart(() => histogramDifferentBinSpec as IHistogramChartSpec, {
+  onRender() {}
+});
+const { domRef: rankingBarRef } = useVChart(() => rankingBarSpec as IBarChartSpec, { onRender() {} });
+const { domRef: shapeWordCloudRef } = useVChart(() => shapeWordCloudSpec, { onRender() {} });
+const { domRef: circularProgressTickRef } = useVChart(() => circularProgressTickSpec as ICircularProgressChartSpec, {
+  onRender() {}
+});
+const { domRef: liquidChartSmartInvertRef } = useVChart(() => liquidChartSmartInvertSpec as ILiquidChartSpec, {
+  onRender() {}
+});
 
 onUnmounted(() => {
   // clearGaugeChart();
@@ -64,7 +39,27 @@ onUnmounted(() => {
 
 <template>
   <NSpace vertical :size="16">
-    <div>vchart</div>
+    <NCard title="List Chart" :bordered="false" class="h-full card-wrapper">
+      <div ref="stackedDashAreaRef" class="h-400px" />
+    </NCard>
+    <NCard title="List Chart" :bordered="false" class="h-full card-wrapper">
+      <div ref="barMarkPointRef" class="h-400px" />
+    </NCard>
+    <NCard title="List Chart" :bordered="false" class="h-full card-wrapper">
+      <div ref="histogramDifferentBinRef" class="h-400px" />
+    </NCard>
+    <NCard title="List Chart" :bordered="false" class="h-full card-wrapper">
+      <div ref="rankingBarRef" class="h-400px" />
+    </NCard>
+    <NCard title="List Chart" :bordered="false" class="h-full card-wrapper">
+      <div ref="circularProgressTickRef" class="h-400px" />
+    </NCard>
+    <NCard title="List Chart" :bordered="false" class="h-full card-wrapper">
+      <div ref="liquidChartSmartInvertRef" class="h-400px" />
+    </NCard>
+    <NCard title="List Chart" :bordered="false" class="h-full card-wrapper">
+      <div ref="shapeWordCloudRef" class="h-400px" />
+    </NCard>
   </NSpace>
 </template>
 
