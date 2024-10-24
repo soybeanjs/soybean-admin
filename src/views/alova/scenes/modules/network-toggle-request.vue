@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { actionDelegationMiddleware, useAutoRequest } from '@sa/alova/client';
 import { ref } from 'vue';
-import { alova } from '@/serviceAlova/request';
+import { alova } from '@/service-alova/request';
 
 const getLastTime = alova.Get<{ time: string }>('/mock/getLastTime', { cacheFor: null });
 const isStop = ref(false);

@@ -2,7 +2,7 @@
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { usePagination } from '@sa/alova/client';
 import { reactive } from 'vue';
-import { batchDeleteUser, deleteUser, fetchGetUserList } from '@/serviceAlova/api';
+import { batchDeleteUser, deleteUser, fetchGetUserList } from '@/service-alova/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
