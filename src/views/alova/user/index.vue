@@ -43,7 +43,7 @@ const { loading, data, refresh, reload, page, pageSize, pageCount, send, remove 
 );
 const getDataByPage = (newPage = 1) => {
   page.value = newPage;
-  send();
+  send(page.value, pageSize.value);
 };
 
 const {

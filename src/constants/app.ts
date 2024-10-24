@@ -54,3 +54,10 @@ export const themePageAnimationModeRecord: Record<UnionKey.ThemePageAnimateMode,
 };
 
 export const themePageAnimationModeOptions = transformRecordToOption(themePageAnimationModeRecord);
+
+export const resetCacheStrategyRecord: Record<UnionKey.ResetCacheStrategy, App.I18n.I18nKey> = {
+  close: 'theme.resetCacheStrategy.close',
+  refresh: 'theme.resetCacheStrategy.refresh'
+};
+
+export const resetCacheStrategyOptions = transformRecordToOption(resetCacheStrategyRecord);

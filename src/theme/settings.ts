@@ -12,6 +12,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
     error: '#f5222d'
   },
   isInfoFollowPrimary: true,
+  resetCacheStrategy: 'close',
   layout: {
     mode: 'vertical',
     scrollMode: 'content',
@@ -83,6 +84,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
  * If publish new version, use `overrideThemeSettings` to override certain theme settings
  */
 export const overrideThemeSettings: Partial<App.Theme.ThemeSetting> = {
+  resetCacheStrategy: 'close',
   watermark: {
     visible: false,
     text: 'SoybeanAdmin'
