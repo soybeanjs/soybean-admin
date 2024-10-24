@@ -431,7 +431,8 @@ export const generatedRoutes: GeneratedRoute[] = [
             component: 'view.plugin_charts_vchart',
             meta: {
               title: 'plugin_charts_vchart',
-              i18nKey: 'route.plugin_charts_vchart'
+              i18nKey: 'route.plugin_charts_vchart',
+              localIcon: 'visactor'
             }
           }
         ]
@@ -573,7 +574,8 @@ export const generatedRoutes: GeneratedRoute[] = [
             component: 'view.plugin_tables_vtable',
             meta: {
               title: 'plugin_tables_vtable',
-              i18nKey: 'route.plugin_tables_vtable'
+              i18nKey: 'route.plugin_tables_vtable',
+              localIcon: 'visactor'
             }
           }
         ]
