@@ -1,4 +1,4 @@
-const listTableRecords = [
+export const listTableRecords = [
   {
     'Row ID': '7981',
     'Order ID': 'CA-2015-103800',
@@ -691,4 +691,354 @@ const listTableRecords = [
   }
 ];
 
-export { listTableRecords };
+export const customListRecords = [
+  {
+    bloggerId: 1,
+    bloggerName: 'Virtual Anchor Xiaohua',
+    bloggerAvatar: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/custom-render/flower.jpg',
+    introduction:
+      'Hi everyone, I am Xiaohua, the virtual host. I am a little fairy who likes games, animation and food. I hope to share happy moments with you through live broadcast.',
+    fansCount: 400,
+    worksCount: 10,
+    viewCount: 5,
+    city: 'Dream City',
+    tags: ['game', 'anime', 'food']
+  },
+  {
+    bloggerId: 2,
+    bloggerName: 'Virtual anchor little wolf',
+    bloggerAvatar: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/custom-render/wolf.jpg',
+    introduction:
+      'Hello everyone, I am the virtual anchor Little Wolf. I like music, travel and photography, and I hope to explore the beauty of the world with you through live broadcast.',
+    fansCount: 800,
+    worksCount: 20,
+    viewCount: 15,
+    city: 'City of Music',
+    tags: ['music', 'travel', 'photography']
+  },
+  {
+    bloggerId: 3,
+    bloggerName: 'Virtual anchor bunny',
+    bloggerAvatar: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/custom-render/rabbit.jpg',
+    introduction:
+      'Hello everyone, I am the virtual anchor Xiaotu. I like painting, handicrafts and beauty makeup. I hope to share creativity and fashion with you through live broadcast.',
+    fansCount: 600,
+    worksCount: 15,
+    viewCount: 10,
+    city: 'City of Art',
+    tags: ['painting', 'handmade', 'beauty makeup']
+  },
+  {
+    bloggerId: 4,
+    bloggerName: 'Virtual anchor kitten',
+    bloggerAvatar: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/custom-render/cat.jpg',
+    introduction:
+      'Hello everyone, I am the virtual host Kitty. I am a lazy cat who likes dancing, fitness and cooking. I hope to live a healthy and happy life with everyone through the live broadcast.',
+    fansCount: 1000,
+    worksCount: 30,
+    viewCount: 20,
+    city: 'Health City',
+    tags: ['dance', 'fitness', 'cooking']
+  },
+  {
+    bloggerId: 5,
+    bloggerName: 'Virtual anchor Bear',
+    bloggerAvatar: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/custom-render/bear.jpg',
+    introduction:
+      'Hello everyone, I am the virtual host Xiaoxiong. A little wise man who likes movies, reading and philosophy, I hope to explore the meaning of life with you through live broadcast.',
+    fansCount: 1200,
+    worksCount: 25,
+    viewCount: 18,
+    city: 'City of Wisdom',
+    tags: ['Movie', 'Literature']
+  },
+  {
+    bloggerId: 6,
+    bloggerName: 'Virtual anchor bird',
+    bloggerAvatar: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/custom-render/bird.jpeg',
+    introduction:
+      'Hello everyone, I am the virtual anchor Xiaoniao. I like singing, acting and variety shows. I hope to be happy with everyone through the live broadcast.',
+    fansCount: 900,
+    worksCount: 12,
+    viewCount: 8,
+    city: 'Happy City',
+    tags: ['music', 'performance', 'variety']
+  }
+];
+
+export const pivotChartColumns = [
+  {
+    dimensionKey: 'Region',
+    title: 'Region',
+    headerStyle: {
+      textStick: true
+    }
+  },
+  'Category'
+];
+export const pivotChartRows = [
+  {
+    dimensionKey: 'Order Year',
+    title: 'Order Year',
+    headerStyle: {
+      textStick: true
+    }
+  },
+  'Ship Mode'
+];
+export const pivotChartIndicators = [
+  {
+    indicatorKey: 'Quantity',
+    title: 'Quantity',
+    width: 'auto',
+    cellType: 'chart',
+    chartModule: 'vchart',
+    chartSpec: {
+      stack: true,
+      type: 'bar',
+      data: {
+        id: 'data',
+        fields: {
+          'Sub-Category': {
+            sortIndex: 0,
+            domain: [
+              'Chairs',
+              'Tables',
+              'Bookcases',
+              'Furnishings',
+              'Binders',
+              'Art',
+              'Storage',
+              'Appliances',
+              'Envelopes',
+              'Fasteners',
+              'Paper',
+              'Labels',
+              'Supplies',
+              'Accessories',
+              'Phones',
+              'Copiers',
+              'Machines'
+            ]
+          },
+          'Segment-Indicator': {
+            sortIndex: 1,
+            domain: [
+              'Consumer-Quantity',
+              'Corporate-Quantity',
+              'Home Office-Quantity',
+              'Consumer-Sales',
+              'Corporate-Sales',
+              'Home Office-Sales',
+              'Consumer-Profit',
+              'Corporate-Profit',
+              'Home Office-Profit'
+            ]
+          }
+        }
+      },
+      xField: ['Sub-Category'],
+      yField: 'Quantity',
+      seriesField: 'Segment-Indicator',
+      axes: [
+        { orient: 'left', visible: true, label: { visible: true } },
+        { orient: 'bottom', visible: true }
+      ],
+      bar: {
+        state: {
+          selected: { fill: 'yellow' },
+          selected_reverse: { opacity: 0.2 }
+        }
+      },
+      scales: [
+        {
+          id: 'color',
+          type: 'ordinal',
+          domain: [
+            'Consumer-Quantity',
+            'Corporate-Quantity',
+            'Home Office-Quantity',
+            'Consumer-Sales',
+            'Corporate-Sales',
+            'Home Office-Sales',
+            'Consumer-Profit',
+            'Corporate-Profit',
+            'Home Office-Profit'
+          ],
+          range: [
+            '#2E62F1',
+            '#4DC36A',
+            '#FF8406',
+            '#FFCC00',
+            '#4F44CF',
+            '#5AC8FA',
+            '#003A8C',
+            '#B08AE2',
+            '#FF6341',
+            '#98DD62',
+            '#07A199',
+            '#87DBDD'
+          ]
+        }
+      ]
+    },
+    style: { padding: 1 }
+  },
+  {
+    indicatorKey: 'Sales',
+    title: 'Sales & Profit',
+    cellType: 'chart',
+    chartModule: 'vchart',
+    chartSpec: {
+      type: 'common',
+      series: [
+        {
+          type: 'bar',
+          data: {
+            id: 'data1',
+            fields: {
+              'Sub-Category': {
+                sortIndex: 0,
+                domain: [
+                  'Chairs',
+                  'Tables',
+                  'Bookcases',
+                  'Furnishings',
+                  'Binders',
+                  'Art',
+                  'Storage',
+                  'Appliances',
+                  'Envelopes',
+                  'Fasteners',
+                  'Paper',
+                  'Labels',
+                  'Supplies',
+                  'Accessories',
+                  'Phones',
+                  'Copiers',
+                  'Machines'
+                ]
+              },
+              'Segment-Indicator': {
+                sortIndex: 1,
+                domain: [
+                  'Consumer-Quantity',
+                  'Corporate-Quantity',
+                  'Home Office-Quantity',
+                  'Consumer-Sales',
+                  'Corporate-Sales',
+                  'Home Office-Sales',
+                  'Consumer-Profit',
+                  'Corporate-Profit',
+                  'Home Office-Profit'
+                ]
+              }
+            }
+          },
+          stack: true,
+          xField: ['Sub-Category'],
+          yField: 'Sales',
+          seriesField: 'Segment-Indicator',
+          bar: {
+            state: {
+              selected: { fill: 'yellow' },
+              selected_reverse: { opacity: 0.2 }
+            }
+          }
+        },
+        {
+          type: 'line',
+          data: {
+            id: 'data2',
+            fields: {
+              'Sub-Category': {
+                sortIndex: 0,
+                domain: [
+                  'Chairs',
+                  'Tables',
+                  'Bookcases',
+                  'Furnishings',
+                  'Binders',
+                  'Art',
+                  'Storage',
+                  'Appliances',
+                  'Envelopes',
+                  'Fasteners',
+                  'Paper',
+                  'Labels',
+                  'Supplies',
+                  'Phones',
+                  'Accessories',
+                  'Machines',
+                  'Copiers'
+                ]
+              },
+              'Segment-Indicator': {
+                sortIndex: 1,
+                domain: [
+                  'Consumer-Quantity',
+                  'Corporate-Quantity',
+                  'Home Office-Quantity',
+                  'Consumer-Sales',
+                  'Corporate-Sales',
+                  'Home Office-Sales',
+                  'Consumer-Profit',
+                  'Corporate-Profit',
+                  'Home Office-Profit'
+                ]
+              }
+            }
+          },
+          stack: false,
+          xField: ['Sub-Category'],
+          yField: 'Profit',
+          seriesField: 'Segment-Indicator',
+          line: {
+            state: {
+              selected: { lineWidth: 3 },
+              selected_reverse: { lineWidth: 1 }
+            }
+          },
+          point: {
+            state: {
+              selected: { fill: 'yellow' },
+              selected_reverse: { fill: '#ddd' }
+            }
+          }
+        }
+      ],
+      scales: [
+        {
+          id: 'color',
+          type: 'ordinal',
+          domain: [
+            'Consumer-Quantity',
+            'Corporate-Quantity',
+            'Home Office-Quantity',
+            'Consumer-Sales',
+            'Corporate-Sales',
+            'Home Office-Sales',
+            'Consumer-Profit',
+            'Corporate-Profit',
+            'Home Office-Profit'
+          ],
+          range: [
+            '#2E62F1',
+            '#4DC36A',
+            '#FF8406',
+            '#FFCC00',
+            '#4F44CF',
+            '#5AC8FA',
+            '#003A8C',
+            '#B08AE2',
+            '#FF6341',
+            '#98DD62',
+            '#07A199',
+            '#87DBDD'
+          ]
+        }
+      ]
+    },
+    style: { padding: 1 }
+  }
+];
