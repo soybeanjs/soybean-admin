@@ -1,6 +1,6 @@
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { addColorAlpha, getColorPalette, getPaletteColorByNumber, getRgb } from '@sa/color';
-import { overrideThemeSettings, themeSettings } from '@/theme/settings';
+import { envThemeSettings, overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 import { toggleHtmlClass } from '@/utils/common';
 import { localStg } from '@/utils/storage';
@@ -11,6 +11,7 @@ const DARK_CLASS = 'dark';
 export function initThemeSettings() {
   const isProd = import.meta.env.PROD;
 
+  Object.assign(themeSettings, envThemeSettings);
   // if it is development mode, the theme settings will not be cached, by update `themeSettings` in `src/theme/settings.ts` to update theme settings
   if (!isProd) return themeSettings;
 
