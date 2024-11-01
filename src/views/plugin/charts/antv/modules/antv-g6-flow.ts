@@ -1,49 +1,35 @@
-import type { CustomBehaviorOption, EdgeData, GraphData, NodeData } from '@antv/g6';
 import { Graph } from '@antv/g6';
+import type { CustomBehaviorOption, IPointerEvent } from '@antv/g6';
 import type { Canvas } from '@antv/g6/lib/runtime/canvas';
 import { useThemeStore } from '@/store/modules/theme';
 import { getNodeIcon, nodeStatus } from './status';
+import type { CustomEdgeData, CustomGraphData, CustomNodeData } from './types';
 
-const baseColor = 'rgb(158 163 171)';
-
-export interface CustomNodeData extends NodeData {
-  isDelayed?: boolean;
-  isDeleted?: boolean;
-  milestone?: boolean;
-}
-
-export interface CustomEdgeData extends EdgeData {
-  isDelayed?: boolean;
-  isDeleted?: boolean;
-}
-
-export interface CustomGraphData extends GraphData {
-  nodes?: CustomNodeData[];
-  edges?: CustomEdgeData[];
-}
-
-interface AntFlow {
+interface AntFlowConfig {
   container: string | HTMLElement | Canvas;
   data: CustomGraphData;
   behaviors?: CustomBehaviorOption[];
   autoFit?: 'view' | 'center';
 }
 
-export function useAntFlow(property: AntFlow) {
+export function useAntFlow(config: AntFlowConfig) {
   const themeStore = useThemeStore();
-  const otherBehaviors = property.behaviors ? property.behaviors : [];
+
+  const baseColor = 'rgb(158 163 171)';
+
+  const { container, autoFit = 'center', data, behaviors = [] } = config;
 
   const graph = new Graph({
-    container: property.container,
+    container,
     animation: false,
     padding: 16,
     theme: 'light',
-    autoFit: property.autoFit || 'center',
-    data: property.data as GraphData,
+    autoFit,
+    data,
     node: {
       type: 'rect',
 
-      style: (node: any) => {
+      style: (node: CustomNodeData) => {
         const iconS = getNodeIcon(node);
         let labelFill = '#000000';
         if (node.taskState === 'NOT_STARTED') {
@@ -51,7 +37,7 @@ export function useAntFlow(property: AntFlow) {
         }
 
         return {
-          labelText: node.name,
+          labelText: node.name as string,
           size: [120, 26],
           radius: 99,
           fill: '#FFFFFF',
@@ -91,7 +77,7 @@ export function useAntFlow(property: AntFlow) {
           haloStroke: themeStore.themeColor,
           haloLineWidth: 6
         },
-        active: (node: any) => ({
+        active: (node: CustomNodeData) => ({
           halo: true,
           haloStroke: node.isDeleted ? themeStore.otherColor.error : themeStore.themeColor,
           haloLineWidth: 6,
@@ -101,14 +87,14 @@ export function useAntFlow(property: AntFlow) {
     },
     edge: {
       type: 'cubic-horizontal',
-      style: (node: any) => ({
+      style: (node: CustomEdgeData) => ({
         curveOffset: 10,
         curvePosition: 0.5,
         stroke: node.isDeleted ? themeStore.otherColor.error : baseColor,
         lineDash: node.isDeleted ? 4 : 0
       }),
       state: {
-        active: (node: any) => ({
+        active: (node: CustomEdgeData) => ({
           lineWidth: 2,
           stroke: node.isDeleted ? themeStore.otherColor.error : themeStore.themeColor,
           halo: true,
@@ -133,17 +119,17 @@ export function useAntFlow(property: AntFlow) {
         direction: 'both'
       },
       'drag-canvas',
-      ...otherBehaviors
+      ...behaviors
     ],
     plugins: [
       {
         type: 'tooltip',
-        enable: (event: any) => event.targetType === 'node',
-        getContent: (_event: any, items: any) => {
+        enable: (event: IPointerEvent) => event.targetType === 'node',
+        getContent: (_event: IPointerEvent, items?: CustomNodeData[]) => {
           let result = '<div style="display: flex; flex-direction: column; gap: 8px;">';
 
-          // 弹出提示可以自定义各种内容，但是这里很奇怪，有的class不跟随uniocss的样式
-          items?.forEach((item: any) => {
+          // 弹出提示可以自定义各种内容，但是这里很奇怪，有的class不跟随unocss的样式
+          items?.forEach(item => {
             result += `<h3 style="display: flex; align-items: center; gap: 8px;">${item.name}</h3>`;
             result += `<div style="display: flex;"><b>状态：</b><div style="display: flex; gap: 4px;"><img src="${getNodeIcon(item)}" /><span style="font-weight: 400 !important;">${nodeStatus[item.status as keyof typeof nodeStatus].type}</span></div></div>`;
 

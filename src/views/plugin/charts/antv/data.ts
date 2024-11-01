@@ -1,7 +1,7 @@
-import type { CustomGraphData } from './modules/antv-g6-flow';
+import type { CustomGraphData } from './modules/types';
 
 // 日期可以自己随便设置，就是字符串展示，也可以修改为业务需要的字段
-export function getFlowDatas(): CustomGraphData {
+export function getFlowData(): CustomGraphData {
   return {
     nodes: [
       {

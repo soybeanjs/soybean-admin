@@ -1,6 +1,42 @@
 # Changelog
 
 
+## [v1.3.8](https://github.com/soybeanjs/soybean-admin/compare/v1.3.7...v1.3.8) (2024-10-25)
+
+### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
+
+- **projects**: refactor route cache & support reset route cache strategy &nbsp;-&nbsp; by @soybeanjs [<samp>(b667e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b667eab)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **packages**:
+  - add subpackage `@sa/alova` &nbsp;-&nbsp; by @JOU-amjs in https://github.com/soybeanjs/soybean-admin/issues/640 [<samp>(2072f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2072f58)
+  - optimistic subpackage `@sa/alova` &nbsp;-&nbsp; by @JOU-amjs in https://github.com/soybeanjs/soybean-admin/issues/646 [<samp>(4b3ac)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4b3ac11)
+- **projects**:
+  - login supports accessible operation. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/637 [<samp>(cfaab)</samp>](https://github.com/soybeanjs/soybean-admin/commit/cfaab85)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **utils**: fix `isPC`. fixed #644 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/644 [<samp>(47264)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4726498)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(8dcda)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8dcda38)
+- **projects**:
+  - update vscode extensions &nbsp;-&nbsp; by @soybeanjs [<samp>(24bb6)</samp>](https://github.com/soybeanjs/soybean-admin/commit/24bb6d9)
+  - update deps & fix sass usage &nbsp;-&nbsp; by @soybeanjs [<samp>(71e63)</samp>](https://github.com/soybeanjs/soybean-admin/commit/71e6307)
+- **types**:
+  - remove type declaration for document.startViewTransition (TypeScript 5.6 includes it) &nbsp;-&nbsp; by @NHZEX in https://github.com/soybeanjs/soybean-admin/issues/633 [<samp>(83ba7)</samp>](https://github.com/soybeanjs/soybean-admin/commit/83ba798)
+
+### &nbsp;&nbsp;&nbsp;🎨 Styles
+
+- **projects**: reduce ambiguity in theme configuration instructions. &nbsp;-&nbsp; by @Azir-11 [<samp>(75cbf)</samp>](https://github.com/soybeanjs/soybean-admin/commit/75cbfbb)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![JOU-amjs](https://github.com/JOU-amjs.png?size=48)](https://github.com/JOU-amjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![NHZEX](https://github.com/NHZEX.png?size=48)](https://github.com/NHZEX)&nbsp;&nbsp;
+
 ## [v1.3.7](https://github.com/soybeanjs/soybean-admin/compare/v1.3.6...v1.3.7) (2024-09-21)
 
 ### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes

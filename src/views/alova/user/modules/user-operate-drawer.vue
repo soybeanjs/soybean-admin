@@ -2,8 +2,8 @@
 import { computed, watch } from 'vue';
 import { useForm, useWatcher } from '@sa/alova/client';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
-import type { UserModel } from '@/serviceAlova/api';
-import { addUser, fetchGetAllRoles, updateUser } from '@/serviceAlova/api';
+import type { UserModel } from '@/service-alova/api';
+import { addUser, fetchGetAllRoles, updateUser } from '@/service-alova/api';
 import { $t } from '@/locales';
 import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 

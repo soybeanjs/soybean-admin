@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
@@ -44,7 +44,7 @@ type Model = Pick<
   'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles' | 'status'
 >;
 
-const model: Model = reactive(createDefaultModel());
+const model = ref(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
@@ -79,7 +79,7 @@ async function getRoleOptions() {
 
     // the mock data does not have the roleCode, so fill it
     // if the real request, remove the following code
-    const userRoleOptions = model.userRoles.map(item => ({
+    const userRoleOptions = model.value.userRoles.map(item => ({
       label: item,
       value: item
     }));
@@ -90,10 +90,10 @@ async function getRoleOptions() {
 }
 
 function handleInitModel() {
-  Object.assign(model, createDefaultModel());
+  model.value = createDefaultModel();
 
   if (props.operateType === 'edit' && props.rowData) {
-    Object.assign(model, props.rowData);
+    Object.assign(model.value, props.rowData);
   }
 }
 

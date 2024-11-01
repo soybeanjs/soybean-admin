@@ -1,15 +1,14 @@
 <script setup lang="tsx">
-import { shallowRef, watch } from 'vue';
-import { vResizeObserver } from '@vueuse/components';
+import { shallowRef, useTemplateRef, watch } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
-import type { CustomBehaviorOption } from '@antv/g6';
-import type { CustomGraphData } from './antv-g6-flow';
+import { vResizeObserver } from '@vueuse/components';
+import type { CustomBehaviorOption, Graph } from '@antv/g6';
 import { useAntFlow } from './antv-g6-flow';
 import { nodeStatus } from './status';
+import type { CustomGraphData } from './types';
 
 defineOptions({
-  name: 'AntvFLow',
-  inheritAttrs: false
+  name: 'AntvFLow'
 });
 
 interface Props {
@@ -22,8 +21,8 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const containerRef = shallowRef();
-const graphRef = shallowRef();
+const containerRef = useTemplateRef('containerRef');
+const graphRef = shallowRef<Graph | null>(null);
 
 // 监听容器尺寸变化，调整画布大小为图容器大小
 const onContainerResize = useDebounceFn(() => {
@@ -54,6 +53,24 @@ async function selectNode() {
   }
 }
 
+function zoomOut() {
+  graphRef.value?.zoomBy(0.9);
+}
+
+function zoomIn() {
+  graphRef.value?.zoomBy(1.1);
+}
+
+function resetZoom() {
+  graphRef.value?.zoomTo(1);
+  graphRef.value?.fitCenter();
+}
+
+function fitZoom() {
+  graphRef.value?.fitView();
+  graphRef.value?.fitCenter();
+}
+
 watch(
   [() => props.data, () => props.selected],
   () => {
@@ -70,30 +87,16 @@ defineExpose({ selectNode, graph: graphRef });
     <!-- 画布操作栏 -->
     <div class="absolute left-0 right-0 z-1 flex items-center items-stretch justify-between">
       <NButtonGroup size="small" class="bg-white!">
-        <NButton @click="graphRef.zoomBy(0.9)">
+        <NButton @click="zoomOut">
           <icon-mingcute:zoom-out-line />
         </NButton>
-        <NButton @click="graphRef.zoomBy(1.1)">
+        <NButton @click="zoomIn">
           <icon-mingcute:zoom-in-line />
         </NButton>
-        <NButton
-          @click="
-            () => {
-              graphRef.zoomTo(1);
-              graphRef.fitCenter();
-            }
-          "
-        >
+        <NButton @click="resetZoom">
           <icon-icon-park-outline:equal-ratio />
         </NButton>
-        <NButton
-          @click="
-            () => {
-              graphRef.fitView();
-              graphRef.fitCenter();
-            }
-          "
-        >
+        <NButton @click="fitZoom">
           <icon-gg:ratio />
         </NButton>
       </NButtonGroup>
@@ -107,13 +110,13 @@ defineExpose({ selectNode, graph: graphRef });
           <div class="flex-col gap-8px">
             <div span="2" class="text-12px font-bold">节点图例</div>
             <NGrid :cols="2" :y-gap="8" class="w-180px!">
-              <NGi v-for="[key, value] in Object.entries(nodeStatus)" :key="key" class="flex-center">
+              <NGi v-for="(config, status) in nodeStatus" :key="status" class="flex-center">
                 <NTag size="small" round :bordered="false">
                   <template #icon>
-                    <icon-f7:flag-circle-fill v-if="key === 'MILESTONE'" :style="{ color: value.color }" />
-                    <icon-f7:circle-fill v-else :style="{ color: value.color }" />
+                    <icon-f7:flag-circle-fill v-if="status === 'MILESTONE'" :style="{ color: config.color }" />
+                    <icon-f7:circle-fill v-else :style="{ color: config.color }" />
                   </template>
-                  {{ value.type }}
+                  {{ config.type }}
                 </NTag>
               </NGi>
             </NGrid>

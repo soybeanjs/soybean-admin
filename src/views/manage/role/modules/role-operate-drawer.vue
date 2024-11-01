@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useBoolean } from '@sa/hooks';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
@@ -45,7 +45,7 @@ const title = computed(() => {
 
 type Model = Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'roleDesc' | 'status'>;
 
-const model: Model = reactive(createDefaultModel());
+const model = ref(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
@@ -69,10 +69,10 @@ const roleId = computed(() => props.rowData?.id || -1);
 const isEdit = computed(() => props.operateType === 'edit');
 
 function handleInitModel() {
-  Object.assign(model, createDefaultModel());
+  model.value = createDefaultModel();
 
   if (props.operateType === 'edit' && props.rowData) {
-    Object.assign(model, props.rowData);
+    Object.assign(model.value, props.rowData);
   }
 }
 
