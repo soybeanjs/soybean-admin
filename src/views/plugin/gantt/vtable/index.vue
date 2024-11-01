@@ -1,9 +1,11 @@
 <script setup lang="tsx">
-import { onMounted, shallowRef } from 'vue';
+import { onMounted, onUnmounted, shallowRef, watch } from 'vue';
 import * as VTableGantt from '@visactor/vtable-gantt';
 import * as VTable_editors from '@visactor/vtable-editors';
-// import { useThemeStore } from '@/store/modules/theme';
+import { useThemeStore } from '@/store/modules/theme';
 import { basicGanttRecords, customGanttRecords, linkGanttRecords } from './data';
+
+const theme = useThemeStore();
 
 const input_editor = new VTable_editors.InputEditor();
 const date_input_editor = new VTable_editors.DateInputEditor();
@@ -13,6 +15,10 @@ VTableGantt.VTable.register.editor('date-input', date_input_editor);
 const basicGanttDomRef = shallowRef<HTMLElement>();
 const linkGanttDomRef = shallowRef<HTMLElement>();
 const customGanttDomRef = shallowRef<HTMLElement>();
+
+const basicGanttInstance = shallowRef<VTableGantt.Gantt>();
+const linkGanttInstance = shallowRef<VTableGantt.Gantt>();
+const customGanttInstance = shallowRef<VTableGantt.Gantt>();
 
 const basicGanttColumns = [
   {
@@ -59,31 +65,14 @@ const basicGanttColumns = [
     editor: 'input'
   }
 ];
-const basicGanttOption = {
+const basicGanttOption: VTableGantt.GanttConstructorOptions = {
   overscrollBehavior: 'none',
   records: basicGanttRecords,
   taskListTable: {
     columns: basicGanttColumns,
     tableWidth: 250,
     minTableWidth: 100,
-    maxTableWidth: 600,
-    theme: {
-      headerStyle: {
-        borderColor: '#e1e4e8',
-        borderLineWidth: 1,
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'red',
-        bgColor: '#EEF1F5'
-      },
-      bodyStyle: {
-        borderColor: '#e1e4e8',
-        borderLineWidth: [1, 0, 1, 0],
-        fontSize: 16,
-        color: '#4D4D4D',
-        bgColor: '#FFF'
-      }
-    }
+    maxTableWidth: 600
     // rightFrozenColCount: 1
   },
   frame: {
@@ -143,11 +132,7 @@ const basicGanttOption = {
       /** 已完成部分任务条的颜色 */
       completedBarColor: '#91e8e0',
       /** 任务条的圆角 */
-      cornerRadius: 8,
-      /** 任务条的边框 */
-      borderWidth: 1,
-      /** 边框颜色 */
-      borderColor: 'black'
+      cornerRadius: 8
     }
   },
   timelineHeader: {
@@ -176,7 +161,6 @@ const basicGanttOption = {
           strokeColor: 'black',
           textAlign: 'right',
           textBaseline: 'bottom',
-          backgroundColor: '#EEF1F5',
           textStick: true
           // padding: [0, 30, 0, 20]
         }
@@ -193,8 +177,7 @@ const basicGanttOption = {
           color: 'white',
           strokeColor: 'black',
           textAlign: 'right',
-          textBaseline: 'bottom',
-          backgroundColor: '#EEF1F5'
+          textBaseline: 'bottom'
         }
       }
     ]
@@ -219,14 +202,7 @@ const basicGanttOption = {
   ],
   rowSeriesNumber: {
     title: '行号',
-    dragOrder: true,
-    headerStyle: {
-      bgColor: '#EEF1F5',
-      borderColor: '#e1e4e8'
-    },
-    style: {
-      borderColor: '#e1e4e8'
-    }
+    dragOrder: true
   },
   scrollStyle: {
     scrollRailColor: 'RGBA(246,246,246,0.5)',
@@ -276,7 +252,7 @@ const linkGanttColumns = [
     editor: 'input'
   }
 ];
-const linkGanttOption = {
+const linkGanttOption: VTableGantt.GanttConstructorOptions = {
   records: linkGanttRecords,
   taskListTable: {
     columns: linkGanttColumns,
@@ -417,15 +393,7 @@ const linkGanttOption = {
 
   rowSeriesNumber: {
     title: '行号',
-    dragOrder: true,
-    headerStyle: {
-      bgColor: '#EEF1F5',
-      borderColor: '#e1e4e8'
-    },
-    style: {
-      color: '#000',
-      fontSize: 14
-    }
+    dragOrder: true
   },
   scrollStyle: {
     visible: 'scrolling'
@@ -435,7 +403,7 @@ const linkGanttOption = {
 
 const barColors0 = ['#aecde6', '#c6a49a', '#ffb582', '#eec1de', '#b3d9b3', '#cccccc', '#e59a9c', '#d9d1a5', '#c9bede'];
 const barColors = ['#1f77b4', '#8c564b', '#ff7f0e', '#e377c2', '#2ca02c', '#7f7f7f', '#d62728', '#bcbd22', '#9467bd'];
-const customGanttColumns = [
+const customGanttColumns: VTableGantt.ColumnsDefine = [
   {
     field: 'title',
     title: 'TASK',
@@ -443,12 +411,12 @@ const customGanttColumns = [
     headerStyle: {
       textAlign: 'center',
       fontSize: 20,
-      fontWeight: 'bold',
-      color: 'black',
-      bgColor: '#f0f0fb'
+      fontWeight: 'bold'
+      // color: 'black',
+      // bgColor: '#f0f0fb'
     },
     style: {
-      bgColor: '#f0f0fb'
+      // bgColor: '#f0f0fb'
     },
     customLayout: (args: any) => {
       const { table, row, col, rect } = args;
@@ -459,7 +427,7 @@ const customGanttColumns = [
         x: 20,
         height: height - 20,
         width: width - 40,
-        fill: 'white',
+        fill: '#ddd',
         display: 'flex',
         flexDirection: 'column',
         cornerRadius: 30
@@ -498,33 +466,16 @@ const customGanttColumns = [
     }
   }
 ];
-const customGanttOption = {
+const customGanttOption: VTableGantt.GanttConstructorOptions = {
   records: customGanttRecords,
   taskListTable: {
     columns: customGanttColumns,
-    tableWidth: 'auto',
-    theme: {
-      headerStyle: {
-        borderColor: '#e1e4e8',
-        borderLineWidth: 0,
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'red'
-        // bgColor: '#EEF1F5'
-      },
-      bodyStyle: {
-        borderColor: '#e1e4e8',
-        borderLineWidth: 0,
-        fontSize: 16,
-        color: '#4D4D4D',
-        bgColor: '#FFF'
-      }
-    }
+    tableWidth: 'auto'
   },
   frame: {
     outerFrameStyle: {
-      borderLineWidth: 0,
-      borderColor: 'red',
+      borderLineWidth: 2,
+      borderColor: '#E1E4E8',
       cornerRadius: 8
     }
     // verticalSplitLineHighlight: {
@@ -533,7 +484,7 @@ const customGanttOption = {
     // }
   },
   grid: {
-    backgroundColor: '#f0f0fb',
+    // backgroundColor: '#f0f0fb',
     // vertical: {
     //   lineWidth: 1,
     //   lineColor: '#e1e4e8'
@@ -690,7 +641,7 @@ const customGanttOption = {
           const container = new VTableGantt.VRender.Group({
             width,
             height,
-            fill: '#f0f0fb',
+            // fill: '#f0f0fb',
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'nowrap'
@@ -727,7 +678,7 @@ const customGanttOption = {
             fontSize: 20,
             fontWeight: 'bold',
             fontFamily: 'sans-serif',
-            fill: 'black',
+            fill: '#777',
             textAlign: 'right',
             maxLineWidth: width - 30,
             boundsPadding: [15, 0, 0, 0]
@@ -738,7 +689,7 @@ const customGanttOption = {
             text: VTableGantt.tools.getWeekday(startDate, 'short').toLocaleUpperCase(),
             fontSize: 12,
             fontFamily: 'sans-serif',
-            fill: 'black',
+            fill: '#777',
             boundsPadding: [0, 0, 0, 0]
           });
           containerCenter.add(weekDay);
@@ -780,18 +731,46 @@ const customGanttOption = {
 };
 
 function initVTableGantt() {
-  const basicGanttInstance = new VTableGantt.Gantt(basicGanttDomRef.value as HTMLElement, basicGanttOption as any);
-  console.log(basicGanttInstance);
-
-  const linkGanttInstance = new VTableGantt.Gantt(linkGanttDomRef.value as HTMLElement, linkGanttOption as any);
-  console.log(linkGanttInstance);
-
-  const customGanttInstance = new VTableGantt.Gantt(customGanttDomRef.value as HTMLElement, customGanttOption as any);
-  console.log(customGanttInstance);
+  basicGanttInstance.value = new VTableGantt.Gantt(basicGanttDomRef.value as HTMLElement, getOption(basicGanttOption));
+  linkGanttInstance.value = new VTableGantt.Gantt(linkGanttDomRef.value as HTMLElement, getOption(linkGanttOption));
+  customGanttInstance.value = new VTableGantt.Gantt(
+    customGanttDomRef.value as HTMLElement,
+    getOption(customGanttOption)
+  );
 }
+
+function getOption(option: VTableGantt.GanttConstructorOptions) {
+  const isDark = theme.darkMode;
+  if (isDark) {
+    option.taskListTable!.theme = VTableGantt.VTable.themes.DARK;
+    option.timelineHeader.backgroundColor = '#212121';
+    option.underlayBackgroundColor = '#000';
+  } else {
+    option.taskListTable!.theme = VTableGantt.VTable.themes.DEFAULT;
+    option.timelineHeader.backgroundColor = '#f0f0fb';
+    option.underlayBackgroundColor = '#fff';
+  }
+
+  return option;
+}
+
+const stopHandle = watch(
+  () => theme.darkMode,
+  _newValue => {
+    basicGanttInstance.value?.release();
+    linkGanttInstance.value?.release();
+    customGanttInstance.value?.release();
+
+    initVTableGantt();
+  }
+);
 
 onMounted(() => {
   initVTableGantt();
+});
+
+onUnmounted(() => {
+  stopHandle();
 });
 </script>
 
@@ -799,13 +778,13 @@ onMounted(() => {
   <div class="h-full">
     <NSpace vertical :size="16">
       <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
-        <div ref="basicGanttDomRef" :style="{ height: 500 + 'px' }"></div>
+        <div ref="basicGanttDomRef" class="relative h-400px"></div>
       </NCard>
       <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
-        <div ref="linkGanttDomRef" :style="{ height: 500 + 'px' }"></div>
+        <div ref="linkGanttDomRef" class="relative h-400px"></div>
       </NCard>
       <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
-        <div ref="customGanttDomRef" :style="{ height: 500 + 'px' }"></div>
+        <div ref="customGanttDomRef" class="relative h-400px"></div>
       </NCard>
       <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
         <WebSiteLink label="More VTableGantt Demos: " link="https://www.visactor.com/vtable/example" />
