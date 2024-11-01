@@ -1,4 +1,15 @@
-export const shapeWordCloudSpec = {
+import type {
+  IAreaChartSpec,
+  IBarChartSpec,
+  ICircularProgressChartSpec,
+  IHistogramChartSpec,
+  IIndicatorSpec,
+  ILiquidChartSpec,
+  IWordCloudChartSpec
+} from '@visactor/vchart';
+import type { IAnimationConfig } from '@visactor/vgrammar-core';
+
+export const shapeWordCloudSpec: IWordCloudChartSpec = {
   type: 'wordCloud',
   maskShape: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg',
   nameField: 'challenge_name',
@@ -161,7 +172,7 @@ export const shapeWordCloudSpec = {
   ]
 };
 
-export const circularProgressTickSpec = {
+export const circularProgressTickSpec: ICircularProgressChartSpec & { indicator: IIndicatorSpec } = {
   type: 'circularProgress',
   data: [
     {
@@ -244,7 +255,7 @@ export const circularProgressTickSpec = {
   }
 };
 
-export const liquidChartSmartInvertSpec = {
+export const liquidChartSmartInvertSpec: ILiquidChartSpec & { indicator: IIndicatorSpec } = {
   type: 'liquid',
   valueField: 'value',
   data: {
@@ -397,7 +408,7 @@ const dataSpecs = Object.keys(goldenMedals).map(year => {
 const duration = 1000;
 const exchangeDuration = 600;
 
-export const rankingBarSpec = {
+export const rankingBarSpec: IBarChartSpec = {
   type: 'bar',
   padding: {
     top: 12,
@@ -457,7 +468,7 @@ export const rankingBarSpec = {
       duration: exchangeDuration,
       easing: 'circInOut'
     }
-  },
+  } as Record<string, IAnimationConfig>,
   animationEnter: {
     bar: [
       {
@@ -534,7 +545,7 @@ export const rankingBarSpec = {
   }
 };
 
-export const stackedDashAreaSpec = {
+export const stackedDashAreaSpec: IAreaChartSpec = {
   type: 'area',
   data: {
     values: [
@@ -616,7 +627,7 @@ export const stackedDashAreaSpec = {
         if (data.forecast) {
           return 'bias-rl';
         }
-        return null;
+        return '';
       }
     }
   },
@@ -631,7 +642,7 @@ export const stackedDashAreaSpec = {
   }
 };
 
-export const barMarkPointSpec = {
+export const barMarkPointSpec: IBarChartSpec = {
   type: 'bar',
   height: 300,
   data: [
@@ -693,7 +704,7 @@ export const barMarkPointSpec = {
       },
       itemContent: {
         type: 'text',
-        autoRotate: false,
+        // autoRotate: false,
         offsetY: -10,
         text: {
           dy: 14,
@@ -765,7 +776,7 @@ export const barMarkPointSpec = {
   ]
 };
 
-export const histogramDifferentBinSpec = {
+export const histogramDifferentBinSpec: IHistogramChartSpec = {
   type: 'histogram',
   xField: 'from',
   x2Field: 'to',
@@ -797,8 +808,8 @@ export const histogramDifferentBinSpec = {
       },
       content: [
         {
-          key: (datum: any) => `${datum.from}～${datum.to}`,
-          value: (datum: any) => datum.profit
+          key: (datum?: Record<string, any>) => `${datum?.from}～${datum?.to}`,
+          value: (datum?: Record<string, any>) => datum?.profit
         }
       ]
     }

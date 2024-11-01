@@ -775,20 +775,18 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="h-full">
-    <NSpace vertical :size="16">
-      <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
-        <div ref="basicGanttDomRef" class="relative h-400px"></div>
-      </NCard>
-      <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
-        <div ref="linkGanttDomRef" class="relative h-400px"></div>
-      </NCard>
-      <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
-        <div ref="customGanttDomRef" class="relative h-400px"></div>
-      </NCard>
-      <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
-        <WebSiteLink label="More VTableGantt Demos: " link="https://www.visactor.com/vtable/example" />
-      </NCard>
-    </NSpace>
-  </div>
+  <NSpace vertical :size="16">
+    <NCard :bordered="false" title="VTableGantt" class="h-full card-wrapper">
+      <WebSiteLink label="More Demos: " link="https://www.visactor.com/vtable/example" />
+    </NCard>
+    <NCard :bordered="false" class="h-full card-wrapper">
+      <div ref="basicGanttDomRef" class="relative h-400px"></div>
+    </NCard>
+    <NCard :bordered="false" class="h-full card-wrapper">
+      <div ref="linkGanttDomRef" class="relative h-400px"></div>
+    </NCard>
+    <NCard :bordered="false" class="h-full card-wrapper">
+      <div ref="customGanttDomRef" class="relative h-400px"></div>
+    </NCard>
+  </NSpace>
 </template>

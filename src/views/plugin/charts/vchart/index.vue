@@ -1,12 +1,4 @@
 <script setup lang="ts">
-import { onUnmounted } from 'vue';
-import type {
-  IAreaChartSpec,
-  IBarChartSpec,
-  ICircularProgressChartSpec,
-  IHistogramChartSpec,
-  ILiquidChartSpec
-} from '@visactor/vchart';
 import { useVChart } from '@/hooks/common/vchart';
 import {
   barMarkPointSpec,
@@ -18,27 +10,20 @@ import {
   stackedDashAreaSpec
 } from './data';
 
-const { domRef: stackedDashAreaRef } = useVChart(() => stackedDashAreaSpec as IAreaChartSpec, { onRender() {} });
-const { domRef: barMarkPointRef } = useVChart(() => barMarkPointSpec as IBarChartSpec, { onRender() {} });
-const { domRef: histogramDifferentBinRef } = useVChart(() => histogramDifferentBinSpec as IHistogramChartSpec, {
-  onRender() {}
-});
-const { domRef: rankingBarRef } = useVChart(() => rankingBarSpec as IBarChartSpec, { onRender() {} });
-const { domRef: shapeWordCloudRef } = useVChart(() => shapeWordCloudSpec, { onRender() {} });
-const { domRef: circularProgressTickRef } = useVChart(() => circularProgressTickSpec as ICircularProgressChartSpec, {
-  onRender() {}
-});
-const { domRef: liquidChartSmartInvertRef } = useVChart(() => liquidChartSmartInvertSpec as ILiquidChartSpec, {
-  onRender() {}
-});
-
-onUnmounted(() => {
-  // clearGaugeChart();
-});
+const { domRef: stackedDashAreaRef } = useVChart(() => stackedDashAreaSpec);
+const { domRef: barMarkPointRef } = useVChart(() => barMarkPointSpec);
+const { domRef: histogramDifferentBinRef } = useVChart(() => histogramDifferentBinSpec);
+const { domRef: rankingBarRef } = useVChart(() => rankingBarSpec);
+const { domRef: shapeWordCloudRef } = useVChart(() => shapeWordCloudSpec);
+const { domRef: circularProgressTickRef } = useVChart(() => circularProgressTickSpec);
+const { domRef: liquidChartSmartInvertRef } = useVChart(() => liquidChartSmartInvertSpec);
 </script>
 
 <template>
   <NSpace vertical :size="16">
+    <NCard :bordered="false" title="VChart" class="h-full card-wrapper">
+      <WebSiteLink label="More Demos: " link="https://www.visactor.com/vchart/example" />
+    </NCard>
     <NCard title="Stacked Dash Area Chart" :bordered="false" class="h-full card-wrapper">
       <div ref="stackedDashAreaRef" class="h-400px" />
     </NCard>
@@ -59,9 +44,6 @@ onUnmounted(() => {
     </NCard>
     <NCard title="Shape Word Cloud Chart" :bordered="false" class="h-full card-wrapper">
       <div ref="shapeWordCloudRef" class="h-400px" />
-    </NCard>
-    <NCard :bordered="false" class="h-full w-2/3 card-wrapper">
-      <WebSiteLink label="More VChart Demos: " link="https://www.visactor.com/vchart/example" />
     </NCard>
   </NSpace>
 </template>
