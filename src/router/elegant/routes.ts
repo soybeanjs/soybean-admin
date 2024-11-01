@@ -424,6 +424,16 @@ export const generatedRoutes: GeneratedRoute[] = [
               i18nKey: 'route.plugin_charts_echarts',
               icon: 'simple-icons:apacheecharts'
             }
+          },
+          {
+            name: 'plugin_charts_vchart',
+            path: '/plugin/charts/vchart',
+            component: 'view.plugin_charts_vchart',
+            meta: {
+              title: 'plugin_charts_vchart',
+              i18nKey: 'route.plugin_charts_vchart',
+              localIcon: 'visactor'
+            }
           }
         ]
       },
@@ -482,12 +492,32 @@ export const generatedRoutes: GeneratedRoute[] = [
       {
         name: 'plugin_gantt',
         path: '/plugin/gantt',
-        component: 'view.plugin_gantt',
         meta: {
           title: 'plugin_gantt',
           i18nKey: 'route.plugin_gantt',
           icon: 'ant-design:bar-chart-outlined'
-        }
+        },
+        children: [
+          {
+            name: 'plugin_gantt_dhtmlx',
+            path: '/plugin/gantt/dhtmlx',
+            component: 'view.plugin_gantt_dhtmlx',
+            meta: {
+              title: 'plugin_gantt_dhtmlx',
+              i18nKey: 'route.plugin_gantt_dhtmlx'
+            }
+          },
+          {
+            name: 'plugin_gantt_vtable',
+            path: '/plugin/gantt/vtable',
+            component: 'view.plugin_gantt_vtable',
+            meta: {
+              title: 'plugin_gantt_vtable',
+              i18nKey: 'route.plugin_gantt_vtable',
+              localIcon: 'visactor'
+            }
+          }
+        ]
       },
       {
         name: 'plugin_icon',
@@ -548,6 +578,27 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.plugin_swiper',
           icon: 'simple-icons:swiper'
         }
+      },
+      {
+        name: 'plugin_tables',
+        path: '/plugin/tables',
+        meta: {
+          title: 'plugin_tables',
+          i18nKey: 'route.plugin_tables',
+          icon: 'icon-park-outline:table'
+        },
+        children: [
+          {
+            name: 'plugin_tables_vtable',
+            path: '/plugin/tables/vtable',
+            component: 'view.plugin_tables_vtable',
+            meta: {
+              title: 'plugin_tables_vtable',
+              i18nKey: 'route.plugin_tables_vtable',
+              localIcon: 'visactor'
+            }
+          }
+        ]
       },
       {
         name: 'plugin_typeit',

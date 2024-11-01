@@ -67,18 +67,23 @@ declare module "@elegant-router/types" {
     "plugin_charts": "/plugin/charts";
     "plugin_charts_antv": "/plugin/charts/antv";
     "plugin_charts_echarts": "/plugin/charts/echarts";
+    "plugin_charts_vchart": "/plugin/charts/vchart";
     "plugin_copy": "/plugin/copy";
     "plugin_editor": "/plugin/editor";
     "plugin_editor_markdown": "/plugin/editor/markdown";
     "plugin_editor_quill": "/plugin/editor/quill";
     "plugin_excel": "/plugin/excel";
     "plugin_gantt": "/plugin/gantt";
+    "plugin_gantt_dhtmlx": "/plugin/gantt/dhtmlx";
+    "plugin_gantt_vtable": "/plugin/gantt/vtable";
     "plugin_icon": "/plugin/icon";
     "plugin_map": "/plugin/map";
     "plugin_pdf": "/plugin/pdf";
     "plugin_pinyin": "/plugin/pinyin";
     "plugin_print": "/plugin/print";
     "plugin_swiper": "/plugin/swiper";
+    "plugin_tables": "/plugin/tables";
+    "plugin_tables_vtable": "/plugin/tables/vtable";
     "plugin_typeit": "/plugin/typeit";
     "plugin_video": "/plugin/video";
     "user-center": "/user-center";
@@ -184,17 +189,20 @@ declare module "@elegant-router/types" {
     | "plugin_barcode"
     | "plugin_charts_antv"
     | "plugin_charts_echarts"
+    | "plugin_charts_vchart"
     | "plugin_copy"
     | "plugin_editor_markdown"
     | "plugin_editor_quill"
     | "plugin_excel"
-    | "plugin_gantt"
+    | "plugin_gantt_dhtmlx"
+    | "plugin_gantt_vtable"
     | "plugin_icon"
     | "plugin_map"
     | "plugin_pdf"
     | "plugin_pinyin"
     | "plugin_print"
     | "plugin_swiper"
+    | "plugin_tables_vtable"
     | "plugin_typeit"
     | "plugin_video"
     | "user-center"

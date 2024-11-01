@@ -205,6 +205,7 @@ const local: App.I18n.Schema = {
     plugin_charts: 'Charts',
     plugin_charts_echarts: 'ECharts',
     plugin_charts_antv: 'AntV',
+    plugin_charts_vchart: 'VChart',
     plugin_editor: 'Editor',
     plugin_editor_quill: 'Quill',
     plugin_editor_markdown: 'Markdown',
@@ -218,7 +219,11 @@ const local: App.I18n.Schema = {
     plugin_excel: 'Excel',
     plugin_pdf: 'PDF preview',
     plugin_gantt: 'Gantt Chart',
-    plugin_typeit: 'Typeit'
+    plugin_gantt_dhtmlx: 'dhtmlxGantt',
+    plugin_gantt_vtable: 'VTableGantt',
+    plugin_typeit: 'Typeit',
+    plugin_tables: 'Tables',
+    plugin_tables_vtable: 'VTable'
   },
   page: {
     login: {
