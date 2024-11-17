@@ -1,6 +1,39 @@
 # Changelog
 
 
+## [v1.3.9](https://github.com/soybeanjs/soybean-admin/compare/v1.3.8...v1.3.9) (2024-11-17)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**:
+  - support scheduled detection and update system. close #657 &nbsp;-&nbsp; by **青菜白玉汤** in https://github.com/soybeanjs/soybean-admin/issues/669 and https://github.com/soybeanjs/soybean-admin/issues/657 [<samp>(d088f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d088f81)
+  - app version notification plugin support sub deploy path. close #668 &nbsp;-&nbsp; by **Soybean** in https://github.com/soybeanjs/soybean-admin/issues/668 [<samp>(a53eb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a53eb10)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: optimize code &nbsp;-&nbsp; by **Soybean** [<samp>(9ad5d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9ad5d71)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**: refactor router guard. fix #655 &nbsp;-&nbsp; by **Soybean** in https://github.com/soybeanjs/soybean-admin/issues/667 and https://github.com/soybeanjs/soybean-admin/issues/655 [<samp>(09144)</samp>](https://github.com/soybeanjs/soybean-admin/commit/09144df)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: set the Chinese version of README as default &nbsp;-&nbsp; by **Soybean** [<samp>(9d28b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9d28b31)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by **Soybean** [<samp>(91de4)</samp>](https://github.com/soybeanjs/soybean-admin/commit/91de4a8)
+  - update deps &nbsp;-&nbsp; by **Soybean** [<samp>(0c809)</samp>](https://github.com/soybeanjs/soybean-admin/commit/0c809de)
+- **projects**:
+  - add desc for base url of app &nbsp;-&nbsp; by **Soybean** [<samp>(17d7e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/17d7e52)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+
+[Soybean](mailto:soybeanjs@outlook.com),&nbsp;[青菜白玉汤](mailto:79054161+Azir-11@users.noreply.github.com)
+
 ## [v1.3.8](https://github.com/soybeanjs/soybean-admin/compare/v1.3.7...v1.3.8) (2024-10-25)
 
 ### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
