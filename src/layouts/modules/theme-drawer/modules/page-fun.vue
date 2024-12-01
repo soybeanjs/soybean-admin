@@ -69,6 +69,9 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
     <SettingItem key="5" :label="$t('theme.tab.visible')">
       <NSwitch v-model:value="themeStore.tab.visible" />
     </SettingItem>
+    <SettingItem key="5-1" :label="$t('theme.header.multilingual.visible')">
+      <NSwitch v-model:value="themeStore.header.multilingual.visible" />
+    </SettingItem>
     <SettingItem v-if="themeStore.tab.visible" key="5-1" :label="$t('theme.tab.cache')">
       <NSwitch v-model:value="themeStore.tab.cache" />
     </SettingItem>

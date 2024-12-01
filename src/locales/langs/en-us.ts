@@ -109,6 +109,9 @@ const local: App.I18n.Schema = {
       breadcrumb: {
         visible: 'Breadcrumb Visible',
         showIcon: 'Breadcrumb Icon Visible'
+      },
+      multilingual: {
+        visible: 'Display multilingual button'
       }
     },
     tab: {
