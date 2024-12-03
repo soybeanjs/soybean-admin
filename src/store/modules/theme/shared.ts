@@ -2,29 +2,33 @@ import type { GlobalThemeOverrides } from 'naive-ui';
 import { addColorAlpha, getColorPalette, getPaletteColorByNumber, getRgb } from '@sa/color';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
-import { toggleHtmlClass } from '@/utils/common';
+import { toggleHtmlClass, updateBase } from '@/utils/common';
 import { localStg } from '@/utils/storage';
 
 const DARK_CLASS = 'dark';
 
 /** Init theme settings */
 export function initThemeSettings() {
-  const isProd = import.meta.env.PROD;
+  // const isProd = import.meta.env.PROD;
+  const isProd = true;
 
   // if it is development mode, the theme settings will not be cached, by update `themeSettings` in `src/theme/settings.ts` to update theme settings
   if (!isProd) return themeSettings;
 
+  const localSettings = localStg.get('themeSettings') || themeSettings;
+
   // if it is production mode, the theme settings will be cached in localStorage
   // if want to update theme settings when publish new version, please update `overrideThemeSettings` in `src/theme/settings.ts`
 
-  const settings = localStg.get('themeSettings') || themeSettings;
+  const settings = updateBase(themeSettings, localSettings);
 
   const isOverride = localStg.get('overrideThemeFlag') === BUILD_TIME;
-
   if (!isOverride) {
     Object.assign(settings, overrideThemeSettings);
     localStg.set('overrideThemeFlag', BUILD_TIME);
   }
+
+  localStg.set('themeSettings', settings);
 
   return settings;
 }

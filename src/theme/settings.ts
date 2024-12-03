@@ -27,6 +27,9 @@ export const themeSettings: App.Theme.ThemeSetting = {
     breadcrumb: {
       visible: true,
       showIcon: true
+    },
+    multilingual: {
+      visible: true
     }
   },
   tab: {

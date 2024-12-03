@@ -53,6 +53,11 @@ declare namespace App {
           /** Whether to show the breadcrumb icon */
           showIcon: boolean;
         };
+        /** Multilingual */
+        multilingual: {
+          /** Whether to show the multilingual */
+          visible: boolean;
+        };
       };
       /** Tab */
       tab: {
@@ -98,7 +103,7 @@ declare namespace App {
         right: boolean;
       };
       /** Watermark */
-      watermark?: {
+      watermark: {
         /** Whether to show the watermark */
         visible: boolean;
         /** Watermark text */
@@ -362,6 +367,9 @@ declare namespace App {
           breadcrumb: {
             visible: string;
             showIcon: string;
+          };
+          multilingual: {
+            visible: string;
           };
         };
         tab: {
