@@ -49,6 +49,10 @@
   - [Github Repository](https://github.com/soybeanjs/soybean-admin-antd)
   - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-antd)
 
+- **ElementPlusVue Version:**
+  - [Preview Link](https://elp.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin-element-plus)
+
 - **Legacy Version:**
   - [Preview Link](https://legacy.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin/tree/legacy)
