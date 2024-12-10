@@ -170,6 +170,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     handleConstantAndAuthRoutes();
 
     setIsInitConstantRoute(true);
+
+    tabStore.initHomeTab();
   }
 
   /** Init auth route */
