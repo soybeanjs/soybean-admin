@@ -109,6 +109,9 @@ const local: App.I18n.Schema = {
       breadcrumb: {
         visible: '显示面包屑',
         showIcon: '显示面包屑图标'
+      },
+      multilingual: {
+        visible: '显示多语言按钮'
       }
     },
     tab: {
