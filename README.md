@@ -45,7 +45,7 @@
   - [预览地址](https://antd.soybeanjs.cn/)
   - [Github 仓库](https://github.com/soybeanjs/soybean-admin-antd)
   - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin-antd)
-- **ElementPlusVue 版本:**
+- **ElementPlus 版本:**
   - [预览地址](https://elp.soybeanjs.cn/)
   - [Github 仓库](https://github.com/soybeanjs/soybean-admin-element-plus)
 - **旧版:**
@@ -137,6 +137,10 @@ pnpm dev
 ```bash
 pnpm build
 ```
+
+**代码同步**
+
+参考 [代码同步](https://docs.soybeanjs.cn/zh/guide/sync) 文档。
 
 ## 周边生态
 
