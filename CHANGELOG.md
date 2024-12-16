@@ -1,6 +1,40 @@
 # Changelog
 
 
+## [v1.3.10](https://github.com/honghuangdc/soybean-admin/compare/v1.3.9...v1.3.10) (2024-12-16)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: support show tab when not loggedIn &nbsp;-&nbsp; by @soybeanjs [<samp>(ba381)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ba38119)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **deps**:
+  - reduced eslint version to 9.14.0 &nbsp;-&nbsp; by @soybeanjs [<samp>(af417)</samp>](https://github.com/honghuangdc/soybean-admin/commit/af4177e)
+- **projects**:
+  - fix route guard hook `onRouteSwitchWhenLoggedIn`. fixed #680 &nbsp;-&nbsp; by @soybeanjs in https://github.com/honghuangdc/soybean-admin/issues/680 [<samp>(ab985)</samp>](https://github.com/honghuangdc/soybean-admin/commit/ab9858c)
+  - check if init userInfo when initAuthRoute. fixed #680 &nbsp;-&nbsp; by @soybeanjs in https://github.com/honghuangdc/soybean-admin/issues/680 [<samp>(9f4fb)</samp>](https://github.com/honghuangdc/soybean-admin/commit/9f4fb8c)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**:
+  - optimize router guard &nbsp;-&nbsp; by @soybeanjs [<samp>(0dfcf)</samp>](https://github.com/honghuangdc/soybean-admin/commit/0dfcf18)
+  - use `defu` to fill added theme config &nbsp;-&nbsp; by @soybeanjs [<samp>(101b6)</samp>](https://github.com/honghuangdc/soybean-admin/commit/101b6f9)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: ✏️  add element-plus version link &nbsp;-&nbsp; by **一寸灰** in https://github.com/honghuangdc/soybean-admin/issues/679 [<samp>(5c6ab)</samp>](https://github.com/honghuangdc/soybean-admin/commit/5c6ab0b)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- rename env.d.ts to vite-env.d.ts &nbsp;-&nbsp; by @wzc520pyfm in https://github.com/honghuangdc/soybean-admin/issues/675 [<samp>(b93c2)</samp>](https://github.com/honghuangdc/soybean-admin/commit/b93c203)
+- **projects**: update deps & fix vite config &nbsp;-&nbsp; by @soybeanjs [<samp>(3e0eb)</samp>](https://github.com/honghuangdc/soybean-admin/commit/3e0eb72)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![wzc520pyfm](https://github.com/wzc520pyfm.png?size=48)](https://github.com/wzc520pyfm)&nbsp;&nbsp;
+[一寸灰](mailto:webzhangfei@163.com),&nbsp;
+
 ## [v1.3.9](https://github.com/soybeanjs/soybean-admin/compare/v1.3.8...v1.3.9) (2024-11-17)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features

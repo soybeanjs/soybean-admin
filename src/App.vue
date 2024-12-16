@@ -25,7 +25,7 @@ const naiveDateLocale = computed(() => {
 
 const watermarkProps = computed<WatermarkProps>(() => {
   return {
-    content: themeStore.watermark?.text || 'SoybeanAdmin',
+    content: themeStore.watermark.text,
     cross: true,
     fullscreen: true,
     fontSize: 16,
@@ -50,7 +50,7 @@ const watermarkProps = computed<WatermarkProps>(() => {
   >
     <AppProvider>
       <RouterView class="bg-layout" />
-      <NWatermark v-if="themeStore.watermark?.visible" v-bind="watermarkProps" />
+      <NWatermark v-if="themeStore.watermark.visible" v-bind="watermarkProps" />
     </AppProvider>
   </NConfigProvider>
 </template>
