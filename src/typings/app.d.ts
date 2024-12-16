@@ -21,7 +21,7 @@ declare namespace App {
       /** Whether info color is followed by the primary color */
       isInfoFollowPrimary: boolean;
       /** Reset cache strategy */
-      resetCacheStrategy?: UnionKey.ResetCacheStrategy;
+      resetCacheStrategy: UnionKey.ResetCacheStrategy;
       /** Layout */
       layout: {
         /** Layout mode */
@@ -33,7 +33,7 @@ declare namespace App {
          *
          * if true, the vertical child level menus in left and horizontal first level menus in top
          */
-        reverseHorizontalMix?: boolean;
+        reverseHorizontalMix: boolean;
       };
       /** Page */
       page: {
@@ -98,7 +98,7 @@ declare namespace App {
         right: boolean;
       };
       /** Watermark */
-      watermark?: {
+      watermark: {
         /** Whether to show the watermark */
         visible: boolean;
         /** Watermark text */
