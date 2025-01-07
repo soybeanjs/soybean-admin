@@ -1,3 +1,13 @@
+<!--
+ * @Author: whr2349 378237242@QQ.com
+ * @Date: 2023-08-17 09:25:28
+ * @LastEditors: whr2349 378237242@QQ.com
+ * @LastEditTime: 2023-09-05 10:35:12
+ * @FilePath: \soybean-admin\src\components\common\app-loading.vue
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+-->
 <template>
   <div class="fixed-center flex-col">
     <system-logo class="text-128px text-primary" />

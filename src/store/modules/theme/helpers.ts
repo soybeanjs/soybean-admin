@@ -1,3 +1,13 @@
+/*
+ * @Author: whr2349 378237242@QQ.com
+ * @Date: 2023-08-17 09:25:28
+ * @LastEditors: whr2349 378237242@QQ.com
+ * @LastEditTime: 2023-08-25 11:24:58
+ * @FilePath: \soybean-admin\src\store\modules\theme\helpers.ts
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { cloneDeep } from 'lodash-es';
 import { themeSetting } from '@/settings';
@@ -12,11 +22,14 @@ export function initThemeSettings() {
   if (isProd && storageSettings) {
     return storageSettings;
   }
-
   const themeColor = sessionStg.get('themeColor') || themeSetting.themeColor;
+  // 获取颜色对应的信息颜色
   const info = themeSetting.isCustomizeInfoColor ? themeSetting.otherColor.info : getColorPalette(themeColor, 7);
+  // 将颜色对应的信息颜色和其他颜色合并
   const otherColor = { ...themeSetting.otherColor, info };
+  // 将其他颜色和颜色对应的信息颜色合并
   const setting = cloneDeep({ ...themeSetting, themeColor, otherColor });
+  // 返回设置
   return setting;
 }
 
