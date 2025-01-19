@@ -1,6 +1,36 @@
 # Changelog
 
 
+## [v1.3.11](https://github.com/soybeanjs/soybean-admin/compare/v1.3.10...v1.3.11) (2025-01-19)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: multi language buttons support hiding. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/683 [<samp>(d7aeb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d7aebb7)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **hooks**:
+  - The total number before assigning a value to the table is incorrect. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/687 [<samp>(56760)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5676024)
+- **projects**:
+  - fix login success notification. fixed #688 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/688 [<samp>(60dd2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/60dd226)
+  - fix update notifications. fixed #691, fixed #692 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/691 and https://github.com/soybeanjs/soybean-admin/issues/692 [<samp>(ac862)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ac86247)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: optimize code &nbsp;-&nbsp; by @soybeanjs [<samp>(6489e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/6489ec4)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README &nbsp;-&nbsp; by @soybeanjs [<samp>(21434)</samp>](https://github.com/soybeanjs/soybean-admin/commit/214341e)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(c9433)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c9433e1)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;
+
 ## [v1.3.10](https://github.com/honghuangdc/soybean-admin/compare/v1.3.9...v1.3.10) (2024-12-16)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
