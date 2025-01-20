@@ -10,22 +10,18 @@ export function setupAppErrorHandle(app: App) {
   };
 }
 
-// Update check interval in milliseconds
-const UPDATE_CHECK_INTERVAL = 3 * 60 * 1000;
-
 export function setupAppVersionNotification() {
-  const canAutoUpdateApp = import.meta.env.VITE_AUTOMATICALLY_DETECT_UPDATE === 'Y';
+  // Update check interval in milliseconds
+  const UPDATE_CHECK_INTERVAL = 3 * 60 * 1000;
 
+  const canAutoUpdateApp = import.meta.env.VITE_AUTOMATICALLY_DETECT_UPDATE === 'Y' && import.meta.env.PROD;
   if (!canAutoUpdateApp) return;
 
   let isShow = false;
   let updateInterval: ReturnType<typeof setInterval> | undefined;
 
-  // Check if updates should be checked
-  const shouldCheckForUpdates = [!isShow, document.visibilityState === 'visible', !import.meta.env.DEV].every(Boolean);
-
   const checkForUpdates = async () => {
-    if (!shouldCheckForUpdates) return;
+    if (isShow) return;
 
     const buildTime = await getHtmlBuildTime();
 
@@ -47,6 +43,7 @@ export function setupAppVersionNotification() {
             {
               onClick() {
                 n?.destroy();
+                isShow = false;
               }
             },
             () => $t('system.updateCancel')
@@ -77,7 +74,7 @@ export function setupAppVersionNotification() {
   };
 
   // If updates should be checked, set up the visibility change listener and start the update interval
-  if (shouldCheckForUpdates) {
+  if (!isShow && document.visibilityState === 'visible') {
     // Check for updates when the document is visible
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {

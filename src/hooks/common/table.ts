@@ -119,6 +119,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     page: 1,
     pageSize: 10,
     showSizePicker: true,
+    itemCount: 0,
     pageSizes: [10, 15, 20, 25, 30],
     onUpdatePage: async (page: number) => {
       pagination.page = page;

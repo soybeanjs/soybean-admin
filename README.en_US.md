@@ -49,7 +49,7 @@
   - [Github Repository](https://github.com/soybeanjs/soybean-admin-antd)
   - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-antd)
 
-- **ElementPlusVue Version:**
+- **ElementPlus Version:**
   - [Preview Link](https://elp.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin-element-plus)
 
@@ -112,6 +112,10 @@ pnpm dev
 ```bash
 pnpm build
 ```
+
+**Code Synchronization**
+
+Refer to the [Code Synchronization](https://docs.soybeanjs.cn/guide/sync) document.
 
 ## Ecosystem
 
