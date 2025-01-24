@@ -66,6 +66,7 @@ const bgColor = computed(() => {
               @switch="themeStore.toggleThemeScheme"
             />
             <LangSwitch
+              v-if="themeStore.header.multilingual.visible"
               :lang="appStore.locale"
               :lang-options="appStore.localeOptions"
               :show-tooltip="false"
