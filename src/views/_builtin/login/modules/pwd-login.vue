@@ -107,7 +107,13 @@ async function handleAccountLogin(account: Account) {
       </div>
       <NDivider class="text-14px text-#666 !m-0">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</NDivider>
       <div class="flex-center gap-12px">
-        <NButton v-for="item in accounts" :key="item.key" type="primary" @click="handleAccountLogin(item)">
+        <NButton
+          v-for="item in accounts"
+          :key="item.key"
+          :loading="authStore.loginLoading"
+          type="primary"
+          @click="handleAccountLogin(item)"
+        >
           {{ item.label }}
         </NButton>
       </div>
