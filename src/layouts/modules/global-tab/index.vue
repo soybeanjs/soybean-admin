@@ -186,7 +186,7 @@ init();
             :active="tab.id === tabStore.activeTabId"
             :active-color="themeStore.themeColor"
             :closable="!tabStore.isTabRetain(tab.id)"
-            @click="tabStore.switchRouteByTab(tab)"
+            @pointerdown="tabStore.switchRouteByTab(tab)"
             @close="handleCloseTab(tab)"
             @contextmenu="handleContextMenu($event, tab.id)"
           >
