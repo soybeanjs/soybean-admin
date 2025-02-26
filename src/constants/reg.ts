@@ -9,7 +9,7 @@ export const REG_PHONE =
  *
  * 6-18 characters, including letters, numbers, and underscores
  */
-export const REG_PWD = /^\w{6,18}$/;
+export const REG_PWD = /^.{6,18}$/;
 
 /** Email reg */
 export const REG_EMAIL = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;

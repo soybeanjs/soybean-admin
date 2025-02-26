@@ -16,7 +16,7 @@ export function fetchGetWecomUrl(info: boolean) {
  */
 export function fetchLogin(userName: string, password: string) {
   return request<Api.Auth.LoginToken>({
-    url: '/auth/login',
+    url: '/login',
     method: 'post',
     data: {
       userName,

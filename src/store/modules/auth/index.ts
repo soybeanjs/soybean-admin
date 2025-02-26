@@ -78,6 +78,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
         });
       }
     } else {
+      console.log(error);
       resetStore();
     }
 
