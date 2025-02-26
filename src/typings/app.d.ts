@@ -422,6 +422,7 @@ declare namespace App {
             validateSuccess: string;
             loginSuccess: string;
             welcomeBack: string;
+            infoWarning: string;
           };
           pwdLogin: {
             title: string;
@@ -452,6 +453,10 @@ declare namespace App {
           };
           bindWeChat: {
             title: string;
+          };
+          weComLogin: {
+            title: string;
+            wecomOauth: string;
           };
         };
         home: {

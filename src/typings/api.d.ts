@@ -65,6 +65,14 @@ declare namespace Api {
       roles: string[];
       buttons: string[];
     }
+
+    interface WecomInfo {
+      appid: string;
+      agent_id: string;
+      redirect_uri: string;
+      state: string;
+      session_id?: string;
+    }
   }
 
   /**

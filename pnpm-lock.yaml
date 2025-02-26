@@ -32,6 +32,9 @@ importers:
       '@vueuse/core':
         specifier: 12.5.0
         version: 12.5.0(typescript@5.7.3)
+      '@wecom/jssdk':
+        specifier: ^2.2.5
+        version: 2.2.5
       clipboard:
         specifier: 2.0.11
         version: 2.0.11
@@ -1465,6 +1468,9 @@ packages:
 
   '@vueuse/shared@12.5.0':
     resolution: {integrity: sha512-vMpcL1lStUU6O+kdj6YdHDixh0odjPAUM15uJ9f7MY781jcYkIwFA4iv2EfoIPO6vBmvutI1HxxAwmf0cx5ISQ==}
+
+  '@wecom/jssdk@2.2.5':
+    resolution: {integrity: sha512-qOBAsfqaiYM8jZHWYs/atHSpJhsLdZVNaxHQdmEQ7ZWul/GZMt4P5VY8Nf7GII7GhG8z/k+r37Dto6qtAaRqow==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -5617,6 +5623,8 @@ snapshots:
       vue: 3.5.13(typescript@5.7.3)
     transitivePeerDependencies:
       - typescript
+
+  '@wecom/jssdk@2.2.5': {}
 
   acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:

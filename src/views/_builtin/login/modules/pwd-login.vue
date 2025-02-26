@@ -5,11 +5,14 @@ import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
+import { useAppStore } from '@/store/modules/app';
+import { fetchGetWecomUrl } from '@/service/api';
 
 defineOptions({
   name: 'PwdLogin'
 });
 
+const appStore = useAppStore();
 const authStore = useAuthStore();
 const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
@@ -39,39 +42,26 @@ async function handleSubmit() {
   await authStore.login(model.userName, model.password);
 }
 
-type AccountKey = 'super' | 'admin' | 'user';
-
-interface Account {
-  key: AccountKey;
-  label: string;
-  userName: string;
-  password: string;
-}
-
-const accounts = computed<Account[]>(() => [
-  {
-    key: 'super',
-    label: $t('page.login.pwdLogin.superAdmin'),
-    userName: 'Super',
-    password: '123456'
-  },
-  {
-    key: 'admin',
-    label: $t('page.login.pwdLogin.admin'),
-    userName: 'Admin',
-    password: '123456'
-  },
-  {
-    key: 'user',
-    label: $t('page.login.pwdLogin.user'),
-    userName: 'User',
-    password: '123456'
+async function getWecomInfo(info = false) {
+  // 调用后端接口获取企业微信相关信息
+  const { data: url, error } = await fetchGetWecomUrl(info);
+  if (!error) {
+    // 跳转到企业微信授权页面
+    window.location.href = url;
   }
-]);
-
-async function handleAccountLogin(account: Account) {
-  await authStore.login(account.userName, account.password);
 }
+
+// 判断是否是手机和企业微信Webview的方法
+const isMobileAndWecom = computed(() => {
+  const userAgent = navigator.userAgent;
+  const isWecom = /wxwork/i.test(userAgent);
+  return !appStore.isMobile && !isWecom;
+});
+
+// 未实现功能告警
+const handleFailed = () => {
+  window.$message?.warning($t('page.login.common.infoWarning'));
+};
 </script>
 
 <template>
@@ -107,8 +97,21 @@ async function handleAccountLogin(account: Account) {
       </div>
       <NDivider class="text-14px text-#666 !m-0">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</NDivider>
       <div class="flex-center gap-12px">
-        <NButton v-for="item in accounts" :key="item.key" type="primary" @click="handleAccountLogin(item)">
-          {{ item.label }}
+        <NButton v-if="isMobileAndWecom" quaternary class="text-20px lt-sm:text-18px" @click="getWecomInfo(true)">
+          <template #icon>
+            <icon-local-wecom />
+          </template>
+        </NButton>
+        <NButton v-else text @click="getWecomInfo(false)">{{ $t('page.login.weComLogin.wecomOauth') }}</NButton>
+        <NButton v-show="isMobileAndWecom" quaternary class="text-20px lt-sm:text-18px" @click="handleFailed">
+          <template #icon>
+            <icon-local-wechat />
+          </template>
+        </NButton>
+        <NButton v-show="isMobileAndWecom" quaternary class="text-20px lt-sm:text-18px" @click="handleFailed">
+          <template #icon>
+            <icon-local-gitee />
+          </template>
         </NButton>
       </div>
     </NSpace>

@@ -178,7 +178,8 @@ const local: App.I18n.Schema = {
         back: 'Back',
         validateSuccess: 'Verification passed',
         loginSuccess: 'Login successfully',
-        welcomeBack: 'Welcome back, {userName} !'
+        welcomeBack: 'Welcome back, {userName} !',
+        infoWarning: 'The current feature has not been implemented yet.'
       },
       pwdLogin: {
         title: 'Password Login',
@@ -209,6 +210,10 @@ const local: App.I18n.Schema = {
       },
       bindWeChat: {
         title: 'Bind WeChat'
+      },
+      weComLogin: {
+        title: 'WeCom Login',
+        wecomOauth: 'WeCom OAuth Login'
       }
     },
     home: {

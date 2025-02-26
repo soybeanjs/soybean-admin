@@ -178,7 +178,8 @@ const local: App.I18n.Schema = {
         back: '返回',
         validateSuccess: '验证成功',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{userName} ！'
+        welcomeBack: '欢迎回来，{userName} ！',
+        infoWarning: '当前功能尚未实现！'
       },
       pwdLogin: {
         title: '密码登录',
@@ -209,6 +210,10 @@ const local: App.I18n.Schema = {
       },
       bindWeChat: {
         title: '绑定微信'
+      },
+      weComLogin: {
+        title: '企业微信登录',
+        wecomOauth: '企业微信单点登录'
       }
     },
     home: {

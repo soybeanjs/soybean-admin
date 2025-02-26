@@ -1,5 +1,13 @@
 import { request } from '../request';
 
+/** 获取企业微信手机及Webview的URL链接 */
+export function fetchGetWecomUrl(info: boolean) {
+  if (info) {
+    return request<string>({ url: '/getWecomUrl', params: { info } });
+  }
+  return request<string>({ url: '/getWecomUrl' });
+}
+
 /**
  * Login
  *
