@@ -83,6 +83,7 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'pan',
       i18nKey: 'route.pan',
+      icon: 'lineicons:folder',
       pageType: 'pan'
     }
   }
