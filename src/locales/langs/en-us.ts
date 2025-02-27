@@ -164,7 +164,14 @@ const local: App.I18n.Schema = {
     500: 'Server Error',
     'iframe-page': 'Iframe',
     home: 'Home',
-    pan: 'My Files'
+    pan: 'My Files',
+    share: 'Share',
+    share_me: 'Share to Me',
+    share_group: 'Share to Group',
+    share_public: 'Share to Public',
+    favorite: 'Favorite',
+    recently: 'Recently Visited',
+    recycle: 'Recycle Bin'
   },
   page: {
     login: {

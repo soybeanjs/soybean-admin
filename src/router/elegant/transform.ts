@@ -166,10 +166,17 @@ const routeMap: RouteMap = {
   "403": "/403",
   "404": "/404",
   "500": "/500",
+  "favorite": "/favorite",
   "home": "/home",
   "iframe-page": "/iframe-page/:url",
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",
-  "pan": "/pan"
+  "pan": "/pan",
+  "recently": "/recently",
+  "recycle": "/recycle",
+  "share": "/share",
+  "share_group": "/share/group",
+  "share_me": "/share/me",
+  "share_public": "/share/public"
 };
 
 /**

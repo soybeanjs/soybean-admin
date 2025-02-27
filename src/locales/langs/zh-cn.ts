@@ -164,7 +164,14 @@ const local: App.I18n.Schema = {
     500: '服务器错误',
     'iframe-page': '外链页面',
     home: '首页',
-    pan: '我的文件'
+    pan: '我的文件',
+    share: '共享文件',
+    share_me: '共享给我的',
+    share_group: '群组共享',
+    share_public: '公开共享',
+    favorite: '我的收藏',
+    recently: '最近访问',
+    recycle: '回收站'
   },
   page: {
     login: {

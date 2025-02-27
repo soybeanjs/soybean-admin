@@ -20,10 +20,17 @@ declare module "@elegant-router/types" {
     "403": "/403";
     "404": "/404";
     "500": "/500";
+    "favorite": "/favorite";
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
     "pan": "/pan";
+    "recently": "/recently";
+    "recycle": "/recycle";
+    "share": "/share";
+    "share_group": "/share/group";
+    "share_me": "/share/me";
+    "share_public": "/share/public";
   };
 
   /**
@@ -58,10 +65,14 @@ declare module "@elegant-router/types" {
     | "403"
     | "404"
     | "500"
+    | "favorite"
     | "home"
     | "iframe-page"
     | "login"
     | "pan"
+    | "recently"
+    | "recycle"
+    | "share"
   >;
 
   /**
@@ -83,8 +94,14 @@ declare module "@elegant-router/types" {
     | "500"
     | "iframe-page"
     | "login"
+    | "favorite"
     | "home"
     | "pan"
+    | "recently"
+    | "recycle"
+    | "share_group"
+    | "share_me"
+    | "share_public"
   >;
 
   /**

@@ -40,6 +40,18 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'favorite',
+    path: '/favorite',
+    component: 'layout.base$view.favorite',
+    meta: {
+      title: 'favorite',
+      i18nKey: 'route.favorite',
+      order: 3,
+      icon: 'clarity:favorite-line',
+      pageType: 'pan'
+    }
+  },
+  {
     name: 'home',
     path: '/home',
     component: 'layout.base$view.home',
@@ -83,8 +95,80 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'pan',
       i18nKey: 'route.pan',
-      icon: 'lineicons:folder',
+      order: 1,
+      icon: 'carbon:folder',
       pageType: 'pan'
     }
+  },
+  {
+    name: 'recently',
+    path: '/recently',
+    component: 'layout.base$view.recently',
+    meta: {
+      title: 'recently',
+      i18nKey: 'route.recently',
+      order: 4,
+      icon: 'carbon:recently-viewed',
+      pageType: 'pan'
+    }
+  },
+  {
+    name: 'recycle',
+    path: '/recycle',
+    component: 'layout.base$view.recycle',
+    meta: {
+      title: 'recycle',
+      i18nKey: 'route.recycle',
+      order: 5,
+      icon: 'carbon:recycle',
+      pageType: 'pan'
+    }
+  },
+  {
+    name: 'share',
+    path: '/share',
+    component: 'layout.base',
+    meta: {
+      title: 'share',
+      i18nKey: 'route.share',
+      order: 2,
+      icon: 'carbon:share',
+      pageType: 'pan'
+    },
+    children: [
+      {
+        name: 'share_group',
+        path: '/share/group',
+        component: 'view.share_group',
+        meta: {
+          title: 'share_group',
+          i18nKey: 'route.share_group',
+          order: 2,
+          icon: 'carbon:group'
+        }
+      },
+      {
+        name: 'share_me',
+        path: '/share/me',
+        component: 'view.share_me',
+        meta: {
+          title: 'share_me',
+          i18nKey: 'route.share_me',
+          order: 1,
+          icon: 'streamline:information-desk-customer'
+        }
+      },
+      {
+        name: 'share_public',
+        path: '/share/public',
+        component: 'view.share_public',
+        meta: {
+          title: 'share_public',
+          i18nKey: 'route.share_public',
+          order: 3,
+          icon: 'carbon:network-public'
+        }
+      }
+    ]
   }
 ];

@@ -20,6 +20,12 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   500: () => import("@/views/_builtin/500/index.vue"),
   "iframe-page": () => import("@/views/_builtin/iframe-page/[url].vue"),
   login: () => import("@/views/_builtin/login/index.vue"),
+  favorite: () => import("@/views/favorite/index.vue"),
   home: () => import("@/views/home/index.vue"),
   pan: () => import("@/views/pan/index.vue"),
+  recently: () => import("@/views/recently/index.vue"),
+  recycle: () => import("@/views/recycle/index.vue"),
+  share_group: () => import("@/views/share/group/index.vue"),
+  share_me: () => import("@/views/share/me/index.vue"),
+  share_public: () => import("@/views/share/public/index.vue"),
 };
