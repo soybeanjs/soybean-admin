@@ -1,5 +1,5 @@
 import { computed, nextTick, ref, shallowRef } from 'vue';
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
 import type { CustomRoute, ElegantConstRoute, LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types';
@@ -41,6 +41,21 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /** Home route key */
   const routeHome = ref(import.meta.env.VITE_ROUTE_HOME);
 
+  /** 当前页面的类型 */
+  const currentPageType = ref<UnionKey.SystemPageType>('pan');
+
+  /** 设置当前页面类型方法 */
+  const setPageType = (route: RouteLocationNormalized) => {
+    const matched = route.matched;
+    for (let i = matched.length - 1; i >= 0; i -= 1) {
+      const type = matched[i].meta?.pageType;
+      if (type) {
+        currentPageType.value = type;
+        return;
+      }
+    }
+    currentPageType.value = 'pan';
+  };
   /**
    * Set route home
    *
@@ -343,6 +358,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     getIsAuthRouteExist,
     getSelectedMenuKeyPath,
     onRouteSwitchWhenLoggedIn,
-    onRouteSwitchWhenNotLoggedIn
+    onRouteSwitchWhenNotLoggedIn,
+    currentPageType,
+    setPageType
   };
 });

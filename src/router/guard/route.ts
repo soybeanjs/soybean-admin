@@ -18,6 +18,9 @@ import { localStg } from '@/utils/storage';
  */
 export function createRouteGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
+    const routeStore = useRouteStore();
+    // 每次路由变化时更新页面类型
+    routeStore.setPageType(to);
     const location = await initRoute(to);
 
     if (location) {

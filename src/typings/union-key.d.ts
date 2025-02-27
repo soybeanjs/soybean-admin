@@ -51,6 +51,8 @@ declare namespace UnionKey {
    */
   type ThemeTabMode = import('@sa/materials').PageTabMode;
 
+  type SystemPageType = 'pan' | 'admin' | null;
+
   /** Unocss animate key */
   type UnoCssAnimateKey =
     | 'pulse'

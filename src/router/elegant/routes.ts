@@ -47,7 +47,8 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'home',
       i18nKey: 'route.home',
       icon: 'mdi:monitor-dashboard',
-      order: 1
+      order: 1,
+      pageType: 'admin'
     }
   },
   {
@@ -73,6 +74,16 @@ export const generatedRoutes: GeneratedRoute[] = [
       i18nKey: 'route.login',
       constant: true,
       hideInMenu: true
+    }
+  },
+  {
+    name: 'pan',
+    path: '/pan',
+    component: 'layout.base$view.pan',
+    meta: {
+      title: 'pan',
+      i18nKey: 'route.pan',
+      pageType: 'pan'
     }
   }
 ];

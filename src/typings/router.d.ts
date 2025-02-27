@@ -66,6 +66,8 @@ declare module 'vue-router' {
     multiTab?: boolean | null;
     /** If set, the route will be fixed in tabs, and the value is the order of fixed tabs */
     fixedIndexInTab?: number | null;
+    /** 页面类型 */
+    pageType?: UnionKey.SystemPageType;
     /** if set query parameters, it will be automatically carried when entering the route */
     query?: { key: string; value: string }[] | null;
   }

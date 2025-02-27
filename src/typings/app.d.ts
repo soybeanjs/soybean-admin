@@ -204,6 +204,7 @@ declare namespace App {
       /** The menu icon */
       icon?: () => VNode;
       /** The menu children */
+      pageType?: UnionKey.SystemPageType;
       children?: Menu[];
     };
 

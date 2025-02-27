@@ -127,19 +127,33 @@ export function updateLocaleOfGlobalMenus(menus: App.Global.Menu[]) {
 function getGlobalMenuByBaseRoute(route: RouteLocationNormalizedLoaded | ElegantConstRoute) {
   const { SvgIconVNode } = useSvgIcon();
 
-  const { name, path } = route;
+  const { name, path, meta } = route;
   const { title, i18nKey, icon = import.meta.env.VITE_MENU_ICON, localIcon, iconFontSize } = route.meta ?? {};
 
   const label = i18nKey ? $t(i18nKey) : title!;
 
-  const menu: App.Global.Menu = {
-    key: name as string,
-    label,
-    i18nKey,
-    routeKey: name as RouteKey,
-    routePath: path as RouteMap[RouteKey],
-    icon: SvgIconVNode({ icon, localIcon, fontSize: iconFontSize || 20 })
-  };
+  let menu: App.Global.Menu;
+
+  if (meta?.pageType) {
+    menu = {
+      key: name as string,
+      label,
+      i18nKey,
+      routeKey: name as RouteKey,
+      routePath: path as RouteMap[RouteKey],
+      icon: SvgIconVNode({ icon, localIcon, fontSize: iconFontSize || 20 }),
+      pageType: meta?.pageType
+    };
+  } else {
+    menu = {
+      key: name as string,
+      label,
+      i18nKey,
+      routeKey: name as RouteKey,
+      routePath: path as RouteMap[RouteKey],
+      icon: SvgIconVNode({ icon, localIcon, fontSize: iconFontSize || 20 })
+    };
+  }
 
   return menu;
 }

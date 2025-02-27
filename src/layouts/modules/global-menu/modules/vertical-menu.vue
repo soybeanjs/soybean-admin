@@ -24,6 +24,10 @@ const inverted = computed(() => !themeStore.darkMode && themeStore.sider.inverte
 
 const expandedKeys = ref<string[]>([]);
 
+const menuOptions = computed(() => {
+  return routeStore.menus.filter(menu => menu.pageType === routeStore.currentPageType);
+});
+
 function updateExpandedKeys() {
   if (appStore.siderCollapse || !selectedKey.value) {
     expandedKeys.value = [];
@@ -51,7 +55,7 @@ watch(
         :collapsed="appStore.siderCollapse"
         :collapsed-width="themeStore.sider.collapsedWidth"
         :collapsed-icon-size="22"
-        :options="routeStore.menus"
+        :options="menuOptions"
         :inverted="inverted"
         :indent="18"
         @update:value="routerPushByKeyWithMetaQuery"
