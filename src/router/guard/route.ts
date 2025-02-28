@@ -10,6 +10,7 @@ import { getRouteName } from '@/router/elegant/transform';
 import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
 import { localStg } from '@/utils/storage';
+import { usePanStore } from '@/store/modules/pan';
 
 /**
  * create route guard
@@ -19,9 +20,16 @@ import { localStg } from '@/utils/storage';
 export function createRouteGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     const routeStore = useRouteStore();
+    const panStore = usePanStore();
     // 每次路由变化时更新页面类型
     routeStore.setPageType(to);
     const location = await initRoute(to);
+
+    if (to.name === 'pan') {
+      // 从路由参数中初始化路径
+      const pathParams = to.query.path as string;
+      panStore.initPathFromRoute(pathParams);
+    }
 
     if (location) {
       next(location);

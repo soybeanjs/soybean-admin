@@ -37,5 +37,6 @@ declare namespace StorageType {
       layout: UnionKey.ThemeLayoutMode;
       siderCollapse: boolean;
     };
+    fileShowMode: UnionKey.FileListMode;
   }
 }

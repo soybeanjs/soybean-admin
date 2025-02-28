@@ -53,6 +53,8 @@ declare namespace UnionKey {
 
   type SystemPageType = 'pan' | 'admin' | null;
 
+  type FileListMode = 'grid' | 'list';
+
   /** Unocss animate key */
   type UnoCssAnimateKey =
     | 'pulse'
