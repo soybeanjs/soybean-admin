@@ -1,5 +1,6 @@
 import { computed, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
+import type { DataTableBaseColumn } from 'naive-ui';
 import { jsonClone } from '@sa/utils';
 import useBoolean from './use-boolean';
 import useLoading from './use-loading';
@@ -10,7 +11,7 @@ export type ApiFn = (args: any) => Promise<unknown>;
 
 export type TableColumnCheck = {
   key: string;
-  title: string;
+  title: DataTableBaseColumn['title'];
   checked: boolean;
 };
 
