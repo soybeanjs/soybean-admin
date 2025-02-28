@@ -64,7 +64,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
         if (isTableColumnHasKey(column)) {
           checks.push({
             key: column.key as string,
-            title: column.title as string,
+            title: column.title!,
             checked: true
           });
         } else if (column.type === 'selection') {
