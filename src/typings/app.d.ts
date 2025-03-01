@@ -263,6 +263,32 @@ declare namespace App {
 
     /** The global dropdown key */
     type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll';
+
+    /** 文件类型 */
+    type FileItem = {
+      /** 文件唯一标识 */
+      id: string;
+      /** 文件类型 */
+      type?: string;
+      /** 文件名 */
+      name: string;
+      /** 拓展名 */
+      extendName: string;
+      /** 文件路径 */
+      src: string;
+      /** 文件修改时间 */
+      updateTime: string;
+      /** 是否是目录 */
+      isDir: boolean;
+      /** 是否是公共目录 */
+      isPublic?: boolean;
+      /** 文件路径 */
+      filePath: string;
+      /** 文件大小 */
+      size: number;
+      /** 任意属性只能有一个 */
+      [propName: string]: any;
+    };
   }
 
   /**

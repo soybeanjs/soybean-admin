@@ -72,12 +72,10 @@ const fileMenuOptions = [
       </template>
       <NMenu v-model:value="selectedKey" :options="fileMenuOptions"></NMenu>
     </NCard>
-    <div v-show="showPersent" class="mt-10px box-border">
-      <NCard :bordered="false">
-        <NSpace justify="center">
-          <NProgress type="circle" :percentage="30" :stroke-width="5" />
-          <NStatistic label="剩余容量 / 总容量" value="512GB / 1T"></NStatistic>
-        </NSpace>
+    <div v-show="showPersent" class="mt-10px box-border flex-center">
+      <NCard :bordered="false" class="flex-y-center">
+        <NProgress type="circle" :percentage="30" :stroke-width="5" />
+        <NStatistic label="剩余容量 / 总容量" value="512GB / 1T"></NStatistic>
       </NCard>
     </div>
   </div>

@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useSvgIcon } from '@/hooks/common/icon';
 import { usePanStore } from '@/store/modules/pan';
+import { fetchGetFileList } from '@/service/api/pan';
 import FilePath from '../components/file-path.vue';
+import FileGrid from '../components/file-grid.vue';
+import FileList from '../components/file-list.vue';
+
 defineOptions({
   name: 'FileMain'
 });
@@ -13,6 +17,9 @@ const panStore = usePanStore();
 const isBatchMode = ref<boolean>(false);
 // 是否是加载的状态
 const show = ref(false);
+
+// 文件列表数据
+const fileList = ref<App.Global.FileItem[]>([]);
 
 // 获取当前文件列表的展示模式
 const currentMode = computed(() => panStore.fileShowMode);
@@ -27,7 +34,7 @@ const uploadOptions = [
   {
     key: 'file',
     label: '上传文件',
-    icon: SvgIconVNode({ localIcon: 'upload-file', fontSize: 20 }),
+    icon: SvgIconVNode({ localIcon: 'upload-file', fontSize: 25 }),
     props: {
       onClick: () => {
         // handleFileUpload();
@@ -47,6 +54,19 @@ const uploadOptions = [
     }
   }
 ];
+
+// 获取文件列表
+async function getListData() {
+  const { data: fileListData, error } = await fetchGetFileList();
+  if (!error) {
+    fileList.value = fileListData;
+  }
+}
+
+onMounted(async () => {
+  // 向后端发起请求获取文件列表
+  await getListData();
+});
 </script>
 
 <template>
@@ -125,11 +145,27 @@ const uploadOptions = [
           </NButtonGroup>
         </NSpace>
       </NSpace>
-
-      <!--文件列表--宫格模式-->
-      <NSpin :show="show" class="box-border flex-col px-0 py-16px">
-        <FileGrid />
-      </NSpin>
+      <div>
+        <NSpin :show="show" class="box-border h-full flex-col px-0 py-16px">
+          <!--文件列表--宫格模式-->
+          <FileGrid
+            v-show="fileList.length > 0 && currentMode === 'grid'"
+            :data="fileList"
+            :is-batch-mode="isBatchMode"
+          />
+          <!-- 文件列表-列表模式 -->
+          <FileList v-show="fileList.length && currentMode === 'list'" :data="fileList" :is-batch-mode="isBatchMode" />
+          <NCard
+            v-show="!fileList.length"
+            size="huge"
+            class="h-full flex-center gap-12px"
+            content-style="height: 100%; display: flex; flex-direction: column"
+          >
+            <img class="h-200px" src="@/assets/imgs/no-items-tip.png" />
+            <span class="text-20px">目前该目录下面啥也没有！</span>
+          </NCard>
+        </NSpin>
+      </div>
     </NCard>
   </div>
 </template>
