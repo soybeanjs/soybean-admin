@@ -74,6 +74,9 @@ importers:
       vue-router:
         specifier: 4.5.0
         version: 4.5.0(vue@3.5.13(typescript@5.7.3))
+      vue-simple-uploader:
+        specifier: ^1.0.3
+        version: 1.0.3(vue@3.5.13(typescript@5.7.3))
     devDependencies:
       '@elegant-router/vue':
         specifier: 0.3.8
@@ -3798,6 +3801,9 @@ packages:
     resolution: {integrity: sha512-tgqwPUMDcNDhuf1Xf6KTUsyeqGdgKMhzaH4PAZZuzguOgTl5uuyeYe/8mWgAr6IBxB5V06uqEf6Dy37gIWDtDg==}
     hasBin: true
 
+  simple-uploader.js@0.6.0:
+    resolution: {integrity: sha512-EXN+o+LD6PVnfzTq/usP8k8yYrI6wKrAx8e+fPcPLVzzttonkyn1KT+Ycx5JnPBSnp6lpiVhNG4JhDJucdPnhA==}
+
   simplebar-core@1.3.0:
     resolution: {integrity: sha512-LpWl3w0caz0bl322E68qsrRPpIn+rWBGAaEJ0lUJA7Xpr2sw92AkIhg6VWj988IefLXYh50ILatfAnbNoCFrlA==}
 
@@ -4336,6 +4342,12 @@ packages:
     resolution: {integrity: sha512-HDuk+PuH5monfNuY+ct49mNmkCRK4xJAV9Ts4z9UFc4rzdDnxQLyCMGGc8pKhZhHTVzfanpNwB/lwqevcBwI4w==}
     peerDependencies:
       vue: ^3.2.0
+
+  vue-simple-uploader@1.0.3:
+    resolution: {integrity: sha512-RIghV5rG1CaA41R7VlQP0UG9xevs+cRaCN0k7gH4cFHdG9yIf4206fGKA90NRKzlPxGSBTwLm5dCajLHfqd2+w==}
+    engines: {node: '>= 4.0.0', npm: '>= 3.0.0'}
+    peerDependencies:
+      vue: '>=3.1'
 
   vue-tsc@2.2.0:
     resolution: {integrity: sha512-gtmM1sUuJ8aSb0KoAFmK9yMxb8TxjewmxqTJ1aKphD5Cbu0rULFY6+UQT51zW7SpUcenfPUuflKyVwyx9Qdnxg==}
@@ -8250,6 +8262,8 @@ snapshots:
 
   simple-git-hooks@2.11.1: {}
 
+  simple-uploader.js@0.6.0: {}
+
   simplebar-core@1.3.0:
     dependencies:
       lodash: 4.17.21
@@ -8854,6 +8868,11 @@ snapshots:
   vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
+      vue: 3.5.13(typescript@5.7.3)
+
+  vue-simple-uploader@1.0.3(vue@3.5.13(typescript@5.7.3)):
+    dependencies:
+      simple-uploader.js: 0.6.0
       vue: 3.5.13(typescript@5.7.3)
 
   vue-tsc@2.2.0(typescript@5.7.3):

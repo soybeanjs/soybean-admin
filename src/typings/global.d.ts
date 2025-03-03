@@ -12,6 +12,8 @@ declare global {
     $message?: import('naive-ui').MessageProviderInst;
     /** Notification instance */
     $notification?: import('naive-ui').NotificationProviderInst;
+    /** Uploader instance */
+    $uploader?: import('vue-simple-uploader').Uploader;
   }
 
   /** Build time of the project */

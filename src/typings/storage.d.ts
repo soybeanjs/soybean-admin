@@ -38,5 +38,7 @@ declare namespace StorageType {
       siderCollapse: boolean;
     };
     fileShowMode: UnionKey.FileListMode;
+    /** uploader chunk size */
+    uploaderChunkSize: number;
   }
 }

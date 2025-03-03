@@ -13,6 +13,8 @@ defineOptions({
 const { SvgIconVNode } = useSvgIcon();
 const panStore = usePanStore();
 
+const globalUploaderRef = ref();
+
 // 是否是批量操作
 const isBatchMode = ref<boolean>(false);
 // 是否是加载的状态
@@ -30,6 +32,21 @@ const toggleMode = () => {
   panStore.toggleFileShowMode(newMode);
 };
 
+// 点击上传文件按钮的回调
+const handleFileUpload = () => {
+  globalUploaderRef.value?.handleFileUpload();
+};
+
+// 点击上传文件夹按钮的回调
+const handleFolderUpload = () => {
+  globalUploaderRef.value?.handleFolderUpload();
+};
+
+// 打开传输列表面板
+const handleOpenPanel = () => {
+  globalUploaderRef.value?.openPanelShow();
+};
+
 const uploadOptions = [
   {
     key: 'file',
@@ -37,8 +54,7 @@ const uploadOptions = [
     icon: SvgIconVNode({ localIcon: 'upload-file', fontSize: 25 }),
     props: {
       onClick: () => {
-        // handleFileUpload();
-        window.$message?.info('上传文件功能');
+        handleFileUpload();
       }
     }
   },
@@ -48,8 +64,7 @@ const uploadOptions = [
     icon: SvgIconVNode({ localIcon: 'upload-folder', fontSize: 20 }),
     props: {
       onClick: () => {
-        // handleFolderUpload();
-        window.$message?.info('上传文件夹功能');
+        handleFolderUpload();
       }
     }
   }
@@ -72,6 +87,7 @@ onMounted(async () => {
 <template>
   <div class="h-full flex-col overflow-hidden">
     <NCard class="h-full">
+      <GlobalUploader ref="globalUploaderRef" />
       <FilePath />
       <NSpace justify="space-between" class="mt-10px">
         <NSpace>
@@ -113,7 +129,7 @@ onMounted(async () => {
           <NButtonGroup>
             <NTooltip placement="bottom" trigger="hover">
               <template #trigger>
-                <NButton>
+                <NButton @click="handleOpenPanel">
                   <template #icon>
                     <icon-cuida:swap-vertical-arrows-outline />
                   </template>

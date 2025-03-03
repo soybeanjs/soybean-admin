@@ -15,7 +15,15 @@ export default defineConfig(
         'PascalCase',
         {
           registeredComponentsOnly: false,
-          ignores: ['/^icon-/']
+          ignores: [
+            '/^icon-/',
+            'uploader',
+            'uploader-unsupport',
+            'uploader-drop',
+            'uploader-btn',
+            'uploader-list',
+            'uploader-file'
+          ]
         }
       ],
       'unocss/order-attributify': 'off'
