@@ -35,12 +35,12 @@ export function fetchGetUserInfo() {
  *
  * @param refreshToken Refresh token
  */
-export function fetchRefreshToken(refreshToken: string) {
+export function fetchRefreshToken(refreshToken: Api.Auth.LoginToken) {
   return request<Api.Auth.LoginToken>({
     url: '/auth/refreshToken',
     method: 'post',
     data: {
-      refreshToken
+      ...refreshToken
     }
   });
 }
