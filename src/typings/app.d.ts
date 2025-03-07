@@ -175,6 +175,12 @@ declare namespace App {
     type RoutePath = import('@elegant-router/types').RoutePath;
     type LastLevelRouteKey = import('@elegant-router/types').LastLevelRouteKey;
 
+    /** The router push options */
+    type RouterPushOptions = {
+      query?: Record<string, string>;
+      params?: Record<string, string>;
+    };
+
     /** The global header props */
     interface HeaderProps {
       /** Whether to show the logo */
