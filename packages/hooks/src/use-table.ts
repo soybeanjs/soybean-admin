@@ -1,5 +1,5 @@
 import { computed, reactive, ref } from 'vue';
-import type { Ref } from 'vue';
+import type { Ref, VNodeChild } from 'vue';
 import { jsonClone } from '@sa/utils';
 import useBoolean from './use-boolean';
 import useLoading from './use-loading';
@@ -8,9 +8,11 @@ export type MaybePromise<T> = T | Promise<T>;
 
 export type ApiFn = (args: any) => Promise<unknown>;
 
+export type TableColumnCheckTitle = string | ((...args: any) => VNodeChild);
+
 export type TableColumnCheck = {
   key: string;
-  title: string;
+  title: TableColumnCheckTitle;
   checked: boolean;
 };
 
