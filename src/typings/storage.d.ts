@@ -37,8 +37,11 @@ declare namespace StorageType {
       layout: UnionKey.ThemeLayoutMode;
       siderCollapse: boolean;
     };
+    /** 文件展示模式 */
     fileShowMode: UnionKey.FileListMode;
     /** uploader chunk size */
     uploaderChunkSize: number;
+    /** 当前的路径 */
+    currentPath: string;
   }
 }

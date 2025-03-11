@@ -16,3 +16,21 @@ export const fetchDeleteFile = (id: string) => {
     method: 'delete'
   });
 };
+
+/** 检查文件是否存在 */
+export const fetchCheckFile = (query: any) => {
+  return request({
+    url: '/pan/file/check/',
+    method: 'post',
+    data: query
+  });
+};
+
+/** 上传文件夹 */
+export const fetchUploadFolder = (data: any) => {
+  return request({
+    url: '/pan/folder',
+    method: 'post',
+    data
+  });
+};

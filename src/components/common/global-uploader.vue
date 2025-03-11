@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import type { ComponentPublicInstance } from 'vue';
-import { nextTick, onMounted, ref } from 'vue';
-import { simpleUploadURL } from '@/service/api/pan';
+import { h, nextTick, onMounted, ref } from 'vue';
+import type { UploadFile } from 'vue-simple-uploader';
+import { NButton } from 'naive-ui';
+import { fetchCheckFile, fetchUploadFolder, simpleUploadURL } from '@/service/api/pan';
 import { localStg } from '@/utils/storage';
+import { usePanStore } from '@/store/modules/pan';
 
 defineOptions({
   name: 'GlobalUploader'
 });
+
+const panStore = usePanStore();
 
 /** 数据定义 */
 const uploaderRef = ref();
@@ -85,6 +90,157 @@ const handleFolderUpload = () => {
   }
 };
 
+// 文件上传前的方法
+const handleUploadBefore = async (files: UploadFile[], uploadParams?: any) => {
+  if (!files || files.length === 0) {
+    window.$message?.warning('没有选择要上传的文件');
+    return;
+  }
+  // 更新文件列表长度
+  fileListLength.value = window.$uploader?.fileList.length || 0;
+  // 处理文件夹上传
+  const filePaths = window.$uploader?.filePaths || {};
+  const paths = Object.keys(filePaths);
+  if (paths.length > 0) {
+    try {
+      // 收集所有文件夹信息，一次性发送给后端
+      const folderStructure = paths.map(path => {
+        const folder = filePaths[path];
+        return {
+          path: folder.parent.path,
+          name: folder.name,
+          fullPath: folder.parent.path ? `${folder.parent.path}${folder.name}` : folder.name
+        };
+      });
+
+      // 向后端发送完整的文件夹结构信息
+      await fetchUploadFolder({
+        isFolder: true,
+        currentDirectory: panStore.currentPath as string,
+        folderStructure // 传递完整的文件夹结构给后端
+      });
+      // 所有文件夹创建完成后，开始上传文件
+      if (uploadParams) {
+        // 处理特殊上传模式（智能合并或重命名）
+        if (uploadParams.mergeMode === 'smart') {
+          window.$message?.success('使用智能合并模式上传文件');
+        } else if (uploadParams.renameMode === 'auto') {
+          window.$message?.success('使用自动重命名模式上传文件');
+        }
+      }
+    } catch (error) {
+      window.$message?.error(`上传文件夹时出现错误：${error}`);
+    }
+  }
+
+  // 上传文件
+  files.forEach(_file => {
+    Object.assign(window.$uploader?.opts, {
+      query: {
+        isFolder: false,
+        currentPath: panStore.currentPath,
+        ...(uploadParams || {})
+      }
+    });
+  });
+  // Dom更新完成，开始上传
+  nextTick(() => {
+    window.$uploader?.resume();
+  });
+};
+
+// 取消上传的方法
+const hanldeUploadCancel = () => {
+  window.$uploader?.cancel();
+  window.$message?.info('还没实现取消上传的方法');
+};
+
+// 智能合并处理函数
+const handleSmartMerge = (files: UploadFile[], conflicts: any[]) => {
+  // 实现智能合并逻辑
+  // 例如：文件夹合并内容，文件则根据修改时间或大小决定是否覆盖
+  handleUploadBefore(files, { mergeMode: 'smart', conflicts });
+};
+
+// 重命名后上传处理函数
+const handleRenameAndUpload = (files: UploadFile[], conflicts: any[]) => {
+  // 实现自动重命名逻辑
+  // 例如：为冲突文件添加后缀如 "(1)", "(2)" 等
+  handleUploadBefore(files, { renameMode: 'auto', conflicts });
+};
+// 文件一添加就执行的方法
+const handleFilesAdded = async (files: UploadFile[]) => {
+  if (files.length === 0) return;
+  try {
+    // 遍历files得到文件名称和路径的信息
+    const fileInfo = files.map(file => {
+      // 使用路径分隔符分割相对路径
+      const pathParts = file.relativePath.split(/[/\\]/);
+      // 判断是否为文件夹上传（路径包含多级目录）
+      const isFolderUpload = pathParts.length > 1;
+      return {
+        name: file.name,
+        // 保存完整的相对路径，而不仅仅是第一级目录
+        fullPath: file.relativePath,
+        // 如果是文件夹上传取第一级目录，否则设为undefined
+        rootPath: isFolderUpload ? pathParts[0] : undefined,
+        // 保存完整的路径数组，用于后续处理
+        pathParts,
+        isFolder: isFolderUpload
+      };
+    });
+    const query = {
+      fileInfo,
+      currentPath: panStore.currentPath
+    };
+    // 校验文件是否存在
+    const { data: conflictData, error } = await fetchCheckFile(query);
+    if (!error) {
+      if (conflictData.exist) {
+        window.$dialog?.warning({
+          title: '提示',
+          content: `文件已存在,是否覆盖？`,
+          // 使用action渲染函数提供额外的按钮
+          action: () => {
+            return h('div', { style: 'display: flex; justify-content: center; gap: 8px;' }, [
+              h(
+                NButton,
+                {
+                  size: 'small',
+                  onClick: () => handleSmartMerge(files, conflictData.conflicts || [])
+                },
+                { default: () => '智能合并' }
+              ),
+              h(
+                NButton,
+                {
+                  size: 'small',
+                  onClick: () => handleRenameAndUpload(files, conflictData.conflicts || [])
+                },
+                { default: () => '重命名上传' }
+              ),
+              h(
+                NButton,
+                {
+                  size: 'small',
+                  onClick: () => {
+                    hanldeUploadCancel();
+                  }
+                },
+                { default: () => '取消' }
+              )
+            ]);
+          }
+        });
+      } else {
+        handleUploadBefore(files);
+      }
+    }
+  } catch (error) {
+    window.$message?.error(`校验文件是否存在时出现错误：${error}`);
+  }
+};
+
 // 关闭上传框的方法
 const closePanel = () => {
   if (process.value === -10 || process.value === 100 || fileListLength.value === 0) {
@@ -133,6 +289,7 @@ onMounted(() => {
       :auto-start="false"
       :file-status-text="statusText"
       class="w-720px"
+      @files-added="handleFilesAdded"
     >
       <uploader-unsupport>您的浏览器不支持上传组件</uploader-unsupport>
 

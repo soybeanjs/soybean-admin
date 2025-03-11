@@ -15,5 +15,15 @@
   "prettier.enable": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "unocss.root": ["./"],
-  "vue.server.hybridMode": true
+  "vue.server.hybridMode": true,
+  "marscode.chatLanguage": "cn",
+  "marscode.codeCompletionPro": {
+    "enableCodeCompletionPro": true
+  },
+  "marscode.enableInlineCommand": true,
+  "marscode.enableCodelens": {
+    "enableInlineDocumentation": true,
+    "enableInlineUnitTest": true,
+    "enableInlineExplain": true
+  }
 }

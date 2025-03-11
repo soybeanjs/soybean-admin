@@ -92,4 +92,6 @@ declare namespace Api {
       home: import('@elegant-router/types').LastLevelRouteKey;
     }
   }
+
+  namespace Pan {}
 }
