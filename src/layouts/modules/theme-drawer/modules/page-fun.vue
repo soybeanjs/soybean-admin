@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { $t } from '@/locales';
-import { useThemeStore } from '@/store/modules/theme';
 import {
   resetCacheStrategyOptions,
   themePageAnimationModeOptions,
   themeScrollModeOptions,
   themeTabModeOptions
 } from '@/constants/app';
+import { useThemeStore } from '@/store/modules/theme';
 import { translateOptions } from '@/utils/common';
+import { $t } from '@/locales';
 import SettingItem from '../components/setting-item.vue';
 
 defineOptions({

@@ -1,4 +1,5 @@
 import { computed, effectScope, nextTick, onScopeDispose, ref, watch } from 'vue';
+import { useElementSize } from '@vueuse/core';
 import * as echarts from 'echarts/core';
 import { BarChart, GaugeChart, LineChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
 import type {
@@ -29,7 +30,6 @@ import type {
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-import { useElementSize } from '@vueuse/core';
 import { useThemeStore } from '@/store/modules/theme';
 
 export type ECOption = echarts.ComposeOption<

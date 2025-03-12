@@ -2,11 +2,11 @@
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { SimpleScrollbar } from '@sa/materials';
+import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
-import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
 import { useMenu } from '../../../context';
 
 defineOptions({

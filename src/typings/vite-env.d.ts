@@ -8,6 +8,7 @@ declare namespace Env {
   type RouterHistoryMode = 'hash' | 'history' | 'memory';
 
   /** Interface for import.meta */
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   interface ImportMeta extends ImportMetaEnv {
     /** The base url of the application */
     readonly VITE_BASE_URL: string;

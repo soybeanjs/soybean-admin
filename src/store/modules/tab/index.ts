@@ -1,12 +1,12 @@
 import { computed, ref } from 'vue';
-import { defineStore } from 'pinia';
 import { useEventListener } from '@vueuse/core';
+import { defineStore } from 'pinia';
 import type { RouteKey } from '@elegant-router/types';
 import { router } from '@/router';
-import { SetupStoreId } from '@/enum';
+import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
 import { localStg } from '@/utils/storage';
-import { useRouteStore } from '@/store/modules/route';
+import { SetupStoreId } from '@/enum';
 import { useThemeStore } from '../theme';
 import {
   extractTabsByAllRoutes,

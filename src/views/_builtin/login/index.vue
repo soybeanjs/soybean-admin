@@ -2,10 +2,10 @@
 import { computed } from 'vue';
 import type { Component } from 'vue';
 import { getPaletteColorByNumber, mixColor } from '@sa/color';
-import { $t } from '@/locales';
+import { loginModuleRecord } from '@/constants/app';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
-import { loginModuleRecord } from '@/constants/app';
+import { $t } from '@/locales';
 import PwdLogin from './modules/pwd-login.vue';
 import CodeLogin from './modules/code-login.vue';
 import Register from './modules/register.vue';

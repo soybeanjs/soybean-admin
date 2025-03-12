@@ -1,10 +1,10 @@
 import { computed, effectScope, onScopeDispose, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
-import { defineStore } from 'pinia';
 import { useEventListener, usePreferredColorScheme } from '@vueuse/core';
+import { defineStore } from 'pinia';
 import { getPaletteColorByNumber } from '@sa/color';
-import { SetupStoreId } from '@/enum';
 import { localStg } from '@/utils/storage';
+import { SetupStoreId } from '@/enum';
 import {
   addThemeVarsToGlobal,
   createThemeToken,
