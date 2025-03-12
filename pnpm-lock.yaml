@@ -117,12 +117,18 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: 4.1.1
         version: 4.1.1(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
+      consola:
+        specifier: 3.4.0
+        version: 3.4.0
       eslint:
         specifier: 9.22.0
         version: 9.22.0(jiti@2.4.2)
       eslint-plugin-vue:
         specifier: 10.0.0
         version: 10.0.0(eslint@9.22.0(jiti@2.4.2))(vue-eslint-parser@10.1.1(eslint@9.22.0(jiti@2.4.2)))
+      kolorist:
+        specifier: 1.8.0
+        version: 1.8.0
       lint-staged:
         specifier: 15.4.3
         version: 15.4.3
