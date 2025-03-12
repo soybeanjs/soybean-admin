@@ -27,7 +27,7 @@ const localIcons = ['custom-icon', 'activity', 'at-sign', 'cast', 'chrome', 'cop
     </NCard>
     <NCard title="自定义图标示例" :bordered="false" class="mt-10px card-wrapper">
       <div class="pb-12px text-16px">
-        在src/assets/svg-icon文件夹下的svg文件，通过在template里面以 icon-local-{文件名} 直接渲染,
+        在src/assets/svg-icon文件夹下的svg文件，通过在template里面以 icon - local - {文件名} 直接渲染,
         其中icon-local为.env文件里的 VITE_ICON_LOCAL_PREFIX
       </div>
       <div class="grid grid-cols-10">

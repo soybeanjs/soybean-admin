@@ -184,6 +184,7 @@ const basicGanttOption: VTableGantt.GanttConstructorOptions = {
   },
   markLine: [
     {
+      content: '',
       date: '2024-07-28',
       style: {
         lineWidth: 1,
@@ -192,6 +193,7 @@ const basicGanttOption: VTableGantt.GanttConstructorOptions = {
       }
     },
     {
+      content: '',
       date: '2024-08-17',
       style: {
         lineWidth: 2,
@@ -705,6 +707,7 @@ const customGanttOption: VTableGantt.GanttConstructorOptions = {
   maxDate: '2024-08-15',
   markLine: [
     {
+      content: '',
       date: '2024-07-29',
       style: {
         lineWidth: 1,
@@ -713,6 +716,7 @@ const customGanttOption: VTableGantt.GanttConstructorOptions = {
       }
     },
     {
+      content: '',
       date: '2024-08-17',
       style: {
         lineWidth: 2,

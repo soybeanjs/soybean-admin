@@ -1,12 +1,12 @@
 import { computed, ref } from 'vue';
-import { defineStore } from 'pinia';
 import { useEventListener } from '@vueuse/core';
+import { defineStore } from 'pinia';
 import type { RouteKey } from '@elegant-router/types';
 import { router } from '@/router';
-import { SetupStoreId } from '@/enum';
+import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
 import { localStg } from '@/utils/storage';
-import { useRouteStore } from '@/store/modules/route';
+import { SetupStoreId } from '@/enum';
 import { useThemeStore } from '../theme';
 import {
   extractTabsByAllRoutes,
@@ -160,6 +160,25 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     update();
   }
 
+  const { routerPushByKey } = useRouterPush();
+  /**
+   * Replace tab
+   *
+   * @param key Route key
+   * @param options Router push options
+   */
+  async function replaceTab(key: RouteKey, options?: App.Global.RouterPushOptions) {
+    const oldTabId = activeTabId.value;
+
+    // push new route
+    await routerPushByKey(key, options);
+
+    // remove old tab (exclude fixed tab)
+    if (!isTabRetain(oldTabId)) {
+      await removeTab(oldTabId);
+    }
+  }
+
   /**
    * Switch route by tab
    *
@@ -282,6 +301,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     removeTab,
     removeActiveTab,
     removeTabByRouteName,
+    replaceTab,
     clearTabs,
     clearLeftTabs,
     clearRightTabs,

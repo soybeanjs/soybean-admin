@@ -3,12 +3,12 @@ import { nextTick, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useElementBounding } from '@vueuse/core';
 import { PageTab } from '@sa/materials';
-import BetterScroll from '@/components/custom/better-scroll.vue';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 import { useTabStore } from '@/store/modules/tab';
 import { isPC } from '@/utils/agent';
+import BetterScroll from '@/components/custom/better-scroll.vue';
 import ContextMenu from './context-menu.vue';
 
 defineOptions({
@@ -114,7 +114,7 @@ function setDropdown(config: Partial<DropdownConfig>) {
 
 let isClickContextMenu = false;
 
-function handleDropdownVisible(visible: boolean) {
+function handleDropdownVisible(visible: boolean | undefined) {
   if (!isClickContextMenu) {
     setDropdown({ visible });
   }
@@ -186,7 +186,7 @@ init();
             :active="tab.id === tabStore.activeTabId"
             :active-color="themeStore.themeColor"
             :closable="!tabStore.isTabRetain(tab.id)"
-            @click="tabStore.switchRouteByTab(tab)"
+            @pointerdown="tabStore.switchRouteByTab(tab)"
             @close="handleCloseTab(tab)"
             @contextmenu="handleContextMenu($event, tab.id)"
           >

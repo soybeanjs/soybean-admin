@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
-import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
 import GlobalLogo from '../global-logo/index.vue';
 
 defineOptions({

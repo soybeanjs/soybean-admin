@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { VNode } from 'vue';
-import { $t } from '@/locales';
 import { useTabStore } from '@/store/modules/tab';
 import { useSvgIcon } from '@/hooks/common/icon';
+import { $t } from '@/locales';
 
 defineOptions({
   name: 'ContextMenu'

@@ -6,10 +6,10 @@ import type {
   Router
 } from 'vue-router';
 import type { RouteKey, RoutePath } from '@elegant-router/types';
-import { getRouteName } from '@/router/elegant/transform';
 import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
 import { localStg } from '@/utils/storage';
+import { getRouteName } from '@/router/elegant/transform';
 
 /**
  * create route guard

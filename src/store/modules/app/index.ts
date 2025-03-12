@@ -1,12 +1,12 @@
 import { effectScope, nextTick, onScopeDispose, ref, watch } from 'vue';
-import { defineStore } from 'pinia';
 import { breakpointsTailwind, useBreakpoints, useEventListener, useTitle } from '@vueuse/core';
+import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
-import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
+import { localStg } from '@/utils/storage';
+import { SetupStoreId } from '@/enum';
 import { $t, setLocale } from '@/locales';
 import { setDayjsLocale } from '@/locales/dayjs';
-import { localStg } from '@/utils/storage';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
 import { useThemeStore } from '../theme';

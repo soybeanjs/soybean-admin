@@ -1,6 +1,40 @@
 # Changelog
 
 
+## [v1.3.12](https://github.com/soybeanjs/soybean-admin/compare/v1.3.11...v1.3.12) (2025-03-12)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**:
+  - support loading page dark mode adaptation. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/702 [<samp>(9b945)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9b9455d9)
+  - tab support touch event &nbsp;-&nbsp; by @soybeanjs [<samp>(a03be)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a03becda)
+  - support proxy log in terminal &nbsp;-&nbsp; by @soybeanjs [<samp>(4cc14)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4cc1487f)
+- **projects): feat(projects**:
+  - TableColumnCheck title support VNode &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/716 [<samp>(a1a5c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a1a5c74c)
+- **utils**:
+  - support replaceTab. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/713 [<samp>(be608)</samp>](https://github.com/soybeanjs/soybean-admin/commit/be6080ba)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - hidden multi-language button in login page. fix #694 &nbsp;-&nbsp; by **Azir** in https://github.com/soybeanjs/soybean-admin/issues/694 [<samp>(54e7d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/54e7d6d0)
+  - fix multiple calls to the login API when clicking quickly. fixed #697 &nbsp;-&nbsp; by @zsdycs in https://github.com/soybeanjs/soybean-admin/issues/698 and https://github.com/soybeanjs/soybean-admin/issues/697 [<samp>(86da7)</samp>](https://github.com/soybeanjs/soybean-admin/commit/86da767e)
+  - fix multiple calls to the login API when clicking quickly. fixed #697 " &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/698 and https://github.com/soybeanjs/soybean-admin/issues/697 [<samp>(15163)</samp>](https://github.com/soybeanjs/soybean-admin/commit/15163d70)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(132e1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/132e1012)
+  - update deps &nbsp;-&nbsp; by **Azir** [<samp>(52c33)</samp>](https://github.com/soybeanjs/soybean-admin/commit/52c336d7)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(b8112)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b8112613)
+- **projects**:
+  - update unocss preset &nbsp;-&nbsp; by @Wangijun in https://github.com/soybeanjs/soybean-admin/issues/712 [<samp>(3e007)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3e0076d4)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![Wangijun](https://github.com/Wangijun.png?size=48)](https://github.com/Wangijun)&nbsp;&nbsp;[![zsdycs](https://github.com/zsdycs.png?size=48)](https://github.com/zsdycs)&nbsp;&nbsp;
+[Azir](mailto:2075125282@qq.com),&nbsp;
+
 ## [v1.3.11](https://github.com/soybeanjs/soybean-admin/compare/v1.3.10...v1.3.11) (2025-01-19)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
