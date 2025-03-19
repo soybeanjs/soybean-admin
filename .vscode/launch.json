@@ -14,7 +14,9 @@
       "name": "TS Debugger",
       "runtimeExecutable": "tsx",
       "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"],
-      "program": "${file}"
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
