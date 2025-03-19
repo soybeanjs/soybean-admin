@@ -1,6 +1,33 @@
 # Changelog
 
 
+## [v1.3.13](https://github.com/soybeanjs/soybean-admin/compare/v1.3.12...v1.3.13) (2025-03-19)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: fix active tab switch issue after removal &nbsp;-&nbsp; by @me-o in https://github.com/soybeanjs/soybean-admin/issues/723 [<samp>(a7c59)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a7c59ada)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/718 [<samp>(3febb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3febb65d)
+
+### &nbsp;&nbsp;&nbsp;📦 Build
+
+- **deps**: Restrict the minimum Node.js version. &nbsp;-&nbsp; by **一寸灰** in https://github.com/soybeanjs/soybean-admin/issues/720 [<samp>(a6ecd)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a6ecd3e0)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(5d8b7)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5d8b782d)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(2e8cb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2e8cb35c)
+- **projects**:
+  - update vscode settings and launch &nbsp;-&nbsp; by @soybeanjs [<samp>(8b12e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8b12ef9f)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![me-o](https://github.com/me-o.png?size=48)](https://github.com/me-o)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;
+[一寸灰](mailto:webzhangfei@163.com),&nbsp;
+
 ## [v1.3.12](https://github.com/soybeanjs/soybean-admin/compare/v1.3.11...v1.3.12) (2025-03-12)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
