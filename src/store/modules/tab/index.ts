@@ -10,7 +10,6 @@ import { SetupStoreId } from '@/enum';
 import { useThemeStore } from '../theme';
 import {
   extractTabsByAllRoutes,
-  filterTabsById,
   filterTabsByIds,
   findTabByRouteName,
   getAllTabs,
@@ -96,23 +95,15 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @param tabId Tab id
    */
   async function removeTab(tabId: string) {
+    const removeTabIndex = tabs.value.findIndex(tab => tab.id === tabId);
+    if (removeTabIndex === -1) return;
+
     const isRemoveActiveTab = activeTabId.value === tabId;
-    const updatedTabs = filterTabsById(tabId, tabs.value);
+    const nextTab = tabs.value[removeTabIndex + 1] || homeTab.value;
 
-    function update() {
-      tabs.value = updatedTabs;
-    }
-
-    if (!isRemoveActiveTab) {
-      update();
-      return;
-    }
-
-    const activeTab = updatedTabs.at(-1) || homeTab.value;
-
-    if (activeTab) {
-      await switchRouteByTab(activeTab);
-      update();
+    tabs.value.splice(removeTabIndex, 1);
+    if (isRemoveActiveTab && nextTab) {
+      await switchRouteByTab(nextTab);
     }
   }
 
