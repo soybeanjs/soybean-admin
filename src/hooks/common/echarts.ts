@@ -210,6 +210,10 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
 
     // render chart
     await render();
+
+    if (chart) {
+      await onUpdated?.(chart);
+    }
   }
 
   scope.run(() => {
