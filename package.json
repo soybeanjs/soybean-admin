@@ -89,7 +89,6 @@
     "eslint": "9.22.0",
     "eslint-plugin-vue": "10.0.0",
     "kolorist": "1.8.0",
-    "lint-staged": "15.5.0",
     "sass": "1.86.0",
     "simple-git-hooks": "2.11.1",
     "tsx": "4.19.3",
@@ -105,10 +104,7 @@
   },
   "simple-git-hooks": {
     "commit-msg": "pnpm sa git-commit-verify",
-    "pre-commit": "pnpm typecheck && pnpm lint-staged"
-  },
-  "lint-staged": {
-    "*": "eslint --fix"
+    "pre-commit": "pnpm typecheck && pnpm lint && git diff --exit-code"
   },
   "website": "https://admin.soybeanjs.cn"
 }
