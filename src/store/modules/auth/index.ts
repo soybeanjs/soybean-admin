@@ -41,6 +41,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   async function resetStore() {
     const authStore = useAuthStore();
 
+    recordUserId();
+
     clearAuthStorage();
 
     authStore.$reset();
@@ -51,6 +53,41 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     tabStore.cacheTabs();
     routeStore.resetStore();
+  }
+
+  /** Record the user ID of the previous login session Used to compare with the current user ID on next login */
+  function recordUserId() {
+    if (!userInfo.userId) {
+      return;
+    }
+
+    // Store current user ID locally for next login comparison
+    localStg.set('lastLoginUserId', userInfo.userId);
+  }
+
+  /**
+   * Check if current login user is different from previous login user If different, clear all tabs
+   *
+   * @returns {boolean} Whether to clear all tabs
+   */
+  function checkTabClear(): boolean {
+    if (!userInfo.userId) {
+      return false;
+    }
+
+    const lastLoginUserId = localStg.get('lastLoginUserId');
+
+    // Clear all tabs if current user is different from previous user
+    if (!lastLoginUserId || lastLoginUserId !== userInfo.userId) {
+      localStg.remove('globalTabs');
+      tabStore.clearTabs();
+
+      localStg.remove('lastLoginUserId');
+      return true;
+    }
+
+    localStg.remove('lastLoginUserId');
+    return false;
   }
 
   /**
@@ -69,7 +106,15 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
       const pass = await loginByToken(loginToken);
 
       if (pass) {
-        await redirectFromLogin(redirect);
+        // Check if the tab needs to be cleared
+        const isClear = checkTabClear();
+        let needRedirect = redirect;
+
+        if (isClear) {
+          // If the tab needs to be cleared,it means we don't need to redirect.
+          needRedirect = false;
+        }
+        await redirectFromLogin(needRedirect);
 
         window.$notification?.success({
           title: $t('page.login.common.loginSuccess'),
