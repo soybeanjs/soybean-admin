@@ -44,19 +44,25 @@
   - [Preview Link](https://naive.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin)
   - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin)
+  - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin)
 
 - **AntDesignVue Version:**
   - [Preview Link](https://antd.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin-antd)
   - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-antd)
+  - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin-antd)
 
 - **ElementPlus Version:**
   - [Preview Link](https://elp.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin-element-plus)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-element-plus)
+  - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin-element-plus)
 
 - **Legacy Version:**
   - [Preview Link](https://legacy.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin/tree/legacy)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin/tree/legacy)
+  - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin/tree/legacy)
 
 
 ## Documentation
@@ -92,7 +98,12 @@ Make sure your environment meets the following requirements:
 **Clone Project**
 
 ```bash
+# github
 git clone https://github.com/soybeanjs/soybean-admin.git
+# gitee
+git clone https://gitee.com/honghuangdc/soybean-admin.git
+# gitcode
+git clone https://gitcode.com/soybeanjs/soybean-admin.git
 ```
 
 **Install Dependencies**
