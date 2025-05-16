@@ -554,6 +554,82 @@ declare namespace App {
             triggerAllRequest: string;
           };
         };
+        proNaive: {
+          form: {
+            basic: {
+              title: string;
+              appName: string;
+              appStatus: string;
+              createTime: string;
+              responseDate: string;
+              specificationInfo: string;
+              specificate: string;
+              specificationName: string;
+              specificationValue: string;
+              specificationColorRed: string;
+              specificationColorOrange: string;
+              addSpecificateItem: string;
+              fillValue: string;
+              reset: string;
+              submit: string;
+              add: string;
+              delete: string;
+              color: string;
+              normal: string;
+              anomaly: string;
+            };
+            query: {
+              title1: string;
+              title2: string;
+              appName: string;
+              appStatus: string;
+              createTime: string;
+              responseDate: string;
+              endDate: string;
+              field: string;
+            };
+            step: {
+              title: string;
+              step1: {
+                title: string;
+                field: string;
+                nextStep: string;
+              };
+              step2: {
+                title: string;
+                field: string;
+                prevStep: string;
+                submit: string;
+              };
+            };
+          };
+          table: {
+            remote: {
+              filterCondition: string;
+              name: string;
+              createTime: string;
+              responseTime: string;
+              title: string;
+              replicableText: string;
+              tags: string;
+              dateFormatting: string;
+              image: string;
+            };
+            rowEdit: {
+              title: string;
+              reset: string;
+              submit: string;
+              edit: string;
+              delete: string;
+              save: string;
+              task: string;
+              score: string;
+              time: string;
+              name: string;
+              action: string;
+            };
+          };
+        };
         manage: {
           common: {
             status: {

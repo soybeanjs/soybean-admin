@@ -28,6 +28,7 @@ declare module "@elegant-router/types" {
     "document_vite": "/document/vite";
     "document_unocss": "/document/unocss";
     "document_naive": "/document/naive";
+    "document_pro-naive": "/document/pro-naive";
     "document_antd": "/document/antd";
     "document_alova": "/document/alova";
     "403": "/403";
@@ -86,6 +87,14 @@ declare module "@elegant-router/types" {
     "plugin_tables_vtable": "/plugin/tables/vtable";
     "plugin_typeit": "/plugin/typeit";
     "plugin_video": "/plugin/video";
+    "pro-naive": "/pro-naive";
+    "pro-naive_form": "/pro-naive/form";
+    "pro-naive_form_basic": "/pro-naive/form/basic";
+    "pro-naive_form_query": "/pro-naive/form/query";
+    "pro-naive_form_step": "/pro-naive/form/step";
+    "pro-naive_table": "/pro-naive/table";
+    "pro-naive_table_remote": "/pro-naive/table/remote";
+    "pro-naive_table_row-edit": "/pro-naive/table/row-edit";
     "user-center": "/user-center";
   };
 
@@ -117,6 +126,7 @@ declare module "@elegant-router/types" {
     | "document_vite"
     | "document_unocss"
     | "document_naive"
+    | "document_pro-naive"
     | "document_antd"
     | "document_alova"
   >;
@@ -143,6 +153,7 @@ declare module "@elegant-router/types" {
     | "manage"
     | "multi-menu"
     | "plugin"
+    | "pro-naive"
     | "user-center"
   >;
 
@@ -205,6 +216,11 @@ declare module "@elegant-router/types" {
     | "plugin_tables_vtable"
     | "plugin_typeit"
     | "plugin_video"
+    | "pro-naive_form_basic"
+    | "pro-naive_form_query"
+    | "pro-naive_form_step"
+    | "pro-naive_table_remote"
+    | "pro-naive_table_row-edit"
     | "user-center"
   >;
 
@@ -224,6 +240,7 @@ declare module "@elegant-router/types" {
     | "document_vite"
     | "document_unocss"
     | "document_naive"
+    | "document_pro-naive"
     | "document_antd"
     | "document_alova"
   >;

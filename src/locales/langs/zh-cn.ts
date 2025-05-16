@@ -170,6 +170,7 @@ const local: App.I18n.Schema = {
     document_vite: 'Vite文档',
     document_unocss: 'UnoCSS文档',
     document_naive: 'Naive UI文档',
+    'document_pro-naive': 'Pro Naive UI文档',
     document_antd: 'Ant Design Vue文档',
     document_alova: 'Alova文档',
     'user-center': '个人中心',
@@ -179,6 +180,14 @@ const local: App.I18n.Schema = {
     alova_request: 'alova请求',
     alova_user: '用户列表',
     alova_scenes: '场景化请求',
+    'pro-naive': 'Pro Naive UI 示例',
+    'pro-naive_form': '表单',
+    'pro-naive_form_basic': '基础表单',
+    'pro-naive_form_query': '查询表单',
+    'pro-naive_form_step': '分步表单',
+    'pro-naive_table': '表格',
+    'pro-naive_table_remote': '远程加载',
+    'pro-naive_table_row-edit': '行编辑',
     function_tab: '标签页',
     'function_multi-tab': '多标签页',
     'function_hide-child': '隐藏子菜单',
@@ -368,6 +377,82 @@ const local: App.I18n.Schema = {
         stopRequest: '停止请求',
         requestCrossComponent: '跨组件触发请求',
         triggerAllRequest: '手动触发所有自动请求'
+      }
+    },
+    proNaive: {
+      form: {
+        basic: {
+          title: '基础示例',
+          appName: '应用名称',
+          appStatus: '应用状态',
+          createTime: '创建时间',
+          responseDate: '响应日期',
+          specificationInfo: '规格信息',
+          specificate: '规格',
+          specificationName: '规格名',
+          specificationValue: '规格值',
+          specificationColorRed: '红',
+          specificationColorOrange: '橙',
+          addSpecificateItem: '添加规格项',
+          fillValue: '填充值',
+          reset: '重置',
+          submit: '提交',
+          add: '新建',
+          delete: '删除',
+          color: '颜色',
+          normal: '正常',
+          anomaly: '异常'
+        },
+        query: {
+          title1: '查询表单，默认展开',
+          title2: '查询表单，默认折叠，折叠时保留2行',
+          appName: '应用名称',
+          appStatus: '应用状态',
+          createTime: '创建时间',
+          responseDate: '响应日期',
+          endDate: '结束日期',
+          field: '字段'
+        },
+        step: {
+          title: '分步表单',
+          step1: {
+            title: '表单1',
+            field: '表单1字段',
+            nextStep: '下一步'
+          },
+          step2: {
+            title: '表单2',
+            field: '表单2字段',
+            prevStep: '上一步',
+            submit: '提交'
+          }
+        }
+      },
+      table: {
+        remote: {
+          filterCondition: '筛选条件',
+          name: '名称',
+          createTime: '创建时间',
+          responseTime: '响应时间',
+          title: '远程加载',
+          replicableText: '可复制文本',
+          tags: 'tags',
+          dateFormatting: '日期格式化',
+          image: '图片'
+        },
+        rowEdit: {
+          title: '编辑表格',
+          reset: '重置',
+          submit: '提交',
+          edit: '编辑',
+          delete: '删除',
+          save: '保存',
+          task: '任务',
+          score: '评分',
+          time: '时间',
+          name: '名称',
+          action: '操作'
+        }
       }
     },
     manage: {

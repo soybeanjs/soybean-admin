@@ -6,6 +6,7 @@ import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
+import { ProNaiveUIResolver } from 'pro-naive-ui-resolver';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 
 export function setupUnplugin(viteEnv: Env.ImportMeta) {
@@ -32,6 +33,7 @@ export function setupUnplugin(viteEnv: Env.ImportMeta) {
       types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
       resolvers: [
         NaiveUiResolver(),
+        ProNaiveUIResolver(),
         IconsResolver({ customCollections: [collectionName], componentPrefix: VITE_ICON_PREFIX })
       ]
     }),
