@@ -19,6 +19,7 @@ export function setupElegantRouter() {
         'document_vite',
         'document_unocss',
         'document_naive',
+        'document_pro-naive',
         'document_antd',
         'document_alova'
       ]

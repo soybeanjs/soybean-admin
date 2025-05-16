@@ -170,6 +170,7 @@ const local: App.I18n.Schema = {
     document_vite: 'Vite Document',
     document_unocss: 'UnoCSS Document',
     document_naive: 'Naive UI Document',
+    'document_pro-naive': 'Pro Naive UI Document',
     document_antd: 'Ant Design Vue Document',
     document_alova: 'Alova Document',
     'user-center': 'User Center',
@@ -179,6 +180,14 @@ const local: App.I18n.Schema = {
     alova_request: 'Alova Request',
     alova_user: 'User List',
     alova_scenes: 'Scenario Request',
+    'pro-naive': 'Pro Naive Example',
+    'pro-naive_form': 'Form',
+    'pro-naive_form_basic': 'Basic Form',
+    'pro-naive_form_query': 'Query Form',
+    'pro-naive_form_step': 'Step Form',
+    'pro-naive_table': 'Table',
+    'pro-naive_table_remote': 'Remote',
+    'pro-naive_table_row-edit': 'Row Edit',
     function_tab: 'Tab',
     'function_multi-tab': 'Multi Tab',
     'function_hide-child': 'Hide Child',
@@ -368,6 +377,82 @@ const local: App.I18n.Schema = {
         stopRequest: 'Stop Request',
         requestCrossComponent: 'Request Cross Component',
         triggerAllRequest: 'Manually Trigger All Automated Requests'
+      }
+    },
+    proNaive: {
+      form: {
+        basic: {
+          title: 'Basic Example',
+          appName: 'ApplicationName',
+          appStatus: 'ApplicationStatus',
+          createTime: 'CreateTime',
+          responseDate: 'ResponseDate',
+          specificationInfo: 'SpecificationInfo',
+          specificate: 'Specificate',
+          specificationName: 'SpecificationName',
+          specificationValue: 'SpecificationValue',
+          specificationColorRed: 'Red',
+          specificationColorOrange: 'Orange',
+          addSpecificateItem: 'Add Specificate Item',
+          fillValue: 'FillValue',
+          reset: 'Reset',
+          submit: 'Submit',
+          add: 'Add',
+          delete: 'Delete',
+          color: 'Color',
+          normal: 'Normal',
+          anomaly: 'Anomaly'
+        },
+        query: {
+          title1: 'Query Example, which expands by default',
+          title2: 'Query Example, which fold by default, and two lines are retained when folding',
+          appName: 'ApplicationName',
+          appStatus: 'ApplicationStatus',
+          createTime: 'CreateTime',
+          responseDate: 'ResponseDate',
+          endDate: 'EndDate',
+          field: 'Field'
+        },
+        step: {
+          title: 'Step Form',
+          step1: {
+            title: 'Form 1',
+            field: 'Form 1 field',
+            nextStep: 'Next Step'
+          },
+          step2: {
+            title: 'Form 2',
+            field: 'Form 2 field',
+            prevStep: 'Prev Step',
+            submit: 'Submit'
+          }
+        }
+      },
+      table: {
+        remote: {
+          filterCondition: 'Filter Condition',
+          name: 'Name',
+          createTime: 'CreateTime',
+          responseTime: 'ResponseTime',
+          title: 'Remote Loading',
+          replicableText: 'Replicable Text',
+          tags: 'Tags',
+          dateFormatting: 'Date Formatting',
+          image: 'Image'
+        },
+        rowEdit: {
+          title: 'Edit Table',
+          reset: 'Reset',
+          submit: 'Submit',
+          edit: 'Edit',
+          delete: 'Delete',
+          save: 'Save',
+          task: 'Task',
+          score: 'Score',
+          time: 'Time',
+          name: 'Name',
+          action: 'Action'
+        }
       }
     },
     manage: {

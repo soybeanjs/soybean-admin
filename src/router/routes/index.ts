@@ -92,6 +92,20 @@ const customRoutes: CustomRoute[] = [
         }
       },
       {
+        name: 'document_pro-naive',
+        path: '/document/pro-naive',
+        component: 'view.iframe-page',
+        props: {
+          url: 'https://naive-ui.pro-components.cn/'
+        },
+        meta: {
+          title: 'document_pro-naive',
+          i18nKey: 'route.document_pro-naive',
+          order: 6,
+          icon: 'logos:naiveui'
+        }
+      },
+      {
         name: 'document_alova',
         path: '/document/alova',
         component: 'view.iframe-page',

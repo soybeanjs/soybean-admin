@@ -623,6 +623,86 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'pro-naive',
+    path: '/pro-naive',
+    component: 'layout.base',
+    meta: {
+      title: 'pro-naive',
+      i18nKey: 'route.pro-naive',
+      order: 7,
+      icon: 'material-symbols-light:demography-outline-rounded'
+    },
+    children: [
+      {
+        name: 'pro-naive_form',
+        path: '/pro-naive/form',
+        meta: {
+          title: 'pro-naive_form',
+          i18nKey: 'route.pro-naive_form',
+          icon: 'fluent:form-28-regular'
+        },
+        children: [
+          {
+            name: 'pro-naive_form_basic',
+            path: '/pro-naive/form/basic',
+            component: 'view.pro-naive_form_basic',
+            meta: {
+              title: 'pro-naive_form_basic',
+              i18nKey: 'route.pro-naive_form_basic'
+            }
+          },
+          {
+            name: 'pro-naive_form_query',
+            path: '/pro-naive/form/query',
+            component: 'view.pro-naive_form_query',
+            meta: {
+              title: 'pro-naive_form_query',
+              i18nKey: 'route.pro-naive_form_query'
+            }
+          },
+          {
+            name: 'pro-naive_form_step',
+            path: '/pro-naive/form/step',
+            component: 'view.pro-naive_form_step',
+            meta: {
+              title: 'pro-naive_form_step',
+              i18nKey: 'route.pro-naive_form_step'
+            }
+          }
+        ]
+      },
+      {
+        name: 'pro-naive_table',
+        path: '/pro-naive/table',
+        meta: {
+          title: 'pro-naive_table',
+          i18nKey: 'route.pro-naive_table',
+          icon: 'mynaui:table'
+        },
+        children: [
+          {
+            name: 'pro-naive_table_remote',
+            path: '/pro-naive/table/remote',
+            component: 'view.pro-naive_table_remote',
+            meta: {
+              title: 'pro-naive_table_remote',
+              i18nKey: 'route.pro-naive_table_remote'
+            }
+          },
+          {
+            name: 'pro-naive_table_row-edit',
+            path: '/pro-naive/table/row-edit',
+            component: 'view.pro-naive_table_row-edit',
+            meta: {
+              title: 'pro-naive_table_row-edit',
+              i18nKey: 'route.pro-naive_table_row-edit'
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     name: 'user-center',
     path: '/user-center',
     component: 'layout.base$view.user-center',
