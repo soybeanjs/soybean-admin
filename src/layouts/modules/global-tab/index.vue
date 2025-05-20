@@ -5,7 +5,6 @@ import { useElementBounding } from '@vueuse/core';
 import { PageTab } from '@sa/materials';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
-import { useRouteStore } from '@/store/modules/route';
 import { useTabStore } from '@/store/modules/tab';
 import { isPC } from '@/utils/agent';
 import BetterScroll from '@/components/custom/better-scroll.vue';
@@ -18,7 +17,6 @@ defineOptions({
 const route = useRoute();
 const appStore = useAppStore();
 const themeStore = useThemeStore();
-const routeStore = useRouteStore();
 const tabStore = useTabStore();
 
 const bsWrapper = ref<HTMLElement>();
@@ -82,12 +80,8 @@ function getContextMenuDisabledKeys(tabId: string) {
   return disabledKeys;
 }
 
-async function handleCloseTab(tab: App.Global.Tab) {
-  await tabStore.removeTab(tab.id);
-
-  if (themeStore.resetCacheStrategy === 'close') {
-    routeStore.resetRouteCache(tab.routeKey);
-  }
+function handleCloseTab(tab: App.Global.Tab) {
+  tabStore.removeTab(tab.id);
 }
 
 async function refresh() {

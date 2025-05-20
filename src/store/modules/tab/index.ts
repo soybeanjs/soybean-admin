@@ -98,12 +98,21 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const removeTabIndex = tabs.value.findIndex(tab => tab.id === tabId);
     if (removeTabIndex === -1) return;
 
+    const removedTabRouteKey = tabs.value[removeTabIndex].routeKey;
     const isRemoveActiveTab = activeTabId.value === tabId;
     const nextTab = tabs.value[removeTabIndex + 1] || homeTab.value;
 
+    // remove tab
     tabs.value.splice(removeTabIndex, 1);
+
+    // if current tab is removed, then switch to next tab
     if (isRemoveActiveTab && nextTab) {
       await switchRouteByTab(nextTab);
+    }
+
+    // reset route cache if cache strategy is close
+    if (themeStore.resetCacheStrategy === 'close') {
+      routeStore.resetRouteCache(removedTabRouteKey);
     }
   }
 
@@ -131,9 +140,26 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    */
   async function clearTabs(excludes: string[] = []) {
     const remainTabIds = [...getFixedTabIds(tabs.value), ...excludes];
-    const removedTabsIds = tabs.value.map(tab => tab.id).filter(id => !remainTabIds.includes(id));
+
+    // Identify tabs to be removed and collect their routeKeys if strategy is 'close'
+    const tabsToRemove = tabs.value.filter(tab => !remainTabIds.includes(tab.id));
+    const routeKeysToReset: RouteKey[] = [];
+
+    if (themeStore.resetCacheStrategy === 'close') {
+      for (const tab of tabsToRemove) {
+        routeKeysToReset.push(tab.routeKey);
+      }
+    }
+
+    const removedTabsIds = tabsToRemove.map(tab => tab.id);
+
+    // If no tabs are actually being removed based on excludes and fixed tabs, exit
+    if (removedTabsIds.length === 0) {
+      return;
+    }
 
     const isRemoveActiveTab = removedTabsIds.includes(activeTabId.value);
+    // filterTabsByIds returns tabs NOT in removedTabsIds, so these are the tabs that will remain
     const updatedTabs = filterTabsByIds(removedTabsIds, tabs.value);
 
     function update() {
@@ -142,13 +168,21 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     if (!isRemoveActiveTab) {
       update();
-      return;
+    } else {
+      const activeTabCandidate = updatedTabs[updatedTabs.length - 1] || homeTab.value;
+
+      if (activeTabCandidate) {
+        // Ensure there's a tab to switch to
+        await switchRouteByTab(activeTabCandidate);
+      }
+      // Update the tabs array regardless of switch success or if a candidate was found
+      update();
     }
 
-    const activeTab = updatedTabs[updatedTabs.length - 1] || homeTab.value;
-
-    await switchRouteByTab(activeTab);
-    update();
+    // After tabs are updated and route potentially switched, reset cache for removed tabs
+    for (const routeKey of routeKeysToReset) {
+      routeStore.resetRouteCache(routeKey);
+    }
   }
 
   const { routerPushByKey } = useRouterPush();
