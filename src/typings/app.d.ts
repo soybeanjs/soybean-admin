@@ -58,6 +58,10 @@ declare namespace App {
           /** Whether to show the multilingual */
           visible: boolean;
         };
+        globalSearch: {
+          /** Whether to show the GlobalSearch */
+          visible: boolean;
+        };
       };
       /** Tab */
       tab: {
@@ -375,6 +379,9 @@ declare namespace App {
             showIcon: string;
           };
           multilingual: {
+            visible: string;
+          };
+          globalSearch: {
             visible: string;
           };
         };
