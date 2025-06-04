@@ -38,3 +38,22 @@ export function createStaticRoutes() {
 export function getAuthVueRoutes(routes: ElegantConstRoute[]) {
   return transformElegantRoutesToVueRoutes(routes, layouts, views);
 }
+
+/**
+ * Get iFrame route names
+ *
+ * @param routes
+ */
+export function getIframeRouteNames(routes: ElegantConstRoute[]) {
+  const routeNames = [] as string[];
+  routes.forEach(route => {
+    if (route.component?.indexOf('view.iframe-page') !== -1 && route.props && route.name !== 'iframe-page') {
+      routeNames.push(route.name);
+    }
+    if (route.children?.length) {
+      const childNames = getIframeRouteNames(route.children);
+      routeNames.push(...childNames);
+    }
+  });
+  return routeNames;
+}
