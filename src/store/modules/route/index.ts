@@ -6,7 +6,7 @@ import type { CustomRoute, ElegantConstRoute, LastLevelRouteKey, RouteKey, Route
 import { router } from '@/router';
 import { fetchGetConstantRoutes, fetchGetUserRoutes, fetchIsRouteExist } from '@/service/api';
 import { SetupStoreId } from '@/enum';
-import { createStaticRoutes, getAuthVueRoutes } from '@/router/routes';
+import { createStaticRoutes, getAuthVueRoutes, getIframeRouteNames } from '@/router/routes';
 import { ROOT_ROUTE } from '@/router/routes/builtin';
 import { getRouteName, getRoutePath } from '@/router/elegant/transform';
 import { useAuthStore } from '../auth';
@@ -40,6 +40,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   /** Home route key */
   const routeHome = ref(import.meta.env.VITE_ROUTE_HOME);
+
+  /** iFrame Vue Routes */
+  const iFrameRoutes = shallowRef<RouteRecordRaw[]>([]);
 
   /**
    * Set route home
@@ -109,6 +112,20 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    */
   function getCacheRoutes(routes: RouteRecordRaw[]) {
     cacheRoutes.value = getCacheRouteNames(routes);
+  }
+
+  /**
+   * Get iFrame routes
+   *
+   * @param routes Vue routes
+   */
+  function getIFrameRoutes(vueRoutes: RouteRecordRaw[], routes: ElegantConstRoute[]) {
+    const iframeRouteNames = getIframeRouteNames(routes);
+    const iframe = cacheRoutes.value.indexOf('iframe-page' as RouteKey);
+    if (iframe > -1) {
+      cacheRoutes.value.splice(iframe, 1);
+    }
+    iFrameRoutes.value = filterIframeRoutesByName(vueRoutes, iframeRouteNames);
   }
 
   /**
@@ -244,6 +261,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     getGlobalMenus(sortRoutes);
 
     getCacheRoutes(vueRoutes);
+
+    getIFrameRoutes(vueRoutes, sortRoutes);
   }
 
   /**
@@ -256,6 +275,25 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       const removeFn = router.addRoute(route);
       addRemoveRouteFn(removeFn);
     });
+  }
+
+  /**
+   * Get iFrame routes by route names
+   *
+   * @param vueRoutes
+   * @param iframeRouteNames
+   */
+  function filterIframeRoutesByName(vueRoutes: RouteRecordRaw[], iframeRouteNames: string[]) {
+    return vueRoutes.reduce((values, route) => {
+      let result = [...values];
+      if (route.children?.length) {
+        result = result.concat(filterIframeRoutesByName(route.children, iframeRouteNames));
+      }
+      if (route.name && iframeRouteNames.includes(route.name.toString())) {
+        result.unshift(route);
+      }
+      return result;
+    }, [] as RouteRecordRaw[]);
   }
 
   /**
@@ -332,6 +370,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     searchMenus,
     updateGlobalMenusByLocale,
     cacheRoutes,
+    iFrameRoutes,
     excludeCacheRoutes,
     resetRouteCache,
     breadcrumbs,
