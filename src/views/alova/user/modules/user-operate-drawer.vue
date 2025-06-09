@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
 import { useForm, useWatcher } from '@sa/alova/client';
+import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import type { UserModel } from '@/service-alova/api';
 import { addUser, fetchGetAllRoles, updateUser } from '@/service-alova/api';
 import { $t } from '@/locales';
-import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 
 defineOptions({
   name: 'UserOperateDrawer'

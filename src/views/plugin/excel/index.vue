@@ -1,10 +1,10 @@
 <script setup lang="tsx">
 import { NButton, NTag } from 'naive-ui';
 import { utils, writeFile } from 'xlsx';
+import { enableStatusRecord, userGenderRecord } from '@/constants/business';
+import { fetchGetUserList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
-import { fetchGetUserList } from '@/service/api';
-import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
 
 const appStore = useAppStore();

@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import JsBarcode from 'jsbarcode';
 import type { Options } from 'jsbarcode';
-import { onMounted } from 'vue';
 
 const text = 'Soybean';
 

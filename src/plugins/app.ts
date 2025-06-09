@@ -25,8 +25,8 @@ export function setupAppVersionNotification() {
 
     const buildTime = await getHtmlBuildTime();
 
-    // If build time hasn't changed, no update is needed
-    if (buildTime === BUILD_TIME) {
+    // If failed to get build time or build time hasn't changed, no update is needed.
+    if (!buildTime || buildTime === BUILD_TIME) {
       return;
     }
 
@@ -88,16 +88,22 @@ export function setupAppVersionNotification() {
   }
 }
 
-async function getHtmlBuildTime() {
+async function getHtmlBuildTime(): Promise<string | null> {
   const baseUrl = import.meta.env.VITE_BASE_URL || '/';
 
-  const res = await fetch(`${baseUrl}index.html?time=${Date.now()}`);
+  try {
+    const res = await fetch(`${baseUrl}index.html?time=${Date.now()}`);
 
-  const html = await res.text();
+    if (!res.ok) {
+      console.error('getHtmlBuildTime error:', res.status, res.statusText);
+      return null;
+    }
 
-  const match = html.match(/<meta name="buildTime" content="(.*)">/);
-
-  const buildTime = match?.[1] || '';
-
-  return buildTime;
+    const html = await res.text();
+    const match = html.match(/<meta name="buildTime" content="(.*)">/);
+    return match?.[1] || null;
+  } catch (error) {
+    console.error('getHtmlBuildTime error:', error);
+    return null;
+  }
 }

@@ -130,6 +130,9 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
     <SettingItem key="9" :label="$t('theme.header.multilingual.visible')">
       <NSwitch v-model:value="themeStore.header.multilingual.visible" />
     </SettingItem>
+    <SettingItem key="10" :label="$t('theme.header.globalSearch.visible')">
+      <NSwitch v-model:value="themeStore.header.globalSearch.visible" />
+    </SettingItem>
   </TransitionGroup>
 </template>
 

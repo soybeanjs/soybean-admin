@@ -7,9 +7,11 @@
 ---
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![github stars](https://img.shields.io/github/stars/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
-[![github forks](https://img.shields.io/github/forks/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![github stars](https://img.shields.io/github/stars/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![github forks](https://img.shields.io/github/forks/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
 [![gitee stars](https://gitee.com/honghuangdc/soybean-admin/badge/star.svg)](https://gitee.com/honghuangdc/soybean-admin)
+[![gitcode star](https://gitcode.com/soybeanjs/soybean-admin/star/badge.svg)](https://gitcode.com/soybeanjs/soybean-admin)
+[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
 
 <a href="https://hellogithub.com/repository/1298f27d5fe54959a16cf9686516ddb3" target="_blank"><img src="https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=1298f27d5fe54959a16cf9686516ddb3&claim_uid=IiDXWmP4TEntjbV" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
@@ -18,11 +20,11 @@
 
 ## 简介
 
-[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。`SoybeanAdmin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
+[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite6, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。`SoybeanAdmin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
 
 ## 特性
 
-- **前沿技术应用**：采用 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS 等最新流行的技术栈。
+- **前沿技术应用**：采用 Vue3, Vite6, TypeScript, Pinia 和 UnoCSS 等最新流行的技术栈。
 - **清晰的项目架构**：采用 pnpm monorepo 架构，结构清晰，优雅易懂。
 - **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，集成了eslint, prettier 和 simple-git-hooks，保证代码的规范性。
 - **TypeScript**： 支持严格的类型检查，提高代码的可维护性。
@@ -41,16 +43,22 @@
   - [预览地址](https://naive.soybeanjs.cn/)
   - [Github 仓库](https://github.com/soybeanjs/soybean-admin)
   - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin)
+  - [Gitcode 仓库](https://gitcode.com/soybeanjs/soybean-admin)
 - **AntDesignVue 版本:**
   - [预览地址](https://antd.soybeanjs.cn/)
   - [Github 仓库](https://github.com/soybeanjs/soybean-admin-antd)
   - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin-antd)
+  - [Gitcode 仓库](https://gitcode.com/soybeanjs/soybean-admin-antd)
 - **ElementPlus 版本:**
   - [预览地址](https://elp.soybeanjs.cn/)
   - [Github 仓库](https://github.com/soybeanjs/soybean-admin-element-plus)
+  - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin-element-plus)
+  - [Gitcode 仓库](https://gitcode.com/soybeanjs/soybean-admin-element-plus)
 - **旧版:**
   - [预览地址](https://legacy.soybeanjs.cn/)
   - [Github 仓库](https://github.com/soybeanjs/soybean-admin/tree/legacy)
+  - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin/tree/legacy)
+  - [Gitcode 仓库](https://gitcode.com/soybeanjs/soybean-admin/tree/legacy)
 
 
 ## 文档
@@ -116,7 +124,12 @@
 **克隆项目**
 
 ```bash
+# github
 git clone https://github.com/soybeanjs/soybean-admin.git
+# gitee
+git clone https://gitee.com/honghuangdc/soybean-admin.git
+# gitcode
+git clone https://gitcode.com/soybeanjs/soybean-admin.git
 ```
 
 **安装依赖**
@@ -153,6 +166,8 @@ pnpm build
 - [snail-job](https://github.com/aizuda/snail-job): 一款兼具 “高性能、高颜值、高活跃” 的分布式任务重试和分布式任务调度平台。
 - [SuperApi](https://github.com/TmmTop/SuperApi): 快速将你的 idea 变成线上稳定运行的产品！ 无实体建库建表，对无实体库表进行增删改查，支持 15 种条件查询，以及分页，列表，无限级树形列表 等功能的 API 部署！ 拥有接口文档，Auth 授权，接口限流，获取客户端真实 IP，先进的服务器缓存组件，动态 API 等功能，期待您的体验！
 - [FastSoyAdmin](https://github.com/sleep1223/fast-soy-admin): 基于 FastAPI+Vue3+Naive UI 的现代化轻量管理平台.
+- [ba](https://github.com/xiatianYa/Ba-Server): 基于goFrame框架开发的后端服务对接soybean-admin,适配动态路由,接口鉴权限。
+- [soybean-admin-go](https://github.com/WgoW/soybean-admin-go):基于gin+gorm框架开发的go语言后端服务对接soybean-admin的example分支,适配动态路由,接口鉴权限。
 
 
 ## 如何贡献

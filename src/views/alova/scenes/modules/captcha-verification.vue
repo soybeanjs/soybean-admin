@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { actionDelegationMiddleware, useCaptcha, useForm } from '@sa/alova/client';
-import { $t } from '@/locales';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
+import { $t } from '@/locales';
 import { sendCaptcha, verifyCaptcha } from '@/service-alova/api';
 
 defineOptions({

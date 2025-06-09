@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { $t } from '@/locales';
 import { enableStatusOptions } from '@/constants/business';
 import { translateOptions } from '@/utils/common';
+import { $t } from '@/locales';
 
 defineOptions({
   name: 'RoleSearch'

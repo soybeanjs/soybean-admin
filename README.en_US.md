@@ -10,6 +10,8 @@
 [![github stars](https://img.shields.io/github/stars/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
 [![github forks](https://img.shields.io/github/forks/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
 [![gitee stars](https://gitee.com/honghuangdc/soybean-admin/badge/star.svg)](https://gitee.com/honghuangdc/soybean-admin)
+[![gitcode star](https://gitcode.com/soybeanjs/soybean-admin/star/badge.svg)](https://gitcode.com/soybeanjs/soybean-admin)
+[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
 
 <a href="https://hellogithub.com/repository/1298f27d5fe54959a16cf9686516ddb3" target="_blank"><img src="https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=1298f27d5fe54959a16cf9686516ddb3&claim_uid=IiDXWmP4TEntjbV" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
@@ -19,12 +21,12 @@
 
 ## Introduction
 
-[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `SoybeanAdmin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
+[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite6, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `SoybeanAdmin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
 
 
 ## Features
 
-- **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite5, TypeScript, Pinia and UnoCSS.
+- **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite6, TypeScript, Pinia and UnoCSS.
 - **Clear project architecture**: using pnpm monorepo architecture, clear structure, elegant and easy to understand.
 - **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, prettier and simple-git-hooks to ensure the code is standardized.
 - **TypeScript**: support strict type checking to improve code maintainability.
@@ -43,19 +45,25 @@
   - [Preview Link](https://naive.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin)
   - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin)
+  - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin)
 
 - **AntDesignVue Version:**
   - [Preview Link](https://antd.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin-antd)
   - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-antd)
+  - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin-antd)
 
 - **ElementPlus Version:**
   - [Preview Link](https://elp.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin-element-plus)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-element-plus)
+  - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin-element-plus)
 
 - **Legacy Version:**
   - [Preview Link](https://legacy.soybeanjs.cn/)
   - [Github Repository](https://github.com/soybeanjs/soybean-admin/tree/legacy)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin/tree/legacy)
+  - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin/tree/legacy)
 
 
 ## Documentation
@@ -91,7 +99,12 @@ Make sure your environment meets the following requirements:
 **Clone Project**
 
 ```bash
+# github
 git clone https://github.com/soybeanjs/soybean-admin.git
+# gitee
+git clone https://gitee.com/honghuangdc/soybean-admin.git
+# gitcode
+git clone https://gitcode.com/soybeanjs/soybean-admin.git
 ```
 
 **Install Dependencies**
@@ -128,6 +141,8 @@ Refer to the [Code Synchronization](https://docs.soybeanjs.cn/guide/sync) docume
 - [snail-job](https://github.com/aizuda/snail-job): A distributed task retry and task scheduling platform with "high performance, high value and high activity".
 - [SuperApi](https://github.com/TmmTop/SuperApi): Quickly turn your idea into an online stable product! Entity-less library and table building, add, delete, change and check entity-less library table, support 15 kinds of condition query, as well as paging, list, unlimited tree list and other functions of the API deployment! With interface documentation, Auth authorisation, interface flow restriction, access to the client's real IP, advanced server caching components, dynamic APIs and other features, we look forward to your experience!
 - [FastSoyAdmin](https://github.com/sleep1223/fast-soy-admin): A modern Management Platform based on FastAPI+Vue3+Naive UI.
+- [ba](https://github.com/xiatianYa/Ba-Server): Backend service docking with soybean admin based on goFrame framework, adapted to dynamic routing, and interface authentication permissions.
+- [soybean-admin-go](https://github.com/WgoW/soybean-admin-go):A Go backend service developed based on the Gin and GORM frameworks, integrated with the example branch of Soybean Admin. It supports dynamic routing and API permission authentication.
 
 
 ## How to Contribute

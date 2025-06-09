@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { $t } from '@/locales';
 import { fetchCustomBackendError } from '@/service/api';
+import { $t } from '@/locales';
 
 async function logout() {
   await fetchCustomBackendError('8888', $t('request.logoutMsg'));

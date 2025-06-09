@@ -1,11 +1,11 @@
 <script setup lang="tsx">
+import { reactive } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { usePagination } from '@sa/alova/client';
-import { reactive } from 'vue';
+import { enableStatusRecord, userGenderRecord } from '@/constants/business';
+import { useAppStore } from '@/store/modules/app';
 import { batchDeleteUser, deleteUser, fetchGetUserList } from '@/service-alova/api';
 import { $t } from '@/locales';
-import { useAppStore } from '@/store/modules/app';
-import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import useCheckedColumns from './hooks/use-checked-columns';
 import useTableOperate from './hooks/use-table-operate';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';

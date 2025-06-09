@@ -30,6 +30,9 @@ export const themeSettings: App.Theme.ThemeSetting = {
     },
     multilingual: {
       visible: true
+    },
+    globalSearch: {
+      visible: true
     }
   },
   tab: {

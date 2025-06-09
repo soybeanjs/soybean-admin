@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { useRouterPush } from '@/hooks/common/router';
 import { $t } from '@/locales';
 

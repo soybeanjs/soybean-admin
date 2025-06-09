@@ -112,6 +112,9 @@ const local: App.I18n.Schema = {
       },
       multilingual: {
         visible: '显示多语言按钮'
+      },
+      globalSearch: {
+        visible: '显示全局搜索按钮'
       }
     },
     tab: {

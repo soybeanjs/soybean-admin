@@ -1,0 +1,51 @@
+{
+  "Print soy Vue3 SFC page": {
+    "scope": "vue",
+    "prefix": ["v3","page","view"],
+    "body": [
+      "<script lang=\"ts\" setup>",
+      "//$1",
+      "</script>\n",
+      "<template>",
+      "  <div class=\"\">",
+      "    <!-- page only one root element -->",
+      "    $2",
+      "  </div>",
+      "</template>\n",
+    ],
+  },
+
+  "Print soy Vue3 SFC Component": {
+    "scope": "vue",
+    "prefix": ["component","comp"],
+    "body": [
+      "<script lang=\"ts\" setup>",
+      "//$1",
+      "</script>\n",
+      "<template>",
+      "  <div class=\"\">",
+      "    $2",
+      "  </div>",
+      "</template>\n",
+    ],
+  },
+  "Print soy style": {
+    "scope": "vue",
+    "prefix": "st",
+    "body": ["<style scoped>", "//", "</style>\n"],
+  },
+  "Print soy script": {
+    "scope": "vue",
+    "prefix": "sc",
+    "body": ["<script lang=\"ts\" setup>", "//$3", "</script>\n"],
+  },
+  "Print soy template": {
+    "scope": "vue",
+    "prefix": "te",
+    "body": [
+      "<template>",
+      "  <div class=\"\">$1</div>",
+      "</template>\n",
+    ],
+  },
+}
