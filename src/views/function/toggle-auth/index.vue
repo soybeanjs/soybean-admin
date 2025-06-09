@@ -2,11 +2,11 @@
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLoading } from '@sa/hooks';
-import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useAuthStore } from '@/store/modules/auth';
 import { useTabStore } from '@/store/modules/tab';
 import { useAuth } from '@/hooks/business/auth';
+import { $t } from '@/locales';
 
 const route = useRoute();
 const appStore = useAppStore();
