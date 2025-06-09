@@ -1,6 +1,67 @@
 # Changelog
 
 
+## [v1.3.14](https://github.com/soybeanjs/soybean-admin/compare/v1.3.13...v1.3.14) (2025-06-09)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **docs**:
+  - add GitCode star badge to README files &nbsp;-&nbsp; by @soybeanjs [<samp>(05dc1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/05dc11e2)
+  - add DartNode sponsorship badge to README files &nbsp;-&nbsp; by @soybeanjs [<samp>(2ed0b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2ed0b648)
+- **projects**:
+  - support vite devtools specify the editor by launchEditor option. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/730 [<samp>(29698)</samp>](https://github.com/soybeanjs/soybean-admin/commit/29698bef)
+  - clear tabs cache when switching users. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/744 [<samp>(1ff4d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1ff4d82d)
+- **theme**:
+  - global search button toggle &nbsp;-&nbsp; by **t8y2** [<samp>(75455)</samp>](https://github.com/soybeanjs/soybean-admin/commit/75455b00)
+- **types**:
+  - enhance Option type to support customizable label types &nbsp;-&nbsp; by @WgoW and @testbrate in https://github.com/soybeanjs/soybean-admin/issues/735 [<samp>(123d2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/123d2c90)
+- **utils**:
+  - support quick generation of code templates. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/733 [<samp>(8527a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8527aa80)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **auth**:
+  - remove redundant authStore declaration in resetStore function &nbsp;-&nbsp; by @soybeanjs [<samp>(c57f8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c57f88aa)
+- **hooks**:
+  - fixed the issue where loading was not properly closed in some cases. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/737 [<samp>(85e40)</samp>](https://github.com/soybeanjs/soybean-admin/commit/85e40b19)
+  - refactor useCountDown hook for improved countdown logic and clarity. &nbsp;-&nbsp; by **Azir** [<samp>(dfb64)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dfb647a8)
+- **projects**:
+  - tab closure did not remove cache correctly. &nbsp;-&nbsp; by **Azir** [<samp>(7fb5c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7fb5c72f)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **hooks**:
+  - remove obsolete disabling cache. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/729 [<samp>(4e1b6)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4e1b65b6)
+  - update detection function to cover the exceptions that occur when the request fails. &nbsp;-&nbsp; by **恕瑞玛的皇帝** [<samp>(22218)</samp>](https://github.com/soybeanjs/soybean-admin/commit/222187d3)
+- **projects**:
+  - optimize tab deletion logic. closed #755 &nbsp;-&nbsp; by @wenyuanw in https://github.com/soybeanjs/soybean-admin/issues/755 [<samp>(e6044)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e6044d0f)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **README**:
+  - Add supporting ecosystem tools to the open-source repository &nbsp;-&nbsp; by @WgoW and @testbrate in https://github.com/soybeanjs/soybean-admin/issues/740 [<samp>(a013e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a013ea2c)
+- **deps**:
+  - update the Vite version of the project description. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/732 [<samp>(80486)</samp>](https://github.com/soybeanjs/soybean-admin/commit/80486099)
+- **projects**:
+  - update README &nbsp;-&nbsp; by @xiatianYa in https://github.com/soybeanjs/soybean-admin/issues/726 [<samp>(3cbaf)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3cbaf4f4)
+  - add gitcode link &nbsp;-&nbsp; by @soybeanjs [<samp>(f35c2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f35c250a)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - add vscode recommend plugin  close #738 &nbsp;-&nbsp; by @tu6ge in https://github.com/soybeanjs/soybean-admin/issues/739 and https://github.com/soybeanjs/soybean-admin/issues/738 [<samp>(61244)</samp>](https://github.com/soybeanjs/soybean-admin/commit/61244f0f)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(41b5f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/41b5f493)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(3e4e1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3e4e17ab)
+
+### &nbsp;&nbsp;&nbsp;🤖 CI
+
+- **hooks**: remove lint-staged in git hook.  close #724 &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/743 and https://github.com/soybeanjs/soybean-admin/issues/724 [<samp>(c3abc)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c3abc3df)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![wenyuanw](https://github.com/wenyuanw.png?size=48)](https://github.com/wenyuanw)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![WgoW](https://github.com/WgoW.png?size=48)](https://github.com/WgoW)&nbsp;&nbsp;[![testbrate](https://github.com/testbrate.png?size=48)](https://github.com/testbrate)&nbsp;&nbsp;[![tu6ge](https://github.com/tu6ge.png?size=48)](https://github.com/tu6ge)&nbsp;&nbsp;[![xiatianYa](https://github.com/xiatianYa.png?size=48)](https://github.com/xiatianYa)&nbsp;&nbsp;
+[恕瑞玛的皇帝](mailto:2075125282@qq.com),&nbsp;[t8y2](mailto:1156263951@qq.com),&nbsp;
+
 ## [v1.3.13](https://github.com/soybeanjs/soybean-admin/compare/v1.3.12...v1.3.13) (2025-03-19)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
