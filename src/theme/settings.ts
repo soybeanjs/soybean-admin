@@ -58,7 +58,8 @@ export const themeSettings: App.Theme.ThemeSetting = {
   },
   watermark: {
     visible: false,
-    text: 'SoybeanAdmin'
+    text: 'SoybeanAdmin',
+    enableUserName: false
   },
   tokens: {
     light: {
