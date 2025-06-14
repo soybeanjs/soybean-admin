@@ -358,63 +358,82 @@ declare namespace App {
         tokenExpired: string;
       };
       theme: {
-        themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
-        grayscale: string;
-        colourWeakness: string;
-        layoutMode: { title: string; reverseHorizontalMix: string } & Record<UnionKey.ThemeLayoutMode, string>;
-        recommendColor: string;
-        recommendColorDesc: string;
-        themeColor: {
-          title: string;
-          followPrimary: string;
-        } & Theme.ThemeColor;
-        scrollMode: { title: string } & Record<UnionKey.ThemeScrollMode, string>;
-        page: {
-          animate: string;
-          mode: { title: string } & Record<UnionKey.ThemePageAnimateMode, string>;
+        themeDrawerTitle: string;
+        tabs: {
+          appearance: string;
+          layout: string;
+          general: string;
         };
-        fixedHeaderAndTab: string;
-        header: {
-          height: string;
-          breadcrumb: {
+        appearance: {
+          themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
+          grayscale: string;
+          colourWeakness: string;
+          themeColor: {
+            title: string;
+            followPrimary: string;
+          } & Theme.ThemeColor;
+          recommendColor: string;
+          recommendColorDesc: string;
+        };
+        layout: {
+          layoutMode: { title: string; reverseHorizontalMix: string } & Record<UnionKey.ThemeLayoutMode, string>;
+          tab: {
+            title: string;
             visible: string;
-            showIcon: string;
+            cache: string;
+            height: string;
+            mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
+          };
+          header: {
+            title: string;
+            height: string;
+            breadcrumb: {
+              visible: string;
+              showIcon: string;
+            };
+          };
+          sider: {
+            title: string;
+            inverted: string;
+            width: string;
+            collapsedWidth: string;
+            mixWidth: string;
+            mixCollapsedWidth: string;
+            mixChildMenuWidth: string;
+          };
+          footer: {
+            title: string;
+            visible: string;
+            fixed: string;
+            height: string;
+            right: string;
+          };
+          content: {
+            title: string;
+            scrollMode: { title: string } & Record<UnionKey.ThemeScrollMode, string>;
+            page: {
+              animate: string;
+              mode: { title: string } & Record<UnionKey.ThemePageAnimateMode, string>;
+            };
+            fixedHeaderAndTab: string;
+          };
+          resetCacheStrategy: { title: string } & Record<UnionKey.ResetCacheStrategy, string>;
+        };
+        general: {
+          watermark: {
+            visible: string;
+            text: string;
+            enableUserName: string;
           };
           multilingual: {
+            title: string;
             visible: string;
           };
           globalSearch: {
+            title: string;
             visible: string;
           };
         };
-        tab: {
-          visible: string;
-          cache: string;
-          height: string;
-          mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
-        };
-        sider: {
-          inverted: string;
-          width: string;
-          collapsedWidth: string;
-          mixWidth: string;
-          mixCollapsedWidth: string;
-          mixChildMenuWidth: string;
-        };
-        footer: {
-          visible: string;
-          fixed: string;
-          height: string;
-          right: string;
-        };
-        watermark: {
-          visible: string;
-          text: string;
-          enableUserName: string;
-        };
-        themeDrawerTitle: string;
-        pageFunTitle: string;
-        resetCacheStrategy: { title: string } & Record<UnionKey.ResetCacheStrategy, string>;
         configOperation: {
           copyConfig: string;
           copySuccessMsg: string;
