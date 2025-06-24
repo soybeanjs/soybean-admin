@@ -6,7 +6,7 @@
     "lib": ["DOM", "ESNext"],
     "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./*"]
