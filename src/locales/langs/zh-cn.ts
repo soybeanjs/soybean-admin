@@ -169,6 +169,7 @@ const local: App.I18n.Schema = {
     document: '文档',
     document_project: '项目文档',
     'document_project-link': '项目文档(外链)',
+    document_video: '视频教程',
     document_vue: 'Vue文档',
     document_vite: 'Vite文档',
     document_unocss: 'UnoCSS文档',

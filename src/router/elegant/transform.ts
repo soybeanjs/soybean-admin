@@ -170,6 +170,7 @@ const routeMap: RouteMap = {
   "document": "/document",
   "document_project": "/document/project",
   "document_project-link": "/document/project-link",
+  "document_video": "/document/video",
   "document_vue": "/document/vue",
   "document_vite": "/document/vite",
   "document_unocss": "/document/unocss",

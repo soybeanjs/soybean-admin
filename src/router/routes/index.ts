@@ -146,6 +146,18 @@ const customRoutes: CustomRoute[] = [
         }
       },
       {
+        name: 'document_video',
+        path: '/document/video',
+        component: 'view.iframe-page',
+        meta: {
+          title: 'document_video',
+          i18nKey: 'route.document_video',
+          order: 2,
+          localIcon: 'logo',
+          href: 'https://www.bilibili.com/video/BV1YKdRYXELC'
+        }
+      },
+      {
         name: 'document_unocss',
         path: '/document/unocss',
         component: 'view.iframe-page',

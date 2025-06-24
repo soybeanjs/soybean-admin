@@ -169,6 +169,7 @@ const local: App.I18n.Schema = {
     document: 'Document',
     document_project: 'Project Document',
     'document_project-link': 'Project Document(External Link)',
+    document_video: 'Video Tutorial',
     document_vue: 'Vue Document',
     document_vite: 'Vite Document',
     document_unocss: 'UnoCSS Document',

@@ -15,6 +15,7 @@ export function setupElegantRouter() {
         'exception_500',
         'document_project',
         'document_project-link',
+        'document_video',
         'document_vue',
         'document_vite',
         'document_unocss',
