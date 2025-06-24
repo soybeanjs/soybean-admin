@@ -19,6 +19,9 @@
 > [!NOTE]
 > If you think `SoybeanAdmin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
 
+> [!NOTE]
+> The `SoybeanAdmin` quick start series videos have been uploaded to [Bilibili](https://www.bilibili.com/video/BV1YKdRYXELC) Go online [click here](https://www.bilibili.com/video/BV1YKdRYXELC) Go check it out
+
 ## Introduction
 
 [`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite6, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `SoybeanAdmin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
