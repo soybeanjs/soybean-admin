@@ -1,4 +1,5 @@
 import type {
+  IAnimationConfig,
   IAreaChartSpec,
   IBarChartSpec,
   ICircularProgressChartSpec,
@@ -7,7 +8,6 @@ import type {
   ILiquidChartSpec,
   IWordCloudChartSpec
 } from '@visactor/vchart';
-import type { IAnimationConfig } from '@visactor/vgrammar-core';
 
 export const shapeWordCloudSpec: IWordCloudChartSpec = {
   type: 'wordCloud',

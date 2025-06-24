@@ -62,7 +62,7 @@ async function handleDownload() {
           <NSkeleton v-if="loading" size="small" class="mt-12px" text :repeat="12" />
           <VuePdfEmbed
             ref="pdfRef"
-            class="overflow-auto container"
+            class="container overflow-auto"
             :class="{ 'h-0': loading }"
             :rotation="rotations[currentRotation]"
             :page="currentPage"

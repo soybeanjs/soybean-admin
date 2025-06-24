@@ -1,6 +1,41 @@
 # Changelog
 
 
+## [v1.3.15](https://github.com/soybeanjs/soybean-admin/compare/v1.3.14...v1.3.15) (2025-06-24)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: add configurable user name watermark option &nbsp;-&nbsp; by @wenyuanw [<samp>(7c3da)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7c3dac42)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **app**: replace console.error with window.console.error for consistency &nbsp;-&nbsp; by @soybeanjs [<samp>(7d840)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7d84062e)
+- **projects**: ensure proper text color when themes are inverted &nbsp;-&nbsp; by @wenyuanw [<samp>(afd60)</samp>](https://github.com/soybeanjs/soybean-admin/commit/afd60421)
+- **types**: The environment variable VITE_ICON_LOCAL_PREFIX has the wrong type. &nbsp;-&nbsp; by **chenziwen** [<samp>(da149)</samp>](https://github.com/soybeanjs/soybean-admin/commit/da149e5b)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **components**: optimize spacing for lang-switch dropdown options &nbsp;-&nbsp; by @wenyuanw [<samp>(fcb89)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fcb89883)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **iframe-page**: remove unused lifecycle hooks and clean up script setup &nbsp;-&nbsp; by @soybeanjs [<samp>(276d8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/276d836c)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **other**: update docs with video tutorial link. &nbsp;-&nbsp; by **Azir** [<samp>(7b2e5)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7b2e510a)
+- **readme**: add warning about upcoming `V2` version and link to plan list &nbsp;-&nbsp; by @soybeanjs [<samp>(4d42d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4d42dcbe)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(dc674)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dc674ce8)
+- **projects**: update deps & fix `moduleResolution` &nbsp;-&nbsp; by @soybeanjs [<samp>(dbd99)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dbd995c1)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![wenyuanw](https://github.com/wenyuanw.png?size=48)](https://github.com/wenyuanw)&nbsp;&nbsp;
+[Azir](mailto:2075125282@qq.com),&nbsp;[chenziwen](mailto:chenziwen@qesong.com)
+
 ## [v1.3.14](https://github.com/soybeanjs/soybean-admin/compare/v1.3.13...v1.3.14) (2025-06-09)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features

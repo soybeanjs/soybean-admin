@@ -95,7 +95,6 @@ async function getHtmlBuildTime(): Promise<string | null> {
     const res = await fetch(`${baseUrl}index.html?time=${Date.now()}`);
 
     if (!res.ok) {
-      console.error('getHtmlBuildTime error:', res.status, res.statusText);
       return null;
     }
 
@@ -103,7 +102,7 @@ async function getHtmlBuildTime(): Promise<string | null> {
     const match = html.match(/<meta name="buildTime" content="(.*)">/);
     return match?.[1] || null;
   } catch (error) {
-    console.error('getHtmlBuildTime error:', error);
+    window.console.error('getHtmlBuildTime error:', error);
     return null;
   }
 }

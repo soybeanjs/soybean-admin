@@ -143,7 +143,8 @@ const local: App.I18n.Schema = {
     },
     watermark: {
       visible: '显示全屏水印',
-      text: '水印文本'
+      text: '水印文本',
+      enableUserName: '启用用户名水印'
     },
     themeDrawerTitle: '主题配置',
     pageFunTitle: '页面功能',
