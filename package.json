@@ -27,8 +27,8 @@
     "UnoCSS"
   ],
   "engines": {
-    "node": ">=18.20.0",
-    "pnpm": ">=8.7.0"
+    "node": ">=20.19.0",
+    "pnpm": ">=10.5.0"
   },
   "scripts": {
     "build": "vite build --mode prod",
