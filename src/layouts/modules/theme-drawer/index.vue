@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
 import AppearanceSettings from './modules/appearance/index.vue';
@@ -13,10 +13,19 @@ defineOptions({
 
 const appStore = useAppStore();
 const activeTab = ref('appearance');
+
+const drawerWidth = computed(() => {
+  // On mobile devices, use 90% of viewport width with a maximum of 400px
+  if (appStore.isMobile) {
+    return 'min(90vw, 400px)';
+  }
+
+  return 460;
+});
 </script>
 
 <template>
-  <NDrawer v-model:show="appStore.themeDrawerVisible" display-directive="show" :width="460">
+  <NDrawer v-model:show="appStore.themeDrawerVisible" display-directive="show" :width="drawerWidth">
     <NDrawerContent :title="$t('theme.themeDrawerTitle')" :native-scrollbar="false" closable>
       <NTabs v-model:value="activeTab" type="segment" size="medium" class="mb-16px">
         <NTab name="appearance" :tab="$t('theme.tabs.appearance')"></NTab>
