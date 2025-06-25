@@ -114,6 +114,10 @@ declare namespace App {
         text: string;
         /** Whether to use user name as watermark text */
         enableUserName: boolean;
+        /** Whether to use current time as watermark text */
+        enableTime: boolean;
+        /** Time format for watermark text */
+        timeFormat: string;
       };
       /** define some theme settings tokens, will transform to css variables */
       tokens: {
@@ -420,10 +424,14 @@ declare namespace App {
           resetCacheStrategy: { title: string } & Record<UnionKey.ResetCacheStrategy, string>;
         };
         general: {
+          title: string;
           watermark: {
+            title: string;
             visible: string;
             text: string;
             enableUserName: string;
+            enableTime: string;
+            timeFormat: string;
           };
           multilingual: {
             title: string;

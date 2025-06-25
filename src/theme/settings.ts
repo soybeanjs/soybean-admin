@@ -59,7 +59,9 @@ export const themeSettings: App.Theme.ThemeSetting = {
   watermark: {
     visible: false,
     text: 'SoybeanAdmin',
-    enableUserName: false
+    enableUserName: false,
+    enableTime: false,
+    timeFormat: 'YYYY-MM-DD HH:mm'
   },
   tokens: {
     light: {

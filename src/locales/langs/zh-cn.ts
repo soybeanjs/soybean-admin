@@ -158,10 +158,14 @@ const local: App.I18n.Schema = {
       }
     },
     general: {
+      title: '通用设置',
       watermark: {
+        title: '水印设置',
         visible: '显示全屏水印',
-        text: '水印文本',
-        enableUserName: '启用用户名水印'
+        text: '自定义水印文本',
+        enableUserName: '启用用户名水印',
+        enableTime: '显示当前时间',
+        timeFormat: '时间格式'
       },
       multilingual: {
         title: '多语言设置',

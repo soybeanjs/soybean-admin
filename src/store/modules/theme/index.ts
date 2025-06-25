@@ -1,10 +1,11 @@
 import { computed, effectScope, onScopeDispose, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
-import { useEventListener, usePreferredColorScheme } from '@vueuse/core';
+import { useDateFormat, useEventListener, useNow, usePreferredColorScheme } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { getPaletteColorByNumber } from '@sa/color';
 import { localStg } from '@/utils/storage';
 import { SetupStoreId } from '@/enum';
+import { useAuthStore } from '../auth';
 import {
   addThemeVarsToGlobal,
   createThemeToken,
@@ -56,6 +57,23 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    * It is for copy settings
    */
   const settingsJson = computed(() => JSON.stringify(settings.value));
+
+  /** Watermark content */
+  const watermarkContent = computed(() => {
+    const authStore = useAuthStore();
+    const { watermark } = settings.value;
+
+    if (watermark.enableUserName && authStore.userInfo.userName) {
+      return authStore.userInfo.userName;
+    }
+
+    if (watermark.enableTime) {
+      const date = useDateFormat(useNow(), watermark.timeFormat);
+      return date.value;
+    }
+
+    return watermark.text;
+  });
 
   /** Reset store */
   function resetStore() {
@@ -153,6 +171,32 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settings.value.layout.reverseHorizontalMix = reverse;
   }
 
+  /**
+   * Set watermark enable user name
+   *
+   * @param enable Whether to enable user name watermark
+   */
+  function setWatermarkEnableUserName(enable: boolean) {
+    settings.value.watermark.enableUserName = enable;
+
+    if (enable) {
+      settings.value.watermark.enableTime = false;
+    }
+  }
+
+  /**
+   * Set watermark enable time
+   *
+   * @param enable Whether to enable time watermark
+   */
+  function setWatermarkEnableTime(enable: boolean) {
+    settings.value.watermark.enableTime = enable;
+
+    if (enable) {
+      settings.value.watermark.enableUserName = false;
+    }
+  }
+
   /** Cache theme settings */
   function cacheThemeSettings() {
     const isProd = import.meta.env.PROD;
@@ -209,6 +253,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     themeColors,
     naiveTheme,
     settingsJson,
+    watermarkContent,
     setGrayscale,
     setColourWeakness,
     resetStore,
@@ -216,6 +261,8 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     toggleThemeScheme,
     updateThemeColors,
     setThemeLayout,
-    setLayoutReverseHorizontalMix
+    setLayoutReverseHorizontalMix,
+    setWatermarkEnableUserName,
+    setWatermarkEnableTime
   };
 });
