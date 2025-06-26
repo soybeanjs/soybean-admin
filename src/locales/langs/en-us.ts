@@ -158,10 +158,14 @@ const local: App.I18n.Schema = {
       }
     },
     general: {
+      title: 'General Settings',
       watermark: {
+        title: 'Watermark Settings',
         visible: 'Watermark Full Screen Visible',
-        text: 'Watermark Text',
-        enableUserName: 'Enable User Name Watermark'
+        text: 'Custom Watermark Text',
+        enableUserName: 'Enable User Name Watermark',
+        enableTime: 'Show Current Time',
+        timeFormat: 'Time Format'
       },
       multilingual: {
         title: 'Multilingual Settings',
