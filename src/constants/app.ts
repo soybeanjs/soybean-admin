@@ -63,3 +63,13 @@ export const resetCacheStrategyRecord: Record<UnionKey.ResetCacheStrategy, App.I
 export const resetCacheStrategyOptions = transformRecordToOption(resetCacheStrategyRecord);
 
 export const DARK_CLASS = 'dark';
+
+export const watermarkTimeFormatOptions = [
+  { label: 'YYYY-MM-DD HH:mm', value: 'YYYY-MM-DD HH:mm' },
+  { label: 'YYYY-MM-DD HH:mm:ss', value: 'YYYY-MM-DD HH:mm:ss' },
+  { label: 'YYYY/MM/DD HH:mm', value: 'YYYY/MM/DD HH:mm' },
+  { label: 'YYYY/MM/DD HH:mm:ss', value: 'YYYY/MM/DD HH:mm:ss' },
+  { label: 'HH:mm', value: 'HH:mm' },
+  { label: 'HH:mm:ss', value: 'HH:mm:ss' },
+  { label: 'MM-DD HH:mm', value: 'MM-DD HH:mm' }
+];
