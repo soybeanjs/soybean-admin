@@ -19,9 +19,13 @@ import {
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const scope = effectScope();
   const osTheme = usePreferredColorScheme();
+  const authStore = useAuthStore();
 
   /** Theme settings */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
+
+  /** Watermark time instance with controls */
+  const { now: watermarkTime, pause: pauseWatermarkTime, resume: resumeWatermarkTime } = useNow({ controls: true });
 
   /** Dark mode */
   const darkMode = computed(() => {
@@ -58,9 +62,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    */
   const settingsJson = computed(() => JSON.stringify(settings.value));
 
+  /** Watermark time date formatter */
+  const formattedWatermarkTime = computed(() => {
+    const { watermark } = settings.value;
+    const date = useDateFormat(watermarkTime, watermark.timeFormat);
+    return date.value;
+  });
+
   /** Watermark content */
   const watermarkContent = computed(() => {
-    const authStore = useAuthStore();
     const { watermark } = settings.value;
 
     if (watermark.enableUserName && authStore.userInfo.userName) {
@@ -68,8 +78,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     }
 
     if (watermark.enableTime) {
-      const date = useDateFormat(useNow(), watermark.timeFormat);
-      return date.value;
+      return formattedWatermarkTime.value;
     }
 
     return watermark.text;
@@ -197,6 +206,18 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     }
   }
 
+  /** Only run timer when watermark is visible and time display is enabled */
+  function updateWatermarkTimer() {
+    const { watermark } = settings.value;
+    const shouldRunTimer = watermark.visible && watermark.enableTime;
+
+    if (shouldRunTimer) {
+      resumeWatermarkTime();
+    } else {
+      pauseWatermarkTime();
+    }
+  }
+
   /** Cache theme settings */
   function cacheThemeSettings() {
     const isProd = import.meta.env.PROD;
@@ -237,6 +258,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       val => {
         setupThemeVarsToGlobal();
         localStg.set('themeColor', val.primary);
+      },
+      { immediate: true }
+    );
+
+    // watch watermark settings to control timer
+    watch(
+      () => [settings.value.watermark.visible, settings.value.watermark.enableTime],
+      () => {
+        updateWatermarkTimer();
       },
       { immediate: true }
     );
