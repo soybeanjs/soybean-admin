@@ -15,8 +15,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
   resetCacheStrategy: 'close',
   layout: {
     mode: 'vertical',
-    scrollMode: 'content',
-    reverseHorizontalMix: false
+    scrollMode: 'content'
   },
   page: {
     animate: true,

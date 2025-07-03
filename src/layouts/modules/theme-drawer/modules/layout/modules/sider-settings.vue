@@ -11,7 +11,7 @@ defineOptions({
 const themeStore = useThemeStore();
 
 const layoutMode = computed(() => themeStore.layout.mode);
-const isMixLayoutMode = computed(() => layoutMode.value.includes('mix'));
+const isMixLayoutMode = computed(() => layoutMode.value.includes('mix') || layoutMode.value.includes('hybrid'));
 </script>
 
 <template>
