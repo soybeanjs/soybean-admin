@@ -127,7 +127,6 @@ function handleClickMask() {
           :class="[
             style['layout-header'],
             commonClass,
-            headerClass,
             headerLeftGapClass,
             { 'absolute top-0 left-0 w-full': fixedHeaderAndTab }
           ]"

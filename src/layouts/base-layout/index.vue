@@ -29,7 +29,7 @@ const layoutMode = computed(() => {
 });
 
 const headerProps = computed(() => {
-  const { mode, reverseHorizontalMix } = themeStore.layout;
+  const { mode } = themeStore.layout;
 
   const headerPropsConfig: Record<UnionKey.ThemeLayoutMode, App.Global.HeaderProps> = {
     vertical: {
@@ -47,10 +47,15 @@ const headerProps = computed(() => {
       showMenu: true,
       showMenuToggler: false
     },
-    'horizontal-mix': {
+    'top-hybrid-sidebar-first': {
       showLogo: true,
       showMenu: true,
-      showMenuToggler: reverseHorizontalMix && isActiveFirstLevelMenuHasChildren.value
+      showMenuToggler: false
+    },
+    'top-hybrid-header-first': {
+      showLogo: true,
+      showMenu: true,
+      showMenuToggler: isActiveFirstLevelMenuHasChildren.value
     }
   };
 
@@ -61,21 +66,22 @@ const siderVisible = computed(() => themeStore.layout.mode !== 'horizontal');
 
 const isVerticalMix = computed(() => themeStore.layout.mode === 'vertical-mix');
 
-const isHorizontalMix = computed(() => themeStore.layout.mode === 'horizontal-mix');
+const isTopHybridSidebarFirst = computed(() => themeStore.layout.mode === 'top-hybrid-sidebar-first');
+
+const isTopHybridHeaderFirst = computed(() => themeStore.layout.mode === 'top-hybrid-header-first');
 
 const siderWidth = computed(() => getSiderWidth());
 
 const siderCollapsedWidth = computed(() => getSiderCollapsedWidth());
 
 function getSiderWidth() {
-  const { reverseHorizontalMix } = themeStore.layout;
   const { width, mixWidth, mixChildMenuWidth } = themeStore.sider;
 
-  if (isHorizontalMix.value && reverseHorizontalMix) {
+  if (isTopHybridHeaderFirst.value) {
     return isActiveFirstLevelMenuHasChildren.value ? width : 0;
   }
 
-  let w = isVerticalMix.value || isHorizontalMix.value ? mixWidth : width;
+  let w = isVerticalMix.value || isTopHybridSidebarFirst.value ? mixWidth : width;
 
   if (isVerticalMix.value && appStore.mixSiderFixed && childLevelMenus.value.length) {
     w += mixChildMenuWidth;
@@ -85,14 +91,13 @@ function getSiderWidth() {
 }
 
 function getSiderCollapsedWidth() {
-  const { reverseHorizontalMix } = themeStore.layout;
   const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider;
 
-  if (isHorizontalMix.value && reverseHorizontalMix) {
+  if (isTopHybridHeaderFirst.value) {
     return isActiveFirstLevelMenuHasChildren.value ? collapsedWidth : 0;
   }
 
-  let w = isVerticalMix.value || isHorizontalMix.value ? mixCollapsedWidth : collapsedWidth;
+  let w = isVerticalMix.value || isTopHybridSidebarFirst.value ? mixCollapsedWidth : collapsedWidth;
 
   if (isVerticalMix.value && appStore.mixSiderFixed && childLevelMenus.value.length) {
     w += mixChildMenuWidth;

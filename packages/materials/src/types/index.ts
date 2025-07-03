@@ -7,12 +7,6 @@ interface AdminLayoutHeaderConfig {
    */
   headerVisible?: boolean;
   /**
-   * Header class
-   *
-   * @default ''
-   */
-  headerClass?: string;
-  /**
    * Header height
    *
    * @default 56px

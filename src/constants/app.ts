@@ -24,7 +24,8 @@ export const themeLayoutModeRecord: Record<UnionKey.ThemeLayoutMode, App.I18n.I1
   vertical: 'theme.layout.layoutMode.vertical',
   'vertical-mix': 'theme.layout.layoutMode.vertical-mix',
   horizontal: 'theme.layout.layoutMode.horizontal',
-  'horizontal-mix': 'theme.layout.layoutMode.horizontal-mix'
+  'top-hybrid-sidebar-first': 'theme.layout.layoutMode.top-hybrid-sidebar-first',
+  'top-hybrid-header-first': 'theme.layout.layoutMode.top-hybrid-header-first'
 };
 
 export const themeLayoutModeOptions = transformRecordToOption(themeLayoutModeRecord);
