@@ -28,12 +28,6 @@ declare namespace App {
         mode: UnionKey.ThemeLayoutMode;
         /** Scroll mode */
         scrollMode: UnionKey.ThemeScrollMode;
-        /**
-         * Whether to reverse the horizontal mix
-         *
-         * if true, the vertical child level menus in left and horizontal first level menus in top
-         */
-        reverseHorizontalMix: boolean;
       };
       /** Page */
       page: {
@@ -88,11 +82,11 @@ declare namespace App {
         width: number;
         /** Collapsed sider width */
         collapsedWidth: number;
-        /** Sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /** Sider width when the layout is 'vertical-mix', 'horizontal-mix', or 'horizontal-mix-reverse' */
         mixWidth: number;
-        /** Collapsed sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /** Collapsed sider width when the layout is 'vertical-mix', 'horizontal-mix', or 'horizontal-mix-reverse' */
         mixCollapsedWidth: number;
-        /** Child menu width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /** Child menu width when the layout is 'vertical-mix', 'horizontal-mix', or 'horizontal-mix-reverse' */
         mixChildMenuWidth: number;
       };
       /** Footer */
@@ -103,7 +97,7 @@ declare namespace App {
         fixed: boolean;
         /** Footer height */
         height: number;
-        /** Whether float the footer to the right when the layout is 'horizontal-mix' */
+        /** Whether float the footer to the right when the layout is 'horizontal-mix' or 'horizontal-mix-reverse' */
         right: boolean;
       };
       /** Watermark */
@@ -380,7 +374,9 @@ declare namespace App {
           recommendColorDesc: string;
         };
         layout: {
-          layoutMode: { title: string; reverseHorizontalMix: string } & Record<UnionKey.ThemeLayoutMode, string>;
+          layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string> & {
+              [K in `${UnionKey.ThemeLayoutMode}_detail`]: string;
+            };
           tab: {
             title: string;
             visible: string;

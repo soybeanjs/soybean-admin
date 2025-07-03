@@ -171,14 +171,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     );
     addThemeVarsToGlobal(themeTokens, darkThemeTokens);
   }
-  /**
-   * Set layout reverse horizontal mix
-   *
-   * @param reverse Reverse horizontal mix
-   */
-  function setLayoutReverseHorizontalMix(reverse: boolean) {
-    settings.value.layout.reverseHorizontalMix = reverse;
-  }
 
   /**
    * Set watermark enable user name
@@ -291,7 +283,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     toggleThemeScheme,
     updateThemeColors,
     setThemeLayout,
-    setLayoutReverseHorizontalMix,
     setWatermarkEnableUserName,
     setWatermarkEnableTime
   };

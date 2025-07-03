@@ -88,11 +88,19 @@ const local: App.I18n.Schema = {
     layout: {
       layoutMode: {
         title: 'Layout Mode',
-        vertical: 'Vertical Menu Mode',
-        horizontal: 'Horizontal Menu Mode',
-        'vertical-mix': 'Vertical Mix Menu Mode',
-        'horizontal-mix': 'Horizontal Mix menu Mode',
-        reverseHorizontalMix: 'Reverse first level menus and child level menus position'
+        vertical: 'Vertical Mode',
+        horizontal: 'Horizontal Mode',
+        'vertical-mix': 'Vertical Mix Mode',
+        'top-hybrid-sidebar-first': 'Top-Hybrid Sidebar-First',
+        'top-hybrid-header-first': 'Top-Hybrid Header-First',
+        vertical_detail: 'Vertical menu layout, with the menu on the left and content on the right.',
+        'vertical-mix_detail':
+          'Vertical mix-menu layout, with the primary menu on the dark left side and the secondary menu on the lighter right side.',
+        horizontal_detail: 'Horizontal menu layout, with the menu at the top and content below.',
+        'top-hybrid-sidebar-first_detail':
+          'Top hybrid layout, with the primary menu on the left and the secondary menu at the top.',
+        'top-hybrid-header-first_detail':
+          'Top hybrid layout, with the primary menu at the top and the secondary menu on the left.'
       },
       tab: {
         title: 'Tab Settings',

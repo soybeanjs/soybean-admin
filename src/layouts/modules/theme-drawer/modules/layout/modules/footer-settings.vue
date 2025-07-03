@@ -12,6 +12,9 @@ const themeStore = useThemeStore();
 
 const layoutMode = computed(() => themeStore.layout.mode);
 const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wrapper');
+const isMixHorizontalMode = computed(() =>
+  ['top-hybrid-sidebar-first', 'top-hybrid-header-first'].includes(layoutMode.value)
+);
 </script>
 
 <template>
@@ -31,7 +34,7 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
       <NInputNumber v-model:value="themeStore.footer.height" size="small" :step="1" class="w-120px" />
     </SettingItem>
     <SettingItem
-      v-if="themeStore.footer.visible && layoutMode === 'horizontal-mix'"
+      v-if="themeStore.footer.visible && isMixHorizontalMode"
       key="4"
       :label="$t('theme.layout.footer.right')"
     >

@@ -21,7 +21,8 @@ const activeMenu = computed(() => {
     vertical: VerticalMenu,
     'vertical-mix': VerticalMixMenu,
     horizontal: HorizontalMenu,
-    'horizontal-mix': themeStore.layout.reverseHorizontalMix ? ReversedHorizontalMixMenu : HorizontalMixMenu
+    'top-hybrid-sidebar-first': HorizontalMixMenu,
+    'top-hybrid-header-first': ReversedHorizontalMixMenu
   };
 
   return menuMap[themeStore.layout.mode];
