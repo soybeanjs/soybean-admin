@@ -11,6 +11,9 @@
   "i18n-ally.editor.preferEditor": true,
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["src/locales/langs"],
+  "i18n-ally.parsers.typescript.compilerOptions": {
+    "moduleResolution": "node"
+  },
   "prettier.enable": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "unocss.root": ["./"],
