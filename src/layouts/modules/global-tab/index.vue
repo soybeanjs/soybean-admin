@@ -164,7 +164,7 @@ init();
 
 <template>
   <DarkModeContainer class="size-full flex-y-center px-16px shadow-tab">
-    <div ref="bsWrapper" class="h-full flex-1-hidden">
+    <div ref="bsWrapper" class="h-full flex-1 overflow-x-auto overflow-y-hidden scrollbar-none">
       <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: !isPCFlag }" @click="removeFocus">
         <div
           ref="tabRef"

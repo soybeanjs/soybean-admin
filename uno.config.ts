@@ -25,6 +25,7 @@ export default defineConfig<Theme>({
   shortcuts: {
     'card-wrapper': 'rd-8px shadow-sm'
   },
+  rules: [['scrollbar-none', { 'scrollbar-width': 'none' }]],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   presets: [presetWind3({ dark: 'class' }), presetSoybeanAdmin()]
 });
