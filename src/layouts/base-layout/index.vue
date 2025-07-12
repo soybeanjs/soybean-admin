@@ -42,6 +42,11 @@ const headerProps = computed(() => {
       showMenu: false,
       showMenuToggler: false
     },
+    'vertical-hybrid-header-first': {
+      showLogo: !isActiveFirstLevelMenuHasChildren.value,
+      showMenu: true,
+      showMenuToggler: false
+    },
     horizontal: {
       showLogo: true,
       showMenu: true,
@@ -66,6 +71,8 @@ const siderVisible = computed(() => themeStore.layout.mode !== 'horizontal');
 
 const isVerticalMix = computed(() => themeStore.layout.mode === 'vertical-mix');
 
+const isVerticalHybridHeaderFirst = computed(() => themeStore.layout.mode === 'vertical-hybrid-header-first');
+
 const isTopHybridSidebarFirst = computed(() => themeStore.layout.mode === 'top-hybrid-sidebar-first');
 
 const isTopHybridHeaderFirst = computed(() => themeStore.layout.mode === 'top-hybrid-header-first');
@@ -74,36 +81,46 @@ const siderWidth = computed(() => getSiderWidth());
 
 const siderCollapsedWidth = computed(() => getSiderCollapsedWidth());
 
-function getSiderWidth() {
-  const { width, mixWidth, mixChildMenuWidth } = themeStore.sider;
+function getSiderAndCollapsedWidth(isCollapsed: boolean) {
+  const {
+    mixChildMenuWidth,
+    collapsedWidth,
+    width: themeWidth,
+    mixCollapsedWidth,
+    mixWidth: themeMixWidth
+  } = themeStore.sider;
+
+  const width = isCollapsed ? collapsedWidth : themeWidth;
+  const mixWidth = isCollapsed ? mixCollapsedWidth : themeMixWidth;
 
   if (isTopHybridHeaderFirst.value) {
     return isActiveFirstLevelMenuHasChildren.value ? width : 0;
   }
 
-  let w = isVerticalMix.value || isTopHybridSidebarFirst.value ? mixWidth : width;
-
-  if (isVerticalMix.value && appStore.mixSiderFixed && childLevelMenus.value.length) {
-    w += mixChildMenuWidth;
+  if (isVerticalHybridHeaderFirst.value && !isActiveFirstLevelMenuHasChildren.value) {
+    return 0;
   }
 
-  return w;
+  const isMixMode = isVerticalMix.value || isTopHybridSidebarFirst.value || isVerticalHybridHeaderFirst.value;
+  let finalWidth = isMixMode ? mixWidth : width;
+
+  if (isVerticalMix.value && appStore.mixSiderFixed && childLevelMenus.value.length) {
+    finalWidth += mixChildMenuWidth;
+  }
+
+  if (isVerticalHybridHeaderFirst.value && appStore.mixSiderFixed && childLevelMenus.value.length) {
+    finalWidth += mixChildMenuWidth;
+  }
+
+  return finalWidth;
+}
+
+function getSiderWidth() {
+  return getSiderAndCollapsedWidth(false);
 }
 
 function getSiderCollapsedWidth() {
-  const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider;
-
-  if (isTopHybridHeaderFirst.value) {
-    return isActiveFirstLevelMenuHasChildren.value ? collapsedWidth : 0;
-  }
-
-  let w = isVerticalMix.value || isTopHybridSidebarFirst.value ? mixCollapsedWidth : collapsedWidth;
-
-  if (isVerticalMix.value && appStore.mixSiderFixed && childLevelMenus.value.length) {
-    w += mixChildMenuWidth;
-  }
-
-  return w;
+  return getSiderAndCollapsedWidth(true);
 }
 </script>
 

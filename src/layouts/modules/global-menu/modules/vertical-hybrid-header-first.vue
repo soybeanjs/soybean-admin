@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import type { RouteKey } from '@elegant-router/types';
 import { SimpleScrollbar } from '@sa/materials';
 import { useBoolean } from '@sa/hooks';
-import type { RouteKey } from '@elegant-router/types';
-import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
+import { GLOBAL_HEADER_MENU_ID, GLOBAL_SIDER_MENU_ID } from '@/constants/app';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
-import { $t } from '@/locales';
 import { useMenu, useMixMenuContext } from '../../../context';
 import FirstLevelMenu from '../components/first-level-menu.vue';
 import GlobalLogo from '../../global-logo/index.vue';
 
 defineOptions({
-  name: 'VerticalMixMenu'
+  name: 'VerticalHybridHeaderFirst'
 });
 
 const route = useRoute();
@@ -26,25 +25,37 @@ const { routerPushByKeyWithMetaQuery } = useRouterPush();
 const { bool: drawerVisible, setBool: setDrawerVisible } = useBoolean();
 const {
   firstLevelMenus,
-  secondLevelMenus,
   activeFirstLevelMenuKey,
-  isActiveFirstLevelMenuHasChildren,
+  handleSelectFirstLevelMenu,
   getActiveFirstLevelMenuKey,
-  handleSelectFirstLevelMenu
+  secondLevelMenus,
+  activeSecondLevelMenuKey,
+  isActiveSecondLevelMenuHasChildren,
+  handleSelectSecondLevelMenu,
+  getActiveSecondLevelMenuKey,
+  childLevelMenus
 } = useMixMenuContext();
 const { selectedKey } = useMenu();
 
 const inverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
 
-const hasChildMenus = computed(() => secondLevelMenus.value.length > 0);
+const hasChildMenus = computed(() => childLevelMenus.value.length > 0);
 
 const showDrawer = computed(() => hasChildMenus.value && (drawerVisible.value || appStore.mixSiderFixed));
+
+function handleSelectMixMenu(key: RouteKey) {
+  handleSelectSecondLevelMenu(key);
+
+  if (isActiveSecondLevelMenuHasChildren.value) {
+    setDrawerVisible(true);
+  }
+}
 
 function handleSelectMenu(key: RouteKey) {
   handleSelectFirstLevelMenu(key);
 
-  if (isActiveFirstLevelMenuHasChildren.value) {
-    setDrawerVisible(true);
+  if (secondLevelMenus.value.length > 0) {
+    handleSelectMixMenu(secondLevelMenus.value[0].routeKey);
   }
 }
 
@@ -53,6 +64,7 @@ function handleResetActiveMenu() {
 
   if (!appStore.mixSiderFixed) {
     getActiveFirstLevelMenuKey();
+    getActiveSecondLevelMenuKey();
   }
 }
 
@@ -76,16 +88,26 @@ watch(
 </script>
 
 <template>
+  <Teleport :to="`#${GLOBAL_HEADER_MENU_ID}`">
+    <NMenu
+      mode="horizontal"
+      :value="activeFirstLevelMenuKey"
+      :options="firstLevelMenus"
+      :indent="18"
+      responsive
+      @update:value="handleSelectMenu"
+    />
+  </Teleport>
   <Teleport :to="`#${GLOBAL_SIDER_MENU_ID}`">
     <div class="h-full flex" @mouseleave="handleResetActiveMenu">
       <FirstLevelMenu
-        :menus="firstLevelMenus"
-        :active-menu-key="activeFirstLevelMenuKey"
+        :menus="secondLevelMenus"
+        :active-menu-key="activeSecondLevelMenuKey"
         :inverted="inverted"
         :sider-collapse="appStore.siderCollapse"
         :dark-mode="themeStore.darkMode"
         :theme-color="themeStore.themeColor"
-        @select="handleSelectMenu"
+        @select="handleSelectMixMenu"
         @toggle-sider-collapse="appStore.toggleSiderCollapse"
       >
         <GlobalLogo :show-title="false" :style="{ height: themeStore.header.height + 'px' }" />
@@ -112,7 +134,7 @@ watch(
               v-model:expanded-keys="expandedKeys"
               mode="vertical"
               :value="selectedKey"
-              :options="secondLevelMenus"
+              :options="childLevelMenus"
               :inverted="inverted"
               :indent="18"
               @update:value="routerPushByKeyWithMetaQuery"

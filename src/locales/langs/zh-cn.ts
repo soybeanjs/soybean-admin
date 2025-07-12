@@ -90,11 +90,14 @@ const local: App.I18n.Schema = {
         title: '布局模式',
         vertical: '左侧菜单模式',
         'vertical-mix': '左侧菜单混合模式',
+        'vertical-hybrid-header-first': '左侧混合-顶部优先',
         horizontal: '顶部菜单模式',
         'top-hybrid-sidebar-first': '顶部混合-侧边优先',
         'top-hybrid-header-first': '顶部混合-顶部优先',
         vertical_detail: '左侧菜单布局，菜单在左，内容在右。',
-        'vertical-mix_detail': '左侧双菜单布局，一级菜单在左侧深色区域，二级菜单在右侧浅色区域。',
+        'vertical-mix_detail': '左侧双菜单布局，一级菜单在左侧深色区域，二级菜单在左侧浅色区域。',
+        'vertical-hybrid-header-first_detail':
+          '左侧混合布局，一级菜单在顶部，二级菜单在左侧浅色区域，三级菜单在左侧深色区域。',
         horizontal_detail: '顶部菜单布局，菜单在顶部，内容在下方。',
         'top-hybrid-sidebar-first_detail': '顶部混合布局，一级菜单在左侧，二级菜单在顶部。',
         'top-hybrid-header-first_detail': '顶部混合布局，一级菜单在顶部，二级菜单在左侧。'

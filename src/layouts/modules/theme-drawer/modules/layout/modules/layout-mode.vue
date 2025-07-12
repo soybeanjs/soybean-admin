@@ -30,6 +30,14 @@ const themeStore = useThemeStore();
         <div class="layout-main"></div>
       </div>
     </template>
+    <template #vertical-hybrid-header-first>
+      <div class="layout-sider h-full w-8px !bg-primary"></div>
+      <div class="layout-sider h-full w-16px !bg-primary-300"></div>
+      <div class="vertical-wrapper">
+        <div class="layout-header bg-primary"></div>
+        <div class="layout-main"></div>
+      </div>
+    </template>
     <template #horizontal>
       <div class="layout-header !bg-primary"></div>
       <div class="horizontal-wrapper">

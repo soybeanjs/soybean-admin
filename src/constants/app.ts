@@ -23,6 +23,7 @@ export const loginModuleRecord: Record<UnionKey.LoginModule, App.I18n.I18nKey> =
 export const themeLayoutModeRecord: Record<UnionKey.ThemeLayoutMode, App.I18n.I18nKey> = {
   vertical: 'theme.layout.layoutMode.vertical',
   'vertical-mix': 'theme.layout.layoutMode.vertical-mix',
+  'vertical-hybrid-header-first': 'theme.layout.layoutMode.vertical-hybrid-header-first',
   horizontal: 'theme.layout.layoutMode.horizontal',
   'top-hybrid-sidebar-first': 'theme.layout.layoutMode.top-hybrid-sidebar-first',
   'top-hybrid-header-first': 'theme.layout.layoutMode.top-hybrid-header-first'
