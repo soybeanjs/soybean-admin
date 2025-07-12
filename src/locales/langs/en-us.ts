@@ -91,11 +91,14 @@ const local: App.I18n.Schema = {
         vertical: 'Vertical Mode',
         horizontal: 'Horizontal Mode',
         'vertical-mix': 'Vertical Mix Mode',
+        'vertical-hybrid-header-first': 'Left Hybrid Header-First',
         'top-hybrid-sidebar-first': 'Top-Hybrid Sidebar-First',
         'top-hybrid-header-first': 'Top-Hybrid Header-First',
         vertical_detail: 'Vertical menu layout, with the menu on the left and content on the right.',
         'vertical-mix_detail':
-          'Vertical mix-menu layout, with the primary menu on the dark left side and the secondary menu on the lighter right side.',
+          'Vertical mix-menu layout, with the primary menu on the dark left side and the secondary menu on the lighter left side.',
+        'vertical-hybrid-header-first_detail':
+          'Vertical mix-menu layout, with the primary menu at the top, the secondary menu on the dark left side, and the secondary menu on the lighter left side.',
         horizontal_detail: 'Horizontal menu layout, with the menu at the top and content below.',
         'top-hybrid-sidebar-first_detail':
           'Top hybrid layout, with the primary menu on the left and the secondary menu at the top.',

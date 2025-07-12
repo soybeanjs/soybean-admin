@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import type { RouteKey } from '@elegant-router/types';
 import { SimpleScrollbar } from '@sa/materials';
 import { GLOBAL_HEADER_MENU_ID, GLOBAL_SIDER_MENU_ID } from '@/constants/app';
 import { useAppStore } from '@/store/modules/app';
@@ -11,7 +10,7 @@ import { useRouterPush } from '@/hooks/common/router';
 import { useMenu, useMixMenuContext } from '../../../context';
 
 defineOptions({
-  name: 'ReversedHorizontalMixMenu'
+  name: 'TopHybridHeaderFirst'
 });
 
 const route = useRoute();
@@ -19,22 +18,8 @@ const appStore = useAppStore();
 const themeStore = useThemeStore();
 const routeStore = useRouteStore();
 const { routerPushByKeyWithMetaQuery } = useRouterPush();
-const {
-  firstLevelMenus,
-  childLevelMenus,
-  activeFirstLevelMenuKey,
-  setActiveFirstLevelMenuKey,
-  isActiveFirstLevelMenuHasChildren
-} = useMixMenuContext();
+const { firstLevelMenus, secondLevelMenus, activeFirstLevelMenuKey, handleSelectFirstLevelMenu } = useMixMenuContext();
 const { selectedKey } = useMenu();
-
-function handleSelectMixMenu(key: RouteKey) {
-  setActiveFirstLevelMenuKey(key);
-
-  if (!isActiveFirstLevelMenuHasChildren.value) {
-    routerPushByKeyWithMetaQuery(key);
-  }
-}
 
 const expandedKeys = ref<string[]>([]);
 
@@ -63,7 +48,7 @@ watch(
       :options="firstLevelMenus"
       :indent="18"
       responsive
-      @update:value="handleSelectMixMenu"
+      @update:value="handleSelectFirstLevelMenu"
     />
   </Teleport>
   <Teleport :to="`#${GLOBAL_SIDER_MENU_ID}`">
@@ -75,7 +60,7 @@ watch(
         :collapsed="appStore.siderCollapse"
         :collapsed-width="themeStore.sider.collapsedWidth"
         :collapsed-icon-size="22"
-        :options="childLevelMenus"
+        :options="secondLevelMenus"
         :indent="18"
         @update:value="routerPushByKeyWithMetaQuery"
       />
