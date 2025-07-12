@@ -35,6 +35,7 @@ declare namespace UnionKey {
     | 'vertical'
     | 'horizontal'
     | 'vertical-mix'
+    | 'vertical-hybrid-header-first'
     | 'top-hybrid-sidebar-first'
     | 'top-hybrid-header-first';
 
