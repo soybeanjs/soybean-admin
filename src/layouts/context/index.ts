@@ -64,7 +64,14 @@ function useMixMenu() {
   }
 
   function getActiveSecondLevelMenuKey() {
-    const [firstLevelRouteName, level2SuffixName] = selectedKey.value.split('_');
+    const keys = selectedKey.value.split('_');
+
+    if (keys.length < 2) {
+      setActiveSecondLevelMenuKey('');
+      return;
+    }
+
+    const [firstLevelRouteName, level2SuffixName] = keys;
 
     const secondLevelRouteName = `${firstLevelRouteName}_${level2SuffixName}`;
 
