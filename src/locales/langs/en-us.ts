@@ -58,100 +58,134 @@ const local: App.I18n.Schema = {
     tokenExpired: 'The requested token has expired'
   },
   theme: {
-    themeSchema: {
-      title: 'Theme Schema',
-      light: 'Light',
-      dark: 'Dark',
-      auto: 'Follow System'
+    themeDrawerTitle: 'Theme Configuration',
+    tabs: {
+      appearance: 'Appearance',
+      layout: 'Layout',
+      general: 'General'
     },
-    grayscale: 'Grayscale',
-    colourWeakness: 'Colour Weakness',
-    layoutMode: {
-      title: 'Layout Mode',
-      vertical: 'Vertical Menu Mode',
-      horizontal: 'Horizontal Menu Mode',
-      'vertical-mix': 'Vertical Mix Menu Mode',
-      'horizontal-mix': 'Horizontal Mix menu Mode',
-      reverseHorizontalMix: 'Reverse first level menus and child level menus position'
+    appearance: {
+      themeSchema: {
+        title: 'Theme Schema',
+        light: 'Light',
+        dark: 'Dark',
+        auto: 'Follow System'
+      },
+      grayscale: 'Grayscale',
+      colourWeakness: 'Colour Weakness',
+      themeColor: {
+        title: 'Theme Color',
+        primary: 'Primary',
+        info: 'Info',
+        success: 'Success',
+        warning: 'Warning',
+        error: 'Error',
+        followPrimary: 'Follow Primary'
+      },
+      recommendColor: 'Apply Recommended Color Algorithm',
+      recommendColorDesc: 'The recommended color algorithm refers to'
     },
-    recommendColor: 'Apply Recommended Color Algorithm',
-    recommendColorDesc: 'The recommended color algorithm refers to',
-    themeColor: {
-      title: 'Theme Color',
-      primary: 'Primary',
-      info: 'Info',
-      success: 'Success',
-      warning: 'Warning',
-      error: 'Error',
-      followPrimary: 'Follow Primary'
-    },
-    scrollMode: {
-      title: 'Scroll Mode',
-      wrapper: 'Wrapper',
-      content: 'Content'
-    },
-    page: {
-      animate: 'Page Animate',
-      mode: {
-        title: 'Page Animate Mode',
-        fade: 'Fade',
-        'fade-slide': 'Slide',
-        'fade-bottom': 'Fade Zoom',
-        'fade-scale': 'Fade Scale',
-        'zoom-fade': 'Zoom Fade',
-        'zoom-out': 'Zoom Out',
-        none: 'None'
+    layout: {
+      layoutMode: {
+        title: 'Layout Mode',
+        vertical: 'Vertical Mode',
+        horizontal: 'Horizontal Mode',
+        'vertical-mix': 'Vertical Mix Mode',
+        'vertical-hybrid-header-first': 'Left Hybrid Header-First',
+        'top-hybrid-sidebar-first': 'Top-Hybrid Sidebar-First',
+        'top-hybrid-header-first': 'Top-Hybrid Header-First',
+        vertical_detail: 'Vertical menu layout, with the menu on the left and content on the right.',
+        'vertical-mix_detail':
+          'Vertical mix-menu layout, with the primary menu on the dark left side and the secondary menu on the lighter left side.',
+        'vertical-hybrid-header-first_detail':
+          'Left hybrid layout, with the primary menu at the top, the secondary menu on the dark left side, and the tertiary menu on the lighter left side.',
+        horizontal_detail: 'Horizontal menu layout, with the menu at the top and content below.',
+        'top-hybrid-sidebar-first_detail':
+          'Top hybrid layout, with the primary menu on the left and the secondary menu at the top.',
+        'top-hybrid-header-first_detail':
+          'Top hybrid layout, with the primary menu at the top and the secondary menu on the left.'
+      },
+      tab: {
+        title: 'Tab Settings',
+        visible: 'Tab Visible',
+        cache: 'Tag Bar Info Cache',
+        height: 'Tab Height',
+        mode: {
+          title: 'Tab Mode',
+          chrome: 'Chrome',
+          button: 'Button'
+        }
+      },
+      header: {
+        title: 'Header Settings',
+        height: 'Header Height',
+        breadcrumb: {
+          visible: 'Breadcrumb Visible',
+          showIcon: 'Breadcrumb Icon Visible'
+        }
+      },
+      sider: {
+        title: 'Sider Settings',
+        inverted: 'Dark Sider',
+        width: 'Sider Width',
+        collapsedWidth: 'Sider Collapsed Width',
+        mixWidth: 'Mix Sider Width',
+        mixCollapsedWidth: 'Mix Sider Collapse Width',
+        mixChildMenuWidth: 'Mix Child Menu Width'
+      },
+      footer: {
+        title: 'Footer Settings',
+        visible: 'Footer Visible',
+        fixed: 'Fixed Footer',
+        height: 'Footer Height',
+        right: 'Right Footer'
+      },
+      content: {
+        title: 'Content Area Settings',
+        scrollMode: {
+          title: 'Scroll Mode',
+          wrapper: 'Wrapper',
+          content: 'Content'
+        },
+        page: {
+          animate: 'Page Animate',
+          mode: {
+            title: 'Page Animate Mode',
+            fade: 'Fade',
+            'fade-slide': 'Slide',
+            'fade-bottom': 'Fade Zoom',
+            'fade-scale': 'Fade Scale',
+            'zoom-fade': 'Zoom Fade',
+            'zoom-out': 'Zoom Out',
+            none: 'None'
+          }
+        },
+        fixedHeaderAndTab: 'Fixed Header And Tab'
+      },
+      resetCacheStrategy: {
+        title: 'Reset Cache Strategy',
+        close: 'Close Page',
+        refresh: 'Refresh Page'
       }
     },
-    fixedHeaderAndTab: 'Fixed Header And Tab',
-    header: {
-      height: 'Header Height',
-      breadcrumb: {
-        visible: 'Breadcrumb Visible',
-        showIcon: 'Breadcrumb Icon Visible'
+    general: {
+      title: 'General Settings',
+      watermark: {
+        title: 'Watermark Settings',
+        visible: 'Watermark Full Screen Visible',
+        text: 'Custom Watermark Text',
+        enableUserName: 'Enable User Name Watermark',
+        enableTime: 'Show Current Time',
+        timeFormat: 'Time Format'
       },
       multilingual: {
+        title: 'Multilingual Settings',
         visible: 'Display multilingual button'
       },
       globalSearch: {
+        title: 'Global Search Settings',
         visible: 'Display GlobalSearch button'
       }
-    },
-    tab: {
-      visible: 'Tab Visible',
-      cache: 'Tag Bar Info Cache',
-      height: 'Tab Height',
-      mode: {
-        title: 'Tab Mode',
-        chrome: 'Chrome',
-        button: 'Button'
-      }
-    },
-    sider: {
-      inverted: 'Dark Sider',
-      width: 'Sider Width',
-      collapsedWidth: 'Sider Collapsed Width',
-      mixWidth: 'Mix Sider Width',
-      mixCollapsedWidth: 'Mix Sider Collapse Width',
-      mixChildMenuWidth: 'Mix Child Menu Width'
-    },
-    footer: {
-      visible: 'Footer Visible',
-      fixed: 'Fixed Footer',
-      height: 'Footer Height',
-      right: 'Right Footer'
-    },
-    watermark: {
-      visible: 'Watermark Full Screen Visible',
-      text: 'Watermark Text',
-      enableUserName: 'Enable User Name Watermark'
-    },
-    themeDrawerTitle: 'Theme Configuration',
-    pageFunTitle: 'Page Function',
-    resetCacheStrategy: {
-      title: 'Reset Cache Strategy',
-      close: 'Close Page',
-      refresh: 'Refresh Page'
     },
     configOperation: {
       copyConfig: 'Copy Config',

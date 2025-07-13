@@ -1,7 +1,9 @@
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useContext } from '@sa/hooks';
+import type { RouteKey } from '@elegant-router/types';
 import { useRouteStore } from '@/store/modules/route';
+import { useRouterPush } from '@/hooks/common/router';
 
 export const { setupStore: setupMixMenuContext, useStore: useMixMenuContext } = useContext('mix-menu', useMixMenu);
 
@@ -9,6 +11,17 @@ function useMixMenu() {
   const route = useRoute();
   const routeStore = useRouteStore();
   const { selectedKey } = useMenu();
+  const { routerPushByKeyWithMetaQuery } = useRouterPush();
+
+  const allMenus = computed<App.Global.Menu[]>(() => routeStore.menus);
+
+  const firstLevelMenus = computed<App.Global.Menu[]>(() =>
+    routeStore.menus.map(menu => {
+      const { children: _, ...rest } = menu;
+
+      return rest;
+    })
+  );
 
   const activeFirstLevelMenuKey = ref('');
 
@@ -22,20 +35,6 @@ function useMixMenu() {
     setActiveFirstLevelMenuKey(firstLevelRouteName);
   }
 
-  const allMenus = computed<App.Global.Menu[]>(() => routeStore.menus);
-
-  const firstLevelMenus = computed<App.Global.Menu[]>(() =>
-    routeStore.menus.map(menu => {
-      const { children: _, ...rest } = menu;
-
-      return rest;
-    })
-  );
-
-  const childLevelMenus = computed<App.Global.Menu[]>(
-    () => routeStore.menus.find(menu => menu.key === activeFirstLevelMenuKey.value)?.children || []
-  );
-
   const isActiveFirstLevelMenuHasChildren = computed(() => {
     if (!activeFirstLevelMenuKey.value) {
       return false;
@@ -46,6 +45,61 @@ function useMixMenu() {
     return Boolean(findItem?.children?.length);
   });
 
+  function handleSelectFirstLevelMenu(key: RouteKey) {
+    setActiveFirstLevelMenuKey(key);
+
+    if (!isActiveFirstLevelMenuHasChildren.value) {
+      routerPushByKeyWithMetaQuery(key);
+    }
+  }
+
+  const secondLevelMenus = computed<App.Global.Menu[]>(
+    () => allMenus.value.find(menu => menu.key === activeFirstLevelMenuKey.value)?.children || []
+  );
+
+  const activeSecondLevelMenuKey = ref('');
+
+  function setActiveSecondLevelMenuKey(key: string) {
+    activeSecondLevelMenuKey.value = key;
+  }
+
+  function getActiveSecondLevelMenuKey() {
+    const keys = selectedKey.value.split('_');
+
+    if (keys.length < 2) {
+      setActiveSecondLevelMenuKey('');
+      return;
+    }
+
+    const [firstLevelRouteName, level2SuffixName] = keys;
+
+    const secondLevelRouteName = `${firstLevelRouteName}_${level2SuffixName}`;
+
+    setActiveSecondLevelMenuKey(secondLevelRouteName);
+  }
+
+  const isActiveSecondLevelMenuHasChildren = computed(() => {
+    if (!activeSecondLevelMenuKey.value) {
+      return false;
+    }
+
+    const findItem = secondLevelMenus.value.find(item => item.key === activeSecondLevelMenuKey.value);
+
+    return Boolean(findItem?.children?.length);
+  });
+
+  function handleSelectSecondLevelMenu(key: RouteKey) {
+    setActiveSecondLevelMenuKey(key);
+
+    if (!isActiveSecondLevelMenuHasChildren.value) {
+      routerPushByKeyWithMetaQuery(key);
+    }
+  }
+
+  const childLevelMenus = computed<App.Global.Menu[]>(
+    () => secondLevelMenus.value.find(menu => menu.key === activeSecondLevelMenuKey.value)?.children || []
+  );
+
   watch(
     () => route.name,
     () => {
@@ -55,13 +109,19 @@ function useMixMenu() {
   );
 
   return {
-    allMenus,
     firstLevelMenus,
-    childLevelMenus,
-    isActiveFirstLevelMenuHasChildren,
     activeFirstLevelMenuKey,
     setActiveFirstLevelMenuKey,
-    getActiveFirstLevelMenuKey
+    isActiveFirstLevelMenuHasChildren,
+    handleSelectFirstLevelMenu,
+    getActiveFirstLevelMenuKey,
+    secondLevelMenus,
+    activeSecondLevelMenuKey,
+    setActiveSecondLevelMenuKey,
+    isActiveSecondLevelMenuHasChildren,
+    handleSelectSecondLevelMenu,
+    getActiveSecondLevelMenuKey,
+    childLevelMenus
   };
 }
 

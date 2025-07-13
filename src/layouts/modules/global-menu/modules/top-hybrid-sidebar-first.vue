@@ -7,22 +7,14 @@ import FirstLevelMenu from '../components/first-level-menu.vue';
 import { useMenu, useMixMenuContext } from '../../../context';
 
 defineOptions({
-  name: 'HorizontalMixMenu'
+  name: 'TopHybridSidebarFirst'
 });
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const { routerPushByKeyWithMetaQuery } = useRouterPush();
-const { allMenus, childLevelMenus, activeFirstLevelMenuKey, setActiveFirstLevelMenuKey } = useMixMenuContext();
+const { firstLevelMenus, secondLevelMenus, activeFirstLevelMenuKey, handleSelectFirstLevelMenu } = useMixMenuContext();
 const { selectedKey } = useMenu();
-
-function handleSelectMixMenu(menu: App.Global.Menu) {
-  setActiveFirstLevelMenuKey(menu.key);
-
-  if (!menu.children?.length) {
-    routerPushByKeyWithMetaQuery(menu.routeKey);
-  }
-}
 </script>
 
 <template>
@@ -30,7 +22,7 @@ function handleSelectMixMenu(menu: App.Global.Menu) {
     <NMenu
       mode="horizontal"
       :value="selectedKey"
-      :options="childLevelMenus"
+      :options="secondLevelMenus"
       :indent="18"
       responsive
       @update:value="routerPushByKeyWithMetaQuery"
@@ -38,12 +30,12 @@ function handleSelectMixMenu(menu: App.Global.Menu) {
   </Teleport>
   <Teleport :to="`#${GLOBAL_SIDER_MENU_ID}`">
     <FirstLevelMenu
-      :menus="allMenus"
+      :menus="firstLevelMenus"
       :active-menu-key="activeFirstLevelMenuKey"
       :sider-collapse="appStore.siderCollapse"
       :dark-mode="themeStore.darkMode"
       :theme-color="themeStore.themeColor"
-      @select="handleSelectMixMenu"
+      @select="handleSelectFirstLevelMenu"
       @toggle-sider-collapse="appStore.toggleSiderCollapse"
     />
   </Teleport>
