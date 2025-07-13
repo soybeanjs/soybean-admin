@@ -15,12 +15,14 @@ const appStore = useAppStore();
 const activeTab = ref('appearance');
 
 const drawerWidth = computed(() => {
+  const width = 400;
+
   // On mobile devices, use 90% of viewport width with a maximum of 400px
   if (appStore.isMobile) {
-    return 'min(90vw, 400px)';
+    return `min(90vw, ${width}px)`;
   }
 
-  return 460;
+  return width;
 });
 </script>
 
