@@ -98,7 +98,7 @@ const local: App.I18n.Schema = {
         'vertical-mix_detail':
           'Vertical mix-menu layout, with the primary menu on the dark left side and the secondary menu on the lighter left side.',
         'vertical-hybrid-header-first_detail':
-          'Vertical mix-menu layout, with the primary menu at the top, the secondary menu on the dark left side, and the secondary menu on the lighter left side.',
+          'Left hybrid layout, with the primary menu at the top, the secondary menu on the dark left side, and the tertiary menu on the lighter left side.',
         horizontal_detail: 'Horizontal menu layout, with the menu at the top and content below.',
         'top-hybrid-sidebar-first_detail':
           'Top hybrid layout, with the primary menu on the left and the secondary menu at the top.',
