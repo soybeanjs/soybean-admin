@@ -40,6 +40,16 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'cesium',
+    path: '/cesium',
+    component: 'layout.base$view.cesium',
+    meta: {
+      title: 'cesium',
+      i18nKey: 'route.cesium',
+      order: 1
+    }
+  },
+  {
     name: 'home',
     path: '/home',
     component: 'layout.base$view.home',
@@ -47,7 +57,7 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'home',
       i18nKey: 'route.home',
       icon: 'mdi:monitor-dashboard',
-      order: 1
+      order: 0
     }
   },
   {

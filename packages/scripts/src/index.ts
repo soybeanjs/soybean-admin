@@ -12,22 +12,22 @@ type CommandAction<A extends object> = (args?: A) => Promise<void> | void;
 type CommandWithAction<A extends object = object> = Record<Command, { desc: string; action: CommandAction<A> }>;
 
 interface CommandArg {
-  /** Execute additional command after bumping and before git commit. Defaults to 'pnpm sa changelog' */
+  /** bump 版本并 git commit 之前执行的额外命令，默认为 'pnpm sa changelog' */
   execute?: string;
-  /** Indicates whether to push the git commit and tag. Defaults to true */
+  /** 是否推送 git commit 和 tag，默认为 true */
   push?: boolean;
-  /** Generate changelog by total tags */
+  /** 是否根据所有 tag 生成 changelog */
   total?: boolean;
   /**
-   * The glob pattern of dirs to clean up
+   * 需要清理的目录的 glob 模式
    *
-   * If not set, it will use the default value
+   * 如果未设置，则使用默认值
    *
-   * Multiple values use "," to separate them
+   * 多个值用 "," 分隔
    */
   cleanupDir?: string;
   /**
-   * display lang of cli
+   * CLI 显示语言
    *
    * @default 'en-us'
    */
@@ -41,58 +41,52 @@ export async function setupCli() {
 
   cli
     .version(lightGreen(version))
-    .option(
-      '-e, --execute [command]',
-      "Execute additional command after bumping and before git commit. Defaults to 'npx soy changelog'"
-    )
-    .option('-p, --push', 'Indicates whether to push the git commit and tag')
-    .option('-t, --total', 'Generate changelog by total tags')
-    .option(
-      '-c, --cleanupDir <dir>',
-      'The glob pattern of dirs to cleanup, If not set, it will use the default value, Multiple values use "," to separate them'
-    )
-    .option('-l, --lang <lang>', 'display lang of cli', { default: 'en-us', type: [String] })
+    .option('-e, --execute [command]', "bump 版本并 git commit 之前执行的额外命令，默认为 'npx soy changelog'")
+    .option('-p, --push', '是否推送 git commit 和 tag')
+    .option('-t, --total', '是否根据所有 tag 生成 changelog')
+    .option('-c, --cleanupDir <dir>', '需要清理的目录的 glob 模式，未设置则使用默认值，多个值用 "," 分隔')
+    .option('-l, --lang <lang>', 'CLI 显示语言', { default: 'en-us', type: [String] })
     .help();
 
   const commands: CommandWithAction<CommandArg> = {
     cleanup: {
-      desc: 'delete dirs: node_modules, dist, etc.',
+      desc: '删除 node_modules、dist 等目录',
       action: async () => {
         await cleanup(cliOptions.cleanupDirs);
       }
     },
     'update-pkg': {
-      desc: 'update package.json dependencies versions',
+      desc: '更新 package.json 依赖版本',
       action: async () => {
         await updatePkg(cliOptions.ncuCommandArgs);
       }
     },
     'git-commit': {
-      desc: 'git commit, generate commit message which match Conventional Commits standard',
+      desc: 'git commit，生成符合 Conventional Commits 规范的提交信息',
       action: async args => {
         await gitCommit(args?.lang);
       }
     },
     'git-commit-verify': {
-      desc: 'verify git commit message, make sure it match Conventional Commits standard',
+      desc: '校验 git commit 信息，确保符合 Conventional Commits 规范',
       action: async args => {
         await gitCommitVerify(args?.lang, cliOptions.gitCommitVerifyIgnores);
       }
     },
     changelog: {
-      desc: 'generate changelog',
+      desc: '生成 changelog',
       action: async args => {
         await genChangelog(cliOptions.changelogOptions, args?.total);
       }
     },
     release: {
-      desc: 'release: update version, generate changelog, commit code',
+      desc: '发布：更新版本、生成 changelog、提交代码',
       action: async args => {
         await release(args?.execute, args?.push);
       }
     },
     'gen-route': {
-      desc: 'generate route',
+      desc: '生成路由',
       action: async () => {
         await generateRoute();
       }

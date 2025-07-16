@@ -1,121 +1,121 @@
-/** The global namespace for the app */
+/** 应用全局命名空间 */
 declare namespace App {
-  /** Theme namespace */
+  /** 主题命名空间 */
   namespace Theme {
     type ColorPaletteNumber = import('@sa/color').ColorPaletteNumber;
 
-    /** Theme setting */
+    /** 主题设置 */
     interface ThemeSetting {
-      /** Theme scheme */
+      /** 主题方案 */
       themeScheme: UnionKey.ThemeScheme;
-      /** grayscale mode */
+      /** 灰度模式 */
       grayscale: boolean;
-      /** colour weakness mode */
+      /** 色弱模式 */
       colourWeakness: boolean;
-      /** Whether to recommend color */
+      /** 是否推荐配色 */
       recommendColor: boolean;
-      /** Theme color */
+      /** 主题色 */
       themeColor: string;
-      /** Other color */
+      /** 其他颜色 */
       otherColor: OtherColor;
-      /** Whether info color is followed by the primary color */
+      /** info颜色是否跟随主色 */
       isInfoFollowPrimary: boolean;
-      /** Reset cache strategy */
+      /** 重置缓存策略 */
       resetCacheStrategy: UnionKey.ResetCacheStrategy;
-      /** Layout */
+      /** 布局 */
       layout: {
-        /** Layout mode */
+        /** 布局模式 */
         mode: UnionKey.ThemeLayoutMode;
-        /** Scroll mode */
+        /** 滚动模式 */
         scrollMode: UnionKey.ThemeScrollMode;
         /**
-         * Whether to reverse the horizontal mix
+         * 是否反转横向混合
          *
-         * if true, the vertical child level menus in left and horizontal first level menus in top
+         * 如果为 true，左侧为垂直子菜单，顶部为横向一级菜单
          */
         reverseHorizontalMix: boolean;
       };
-      /** Page */
+      /** 页面 */
       page: {
-        /** Whether to show the page transition */
+        /** 是否显示页面切换动画 */
         animate: boolean;
-        /** Page animate mode */
+        /** 页面动画模式 */
         animateMode: UnionKey.ThemePageAnimateMode;
       };
-      /** Header */
+      /** 顶栏 */
       header: {
-        /** Header height */
+        /** 顶栏高度 */
         height: number;
-        /** Header breadcrumb */
+        /** 顶栏面包屑 */
         breadcrumb: {
-          /** Whether to show the breadcrumb */
+          /** 是否显示面包屑 */
           visible: boolean;
-          /** Whether to show the breadcrumb icon */
+          /** 是否显示面包屑图标 */
           showIcon: boolean;
         };
-        /** Multilingual */
+        /** 多语言 */
         multilingual: {
-          /** Whether to show the multilingual */
+          /** 是否显示多语言 */
           visible: boolean;
         };
         globalSearch: {
-          /** Whether to show the GlobalSearch */
+          /** 是否显示全局搜索 */
           visible: boolean;
         };
       };
-      /** Tab */
+      /** 标签栏 */
       tab: {
-        /** Whether to show the tab */
+        /** 是否显示标签栏 */
         visible: boolean;
         /**
-         * Whether to cache the tab
+         * 是否缓存标签页
          *
-         * If cache, the tabs will get from the local storage when the page is refreshed
+         * 如果缓存，刷新页面时标签页会从本地存储中获取
          */
         cache: boolean;
-        /** Tab height */
+        /** 标签栏高度 */
         height: number;
-        /** Tab mode */
+        /** 标签栏模式 */
         mode: UnionKey.ThemeTabMode;
       };
-      /** Fixed header and tab */
+      /** 固定头部和标签栏 */
       fixedHeaderAndTab: boolean;
-      /** Sider */
+      /** 侧边栏 */
       sider: {
-        /** Inverted sider */
+        /** 侧边栏反色 */
         inverted: boolean;
-        /** Sider width */
+        /** 侧边栏宽度 */
         width: number;
-        /** Collapsed sider width */
+        /** 侧边栏收起宽度 */
         collapsedWidth: number;
-        /** Sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /** 混合布局下侧边栏宽度 */
         mixWidth: number;
-        /** Collapsed sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /** 混合布局下收起宽度 */
         mixCollapsedWidth: number;
-        /** Child menu width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /** 混合布局下子菜单宽度 */
         mixChildMenuWidth: number;
       };
-      /** Footer */
+      /** 页脚 */
       footer: {
-        /** Whether to show the footer */
+        /** 是否显示页脚 */
         visible: boolean;
-        /** Whether fixed the footer */
+        /** 是否固定页脚 */
         fixed: boolean;
-        /** Footer height */
+        /** 页脚高度 */
         height: number;
-        /** Whether float the footer to the right when the layout is 'horizontal-mix' */
+        /** 混合布局下页脚是否右浮动 */
         right: boolean;
       };
-      /** Watermark */
+      /** 水印 */
       watermark: {
-        /** Whether to show the watermark */
+        /** 是否显示水印 */
         visible: boolean;
-        /** Watermark text */
+        /** 水印文本 */
         text: string;
-        /** Whether to use user name as watermark text */
+        /** 是否使用用户名作为水印文本 */
         enableUserName: boolean;
       };
-      /** define some theme settings tokens, will transform to css variables */
+      /** 定义部分主题 token，会转换为 css 变量 */
       tokens: {
         light: ThemeSettingToken;
         dark?: {
@@ -144,7 +144,7 @@ declare namespace App {
     type BaseToken = Record<string, Record<string, string>>;
 
     interface ThemeSettingTokenColor {
-      /** the progress bar color, if not set, will use the primary color */
+      /** 进度条颜色，未设置时使用主色 */
       nprogress?: string;
       container: string;
       layout: string;
@@ -165,14 +165,14 @@ declare namespace App {
 
     type ThemeTokenColor = ThemePaletteColor & ThemeSettingTokenColor;
 
-    /** Theme token CSS variables */
+    /** 主题 token CSS 变量 */
     type ThemeTokenCSSVars = {
       colors: ThemeTokenColor & { [key: string]: string };
       boxShadow: ThemeSettingTokenBoxShadow & { [key: string]: string };
     };
   }
 
-  /** Global namespace */
+  /** 全局命名空间 */
   namespace Global {
     type VNode = import('vue').VNode;
     type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded;
@@ -181,41 +181,41 @@ declare namespace App {
     type RoutePath = import('@elegant-router/types').RoutePath;
     type LastLevelRouteKey = import('@elegant-router/types').LastLevelRouteKey;
 
-    /** The router push options */
+    /** 路由跳转参数 */
     type RouterPushOptions = {
       query?: Record<string, string>;
       params?: Record<string, string>;
     };
 
-    /** The global header props */
+    /** 全局头部属性 */
     interface HeaderProps {
-      /** Whether to show the logo */
+      /** 是否显示 logo */
       showLogo?: boolean;
-      /** Whether to show the menu toggler */
+      /** 是否显示菜单切换按钮 */
       showMenuToggler?: boolean;
-      /** Whether to show the menu */
+      /** 是否显示菜单 */
       showMenu?: boolean;
     }
 
-    /** The global menu */
+    /** 全局菜单 */
     type Menu = {
       /**
-       * The menu key
+       * 菜单 key
        *
-       * Equal to the route key
+       * 等同于路由 key
        */
       key: string;
-      /** The menu label */
+      /** 菜单名称 */
       label: string;
-      /** The menu i18n key */
+      /** 菜单 i18n key */
       i18nKey?: I18n.I18nKey | null;
-      /** The route key */
+      /** 路由 key */
       routeKey: RouteKey;
-      /** The route path */
+      /** 路由 path */
       routePath: RoutePath;
-      /** The menu icon */
+      /** 菜单图标 */
       icon?: () => VNode;
-      /** The menu children */
+      /** 子菜单 */
       children?: Menu[];
     };
 
@@ -223,63 +223,63 @@ declare namespace App {
       options?: Breadcrumb[];
     };
 
-    /** Tab route */
+    /** 标签页路由 */
     type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> &
       Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query' | 'matched'>>;
 
-    /** The global tab */
+    /** 全局标签页 */
     type Tab = {
-      /** The tab id */
+      /** 标签页 id */
       id: string;
-      /** The tab label */
+      /** 标签页名称 */
       label: string;
       /**
-       * The new tab label
+       * 新标签页名称
        *
-       * If set, the tab label will be replaced by this value
+       * 设置后标签页名称会被替换为该值
        */
       newLabel?: string;
       /**
-       * The old tab label
+       * 旧标签页名称
        *
-       * when reset the tab label, the tab label will be replaced by this value
+       * 重置标签页名称时会被替换为该值
        */
       oldLabel?: string;
-      /** The tab route key */
+      /** 标签页路由 key */
       routeKey: LastLevelRouteKey;
-      /** The tab route path */
+      /** 标签页路由 path */
       routePath: RouteMap[LastLevelRouteKey];
-      /** The tab route full path */
+      /** 标签页完整路径 */
       fullPath: string;
-      /** The tab fixed index */
+      /** 固定标签页索引 */
       fixedIndex?: number | null;
       /**
-       * Tab icon
+       * 标签页图标
        *
-       * Iconify icon
+       * Iconify 图标
        */
       icon?: string;
       /**
-       * Tab local icon
+       * 标签页本地图标
        *
-       * Local icon
+       * 本地图标
        */
       localIcon?: string;
       /** I18n key */
       i18nKey?: I18n.I18nKey | null;
     };
 
-    /** Form rule */
+    /** 表单校验规则 */
     type FormRule = import('naive-ui').FormItemRule;
 
-    /** The global dropdown key */
+    /** 全局下拉菜单 key */
     type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll';
   }
 
   /**
-   * I18n namespace
+   * I18n 命名空间
    *
-   * Locales type
+   * 多语言类型
    */
   namespace I18n {
     type RouteKey = import('@elegant-router/types').RouteKey;
@@ -549,15 +549,15 @@ declare namespace App {
     }
   }
 
-  /** Service namespace */
+  /** 服务命名空间 */
   namespace Service {
-    /** Other baseURL key */
+    /** 其他 baseURL key */
     type OtherBaseURLKey = 'demo';
 
     interface ServiceConfigItem {
-      /** The backend service base url */
+      /** 后端服务基础地址 */
       baseURL: string;
-      /** The proxy pattern of the backend service base url */
+      /** 后端服务基础地址的代理前缀 */
       proxyPattern: string;
     }
 
@@ -565,9 +565,9 @@ declare namespace App {
       key: OtherBaseURLKey;
     }
 
-    /** The backend service config */
+    /** 后端服务配置 */
     interface ServiceConfig extends ServiceConfigItem {
-      /** Other backend service config */
+      /** 其他后端服务配置 */
       other: OtherServiceConfigItem[];
     }
 
@@ -575,23 +575,23 @@ declare namespace App {
       other: Record<OtherBaseURLKey, string>;
     }
 
-    /** The backend service response data */
+    /** 后端服务响应数据 */
     type Response<T = unknown> = {
-      /** The backend service response code */
+      /** 响应码 */
       code: string;
-      /** The backend service response message */
+      /** 响应信息 */
       msg: string;
-      /** The backend service response data */
+      /** 响应数据 */
       data: T;
     };
 
-    /** The demo backend service response data */
+    /** demo 后端服务响应数据 */
     type DemoResponse<T = unknown> = {
-      /** The backend service response code */
+      /** 响应码 */
       status: string;
-      /** The backend service response message */
+      /** 响应信息 */
       message: string;
-      /** The backend service response data */
+      /** 响应数据 */
       result: T;
     };
   }

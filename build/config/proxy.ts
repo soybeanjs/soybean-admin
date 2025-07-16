@@ -4,10 +4,10 @@ import { consola } from 'consola';
 import { createServiceConfig } from '../../src/utils/service';
 
 /**
- * Set http proxy
+ * 设置 http 代理
  *
- * @param env - The current env
- * @param enable - If enable http proxy
+ * @param env - 当前环境变量
+ * @param enable - 是否启用 http 代理
  */
 export function createViteProxy(env: Env.ImportMeta, enable: boolean) {
   const isEnableHttpProxy = enable && env.VITE_HTTP_PROXY === 'Y';
@@ -27,6 +27,12 @@ export function createViteProxy(env: Env.ImportMeta, enable: boolean) {
   return proxy;
 }
 
+/**
+ * 创建单个代理项
+ *
+ * @param item 代理配置项
+ * @param enableLog 是否启用日志
+ */
 function createProxyItem(item: App.Service.ServiceConfigItem, enableLog: boolean) {
   const proxy: Record<string, ProxyOptions> = {};
 

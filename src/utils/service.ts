@@ -1,9 +1,9 @@
 import json5 from 'json5';
 
 /**
- * Create service config by current env
+ * 根据当前环境创建服务配置
  *
- * @param env The current env
+ * @param env 当前环境变量
  */
 export function createServiceConfig(env: Env.ImportMeta) {
   const { VITE_SERVICE_BASE_URL, VITE_OTHER_SERVICE_BASE_URL } = env;
@@ -13,7 +13,7 @@ export function createServiceConfig(env: Env.ImportMeta) {
     other = json5.parse(VITE_OTHER_SERVICE_BASE_URL);
   } catch {
     // eslint-disable-next-line no-console
-    console.error('VITE_OTHER_SERVICE_BASE_URL is not a valid json5 string');
+    console.error('VITE_OTHER_SERVICE_BASE_URL 不是有效的 json5 字符串');
   }
 
   const httpConfig: App.Service.SimpleServiceConfig = {
@@ -41,10 +41,10 @@ export function createServiceConfig(env: Env.ImportMeta) {
 }
 
 /**
- * get backend service base url
+ * 获取后端服务基础地址
  *
- * @param env - the current env
- * @param isProxy - if use proxy
+ * @param env 当前环境变量
+ * @param isProxy 是否使用代理
  */
 export function getServiceBaseURL(env: Env.ImportMeta, isProxy: boolean) {
   const { baseURL, other } = createServiceConfig(env);
@@ -62,9 +62,9 @@ export function getServiceBaseURL(env: Env.ImportMeta, isProxy: boolean) {
 }
 
 /**
- * Get proxy pattern of backend service base url
+ * 获取后端服务基础地址的代理前缀
  *
- * @param key If not set, will use the default key
+ * @param key 如果未设置，则使用默认 key
  */
 function createProxyPattern(key?: App.Service.OtherBaseURLKey) {
   if (!key) {

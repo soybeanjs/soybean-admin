@@ -1,64 +1,67 @@
 /**
- * Namespace Api
+ * 命名空间 Api
  *
- * All backend api type
+ * 所有后端 API 类型
  */
 declare namespace Api {
   namespace Common {
-    /** common params of paginating */
+    /** 分页通用参数 */
     interface PaginatingCommonParams {
-      /** current page number */
+      /** 当前页码 */
       current: number;
-      /** page size */
+      /** 每页数量 */
       size: number;
-      /** total count */
+      /** 总条数 */
       total: number;
     }
 
-    /** common params of paginating query list data */
+    /** 分页查询列表数据的通用参数 */
     interface PaginatingQueryRecord<T = any> extends PaginatingCommonParams {
+      /** 数据列表 */
       records: T[];
     }
 
-    /** common search params of table */
+    /** 表格通用搜索参数 */
     type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
 
     /**
-     * enable status
+     * 启用状态
      *
-     * - "1": enabled
-     * - "2": disabled
+     * - "1": 启用
+     * - "2": 禁用
      */
     type EnableStatus = '1' | '2';
 
-    /** common record */
+    /** 通用记录 */
     type CommonRecord<T = any> = {
-      /** record id */
+      /** 记录ID */
       id: number;
-      /** record creator */
+      /** 创建人 */
       createBy: string;
-      /** record create time */
+      /** 创建时间 */
       createTime: string;
-      /** record updater */
+      /** 更新人 */
       updateBy: string;
-      /** record update time */
+      /** 更新时间 */
       updateTime: string;
-      /** record status */
+      /** 状态 */
       status: EnableStatus | null;
     } & T;
   }
 
   /**
-   * namespace Auth
+   * 命名空间 Auth
    *
-   * backend api module: "auth"
+   * 后端 API 模块："auth"
    */
   namespace Auth {
+    /** 登录令牌 */
     interface LoginToken {
       token: string;
       refreshToken: string;
     }
 
+    /** 用户信息 */
     interface UserInfo {
       userId: string;
       userName: string;
@@ -68,17 +71,19 @@ declare namespace Api {
   }
 
   /**
-   * namespace Route
+   * 命名空间 Route
    *
-   * backend api module: "route"
+   * 后端 API 模块："route"
    */
   namespace Route {
     type ElegantConstRoute = import('@elegant-router/types').ElegantConstRoute;
 
+    /** 菜单路由 */
     interface MenuRoute extends ElegantConstRoute {
       id: string;
     }
 
+    /** 用户路由 */
     interface UserRoute {
       routes: MenuRoute[];
       home: import('@elegant-router/types').LastLevelRouteKey;
