@@ -73,7 +73,6 @@ export default function createHookRequest<ResponseData, ApiData, State extends R
     };
   } as HookRequestInstance<ResponseData, ApiData, State>;
 
-  hookRequest.cancelRequest = request.cancelRequest;
   hookRequest.cancelAllRequest = request.cancelAllRequest;
 
   return hookRequest;
