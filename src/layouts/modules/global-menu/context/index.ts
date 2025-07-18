@@ -5,7 +5,7 @@ import type { RouteKey } from '@elegant-router/types';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
 
-export const { setupStore: setupMixMenuContext, useStore: useMixMenuContext } = useContext('mix-menu', useMixMenu);
+export const [provideMixMenuContext, useMixMenuContext] = useContext('MixMenu', useMixMenu);
 
 function useMixMenu() {
   const route = useRoute();

@@ -4,7 +4,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
 import FirstLevelMenu from '../components/first-level-menu.vue';
-import { useMenu, useMixMenuContext } from '../../../context';
+import { useMenu, useMixMenuContext } from '../context';
 
 defineOptions({
   name: 'TopHybridSidebarFirst'
@@ -13,7 +13,8 @@ defineOptions({
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const { routerPushByKeyWithMetaQuery } = useRouterPush();
-const { firstLevelMenus, secondLevelMenus, activeFirstLevelMenuKey, handleSelectFirstLevelMenu } = useMixMenuContext();
+const { firstLevelMenus, secondLevelMenus, activeFirstLevelMenuKey, handleSelectFirstLevelMenu } =
+  useMixMenuContext('TopHybridSidebarFirst');
 const { selectedKey } = useMenu();
 </script>
 

@@ -10,7 +10,7 @@ import GlobalTab from '../modules/global-tab/index.vue';
 import GlobalContent from '../modules/global-content/index.vue';
 import GlobalFooter from '../modules/global-footer/index.vue';
 import ThemeDrawer from '../modules/theme-drawer/index.vue';
-import { setupMixMenuContext } from '../context';
+import { provideMixMenuContext } from '../modules/global-menu/context';
 
 defineOptions({
   name: 'BaseLayout'
@@ -18,7 +18,7 @@ defineOptions({
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
-const { childLevelMenus, isActiveFirstLevelMenuHasChildren } = setupMixMenuContext();
+const { childLevelMenus, isActiveFirstLevelMenuHasChildren } = provideMixMenuContext();
 
 const GlobalMenu = defineAsyncComponent(() => import('../modules/global-menu/index.vue'));
 
