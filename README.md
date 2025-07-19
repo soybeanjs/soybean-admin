@@ -7,8 +7,8 @@
 ---
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![github stars](https://img.shields.io/github/stars/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
-[![github forks](https://img.shields.io/github/forks/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![github stars](https://img.shields.io/github/stars/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![github forks](https://img.shields.io/github/forks/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
 [![gitee stars](https://gitee.com/honghuangdc/soybean-admin/badge/star.svg)](https://gitee.com/honghuangdc/soybean-admin)
 [![gitcode star](https://gitcode.com/soybeanjs/soybean-admin/star/badge.svg)](https://gitcode.com/soybeanjs/soybean-admin)
 [![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
