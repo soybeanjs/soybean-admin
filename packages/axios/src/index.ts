@@ -116,7 +116,7 @@ export function createRequest<ResponseData, ApiData, State extends Record<string
     const responseType = response.config?.responseType || 'json';
 
     if (responseType === 'json') {
-      return opts.transformBackendResponse(response);
+      return opts.transform(response);
     }
 
     return response.data as MappedType<R, T>;
@@ -152,7 +152,7 @@ export function createFlatRequest<ResponseData, ApiData, State extends Record<st
       const responseType = response.config?.responseType || 'json';
 
       if (responseType === 'json') {
-        const data = await opts.transformBackendResponse(response);
+        const data = await opts.transform(response);
 
         return { data, error: null, response };
       }

@@ -22,7 +22,7 @@ export const request = createFlatRequest(
       errMsgStack: [],
       refreshTokenPromise: null
     } as RequestInstanceState,
-    transformBackendResponse(response: AxiosResponse<App.Service.Response<any>>) {
+    transform(response: AxiosResponse<App.Service.Response<any>>) {
       return response.data.data;
     },
     async onRequest(config) {
@@ -132,7 +132,7 @@ export const demoRequest = createRequest(
     baseURL: otherBaseURL.demo
   },
   {
-    transformBackendResponse(response: AxiosResponse<App.Service.DemoResponse>) {
+    transform(response: AxiosResponse<App.Service.DemoResponse>) {
       return response.data.result;
     },
     async onRequest(config) {

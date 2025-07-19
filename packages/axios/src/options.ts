@@ -10,12 +10,20 @@ export function createDefaultOptions<
   State extends Record<string, unknown> = Record<string, unknown>
 >(options?: Partial<RequestOption<ResponseData, ApiData, State>>) {
   const opts: RequestOption<ResponseData, ApiData, State> = {
+    defaultState: {} as State,
+    transform: async response => response.data as unknown as ApiData,
+    transformBackendResponse: async response => response.data as unknown as ApiData,
     onRequest: async config => config,
     isBackendSuccess: _response => true,
     onBackendFail: async () => {},
-    transformBackendResponse: async response => response.data as unknown as ApiData,
     onError: async () => {}
   };
+
+  if (options?.transform) {
+    opts.transform = options.transform;
+  } else {
+    opts.transform = options?.transformBackendResponse || opts.transform;
+  }
 
   Object.assign(opts, options);
 
