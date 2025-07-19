@@ -250,28 +250,26 @@ function getColumnChecks<Column extends NaiveUI.TableColumn<any>>(
   const checks: TableColumnCheck[] = [];
 
   cols.forEach(column => {
-    const visible = getColumnVisible?.(column) ?? true;
-
     if (isTableColumnHasKey(column)) {
       checks.push({
         key: column.key as string,
         title: column.title!,
         checked: true,
-        visible
+        visible: getColumnVisible?.(column) ?? true
       });
     } else if (column.type === 'selection') {
       checks.push({
         key: SELECTION_KEY,
         title: $t('common.check'),
         checked: true,
-        visible
+        visible: getColumnVisible?.(column) ?? false
       });
     } else if (column.type === 'expand') {
       checks.push({
         key: EXPAND_KEY,
         title: $t('common.expandColumn'),
         checked: true,
-        visible
+        visible: getColumnVisible?.(column) ?? false
       });
     }
   });

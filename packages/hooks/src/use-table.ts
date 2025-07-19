@@ -72,18 +72,14 @@ export default function useTable<ResponseData, ApiData, Column, Pagination exten
 
   const data = ref([]) as Ref<ApiData[]>;
 
-  const allColumns = ref(columns()) as Ref<Column[]>;
-
   const columnChecks = ref(getColumnChecks(columns())) as Ref<TableColumnCheck[]>;
 
   const $columns = computed(() => getColumns(columns(), columnChecks.value));
 
   function reloadColumns() {
-    allColumns.value = columns();
-
     const checkMap = new Map(columnChecks.value.map(col => [col.key, col.checked]));
 
-    const defaultChecks = getColumnChecks(allColumns.value);
+    const defaultChecks = getColumnChecks(columns());
 
     columnChecks.value = defaultChecks.map(col => ({
       ...col,
