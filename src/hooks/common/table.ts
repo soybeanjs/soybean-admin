@@ -38,6 +38,13 @@ export function useNaiveTable<ResponseData, ApiData>(options: UseNaiveTableOptio
     getColumns
   });
 
+  // calculate the total width of the table this is used for horizontal scrolling
+  const scrollX = computed(() => {
+    return result.columns.value.reduce((acc, column) => {
+      return acc + Number(column.width ?? column.minWidth ?? 120);
+    }, 0);
+  });
+
   scope.run(() => {
     watch(
       () => appStore.locale,
@@ -51,7 +58,10 @@ export function useNaiveTable<ResponseData, ApiData>(options: UseNaiveTableOptio
     scope.stop();
   });
 
-  return result;
+  return {
+    ...result,
+    scrollX
+  };
 }
 
 type PaginationParams = Pick<PaginationProps, 'page' | 'pageSize'>;
