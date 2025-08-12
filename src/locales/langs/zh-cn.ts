@@ -106,6 +106,7 @@ const local: App.I18n.Schema = {
         title: '标签栏设置',
         visible: '显示标签栏',
         cache: '标签栏信息缓存',
+        cacheTip: '一键开启/关闭全局 keepalive',
         height: '标签栏高度',
         mode: {
           title: '标签栏风格',
@@ -141,6 +142,7 @@ const local: App.I18n.Schema = {
         title: '内容区域设置',
         scrollMode: {
           title: '滚动模式',
+          tip: '主题滚动仅 main 部分滚动，外层滚动可携带头部底部一起滚动',
           wrapper: '外层滚动',
           content: '主体滚动'
         },

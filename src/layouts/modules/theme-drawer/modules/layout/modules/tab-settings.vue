@@ -27,6 +27,9 @@ const themeStore = useThemeStore();
       <NSwitch v-model:value="themeStore.tab.visible" />
     </SettingItem>
     <SettingItem v-if="themeStore.tab.visible" key="2" :label="$t('theme.layout.tab.cache')">
+      <template #suffix>
+        <IconTooltip :desc="$t('theme.layout.tab.cacheTip')" />
+      </template>
       <NSwitch v-model:value="themeStore.tab.cache" />
     </SettingItem>
     <SettingItem v-if="themeStore.tab.visible" key="3" :label="$t('theme.layout.tab.height')">
