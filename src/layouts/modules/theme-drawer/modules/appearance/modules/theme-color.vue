@@ -36,27 +36,28 @@ const swatches: string[] = [
 <template>
   <NDivider>{{ $t('theme.appearance.themeColor.title') }}</NDivider>
   <div class="flex-col-stretch gap-12px">
-    <NTooltip placement="top-start">
-      <template #trigger>
-        <SettingItem key="recommend-color" :label="$t('theme.appearance.recommendColor')">
-          <NSwitch v-model:value="themeStore.recommendColor" />
-        </SettingItem>
+    <SettingItem key="recommend-color" :label="$t('theme.appearance.recommendColor')">
+      <template #suffix>
+        <IconTooltip>
+          <p>
+            <span class="pr-12px">{{ $t('theme.appearance.recommendColorDesc') }}</span>
+            <br />
+            <NButton
+              text
+              tag="a"
+              href="https://uicolors.app/create"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray"
+            >
+              https://uicolors.app/create
+            </NButton>
+          </p>
+        </IconTooltip>
       </template>
-      <p>
-        <span class="pr-12px">{{ $t('theme.appearance.recommendColorDesc') }}</span>
-        <br />
-        <NButton
-          text
-          tag="a"
-          href="https://uicolors.app/create"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-gray"
-        >
-          https://uicolors.app/create
-        </NButton>
-      </p>
-    </NTooltip>
+      <NSwitch v-model:value="themeStore.recommendColor" />
+    </SettingItem>
+
     <SettingItem
       v-for="(_, key) in themeStore.themeColors"
       :key="key"
