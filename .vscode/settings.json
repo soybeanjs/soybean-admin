@@ -4,7 +4,18 @@
     "source.organizeImports": "never"
   },
   "editor.formatOnSave": false,
-  "eslint.validate": ["html", "css", "scss", "json", "jsonc"],
+  "eslint.validate": [
+    "html",
+    "css",
+    "scss",
+    "json",
+    "jsonc",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
   "i18n-ally.displayLanguage": "zh-cn",
   "i18n-ally.enabledParsers": ["ts"],
   "i18n-ally.enabledFrameworks": ["vue"],
