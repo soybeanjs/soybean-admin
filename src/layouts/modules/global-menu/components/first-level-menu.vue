@@ -61,7 +61,7 @@ function toggleSiderCollapse() {
   <!-- define component: MixMenuItem -->
   <DefineMixMenuItem v-slot="{ label, icon, active, isMini }">
     <div
-      class="mx-4px mb-6px flex-col-center cursor-pointer rounded-8px bg-transparent px-4px py-8px transition-300 first:mt-2 hover:bg-[rgb(0,0,0,0.08)]"
+      class="mx-4px mb-6px flex-col-center cursor-pointer rounded-8px bg-transparent px-4px py-8px transition-300 hover:bg-[rgb(0,0,0,0.08)]"
       :class="{
         'text-primary selected-mix-menu': active,
         'text-white:65 hover:text-white': inverted,
