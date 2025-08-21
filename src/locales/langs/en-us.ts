@@ -62,7 +62,8 @@ const local: App.I18n.Schema = {
     tabs: {
       appearance: 'Appearance',
       layout: 'Layout',
-      general: 'General'
+      general: 'General',
+      preset: 'Preset'
     },
     appearance: {
       themeSchema: {
@@ -83,7 +84,28 @@ const local: App.I18n.Schema = {
         followPrimary: 'Follow Primary'
       },
       recommendColor: 'Apply Recommended Color Algorithm',
-      recommendColorDesc: 'The recommended color algorithm refers to'
+      recommendColorDesc: 'The recommended color algorithm refers to',
+      preset: {
+        title: 'Theme Presets',
+        apply: 'Apply',
+        applySuccess: 'Preset applied successfully',
+        default: {
+          name: 'Default Preset',
+          desc: 'Default theme preset with balanced settings'
+        },
+        dark: {
+          name: 'Dark Preset',
+          desc: 'Dark theme preset for night time usage'
+        },
+        compact: {
+          name: 'Compact Preset',
+          desc: 'Compact layout preset for small screens'
+        },
+        azir: {
+          name: "Azir's Preset",
+          desc: 'It is a cold and elegant preset that Azir likes'
+        }
+      }
     },
     layout: {
       layoutMode: {

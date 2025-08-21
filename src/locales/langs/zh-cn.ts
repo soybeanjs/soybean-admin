@@ -62,7 +62,8 @@ const local: App.I18n.Schema = {
     tabs: {
       appearance: '外观',
       layout: '布局',
-      general: '通用'
+      general: '通用',
+      preset: '预设'
     },
     appearance: {
       themeSchema: {
@@ -83,7 +84,28 @@ const local: App.I18n.Schema = {
         followPrimary: '跟随主色'
       },
       recommendColor: '应用推荐算法的颜色',
-      recommendColorDesc: '推荐颜色的算法参照'
+      recommendColorDesc: '推荐颜色的算法参照',
+      preset: {
+        title: '主题预设',
+        apply: '应用',
+        applySuccess: '预设应用成功',
+        default: {
+          name: '默认预设',
+          desc: 'Soybean 默认主题预设'
+        },
+        dark: {
+          name: '暗色预设',
+          desc: '适用于夜间使用的暗色主题预设'
+        },
+        compact: {
+          name: '紧凑型',
+          desc: '适用于小屏幕的紧凑布局预设'
+        },
+        azir: {
+          name: 'Azir的预设',
+          desc: '是 Azir 比较喜欢的莫兰迪色系冷淡风'
+        }
+      }
     },
     layout: {
       layoutMode: {

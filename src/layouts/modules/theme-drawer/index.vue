@@ -6,6 +6,7 @@ import AppearanceSettings from './modules/appearance/index.vue';
 import LayoutSettings from './modules/layout/index.vue';
 import GeneralSettings from './modules/general/index.vue';
 import ConfigOperation from './modules/config-operation.vue';
+import PresetSettings from './modules/preset/index.vue';
 
 defineOptions({
   name: 'ThemeDrawer'
@@ -33,6 +34,7 @@ const drawerWidth = computed(() => {
         <NTab name="appearance" :tab="$t('theme.tabs.appearance')"></NTab>
         <NTab name="layout" :tab="$t('theme.tabs.layout')"></NTab>
         <NTab name="general" :tab="$t('theme.tabs.general')"></NTab>
+        <NTab name="preset" :tab="$t('theme.tabs.preset')"></NTab>
       </NTabs>
 
       <div class="min-h-400px">
@@ -40,6 +42,7 @@ const drawerWidth = computed(() => {
           <AppearanceSettings v-if="activeTab === 'appearance'" />
           <LayoutSettings v-else-if="activeTab === 'layout'" />
           <GeneralSettings v-else-if="activeTab === 'general'" />
+          <PresetSettings v-else-if="activeTab === 'preset'" />
         </KeepAlive>
       </div>
 
