@@ -32,14 +32,14 @@ const { selectedKey } = useMenu();
   <Teleport :to="`#${GLOBAL_SIDER_MENU_ID}`">
     <div class="h-full pt-2">
       <FirstLevelMenu
-      :menus="firstLevelMenus"
-      :active-menu-key="activeFirstLevelMenuKey"
-      :sider-collapse="appStore.siderCollapse"
-      :dark-mode="themeStore.darkMode"
-      :theme-color="themeStore.themeColor"
-      @select="handleSelectFirstLevelMenu"
-      @toggle-sider-collapse="appStore.toggleSiderCollapse"
-    />
+        :menus="firstLevelMenus"
+        :active-menu-key="activeFirstLevelMenuKey"
+        :sider-collapse="appStore.siderCollapse"
+        :dark-mode="themeStore.darkMode"
+        :theme-color="themeStore.themeColor"
+        @select="handleSelectFirstLevelMenu"
+        @toggle-sider-collapse="appStore.toggleSiderCollapse"
+      />
     </div>
   </Teleport>
 </template>
