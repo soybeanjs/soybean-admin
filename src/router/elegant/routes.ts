@@ -81,17 +81,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           icon: 'cbi:scene-dynamic',
           order: 3
         }
-      },
-      {
-        name: 'alova_user',
-        path: '/alova/user',
-        component: 'view.alova_user',
-        meta: {
-          title: 'alova_user',
-          i18nKey: 'route.alova_user',
-          icon: 'carbon:user-multiple',
-          order: 2
-        }
       }
     ]
   },

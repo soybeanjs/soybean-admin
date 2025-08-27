@@ -1,35 +1,30 @@
 <script setup lang="tsx">
+import { reactive } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { enableStatusRecord } from '@/constants/business';
 import { fetchGetRoleList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
-import { useTable, useTableOperate } from '@/hooks/common/table';
+import { defaultTransform, useNaivePaginatedTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 import RoleSearch from './modules/role-search.vue';
 
 const appStore = useAppStore();
 
-const {
-  columns,
-  columnChecks,
-  data,
-  loading,
-  getData,
-  getDataByPage,
-  mobilePagination,
-  searchParams,
-  resetSearchParams
-} = useTable({
-  apiFn: fetchGetRoleList,
-  apiParams: {
-    current: 1,
-    size: 10,
-    // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
-    // the value can not be undefined, otherwise the property in Form will not be reactive
-    status: null,
-    roleName: null,
-    roleCode: null
+const searchParams: Api.SystemManage.RoleSearchParams = reactive({
+  current: 1,
+  size: 10,
+  roleName: null,
+  roleCode: null,
+  status: null
+});
+
+const { columns, columnChecks, data, loading, getData, getDataByPage, mobilePagination } = useNaivePaginatedTable({
+  api: () => fetchGetRoleList(searchParams),
+  transform: response => defaultTransform(response),
+  onPaginationParamsChange: params => {
+    searchParams.current = params.page;
+    searchParams.size = params.pageSize;
   },
   columns: () => [
     {
@@ -41,7 +36,8 @@ const {
       key: 'index',
       title: $t('common.index'),
       width: 64,
-      align: 'center'
+      align: 'center',
+      render: (_, index) => index + 1
     },
     {
       key: 'roleName',
@@ -116,7 +112,7 @@ const {
   onBatchDeleted,
   onDeleted
   // closeDrawer
-} = useTableOperate(data, getData);
+} = useTableOperate(data, 'id', getData);
 
 async function handleBatchDelete() {
   // request
@@ -139,7 +135,7 @@ function edit(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <RoleSearch v-model:model="searchParams" @search="getDataByPage" />
     <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="card-wrapper sm:flex-1-hidden">
       <template #header-extra>
         <TableHeaderOperation

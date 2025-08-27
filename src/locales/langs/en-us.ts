@@ -241,7 +241,6 @@ const local: App.I18n.Schema = {
     function: 'System Function',
     alova: 'Alova Example',
     alova_request: 'Alova Request',
-    alova_user: 'User List',
     alova_scenes: 'Scenario Request',
     'pro-naive': 'Pro Naive Example',
     'pro-naive_form': 'Form',
