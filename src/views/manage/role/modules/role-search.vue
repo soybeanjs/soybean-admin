@@ -8,7 +8,6 @@ defineOptions({
 });
 
 interface Emits {
-  (e: 'reset'): void;
   (e: 'search'): void;
 }
 
@@ -16,8 +15,14 @@ const emit = defineEmits<Emits>();
 
 const model = defineModel<Api.SystemManage.RoleSearchParams>('model', { required: true });
 
-function reset() {
-  emit('reset');
+function resetModel() {
+  model.value = {
+    current: 1,
+    size: 10,
+    roleName: null,
+    roleCode: null,
+    status: null
+  };
 }
 
 function search() {
@@ -47,7 +52,7 @@ function search() {
             </NFormItemGi>
             <NFormItemGi span="24 s:12 m:6">
               <NSpace class="w-full" justify="end">
-                <NButton @click="reset">
+                <NButton @click="resetModel">
                   <template #icon>
                     <icon-ic-round-refresh class="text-icon" />
                   </template>

@@ -1,28 +1,36 @@
 <script setup lang="tsx">
+import { reactive } from 'vue';
 import { NButton, NTag } from 'naive-ui';
 import { utils, writeFile } from 'xlsx';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { fetchGetUserList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
-import { useTable } from '@/hooks/common/table';
+import { isTableColumnHasKey, useNaiveTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
 
 const appStore = useAppStore();
 
-const { columns, data, loading } = useTable({
-  apiFn: fetchGetUserList,
-  showTotal: true,
-  apiParams: {
-    current: 1,
-    size: 999,
-    // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
-    // the value can not be undefined, otherwise the property in Form will not be reactive
-    status: null,
-    userName: null,
-    userGender: null,
-    nickName: null,
-    userPhone: null,
-    userEmail: null
+const searchParams: Api.SystemManage.UserSearchParams = reactive({
+  current: 1,
+  size: 999,
+  status: null,
+  userName: null,
+  userGender: null,
+  nickName: null,
+  userPhone: null,
+  userEmail: null
+});
+
+const { columns, data, loading } = useNaiveTable({
+  api: () => fetchGetUserList(searchParams),
+  transform: response => {
+    const { data: list, error } = response;
+
+    if (!error) {
+      return list.records;
+    }
+
+    return [];
   },
   columns: () => [
     {
@@ -34,7 +42,8 @@ const { columns, data, loading } = useTable({
       key: 'index',
       title: $t('common.index'),
       align: 'center',
-      width: 64
+      width: 64,
+      render: (_, index) => index + 1
     },
     {
       key: 'userName',
@@ -125,19 +134,12 @@ function exportExcel() {
   writeFile(workBook, '用户数据.xlsx');
 }
 
-function getTableValue(
-  col: NaiveUI.TableColumn<NaiveUI.TableDataWithIndex<Api.SystemManage.User>>,
-  item: NaiveUI.TableDataWithIndex<Api.SystemManage.User>
-) {
+function getTableValue(col: NaiveUI.TableColumn<Api.SystemManage.User>, item: Api.SystemManage.User) {
   if (!isTableColumnHasKey(col)) {
     return null;
   }
 
   const { key } = col;
-
-  if (key === 'operate') {
-    return null;
-  }
 
   if (key === 'userRoles') {
     return item.userRoles.map(role => role).join(',');
@@ -151,11 +153,8 @@ function getTableValue(
     return (item.userGender && $t(userGenderRecord[item.userGender])) || null;
   }
 
-  return item[key];
-}
-
-function isTableColumnHasKey<T>(column: NaiveUI.TableColumn<T>): column is NaiveUI.TableColumnWithKey<T> {
-  return Boolean((column as NaiveUI.TableColumnWithKey<T>).key);
+  // @ts-expect-error the key is not in the type of Api.SystemManage.User
+  return item[key] || null;
 }
 
 function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is NaiveUI.TableColumnWithKey<T> & {
