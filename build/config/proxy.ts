@@ -1,4 +1,4 @@
-import type { HttpProxy, ProxyOptions } from 'vite';
+import type { ProxyOptions } from 'vite';
 import { bgRed, bgYellow, green, lightBlue } from 'kolorist';
 import { consola } from 'consola';
 import { createServiceConfig } from '../../src/utils/service';
@@ -33,7 +33,7 @@ function createProxyItem(item: App.Service.ServiceConfigItem, enableLog: boolean
   proxy[item.proxyPattern] = {
     target: item.baseURL,
     changeOrigin: true,
-    configure: (_proxy: HttpProxy.Server, options: ProxyOptions) => {
+    configure: (_proxy, options) => {
       _proxy.on('proxyReq', (_proxyReq, req, _res) => {
         if (!enableLog) return;
 
