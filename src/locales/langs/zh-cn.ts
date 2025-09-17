@@ -58,100 +58,155 @@ const local: App.I18n.Schema = {
     tokenExpired: 'token已过期'
   },
   theme: {
-    themeSchema: {
-      title: '主题模式',
-      light: '亮色模式',
-      dark: '暗黑模式',
-      auto: '跟随系统'
+    themeDrawerTitle: '主题配置',
+    tabs: {
+      appearance: '外观',
+      layout: '布局',
+      general: '通用',
+      preset: '预设'
     },
-    grayscale: '灰色模式',
-    colourWeakness: '色弱模式',
-    layoutMode: {
-      title: '布局模式',
-      vertical: '左侧菜单模式',
-      'vertical-mix': '左侧菜单混合模式',
-      horizontal: '顶部菜单模式',
-      'horizontal-mix': '顶部菜单混合模式',
-      reverseHorizontalMix: '一级菜单与子级菜单位置反转'
-    },
-    recommendColor: '应用推荐算法的颜色',
-    recommendColorDesc: '推荐颜色的算法参照',
-    themeColor: {
-      title: '主题颜色',
-      primary: '主色',
-      info: '信息色',
-      success: '成功色',
-      warning: '警告色',
-      error: '错误色',
-      followPrimary: '跟随主色'
-    },
-    scrollMode: {
-      title: '滚动模式',
-      wrapper: '外层滚动',
-      content: '主体滚动'
-    },
-    page: {
-      animate: '页面切换动画',
-      mode: {
-        title: '页面切换动画类型',
-        'fade-slide': '滑动',
-        fade: '淡入淡出',
-        'fade-bottom': '底部消退',
-        'fade-scale': '缩放消退',
-        'zoom-fade': '渐变',
-        'zoom-out': '闪现',
-        none: '无'
+    appearance: {
+      themeSchema: {
+        title: '主题模式',
+        light: '亮色模式',
+        dark: '暗黑模式',
+        auto: '跟随系统'
+      },
+      grayscale: '灰色模式',
+      colourWeakness: '色弱模式',
+      themeColor: {
+        title: '主题颜色',
+        primary: '主色',
+        info: '信息色',
+        success: '成功色',
+        warning: '警告色',
+        error: '错误色',
+        followPrimary: '跟随主色'
+      },
+      recommendColor: '应用推荐算法的颜色',
+      recommendColorDesc: '推荐颜色的算法参照',
+      preset: {
+        title: '主题预设',
+        apply: '应用',
+        applySuccess: '预设应用成功',
+        default: {
+          name: '默认预设',
+          desc: 'Soybean 默认主题预设'
+        },
+        dark: {
+          name: '暗色预设',
+          desc: '适用于夜间使用的暗色主题预设'
+        },
+        compact: {
+          name: '紧凑型',
+          desc: '适用于小屏幕的紧凑布局预设'
+        },
+        azir: {
+          name: 'Azir的预设',
+          desc: '是 Azir 比较喜欢的莫兰迪色系冷淡风'
+        }
       }
     },
-    fixedHeaderAndTab: '固定头部和标签栏',
-    header: {
-      height: '头部高度',
-      breadcrumb: {
-        visible: '显示面包屑',
-        showIcon: '显示面包屑图标'
+    layout: {
+      layoutMode: {
+        title: '布局模式',
+        vertical: '左侧菜单模式',
+        'vertical-mix': '左侧菜单混合模式',
+        'vertical-hybrid-header-first': '左侧混合-顶部优先',
+        horizontal: '顶部菜单模式',
+        'top-hybrid-sidebar-first': '顶部混合-侧边优先',
+        'top-hybrid-header-first': '顶部混合-顶部优先',
+        vertical_detail: '左侧菜单布局，菜单在左，内容在右。',
+        'vertical-mix_detail': '左侧双菜单布局，一级菜单在左侧深色区域，二级菜单在左侧浅色区域。',
+        'vertical-hybrid-header-first_detail':
+          '左侧混合布局，一级菜单在顶部，二级菜单在左侧深色区域，三级菜单在左侧浅色区域。',
+        horizontal_detail: '顶部菜单布局，菜单在顶部，内容在下方。',
+        'top-hybrid-sidebar-first_detail': '顶部混合布局，一级菜单在左侧，二级菜单在顶部。',
+        'top-hybrid-header-first_detail': '顶部混合布局，一级菜单在顶部，二级菜单在左侧。'
+      },
+      tab: {
+        title: '标签栏设置',
+        visible: '显示标签栏',
+        cache: '标签栏信息缓存',
+        cacheTip: '一键开启/关闭全局 keepalive',
+        height: '标签栏高度',
+        mode: {
+          title: '标签栏风格',
+          chrome: '谷歌风格',
+          button: '按钮风格'
+        }
+      },
+      header: {
+        title: '头部设置',
+        height: '头部高度',
+        breadcrumb: {
+          visible: '显示面包屑',
+          showIcon: '显示面包屑图标'
+        }
+      },
+      sider: {
+        title: '侧边栏设置',
+        inverted: '深色侧边栏',
+        width: '侧边栏宽度',
+        collapsedWidth: '侧边栏折叠宽度',
+        mixWidth: '混合布局侧边栏宽度',
+        mixCollapsedWidth: '混合布局侧边栏折叠宽度',
+        mixChildMenuWidth: '混合布局子菜单宽度'
+      },
+      footer: {
+        title: '底部设置',
+        visible: '显示底部',
+        fixed: '固定底部',
+        height: '底部高度',
+        right: '底部局右'
+      },
+      content: {
+        title: '内容区域设置',
+        scrollMode: {
+          title: '滚动模式',
+          tip: '主题滚动仅 main 部分滚动，外层滚动可携带头部底部一起滚动',
+          wrapper: '外层滚动',
+          content: '主体滚动'
+        },
+        page: {
+          animate: '页面切换动画',
+          mode: {
+            title: '页面切换动画类型',
+            'fade-slide': '滑动',
+            fade: '淡入淡出',
+            'fade-bottom': '底部消退',
+            'fade-scale': '缩放消退',
+            'zoom-fade': '渐变',
+            'zoom-out': '闪现',
+            none: '无'
+          }
+        },
+        fixedHeaderAndTab: '固定头部和标签栏'
+      },
+      resetCacheStrategy: {
+        title: '重置缓存策略',
+        close: '关闭页面',
+        refresh: '刷新页面'
+      }
+    },
+    general: {
+      title: '通用设置',
+      watermark: {
+        title: '水印设置',
+        visible: '显示全屏水印',
+        text: '自定义水印文本',
+        enableUserName: '启用用户名水印',
+        enableTime: '显示当前时间',
+        timeFormat: '时间格式'
       },
       multilingual: {
+        title: '多语言设置',
         visible: '显示多语言按钮'
       },
       globalSearch: {
+        title: '全局搜索设置',
         visible: '显示全局搜索按钮'
       }
-    },
-    tab: {
-      visible: '显示标签栏',
-      cache: '标签栏信息缓存',
-      height: '标签栏高度',
-      mode: {
-        title: '标签栏风格',
-        chrome: '谷歌风格',
-        button: '按钮风格'
-      }
-    },
-    sider: {
-      inverted: '深色侧边栏',
-      width: '侧边栏宽度',
-      collapsedWidth: '侧边栏折叠宽度',
-      mixWidth: '混合布局侧边栏宽度',
-      mixCollapsedWidth: '混合布局侧边栏折叠宽度',
-      mixChildMenuWidth: '混合布局子菜单宽度'
-    },
-    footer: {
-      visible: '显示底部',
-      fixed: '固定底部',
-      height: '底部高度',
-      right: '底部局右'
-    },
-    watermark: {
-      visible: '显示全屏水印',
-      text: '水印文本',
-      enableUserName: '启用用户名水印'
-    },
-    themeDrawerTitle: '主题配置',
-    pageFunTitle: '页面功能',
-    resetCacheStrategy: {
-      title: '重置缓存策略',
-      close: '关闭页面',
-      refresh: '刷新页面'
     },
     configOperation: {
       copyConfig: '复制配置',

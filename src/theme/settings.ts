@@ -12,11 +12,10 @@ export const themeSettings: App.Theme.ThemeSetting = {
     error: '#f5222d'
   },
   isInfoFollowPrimary: true,
-  resetCacheStrategy: 'close',
+  resetCacheStrategy: 'refresh',
   layout: {
     mode: 'vertical',
-    scrollMode: 'content',
-    reverseHorizontalMix: false
+    scrollMode: 'content'
   },
   page: {
     animate: true,
@@ -59,7 +58,9 @@ export const themeSettings: App.Theme.ThemeSetting = {
   watermark: {
     visible: false,
     text: 'SoybeanAdmin',
-    enableUserName: false
+    enableUserName: false,
+    enableTime: false,
+    timeFormat: 'YYYY-MM-DD HH:mm'
   },
   tokens: {
     light: {

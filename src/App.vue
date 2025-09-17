@@ -4,7 +4,6 @@ import { NConfigProvider, darkTheme } from 'naive-ui';
 import type { WatermarkProps } from 'naive-ui';
 import { useAppStore } from './store/modules/app';
 import { useThemeStore } from './store/modules/theme';
-import { useAuthStore } from './store/modules/auth';
 import { naiveDateLocales, naiveLocales } from './locales/naive';
 
 defineOptions({
@@ -13,7 +12,6 @@ defineOptions({
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
-const authStore = useAuthStore();
 
 const naiveDarkTheme = computed(() => (themeStore.darkMode ? darkTheme : undefined));
 
@@ -26,13 +24,8 @@ const naiveDateLocale = computed(() => {
 });
 
 const watermarkProps = computed<WatermarkProps>(() => {
-  const content =
-    themeStore.watermark.enableUserName && authStore.userInfo.userName
-      ? authStore.userInfo.userName
-      : themeStore.watermark.text;
-
   return {
-    content,
+    content: themeStore.watermarkContent,
     cross: true,
     fullscreen: true,
     fontSize: 16,

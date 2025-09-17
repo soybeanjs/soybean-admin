@@ -3,13 +3,14 @@ import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { SimpleScrollbar } from '@sa/materials';
 import { useBoolean } from '@sa/hooks';
+import type { RouteKey } from '@elegant-router/types';
 import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
 import { $t } from '@/locales';
-import { useMenu, useMixMenuContext } from '../../../context';
+import { useMenu, useMixMenuContext } from '../context';
 import FirstLevelMenu from '../components/first-level-menu.vue';
 import GlobalLogo from '../../global-logo/index.vue';
 
@@ -24,28 +25,26 @@ const routeStore = useRouteStore();
 const { routerPushByKeyWithMetaQuery } = useRouterPush();
 const { bool: drawerVisible, setBool: setDrawerVisible } = useBoolean();
 const {
-  allMenus,
-  childLevelMenus,
+  firstLevelMenus,
+  secondLevelMenus,
   activeFirstLevelMenuKey,
-  setActiveFirstLevelMenuKey,
-  getActiveFirstLevelMenuKey
-  //
-} = useMixMenuContext();
+  isActiveFirstLevelMenuHasChildren,
+  getActiveFirstLevelMenuKey,
+  handleSelectFirstLevelMenu
+} = useMixMenuContext('VerticalMixMenu');
 const { selectedKey } = useMenu();
 
 const inverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
 
-const hasChildMenus = computed(() => childLevelMenus.value.length > 0);
+const hasChildMenus = computed(() => secondLevelMenus.value.length > 0);
 
 const showDrawer = computed(() => hasChildMenus.value && (drawerVisible.value || appStore.mixSiderFixed));
 
-function handleSelectMixMenu(menu: App.Global.Menu) {
-  setActiveFirstLevelMenuKey(menu.key);
+function handleSelectMenu(key: RouteKey) {
+  handleSelectFirstLevelMenu(key);
 
-  if (menu.children?.length) {
+  if (isActiveFirstLevelMenuHasChildren.value) {
     setDrawerVisible(true);
-  } else {
-    routerPushByKeyWithMetaQuery(menu.routeKey);
   }
 }
 
@@ -80,13 +79,13 @@ watch(
   <Teleport :to="`#${GLOBAL_SIDER_MENU_ID}`">
     <div class="h-full flex" @mouseleave="handleResetActiveMenu">
       <FirstLevelMenu
-        :menus="allMenus"
+        :menus="firstLevelMenus"
         :active-menu-key="activeFirstLevelMenuKey"
         :inverted="inverted"
         :sider-collapse="appStore.siderCollapse"
         :dark-mode="themeStore.darkMode"
         :theme-color="themeStore.themeColor"
-        @select="handleSelectMixMenu"
+        @select="handleSelectMenu"
         @toggle-sider-collapse="appStore.toggleSiderCollapse"
       >
         <GlobalLogo :show-title="false" :style="{ height: themeStore.header.height + 'px' }" />
@@ -113,7 +112,7 @@ watch(
               v-model:expanded-keys="expandedKeys"
               mode="vertical"
               :value="selectedKey"
-              :options="childLevelMenus"
+              :options="secondLevelMenus"
               :inverted="inverted"
               :indent="18"
               @update:value="routerPushByKeyWithMetaQuery"

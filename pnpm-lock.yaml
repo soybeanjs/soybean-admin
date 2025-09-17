@@ -309,12 +309,6 @@ importers:
         specifier: 0.9.1
         version: 0.9.1
 
-  packages/ofetch:
-    dependencies:
-      ofetch:
-        specifier: 1.4.1
-        version: 1.4.1
-
   packages/scripts:
     devDependencies:
       '@soybeanjs/changelog':
@@ -344,6 +338,9 @@ importers:
       npm-check-updates:
         specifier: 18.1.1
         version: 18.1.1
+      picomatch:
+        specifier: 4.0.3
+        version: 4.0.3
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
