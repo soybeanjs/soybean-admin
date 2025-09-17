@@ -3,6 +3,7 @@ import type { AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } f
 import axiosRetry from 'axios-retry';
 import { nanoid } from '@sa/utils';
 import { createAxiosConfig, createDefaultOptions, createRetryOptions } from './options';
+import { transformResponse } from './shared';
 import { BACKEND_ERROR_CODE, REQUEST_ID_KEY } from './constant';
 import type {
   CustomAxiosRequestConfig,
@@ -52,6 +53,8 @@ function createCommonRequest<
   instance.interceptors.response.use(
     async response => {
       const responseType: ResponseType = (response.config?.responseType as ResponseType) || 'json';
+
+      await transformResponse(response);
 
       if (responseType !== 'json' || opts.isBackendSuccess(response)) {
         return Promise.resolve(response);
