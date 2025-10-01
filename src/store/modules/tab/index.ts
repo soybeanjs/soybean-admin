@@ -112,10 +112,8 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
       await switchRouteByTab(nextTab);
     }
 
-    // reset route cache if cache strategy is close
-    if (themeStore.resetCacheStrategy === 'close') {
-      routeStore.resetRouteCache(removedTabRouteKey);
-    }
+    // reset route cache
+    routeStore.resetRouteCache(removedTabRouteKey);
   }
 
   /** remove active tab */
@@ -147,10 +145,8 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const tabsToRemove = tabs.value.filter(tab => !remainTabIds.includes(tab.id));
     const routeKeysToReset: RouteKey[] = [];
 
-    if (themeStore.resetCacheStrategy === 'close') {
-      for (const tab of tabsToRemove) {
-        routeKeysToReset.push(tab.routeKey);
-      }
+    for (const tab of tabsToRemove) {
+      routeKeysToReset.push(tab.routeKey);
     }
 
     const removedTabsIds = tabsToRemove.map(tab => tab.id);

@@ -182,11 +182,6 @@ const local: App.I18n.Schema = {
           }
         },
         fixedHeaderAndTab: '固定头部和标签栏'
-      },
-      resetCacheStrategy: {
-        title: '重置缓存策略',
-        close: '关闭页面',
-        refresh: '刷新页面'
       }
     },
     general: {

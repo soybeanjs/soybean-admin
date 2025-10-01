@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { resetCacheStrategyOptions, themeTabModeOptions } from '@/constants/app';
+import { themeTabModeOptions } from '@/constants/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { translateOptions } from '@/utils/common';
 import { $t } from '@/locales';
@@ -15,14 +15,6 @@ const themeStore = useThemeStore();
 <template>
   <NDivider>{{ $t('theme.layout.tab.title') }}</NDivider>
   <TransitionGroup tag="div" name="setting-list" class="flex-col-stretch gap-12px">
-    <SettingItem key="0" :label="$t('theme.layout.resetCacheStrategy.title')">
-      <NSelect
-        v-model:value="themeStore.resetCacheStrategy"
-        :options="translateOptions(resetCacheStrategyOptions)"
-        size="small"
-        class="w-120px"
-      />
-    </SettingItem>
     <SettingItem key="1" :label="$t('theme.layout.tab.visible')">
       <NSwitch v-model:value="themeStore.tab.visible" />
     </SettingItem>
