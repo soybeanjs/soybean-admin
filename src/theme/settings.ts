@@ -12,7 +12,6 @@ export const themeSettings: App.Theme.ThemeSetting = {
     error: '#f5222d'
   },
   isInfoFollowPrimary: true,
-  resetCacheStrategy: 'refresh',
   layout: {
     mode: 'vertical',
     scrollMode: 'content'

@@ -57,13 +57,6 @@ export const themePageAnimationModeRecord: Record<UnionKey.ThemePageAnimateMode,
 
 export const themePageAnimationModeOptions = transformRecordToOption(themePageAnimationModeRecord);
 
-export const resetCacheStrategyRecord: Record<UnionKey.ResetCacheStrategy, App.I18n.I18nKey> = {
-  refresh: 'theme.layout.resetCacheStrategy.refresh',
-  close: 'theme.layout.resetCacheStrategy.close'
-};
-
-export const resetCacheStrategyOptions = transformRecordToOption(resetCacheStrategyRecord);
-
 export const DARK_CLASS = 'dark';
 
 export const watermarkTimeFormatOptions = [

@@ -185,11 +185,6 @@ const local: App.I18n.Schema = {
           }
         },
         fixedHeaderAndTab: 'Fixed Header And Tab'
-      },
-      resetCacheStrategy: {
-        title: 'Reset Cache Strategy',
-        close: 'Close Page',
-        refresh: 'Refresh Page'
       }
     },
     general: {

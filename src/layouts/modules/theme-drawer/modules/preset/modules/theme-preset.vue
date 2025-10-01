@@ -16,7 +16,6 @@ type ThemePreset = Pick<
   | 'themeColor'
   | 'otherColor'
   | 'isInfoFollowPrimary'
-  | 'resetCacheStrategy'
   | 'layout'
   | 'page'
   | 'header'
