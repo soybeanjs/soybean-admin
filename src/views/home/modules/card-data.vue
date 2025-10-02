@@ -85,7 +85,7 @@ function getGradientColor(color: CardData['color']) {
     <!-- define component start: GradientBg -->
     <DefineGradientBg v-slot="{ $slots, gradientColor }">
       <div
-        class="rd-8px px-16px pb-4px pt-8px text-white"
+        class="px-16px pb-4px pt-8px text-white"
         :style="{ backgroundImage: gradientColor, borderRadius: themeStore.themeRadius + 'px' }"
       >
         <component :is="$slots.default" />
