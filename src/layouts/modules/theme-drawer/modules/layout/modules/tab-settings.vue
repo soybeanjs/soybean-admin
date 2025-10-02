@@ -27,7 +27,7 @@ const themeStore = useThemeStore();
     <SettingItem v-if="themeStore.tab.visible" key="3" :label="$t('theme.layout.tab.height')">
       <NInputNumber v-model:value="themeStore.tab.height" size="small" :step="1" class="w-120px" />
     </SettingItem>
-    <SettingItem v-if="themeStore.tab.visible" key="4" :label="$t('theme.layout.tab.mode.title')">
+    <SettingItem v-if="themeStore.tab.visible" key="4" :label="$t('theme.layout.tab.mode.slider')">
       <NSelect
         v-model:value="themeStore.tab.mode"
         :options="translateOptions(themeTabModeOptions)"

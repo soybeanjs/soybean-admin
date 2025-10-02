@@ -399,7 +399,7 @@ declare namespace App {
             cache: string;
             cacheTip: string;
             height: string;
-            mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
+            mode: { slider: string } & Record<UnionKey.ThemeTabMode, string>;
           };
           header: {
             title: string;

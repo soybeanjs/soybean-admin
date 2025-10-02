@@ -5,7 +5,7 @@ import type { PageTabMode, PageTabProps } from '../../types';
 import { ACTIVE_COLOR, createTabCssVars } from './shared';
 import ChromeTab from './chrome-tab.vue';
 import ButtonTab from './button-tab.vue';
-import TitleTab from './title-tab.vue';
+import SliderTab from './slider-tab.vue';
 import SvgClose from './svg-close.vue';
 import style from './index.module.css';
 
@@ -27,7 +27,7 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const activeTabComponent = computed(() => {
-  const { mode, chromeClass, buttonClass, titleClass } = props;
+  const { mode, chromeClass, buttonClass, sliderClass } = props;
 
   const tabComponentMap = {
     chrome: {
@@ -38,9 +38,9 @@ const activeTabComponent = computed(() => {
       component: ButtonTab,
       class: buttonClass
     },
-    title: {
-      component: TitleTab,
-      class: titleClass
+    slider: {
+      component: SliderTab,
+      class: sliderClass
     }
   } satisfies Record<PageTabMode, { component: Component; class?: string }>;
 
@@ -50,7 +50,7 @@ const activeTabComponent = computed(() => {
 const cssVars = computed(() => createTabCssVars(props.activeColor));
 
 const bindProps = computed(() => {
-  const { chromeClass: _chromeCls, buttonClass: _btnCls, titleClass: _titleCls, ...rest } = props;
+  const { chromeClass: _chromeCls, buttonClass: _btnCls, sliderClass: _sliderCls, ...rest } = props;
 
   return rest;
 });
