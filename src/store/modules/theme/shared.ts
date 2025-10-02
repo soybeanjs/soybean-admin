@@ -236,8 +236,9 @@ function getNaiveThemeColors(colors: App.Theme.ThemeColor, recommended = false) 
 /**
  * Get naive theme
  *
- * @param colors Theme colors
- * @param [recommended=false] Use recommended color. Default is `false`
+ * @param settings Theme settings object.
+ * @param settings.recommendColor Whether to use recommended color palette.
+ * @param settings.themeRadius Border radius to use in the theme (in px).
  */
 export function getNaiveTheme(colors: App.Theme.ThemeColor, settings: App.Theme.ThemeSetting) {
   const { primary: colorLoading } = colors;

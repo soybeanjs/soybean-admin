@@ -14,6 +14,7 @@ type ThemePreset = Pick<
   | 'colourWeakness'
   | 'recommendColor'
   | 'themeColor'
+  | 'themeRadius'
   | 'otherColor'
   | 'isInfoFollowPrimary'
   | 'layout'
