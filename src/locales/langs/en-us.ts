@@ -134,7 +134,7 @@ const local: App.I18n.Schema = {
         cacheTip: 'One-click to open/close global keepalive',
         height: 'Tab Height',
         mode: {
-          title: 'Tab Mode',
+          title: 'Title',
           chrome: 'Chrome',
           button: 'Button'
         }
