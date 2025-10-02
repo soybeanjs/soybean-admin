@@ -169,7 +169,9 @@ init();
         <div
           ref="tabRef"
           class="h-full flex pr-18px"
-          :class="[themeStore.tab.mode === 'chrome' ? 'items-end' : 'items-center gap-12px']"
+          :class="[
+            themeStore.tab.mode === 'chrome' || themeStore.tab.mode === 'slider' ? 'items-end' : 'items-center gap-12px'
+          ]"
         >
           <PageTab
             v-for="tab in tabStore.tabs"

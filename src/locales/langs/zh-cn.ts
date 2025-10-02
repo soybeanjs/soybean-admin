@@ -132,6 +132,7 @@ const local: App.I18n.Schema = {
         height: '标签栏高度',
         mode: {
           title: '标签栏风格',
+          slider: '滑块风格',
           chrome: '谷歌风格',
           button: '按钮风格'
         }
