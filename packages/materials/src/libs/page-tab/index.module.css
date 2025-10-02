@@ -95,3 +95,27 @@
 .chrome-tab_dark .chrome-tab-divider {
   background-color: rgba(255, 255, 255, 0.9);
 }
+
+.title-tab {
+  background-color: transparent;
+  height: 100%;
+  border-bottom: 2px solid transparent;
+}
+
+.title-tab_dark {
+  background-color: transparent;
+}
+
+.title-tab:hover {
+  color: var(--soy-primary-color);
+}
+
+.title-tab_active {
+  color: var(--soy-primary-color);
+  background-color: var(--soy-primary-color-opacity1);
+  border-bottom-color: var(--soy-primary-color);
+}
+
+.title-tab_active_dark {
+  background-color: var(--soy-primary-color-opacity2);
+}
