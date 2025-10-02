@@ -239,19 +239,19 @@ function getNaiveThemeColors(colors: App.Theme.ThemeColor, recommended = false) 
  * @param colors Theme colors
  * @param [recommended=false] Use recommended color. Default is `false`
  */
-export function getNaiveTheme(colors: App.Theme.ThemeColor, recommended = false) {
+export function getNaiveTheme(colors: App.Theme.ThemeColor, settings: App.Theme.ThemeSetting) {
   const { primary: colorLoading } = colors;
 
   const theme: GlobalThemeOverrides = {
     common: {
-      ...getNaiveThemeColors(colors, recommended),
-      borderRadius: '6px'
+      ...getNaiveThemeColors(colors, settings.recommendColor),
+      borderRadius: `${settings.themeRadius}px`
     },
     LoadingBar: {
       colorLoading
     },
     Tag: {
-      borderRadius: '6px'
+      borderRadius: `${settings.themeRadius}px`
     }
   };
 

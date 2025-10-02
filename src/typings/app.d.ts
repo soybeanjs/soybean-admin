@@ -16,6 +16,8 @@ declare namespace App {
       recommendColor: boolean;
       /** Theme color */
       themeColor: string;
+      /** Theme radius */
+      themeRadius: number;
       /** Other color */
       otherColor: OtherColor;
       /** Whether info color is followed by the primary color */
@@ -379,6 +381,9 @@ declare namespace App {
           } & Record<Theme.ThemeColorKey, string>;
           recommendColor: string;
           recommendColorDesc: string;
+          themeRadius: {
+            title: string;
+          };
           preset: {
             title: string;
             apply: string;
