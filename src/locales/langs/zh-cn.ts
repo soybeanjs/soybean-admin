@@ -159,7 +159,7 @@ const local: App.I18n.Schema = {
         visible: '显示底部',
         fixed: '固定底部',
         height: '底部高度',
-        right: '底部局右'
+        right: '底部居右'
       },
       content: {
         title: '内容区域设置',
