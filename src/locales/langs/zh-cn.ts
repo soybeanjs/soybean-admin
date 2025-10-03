@@ -83,6 +83,9 @@ const local: App.I18n.Schema = {
         error: '错误色',
         followPrimary: '跟随主色'
       },
+      themeRadius: {
+        title: '主题圆角'
+      },
       recommendColor: '应用推荐算法的颜色',
       recommendColorDesc: '推荐颜色的算法参照',
       preset: {
