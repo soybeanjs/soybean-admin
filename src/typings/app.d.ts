@@ -374,7 +374,7 @@ declare namespace App {
           themeColor: {
             title: string;
             followPrimary: string;
-          } & Theme.ThemeColor;
+          } & Record<Theme.ThemeColorKey, string>;
           recommendColor: string;
           recommendColorDesc: string;
           preset: {
