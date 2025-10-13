@@ -1,31 +1,39 @@
-import type { CustomRoute } from '@elegant-router/types';
-import { layouts, views } from '../elegant/imports';
-import { getRoutePath, transformElegantRoutesToVueRoutes } from '../elegant/transform';
+import type { AutoRouterRedirect, AutoRouterRoute, AutoRouterSingleView } from '@elegant-router/types';
+import { layouts, views } from '../_generated/imports';
+import { transformToVueRoutes } from '../_generated/transformer';
+import { routes } from '../_generated/routes';
 
-export const ROOT_ROUTE: CustomRoute = {
-  name: 'root',
+/**
+ * 根路由
+ */
+export const ROOT_ROUTE: AutoRouterRedirect = {
+  name: 'Root',
   path: '/',
-  redirect: getRoutePath(import.meta.env.VITE_ROUTE_HOME) || '/home',
+  redirect: import.meta.env.VITE_ROUTE_HOME_PATH || '/home',
   meta: {
-    title: 'root',
+    title: 'Root',
     constant: true
   }
 };
 
-const NOT_FOUND_ROUTE: CustomRoute = {
-  name: 'not-found',
+/**
+ * 404 路由
+ */
+export const NOT_FOUND_ROUTE: AutoRouterSingleView = {
+  name: 'NotFound',
   path: '/:pathMatch(.*)*',
-  component: 'layout.blank$view.404',
+  component: '404',
+  layout: 'blank',
   meta: {
-    title: 'not-found',
+    title: 'NotFound',
     constant: true
   }
 };
 
-/** builtin routes, it must be constant and setup in vue-router */
-const builtinRoutes: CustomRoute[] = [ROOT_ROUTE, NOT_FOUND_ROUTE];
+/** 内置路由，必须是常量路由，且必须在 vue-router 中设置 */
+const builtinRoutes: AutoRouterRoute[] = [ROOT_ROUTE, NOT_FOUND_ROUTE, ...routes];
 
-/** create builtin vue routes */
+/** 创建内置 vue 路由 */
 export function createBuiltinVueRoutes() {
-  return transformElegantRoutesToVueRoutes(builtinRoutes, layouts, views);
+  return transformToVueRoutes(builtinRoutes, layouts, views);
 }

@@ -1,11 +1,6 @@
 import type { App } from 'vue';
-import {
-  type RouterHistory,
-  createMemoryHistory,
-  createRouter,
-  createWebHashHistory,
-  createWebHistory
-} from 'vue-router';
+import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
+import type { RouterHistory } from 'vue-router';
 import { createBuiltinVueRoutes } from './routes/builtin';
 import { createRouterGuard } from './guard';
 
@@ -25,6 +20,6 @@ export const router = createRouter({
 /** Setup Vue Router */
 export async function setupRouter(app: App) {
   app.use(router);
-  createRouterGuard(router);
+  // createRouterGuard(router);
   await router.isReady();
 }

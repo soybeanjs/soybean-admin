@@ -1,7 +1,7 @@
-import 'vue-router';
+export {};
 
 declare module 'vue-router' {
-  interface RouteMeta {
+  export interface RouteMeta {
     /**
      * Title of the route
      *

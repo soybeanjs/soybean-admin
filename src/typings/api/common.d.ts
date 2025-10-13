@@ -5,46 +5,38 @@
  */
 declare namespace Api {
   namespace Common {
-    /** common params of paginating */
-    interface PaginatingCommonParams {
-      /** current page number */
-      current: number;
-      /** page size */
-      size: number;
-      /** total count */
+    interface CreatedUpdatedDTO {
+      /** 创建人 */
+      createdBy: string;
+      /** 创建时间 */
+      createdTime: string;
+      /** 更新人 */
+      updatedBy: string;
+      /** 更新时间 */
+      updatedTime: string;
+    }
+
+    interface CommonRecordDTO extends CreatedUpdatedDTO {
+      /** 主键 */
+      id: number;
+      /**
+       * 启用状态 Enable status
+       *
+       * - "1": 启用
+       * - "2": 禁用
+       */
+      status: Union.EnableStatus | null;
+    }
+
+    interface PaginationQueryDTO {
+      page: number;
+      pageSize: number;
+      sort: string;
+    }
+
+    interface PaginationDTO extends Pick<PaginationQueryDTO, 'page' | 'pageSize'> {
+      /** 总条数 */
       total: number;
     }
-
-    /** common params of paginating query list data */
-    interface PaginatingQueryRecord<T = any> extends PaginatingCommonParams {
-      records: T[];
-    }
-
-    /** common search params of table */
-    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
-
-    /**
-     * enable status
-     *
-     * - "1": enabled
-     * - "2": disabled
-     */
-    type EnableStatus = '1' | '2';
-
-    /** common record */
-    type CommonRecord<T = any> = {
-      /** record id */
-      id: number;
-      /** record creator */
-      createBy: string;
-      /** record create time */
-      createTime: string;
-      /** record updater */
-      updateBy: string;
-      /** record update time */
-      updateTime: string;
-      /** record status */
-      status: EnableStatus | null;
-    } & T;
   }
 }

@@ -188,9 +188,9 @@ declare namespace App {
     type VNode = import('vue').VNode;
     type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded;
     type RouteKey = import('@elegant-router/types').RouteKey;
-    type RouteMap = import('@elegant-router/types').RouteMap;
+    type RoutePathMap = import('@elegant-router/types').RoutePathMap;
     type RoutePath = import('@elegant-router/types').RoutePath;
-    type LastLevelRouteKey = import('@elegant-router/types').LastLevelRouteKey;
+    type RouteFileKey = import('@elegant-router/types').RouteFileKey;
 
     /** The router push options */
     type RouterPushOptions = {
@@ -208,77 +208,25 @@ declare namespace App {
       showMenu?: boolean;
     }
 
+    type MenuType = 'page' | 'directory' | 'menu' | 'iframe' | 'link' | 'button' | 'other';
+
     /** The global menu */
-    type Menu = {
-      /**
-       * The menu key
-       *
-       * Equal to the route key
-       */
-      key: string;
-      /** The menu label */
-      label: string;
-      /** The menu i18n key */
-      i18nKey?: I18n.I18nKey | null;
-      /** The route key */
-      routeKey: RouteKey;
-      /** The route path */
-      routePath: RoutePath;
-      /** The menu icon */
-      icon?: () => VNode;
-      /** The menu children */
-      children?: Menu[];
-    };
-
-    type Breadcrumb = Omit<Menu, 'children'> & {
-      options?: Breadcrumb[];
-    };
-
-    /** Tab route */
-    type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> &
-      Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query' | 'matched'>>;
-
-    /** The global tab */
-    type Tab = {
-      /** The tab id */
-      id: string;
-      /** The tab label */
-      label: string;
-      /**
-       * The new tab label
-       *
-       * If set, the tab label will be replaced by this value
-       */
-      newLabel?: string;
-      /**
-       * The old tab label
-       *
-       * when reset the tab label, the tab label will be replaced by this value
-       */
-      oldLabel?: string;
-      /** The tab route key */
-      routeKey: LastLevelRouteKey;
-      /** The tab route path */
-      routePath: RouteMap[LastLevelRouteKey];
-      /** The tab route full path */
-      fullPath: string;
-      /** The tab fixed index */
-      fixedIndex?: number | null;
-      /**
-       * Tab icon
-       *
-       * Iconify icon
-       */
-      icon?: string;
-      /**
-       * Tab local icon
-       *
-       * Local icon
-       */
-      localIcon?: string;
-      /** I18n key */
-      i18nKey?: I18n.I18nKey | null;
-    };
+    interface Menu {
+      id: number;
+      name: string;
+      menuType: MenuType;
+      description?: string | null;
+      icon?: string | null;
+      iconType?: string | null;
+      parentId?: number | null;
+      order?: number | null;
+      isHidden?: boolean | null;
+      iframeUrl?: string | null;
+      href?: string | null;
+      routeName?: RouteKey | null;
+      routeQueries?: Record<string, string | number | boolean> | null;
+      routeParams?: Record<string, string | number | boolean> | null;
+    }
 
     /** Form rule */
     type FormRule = import('naive-ui').FormItemRule;
