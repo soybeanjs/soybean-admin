@@ -26,6 +26,7 @@ const tabRef = ref<HTMLElement>();
 const isPCFlag = isPC();
 
 const TAB_DATA_ID = 'data-tab-id';
+const MIDDLE_MOUSE_BUTTON = 1;
 
 type TabNamedNodeMap = NamedNodeMap & {
   [TAB_DATA_ID]: Attr;
@@ -82,6 +83,20 @@ function getContextMenuDisabledKeys(tabId: string) {
 
 function handleCloseTab(tab: App.Global.Tab) {
   tabStore.removeTab(tab.id);
+}
+
+function handleMousedown(e: MouseEvent, tab: App.Global.Tab) {
+  const isMiddleClick = e.button === MIDDLE_MOUSE_BUTTON;
+  if (!isMiddleClick || !themeStore.tab.closeTabByMiddleClick) {
+    return;
+  }
+
+  if (tabStore.isTabRetain(tab.id)) {
+    return;
+  }
+
+  e.preventDefault();
+  handleCloseTab(tab);
 }
 
 async function refresh() {
@@ -183,6 +198,7 @@ init();
             :active-color="themeStore.themeColor"
             :closable="!tabStore.isTabRetain(tab.id)"
             @pointerdown="tabStore.switchRouteByTab(tab)"
+            @mousedown="handleMousedown($event, tab)"
             @close="handleCloseTab(tab)"
             @contextmenu="handleContextMenu($event, tab.id)"
           >

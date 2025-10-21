@@ -135,7 +135,9 @@ const local: App.I18n.Schema = {
           slider: '滑块风格',
           chrome: '谷歌风格',
           button: '按钮风格'
-        }
+        },
+        closeByMiddleClick: '鼠标中键关闭标签页',
+        closeByMiddleClickTip: '启用后可以使用鼠标中键点击标签页进行关闭'
       },
       header: {
         title: '头部设置',

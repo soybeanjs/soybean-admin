@@ -37,7 +37,8 @@ export const themeSettings: App.Theme.ThemeSetting = {
     visible: true,
     cache: true,
     height: 44,
-    mode: 'chrome'
+    mode: 'chrome',
+    closeTabByMiddleClick: false
   },
   fixedHeaderAndTab: true,
   sider: {
