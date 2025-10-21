@@ -180,6 +180,14 @@ Thanks the following people for their contributions. If you want to contribute t
   <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
 </a>
 
+---
+
+Here are the most active contributors from the past year. Thank you all for your support, which has enabled the project's continued development.
+
+<a href="https://openomy.com/soybeanjs/soybean-admin" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://www.openomy.com/svg?repo=soybeanjs/soybean-admin&chart=list&latestMonth=12" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+</a>
+
 ## Communication
 
 `SoybeanAdmin` is a completely open source and free project, helping developers to develop medium and large-scale management systems more conveniently. It also provides WeChat and QQ communication groups. If you have any questions, please feel free to ask in the group.
