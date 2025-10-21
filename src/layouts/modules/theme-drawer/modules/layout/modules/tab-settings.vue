@@ -35,6 +35,12 @@ const themeStore = useThemeStore();
         class="w-120px"
       />
     </SettingItem>
+    <SettingItem v-if="themeStore.tab.visible" key="5" :label="$t('theme.layout.tab.closeByMiddleClick')">
+      <template #suffix>
+        <IconTooltip :desc="$t('theme.layout.tab.closeByMiddleClickTip')" />
+      </template>
+      <NSwitch v-model:value="themeStore.tab.closeTabByMiddleClick" />
+    </SettingItem>
   </TransitionGroup>
 </template>
 
