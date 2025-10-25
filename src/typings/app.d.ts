@@ -16,24 +16,18 @@ declare namespace App {
       recommendColor: boolean;
       /** Theme color */
       themeColor: string;
+      /** Theme radius */
+      themeRadius: number;
       /** Other color */
       otherColor: OtherColor;
       /** Whether info color is followed by the primary color */
       isInfoFollowPrimary: boolean;
-      /** Reset cache strategy */
-      resetCacheStrategy: UnionKey.ResetCacheStrategy;
       /** Layout */
       layout: {
         /** Layout mode */
         mode: UnionKey.ThemeLayoutMode;
         /** Scroll mode */
         scrollMode: UnionKey.ThemeScrollMode;
-        /**
-         * Whether to reverse the horizontal mix
-         *
-         * if true, the vertical child level menus in left and horizontal first level menus in top
-         */
-        reverseHorizontalMix: boolean;
       };
       /** Page */
       page: {
@@ -77,6 +71,8 @@ declare namespace App {
         height: number;
         /** Tab mode */
         mode: UnionKey.ThemeTabMode;
+        /** Whether to close tab by middle click */
+        closeTabByMiddleClick: boolean;
       };
       /** Fixed header and tab */
       fixedHeaderAndTab: boolean;
@@ -88,11 +84,14 @@ declare namespace App {
         width: number;
         /** Collapsed sider width */
         collapsedWidth: number;
-        /** Sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /** Sider width when the layout is 'vertical-mix', 'top-hybrid-sidebar-first', or 'top-hybrid-header-first' */
         mixWidth: number;
-        /** Collapsed sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /**
+         * Collapsed sider width when the layout is 'vertical-mix', 'top-hybrid-sidebar-first', or
+         * 'top-hybrid-header-first'
+         */
         mixCollapsedWidth: number;
-        /** Child menu width when the layout is 'vertical-mix' or 'horizontal-mix' */
+        /** Child menu width when the layout is 'vertical-mix', 'top-hybrid-sidebar-first', or 'top-hybrid-header-first' */
         mixChildMenuWidth: number;
       };
       /** Footer */
@@ -103,7 +102,10 @@ declare namespace App {
         fixed: boolean;
         /** Footer height */
         height: number;
-        /** Whether float the footer to the right when the layout is 'horizontal-mix' */
+        /**
+         * Whether float the footer to the right when the layout is 'top-hybrid-sidebar-first' or
+         * 'top-hybrid-header-first'
+         */
         right: boolean;
       };
       /** Watermark */
@@ -114,6 +116,10 @@ declare namespace App {
         text: string;
         /** Whether to use user name as watermark text */
         enableUserName: boolean;
+        /** Whether to use current time as watermark text */
+        enableTime: boolean;
+        /** Time format for watermark text */
+        timeFormat: string;
       };
       /** define some theme settings tokens, will transform to css variables */
       tokens: {
@@ -358,63 +364,105 @@ declare namespace App {
         tokenExpired: string;
       };
       theme: {
-        themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
-        grayscale: string;
-        colourWeakness: string;
-        layoutMode: { title: string; reverseHorizontalMix: string } & Record<UnionKey.ThemeLayoutMode, string>;
-        recommendColor: string;
-        recommendColorDesc: string;
-        themeColor: {
-          title: string;
-          followPrimary: string;
-        } & Theme.ThemeColor;
-        scrollMode: { title: string } & Record<UnionKey.ThemeScrollMode, string>;
-        page: {
-          animate: string;
-          mode: { title: string } & Record<UnionKey.ThemePageAnimateMode, string>;
+        themeDrawerTitle: string;
+        tabs: {
+          appearance: string;
+          layout: string;
+          general: string;
+          preset: string;
         };
-        fixedHeaderAndTab: string;
-        header: {
-          height: string;
-          breadcrumb: {
+        appearance: {
+          themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
+          grayscale: string;
+          colourWeakness: string;
+          themeColor: {
+            title: string;
+            followPrimary: string;
+          } & Record<Theme.ThemeColorKey, string>;
+          recommendColor: string;
+          recommendColorDesc: string;
+          themeRadius: {
+            title: string;
+          };
+          preset: {
+            title: string;
+            apply: string;
+            applySuccess: string;
+            [key: string]:
+              | {
+                  name: string;
+                  desc: string;
+                }
+              | string;
+          };
+        };
+        layout: {
+          layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string> & {
+              [K in `${UnionKey.ThemeLayoutMode}_detail`]: string;
+            };
+          tab: {
+            title: string;
             visible: string;
-            showIcon: string;
+            cache: string;
+            cacheTip: string;
+            height: string;
+            mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
+            closeByMiddleClick: string;
+            closeByMiddleClickTip: string;
+          };
+          header: {
+            title: string;
+            height: string;
+            breadcrumb: {
+              visible: string;
+              showIcon: string;
+            };
+          };
+          sider: {
+            title: string;
+            inverted: string;
+            width: string;
+            collapsedWidth: string;
+            mixWidth: string;
+            mixCollapsedWidth: string;
+            mixChildMenuWidth: string;
+          };
+          footer: {
+            title: string;
+            visible: string;
+            fixed: string;
+            height: string;
+            right: string;
+          };
+          content: {
+            title: string;
+            scrollMode: { title: string; tip: string } & Record<UnionKey.ThemeScrollMode, string>;
+            page: {
+              animate: string;
+              mode: { title: string } & Record<UnionKey.ThemePageAnimateMode, string>;
+            };
+            fixedHeaderAndTab: string;
+          };
+        };
+        general: {
+          title: string;
+          watermark: {
+            title: string;
+            visible: string;
+            text: string;
+            enableUserName: string;
+            enableTime: string;
+            timeFormat: string;
           };
           multilingual: {
+            title: string;
             visible: string;
           };
           globalSearch: {
+            title: string;
             visible: string;
           };
         };
-        tab: {
-          visible: string;
-          cache: string;
-          height: string;
-          mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
-        };
-        sider: {
-          inverted: string;
-          width: string;
-          collapsedWidth: string;
-          mixWidth: string;
-          mixCollapsedWidth: string;
-          mixChildMenuWidth: string;
-        };
-        footer: {
-          visible: string;
-          fixed: string;
-          height: string;
-          right: string;
-        };
-        watermark: {
-          visible: string;
-          text: string;
-          enableUserName: string;
-        };
-        themeDrawerTitle: string;
-        pageFunTitle: string;
-        resetCacheStrategy: { title: string } & Record<UnionKey.ResetCacheStrategy, string>;
         configOperation: {
           copyConfig: string;
           copySuccessMsg: string;

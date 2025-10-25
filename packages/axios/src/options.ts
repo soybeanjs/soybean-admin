@@ -4,14 +4,26 @@ import { stringify } from 'qs';
 import { isHttpSuccess } from './shared';
 import type { RequestOption } from './type';
 
-export function createDefaultOptions<ResponseData = any>(options?: Partial<RequestOption<ResponseData>>) {
-  const opts: RequestOption<ResponseData> = {
+export function createDefaultOptions<
+  ResponseData,
+  ApiData = ResponseData,
+  State extends Record<string, unknown> = Record<string, unknown>
+>(options?: Partial<RequestOption<ResponseData, ApiData, State>>) {
+  const opts: RequestOption<ResponseData, ApiData, State> = {
+    defaultState: {} as State,
+    transform: async response => response.data as unknown as ApiData,
+    transformBackendResponse: async response => response.data as unknown as ApiData,
     onRequest: async config => config,
     isBackendSuccess: _response => true,
     onBackendFail: async () => {},
-    transformBackendResponse: async response => response.data,
     onError: async () => {}
   };
+
+  if (options?.transform) {
+    opts.transform = options.transform;
+  } else {
+    opts.transform = options?.transformBackendResponse || opts.transform;
+  }
 
   Object.assign(opts, options);
 

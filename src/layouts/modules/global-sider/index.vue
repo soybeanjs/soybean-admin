@@ -12,10 +12,13 @@ defineOptions({
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 
-const isVerticalMix = computed(() => themeStore.layout.mode === 'vertical-mix');
-const isHorizontalMix = computed(() => themeStore.layout.mode === 'horizontal-mix');
-const darkMenu = computed(() => !themeStore.darkMode && !isHorizontalMix.value && themeStore.sider.inverted);
-const showLogo = computed(() => !isVerticalMix.value && !isHorizontalMix.value);
+const isTopHybridSidebarFirst = computed(() => themeStore.layout.mode === 'top-hybrid-sidebar-first');
+const isTopHybridHeaderFirst = computed(() => themeStore.layout.mode === 'top-hybrid-header-first');
+const darkMenu = computed(
+  () =>
+    !themeStore.darkMode && !isTopHybridSidebarFirst.value && !isTopHybridHeaderFirst.value && themeStore.sider.inverted
+);
+const showLogo = computed(() => themeStore.layout.mode === 'vertical');
 const menuWrapperClass = computed(() => (showLogo.value ? 'flex-1-hidden' : 'h-full'));
 </script>
 

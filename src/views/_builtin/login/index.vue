@@ -23,7 +23,7 @@ const appStore = useAppStore();
 const themeStore = useThemeStore();
 
 interface LoginModule {
-  label: string;
+  label: App.I18n.I18nKey;
   component: Component;
 }
 
