@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
+import { jsonClone } from '@sa/utils';
 import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 import { fetchGetAllRoles } from '@/service/api';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
@@ -93,7 +94,7 @@ function handleInitModel() {
   model.value = createDefaultModel();
 
   if (props.operateType === 'edit' && props.rowData) {
-    Object.assign(model.value, props.rowData);
+    Object.assign(model.value, jsonClone(props.rowData));
   }
 }
 

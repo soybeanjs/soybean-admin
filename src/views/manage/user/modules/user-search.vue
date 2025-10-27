@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, toRaw } from 'vue';
+import { jsonClone } from '@sa/utils';
 import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { translateOptions } from '@/utils/common';
@@ -30,17 +31,10 @@ const rules = computed<Record<RuleKey, App.Global.FormRule>>(() => {
   };
 });
 
+const defaultModel = jsonClone(toRaw(model.value));
+
 function resetModel() {
-  model.value = {
-    current: 1,
-    size: 10,
-    status: null,
-    userName: null,
-    userGender: null,
-    nickName: null,
-    userPhone: null,
-    userEmail: null
-  };
+  Object.assign(model.value, defaultModel);
 }
 
 async function reset() {
