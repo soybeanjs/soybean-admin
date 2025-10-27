@@ -72,7 +72,7 @@ function handleInitModel() {
   model.value = createDefaultModel();
 
   if (props.operateType === 'edit' && props.rowData) {
-    Object.assign(model.value, props.rowData);
+    model.value = props.rowData;
   }
 }
 
