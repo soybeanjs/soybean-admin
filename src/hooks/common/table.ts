@@ -39,11 +39,7 @@ export function useNaiveTable<ResponseData, ApiData>(options: UseNaiveTableOptio
   });
 
   // calculate the total width of the table this is used for horizontal scrolling
-  const scrollX = computed(() => {
-    return result.columns.value.reduce((acc, column) => {
-      return acc + Number(column.width ?? column.minWidth ?? 120);
-    }, 0);
-  });
+  const scrollX = computed(() => getScrollX(result.columns.value));
 
   scope.run(() => {
     watch(
@@ -134,6 +130,8 @@ export function useNaivePaginatedTable<ResponseData, ApiData>(
     }
   });
 
+  const scrollX = computed(() => getScrollX(result.columns.value));
+
   async function getDataByPage(page: number = 1) {
     if (page !== pagination.page) {
       pagination.page = page;
@@ -165,6 +163,7 @@ export function useNaivePaginatedTable<ResponseData, ApiData>(
 
   return {
     ...result,
+    scrollX,
     getDataByPage,
     pagination,
     mobilePagination
@@ -307,4 +306,10 @@ function getColumns<Column extends NaiveUI.TableColumn<any>>(cols: Column[], che
 
 export function isTableColumnHasKey<T>(column: NaiveUI.TableColumn<T>): column is NaiveUI.TableColumnWithKey<T> {
   return Boolean((column as NaiveUI.TableColumnWithKey<T>).key);
+}
+
+function getScrollX<T>(columns: NaiveUI.TableColumn<T>[], minWidth: number = 120) {
+  return columns.reduce((acc, column) => {
+    return acc + Number(column.width ?? column.minWidth ?? minWidth);
+  }, 0);
 }
