@@ -1,6 +1,41 @@
 # Changelog
 
 
+## [v2.0.0-beta.2](https://github.com/soybeanjs/soybean-admin/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2025-10-27)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **global-tab**: add support for switching tabs with right mouse button click &nbsp;-&nbsp; by @soybeanjs [<samp>(b2c91)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b2c919b6)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **layout**: fix getSiderWidth &nbsp;-&nbsp; by @soybeanjs [<samp>(e471e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e471e914)
+- **packages**: axios: fix json response. fixed #815 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/815 [<samp>(fd087)</samp>](https://github.com/soybeanjs/soybean-admin/commit/fd087f59)
+- **readme**: update GitHub stars and forks links for gitee &nbsp;-&nbsp; by @soybeanjs [<samp>(923eb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/923eb98a)
+- **scripts**: update command to use 'npm-check-updates' instead of 'ncu' &nbsp;-&nbsp; by @soybeanjs [<samp>(8dc17)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8dc17e62)
+- **types**: fix proxy types &nbsp;-&nbsp; by @soybeanjs [<samp>(12b25)</samp>](https://github.com/soybeanjs/soybean-admin/commit/12b25e0d)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - add github trendshift info. &nbsp;-&nbsp; by **恕瑞玛的皇帝** [<samp>(e18d3)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e18d3972)
+  - add contribution leaderboard &nbsp;-&nbsp; by @wenyuanw [<samp>(01744)</samp>](https://github.com/soybeanjs/soybean-admin/commit/017440c1)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(e33f9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e33f944a)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(9fa95)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9fa951aa)
+- **other**:
+  - update the ESLint validation configuration to support more file types. &nbsp;-&nbsp; by **Azir-11** [<samp>(8d7f9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8d7f91dc)
+- **readme**:
+  - remove DartNode sponsorship badge from README files &nbsp;-&nbsp; by @soybeanjs [<samp>(33ade)</samp>](https://github.com/soybeanjs/soybean-admin/commit/33ade539)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![wenyuanw](https://github.com/wenyuanw.png?size=48)](https://github.com/wenyuanw)&nbsp;&nbsp;
+[恕瑞玛的皇帝](mailto:2075125282@qq.com)
+
 ## [v2.0.0-beta.1](https://github.com/soybeanjs/soybean-admin/compare/v1.3.15...v2.0.0-beta.1) (2025-10-25)
 
 ### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes

@@ -208,6 +208,14 @@ pnpm build
   <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
 </a>
 
+---
+
+以下是近一年中活跃度较高的贡献者，感谢各位的支持，让项目得以持续发展。
+
+<a href="https://openomy.com/soybeanjs/soybean-admin" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://www.openomy.com/svg?repo=soybeanjs/soybean-admin&chart=list&latestMonth=12" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+</a>
+
 ## 交流
 
 `SoybeanAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
