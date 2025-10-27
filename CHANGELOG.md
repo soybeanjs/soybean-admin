@@ -1,6 +1,117 @@
 # Changelog
 
 
+## [v2.0.0-beta.1](https://github.com/soybeanjs/soybean-admin/compare/v1.3.15...v2.0.0-beta.1) (2025-10-25)
+
+### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
+
+- **hooks**: refactor useTable and enhance type definitions &nbsp;-&nbsp; by @soybeanjs [<samp>(8cc51)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8cc5177)
+- **projects**: optimize layout mode, split horizontal mix component into two layouts, and rename the component. &nbsp;-&nbsp; by **Azir** [<samp>(b6ac3)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b6ac310)
+- **request**: remove cancelRequest method and related logic from request instances &nbsp;-&nbsp; by @soybeanjs [<samp>(b4e12)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b4e1253)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **components**:
+  - add the IconTooltip component. &nbsp;-&nbsp; by **Azir-11** [<samp>(a55b4)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a55b4dc)
+  - replace NTooltip with IconTooltip and optimize the layout of related components. &nbsp;-&nbsp; by **Azir-11** [<samp>(40057)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4005763)
+- **hooks**:
+  - add scrollX computation for total table width in useNaiveTable &nbsp;-&nbsp; by @Lruihao [<samp>(358e1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/358e129)
+- **packages**:
+  - materials support slider-tab. closed #823 &nbsp;-&nbsp; by @CyberShen in https://github.com/soybeanjs/soybean-admin/issues/823 [<samp>(61fa4)</samp>](https://github.com/soybeanjs/soybean-admin/commit/61fa4b7)
+- **projects**:
+  - refactor theme drawer with tabbed layout for better UX. &nbsp;-&nbsp; by **Azir** [<samp>(8ba71)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8ba71a0)
+  - Add current time display option for watermark &nbsp;-&nbsp; by @wenyuanw in https://github.com/soybeanjs/soybean-admin/issues/772 [<samp>(f238f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f238fcb)
+  - add 'vertical-hybrid-header-first' layout mode &nbsp;-&nbsp; by @wenyuanw [<samp>(b4e5c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b4e5c6d)
+  - add prompt information for scrolling mode and tab bar caching. &nbsp;-&nbsp; by **Azir-11** [<samp>(29a2a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/29a2a5c)
+  - support theme preset function. &nbsp;-&nbsp; by **Azir-11** [<samp>(257f1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/257f118)
+  - modify the default value of the reset cache policy to 'refresh'. &nbsp;-&nbsp; by **Azir-11** [<samp>(3c0a5)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3c0a528)
+  - optimize tabs cache cleaning strategy. close #820. &nbsp;-&nbsp; by **Azir-11** in https://github.com/soybeanjs/soybean-admin/issues/820 [<samp>(ef7ac)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ef7acc6)
+  - support closing tabs with middle mouse button click &nbsp;-&nbsp; by @wenyuanw [<samp>(a8d1e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a8d1e5d)
+  - support set global redius &nbsp;-&nbsp; by **CyberShen123** [<samp>(24c6d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/24c6df5)
+  - support set global redius &nbsp;-&nbsp; by **CyberShen123** [<samp>(3549c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3549c4d)
+- **styles**:
+  - add text-autospace property to improve text layout &nbsp;-&nbsp; by @wenyuanw [<samp>(345aa)</samp>](https://github.com/soybeanjs/soybean-admin/commit/345aa29)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **hooks**:
+  - correct chart rendering logic in useEcharts &nbsp;-&nbsp; by @soybeanjs [<samp>(8a7cd)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8a7cd59)
+- **packages**:
+  - fix the parsing logic for stored data to ensure correct return of boolean values &nbsp;-&nbsp; by @Lruihao [<samp>(9ea56)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9ea56c9)
+  - axios: fix json response. fixed #815 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/815 [<samp>(5be86)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5be864a)
+- **projects**:
+  - Fix i18n-ally not working when setting moduleResolution to bundler. fixed #780 &nbsp;-&nbsp; by @xiaobao0505 in https://github.com/soybeanjs/soybean-admin/issues/780 [<samp>(41191)</samp>](https://github.com/soybeanjs/soybean-admin/commit/41191d5)
+- **styles**:
+  - show light color scrollbar while dark mode is on &nbsp;-&nbsp; by **whyang** [<samp>(dac50)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dac5075)
+- **table**:
+  - add type annotations for records in useTable hook &nbsp;-&nbsp; by @soybeanjs [<samp>(32b8f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/32b8f99)
+- **types**:
+  - fix proxy types &nbsp;-&nbsp; by @soybeanjs [<samp>(3d72f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3d72f95)
+  - fix ts type error &nbsp;-&nbsp; by @soybeanjs [<samp>(d5a3a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d5a3a25)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **hooks**:
+  - optimize useEcharts &nbsp;-&nbsp; by @soybeanjs [<samp>(936b8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/936b834)
+- **packages**:
+  - remove ofetch package &nbsp;-&nbsp; by @soybeanjs [<samp>(abaaa)</samp>](https://github.com/soybeanjs/soybean-admin/commit/abaaa4a)
+- **projects**:
+  - improve theme drawer responsive width for mobile devices &nbsp;-&nbsp; by @wenyuanw [<samp>(8439a)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8439a60)
+  - improve robustness of second-level menu key logic &nbsp;-&nbsp; by @wenyuanw [<samp>(8b8a2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8b8a208)
+  - optimize theme drawer width &nbsp;-&nbsp; by @soybeanjs [<samp>(81468)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8146858)
+  - optimize api type file &nbsp;-&nbsp; by @soybeanjs [<samp>(3a343)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3a343ee)
+  - optimize radius settings &nbsp;-&nbsp; by @soybeanjs [<samp>(87a66)</samp>](https://github.com/soybeanjs/soybean-admin/commit/87a66a4)
+- **request**:
+  - enhance request options and response handling with generic types &nbsp;-&nbsp; by @soybeanjs [<samp>(50a5c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/50a5cba)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **hooks**:
+  - optimize useContext and update useMixMenuContext &nbsp;-&nbsp; by @soybeanjs [<samp>(c9651)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c965140)
+  - streamline column visibility handling in useTable and table components &nbsp;-&nbsp; by @soybeanjs [<samp>(ee434)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ee43414)
+  - remove useSignal hook and update exports &nbsp;-&nbsp; by @soybeanjs [<samp>(87adc)</samp>](https://github.com/soybeanjs/soybean-admin/commit/87adc35)
+- **menu**:
+  - optimize the margin on the menu &nbsp;-&nbsp; by **NicholasLD** [<samp>(d7311)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d731111)
+- **projects**:
+  - remove unnecessary logic in onRouteSwitchWhenLoggedIn &nbsp;-&nbsp; by @wenyuanw [<samp>(d6c81)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d6c8142)
+- **request**:
+  - unify response transformation methods and deprecate transformBackendResponse &nbsp;-&nbsp; by @soybeanjs [<samp>(f83ee)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f83eefb)
+- **types**:
+  - move Auth and Route namespaces to separate files and clean up api.d.ts &nbsp;-&nbsp; by **Azir** [<samp>(d37ce)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d37ce04)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: add github trendshift info. &nbsp;-&nbsp; by **恕瑞玛的皇帝** [<samp>(2a0c9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2a0c9f1)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update NodeJS and pnpm version requirements in package.json and documentation &nbsp;-&nbsp; by **Junior25306** [<samp>(a5c4b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a5c4b4e)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(5cb1c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5cb1ceb)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(aeb63)</samp>](https://github.com/soybeanjs/soybean-admin/commit/aeb6369)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(e89b8)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e89b86c)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(c962f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c962f7b)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(12135)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1213531)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(b041f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b041fdd)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(d567c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d567c05)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(6cbf5)</samp>](https://github.com/soybeanjs/soybean-admin/commit/6cbf570)
+- **other**:
+  - update the ESLint validation configuration to support more file types. &nbsp;-&nbsp; by **Azir-11** [<samp>(be8f9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/be8f915)
+- **packages**:
+  - update Vite version to 7 in package.json and documentation. &nbsp;-&nbsp; by **Azir** [<samp>(03dd6)</samp>](https://github.com/soybeanjs/soybean-admin/commit/03dd64c)
+  - add picomatch to fix scripts &nbsp;-&nbsp; by @soybeanjs [<samp>(805c3)</samp>](https://github.com/soybeanjs/soybean-admin/commit/805c338)
+- **vscode**:
+  - remove unused vue.server.hybridMode setting from .vscode/settings.json &nbsp;-&nbsp; by @soybeanjs [<samp>(13319)</samp>](https://github.com/soybeanjs/soybean-admin/commit/133196f)
+
+### &nbsp;&nbsp;&nbsp;🎨 Styles
+
+- **projects**: format code. &nbsp;-&nbsp; by **Azir-11** [<samp>(100e0)</samp>](https://github.com/soybeanjs/soybean-admin/commit/100e0ea)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![wenyuanw](https://github.com/wenyuanw.png?size=48)](https://github.com/wenyuanw)&nbsp;&nbsp;[![CyberShen](https://github.com/CyberShen.png?size=48)](https://github.com/CyberShen)&nbsp;&nbsp;[![Lruihao](https://github.com/Lruihao.png?size=48)](https://github.com/Lruihao)&nbsp;&nbsp;[![xiaobao0505](https://github.com/xiaobao0505.png?size=48)](https://github.com/xiaobao0505)&nbsp;&nbsp;
+[CyberShen123](mailto:s.lijun@qq.com),&nbsp;[whyang](mailto:whyang9701@gmail.com),&nbsp;[HongxuanG](mailto:1359774872@qq.com),&nbsp;[Azir-11](mailto:2075125282@qq.com),&nbsp;[NicholasLD](mailto:878639947@qq.com),&nbsp;[Junior25306](mailto:dayu429@qq.com)
+
 ## [v1.3.15](https://github.com/soybeanjs/soybean-admin/compare/v1.3.14...v1.3.15) (2025-06-24)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features

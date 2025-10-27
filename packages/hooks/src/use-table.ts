@@ -1,12 +1,20 @@
-import { computed, reactive, ref } from 'vue';
+import { computed, ref } from 'vue';
 import type { Ref, VNodeChild } from 'vue';
-import { jsonClone } from '@sa/utils';
 import useBoolean from './use-boolean';
 import useLoading from './use-loading';
 
-export type MaybePromise<T> = T | Promise<T>;
+export interface PaginationData<T> {
+  data: T[];
+  pageNum: number;
+  pageSize: number;
+  total: number;
+}
 
-export type ApiFn = (args: any) => Promise<unknown>;
+type GetApiData<ApiData, Pagination extends boolean> = Pagination extends true ? PaginationData<ApiData> : ApiData[];
+
+type Transform<ResponseData, ApiData, Pagination extends boolean> = (
+  response: ResponseData
+) => GetApiData<ApiData, Pagination>;
 
 export type TableColumnCheckTitle = string | ((...args: any) => VNodeChild);
 
@@ -14,76 +22,64 @@ export type TableColumnCheck = {
   key: string;
   title: TableColumnCheckTitle;
   checked: boolean;
+  visible: boolean;
 };
 
-export type TableDataWithIndex<T> = T & { index: number };
-
-export type TransformedData<T> = {
-  data: TableDataWithIndex<T>[];
-  pageNum: number;
-  pageSize: number;
-  total: number;
-};
-
-export type Transformer<T, Response> = (response: Response) => TransformedData<T>;
-
-export type TableConfig<A extends ApiFn, T, C> = {
-  /** api function to get table data */
-  apiFn: A;
-  /** api params */
-  apiParams?: Parameters<A>[0];
-  /** transform api response to table data */
-  transformer: Transformer<T, Awaited<ReturnType<A>>>;
-  /** columns factory */
-  columns: () => C[];
+export interface UseTableOptions<ResponseData, ApiData, Column, Pagination extends boolean> {
+  /**
+   * api function to get table data
+   */
+  api: () => Promise<ResponseData>;
+  /**
+   * whether to enable pagination
+   */
+  pagination?: Pagination;
+  /**
+   * transform api response to table data
+   */
+  transform: Transform<ResponseData, ApiData, Pagination>;
+  /**
+   * columns factory
+   */
+  columns: () => Column[];
   /**
    * get column checks
-   *
-   * @param columns
    */
-  getColumnChecks: (columns: C[]) => TableColumnCheck[];
+  getColumnChecks: (columns: Column[]) => TableColumnCheck[];
   /**
    * get columns
-   *
-   * @param columns
    */
-  getColumns: (columns: C[], checks: TableColumnCheck[]) => C[];
+  getColumns: (columns: Column[], checks: TableColumnCheck[]) => Column[];
   /**
    * callback when response fetched
-   *
-   * @param transformed transformed data
    */
-  onFetched?: (transformed: TransformedData<T>) => MaybePromise<void>;
+  onFetched?: (data: GetApiData<ApiData, Pagination>) => void | Promise<void>;
   /**
    * whether to get data immediately
    *
    * @default true
    */
   immediate?: boolean;
-};
+}
 
-export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<A, T, C>) {
+export default function useTable<ResponseData, ApiData, Column, Pagination extends boolean>(
+  options: UseTableOptions<ResponseData, ApiData, Column, Pagination>
+) {
   const { loading, startLoading, endLoading } = useLoading();
   const { bool: empty, setBool: setEmpty } = useBoolean();
 
-  const { apiFn, apiParams, transformer, immediate = true, getColumnChecks, getColumns } = config;
+  const { api, pagination, transform, columns, getColumnChecks, getColumns, onFetched, immediate = true } = options;
 
-  const searchParams: NonNullable<Parameters<A>[0]> = reactive(jsonClone({ ...apiParams }));
+  const data = ref([]) as Ref<ApiData[]>;
 
-  const allColumns = ref(config.columns()) as Ref<C[]>;
+  const columnChecks = ref(getColumnChecks(columns())) as Ref<TableColumnCheck[]>;
 
-  const data: Ref<TableDataWithIndex<T>[]> = ref([]);
-
-  const columnChecks: Ref<TableColumnCheck[]> = ref(getColumnChecks(config.columns()));
-
-  const columns = computed(() => getColumns(allColumns.value, columnChecks.value));
+  const $columns = computed(() => getColumns(columns(), columnChecks.value));
 
   function reloadColumns() {
-    allColumns.value = config.columns();
-
     const checkMap = new Map(columnChecks.value.map(col => [col.key, col.checked]));
 
-    const defaultChecks = getColumnChecks(allColumns.value);
+    const defaultChecks = getColumnChecks(columns());
 
     columnChecks.value = defaultChecks.map(col => ({
       ...col,
@@ -92,47 +88,21 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
   }
 
   async function getData() {
-    startLoading();
+    try {
+      startLoading();
 
-    const formattedParams = formatSearchParams(searchParams);
+      const response = await api();
 
-    const response = await apiFn(formattedParams);
+      const transformed = transform(response);
 
-    const transformed = transformer(response as Awaited<ReturnType<A>>);
+      data.value = getTableData(transformed, pagination);
 
-    data.value = transformed.data;
+      setEmpty(data.value.length === 0);
 
-    setEmpty(transformed.data.length === 0);
-
-    await config.onFetched?.(transformed);
-
-    endLoading();
-  }
-
-  function formatSearchParams(params: Record<string, unknown>) {
-    const formattedParams: Record<string, unknown> = {};
-
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        formattedParams[key] = value;
-      }
-    });
-
-    return formattedParams;
-  }
-
-  /**
-   * update search params
-   *
-   * @param params
-   */
-  function updateSearchParams(params: Partial<Parameters<A>[0]>) {
-    Object.assign(searchParams, params);
-  }
-
-  /** reset search params */
-  function resetSearchParams() {
-    Object.assign(searchParams, jsonClone(apiParams));
+      await onFetched?.(transformed);
+    } finally {
+      endLoading();
+    }
   }
 
   if (immediate) {
@@ -143,12 +113,20 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     loading,
     empty,
     data,
-    columns,
+    columns: $columns,
     columnChecks,
     reloadColumns,
-    getData,
-    searchParams,
-    updateSearchParams,
-    resetSearchParams
+    getData
   };
+}
+
+function getTableData<ApiData, Pagination extends boolean>(
+  data: GetApiData<ApiData, Pagination>,
+  pagination?: Pagination
+) {
+  if (pagination) {
+    return (data as PaginationData<ApiData>).data;
+  }
+
+  return data as ApiData[];
 }

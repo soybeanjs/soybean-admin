@@ -5,6 +5,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
   colourWeakness: false,
   recommendColor: false,
   themeColor: '#646cff',
+  themeRadius: 6,
   otherColor: {
     info: '#2080f0',
     success: '#52c41a',
@@ -12,11 +13,9 @@ export const themeSettings: App.Theme.ThemeSetting = {
     error: '#f5222d'
   },
   isInfoFollowPrimary: true,
-  resetCacheStrategy: 'close',
   layout: {
     mode: 'vertical',
-    scrollMode: 'content',
-    reverseHorizontalMix: false
+    scrollMode: 'content'
   },
   page: {
     animate: true,
@@ -39,7 +38,8 @@ export const themeSettings: App.Theme.ThemeSetting = {
     visible: true,
     cache: true,
     height: 44,
-    mode: 'chrome'
+    mode: 'chrome',
+    closeTabByMiddleClick: false
   },
   fixedHeaderAndTab: true,
   sider: {
@@ -59,7 +59,9 @@ export const themeSettings: App.Theme.ThemeSetting = {
   watermark: {
     visible: false,
     text: 'SoybeanAdmin',
-    enableUserName: false
+    enableUserName: false,
+    enableTime: false,
+    timeFormat: 'YYYY-MM-DD HH:mm'
   },
   tokens: {
     light: {

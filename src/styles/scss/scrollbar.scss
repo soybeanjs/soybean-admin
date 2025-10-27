@@ -1,6 +1,13 @@
-@mixin scrollbar($size: 7px, $color: rgba(0, 0, 0, 0.5)) {
+@mixin scrollbar($size: 7px, $color: rgba(0, 0, 0, 0.5), $dark-color: rgba(255, 255, 255, 0.5)) {
   scrollbar-width: thin;
   scrollbar-color: $color transparent;
+
+  // Dark theme override
+  .dark & {
+    // guide safari use light color scrollbar
+    color-scheme: dark;
+    scrollbar-color: $dark-color transparent;
+  }
 
   &::-webkit-scrollbar-thumb {
     background-color: $color;

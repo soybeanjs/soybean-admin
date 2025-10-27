@@ -95,3 +95,27 @@
 .chrome-tab_dark .chrome-tab-divider {
   background-color: rgba(255, 255, 255, 0.9);
 }
+
+.slider-tab {
+  background-color: transparent;
+  height: 100%;
+  border-bottom: 2px solid transparent;
+}
+
+.slider-tab_dark {
+  background-color: transparent;
+}
+
+.slider-tab:hover {
+  color: var(--soy-primary-color);
+}
+
+.slider-tab_active {
+  color: var(--soy-primary-color);
+  background-color: var(--soy-primary-color-opacity1);
+  border-bottom-color: var(--soy-primary-color);
+}
+
+.slider-tab_active_dark {
+  background-color: var(--soy-primary-color-opacity2);
+}
