@@ -22,13 +22,13 @@ const { domRef, updateOptions } = useEcharts(() => ({
   },
   legend: {
     data: [$t('page.home.downloadCount'), $t('page.home.registerCount')],
-    top: '3%'
+    top: '0'
   },
   grid: {
     left: '3%',
     right: '4%',
     bottom: '3%',
-    containLabel: true
+    top: '15%'
   },
   xAxis: {
     type: 'category',
