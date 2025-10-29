@@ -21,7 +21,8 @@ const { domRef, updateOptions } = useEcharts(() => ({
     }
   },
   legend: {
-    data: [$t('page.home.downloadCount'), $t('page.home.registerCount')]
+    data: [$t('page.home.downloadCount'), $t('page.home.registerCount')],
+    top: '3%'
   },
   grid: {
     left: '3%',
