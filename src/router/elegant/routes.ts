@@ -66,10 +66,12 @@ export const generatedRoutes: GeneratedRoute[] = [
   {
     name: 'init',
     path: '/init',
-    component: 'layout.base$view.init',
+    component: 'layout.blank$view.init',
     meta: {
       title: 'init',
-      i18nKey: 'route.init'
+      i18nKey: 'route.init',
+      constant: true,
+      hideInMenu: true
     }
   },
   {
