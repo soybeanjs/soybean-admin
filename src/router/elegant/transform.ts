@@ -166,7 +166,7 @@ const routeMap: RouteMap = {
   "403": "/403",
   "404": "/404",
   "500": "/500",
-  "home": "/home",
+  "admin": "/admin",
   "iframe-page": "/iframe-page/:url",
   "init": "/init",
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?"

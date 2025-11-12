@@ -40,14 +40,12 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'home',
-    path: '/home',
-    component: 'layout.base$view.home',
+    name: 'admin',
+    path: '/admin',
+    component: 'layout.base$view.admin',
     meta: {
-      title: 'home',
-      i18nKey: 'route.home',
-      icon: 'mdi:monitor-dashboard',
-      order: 1
+      title: 'admin',
+      i18nKey: 'route.admin'
     }
   },
   {

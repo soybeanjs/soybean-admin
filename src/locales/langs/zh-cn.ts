@@ -223,7 +223,7 @@ const local: App.I18n.Schema = {
     500: '服务器错误',
     'iframe-page': '外链页面',
     init: '初始化',
-    home: '首页'
+    admin: '系统管理首页'
   },
   page: {
     login: {
