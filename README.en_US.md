@@ -194,7 +194,7 @@ Here are the most active contributors from the past year. Thank you all for your
 
   <div>
   	<p>QQ Group</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-4.jpg" style="width:200px" />
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-5.jpg" style="width:200px" />
   </div>
 	<!-- <div>
 		<p>WeChat Group</p>
