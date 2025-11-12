@@ -16,5 +16,27 @@ declare namespace Api {
       roles: string[];
       buttons: string[];
     }
+
+    interface ClickCaptchaData {
+      image: string;
+      thumb: string;
+      width?: number;
+      height?: number;
+    }
+
+    interface ClickCaptchaBackendData extends ClickCaptchaData {
+      captchaKey: string;
+    }
+
+    interface ClickCaptchaVerifyData {
+      captchaToken: string;
+      expiresIn: number;
+    }
+
+    interface LoginForm {
+      userName: string;
+      password: string;
+      captchaToken?: string;
+    }
   }
 }

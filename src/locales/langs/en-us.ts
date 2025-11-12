@@ -242,7 +242,15 @@ const local: App.I18n.Schema = {
         back: 'Back',
         validateSuccess: 'Verification passed',
         loginSuccess: 'Login successfully',
-        welcomeBack: 'Welcome back, {userName} !'
+        welcomeBack: 'Welcome back, {userName} !',
+        initButtonText: 'Click to initialize'
+      },
+      captcha: {
+        title: 'Please click on the images below in turn',
+        buttonText: 'Click captcha',
+        confirmText: 'Confirm',
+        validateSuccess: 'Verification passed',
+        validateFailed: 'Verification failed'
       },
       pwdLogin: {
         title: 'Password Login',

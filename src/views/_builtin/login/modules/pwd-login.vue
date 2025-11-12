@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
-import { loginModuleRecord } from '@/constants/app';
+import { computed, reactive, ref } from 'vue';
 import { useAuthStore } from '@/store/modules/auth';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
+import { useClickCaptcha } from '@/hooks/business/go-captcha';
+import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 
 defineOptions({
@@ -11,8 +12,20 @@ defineOptions({
 });
 
 const authStore = useAuthStore();
-const { toggleLoginModule } = useRouterPush();
+const { routerPushByKey } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
+const remberMe = ref<boolean>(false);
+// 使用验证码 hook
+const {
+  captchaDomRef,
+  captchaShow,
+  captchaToken,
+  captchaVerified,
+  clickData,
+  clickConfigData,
+  clickEvents,
+  getCaptchaData
+} = useClickCaptcha();
 
 interface FormModel {
   userName: string;
@@ -20,8 +33,8 @@ interface FormModel {
 }
 
 const model: FormModel = reactive({
-  userName: 'Soybean',
-  password: '123456'
+  userName: '',
+  password: ''
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
@@ -36,83 +49,100 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
 
 async function handleSubmit() {
   await validate();
-  await authStore.login(model.userName, model.password);
-}
 
-type AccountKey = 'super' | 'admin' | 'user';
-
-interface Account {
-  key: AccountKey;
-  label: string;
-  userName: string;
-  password: string;
-}
-
-const accounts = computed<Account[]>(() => [
-  {
-    key: 'super',
-    label: $t('page.login.pwdLogin.superAdmin'),
-    userName: 'Super',
-    password: '123456'
-  },
-  {
-    key: 'admin',
-    label: $t('page.login.pwdLogin.admin'),
-    userName: 'Admin',
-    password: '123456'
-  },
-  {
-    key: 'user',
-    label: $t('page.login.pwdLogin.user'),
-    userName: 'User',
-    password: '123456'
+  // 勾选了需要记住密码设置在 localStorage 中设置记住用户名和密码
+  if (remberMe.value) {
+    const { userName, password } = model;
+    localStg.set('loginRember', { userName, password });
+  } else {
+    localStg.remove('loginRember');
   }
-]);
 
-async function handleAccountLogin(account: Account) {
-  await authStore.login(account.userName, account.password);
+  await authStore.login(model.userName, model.password, captchaToken.value);
 }
+
+async function showCaptchaModal() {
+  // 先获取验证码数据，再显示弹窗
+  const data = await getCaptchaData();
+  if (data) {
+    captchaShow.value = true;
+  }
+}
+
+function handleLoginRember() {
+  const loginRember = localStg.get('loginRember');
+  if (!loginRember) return;
+  remberMe.value = true;
+  Object.assign(model, loginRember);
+}
+
+handleLoginRember();
 </script>
 
 <template>
-  <NForm ref="formRef" :model="model" :rules="rules" size="large" :show-label="false" @keyup.enter="handleSubmit">
-    <NFormItem path="userName">
-      <NInput v-model:value="model.userName" :placeholder="$t('page.login.common.userNamePlaceholder')" />
-    </NFormItem>
-    <NFormItem path="password">
-      <NInput
-        v-model:value="model.password"
-        type="password"
-        show-password-on="click"
-        :placeholder="$t('page.login.common.passwordPlaceholder')"
-      />
-    </NFormItem>
-    <NSpace vertical :size="24">
-      <div class="flex-y-center justify-between">
-        <NCheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</NCheckbox>
-        <NButton quaternary @click="toggleLoginModule('reset-pwd')">
-          {{ $t('page.login.pwdLogin.forgetPassword') }}
+  <div>
+    <NForm ref="formRef" :model="model" :rules="rules" size="large" :show-label="false" @keyup.enter="handleSubmit">
+      <NFormItem path="userName">
+        <NInput v-model:value="model.userName" :placeholder="$t('page.login.common.userNamePlaceholder')" />
+      </NFormItem>
+      <NFormItem path="password">
+        <NInput
+          v-model:value="model.password"
+          type="password"
+          show-password-on="click"
+          :placeholder="$t('page.login.common.passwordPlaceholder')"
+        />
+      </NFormItem>
+      <!-- 验证码按钮-->
+      <NFormItem>
+        <NButton
+          block
+          size="large"
+          :type="captchaVerified ? 'success' : 'default'"
+          :disabled="captchaVerified"
+          @click="showCaptchaModal"
+        >
+          <template #icon>
+            <SvgIcon v-if="captchaVerified" local-icon="page-check_mark" />
+            <SvgIcon v-else local-icon="page-click" />
+            <!-- <icon-local-page-click v-else /> -->
+          </template>
+          {{ captchaVerified ? $t('page.login.captcha.validateSuccess') : $t('page.login.captcha.buttonText') }}
         </NButton>
+      </NFormItem>
+      <NSpace vertical :size="24">
+        <div class="flex-y-center justify-between">
+          <NCheckbox v-model:checked="remberMe">{{ $t('page.login.pwdLogin.rememberMe') }}</NCheckbox>
+          <NSpace :size="1">
+            <ButtonIcon class="color-#44b549" icon="ic:outline-wechat" />
+            <ButtonIcon local-icon="page-wecom" />
+            <ButtonIcon class="color-#c71d23" icon="simple-icons:gitee" />
+          </NSpace>
+        </div>
+        <NButton type="primary" size="large" round block :loading="authStore.loginLoading" @click="handleSubmit">
+          {{ $t('common.confirm') }}
+        </NButton>
+        <NButton type="primary" size="large" round block @click="routerPushByKey('init')">
+          {{ $t('page.login.common.initButtonText') }}
+        </NButton>
+      </NSpace>
+    </NForm>
+    <!-- 验证码弹窗 -->
+    <NModal v-model:show="captchaShow" :mask-closable="false" preset="card" class="w-400px" :closable="false">
+      <div class="click-captcha mt-20px flex-center">
+        <GoCaptchaClick
+          ref="captchaDomRef"
+          :data="clickData"
+          :config="clickConfigData"
+          :events="clickEvents"
+        ></GoCaptchaClick>
       </div>
-      <NButton type="primary" size="large" round block :loading="authStore.loginLoading" @click="handleSubmit">
-        {{ $t('common.confirm') }}
-      </NButton>
-      <div class="flex-y-center justify-between gap-12px">
-        <NButton class="flex-1" block @click="toggleLoginModule('code-login')">
-          {{ $t(loginModuleRecord['code-login']) }}
-        </NButton>
-        <NButton class="flex-1" block @click="toggleLoginModule('register')">
-          {{ $t(loginModuleRecord.register) }}
-        </NButton>
-      </div>
-      <NDivider class="text-14px text-#666 !m-0">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</NDivider>
-      <div class="flex-center gap-12px">
-        <NButton v-for="item in accounts" :key="item.key" type="primary" @click="handleAccountLogin(item)">
-          {{ item.label }}
-        </NButton>
-      </div>
-    </NSpace>
-  </NForm>
+    </NModal>
+  </div>
 </template>
 
-<style scoped></style>
+<style type="scss" scoped>
+.click-captcha {
+  --go-captcha-theme-btn-bg-color: rgb(var(--primary-color)) !important;
+}
+</style>

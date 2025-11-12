@@ -513,6 +513,14 @@ declare namespace App {
             validateSuccess: string;
             loginSuccess: string;
             welcomeBack: string;
+            initButtonText: string;
+          };
+          captcha: {
+            title: string;
+            buttonText: string;
+            confirmText: string;
+            validateSuccess: string;
+            validateFailed: string;
           };
           pwdLogin: {
             title: string;

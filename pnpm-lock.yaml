@@ -44,6 +44,9 @@ importers:
       echarts:
         specifier: 6.0.0
         version: 6.0.0
+      go-captcha-vue:
+        specifier: ^2.0.6
+        version: 2.0.6(vue@3.5.22(typescript@5.9.3))
       json5:
         specifier: 2.2.3
         version: 2.2.3
@@ -2422,6 +2425,11 @@ packages:
   globalthis@1.0.4:
     resolution: {integrity: sha512-DpLKbNU4WylpxJykQujfCcwYWiV/Jhm50Goo0wrVILAv5jOr9d+H+UR3PhSCD2rCCEIg0uc+G+muBTwD54JhDQ==}
     engines: {node: '>= 0.4'}
+
+  go-captcha-vue@2.0.6:
+    resolution: {integrity: sha512-dprGI59DdbkV1oeIFv4dTVadMACnzqTQhzBkWWoooI6CcH8APVIQ6P2G9wX5QTueiGrBEyeziFdm4tAz6IcftQ==}
+    peerDependencies:
+      vue: '>=3'
 
   good-listener@1.2.2:
     resolution: {integrity: sha512-goW1b+d9q/HIwbVYZzZ6SsTr4IgE+WA44A0GmPIQstuOrgsFcT7VEJ48nmr9GaRtNu0XTKacFLGnBPAM6Afouw==}
@@ -6449,6 +6457,10 @@ snapshots:
     dependencies:
       define-properties: 1.2.1
       gopd: 1.2.0
+
+  go-captcha-vue@2.0.6(vue@3.5.22(typescript@5.9.3)):
+    dependencies:
+      vue: 3.5.22(typescript@5.9.3)
 
   good-listener@1.2.2:
     dependencies:

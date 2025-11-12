@@ -239,7 +239,15 @@ const local: App.I18n.Schema = {
         back: '返回',
         validateSuccess: '验证成功',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{userName} ！'
+        welcomeBack: '欢迎回来，{userName} ！',
+        initButtonText: '点击前往初始化'
+      },
+      captcha: {
+        title: '请在下图依次点击:',
+        buttonText: '点击验证码',
+        confirmText: '确认',
+        validateSuccess: '验证成功',
+        validateFailed: '验证失败'
       },
       pwdLogin: {
         title: '密码登录',
