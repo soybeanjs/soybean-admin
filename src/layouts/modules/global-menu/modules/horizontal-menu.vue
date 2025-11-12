@@ -18,7 +18,7 @@ const { selectedKey } = useMenu();
     <NMenu
       mode="horizontal"
       :value="selectedKey"
-      :options="routeStore.menus"
+      :options="routeStore.moduleMenus"
       :indent="18"
       responsive
       @update:value="routerPushByKeyWithMetaQuery"

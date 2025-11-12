@@ -51,7 +51,7 @@ watch(
         :collapsed="appStore.siderCollapse"
         :collapsed-width="themeStore.sider.collapsedWidth"
         :collapsed-icon-size="22"
-        :options="routeStore.menus"
+        :options="routeStore.moduleMenus"
         :inverted="inverted"
         :indent="18"
         @update:value="routerPushByKeyWithMetaQuery"

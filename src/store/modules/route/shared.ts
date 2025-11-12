@@ -13,6 +13,38 @@ export function filterAuthRoutesByRoles(routes: ElegantConstRoute[], roles: stri
   return routes.flatMap(route => filterAuthRouteByRoles(route, roles));
 }
 
+/** Find route by menu key */
+function findRouteByMenuKey(routeKey: RouteKey, allRoutes: ElegantConstRoute[]): ElegantConstRoute | undefined {
+  for (const route of allRoutes) {
+    if (route.name === routeKey) return route;
+    if (route.children) {
+      const found = route.children.find(child => child.name === routeKey);
+      if (found) return found;
+    }
+  }
+  return undefined;
+}
+/** Filter routes by module */
+export function filterMenusByModule(
+  menus: App.Global.Menu[],
+  module: UnionKey.MenuModule,
+  allRoutes: ElegantConstRoute[] = []
+): App.Global.Menu[] {
+  return menus.filter(menu => {
+    // 对于顶层菜单，我们需要找到其对应的路由来判断模块
+    const route = findRouteByMenuKey(menu.routeKey, allRoutes);
+    if (route && route.meta?.module) {
+      return route.meta.module === module;
+    }
+    // 如果菜单有子菜单，递归过滤
+    if (menu.children && menu.children.length > 0) {
+      menu.children = filterMenusByModule(menu.children, module, allRoutes);
+      return menu.children.length > 0;
+    }
+    return true;
+  });
+}
+
 /**
  * Filter auth route by roles
  *

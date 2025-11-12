@@ -339,6 +339,9 @@ declare namespace App {
         updateConfirm: string;
         updateCancel: string;
       };
+      disk: {
+        title: string;
+      };
       common: {
         action: string;
         add: string;

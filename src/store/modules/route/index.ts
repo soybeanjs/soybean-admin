@@ -13,6 +13,7 @@ import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 import {
   filterAuthRoutesByRoles,
+  filterMenusByModule,
   getBreadcrumbsByRoute,
   getCacheRouteNames,
   getGlobalMenusByAuthRoutes,
@@ -41,6 +42,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /** Home route key */
   const routeHome = ref(import.meta.env.VITE_ROUTE_HOME);
 
+  /** Current module */
+  const currentModule = ref<UnionKey.MenuModule>('admin');
+
   /**
    * Set route home
    *
@@ -48,6 +52,15 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    */
   function setRouteHome(routeKey: LastLevelRouteKey) {
     routeHome.value = routeKey;
+  }
+
+  /**
+   * Set current module
+   *
+   * @param module Module
+   */
+  function setCurrentModule(module: UnionKey.MenuModule) {
+    currentModule.value = module;
   }
 
   /** constant routes */
@@ -80,7 +93,16 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   /** Global menus */
   const menus = ref<App.Global.Menu[]>([]);
-  const searchMenus = computed(() => transformMenuToSearchMenus(menus.value));
+
+  /** 根据当前模块过滤后的菜单 */
+  const moduleMenus = computed(() => {
+    // 合并常量路由和权限路由
+    const allRoutes = [...constantRoutes.value, ...authRoutes.value];
+    // 使用修改后的filterMenusByModule函数，传入所有路由
+    return filterMenusByModule(menus.value, currentModule.value, allRoutes);
+  });
+
+  const searchMenus = computed(() => transformMenuToSearchMenus(moduleMenus.value));
 
   /** Get global menus */
   function getGlobalMenus(routes: ElegantConstRoute[]) {
@@ -328,7 +350,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   return {
     resetStore,
     routeHome,
+    currentModule,
     menus,
+    moduleMenus,
     searchMenus,
     updateGlobalMenusByLocale,
     cacheRoutes,
@@ -343,6 +367,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     getIsAuthRouteExist,
     getSelectedMenuKeyPath,
     onRouteSwitchWhenLoggedIn,
-    onRouteSwitchWhenNotLoggedIn
+    onRouteSwitchWhenNotLoggedIn,
+    setCurrentModule
   };
 });

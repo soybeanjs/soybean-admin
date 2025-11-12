@@ -13,10 +13,10 @@ function useMixMenu() {
   const { selectedKey } = useMenu();
   const { routerPushByKeyWithMetaQuery } = useRouterPush();
 
-  const allMenus = computed<App.Global.Menu[]>(() => routeStore.menus);
+  const allMenus = computed<App.Global.Menu[]>(() => routeStore.moduleMenus);
 
   const firstLevelMenus = computed<App.Global.Menu[]>(() =>
-    routeStore.menus.map(menu => {
+    routeStore.moduleMenus.map(menu => {
       const { children: _, ...rest } = menu;
 
       return rest;

@@ -6,6 +6,9 @@ const local: App.I18n.Schema = {
     updateConfirm: '立即刷新',
     updateCancel: '稍后再说'
   },
+  disk: {
+    title: 'OpsCloud'
+  },
   common: {
     action: '操作',
     add: '新增',
@@ -223,7 +226,8 @@ const local: App.I18n.Schema = {
     500: '服务器错误',
     'iframe-page': '外链页面',
     init: '初始化',
-    admin: '系统管理首页'
+    admin: '系统管理首页',
+    disk: '网盘首页'
   },
   page: {
     login: {

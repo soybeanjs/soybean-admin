@@ -45,7 +45,21 @@ export const generatedRoutes: GeneratedRoute[] = [
     component: 'layout.base$view.admin',
     meta: {
       title: 'admin',
-      i18nKey: 'route.admin'
+      i18nKey: 'route.admin',
+      icon: 'mdi:monitor-dashboard',
+      order: 1,
+      module: 'admin'
+    }
+  },
+  {
+    name: 'disk',
+    path: '/disk',
+    component: 'layout.disk$view.disk',
+    meta: {
+      title: 'disk',
+      i18nKey: 'route.disk',
+      icon: 'mdi:folder-outline',
+      module: 'disk'
     }
   },
   {

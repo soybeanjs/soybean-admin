@@ -1,10 +1,13 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'SoybeanAdmin',
+    title: 'SoybeanOps',
     updateTitle: 'System Version Update Notification',
     updateContent: 'A new version of the system has been detected. Do you want to refresh the page immediately?',
     updateConfirm: 'Refresh immediately',
     updateCancel: 'Later'
+  },
+  disk: {
+    title: 'OpsDisk'
   },
   common: {
     action: 'Action',
@@ -226,7 +229,8 @@ const local: App.I18n.Schema = {
     500: 'Server Error',
     'iframe-page': 'Iframe',
     init: 'Init',
-    admin: 'Admin Home'
+    admin: 'Admin Home',
+    disk: 'Disk Home'
   },
   page: {
     login: {
