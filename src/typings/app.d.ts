@@ -203,6 +203,33 @@ declare namespace App {
       showMenu?: boolean;
     }
 
+    interface InitFormModel {
+      deploymentMode: 'local' | 'docker';
+      adminPassword: string;
+      dbType: string;
+      host: string;
+      port: string;
+      dbName: string;
+      userName: string;
+      password: string;
+      redisAddr?: string;
+      redisIP?: string;
+      redisPort?: string;
+      redisDB?: number;
+      redisPassword?: string;
+      redisUseCluster?: boolean;
+      redisClusterAddrs?: string[];
+    }
+
+    interface DockerDeploymentInfo {
+      dbName: string;
+      dbHost: string;
+      dbPort: string;
+      redisName: string;
+      redisHost: string;
+      redisPort: string;
+    }
+
     /** The global menu */
     type Menu = {
       /**
@@ -555,6 +582,8 @@ declare namespace App {
         confirmPwd: FormMsg;
         code: FormMsg;
         email: FormMsg;
+        ip: FormMsg;
+        port: FormMsg;
       };
       dropdown: Record<Global.DropdownKey, string>;
       icon: {

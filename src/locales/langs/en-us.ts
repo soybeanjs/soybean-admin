@@ -225,6 +225,7 @@ const local: App.I18n.Schema = {
     404: 'Page Not Found',
     500: 'Server Error',
     'iframe-page': 'Iframe',
+    init: 'Init',
     home: 'Home'
   },
   page: {
@@ -329,6 +330,14 @@ const local: App.I18n.Schema = {
     email: {
       required: 'Please enter email',
       invalid: 'Email format is incorrect'
+    },
+    ip: {
+      required: 'Please enter IP address',
+      invalid: 'IP address format is incorrect'
+    },
+    port: {
+      required: 'Please enter port number',
+      invalid: 'Port number format is incorrect'
     }
   },
   dropdown: {

@@ -3,6 +3,7 @@ import { breakpointsTailwind, useBreakpoints, useEventListener, useTitle } from 
 import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
 import { router } from '@/router';
+import { fetchCheckInit, fetchInitSystem } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { SetupStoreId } from '@/enum';
 import { $t, setLocale } from '@/locales';
@@ -79,6 +80,24 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
 
   function init() {
     setDayjsLocale(locale.value);
+  }
+
+  /** 检查系统是否需要初始化 */
+  async function checkInit() {
+    const { data, error } = await fetchCheckInit();
+    if (!error) {
+      return data.needInit;
+    }
+    return false;
+  }
+
+  /** 初始化系统数据库 */
+  async function InitDatabase(initData: App.Global.InitFormModel) {
+    const { error } = await fetchInitSystem(initData);
+    if (!error) {
+      return true;
+    }
+    return false;
   }
 
   // watch store
@@ -161,6 +180,8 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     toggleSiderCollapse,
     mixSiderFixed,
     setMixSiderFixed,
-    toggleMixSiderFixed
+    toggleMixSiderFixed,
+    checkInit,
+    InitDatabase
   };
 });

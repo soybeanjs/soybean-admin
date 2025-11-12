@@ -8,6 +8,7 @@ import type {
 import type { RouteKey, RoutePath } from '@elegant-router/types';
 import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
+import { useAppStore } from '@/store/modules/app';
 import { localStg } from '@/utils/storage';
 import { getRouteName } from '@/router/elegant/transform';
 
@@ -26,17 +27,39 @@ export function createRouteGuard(router: Router) {
     }
 
     const authStore = useAuthStore();
+    const appStore = useAppStore();
 
     const rootRoute: RouteKey = 'root';
     const loginRoute: RouteKey = 'login';
+    const initSystemRoute: RouteKey = 'init';
     const noAuthorizationRoute: RouteKey = '403';
 
     const isLogin = Boolean(localStg.get('token'));
     const needLogin = !to.meta.constant;
     const routeRoles = to.meta.roles || [];
+    const needInit = await appStore.checkInit();
 
     const hasRole = authStore.userInfo.roles.some(role => routeRoles.includes(role));
     const hasAuth = authStore.isStaticSuper || !routeRoles.length || hasRole;
+
+    // if the system is not initialized, then switch to the init route
+    if (to.name !== initSystemRoute && needInit) {
+      next({ name: initSystemRoute });
+      return;
+    }
+
+    // if the route is the init route, then it is allowed to access directly
+    if (to.name === initSystemRoute) {
+      if (needInit) {
+        handleRouteSwitch(to, from, next);
+        return;
+      }
+      // if the system is initialized, then switch to the Login page
+      window.$message?.destroyAll();
+      window.$message?.info('系统已初始化，无需重复初始化');
+      next({ name: loginRoute });
+      return;
+    }
 
     // if it is login route when logged in, then switch to the root page
     if (to.name === loginRoute && isLogin) {

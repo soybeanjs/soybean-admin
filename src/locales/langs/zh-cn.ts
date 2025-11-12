@@ -222,6 +222,7 @@ const local: App.I18n.Schema = {
     404: '页面不存在',
     500: '服务器错误',
     'iframe-page': '外链页面',
+    init: '初始化',
     home: '首页'
   },
   page: {
@@ -326,6 +327,14 @@ const local: App.I18n.Schema = {
     email: {
       required: '请输入邮箱',
       invalid: '邮箱格式不正确'
+    },
+    ip: {
+      required: '请输入IP地址',
+      invalid: 'IP地址格式不正确'
+    },
+    port: {
+      required: '请输入端口号',
+      invalid: '端口号格式不正确'
     }
   },
   dropdown: {
