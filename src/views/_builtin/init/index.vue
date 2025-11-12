@@ -252,7 +252,7 @@ const bgColor = computed(() => {
                   <div class="w-full flex gap-2">
                     <NButton type="primary" size="large" class="flex-1" @click="nextStep">
                       <template #icon>
-                        <icon-material-symbols:arrow-right-alt />
+                        <SvgIcon local-icon="page-arrow_right" />
                       </template>
                       下一步
                     </NButton>
@@ -319,13 +319,13 @@ const bgColor = computed(() => {
                   <div class="w-full flex gap-2">
                     <NButton size="large" class="flex-1" @click="prevStep">
                       <template #icon>
-                        <icon-material-symbols:arrow-left-alt />
+                        <SvgIcon local-icon="page-arrow_left" />
                       </template>
                       上一步
                     </NButton>
                     <NButton type="primary" size="large" class="flex-1" @click="handleSubmit">
                       <template #icon>
-                        <icon-eos-icons:infinity />
+                        <SvgIcon local-icon="page-infinity" />
                       </template>
                       初始化
                     </NButton>

@@ -105,7 +105,6 @@ handleLoginRember();
           <template #icon>
             <SvgIcon v-if="captchaVerified" local-icon="page-check_mark" />
             <SvgIcon v-else local-icon="page-click" />
-            <!-- <icon-local-page-click v-else /> -->
           </template>
           {{ captchaVerified ? $t('page.login.captcha.validateSuccess') : $t('page.login.captcha.buttonText') }}
         </NButton>
