@@ -363,6 +363,10 @@ declare namespace App {
         error: string;
         index: string;
         keywordSearch: string;
+        switchRole: string;
+        switchRoleDesc: string;
+        goToDisk: string;
+        goToAdmin: string;
         logout: string;
         logoutConfirm: string;
         lookForward: string;
