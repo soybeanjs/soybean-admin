@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useLoading } from '@sa/hooks';
-import { fetchSocialAuthBinding, fetchSocialAuthUnbinding } from '@/service/api/system/social';
+import { fetchSocialAuthBinding, fetchSocialAuthUnbinding, fetchSocialList } from '@/service/api/system/user';
 import { useAuthStore } from '@/store/modules/auth';
 
 defineOptions({
@@ -12,17 +12,17 @@ const authStore = useAuthStore();
 const { userInfo } = authStore;
 
 const socialList = ref<Api.System.Social[]>([]);
-// const { loading, startLoading, endLoading } = useLoading();
+const { loading, startLoading, endLoading } = useLoading();
 const { loading: btnLoading, startLoading: startBtnLoading, endLoading: endBtnLoading } = useLoading();
 
 /** 获取SSO账户列表 */
 async function getSsoUserList() {
-  // startLoading();
-  // const { data, error } = await fetchSocialList();
-  // if (!error) {
-  //   socialList.value = data || [];
-  // }
-  // endLoading();
+  startLoading();
+  const { data, error } = await fetchSocialList();
+  if (!error) {
+    socialList.value = data || [];
+  }
+  endLoading();
   window.$message?.warning('当前功能开发中，敬请期待');
 }
 
@@ -67,7 +67,7 @@ function getSocial(key: string) {
 </script>
 
 <template>
-  <NSpin class="mt-16px">
+  <NSpin class="mt-16px" :show="loading">
     <div class="grid grid-cols-1 gap-16px 2xl:grid-cols-3 xl:grid-cols-2">
       <div v-for="source in socialSources" :key="source.key" class="relative">
         <NCard class="h-full transition-all duration-300 hover:shadow-md" :bordered="true">

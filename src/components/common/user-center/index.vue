@@ -219,11 +219,11 @@ async function updatePassword() {
           </NForm>
         </NTabPane>
         <NTabPane name="social" tab="第三方应用">
-          <!-- <SocialCard /> -->
+          <SocialCard />
         </NTabPane>
         <NTabPane name="online" tab="在线设备">
           <div class="h-full">
-            <!-- <OnlineTable /> -->
+            <OnlineTable />
           </div>
         </NTabPane>
       </NTabs>
