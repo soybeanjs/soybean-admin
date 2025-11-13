@@ -230,7 +230,8 @@ const local: App.I18n.Schema = {
     'iframe-page': 'Iframe',
     init: 'Init',
     admin: 'Admin Home',
-    disk: 'Disk Home'
+    disk: 'Disk Home',
+    'disk-center': 'User Center'
   },
   page: {
     login: {

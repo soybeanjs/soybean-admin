@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useAppStore } from '@/store/modules/app';
-import { useRouteStore } from '@/store/modules/route';
 import HeaderBanner from './modules/header-banner.vue';
 import CardData from './modules/card-data.vue';
 import LineChart from './modules/line-chart.vue';
@@ -10,14 +9,8 @@ import ProjectNews from './modules/project-news.vue';
 import CreativityBanner from './modules/creativity-banner.vue';
 
 const appStore = useAppStore();
-const routeStore = useRouteStore();
 
 const gap = computed(() => (appStore.isMobile ? 0 : 16));
-
-onMounted(() => {
-  // 初始化当前模块
-  window.$message?.info(routeStore.currentModule);
-});
 </script>
 
 <template>

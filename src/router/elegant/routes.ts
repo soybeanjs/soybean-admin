@@ -63,6 +63,16 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'disk-center',
+    path: '/disk-center',
+    component: 'layout.base$view.disk-center',
+    meta: {
+      title: 'disk-center',
+      i18nKey: 'route.disk-center',
+      hideInMenu: true
+    }
+  },
+  {
     name: 'iframe-page',
     path: '/iframe-page/:url',
     component: 'layout.base$view.iframe-page',

@@ -22,6 +22,7 @@ declare module "@elegant-router/types" {
     "500": "/500";
     "admin": "/admin";
     "disk": "/disk";
+    "disk-center": "/disk-center";
     "iframe-page": "/iframe-page/:url";
     "init": "/init";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
@@ -61,6 +62,7 @@ declare module "@elegant-router/types" {
     | "500"
     | "admin"
     | "disk"
+    | "disk-center"
     | "iframe-page"
     | "init"
     | "login"
@@ -87,6 +89,7 @@ declare module "@elegant-router/types" {
     | "init"
     | "login"
     | "admin"
+    | "disk-center"
     | "disk"
   >;
 

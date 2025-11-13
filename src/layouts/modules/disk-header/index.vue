@@ -6,6 +6,7 @@ import { useAppStore } from '@/store/modules/app';
 import DiskLogo from '../disk-logo/index.vue';
 import GlobalSearch from '../global-search/index.vue';
 import GlobalBreadcrumb from '../global-breadcrumb/index.vue';
+import UserAvatar from '../global-header/components/user-avatar.vue';
 
 defineOptions({
   name: 'DiskHeader'
@@ -43,7 +44,7 @@ defineProps<Props>();
         :is-dark="themeStore.darkMode"
         @switch="themeStore.toggleThemeScheme"
       />
-      <DiskAvatar />
+      <UserAvatar />
     </div>
   </DarkModeContainer>
 </template>

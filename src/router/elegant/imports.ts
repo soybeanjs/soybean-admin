@@ -24,5 +24,6 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   init: () => import("@/views/_builtin/init/index.vue"),
   login: () => import("@/views/_builtin/login/index.vue"),
   admin: () => import("@/views/admin/index.vue"),
+  "disk-center": () => import("@/views/disk-center/index.vue"),
   disk: () => import("@/views/disk/index.vue"),
 };
