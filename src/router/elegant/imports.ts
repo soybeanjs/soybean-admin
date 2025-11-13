@@ -20,10 +20,11 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   403: () => import("@/views/_builtin/403/index.vue"),
   404: () => import("@/views/_builtin/404/index.vue"),
   500: () => import("@/views/_builtin/500/index.vue"),
+  "admin-center": () => import("@/views/_builtin/admin-center/index.vue"),
   "iframe-page": () => import("@/views/_builtin/iframe-page/[url].vue"),
   init: () => import("@/views/_builtin/init/index.vue"),
   login: () => import("@/views/_builtin/login/index.vue"),
+  "personal-center": () => import("@/views/_builtin/personal-center/index.vue"),
   admin: () => import("@/views/admin/index.vue"),
-  "disk-center": () => import("@/views/disk-center/index.vue"),
   disk: () => import("@/views/disk/index.vue"),
 };

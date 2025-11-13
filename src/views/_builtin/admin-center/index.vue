@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-//
+defineOptions({
+  name: 'AdminCenter'
+});
 </script>
 
 <template>
-  <div class="">网盘用户中心</div>
+  <UserCenter />
 </template>

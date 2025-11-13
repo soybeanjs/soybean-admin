@@ -167,11 +167,12 @@ const routeMap: RouteMap = {
   "404": "/404",
   "500": "/500",
   "admin": "/admin",
+  "admin-center": "/admin-center",
   "disk": "/disk",
-  "disk-center": "/disk-center",
   "iframe-page": "/iframe-page/:url",
   "init": "/init",
-  "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?"
+  "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",
+  "personal-center": "/personal-center"
 };
 
 /**

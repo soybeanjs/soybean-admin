@@ -17,6 +17,9 @@ declare namespace UnionKey {
   /** The menu module */
   type MenuModule = 'admin' | 'disk';
 
+  /** Device type */
+  type DeviceType = 'pc' | 'android' | 'ios' | 'xcx';
+
   /**
    * The layout mode
    *

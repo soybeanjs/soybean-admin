@@ -23,7 +23,7 @@ function loginOrRegister() {
   toLogin();
 }
 
-type DropdownKey = 'logout' | 'admin' | 'disk' | 'disk-center' | 'switch-role' | 'personal-center';
+type DropdownKey = 'logout' | 'admin' | 'disk' | 'switch-role' | 'personal-center';
 
 type DropdownOption =
   | {
@@ -93,26 +93,32 @@ function logout() {
 }
 
 function handleDropdown(key: DropdownKey) {
-  if (key === 'logout') {
-    logout();
-  } else if (key === 'switch-role') {
-    // 切换角色功能实现
-    window.$dialog?.info({
-      title: $t('common.switchRole'),
-      content: $t('common.switchRoleDesc'),
-      positiveText: $t('common.confirm'),
-      negativeText: $t('common.cancel'),
-      onPositiveClick: () => {
-        // 这里可以实现角色切换的具体逻辑
-        // 例如跳转到角色选择页面或调用相关API
-        window.$message?.info('Switch role clicked');
+  switch (key) {
+    case 'logout':
+      logout();
+      break;
+    case 'switch-role':
+      window.$dialog?.info({
+        title: $t('common.switchRole'),
+        content: $t('common.switchRoleDesc'),
+        positiveText: $t('common.confirm'),
+        negativeText: $t('common.cancel'),
+        onPositiveClick: () => {
+          // 这里可以实现角色切换的具体逻辑
+          // 例如跳转到角色选择页面或调用相关API
+          window.$message?.info('Switch role clicked');
+        }
+      });
+      break;
+    case 'personal-center':
+      if (routeStore.currentModule === 'disk') {
+        routerPushByKey('personal-center');
+      } else {
+        routerPushByKey('admin-center');
       }
-    });
-  } else if (key === 'personal-center') {
-    routerPushByKey('disk-center');
-  } else {
-    // If your other options are jumps from other routes, they will be directly supported here
-    routerPushByKey(key);
+      break;
+    default:
+      routerPushByKey(key);
   }
 }
 </script>

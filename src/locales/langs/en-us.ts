@@ -235,7 +235,8 @@ const local: App.I18n.Schema = {
     init: 'Init',
     admin: 'Admin Home',
     disk: 'Disk Home',
-    'disk-center': 'User Center'
+    'personal-center': 'User Center',
+    'admin-center': 'User Center'
   },
   page: {
     login: {

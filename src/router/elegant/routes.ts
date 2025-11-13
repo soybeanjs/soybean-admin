@@ -52,6 +52,17 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'admin-center',
+    path: '/admin-center',
+    component: 'layout.base$view.admin-center',
+    meta: {
+      title: 'admin-center',
+      i18nKey: 'route.admin-center',
+      module: 'admin',
+      hideInMenu: true
+    }
+  },
+  {
     name: 'disk',
     path: '/disk',
     component: 'layout.disk$view.disk',
@@ -60,16 +71,6 @@ export const generatedRoutes: GeneratedRoute[] = [
       i18nKey: 'route.disk',
       icon: 'ic:outline-cloud',
       module: 'disk'
-    }
-  },
-  {
-    name: 'disk-center',
-    path: '/disk-center',
-    component: 'layout.base$view.disk-center',
-    meta: {
-      title: 'disk-center',
-      i18nKey: 'route.disk-center',
-      hideInMenu: true
     }
   },
   {
@@ -105,6 +106,17 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'login',
       i18nKey: 'route.login',
       constant: true,
+      hideInMenu: true
+    }
+  },
+  {
+    name: 'personal-center',
+    path: '/personal-center',
+    component: 'layout.disk$view.personal-center',
+    meta: {
+      title: 'personal-center',
+      i18nKey: 'route.personal-center',
+      module: 'disk',
       hideInMenu: true
     }
   }

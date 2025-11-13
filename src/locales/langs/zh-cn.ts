@@ -232,7 +232,8 @@ const local: App.I18n.Schema = {
     init: '初始化',
     admin: '系统管理首页',
     disk: '网盘首页',
-    'disk-center': '用户中心'
+    'personal-center': '用户中心',
+    'admin-center': '用户中心'
   },
   page: {
     login: {

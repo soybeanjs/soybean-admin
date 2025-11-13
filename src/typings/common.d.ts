@@ -16,6 +16,9 @@ declare namespace CommonType {
    */
   type Option<K = string, M = string> = { value: K; label: M };
 
+  /** The id type */
+  type IdType = string | number;
+
   type YesOrNo = 'Y' | 'N';
 
   /** add null to all properties */
