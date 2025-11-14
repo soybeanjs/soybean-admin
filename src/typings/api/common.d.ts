@@ -51,5 +51,19 @@ declare namespace Api {
       /** record status */
       status: EnableStatus | null;
     } & T;
+
+    /** common tree record */
+    type CommonTreeRecord = {
+      /** record id */
+      id: CommonType.IdType;
+      /** record parent id */
+      parentId: CommonType.IdType;
+      /** record label */
+      label: string;
+      /** record weight */
+      weight: number;
+      /** record children */
+      children: CommonTreeRecord[];
+    }[];
   }
 }

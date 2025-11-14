@@ -40,6 +40,18 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'about',
+    path: '/about',
+    component: 'layout.base$view.about',
+    meta: {
+      title: 'about',
+      i18nKey: 'route.about',
+      module: 'admin',
+      order: 999,
+      icon: 'fluent:book-information-24-regular'
+    }
+  },
+  {
     name: 'admin',
     path: '/admin',
     component: 'layout.base$view.admin',
@@ -98,6 +110,42 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'log',
+    path: '/log',
+    component: 'layout.base',
+    meta: {
+      title: 'log',
+      i18nKey: 'route.log',
+      module: 'admin',
+      order: 998,
+      icon: 'hugeicons:align-box-top-right'
+    },
+    children: [
+      {
+        name: 'log_login',
+        path: '/log/login',
+        component: 'view.log_login',
+        meta: {
+          title: 'log_login',
+          i18nKey: 'route.log_login',
+          order: 1,
+          icon: 'hugeicons:logout-circle-01'
+        }
+      },
+      {
+        name: 'log_operate',
+        path: '/log/operate',
+        component: 'view.log_operate',
+        meta: {
+          title: 'log_operate',
+          i18nKey: 'route.log_operate',
+          order: 2,
+          icon: 'hugeicons:activity-04'
+        }
+      }
+    ]
+  },
+  {
     name: 'login',
     path: '/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?',
     component: 'layout.blank$view.login',
@@ -119,5 +167,96 @@ export const generatedRoutes: GeneratedRoute[] = [
       module: 'disk',
       hideInMenu: true
     }
+  },
+  {
+    name: 'system',
+    path: '/system',
+    component: 'layout.base',
+    meta: {
+      title: 'system',
+      i18nKey: 'route.system',
+      module: 'admin',
+      order: 10,
+      icon: 'carbon:cloud-service-management'
+    },
+    children: [
+      {
+        name: 'system_dept',
+        path: '/system/dept',
+        component: 'view.system_dept',
+        meta: {
+          title: 'system_dept',
+          i18nKey: 'route.system_dept',
+          order: 4,
+          icon: 'mingcute:department-line'
+        }
+      },
+      {
+        name: 'system_menu',
+        path: '/system/menu',
+        component: 'view.system_menu',
+        meta: {
+          title: 'system_menu',
+          i18nKey: 'route.system_menu',
+          order: 3,
+          icon: 'mingcute:list-ordered-line'
+        }
+      },
+      {
+        name: 'system_notice',
+        path: '/system/notice',
+        component: 'view.system_notice',
+        meta: {
+          title: 'system_notice',
+          i18nKey: 'route.system_notice',
+          order: 6,
+          icon: 'hugeicons:chat-notification'
+        }
+      },
+      {
+        name: 'system_post',
+        path: '/system/post',
+        component: 'view.system_post',
+        meta: {
+          title: 'system_post',
+          i18nKey: 'route.system_post',
+          order: 5,
+          icon: 'hugeicons:investigation'
+        }
+      },
+      {
+        name: 'system_role',
+        path: '/system/role',
+        component: 'view.system_role',
+        meta: {
+          title: 'system_role',
+          i18nKey: 'route.system_role',
+          order: 2,
+          icon: 'carbon:user-role'
+        }
+      },
+      {
+        name: 'system_setting',
+        path: '/system/setting',
+        component: 'view.system_setting',
+        meta: {
+          title: 'system_setting',
+          i18nKey: 'route.system_setting',
+          order: 7,
+          icon: 'hugeicons:settings-02'
+        }
+      },
+      {
+        name: 'system_user',
+        path: '/system/user',
+        component: 'view.system_user',
+        meta: {
+          title: 'system_user',
+          i18nKey: 'route.system_user',
+          order: 1,
+          icon: 'lucide:user-cog'
+        }
+      }
+    ]
   }
 ];

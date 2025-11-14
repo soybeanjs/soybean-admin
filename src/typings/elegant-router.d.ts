@@ -20,13 +20,25 @@ declare module "@elegant-router/types" {
     "403": "/403";
     "404": "/404";
     "500": "/500";
+    "about": "/about";
     "admin": "/admin";
     "admin-center": "/admin-center";
     "disk": "/disk";
     "iframe-page": "/iframe-page/:url";
     "init": "/init";
+    "log": "/log";
+    "log_login": "/log/login";
+    "log_operate": "/log/operate";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
     "personal-center": "/personal-center";
+    "system": "/system";
+    "system_dept": "/system/dept";
+    "system_menu": "/system/menu";
+    "system_notice": "/system/notice";
+    "system_post": "/system/post";
+    "system_role": "/system/role";
+    "system_setting": "/system/setting";
+    "system_user": "/system/user";
   };
 
   /**
@@ -61,13 +73,16 @@ declare module "@elegant-router/types" {
     | "403"
     | "404"
     | "500"
+    | "about"
     | "admin"
     | "admin-center"
     | "disk"
     | "iframe-page"
     | "init"
+    | "log"
     | "login"
     | "personal-center"
+    | "system"
   >;
 
   /**
@@ -92,8 +107,18 @@ declare module "@elegant-router/types" {
     | "init"
     | "login"
     | "personal-center"
+    | "about"
     | "admin"
     | "disk"
+    | "log_login"
+    | "log_operate"
+    | "system_dept"
+    | "system_menu"
+    | "system_notice"
+    | "system_post"
+    | "system_role"
+    | "system_setting"
+    | "system_user"
   >;
 
   /**

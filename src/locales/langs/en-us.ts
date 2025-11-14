@@ -236,7 +236,19 @@ const local: App.I18n.Schema = {
     admin: 'Admin Home',
     disk: 'Disk Home',
     'personal-center': 'User Center',
-    'admin-center': 'User Center'
+    'admin-center': 'User Center',
+    system: 'System Management',
+    system_user: 'User Management',
+    system_role: 'Role Management',
+    system_menu: 'Menu Management',
+    system_post: 'Post Management',
+    system_dept: 'Department Management',
+    system_notice: 'Notice Management',
+    system_setting: 'System Settings',
+    log: 'Log Management',
+    log_login: 'Login Log',
+    log_operate: 'Operation Log',
+    about: 'About'
   },
   page: {
     login: {
@@ -321,6 +333,25 @@ const local: App.I18n.Schema = {
         desc5: 'Soybean just wrote some of the workbench pages casually, and it was enough to see!'
       },
       creativity: 'Creativity'
+    },
+    system: {
+      dept: {
+        title: 'Department Management',
+        deptList: 'Department List'
+      }
+    },
+    about: {
+      title: 'About',
+      introduction: `SoybeanAdmin is an elegant and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite7, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. SoybeanAdmin provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.`,
+      projectInfo: {
+        title: 'Project Info',
+        version: 'Version',
+        latestBuildTime: 'Latest Build Time',
+        githubLink: 'Github Link',
+        previewLink: 'Preview Link'
+      },
+      prdDep: 'Production Dependency',
+      devDep: 'Development Dependency'
     }
   },
   form: {
