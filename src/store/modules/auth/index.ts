@@ -10,6 +10,7 @@ import { $t } from '@/locales';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
 import { clearAuthStorage, getToken } from './shared';
+import { useLog } from '@/hooks/business/useLog';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute();
@@ -18,6 +19,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const tabStore = useTabStore();
   const { toLogin, redirectFromLogin } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
+  const { recordLoginLog, recordLogoutLog } = useLog();
 
   const token = ref(getToken());
 
@@ -40,6 +42,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   /** Reset auth store */
   async function resetStore() {
+    // Record logout log
+    await recordLogoutLog('SUCCESS', { userId: userInfo.userId });
+    
     recordUserId();
 
     clearAuthStorage();
@@ -105,6 +110,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
       const pass = await loginByToken(loginToken);
 
       if (pass) {
+        // Record login success log
+        await recordLoginLog(userName, 'SUCCESS', { userId: userInfo.userId });
+        
         // Check if the tab needs to be cleared
         const isClear = checkTabClear();
         let needRedirect = redirect;
@@ -122,6 +130,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
         });
       }
     } else {
+      // Record login failed log
+      await recordLoginLog(userName, 'FAILED', { error: error?.message });
       resetStore();
     }
 
