@@ -348,6 +348,7 @@ const local: App.I18n.Schema = {
         status: 'Status',
         createTime: 'Create Time',
         empty: 'No User Found',
+        gender: 'Gender',
         form: {
           userName: {
             required: 'Please enter user name',

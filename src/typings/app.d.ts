@@ -599,6 +599,7 @@ declare namespace App {
             userName: string;
             nickName: string;
             userPhone: string;
+            gender: string;
             status: string;
             createTime: string;
             empty: string;

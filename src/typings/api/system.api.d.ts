@@ -19,7 +19,7 @@ declare namespace Api {
       /** 手机号码 */
       userPhone: string;
       /** 用户性别（0男 1女 2未知） */
-      sex: string;
+      gender?: string;
       /** 头像地址 */
       avatar: string;
       /** 密码 */
@@ -36,7 +36,7 @@ declare namespace Api {
 
     /** user profile operate params */
     type UserProfileOperateParams = CommonType.RecordNullable<
-      Pick<User, 'nickName' | 'userName' | 'userEmail' | 'userPhone' | 'sex'>
+      Pick<User, 'nickName' | 'userName' | 'userEmail' | 'userPhone' | 'gender'>
     >;
 
     /** user password operate params */

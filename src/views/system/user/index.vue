@@ -1,5 +1,6 @@
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import { computed, ref } from 'vue';
+import { NEllipsis } from 'naive-ui';
 import { useLoading } from '@sa/hooks';
 import { fetchGetDeptTree } from '@/service/api/system/dept';
 import { fetchGetUserList } from '@/service/api/system/user';
@@ -48,9 +49,38 @@ const { loading, data, getData, getDataByPage, columnChecks, columns, mobilePagi
     {
       key: 'index',
       title: $t('common.index'),
-      width: 64,
+      width: 48,
+      align: 'center'
+    },
+    {
+      key: 'userName',
+      title: $t('page.system.user.userName'),
+      width: 120,
+      align: 'left',
+      ellipsis: true,
+      render: row => {
+        return (
+          <div class="flex items-center justify-center gap-2">
+            <NAvatar src={row.avatar} class="bg-primary">
+              {row.avatar ? undefined : row.nickName.charAt(0)}
+            </NAvatar>
+            <div class="max-w-160px flex flex-col">
+              <NEllipsis>{row.userName}</NEllipsis>
+              <NEllipsis>{row.nickName}</NEllipsis>
+            </div>
+          </div>
+        );
+      }
+    },
+    {
+      key: 'gender',
+      title: $t('page.system.user.gender'),
       align: 'center',
-      render: (_, index) => index + 1
+      width: 80,
+      ellipsis: true,
+      render: row => {
+        return <NTag bordered={false}>{row.gender}</NTag>;
+      }
     }
   ]
 });

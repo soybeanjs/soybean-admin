@@ -345,6 +345,7 @@ const local: App.I18n.Schema = {
         status: '状态',
         createTime: '创建时间',
         empty: '暂无用户信息',
+        gender: '性别',
         form: {
           userName: {
             required: '请输入用户名',
