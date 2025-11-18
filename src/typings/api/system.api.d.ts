@@ -45,6 +45,16 @@ declare namespace Api {
       newPassword: string;
     }>;
 
+    /** user search params */
+    type UserSearchParams = CommonType.RecordNullable<
+      Pick<User, 'deptId' | 'userName' | 'nickName' | 'userPhone' | 'status'> & {
+        roleId: CommonType.IdType;
+      } & Common.CommonSearchParams
+    >;
+
+    /** user list */
+    type UserList = Common.PaginatingQueryRecord<User>;
+
     type OnlineUser = Common.CommonRecord<{
       /** 用户账号 */
       userName: string;
@@ -142,5 +152,27 @@ declare namespace Api {
       | 'wechat_enterprise'
       | 'gitlab'
       | 'github';
+
+    /** 字典数据 */
+    type DictData = Common.CommonRecord<{
+      /** 样式属性（其他样式扩展） */
+      cssClass: string;
+      /** 字典编码 */
+      dictCode: CommonType.IdType;
+      /** 字典标签 */
+      dictLabel: string;
+      /** 字典排序 */
+      dictSort: number;
+      /** 字典类型 */
+      dictType: string;
+      /** 字典键值 */
+      dictValue: string;
+      /** 是否默认（Y是 N否） */
+      isDefault: Common.YesOrNoStatus;
+      /** 表格回显样式 */
+      listClass: NaiveUI.ThemeColor;
+      /** 备注 */
+      remark: string;
+    }>;
   }
 }

@@ -8,9 +8,9 @@ declare namespace Api {
     /** common params of paginating */
     interface PaginatingCommonParams {
       /** current page number */
-      pageNum: number;
+      current: number;
       /** page size */
-      pageSize: number;
+      size: number;
       /** total count */
       total: number;
     }
@@ -21,7 +21,7 @@ declare namespace Api {
     }
 
     /** common search params of table */
-    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'pageNum' | 'pageSize'> &
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'> &
       CommonType.RecordNullable<{
         orderByColumn: string;
         isAsc: 'asc' | 'desc';
@@ -35,6 +35,14 @@ declare namespace Api {
      * - "2": disabled
      */
     type EnableStatus = '1' | '2';
+
+    /**
+     * 是否状态
+     *
+     * - "Y": 是
+     * - "N": 否
+     */
+    type YesOrNoStatus = 'Y' | 'N';
 
     /** common record */
     type CommonRecord<T = any> = {

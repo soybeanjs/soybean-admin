@@ -382,8 +382,13 @@ declare namespace App {
         tip: string;
         trigger: string;
         update: string;
+        export: string;
         updateSuccess: string;
         userCenter: string;
+        selected: string;
+        anyRecords: string;
+        clear: string;
+        noSelectRecord: string;
         yesOrNo: {
           yes: string;
           no: string;
@@ -589,9 +594,25 @@ declare namespace App {
           creativity: string;
         };
         system: {
+          user: {
+            title: string;
+            userName: string;
+            nickName: string;
+            userPhone: string;
+            status: string;
+            createTime: string;
+            empty: string;
+            form: {
+              userName: FormMsg;
+              nickName: FormMsg;
+              userPhone: FormMsg;
+              status: FormMsg;
+            };
+          };
           dept: {
             title: string;
             deptList: string;
+            empty: string;
           };
         };
         about: {

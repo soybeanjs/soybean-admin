@@ -49,8 +49,13 @@ const local: App.I18n.Schema = {
     tip: 'Tip',
     trigger: 'Trigger',
     update: 'Update',
+    export: 'Export',
     updateSuccess: 'Update Success',
     userCenter: 'User Center',
+    selected: 'Selected',
+    anyRecords: 'Any Records',
+    clear: 'Clear',
+    noSelectRecord: 'No Record Selected',
     yesOrNo: {
       yes: 'Yes',
       no: 'No'
@@ -335,9 +340,37 @@ const local: App.I18n.Schema = {
       creativity: 'Creativity'
     },
     system: {
+      user: {
+        title: 'User List',
+        userName: 'User Name',
+        nickName: 'Nick Name',
+        userPhone: 'User Phone',
+        status: 'Status',
+        createTime: 'Create Time',
+        empty: 'No User Found',
+        form: {
+          userName: {
+            required: 'Please enter user name',
+            invalid: 'User name format is incorrect'
+          },
+          nickName: {
+            required: 'Please enter nick name',
+            invalid: 'Nick name format is incorrect'
+          },
+          userPhone: {
+            required: 'Please enter user phone',
+            invalid: 'User phone format is incorrect'
+          },
+          status: {
+            required: 'Please select status',
+            invalid: 'Status format is incorrect'
+          }
+        }
+      },
       dept: {
         title: 'Department Management',
-        deptList: 'Department List'
+        deptList: 'Department List',
+        empty: 'No Department Found'
       }
     },
     about: {

@@ -43,6 +43,7 @@ const local: App.I18n.Schema = {
     operate: '操作',
     pleaseCheckValue: '请检查输入的值是否合法',
     refresh: '刷新',
+    export: '导出',
     reset: '重置',
     search: '搜索',
     switch: '切换',
@@ -51,6 +52,10 @@ const local: App.I18n.Schema = {
     update: '更新',
     updateSuccess: '更新成功',
     userCenter: '个人中心',
+    selected: '已选择',
+    anyRecords: '条记录',
+    clear: '清除',
+    noSelectRecord: '未选中任何记录',
     yesOrNo: {
       yes: '是',
       no: '否'
@@ -332,9 +337,37 @@ const local: App.I18n.Schema = {
       creativity: '创意'
     },
     system: {
+      user: {
+        title: '用户列表',
+        userName: '用户名',
+        nickName: '昵称',
+        userPhone: '手机号',
+        status: '状态',
+        createTime: '创建时间',
+        empty: '暂无用户信息',
+        form: {
+          userName: {
+            required: '请输入用户名',
+            invalid: '用户名格式不正确'
+          },
+          nickName: {
+            required: '请输入昵称',
+            invalid: '昵称格式不正确'
+          },
+          userPhone: {
+            required: '请输入手机号',
+            invalid: '手机号格式不正确'
+          },
+          status: {
+            required: '请选择状态',
+            invalid: '状态格式不正确'
+          }
+        }
+      },
       dept: {
         title: '部门管理',
-        deptList: '部门列表'
+        deptList: '部门列表',
+        empty: '暂无部门信息'
       }
     },
     about: {

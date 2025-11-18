@@ -4,6 +4,10 @@ export function useAuth() {
   const authStore = useAuthStore();
 
   function hasAuth(codes: string | string[]) {
+    if (authStore.isStaticSuper) {
+      return true;
+    }
+
     if (!authStore.isLogin) {
       return false;
     }

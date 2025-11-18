@@ -37,6 +37,16 @@ export function translateOptions(options: CommonType.Option<string, App.I18n.I18
   }));
 }
 
+/** 判断是否为空 */
+export function isNotNull(value: any) {
+  return value !== undefined && value !== null && value !== '' && value !== 'undefined' && value !== 'null';
+}
+
+/** 判断是否为空 */
+export function isNull(value: any) {
+  return value === undefined || value === null || value === '' || value === 'undefined' || value === 'null';
+}
+
 /**
  * Toggle html class
  *

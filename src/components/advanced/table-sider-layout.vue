@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 defineOptions({
@@ -41,7 +41,7 @@ const isCollapse = breakpoints.smaller('lg');
             <slot name="sider" />
             <template #header>
               <slot name="header">
-                <span class="select-none">{{ siderTitle }}</span>
+                <span>{{ siderTitle }}</span>
               </slot>
             </template>
             <template #header-extra>
@@ -56,13 +56,7 @@ const isCollapse = breakpoints.smaller('lg');
     </NGridItem>
   </NGrid>
   <NLayout v-else has-sider>
-    <NLayoutSider
-      collapse-mode="transform"
-      :collapsed-width="0"
-      :width="320"
-      show-trigger="bar"
-      :native-scrollbar="false"
-    >
+    <NLayoutSider collapse-mode="transform" :collapsed-width="0" :width="320" show-trigger="bar">
       <NCard
         :bordered="false"
         size="small"
@@ -85,3 +79,31 @@ const isCollapse = breakpoints.smaller('lg');
     </NLayoutContent>
   </NLayout>
 </template>
+
+<style scoped>
+.title {
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s var(--n-bezier);
+  flex: 1;
+  min-width: 0;
+  color: var(--n-title-text-color);
+}
+
+.content {
+  min-height: calc(100vh - 196px - var(--calc-footer-height, 0px));
+}
+
+:deep(.n-collapse-item__header) {
+  padding-top: 0 !important;
+}
+
+:deep(.n-layout-content) {
+  background-color: transparent;
+  padding-left: 25px;
+}
+
+:deep(.n-layout-sider) {
+  background-color: transparent;
+}
+</style>
