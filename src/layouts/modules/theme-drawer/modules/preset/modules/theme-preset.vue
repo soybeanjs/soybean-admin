@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { defu } from 'defu';
 import { useThemeStore } from '@/store/modules/theme';
+import { themeSettings } from '@/theme/settings';
 import { $t } from '@/locales';
 
 defineOptions({
@@ -76,7 +78,9 @@ const getPresetDesc = (preset: ThemePreset): string => {
   }
 };
 
-const applyPreset = ({ themeScheme, grayscale, colourWeakness, layout, watermark, ...rest }: ThemePreset): void => {
+const applyPreset = (preset: ThemePreset): void => {
+  const mergedPreset = defu(preset, themeSettings);
+  const { themeScheme, grayscale, colourWeakness, layout, watermark, ...rest } = mergedPreset;
   themeStore.setThemeScheme(themeScheme);
   themeStore.setGrayscale(grayscale);
   themeStore.setColourWeakness(colourWeakness);
