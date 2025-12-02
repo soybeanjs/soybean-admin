@@ -4,6 +4,9 @@ declare namespace App {
   namespace Theme {
     type ColorPaletteNumber = import('@sa/color').ColorPaletteNumber;
 
+    /** NaiveUI theme overrides that can be specified in preset */
+    type NaiveUIThemeOverride = import('naive-ui').GlobalThemeOverrides;
+
     /** Theme setting */
     interface ThemeSetting {
       /** Theme scheme */
