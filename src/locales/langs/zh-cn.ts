@@ -157,7 +157,9 @@ const local: App.I18n.Schema = {
         collapsedWidth: '侧边栏折叠宽度',
         mixWidth: '混合布局侧边栏宽度',
         mixCollapsedWidth: '混合布局侧边栏折叠宽度',
-        mixChildMenuWidth: '混合布局子菜单宽度'
+        mixChildMenuWidth: '混合布局子菜单宽度',
+        autoSelectFirstMenu: '自动选择第一个子菜单',
+        autoSelectFirstMenuTip: '点击一级菜单时，自动选择并导航到第一个子菜单的最深层级'
       },
       footer: {
         title: '底部设置',
