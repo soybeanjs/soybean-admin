@@ -33,15 +33,15 @@ const {
   isActiveSecondLevelMenuHasChildren,
   handleSelectSecondLevelMenu,
   getActiveSecondLevelMenuKey,
-  childLevelMenus
+  childLevelMenus,
+  hasChildLevelMenus,
+  activeDeepestLevelMenuKey
 } = useMixMenuContext('VerticalHybridHeaderFirst');
 const { selectedKey } = useMenu();
 
 const inverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
 
-const hasChildMenus = computed(() => childLevelMenus.value.length > 0);
-
-const showDrawer = computed(() => hasChildMenus.value && (drawerVisible.value || appStore.mixSiderFixed));
+const showDrawer = computed(() => hasChildLevelMenus.value && (drawerVisible.value || appStore.mixSiderFixed));
 
 function handleSelectMixMenu(key: RouteKey) {
   handleSelectSecondLevelMenu(key);
@@ -51,12 +51,33 @@ function handleSelectMixMenu(key: RouteKey) {
   }
 }
 
+/**
+ * Handle second level menu selection based on autoSelectFirstMenu setting:
+ * - When disabled: Activate first second-level menu for display only, expand third-level menu if exists
+ * - When enabled: Navigate to the deepest menu automatically
+ */
 function handleSelectMenu(key: RouteKey) {
   handleSelectFirstLevelMenu(key);
 
-  if (secondLevelMenus.value.length > 0) {
-    handleSelectMixMenu(secondLevelMenus.value[0].routeKey);
+  if (secondLevelMenus.value.length === 0) return;
+
+  const secondFirstMenuKey = secondLevelMenus.value[0].routeKey;
+
+  // Case 1: autoSelectFirstMenu disabled - only activate menu for display
+  if (!themeStore.sider.autoSelectFirstMenu) {
+    // Check if there are third-level menus
+    const hasChildren = secondLevelMenus.value.find(menu => menu.key === secondFirstMenuKey)?.children?.length;
+
+    // If there are third-level menus, expand them
+    if (hasChildren) {
+      handleSelectMixMenu(secondFirstMenuKey);
+    }
+    return;
   }
+
+  // Case 2: autoSelectFirstMenu enabled - navigate to deepest menu
+  activeDeepestLevelMenuKey();
+  setDrawerVisible(false);
 }
 
 function handleResetActiveMenu() {
@@ -114,7 +135,9 @@ watch(
       </FirstLevelMenu>
       <div
         class="relative h-full transition-width-300"
-        :style="{ width: appStore.mixSiderFixed && hasChildMenus ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
+        :style="{
+          width: appStore.mixSiderFixed && hasChildLevelMenus ? themeStore.sider.mixChildMenuWidth + 'px' : '0px'
+        }"
       >
         <DarkModeContainer
           class="absolute-lt h-full flex-col-stretch nowrap-hidden shadow-sm transition-all-300"

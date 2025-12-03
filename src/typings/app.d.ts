@@ -96,6 +96,8 @@ declare namespace App {
         mixCollapsedWidth: number;
         /** Child menu width when the layout is 'vertical-mix', 'top-hybrid-sidebar-first', or 'top-hybrid-header-first' */
         mixChildMenuWidth: number;
+        /** Whether to auto select the first submenu */
+        autoSelectFirstMenu: boolean;
       };
       /** Footer */
       footer: {
@@ -429,6 +431,8 @@ declare namespace App {
             mixWidth: string;
             mixCollapsedWidth: string;
             mixChildMenuWidth: string;
+            autoSelectFirstMenu: string;
+            autoSelectFirstMenuTip: string;
           };
           footer: {
             title: string;

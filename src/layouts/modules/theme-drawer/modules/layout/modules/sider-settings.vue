@@ -12,6 +12,7 @@ const themeStore = useThemeStore();
 
 const layoutMode = computed(() => themeStore.layout.mode);
 const isMixLayoutMode = computed(() => layoutMode.value.includes('mix') || layoutMode.value.includes('hybrid'));
+const isHybridLayoutMode = computed(() => layoutMode.value.includes('hybrid'));
 </script>
 
 <template>
@@ -31,6 +32,12 @@ const isMixLayoutMode = computed(() => layoutMode.value.includes('mix') || layou
     </SettingItem>
     <SettingItem v-if="layoutMode === 'vertical-mix'" key="5" :label="$t('theme.layout.sider.mixChildMenuWidth')">
       <NInputNumber v-model:value="themeStore.sider.mixChildMenuWidth" size="small" :step="1" class="w-120px" />
+    </SettingItem>
+    <SettingItem v-if="isHybridLayoutMode" key="6" :label="$t('theme.layout.sider.autoSelectFirstMenu')">
+      <template #suffix>
+        <IconTooltip :desc="$t('theme.layout.sider.autoSelectFirstMenuTip')" />
+      </template>
+      <NSwitch v-model:value="themeStore.sider.autoSelectFirstMenu" />
     </SettingItem>
   </TransitionGroup>
 </template>

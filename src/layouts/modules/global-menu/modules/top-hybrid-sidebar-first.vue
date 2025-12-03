@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { RouteKey } from '@elegant-router/types';
 import { GLOBAL_HEADER_MENU_ID, GLOBAL_SIDER_MENU_ID } from '@/constants/app';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
@@ -13,9 +14,25 @@ defineOptions({
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const { routerPushByKeyWithMetaQuery } = useRouterPush();
-const { firstLevelMenus, secondLevelMenus, activeFirstLevelMenuKey, handleSelectFirstLevelMenu } =
-  useMixMenuContext('TopHybridSidebarFirst');
+const {
+  firstLevelMenus,
+  secondLevelMenus,
+  activeFirstLevelMenuKey,
+  handleSelectFirstLevelMenu,
+  activeDeepestLevelMenuKey
+} = useMixMenuContext('TopHybridSidebarFirst');
 const { selectedKey } = useMenu();
+
+/**
+ * Handle first level menu select
+ * @param key RouteKey
+ */
+function handleSelectMenu(key: RouteKey) {
+  handleSelectFirstLevelMenu(key);
+
+  // if there are second level menus, select the deepest one by default
+  activeDeepestLevelMenuKey();
+}
 </script>
 
 <template>
@@ -37,7 +54,7 @@ const { selectedKey } = useMenu();
         :sider-collapse="appStore.siderCollapse"
         :dark-mode="themeStore.darkMode"
         :theme-color="themeStore.themeColor"
-        @select="handleSelectFirstLevelMenu"
+        @select="handleSelectMenu"
         @toggle-sider-collapse="appStore.toggleSiderCollapse"
       />
     </div>
