@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const visible = defineModel<boolean>('visible');
 
-const { removeTab, clearTabs, clearLeftTabs, clearRightTabs } = useTabStore();
+const { removeTab, clearTabs, clearLeftTabs, clearRightTabs, fixTab, unfixTab, isTabRetain } = useTabStore();
 const { SvgIconVNode } = useSvgIcon();
 
 type DropdownOption = {
@@ -64,6 +64,23 @@ const options = computed(() => {
       icon: SvgIconVNode({ icon: 'ant-design:line-outlined', fontSize: 18 })
     }
   ];
+
+  if (props.tabId !== '/home') {
+    if (isTabRetain(props.tabId)) {
+      opts.push({
+        key: 'unpin',
+        label: $t('dropdown.unpin'),
+        icon: SvgIconVNode({ icon: 'mdi:pin-off-outline', fontSize: 18 })
+      });
+    } else {
+      opts.push({
+        key: 'pin',
+        label: $t('dropdown.pin'),
+        icon: SvgIconVNode({ icon: 'mdi:pin-outline', fontSize: 18 })
+      });
+    }
+  }
+
   const { excludeKeys, disabledKeys } = props;
 
   const result = opts.filter(opt => !excludeKeys.includes(opt.key));
@@ -98,6 +115,12 @@ const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
   },
   closeAll() {
     clearTabs();
+  },
+  pin() {
+    fixTab(props.tabId);
+  },
+  unpin() {
+    unfixTab(props.tabId);
   }
 };
 

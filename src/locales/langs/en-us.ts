@@ -336,7 +336,9 @@ const local: App.I18n.Schema = {
     closeOther: 'Close Other',
     closeLeft: 'Close Left',
     closeRight: 'Close Right',
-    closeAll: 'Close All'
+    closeAll: 'Close All',
+    pin: 'Pin Tab',
+    unpin: 'Unpin Tab'
   },
   icon: {
     themeConfig: 'Theme Configuration',
