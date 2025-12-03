@@ -333,7 +333,9 @@ const local: App.I18n.Schema = {
     closeOther: '关闭其它',
     closeLeft: '关闭左侧',
     closeRight: '关闭右侧',
-    closeAll: '关闭所有'
+    closeAll: '关闭所有',
+    pin: '固定标签',
+    unpin: '取消固定'
   },
   icon: {
     themeConfig: '主题配置',
