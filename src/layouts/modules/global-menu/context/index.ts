@@ -3,6 +3,7 @@ import { useRoute } from 'vue-router';
 import { useContext } from '@sa/hooks';
 import type { RouteKey } from '@elegant-router/types';
 import { useRouteStore } from '@/store/modules/route';
+import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
 
 export const [provideMixMenuContext, useMixMenuContext] = useContext('MixMenu', useMixMenu);
@@ -10,6 +11,7 @@ export const [provideMixMenuContext, useMixMenuContext] = useContext('MixMenu', 
 function useMixMenu() {
   const route = useRoute();
   const routeStore = useRouteStore();
+  const themeStore = useThemeStore();
   const { selectedKey } = useMenu();
   const { routerPushByKeyWithMetaQuery } = useRouterPush();
 
@@ -100,10 +102,46 @@ function useMixMenu() {
     () => secondLevelMenus.value.find(menu => menu.key === activeSecondLevelMenuKey.value)?.children || []
   );
 
+  const hasChildLevelMenus = computed(() => childLevelMenus.value.length > 0);
+
+  function getDeepestLevelMenuKey(): RouteKey | null {
+    if (!secondLevelMenus.value.length || !themeStore.sider.autoSelectFirstMenu) {
+      return null;
+    }
+
+    const secondLevelFirstMenu = secondLevelMenus.value[0];
+
+    if (!secondLevelFirstMenu) {
+      return null;
+    }
+
+    function findDeepest(menu: App.Global.Menu): RouteKey {
+      if (!menu.children?.length) {
+        return menu.routeKey;
+      }
+
+      return findDeepest(menu.children[0]);
+    }
+
+    return findDeepest(secondLevelFirstMenu);
+  }
+
+  function activeDeepestLevelMenuKey() {
+    const deepestLevelMenuKey = getDeepestLevelMenuKey();
+    if (!deepestLevelMenuKey) return;
+
+    // select the deepest second level menu
+    handleSelectSecondLevelMenu(deepestLevelMenuKey);
+  }
+
   watch(
     () => route.name,
     () => {
       getActiveFirstLevelMenuKey();
+      // if there are child level menus, get the active second level menu key
+      if (hasChildLevelMenus.value) {
+        getActiveSecondLevelMenuKey();
+      }
     },
     { immediate: true }
   );
@@ -121,7 +159,10 @@ function useMixMenu() {
     isActiveSecondLevelMenuHasChildren,
     handleSelectSecondLevelMenu,
     getActiveSecondLevelMenuKey,
-    childLevelMenus
+    childLevelMenus,
+    hasChildLevelMenus,
+    getDeepestLevelMenuKey,
+    activeDeepestLevelMenuKey
   };
 }
 

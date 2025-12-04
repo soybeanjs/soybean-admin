@@ -236,11 +236,15 @@ function getNaiveThemeColors(colors: App.Theme.ThemeColor, recommended = false) 
 /**
  * Get naive theme
  *
- * @param settings Theme settings object.
- * @param settings.recommendColor Whether to use recommended color palette.
- * @param settings.themeRadius Border radius to use in the theme (in px).
+ * @param colors Theme colors
+ * @param settings Theme settings object
+ * @param overrides Optional manual overrides from preset
  */
-export function getNaiveTheme(colors: App.Theme.ThemeColor, settings: App.Theme.ThemeSetting) {
+export function getNaiveTheme(
+  colors: App.Theme.ThemeColor,
+  settings: App.Theme.ThemeSetting,
+  overrides?: GlobalThemeOverrides
+) {
   const { primary: colorLoading } = colors;
 
   const theme: GlobalThemeOverrides = {
@@ -256,5 +260,7 @@ export function getNaiveTheme(colors: App.Theme.ThemeColor, settings: App.Theme.
     }
   };
 
-  return theme;
+  // If there are overrides, merge them with priority
+  // overrides has higher priority than auto-generated theme
+  return overrides ? defu(overrides, theme) : theme;
 }

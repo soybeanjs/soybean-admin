@@ -2,10 +2,8 @@
   "name": "Azir's Preset",
   "desc": "It is a cold and elegant preset that Azir likes",
   "i18nkey": "theme.appearance.preset.azir",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "themeScheme": "light",
-  "grayscale": false,
-  "colourWeakness": false,
   "recommendColor": true,
   "themeColor": "#78a878",
   "otherColor": {
@@ -14,57 +12,7 @@
     "warning": "#d4bb9d",
     "error": "#c49a9a"
   },
-  "themeRadius": 6,
   "isInfoFollowPrimary": true,
-  "layout": {
-    "mode": "vertical-mix",
-    "scrollMode": "wrapper"
-  },
-  "page": {
-    "animate": true,
-    "animateMode": "zoom-fade"
-  },
-  "header": {
-    "height": 64,
-    "breadcrumb": {
-      "visible": true,
-      "showIcon": true
-    },
-    "multilingual": {
-      "visible": true
-    },
-    "globalSearch": {
-      "visible": true
-    }
-  },
-  "tab": {
-    "visible": true,
-    "cache": true,
-    "height": 48,
-    "mode": "chrome"
-  },
-  "fixedHeaderAndTab": true,
-  "sider": {
-    "inverted": false,
-    "width": 220,
-    "collapsedWidth": 64,
-    "mixWidth": 90,
-    "mixCollapsedWidth": 64,
-    "mixChildMenuWidth": 200
-  },
-  "footer": {
-    "visible": true,
-    "fixed": true,
-    "height": 56,
-    "right": true
-  },
-  "watermark": {
-    "visible": false,
-    "text": "SoybeanAdmin",
-    "enableUserName": false,
-    "enableTime": true,
-    "timeFormat": "YYYY-MM-DD HH:mm:ss"
-  },
   "tokens": {
     "light": {
       "colors": {
@@ -85,6 +33,20 @@
         "layout": "rgb(18, 18, 18)",
         "base-text": "rgb(224, 224, 224)"
       }
+    }
+  },
+  "naiveui": {
+    "Alert": {
+      "borderRadiusMedium": "12px",
+      "fontWeightStrong": "600",
+      "paddingMedium": "0 20px"
+    },
+    "Card": {
+      "borderRadius": "16px",
+      "paddingMedium": "24px"
+    },
+    "Input": {
+      "borderRadius": "10px"
     }
   }
 }

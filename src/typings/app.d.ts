@@ -4,6 +4,9 @@ declare namespace App {
   namespace Theme {
     type ColorPaletteNumber = import('@sa/color').ColorPaletteNumber;
 
+    /** NaiveUI theme overrides that can be specified in preset */
+    type NaiveUIThemeOverride = import('naive-ui').GlobalThemeOverrides;
+
     /** Theme setting */
     interface ThemeSetting {
       /** Theme scheme */
@@ -93,6 +96,8 @@ declare namespace App {
         mixCollapsedWidth: number;
         /** Child menu width when the layout is 'vertical-mix', 'top-hybrid-sidebar-first', or 'top-hybrid-header-first' */
         mixChildMenuWidth: number;
+        /** Whether to auto select the first submenu */
+        autoSelectFirstMenu: boolean;
       };
       /** Footer */
       footer: {
@@ -279,7 +284,7 @@ declare namespace App {
     type FormRule = import('naive-ui').FormItemRule;
 
     /** The global dropdown key */
-    type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll';
+    type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll' | 'pin' | 'unpin';
   }
 
   /**
@@ -426,6 +431,8 @@ declare namespace App {
             mixWidth: string;
             mixCollapsedWidth: string;
             mixChildMenuWidth: string;
+            autoSelectFirstMenu: string;
+            autoSelectFirstMenuTip: string;
           };
           footer: {
             title: string;

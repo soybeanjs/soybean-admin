@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { defu } from 'defu';
 import { useThemeStore } from '@/store/modules/theme';
+import { themeSettings } from '@/theme/settings';
 import { $t } from '@/locales';
 
 defineOptions({
@@ -31,6 +33,8 @@ type ThemePreset = Pick<
   desc: string;
   i18nkey?: string;
   version: string;
+  /** Optional NaiveUI theme overrides */
+  naiveui?: App.Theme.NaiveUIThemeOverride;
 };
 
 const presetModules = import.meta.glob('@/theme/preset/*.json', { eager: true, import: 'default' });
@@ -76,7 +80,9 @@ const getPresetDesc = (preset: ThemePreset): string => {
   }
 };
 
-const applyPreset = ({ themeScheme, grayscale, colourWeakness, layout, watermark, ...rest }: ThemePreset): void => {
+const applyPreset = (preset: ThemePreset): void => {
+  const mergedPreset = defu(preset, themeSettings);
+  const { themeScheme, grayscale, colourWeakness, layout, watermark, naiveui, ...rest } = mergedPreset;
   themeStore.setThemeScheme(themeScheme);
   themeStore.setGrayscale(grayscale);
   themeStore.setColourWeakness(colourWeakness);
@@ -95,6 +101,9 @@ const applyPreset = ({ themeScheme, grayscale, colourWeakness, layout, watermark
     watermark: { ...watermark },
     tokens: { ...rest.tokens }
   });
+
+  // Apply NaiveUI theme overrides if present
+  themeStore.setNaiveThemeOverrides(naiveui);
 
   window.$message?.success($t('theme.appearance.preset.applySuccess'));
 };

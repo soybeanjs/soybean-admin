@@ -24,6 +24,9 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   /** Theme settings */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
 
+  /** Optional NaiveUI theme overrides from preset */
+  const naiveThemeOverrides: Ref<App.Theme.NaiveUIThemeOverride | undefined> = ref(undefined);
+
   /** Watermark time instance with controls */
   const { now: watermarkTime, pause: pauseWatermarkTime, resume: resumeWatermarkTime } = useNow({ controls: true });
 
@@ -53,7 +56,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   });
 
   /** Naive theme */
-  const naiveTheme = computed(() => getNaiveTheme(themeColors.value, settings.value));
+  const naiveTheme = computed(() => getNaiveTheme(themeColors.value, settings.value, naiveThemeOverrides.value));
 
   /**
    * Settings json
@@ -198,6 +201,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     }
   }
 
+  /**
+   * Set NaiveUI theme overrides
+   *
+   * @param overrides NaiveUI theme overrides or undefined to clear
+   */
+  function setNaiveThemeOverrides(overrides?: App.Theme.NaiveUIThemeOverride) {
+    naiveThemeOverrides.value = overrides;
+  }
+
   /** Only run timer when watermark is visible and time display is enabled */
   function updateWatermarkTimer() {
     const { watermark } = settings.value;
@@ -284,6 +296,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     updateThemeColors,
     setThemeLayout,
     setWatermarkEnableUserName,
-    setWatermarkEnableTime
+    setWatermarkEnableTime,
+    setNaiveThemeOverrides
   };
 });

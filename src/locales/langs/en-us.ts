@@ -160,7 +160,10 @@ const local: App.I18n.Schema = {
         collapsedWidth: 'Sider Collapsed Width',
         mixWidth: 'Mix Sider Width',
         mixCollapsedWidth: 'Mix Sider Collapse Width',
-        mixChildMenuWidth: 'Mix Child Menu Width'
+        mixChildMenuWidth: 'Mix Child Menu Width',
+        autoSelectFirstMenu: 'Auto Select First Submenu',
+        autoSelectFirstMenuTip:
+          'When a first-level menu is clicked, the first submenu is automatically selected and navigated to the deepest level'
       },
       footer: {
         title: 'Footer Settings',
@@ -669,7 +672,9 @@ const local: App.I18n.Schema = {
     closeOther: 'Close Other',
     closeLeft: 'Close Left',
     closeRight: 'Close Right',
-    closeAll: 'Close All'
+    closeAll: 'Close All',
+    pin: 'Pin Tab',
+    unpin: 'Unpin Tab'
   },
   icon: {
     themeConfig: 'Theme Configuration',
