@@ -8,6 +8,7 @@ import ButtonTab from './button-tab.vue';
 import SliderTab from './slider-tab.vue';
 import SvgClose from './svg-close.vue';
 import style from './index.module.css';
+import SvgPin from './svg-pin.vue';
 
 defineOptions({
   name: 'PageTab'
@@ -17,11 +18,13 @@ const props = withDefaults(defineProps<PageTabProps>(), {
   mode: 'chrome',
   commonClass: 'transition-all-300',
   activeColor: ACTIVE_COLOR,
-  closable: true
+  closable: true,
+  pinnable: false
 });
 
 interface Emits {
   (e: 'close'): void;
+  (e: 'unpin'): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -58,6 +61,10 @@ const bindProps = computed(() => {
 function handleClose() {
   emit('close');
 }
+
+function handleUnpin() {
+  emit('unpin');
+}
 </script>
 
 <template>
@@ -69,6 +76,7 @@ function handleClose() {
     <template #suffix>
       <slot name="suffix">
         <SvgClose v-if="closable" :class="[style['svg-close']]" @pointerdown.stop="handleClose" />
+        <SvgPin v-if="pinnable" :class="[style['svg-close']]" @pointerdown.stop="handleUnpin" />
       </slot>
     </template>
   </component>

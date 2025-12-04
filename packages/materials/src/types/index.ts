@@ -146,8 +146,7 @@ export type LayoutScrollMode = 'wrapper' | 'content';
 
 /** Admin layout props */
 export interface AdminLayoutProps
-  extends
-    AdminLayoutHeaderConfig,
+  extends AdminLayoutHeaderConfig,
     AdminLayoutTabConfig,
     AdminLayoutSiderConfig,
     AdminLayoutContentConfig,
@@ -275,6 +274,12 @@ export interface PageTabProps {
    * Show the close icon when true
    */
   closable?: boolean;
+  /**
+   * Whether the tab is pinnable
+   *
+   * Show the pin icon when true
+   */
+  pinnable?: boolean;
 }
 
 export type PageTabCssVarsProps = {
