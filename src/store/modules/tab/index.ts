@@ -327,9 +327,10 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * Is tab retain
    *
    * @param tabId
+   * @param skipHomeTabCheck
    */
-  function isTabRetain(tabId: string) {
-    if (tabId === homeTab.value?.id) return true;
+  function isTabRetain(tabId: string, skipHomeTabCheck = false) {
+    if (!skipHomeTabCheck && tabId === homeTab.value?.id) return true;
 
     const fixedTabIds = getFixedTabIds(tabs.value);
 

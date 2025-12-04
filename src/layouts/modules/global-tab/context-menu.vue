@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const visible = defineModel<boolean>('visible');
 
-const { removeTab, clearTabs, clearLeftTabs, clearRightTabs, fixTab, unfixTab, isTabRetain, homeTab } = useTabStore();
+const { removeTab, clearTabs, clearLeftTabs, clearRightTabs, fixTab, unfixTab, isTabRetain } = useTabStore();
 const { SvgIconVNode } = useSvgIcon();
 
 type DropdownOption = {
@@ -65,20 +65,18 @@ const options = computed(() => {
     }
   ];
 
-  if (props.tabId !== homeTab?.id) {
-    if (isTabRetain(props.tabId)) {
-      opts.push({
-        key: 'unpin',
-        label: $t('dropdown.unpin'),
-        icon: SvgIconVNode({ icon: 'mdi:pin-off-outline', fontSize: 18 })
-      });
-    } else {
-      opts.push({
-        key: 'pin',
-        label: $t('dropdown.pin'),
-        icon: SvgIconVNode({ icon: 'mdi:pin-outline', fontSize: 18 })
-      });
-    }
+  if (isTabRetain(props.tabId, true)) {
+    opts.push({
+      key: 'unpin',
+      label: $t('dropdown.unpin'),
+      icon: SvgIconVNode({ icon: 'mdi:pin-off-outline', fontSize: 18 })
+    });
+  } else {
+    opts.push({
+      key: 'pin',
+      label: $t('dropdown.pin'),
+      icon: SvgIconVNode({ icon: 'mdi:pin-outline', fontSize: 18 })
+    });
   }
 
   const { excludeKeys, disabledKeys } = props;
