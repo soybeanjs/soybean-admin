@@ -86,6 +86,10 @@ function handleCloseTab(tab: App.Global.Tab) {
   tabStore.removeTab(tab.id);
 }
 
+function handleUnpinTab(tab: App.Global.Tab) {
+  tabStore.unfixTab(tab.id);
+}
+
 function handleMousedown(e: MouseEvent, tab: App.Global.Tab) {
   const isMiddleClick = e.button === MIDDLE_MOUSE_BUTTON;
   if (!isMiddleClick || !themeStore.tab.closeTabByMiddleClick) {
@@ -204,9 +208,11 @@ init();
             :active="tab.id === tabStore.activeTabId"
             :active-color="themeStore.themeColor"
             :closable="!tabStore.isTabRetain(tab.id)"
+            :pinnable="tabStore.isTabRetain(tab.id, true)"
             @pointerdown="switchTab($event, tab)"
             @mousedown="handleMousedown($event, tab)"
             @close="handleCloseTab(tab)"
+            @unpin="handleUnpinTab(tab)"
             @contextmenu="handleContextMenu($event, tab.id)"
           >
             <template #prefix>
