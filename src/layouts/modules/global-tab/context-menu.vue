@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const visible = defineModel<boolean>('visible');
 
-const { removeTab, clearTabs, clearLeftTabs, clearRightTabs, fixTab, unfixTab, isTabRetain } = useTabStore();
+const { removeTab, clearTabs, clearLeftTabs, clearRightTabs, fixTab, unfixTab, isTabRetain, homeTab } = useTabStore();
 const { SvgIconVNode } = useSvgIcon();
 
 type DropdownOption = {
@@ -65,7 +65,7 @@ const options = computed(() => {
     }
   ];
 
-  if (props.tabId !== '/home') {
+  if (props.tabId !== homeTab?.id) {
     if (isTabRetain(props.tabId)) {
       opts.push({
         key: 'unpin',

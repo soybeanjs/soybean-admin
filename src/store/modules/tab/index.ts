@@ -361,6 +361,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     /** All tabs */
     tabs: allTabs,
     activeTabId,
+    homeTab,
     initHomeTab,
     initTabStore,
     addTab,
