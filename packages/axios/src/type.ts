@@ -119,8 +119,11 @@ export type FlatResponseData<ResponseData, ApiData> =
   | FlatResponseSuccessData<ResponseData, ApiData>
   | FlatResponseFailData<ResponseData>;
 
-export interface FlatRequestInstance<ResponseData, ApiData, State extends Record<string, unknown>>
-  extends RequestInstanceCommon<State> {
+export interface FlatRequestInstance<
+  ResponseData,
+  ApiData,
+  State extends Record<string, unknown>
+> extends RequestInstanceCommon<State> {
   <T extends ApiData = ApiData, R extends ResponseType = 'json'>(
     config: CustomAxiosRequestConfig<R>
   ): Promise<FlatResponseData<ResponseData, MappedType<R, T>>>;
