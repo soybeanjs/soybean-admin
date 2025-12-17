@@ -181,13 +181,14 @@ export function useTableOperate<TableData>(
 
   const operateType = shallowRef<NaiveUI.TableOperateType>('add');
 
-  function handleAdd() {
-    operateType.value = 'add';
-    openDrawer();
-  }
-
   /** the editing row data */
   const editingData = shallowRef<TableData | null>(null);
+
+  function handleAdd() {
+    operateType.value = 'add';
+    editingData.value = null;
+    openDrawer();
+  }
 
   function handleEdit(id: TableData[keyof TableData]) {
     operateType.value = 'edit';
