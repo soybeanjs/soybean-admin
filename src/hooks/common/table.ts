@@ -127,6 +127,7 @@ export function useNaivePaginatedTable<ResponseData, ApiData>(
     getColumns,
     onFetched: data => {
       pagination.itemCount = data.total;
+      pagination.pageSize = data.pageSize;
     }
   });
 
