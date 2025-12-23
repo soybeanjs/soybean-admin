@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [v2.0.2](https://github.com/soybeanjs/soybean-admin/compare/v2.0.1...v2.0.2) (2025-12-23)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **hooks**: update pagination pageSize after data fetch. &nbsp;-&nbsp; by **Azir-11** [<samp>(64226)</samp>](https://github.com/soybeanjs/soybean-admin/commit/64226d9b)
+- **projects**: fix the incorrect judgment of home by pin tab. &nbsp;-&nbsp; by **Azir-11** [<samp>(62a43)</samp>](https://github.com/soybeanjs/soybean-admin/commit/62a43c39)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(ec9f9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/ec9f9af9)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+[Azir-11](mailto:2075125282@qq.com)
+
 ## [v2.0.1](https://github.com/soybeanjs/soybean-admin/compare/v2.0.0...v2.0.1) (2025-12-04)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
