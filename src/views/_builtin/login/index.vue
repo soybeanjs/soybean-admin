@@ -56,7 +56,7 @@ const bgColor = computed(() => {
     <NCard :bordered="false" class="relative z-4 w-auto rd-12px">
       <div class="w-400px lt-sm:w-300px">
         <header class="flex-y-center justify-between">
-          <SystemLogo class="text-64px text-primary lt-sm:text-48px" />
+          <SystemLogo class="size-64px lt-sm:size-48px" />
           <h3 class="text-28px text-primary font-500 lt-sm:text-22px">{{ $t('system.title') }}</h3>
           <div class="i-flex-col">
             <ThemeSchemaSwitch
