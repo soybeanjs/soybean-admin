@@ -9,6 +9,19 @@ defineOptions({
 const columns = defineModel<NaiveUI.TableColumnCheck[]>('columns', {
   required: true
 });
+
+const tooltipRecord: Record<NaiveUI.TableColumnFixed, App.I18n.I18nKey> = {
+  left: 'datatable.fixed.right',
+  right: 'datatable.fixed.unFixed',
+  unFixed: 'datatable.fixed.left'
+};
+
+function handleFixed(column: NaiveUI.TableColumnCheck) {
+  const fixedOptions: NaiveUI.TableColumnFixed[] = ['left', 'right', 'unFixed'];
+  const index = fixedOptions.findIndex(item => item === column.fixed);
+  const nextIndex = index === fixedOptions.length - 1 ? 0 : index + 1;
+  column.fixed = fixedOptions[nextIndex];
+}
 </script>
 
 <template>
@@ -25,16 +38,29 @@ const columns = defineModel<NaiveUI.TableColumnCheck[]>('columns', {
       <div
         v-for="item in columns"
         :key="item.key"
-        class="h-36px flex-y-center rd-4px hover:(bg-primary bg-opacity-20)"
+        class="h-36px flex-y-center justify-between gap-6px"
         :class="{ hidden: !item.visible }"
       >
-        <icon-mdi-drag class="mr-8px h-full cursor-move text-icon" />
-        <NCheckbox v-model:checked="item.checked" class="none_draggable flex-1">
-          <template v-if="typeof item.title === 'function'">
-            <component :is="item.title" />
-          </template>
-          <template v-else>{{ item.title }}</template>
-        </NCheckbox>
+        <div class="flex-y-center rd-4px hover:(bg-primary bg-opacity-20)">
+          <icon-mdi-drag class="mr-8px h-full cursor-move text-icon" />
+          <NCheckbox v-model:checked="item.checked" class="none_draggable flex-1">
+            <template v-if="typeof item.title === 'function'">
+              <component :is="item.title" />
+            </template>
+            <template v-else>{{ item.title }}</template>
+          </NCheckbox>
+        </div>
+        <ButtonIcon
+          :disabled="!item.checked"
+          text
+          :focusable="false"
+          :tooltip-content="$t(tooltipRecord[item.fixed!])"
+          @click="handleFixed(item)"
+        >
+          <icon-octicon-pin-16 v-if="item.fixed === 'unFixed'" />
+          <icon-octicon-pin-16 v-else-if="item.fixed === 'left'" class="rotate-270" />
+          <icon-octicon-pin-slash-16 v-else />
+        </ButtonIcon>
       </div>
     </VueDraggable>
   </NPopover>
