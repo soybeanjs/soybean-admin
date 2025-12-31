@@ -356,7 +356,12 @@ const local: App.I18n.Schema = {
     unpin: 'Unpin'
   },
   datatable: {
-    itemCount: 'Total {total} items'
+    itemCount: 'Total {total} items',
+    fixed: {
+      left: 'Left Fixed',
+      right: 'Right Fixed',
+      unFixed: 'Unfixed'
+    }
   }
 };
 

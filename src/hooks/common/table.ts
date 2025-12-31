@@ -266,6 +266,7 @@ function getColumnChecks<Column extends NaiveUI.TableColumn<any>>(
         key: column.key as string,
         title: column.title!,
         checked: true,
+        fixed: column.fixed ?? 'unFixed',
         visible: getColumnVisible?.(column) ?? true
       });
     } else if (column.type === 'selection') {
@@ -273,6 +274,7 @@ function getColumnChecks<Column extends NaiveUI.TableColumn<any>>(
         key: SELECTION_KEY,
         title: $t('common.check'),
         checked: true,
+        fixed: column.fixed ?? 'unFixed',
         visible: getColumnVisible?.(column) ?? false
       });
     } else if (column.type === 'expand') {
@@ -280,6 +282,7 @@ function getColumnChecks<Column extends NaiveUI.TableColumn<any>>(
         key: EXPAND_KEY,
         title: $t('common.expandColumn'),
         checked: true,
+        fixed: column.fixed ?? 'unFixed',
         visible: getColumnVisible?.(column) ?? false
       });
     }
@@ -301,7 +304,14 @@ function getColumns<Column extends NaiveUI.TableColumn<any>>(cols: Column[], che
     }
   });
 
-  const filteredColumns = checks.filter(item => item.checked).map(check => columnMap.get(check.key) as Column);
+  const filteredColumns = checks
+    .filter(item => item.checked)
+    .map(check => {
+      return {
+        ...columnMap.get(check.key),
+        fixed: check.fixed
+      } as Column;
+    });
 
   return filteredColumns;
 }
