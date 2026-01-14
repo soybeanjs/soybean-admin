@@ -427,7 +427,7 @@ watch(
           <NFormItemGi span="24" :label="$t('page.manage.menu.button')">
             <NDynamicInput v-model:value="model.buttons" :on-create="handleCreateButton">
               <template #default="{ value }">
-                <div class="ml-8px flex-y-center flex-1 gap-12px">
+                <div class="flex-y-center flex-1 gap-12px">
                   <NInput
                     v-model:value="value.code"
                     :placeholder="$t('page.manage.menu.form.buttonCode')"
