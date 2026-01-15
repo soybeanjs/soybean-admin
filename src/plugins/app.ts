@@ -31,7 +31,7 @@ export function setupAppVersionNotification() {
     }
 
     isShow = true;
-
+    clearInterval(updateInterval);
     // Show update notification
     const n = window.$notification?.create({
       title: $t('system.updateTitle'),
