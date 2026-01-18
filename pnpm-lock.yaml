@@ -159,6 +159,9 @@ importers:
       vite-plugin-vue-devtools:
         specifier: 8.0.5
         version: 8.0.5(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.26(typescript@5.9.3))
+      vite-plugin-vue-transition-root-validator:
+        specifier: ^0.0.4
+        version: 0.0.4(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.26(typescript@5.9.3))
       vue-eslint-parser:
         specifier: 10.2.0
         version: 10.2.0(eslint@9.39.2(jiti@2.6.1))
@@ -3870,6 +3873,12 @@ packages:
     resolution: {integrity: sha512-YvEKooQcSiBTAs0DoYLfefNja9bLgkFM7NI2b07bE2SruuvX0MEa9cMaxjKVMkeCp5Nz9FRIdcN1rOdFVBeL6Q==}
     peerDependencies:
       vite: ^3.0.0-0 || ^4.0.0-0 || ^5.0.0-0 || ^6.0.0-0 || ^7.0.0-0
+
+  vite-plugin-vue-transition-root-validator@0.0.4:
+    resolution: {integrity: sha512-7bJxNn2/v3heN+zSsaoSrSp9RdV6gCe/9N0s4bk+5mGqDnXlTeyuK0fF/KXGhUBWy59yj+QnX3rCD8viX2RDgw==}
+    peerDependencies:
+      vite: '>=4.0.0'
+      vue: '>=3.0.0'
 
   vite@7.3.0:
     resolution: {integrity: sha512-dZwN5L1VlUBewiP6H9s2+B3e3Jg96D0vzN+Ry73sOefebhYr9f94wwkMNN/9ouoU8pV1BqA1d1zGk8928cx0rg==}
@@ -7940,6 +7949,11 @@ snapshots:
       vite: 7.3.0(@types/node@25.0.3)(jiti@2.6.1)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
+
+  vite-plugin-vue-transition-root-validator@0.0.4(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.26(typescript@5.9.3)):
+    dependencies:
+      vite: 7.3.0(@types/node@25.0.3)(jiti@2.6.1)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2)
+      vue: 3.5.26(typescript@5.9.3)
 
   vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2):
     dependencies:
