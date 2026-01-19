@@ -15,6 +15,7 @@ const local: App.I18n.Schema = {
     cancel: '取消',
     close: '关闭',
     check: '勾选',
+    selectAll: '全选',
     expandColumn: '展开列',
     columnSetting: '列设置',
     config: '配置',
