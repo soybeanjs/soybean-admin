@@ -82,7 +82,7 @@ function toggleSelectAll(checked: boolean) {
         </NCheckbox>
       </div>
       <NDivider class="!my-4px" />
-      <VueDraggable v-model="columns" :animation="150" filter=".none_draggable">
+      <VueDraggable v-model="columns" :animation="150" filter=".none_draggable" class="max-h-[200px] overflow-y-auto">
         <div
           v-for="item in columns"
           :key="item.key"
