@@ -74,5 +74,36 @@ export const generatedRoutes: GeneratedRoute[] = [
       constant: true,
       hideInMenu: true
     }
-  }
+  },
+  {
+    name: 'order',
+    path: '/order',
+    component: 'layout.base',
+    meta: {
+      title: 'order',
+      i18nKey: 'route.order',
+      icon: 'mdi:cart-outline'
+    },
+    children: [
+      {
+        name: 'order_detail',
+        path: '/order/detail',
+        component: 'view.order_detail',
+        meta: {
+          title: 'order_detail',
+          i18nKey: 'route.order_detail',
+          hideInMenu: true
+        }
+      },
+      {
+        name: 'order_list',
+        path: '/order/list',
+        component: 'view.order_list',
+        meta: {
+          title: 'order_list',
+          i18nKey: 'route.order_list'
+        }
+      }
+    ]
+  },
 ];

@@ -81,15 +81,18 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /** Global menus */
   const menus = ref<App.Global.Menu[]>([]);
   const searchMenus = computed(() => transformMenuToSearchMenus(menus.value));
+  const menusForBreadcrumb = ref<App.Global.Menu[]>([]);
 
   /** Get global menus */
   function getGlobalMenus(routes: ElegantConstRoute[]) {
-    menus.value = getGlobalMenusByAuthRoutes(routes);
+    menus.value = getGlobalMenusByAuthRoutes(routes, true, false);
+    menusForBreadcrumb.value = getGlobalMenusByAuthRoutes(routes, false, true);
   }
 
   /** Update global menus by locale */
   function updateGlobalMenusByLocale() {
     menus.value = updateLocaleOfGlobalMenus(menus.value);
+    menusForBreadcrumb.value = updateLocaleOfGlobalMenus(menusForBreadcrumb.value);
   }
 
   /** Cache routes */
@@ -128,7 +131,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   /** Global breadcrumbs */
-  const breadcrumbs = computed(() => getBreadcrumbsByRoute(router.currentRoute.value, menus.value));
+  const breadcrumbs = computed(() => getBreadcrumbsByRoute(router.currentRoute.value, menusForBreadcrumb.value));
 
   /** Reset store */
   async function resetStore() {

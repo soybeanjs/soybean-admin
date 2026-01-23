@@ -73,15 +73,24 @@ export function sortRoutesByOrder(routes: ElegantConstRoute[]) {
  *
  * @param routes Auth routes
  */
-export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[]) {
+export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[], shouldHoist = false, includeHidden = false) {
   const menus: App.Global.Menu[] = [];
 
   routes.forEach(route => {
-    if (!route.meta?.hideInMenu) {
+    if (includeHidden || !route.meta?.hideInMenu) {
       const menu = getGlobalMenuByBaseRoute(route);
 
-      if (route.children?.some(child => !child.meta?.hideInMenu)) {
-        menu.children = getGlobalMenusByAuthRoutes(route.children);
+      if (route.children?.some(child => includeHidden || !child.meta?.hideInMenu)) {
+        menu.children = getGlobalMenusByAuthRoutes(route.children, shouldHoist, includeHidden);
+      }
+
+      // 如果只有一个子菜单，将其提升
+      if (shouldHoist && menu.children?.length === 1) {
+        const singleChild = menu.children[0];
+        menu.key = singleChild.key;
+        menu.routeKey = singleChild.routeKey;
+        menu.routePath = singleChild.routePath;
+        menu.children = singleChild.children;
       }
 
       menus.push(menu);
