@@ -1,5 +1,61 @@
 # Changelog
 
+## [v2.1.0](https://github.com/soybeanjs/soybean-admin/compare/v2.0.2...v2.1.0) (2026-03-09)
+
+### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
+
+- **projects**: integrate oxlint and oxfmt &nbsp;-&nbsp; by **soybeanfe** [<samp>(6ff74)</samp>](https://github.com/soybeanjs/soybean-admin/commit/6ff74c0c)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **components**:
+  - Column settings support fixed columns. &nbsp;-&nbsp; by @m-xlsea [<samp>(70658)</samp>](https://github.com/soybeanjs/soybean-admin/commit/70658643)
+  - Add “Select All” to TableColumnSetting &nbsp;-&nbsp; by @wenyuanw [<samp>(0081b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/0081b9c0)
+- **logo**:
+  - use new logo &nbsp;-&nbsp; by @soybeanjs [<samp>(5aac5)</samp>](https://github.com/soybeanjs/soybean-admin/commit/5aac540a)
+- **projects**:
+  - add the plugin: vite-plugin-vue-transition-root-validator, to optimize the development experience. &nbsp;-&nbsp; by **Azir-11** [<samp>(30e3c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/30e3cdc7)
+- **types**:
+  - Added type definition `force` to router push options. &nbsp;-&nbsp; by @m-xlsea [<samp>(a3794)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a37949f2)
+- **workflows**:
+  - add opencode workflow for issue and PR comment triggers &nbsp;-&nbsp; by @soybeanjs [<samp>(dacee)</samp>](https://github.com/soybeanjs/soybean-admin/commit/dacee143)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix the long list TableColumnSetting component exceeds the viewport. &nbsp;-&nbsp; by **skyfeiz** [<samp>(cbfb9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/cbfb932f)
+  - fix NButton props conflicts. &nbsp;-&nbsp; by **skyfeiz** [<samp>(54107)</samp>](https://github.com/soybeanjs/soybean-admin/commit/54107aca)
+  - ensure HTML lang attribute is updated when setting locale &nbsp;-&nbsp; by @pan0xc [<samp>(f96c3)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f96c3c9e)
+  - correct HTML lang attribute to standard format &nbsp;-&nbsp; by @pan0xc [<samp>(b520d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b520db3e)
+- **router**:
+  - simplify route guard logic and remove unnecessary next calls &nbsp;-&nbsp; by **soybeanfe** [<samp>(3c2cb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3c2cbb74)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**:
+  - modify the injection location of the token. &nbsp;-&nbsp; by **Azir-11** [<samp>(9d48c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9d48ca5f)
+  - optimize unocss config &nbsp;-&nbsp; by **soybeanfe** [<samp>(6fc6f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/6fc6f1c9)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: V2 has been released. &nbsp;-&nbsp; by **skyfeiz** [<samp>(d7394)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d73947a5)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(232e1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/232e1ac4)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(2a023)</samp>](https://github.com/soybeanjs/soybean-admin/commit/2a0231da)
+  - update deps &nbsp;-&nbsp; by **soybeanfe** [<samp>(b867c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b867c290)
+
+### &nbsp;&nbsp;&nbsp;🎨 Styles
+
+- **projects**: fix lint code and format code &nbsp;-&nbsp; by **soybeanfe** [<samp>(781a1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/781a18f4)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![pan0xc](https://github.com/pan0xc.png?size=48)](https://github.com/pan0xc)&nbsp;&nbsp;[![m-xlsea](https://github.com/m-xlsea.png?size=48)](https://github.com/m-xlsea)&nbsp;&nbsp;[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![wenyuanw](https://github.com/wenyuanw.png?size=48)](https://github.com/wenyuanw)&nbsp;&nbsp;
+[soybeanfe](mailto:honghuangdc@gmail.com),&nbsp;[Azir-11](mailto:2075125282@qq.com),&nbsp;[skyfeiz](mailto:webzhangfei@163.com),&nbsp;
+
 ## [v2.0.2](https://github.com/soybeanjs/soybean-admin/compare/v2.0.1...v2.0.2) (2025-12-23)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
