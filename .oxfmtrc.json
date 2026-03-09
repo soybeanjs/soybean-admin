@@ -1,0 +1,11 @@
+{
+  "ignorePatterns": ["src/typings/components.d.ts", "src/typings/elegant-router.d.ts", "src/router/elegant"],
+  "printWidth": 120,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "arrowParens": "avoid",
+  "htmlWhitespaceSensitivity": "ignore",
+  "experimentalSortPackageJson": {
+    "sortScripts": true
+  }
+}

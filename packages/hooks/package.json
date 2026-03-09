@@ -1,13 +1,15 @@
 {
   "name": "@sa/hooks",
-  "version": "2.0.2",
-  "exports": {
-    ".": "./src/index.ts"
-  },
+  "version": "2.1.0",
   "typesVersions": {
     "*": {
-      "*": ["./src/*"]
+      "*": [
+        "./src/*"
+      ]
     }
+  },
+  "exports": {
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@sa/axios": "workspace:*",

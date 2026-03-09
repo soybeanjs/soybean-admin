@@ -1,21 +1,11 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.fixAll.oxc": "explicit"
   },
-  "editor.formatOnSave": false,
-  "eslint.validate": [
-    "html",
-    "css",
-    "scss",
-    "json",
-    "jsonc",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue"
-  ],
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  "eslint.validate": ["vue"],
   "i18n-ally.displayLanguage": "zh-cn",
   "i18n-ally.enabledParsers": ["ts"],
   "i18n-ally.enabledFrameworks": ["vue"],
@@ -26,6 +16,5 @@
     "moduleResolution": "node"
   },
   "prettier.enable": false,
-  "typescript.tsdk": "node_modules/typescript/lib",
   "unocss.root": ["./"]
 }

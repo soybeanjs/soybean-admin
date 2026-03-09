@@ -15,6 +15,7 @@ const local: App.I18n.Schema = {
     cancel: '取消',
     close: '关闭',
     check: '勾选',
+    selectAll: '全选',
     expandColumn: '展开列',
     columnSetting: '列设置',
     config: '配置',
@@ -685,7 +686,12 @@ const local: App.I18n.Schema = {
     unpin: '取消固定'
   },
   datatable: {
-    itemCount: '共 {total} 条'
+    itemCount: '共 {total} 条',
+    fixed: {
+      left: '左固定',
+      right: '右固定',
+      unFixed: '取消固定'
+    }
   }
 };
 

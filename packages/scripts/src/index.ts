@@ -1,4 +1,4 @@
-import cac from 'cac';
+import { cac } from 'cac';
 import { blue, lightGreen } from 'kolorist';
 import { version } from '../package.json';
 import { cleanup, genChangelog, generateRoute, gitCommit, gitCommitVerify, release, updatePkg } from './commands';
