@@ -39,7 +39,8 @@
     "dev": "vite --mode test",
     "dev:prod": "vite --mode prod",
     "gen-route": "sa gen-route",
-    "lint": "eslint . --fix",
+    "fmt": "oxfmt",
+    "lint": "oxlint --fix && eslint --fix .",
     "prepare": "simple-git-hooks",
     "preview": "vite preview",
     "release": "sa release",
@@ -74,10 +75,9 @@
     "@iconify/json": "2.2.447",
     "@sa/scripts": "workspace:*",
     "@sa/uno-preset": "workspace:*",
-    "@soybeanjs/eslint-config": "1.7.5",
+    "@soybeanjs/eslint-config-vue": "^0.0.2",
     "@types/node": "25.3.5",
     "@types/nprogress": "0.2.3",
-    "@unocss/eslint-config": "66.6.6",
     "@unocss/preset-icons": "66.6.6",
     "@unocss/preset-uno": "66.6.6",
     "@unocss/transformer-directives": "66.6.6",
@@ -87,8 +87,9 @@
     "@vitejs/plugin-vue-jsx": "5.1.4",
     "consola": "3.4.2",
     "eslint": "10.0.3",
-    "eslint-plugin-vue": "10.8.0",
     "kolorist": "1.8.0",
+    "oxfmt": "^0.36.0",
+    "oxlint": "^1.51.0",
     "sass": "1.97.3",
     "simple-git-hooks": "2.13.1",
     "tsx": "4.21.0",
@@ -100,12 +101,11 @@
     "vite-plugin-svg-icons": "2.0.1",
     "vite-plugin-vue-devtools": "8.0.7",
     "vite-plugin-vue-transition-root-validator": "^0.1.0",
-    "vue-eslint-parser": "10.4.0",
     "vue-tsc": "3.2.5"
   },
   "simple-git-hooks": {
     "commit-msg": "pnpm sa git-commit-verify",
-    "pre-commit": "pnpm typecheck && pnpm lint && git diff --exit-code"
+    "pre-commit": "pnpm typecheck && pnpm lint && pnpm fmt && git diff --exit-code"
   },
   "website": "https://admin.soybeanjs.cn"
 }
