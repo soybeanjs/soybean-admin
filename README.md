@@ -41,7 +41,6 @@
 - **命令行工具**：内置高效的命令行工具，git提交、删除文件、发布等。
 - **移动端适配**：完美支持移动端，实现自适应布局。
 
-
 ## 版本
 
 - **NaiveUI 版本:**
@@ -65,12 +64,10 @@
   - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin/tree/legacy)
   - [Gitcode 仓库](https://gitcode.com/soybeanjs/soybean-admin/tree/legacy)
 
-
 ## 文档
 
 - [地址](https://docs.soybeanjs.cn)
 - [旧版文档](https://legacy-docs.soybeanjs.cn)
-
 
 ## 合作事项
 
@@ -96,10 +93,9 @@
 
 - **Email**: [soybeanjs@outlook.com](mailto:soybeanjs@outlook.com)
 - **GitHub Issues**: 欢迎通过 [GitHub Issues](https://github.com/soybeanjs/soybean-admin/issues/new) 联系我们，进行初步的合作洽谈。
-- **商务合作微信**:  honghuangdc
+- **商务合作微信**: honghuangdc
 
 期待与您开展深入合作，共同推动 SoybeanAdmin 项目及其在更多领域的成功应用！
-
 
 ## 示例图片
 
@@ -114,7 +110,6 @@
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
-
 
 ## 使用
 
@@ -142,6 +137,7 @@ git clone https://gitcode.com/soybeanjs/soybean-admin.git
 ```bash
 pnpm i
 ```
+
 > 由于本项目采用了 pnpm monorepo 的管理方式，因此请不要使用 npm 或 yarn 来安装依赖。
 
 **启动项目**
@@ -176,28 +172,25 @@ pnpm build
 
 更多周边生态请翻阅 [周边生态](https://docs.soybeanjs.cn/zh/awesome) 文档。
 
-
 ## 如何贡献
 
 我们热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) 或创建 GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new) 来分享。
 
 ## Git 提交规范
 
-本项目已内置 `commit` 命令，您可以通过执行 `pnpm commit` 来生成符合 [Conventional Commits]([conventionalcommits](https://www.conventionalcommits.org/)) 规范的提交信息。在提交PR时，请务必使用 `commit` 命令来创建提交信息，以确保信息的规范性。
-
+本项目已内置 `commit` 命令，您可以通过执行 `pnpm commit` 来生成符合 [Conventional Commits](<[conventionalcommits](https://www.conventionalcommits.org/)>) 规范的提交信息。在提交PR时，请务必使用 `commit` 命令来创建提交信息，以确保信息的规范性。
 
 ## 浏览器支持
 
 推荐使用最新版的 Chrome 浏览器进行开发，以获得更好的体验。
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) |
-| --- | --- | --- | --- | --- |
-| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| not support                                                                                                                                                                                                                             | last 2 versions                                                                                                                                                                               | last 2 versions                                                                                                                                                                                       | last 2 versions                                                                                                                                                                                    | last 2 versions                                                                                                                                                                                    |
 
 ## 开源作者
 
 [Soybean](https://github.com/honghuangdc)
-
 
 ## 贡献者
 

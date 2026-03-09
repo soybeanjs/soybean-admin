@@ -1,13 +1,15 @@
 {
   "name": "@sa/color",
   "version": "2.0.2",
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "typesVersions": {
     "*": {
-      "*": ["./src/*"]
+      "*": [
+        "./src/*"
+      ]
     }
+  },
+  "exports": {
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@sa/utils": "workspace:*",

@@ -1,7 +1,7 @@
 import { defineConfig } from '@unocss/vite';
 import transformerDirectives from '@unocss/transformer-directives';
 import transformerVariantGroup from '@unocss/transformer-variant-group';
-import presetWind3 from '@unocss/preset-wind3';
+import { presetWind3 } from '@unocss/preset-wind3';
 import type { Theme } from '@unocss/preset-uno';
 import { presetSoybeanAdmin } from '@sa/uno-preset';
 import { themeVars } from './src/theme/vars';

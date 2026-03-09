@@ -1,6 +1,5 @@
 # Changelog
 
-
 ## [v2.0.2](https://github.com/soybeanjs/soybean-admin/compare/v2.0.1...v2.0.2) (2025-12-23)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
@@ -25,7 +24,7 @@
   - update QQ group image in README &nbsp;-&nbsp; by @soybeanjs [<samp>(46081)</samp>](https://github.com/soybeanjs/soybean-admin/commit/46081c36)
 - **projects**:
   - support theme presets to only set partial content. &nbsp;-&nbsp; by **Azir-11** [<samp>(9da84)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9da847fb)
-  - support theme perset  to override component library presets. &nbsp;-&nbsp; by **Azir-11** [<samp>(60517)</samp>](https://github.com/soybeanjs/soybean-admin/commit/605173a1)
+  - support theme perset to override component library presets. &nbsp;-&nbsp; by **Azir-11** [<samp>(60517)</samp>](https://github.com/soybeanjs/soybean-admin/commit/605173a1)
   - support pinning and unpinning of tabs &nbsp;-&nbsp; by **hooke** [<samp>(b8a76)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b8a767d7)
   - hybrid layout mode auto select first deepest child menu &nbsp;-&nbsp; by @paynezhuang [<samp>(94019)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9401925f)
 
@@ -425,13 +424,13 @@
 ### &nbsp;&nbsp;&nbsp;🏡 Chore
 
 - **deps**:
-  - add vscode recommend plugin  close #738 &nbsp;-&nbsp; by @tu6ge in https://github.com/soybeanjs/soybean-admin/issues/739 and https://github.com/soybeanjs/soybean-admin/issues/738 [<samp>(61244)</samp>](https://github.com/soybeanjs/soybean-admin/commit/61244f0f)
+  - add vscode recommend plugin close #738 &nbsp;-&nbsp; by @tu6ge in https://github.com/soybeanjs/soybean-admin/issues/739 and https://github.com/soybeanjs/soybean-admin/issues/738 [<samp>(61244)</samp>](https://github.com/soybeanjs/soybean-admin/commit/61244f0f)
   - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(41b5f)</samp>](https://github.com/soybeanjs/soybean-admin/commit/41b5f493)
   - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(3e4e1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3e4e17ab)
 
 ### &nbsp;&nbsp;&nbsp;🤖 CI
 
-- **hooks**: remove lint-staged in git hook.  close #724 &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/743 and https://github.com/soybeanjs/soybean-admin/issues/724 [<samp>(c3abc)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c3abc3df)
+- **hooks**: remove lint-staged in git hook. close #724 &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/743 and https://github.com/soybeanjs/soybean-admin/issues/724 [<samp>(c3abc)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c3abc3df)
 
 ### &nbsp;&nbsp;&nbsp;❤️ Contributors
 
@@ -551,7 +550,7 @@
 
 ### &nbsp;&nbsp;&nbsp;📖 Documentation
 
-- **projects**: ✏️  add element-plus version link &nbsp;-&nbsp; by **一寸灰** in https://github.com/honghuangdc/soybean-admin/issues/679 [<samp>(5c6ab)</samp>](https://github.com/honghuangdc/soybean-admin/commit/5c6ab0b)
+- **projects**: ✏️ add element-plus version link &nbsp;-&nbsp; by **一寸灰** in https://github.com/honghuangdc/soybean-admin/issues/679 [<samp>(5c6ab)</samp>](https://github.com/honghuangdc/soybean-admin/commit/5c6ab0b)
 
 ### &nbsp;&nbsp;&nbsp;🏡 Chore
 
@@ -592,7 +591,6 @@
   - add desc for base url of app &nbsp;-&nbsp; by **Soybean** [<samp>(17d7e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/17d7e52)
 
 ### &nbsp;&nbsp;&nbsp;❤️ Contributors
-
 
 [Soybean](mailto:soybeanjs@outlook.com),&nbsp;[青菜白玉汤](mailto:79054161+Azir-11@users.noreply.github.com)
 
@@ -1640,7 +1638,7 @@
   - Optimize internationalized menu search code &nbsp;-&nbsp; by **燕博文** [<samp>(8c1ef)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8c1ef4b)
   - Optimize menu search code &nbsp;-&nbsp; by **燕博文** [<samp>(296a2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/296a2d2)
   - perf count-to &nbsp;-&nbsp; by @honghuangdc [<samp>(b2c61)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b2c61f0)
-  - components  name is converted to uppercase &nbsp;-&nbsp; by **燕博文** [<samp>(04aa1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/04aa10b)
+  - components name is converted to uppercase &nbsp;-&nbsp; by **燕博文** [<samp>(04aa1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/04aa10b)
   - perf global-search &nbsp;-&nbsp; by @honghuangdc [<samp>(72745)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7274522)
 - **projects**:
   - perf code &nbsp;-&nbsp; by @honghuangdc [<samp>(8081e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8081e19)
@@ -1917,7 +1915,7 @@
   - Optimize internationalized menu search code &nbsp;-&nbsp; by **燕博文** [<samp>(8c1ef)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8c1ef4b)
   - Optimize menu search code &nbsp;-&nbsp; by **燕博文** [<samp>(296a2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/296a2d2)
   - perf count-to &nbsp;-&nbsp; by @honghuangdc [<samp>(b2c61)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b2c61f0)
-  - components  name is converted to uppercase &nbsp;-&nbsp; by **燕博文** [<samp>(04aa1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/04aa10b)
+  - components name is converted to uppercase &nbsp;-&nbsp; by **燕博文** [<samp>(04aa1)</samp>](https://github.com/soybeanjs/soybean-admin/commit/04aa10b)
   - perf global-search &nbsp;-&nbsp; by @honghuangdc [<samp>(72745)</samp>](https://github.com/soybeanjs/soybean-admin/commit/7274522)
 - **projects**:
   - perf code &nbsp;-&nbsp; by @honghuangdc [<samp>(8081e)</samp>](https://github.com/soybeanjs/soybean-admin/commit/8081e19)
@@ -3312,6 +3310,3 @@
 ### &nbsp;&nbsp;&nbsp;❤️ Contributors
 
 [![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
-
-
-

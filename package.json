@@ -1,35 +1,31 @@
 {
   "name": "soybean-admin",
-  "type": "module",
   "version": "2.0.2",
   "description": "A fresh and elegant admin template, based on Vue3、Vite7、TypeScript、NaiveUI and UnoCSS. 一个基于Vue3、Vite7、TypeScript、NaiveUI and UnoCSS的清新优雅的中后台模版。",
+  "keywords": [
+    "TypeScript",
+    "UnoCSS",
+    "Vite7",
+    "Vue3 admin ",
+    "ant-design-vue v4",
+    "naive-ui",
+    "naive-ui-admin",
+    "vue-admin-template"
+  ],
+  "homepage": "https://github.com/soybeanjs/soybean-admin",
+  "bugs": {
+    "url": "https://github.com/soybeanjs/soybean-admin/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Soybean",
     "email": "soybeanjs@outlook.com",
     "url": "https://github.com/soybeanjs"
   },
-  "license": "MIT",
-  "homepage": "https://github.com/soybeanjs/soybean-admin",
   "repository": {
     "url": "https://github.com/soybeanjs/soybean-admin.git"
   },
-  "bugs": {
-    "url": "https://github.com/soybeanjs/soybean-admin/issues"
-  },
-  "keywords": [
-    "Vue3 admin ",
-    "vue-admin-template",
-    "Vite7",
-    "TypeScript",
-    "naive-ui",
-    "naive-ui-admin",
-    "ant-design-vue v4",
-    "UnoCSS"
-  ],
-  "engines": {
-    "node": ">=20.19.0",
-    "pnpm": ">=10.5.0"
-  },
+  "type": "module",
   "scripts": {
     "build": "vite build --mode prod",
     "build:test": "vite build --mode test",
@@ -38,8 +34,8 @@
     "commit:zh": "sa git-commit -l=zh-cn",
     "dev": "vite --mode test",
     "dev:prod": "vite --mode prod",
-    "gen-route": "sa gen-route",
     "fmt": "oxfmt",
+    "gen-route": "sa gen-route",
     "lint": "oxlint --fix && eslint --fix .",
     "prepare": "simple-git-hooks",
     "preview": "vite preview",
@@ -106,6 +102,10 @@
   "simple-git-hooks": {
     "commit-msg": "pnpm sa git-commit-verify",
     "pre-commit": "pnpm typecheck && pnpm lint && pnpm fmt && git diff --exit-code"
+  },
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=10.5.0"
   },
   "website": "https://admin.soybeanjs.cn"
 }

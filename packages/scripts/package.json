@@ -4,13 +4,15 @@
   "bin": {
     "sa": "./bin.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "typesVersions": {
     "*": {
-      "*": ["./src/*"]
+      "*": [
+        "./src/*"
+      ]
     }
+  },
+  "exports": {
+    ".": "./src/index.ts"
   },
   "devDependencies": {
     "@soybeanjs/changelog": "0.4.3",

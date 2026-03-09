@@ -27,7 +27,6 @@
 
 [`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite7, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `SoybeanAdmin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
 
-
 ## Features
 
 - **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite7, TypeScript, Pinia and UnoCSS.
@@ -41,7 +40,6 @@
 - **Rich page components**: built-in a variety of pages and components, including 403, 404, 500 pages, as well as layout components, tag components, theme configuration components, etc.
 - **Command line tool**: built-in efficient command line tool, git commit, delete file, release, etc.
 - **Mobile adaptation**: perfectly support mobile terminal to realize adaptive layout.
-
 
 ## Version
 
@@ -69,7 +67,6 @@
   - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin/tree/legacy)
   - [Gitcode Repository](https://gitcode.com/soybeanjs/soybean-admin/tree/legacy)
 
-
 ## Documentation
 
 - [Link](https://docs.soybeanjs.cn)
@@ -88,7 +85,6 @@
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
-
 
 ## Usage
 
@@ -116,6 +112,7 @@ git clone https://gitcode.com/soybeanjs/soybean-admin.git
 ```bash
 pnpm i
 ```
+
 > Since this project uses the pnpm monorepo management method, please do not use npm or yarn to install dependencies.
 
 **Start Project**
@@ -150,7 +147,6 @@ Refer to the [Code Synchronization](https://docs.soybeanjs.cn/guide/sync) docume
 
 More ecosystem please refer to [Ecosystem](https://docs.soybeanjs.cn/awesome) document.
 
-
 ## How to Contribute
 
 We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) or creating GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new).
@@ -164,8 +160,8 @@ This project has built-in `commit` command, you can execute `pnpm commit` to gen
 It is recommended to use the latest version of Chrome in development for a better experience.
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) |
-| --- | --- | --- | --- | --- |
-| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| not support                                                                                                                                                                                                                             | last 2 versions                                                                                                                                                                               | last 2 versions                                                                                                                                                                                       | last 2 versions                                                                                                                                                                                    | last 2 versions                                                                                                                                                                                    |
 
 ## OpenSource Author
 
