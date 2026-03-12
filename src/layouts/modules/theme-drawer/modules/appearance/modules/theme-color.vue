@@ -68,14 +68,15 @@ const swatches: string[] = [
           {{ $t('theme.appearance.themeColor.followPrimary') }}
         </NCheckbox>
       </template>
-      <NColorPicker
-        class="w-90px"
-        :value="themeStore.themeColors[key]"
-        :disabled="key === 'info' && themeStore.isInfoFollowPrimary"
-        :show-alpha="false"
-        :swatches="swatches"
-        @update:value="handleUpdateColor($event, key)"
-      />
+      <div class="w-90px">
+        <NColorPicker
+          :value="themeStore.themeColors[key]"
+          :disabled="key === 'info' && themeStore.isInfoFollowPrimary"
+          :show-alpha="false"
+          :swatches="swatches"
+          @update:value="handleUpdateColor($event, key)"
+        />
+      </div>
     </SettingItem>
   </div>
 </template>
