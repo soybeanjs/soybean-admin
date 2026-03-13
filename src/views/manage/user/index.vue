@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { reactive } from 'vue';
+import { ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { fetchGetUserList } from '@/service/api';
@@ -11,7 +11,7 @@ import UserSearch from './modules/user-search.vue';
 
 const appStore = useAppStore();
 
-const searchParams: Api.SystemManage.UserSearchParams = reactive({
+const searchParams = ref<Api.SystemManage.UserSearchParams>({
   current: 1,
   size: 10,
   status: null,
@@ -23,11 +23,11 @@ const searchParams: Api.SystemManage.UserSearchParams = reactive({
 });
 
 const { columns, columnChecks, data, getData, getDataByPage, loading, mobilePagination } = useNaivePaginatedTable({
-  api: () => fetchGetUserList(searchParams),
+  api: () => fetchGetUserList(searchParams.value),
   transform: response => defaultTransform(response),
   onPaginationParamsChange: params => {
-    searchParams.current = params.page;
-    searchParams.size = params.pageSize;
+    searchParams.value.current = params.page;
+    searchParams.value.size = params.pageSize;
   },
   columns: () => [
     {

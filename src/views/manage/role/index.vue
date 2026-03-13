@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { reactive } from 'vue';
+import { ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { enableStatusRecord } from '@/constants/business';
 import { fetchGetRoleList } from '@/service/api';
@@ -11,7 +11,7 @@ import RoleSearch from './modules/role-search.vue';
 
 const appStore = useAppStore();
 
-const searchParams: Api.SystemManage.RoleSearchParams = reactive({
+const searchParams = ref<Api.SystemManage.RoleSearchParams>({
   current: 1,
   size: 10,
   roleName: null,
@@ -20,11 +20,11 @@ const searchParams: Api.SystemManage.RoleSearchParams = reactive({
 });
 
 const { columns, columnChecks, data, loading, getData, getDataByPage, mobilePagination } = useNaivePaginatedTable({
-  api: () => fetchGetRoleList(searchParams),
+  api: () => fetchGetRoleList(searchParams.value),
   transform: response => defaultTransform(response),
   onPaginationParamsChange: params => {
-    searchParams.current = params.page;
-    searchParams.size = params.pageSize;
+    searchParams.value.current = params.page;
+    searchParams.value.size = params.pageSize;
   },
   columns: () => [
     {
