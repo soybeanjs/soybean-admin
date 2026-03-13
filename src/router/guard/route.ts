@@ -38,8 +38,7 @@ export function createRouteGuard(router: Router) {
 
     // if the route does not need login, then it is allowed to access directly
     if (!needLogin) {
-      handleRouteSwitch(to, from);
-      return;
+      return handleRouteSwitch(to, from);
     }
 
     // the route need login but the user is not logged in, then switch to the login page
@@ -53,7 +52,7 @@ export function createRouteGuard(router: Router) {
     }
 
     // switch route normally
-    handleRouteSwitch(to, from);
+    return handleRouteSwitch(to, from);
   });
 }
 
