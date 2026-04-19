@@ -90,11 +90,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     }
   }
 
-  /**
-   * Remove tab
-   *
-   * @param tabId Tab id
-   */
   async function removeTab(tabId: string) {
     const removeTabIndex = tabs.value.findIndex(tab => tab.id === tabId);
     if (removeTabIndex === -1) return;
@@ -102,18 +97,17 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const removedTabRouteKey = tabs.value[removeTabIndex].routeKey;
     const isRemoveActiveTab = activeTabId.value === tabId;
 
-    // if remove the last tab, then switch to the second last tab
     const nextTab = tabs.value[removeTabIndex + 1] || tabs.value[removeTabIndex - 1] || homeTab.value;
 
-    // remove tab
-    tabs.value.splice(removeTabIndex, 1);
-
-    // if current tab is removed, then switch to next tab
     if (isRemoveActiveTab && nextTab) {
-      await switchRouteByTab(nextTab);
+      const navSuccess = await switchRouteByTab(nextTab);
+      if (!navSuccess) {
+        return;
+      }
     }
 
-    // reset route cache
+    tabs.value.splice(removeTabIndex, 1);
+
     routeStore.resetRouteCache(removedTabRouteKey);
   }
 
@@ -134,15 +128,9 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     await removeTab(tab.id);
   }
 
-  /**
-   * Clear tabs
-   *
-   * @param excludes Exclude tab ids
-   */
   async function clearTabs(excludes: string[] = []) {
     const remainTabIds = [...getFixedTabIds(tabs.value), ...excludes];
 
-    // Identify tabs to be removed and collect their routeKeys if strategy is 'close'
     const tabsToRemove = tabs.value.filter(tab => !remainTabIds.includes(tab.id));
     const routeKeysToReset: RouteKey[] = [];
 
@@ -152,13 +140,11 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     const removedTabsIds = tabsToRemove.map(tab => tab.id);
 
-    // If no tabs are actually being removed based on excludes and fixed tabs, exit
     if (removedTabsIds.length === 0) {
       return;
     }
 
     const isRemoveActiveTab = removedTabsIds.includes(activeTabId.value);
-    // filterTabsByIds returns tabs NOT in removedTabsIds, so these are the tabs that will remain
     const updatedTabs = filterTabsByIds(removedTabsIds, tabs.value);
 
     function update() {
@@ -171,48 +157,39 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
       const activeTabCandidate = updatedTabs[updatedTabs.length - 1] || homeTab.value;
 
       if (activeTabCandidate) {
-        // Ensure there's a tab to switch to
-        await switchRouteByTab(activeTabCandidate);
+        const navSuccess = await switchRouteByTab(activeTabCandidate);
+        if (!navSuccess) {
+          return;
+        }
       }
-      // Update the tabs array regardless of switch success or if a candidate was found
       update();
     }
 
-    // After tabs are updated and route potentially switched, reset cache for removed tabs
     for (const routeKey of routeKeysToReset) {
       routeStore.resetRouteCache(routeKey);
     }
   }
 
   const { routerPushByKey } = useRouterPush();
-  /**
-   * Replace tab
-   *
-   * @param key Route key
-   * @param options Router push options
-   */
+
   async function replaceTab(key: RouteKey, options?: App.Global.RouterPushOptions) {
     const oldTabId = activeTabId.value;
 
-    // push new route
-    await routerPushByKey(key, options);
+    const navResult = await routerPushByKey(key, options);
+    const navSuccess = navResult === true;
 
-    // remove old tab (exclude fixed tab)
-    if (!isTabRetain(oldTabId)) {
+    if (navSuccess && !isTabRetain(oldTabId)) {
       await removeTab(oldTabId);
     }
   }
 
-  /**
-   * Switch route by tab
-   *
-   * @param tab
-   */
   async function switchRouteByTab(tab: App.Global.Tab) {
-    const fail = await routerPush(tab.fullPath);
-    if (!fail) {
+    const result = await routerPush(tab.fullPath);
+    const success = result === true;
+    if (success) {
       setActiveTabId(tab.id);
     }
+    return success;
   }
 
   /**
@@ -237,7 +214,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   async function clearRightTabs(tabId: string) {
     const isHomeTab = tabId === homeTab.value?.id;
     if (isHomeTab) {
-      clearTabs();
+      await clearTabs();
       return;
     }
 

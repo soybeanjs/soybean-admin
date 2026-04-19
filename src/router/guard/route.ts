@@ -2,15 +2,69 @@ import type { LocationQueryRaw, RouteLocationNormalized, RouteLocationRaw, Route
 import type { RouteKey, RoutePath } from '@elegant-router/types';
 import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
+import { useFormDirtyStore } from '@/store/modules/form-dirty';
 import { localStg } from '@/utils/storage';
 import { getRouteName } from '@/router/elegant/transform';
+import { $t } from '@/locales';
 
-/**
- * create route guard
- *
- * @param router router instance
- */
+let routerInstance: Router | null = null;
+
+export function setRouterInstance(router: Router) {
+  routerInstance = router;
+}
+
+async function showFormDirtyConfirm(): Promise<boolean> {
+  return new Promise(resolve => {
+    window.$dialog?.warning({
+      title: $t('common.formDirtyLeaveTitle'),
+      content: $t('common.formDirtyLeaveContent'),
+      positiveText: $t('common.formDirtyLeaveConfirm'),
+      negativeText: $t('common.formDirtyLeaveCancel'),
+      closable: false,
+      maskClosable: false,
+      onPositiveClick: () => {
+        const formDirtyStore = useFormDirtyStore();
+        formDirtyStore.markClean();
+        resolve(true);
+      },
+      onNegativeClick: () => {
+        resolve(false);
+      },
+      onClose: () => {
+        resolve(false);
+      }
+    });
+  });
+}
+
+async function handleFormDirtyNavigation(
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized
+): Promise<RouteLocationRaw | boolean | undefined> {
+  const formDirtyStore = useFormDirtyStore();
+
+  if (!formDirtyStore.isDirty) {
+    return handleRouteSwitch(to, from);
+  }
+
+  if (formDirtyStore.pendingNavigation) {
+    formDirtyStore.resetPendingNavigation();
+    return handleRouteSwitch(to, from);
+  }
+
+  const confirmed = await showFormDirtyConfirm();
+
+  if (confirmed) {
+    formDirtyStore.setPendingNavigation(to, from);
+    return to.fullPath;
+  }
+
+  return false;
+}
+
 export function createRouteGuard(router: Router) {
+  setRouterInstance(router);
+
   router.beforeEach(async (to, from) => {
     const location = await initRoute(to);
 
@@ -31,48 +85,35 @@ export function createRouteGuard(router: Router) {
     const hasRole = authStore.userInfo.roles.some(role => routeRoles.includes(role));
     const hasAuth = authStore.isStaticSuper || !routeRoles.length || hasRole;
 
-    // if it is login route when logged in, then switch to the root page
     if (to.name === loginRoute && isLogin) {
-      return { name: rootRoute };
+      return handleFormDirtyNavigation(to, from);
     }
 
-    // if the route does not need login, then it is allowed to access directly
     if (!needLogin) {
-      return handleRouteSwitch(to, from);
+      return handleFormDirtyNavigation(to, from);
     }
 
-    // the route need login but the user is not logged in, then switch to the login page
     if (!isLogin) {
       return { name: loginRoute, query: { redirect: to.fullPath } };
     }
 
-    // if the user is logged in but does not have authorization, then switch to the 403 page
     if (!hasAuth) {
       return { name: noAuthorizationRoute };
     }
 
-    // switch route normally
-    return handleRouteSwitch(to, from);
+    return handleFormDirtyNavigation(to, from);
   });
 }
 
-/**
- * initialize route
- *
- * @param to to route
- */
 async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw | null> {
   const routeStore = useRouteStore();
 
   const notFoundRoute: RouteKey = 'not-found';
   const isNotFoundRoute = to.name === notFoundRoute;
 
-  // if the constant route is not initialized, then initialize the constant route
   if (!routeStore.isInitConstantRoute) {
     await routeStore.initConstantRoute();
 
-    // the route is captured by the "not-found" route because the constant route is not initialized
-    // after the constant route is initialized, redirect to the original route
     const path = to.fullPath;
     const location: RouteLocationRaw = {
       path,
@@ -87,14 +128,12 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   const isLogin = Boolean(localStg.get('token'));
 
   if (!isLogin) {
-    // if the user is not logged in and the route is a constant route but not the "not-found" route, then it is allowed to access.
     if (to.meta.constant && !isNotFoundRoute) {
       routeStore.onRouteSwitchWhenNotLoggedIn();
 
       return null;
     }
 
-    // if the user is not logged in, then switch to the login page
     const loginRoute: RouteKey = 'login';
     const query = getRouteQueryOfLoginRoute(to, routeStore.routeHome);
 
@@ -107,11 +146,8 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   }
 
   if (!routeStore.isInitAuthRoute) {
-    // initialize the auth route
     await routeStore.initAuthRoute();
 
-    // the route is captured by the "not-found" route because the auth route is not initialized
-    // after the auth route is initialized, redirect to the original route
     if (isNotFoundRoute) {
       const rootRoute: RouteKey = 'root';
       const path = to.redirectedFrom?.name === rootRoute ? '/' : to.fullPath;
@@ -129,13 +165,10 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 
   routeStore.onRouteSwitchWhenLoggedIn();
 
-  // the auth route is initialized
-  // it is not the "not-found" route, then it is allowed to access
   if (!isNotFoundRoute) {
     return null;
   }
 
-  // it is captured by the "not-found" route, then check whether the route exists
   const exist = await routeStore.getIsAuthRouteExist(to.path as RoutePath);
   const noPermissionRoute: RouteKey = '403';
 
@@ -151,7 +184,6 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 }
 
 function handleRouteSwitch(to: RouteLocationNormalized, from: RouteLocationNormalized) {
-  // route with href
   if (to.meta.href) {
     window.open(to.meta.href, '_blank');
 

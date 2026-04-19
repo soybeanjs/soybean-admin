@@ -48,7 +48,12 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: '是',
       no: '否'
-    }
+    },
+    formDirtyLeaveTitle: '离开确认',
+    formDirtyLeaveContent: '当前页面存在未保存的修改，是否确认离开？',
+    formDirtyLeaveConfirm: '确认离开',
+    formDirtyLeaveCancel: '取消',
+    formDirtyLeaveBeforeunload: '当前页面存在未保存的修改，确定要离开吗？'
   },
   request: {
     logout: '请求失败后登出用户',

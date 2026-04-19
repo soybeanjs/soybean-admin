@@ -48,7 +48,12 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: 'Yes',
       no: 'No'
-    }
+    },
+    formDirtyLeaveTitle: 'Leave Confirmation',
+    formDirtyLeaveContent: 'There are unsaved changes on the current page. Are you sure you want to leave?',
+    formDirtyLeaveConfirm: 'Leave',
+    formDirtyLeaveCancel: 'Cancel',
+    formDirtyLeaveBeforeunload: 'There are unsaved changes on the current page. Are you sure you want to leave?'
   },
   request: {
     logout: 'Logout user after request failed',
