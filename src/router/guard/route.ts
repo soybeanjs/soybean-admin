@@ -14,8 +14,15 @@ export function setRouterInstance(router: Router) {
 }
 
 async function showFormDirtyConfirm(): Promise<boolean> {
+  if (!window.$dialog) {
+    console.warn('Dialog is not available');
+    return true;
+  }
+
   return new Promise(resolve => {
-    window.$dialog?.warning({
+    let resolved = false;
+
+    const dialog = window.$dialog.warning({
       title: $t('common.formDirtyLeaveTitle'),
       content: $t('common.formDirtyLeaveContent'),
       positiveText: $t('common.formDirtyLeaveConfirm'),
@@ -23,17 +30,35 @@ async function showFormDirtyConfirm(): Promise<boolean> {
       closable: false,
       maskClosable: false,
       onPositiveClick: () => {
-        const formDirtyStore = useFormDirtyStore();
-        formDirtyStore.markClean();
+        if (resolved) return;
+        resolved = true;
+        try {
+          const formDirtyStore = useFormDirtyStore();
+          formDirtyStore.markClean();
+        } catch (e) {
+          console.warn('Failed to access formDirtyStore:', e);
+        }
         resolve(true);
       },
       onNegativeClick: () => {
+        if (resolved) return;
+        resolved = true;
         resolve(false);
       },
       onClose: () => {
+        if (resolved) return;
+        resolved = true;
         resolve(false);
       }
     });
+
+    setTimeout(() => {
+      if (!resolved && dialog) {
+        resolved = true;
+        dialog.destroy();
+        resolve(false);
+      }
+    }, 60000);
   });
 }
 
@@ -41,9 +66,16 @@ async function handleFormDirtyNavigation(
   to: RouteLocationNormalized,
   from: RouteLocationNormalized
 ): Promise<RouteLocationRaw | boolean | undefined> {
-  const formDirtyStore = useFormDirtyStore();
+  let formDirtyStore;
 
-  if (!formDirtyStore.isDirty) {
+  try {
+    formDirtyStore = useFormDirtyStore();
+  } catch (e) {
+    console.warn('Failed to access formDirtyStore:', e);
+    return handleRouteSwitch(to, from);
+  }
+
+  if (!formDirtyStore || !formDirtyStore.isDirty) {
     return handleRouteSwitch(to, from);
   }
 

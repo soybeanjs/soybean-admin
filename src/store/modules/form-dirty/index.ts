@@ -1,9 +1,29 @@
 import { useEventListener } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { getCurrentInstance, ref } from 'vue';
 import type { RouteLocationNormalized } from 'vue-router';
 import { SetupStoreId } from '@/enum';
 import { $t } from '@/locales';
+
+let globalFormDirtyStore: ReturnType<typeof useFormDirtyStore> | null = null;
+
+export function getFormDirtyStore() {
+  if (globalFormDirtyStore) {
+    return globalFormDirtyStore;
+  }
+
+  const instance = getCurrentInstance();
+  if (instance) {
+    try {
+      globalFormDirtyStore = useFormDirtyStore();
+      return globalFormDirtyStore;
+    } catch {
+      console.warn('Pinia may not be initialized yet');
+    }
+  }
+
+  return null;
+}
 
 export const useFormDirtyStore = defineStore(SetupStoreId.FormDirty, () => {
   const isDirty = ref(false);
@@ -33,6 +53,10 @@ export const useFormDirtyStore = defineStore(SetupStoreId.FormDirty, () => {
     pendingNavigation.value = { to, from };
   }
 
+  function init() {
+    globalFormDirtyStore = useFormDirtyStore();
+  }
+
   useEventListener(window, 'beforeunload', (event: BeforeUnloadEvent) => {
     if (isDirty.value) {
       const message = $t('common.formDirtyLeaveBeforeunload');
@@ -50,6 +74,7 @@ export const useFormDirtyStore = defineStore(SetupStoreId.FormDirty, () => {
     markDirty,
     markClean,
     resetPendingNavigation,
-    setPendingNavigation
+    setPendingNavigation,
+    init
   };
 });
