@@ -51,6 +51,17 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'notification',
+    path: '/notification',
+    component: 'layout.base$view.notification',
+    meta: {
+      title: 'notification',
+      i18nKey: 'route.notification',
+      icon: 'mdi:bell-ring',
+      order: 2
+    }
+  },
+  {
     name: 'iframe-page',
     path: '/iframe-page/:url',
     component: 'layout.base$view.iframe-page',

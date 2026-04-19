@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
-import { NTag, NPopover, useDialog, useMessage } from 'naive-ui';
+import { NBadge, NButton, NEmpty, NList, NListItem, NPopover, NTabs, NTabPane, NTag, useDialog, useMessage } from 'naive-ui';
 import { useNotificationStore } from '@/store/modules/notification';
 import { useRouterPush } from '@/hooks/common/router';
-import { $t } from '@/locales';
 import dayjs from 'dayjs';
 
 defineOptions({
@@ -19,10 +18,7 @@ const popoverVisible = ref(false);
 const activePanelTab = ref<Notification.NotificationType>('system');
 
 const displayUnreadCount = computed(() => {
-  if (notificationStore.unreadCount > 99) {
-    return '99+';
-  }
-  return notificationStore.unreadCount > 0 ? notificationStore.unreadCount.toString() : '';
+  return notificationStore.unreadCount;
 });
 
 const currentNotifications = computed(() => {
@@ -100,10 +96,6 @@ function goToNotificationCenter() {
   routerPushByKey('notification');
 }
 
-function handleVisibleChange(visible: boolean) {
-  popoverVisible.value = visible;
-}
-
 watch(popoverVisible, (visible) => {
   if (visible) {
     activePanelTab.value = notificationStore.activeTab;
@@ -123,92 +115,90 @@ onMounted(() => {
     placement="bottom-end"
     trigger="click"
     :show-arrow="true"
-    :overlay-style="{ width: '360px', padding: '0' }"
+    :overlay-style="{ width: '380px', padding: '0' }"
   >
     <template #trigger>
       <div class="relative cursor-pointer">
-        <ButtonIcon tooltip-content="消息通知">
-          <SvgIcon icon="ph:bell" class="text-icon-large" />
-          <Transition name="fade">
-            <div
-              v-if="displayUnreadCount"
-              class="absolute -top-1px -right-1px min-w-[18px] h-[18px] flex-center rounded-full bg-red-500 text-white text-xs font-medium px-4px"
-            >
-              {{ displayUnreadCount }}
-            </div>
-          </Transition>
-        </ButtonIcon>
+        <NBadge
+          :value="displayUnreadCount"
+          :max="99"
+          :show-zero="false"
+          :offset="[6, 6]"
+          :color="'#ff4d4f'"
+        >
+          <ButtonIcon tooltip-content="消息通知">
+            <SvgIcon icon="ph:bell" class="text-icon-large" />
+          </ButtonIcon>
+        </NBadge>
       </div>
     </template>
+
     <div class="p-0">
-      <div class="flex items-center justify-between px-16px py-12px border-b border-solid border-[var(--n-border-color)]">
-        <div class="flex items-center gap-24px">
-          <div
-            class="cursor-pointer transition-colors"
-            :class="{
-              'text-primary-color font-medium': activePanelTab === 'system',
-              'text-[var(--n-text-color-2)]': activePanelTab !== 'system'
-            }"
-            @click="activePanelTab = 'system'"
-          >
-            <span class="flex-center gap-4px">
-              系统通知
-              <NTag
-                v-if="notificationStore.systemUnreadCount > 0"
-                type="error"
-                size="small"
-                round
-                :bordered="false"
-              >
-                {{ notificationStore.systemUnreadCount }}
-              </NTag>
-            </span>
-          </div>
-          <div
-            class="cursor-pointer transition-colors"
-            :class="{
-              'text-primary-color font-medium': activePanelTab === 'todo',
-              'text-[var(--n-text-color-2)]': activePanelTab !== 'todo'
-            }"
-            @click="activePanelTab = 'todo'"
-          >
-            <span class="flex-center gap-4px">
-              我的待办
-              <NTag
-                v-if="notificationStore.todoUnreadCount > 0"
-                type="error"
-                size="small"
-                round
-                :bordered="false"
-              >
-                {{ notificationStore.todoUnreadCount }}
-              </NTag>
-            </span>
-          </div>
-        </div>
+      <div class="px-16px py-12px border-b border-solid border-[var(--n-border-color)]">
+        <NTabs
+          v-model:value="activePanelTab"
+          type="line"
+          animated
+          :tab-style="'min-width: 100px'"
+        >
+          <NTabPane name="system" tab="系统通知">
+            <template #label>
+              <span class="flex items-center gap-4px">
+                系统通知
+                <NTag
+                  v-if="notificationStore.systemUnreadCount > 0"
+                  type="error"
+                  size="small"
+                  round
+                  :bordered="false"
+                >
+                  {{ notificationStore.systemUnreadCount }}
+                </NTag>
+              </span>
+            </template>
+          </NTabPane>
+          <NTabPane name="todo" tab="我的待办">
+            <template #label>
+              <span class="flex items-center gap-4px">
+                我的待办
+                <NTag
+                  v-if="notificationStore.todoUnreadCount > 0"
+                  type="error"
+                  size="small"
+                  round
+                  :bordered="false"
+                >
+                  {{ notificationStore.todoUnreadCount }}
+                </NTag>
+              </span>
+            </template>
+          </NTabPane>
+        </NTabs>
       </div>
 
       <div class="max-h-[320px] overflow-y-auto">
-        <div v-if="currentNotifications.length > 0" class="py-8px">
-          <div
+        <NList v-if="currentNotifications.length > 0" :bordered="false">
+          <NListItem
             v-for="item in currentNotifications"
             :key="item.id"
-            class="px-16px py-12px cursor-pointer transition-colors hover:bg-[var(--n-color-hover)]"
+            class="cursor-pointer transition-colors hover:bg-[var(--n-color-hover)]"
             :class="{
               'bg-[var(--n-color-info-hover)]': item.status === 'unread'
             }"
             @click="handleItemClick(item)"
           >
-            <div class="flex items-start gap-8px">
-              <div class="flex-shrink-0 mt-2px">
+            <template #prefix>
+              <div class="flex-shrink-0 mt-6px">
                 <div
                   v-if="item.status === 'unread'"
                   class="w-6px h-6px rounded-full bg-primary-color"
                 />
                 <div v-else class="w-6px h-6px" />
               </div>
+            </template>
+            <template #main>
               <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-8px">
+                <div class="flex items-center gap-8px mb-4px">
                   <NTag :type="getLevelType(item.level)" size="small" round :bordered="false">
                     {{ item.level === 'info' ? '信息' : item.level === 'success' ? '成功' : item.level === 'warning' ? '警告' : '错误' }}
                   </NTag>
@@ -221,24 +211,26 @@ onMounted(() => {
                     {{ item.title }}
                   </span>
                 </div>
-                <p class="mt-4px text-xs text-[var(--n-text-color-2)] line-clamp-2">
+                <p class="text-xs text-[var(--n-text-color-2)] line-clamp-2 mb-4px">
                   {{ item.content }}
                 </p>
-                <span class="mt-4px inline-block text-[10px] text-[var(--n-text-color-3)]">
+                <span class="text-[10px] text-[var(--n-text-color-3)]">
                   {{ formatTime(item.createdAt) }}
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-        <div v-else class="flex flex-col items-center justify-center py-40px">
-          <SvgIcon icon="ph:bell-slash" class="text-48px text-[var(--n-text-color-3)]" />
-          <p class="mt-12px text-sm text-[var(--n-text-color-2)]">暂无消息</p>
-        </div>
+            </template>
+          </NListItem>
+        </NList>
+
+        <NEmpty v-else description="暂无消息" :style="{ margin: '40px 0' }">
+          <template #icon>
+            <SvgIcon icon="ph:bell-slash" class="text-48px text-[var(--n-text-color-3)]" />
+          </template>
+        </NEmpty>
       </div>
 
       <div class="flex items-center justify-between px-16px py-12px border-t border-solid border-[var(--n-border-color)]">
-        <div class="flex items-center gap-12px">
+        <div class="flex items-center gap-8px">
           <NButton
             v-if="currentUnreadCount > 0"
             quaternary
@@ -266,13 +258,4 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
