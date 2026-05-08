@@ -171,7 +171,7 @@ function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is Nai
         <NSpace align="end" wrap justify="end" class="lt-sm:w-200px">
           <NButton size="small" ghost type="primary" @click="exportExcel">
             <template #icon>
-              <icon-file-icons:microsoft-excel class="text-icon" />
+              <icon-file-icons-microsoft-excel class="text-icon" />
             </template>
             导出excel
           </NButton>

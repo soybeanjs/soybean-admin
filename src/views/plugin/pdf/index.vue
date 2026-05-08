@@ -49,13 +49,13 @@ async function handleDownload() {
         <div class="flex-y-center justify-end gap-12px">
           <NCheckbox v-model:checked="showAllPages" @update:checked="showAllPagesChange">显示所有页面</NCheckbox>
           <ButtonIcon tooltip-content="旋转90度" @click="handleRotate">
-            <icon-material-symbols-light:rotate-90-degrees-ccw-outline-rounded />
+            <icon-material-symbols-light-rotate-90-degrees-ccw-outline-rounded />
           </ButtonIcon>
           <ButtonIcon tooltip-content="打印" @click="handlePrint">
-            <icon-mdi:printer />
+            <icon-mdi-printer />
           </ButtonIcon>
           <ButtonIcon tooltip-content="下载" @click="handleDownload">
-            <icon-charm:download />
+            <icon-charm-download />
           </ButtonIcon>
         </div>
         <NScrollbar class="flex-1-hidden">
