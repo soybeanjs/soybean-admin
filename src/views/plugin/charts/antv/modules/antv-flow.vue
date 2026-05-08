@@ -88,23 +88,23 @@ defineExpose({ selectNode, graph: graphRef });
     <div class="absolute left-0 right-0 z-1 flex items-center items-stretch justify-between">
       <NButtonGroup size="small" class="bg-white!">
         <NButton @click="zoomOut">
-          <icon-mingcute:zoom-out-line />
+          <icon-mingcute-zoom-out-line />
         </NButton>
         <NButton @click="zoomIn">
-          <icon-mingcute:zoom-in-line />
+          <icon-mingcute-zoom-in-line />
         </NButton>
         <NButton @click="resetZoom">
-          <icon-icon-park-outline:equal-ratio />
+          <icon-icon-park-outline-equal-ratio />
         </NButton>
         <NButton @click="fitZoom">
-          <icon-gg:ratio />
+          <icon-gg-ratio />
         </NButton>
       </NButtonGroup>
       <div class="flex-center gap-12px">
         <NPopover placement="bottom-end" :animated="false">
           <template #trigger>
             <NButton size="small" class="bg-white!">
-              <icon-fe:question />
+              <icon-fe-question />
             </NButton>
           </template>
           <div class="flex-col gap-8px">
@@ -113,8 +113,8 @@ defineExpose({ selectNode, graph: graphRef });
               <NGi v-for="(config, status) in nodeStatus" :key="status" class="flex-center">
                 <NTag size="small" round :bordered="false">
                   <template #icon>
-                    <icon-f7:flag-circle-fill v-if="status === 'MILESTONE'" :style="{ color: config.color }" />
-                    <icon-f7:circle-fill v-else :style="{ color: config.color }" />
+                    <icon-f7-flag-circle-fill v-if="status === 'MILESTONE'" :style="{ color: config.color }" />
+                    <icon-f7-circle-fill v-else :style="{ color: config.color }" />
                   </template>
                   {{ config.type }}
                 </NTag>
