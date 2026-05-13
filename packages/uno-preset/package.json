@@ -10,5 +10,9 @@
   },
   "exports": {
     ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@unocss/core": "66.6.8",
+    "@unocss/preset-mini": "66.6.8"
   }
 }
