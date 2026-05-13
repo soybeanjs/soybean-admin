@@ -1,5 +1,52 @@
 # Changelog
 
+## [v2.1.1](https://github.com/soybeanjs/soybean-admin/compare/v2.1.0...v2.1.1) (2026-05-13)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **assets**:
+  - add ts-expect-error comment for svg icons type error &nbsp;-&nbsp; by @soybeanjs [<samp>(f8f0c)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f8f0c6c4)
+- **bin**:
+  - update import statement for index file &nbsp;-&nbsp; by @soybeanjs [<samp>(4549d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/4549ddda)
+- **components**:
+  - correction of wrong label bar configuration explanation. &nbsp;-&nbsp; by **Azir-11** [<samp>(6887b)</samp>](https://github.com/soybeanjs/soybean-admin/commit/6887b016)
+- **i18n-ally**:
+  - add missing TypeScript compiler options. fixed #907 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/907 [<samp>(a5f85)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a5f85810)
+- **projects**:
+  - resolve width abnormal issue of NColorPicker. &nbsp;-&nbsp; by **Azir-11** [<samp>(75ccd)</samp>](https://github.com/soybeanjs/soybean-admin/commit/75ccd008)
+  - fix wrong new tab opening for external link navigation. &nbsp;-&nbsp; by **Azir-11** [<samp>(af1b5)</samp>](https://github.com/soybeanjs/soybean-admin/commit/af1b5f1d)
+  - fix ts and lint error &nbsp;-&nbsp; by @soybeanjs [<samp>(9afa2)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9afa21e4)
+- **tsconfig**:
+  - change moduleResolution to 'bundler' across multiple packages &nbsp;-&nbsp; by @soybeanjs [<samp>(c0105)</samp>](https://github.com/soybeanjs/soybean-admin/commit/c0105c55)
+- **vscode**:
+  - add oxc.vscode extension and update settings for formatting. fixed #904 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/904 [<samp>(f8bd9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f8bd921a)
+- **workflows**:
+  - update actions/checkout and actions/setup-node to v6 &nbsp;-&nbsp; by @soybeanjs [<samp>(b5b50)</samp>](https://github.com/soybeanjs/soybean-admin/commit/b5b5087c)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **mix-menu**: use stable Symbol.for as MixMenu context key. fixed #919 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin/issues/919 [<samp>(e1667)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e1667669)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **hooks**: simplify useContext implementation and improve type definitions &nbsp;-&nbsp; by @soybeanjs [<samp>(f292d)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f292d32d)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **readme**: add SoybeanUI section with description and badges &nbsp;-&nbsp; by @soybeanjs [<samp>(3a7a3)</samp>](https://github.com/soybeanjs/soybean-admin/commit/3a7a36b7)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(a43a7)</samp>](https://github.com/soybeanjs/soybean-admin/commit/a43a7b3b)
+  - update deps &nbsp;-&nbsp; by **soybean-js** [<samp>(9afb3)</samp>](https://github.com/soybeanjs/soybean-admin/commit/9afb335e)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(e8fa9)</samp>](https://github.com/soybeanjs/soybean-admin/commit/e8fa90b4)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+[soybean-js](mailto:soybeanjs@163.com),&nbsp;[Azir-11](mailto:2075125282@qq.com)
+
 ## [v2.1.0](https://github.com/soybeanjs/soybean-admin/compare/v2.0.2...v2.1.0) (2026-03-09)
 
 ### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
