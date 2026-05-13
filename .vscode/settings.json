@@ -15,6 +15,6 @@
   "i18n-ally.parsers.typescript.compilerOptions": {
     "moduleResolution": "node"
   },
-  "prettier.enable": false,
+  "oxc.fmt.configPath": ".oxfmtrc.json",
   "unocss.root": ["./"]
 }

@@ -132,7 +132,7 @@ const local: App.I18n.Schema = {
         title: '标签栏设置',
         visible: '显示标签栏',
         cache: '标签栏信息缓存',
-        cacheTip: '一键开启/关闭全局 keepalive',
+        cacheTip: '离开页面后仍然保留标签栏信息',
         height: '标签栏高度',
         mode: {
           title: '标签栏风格',

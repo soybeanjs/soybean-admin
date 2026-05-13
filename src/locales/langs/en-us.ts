@@ -135,7 +135,7 @@ const local: App.I18n.Schema = {
         title: 'Tab Settings',
         visible: 'Tab Visible',
         cache: 'Tag Bar Info Cache',
-        cacheTip: 'One-click to open/close global keepalive',
+        cacheTip: 'Keep the tab bar information after leaving the page',
         height: 'Tab Height',
         mode: {
           title: 'Tab Mode',
