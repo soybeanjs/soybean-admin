@@ -1,2 +1,15 @@
 packages:
   - 'packages/*'
+allowBuilds:
+  '@antv/util': false
+  '@parcel/watcher': false
+  core-js: false
+  core-js-pure: false
+  es5-ext: false
+  esbuild: false
+  simple-git-hooks: false
+  typeit: false
+  vue-demi: false
+shamefullyHoist: true
+ignoreWorkspaceRootCheck: true
+linkWorkspacePackages: true

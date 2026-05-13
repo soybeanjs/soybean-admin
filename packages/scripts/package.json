@@ -1,6 +1,6 @@
 {
   "name": "@sa/scripts",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "bin": {
     "sa": "./bin.ts"
   },
@@ -15,7 +15,7 @@
     ".": "./src/index.ts"
   },
   "devDependencies": {
-    "@soybeanjs/changelog": "0.4.5",
+    "@soybeanjs/changelog": "0.4.7",
     "bumpp": "11.1.0",
     "c12": "3.3.4",
     "cac": "7.0.0",

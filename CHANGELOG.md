@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.2.0](https://github.com/soybeanjs/soybean-admin/compare/v2.1.1...v2.2.0) (2026-05-13)
+
+### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
+
+- **pnpm**: update pnpm from v10 to v11 &nbsp;-&nbsp; by @soybeanjs [<samp>(1f8e4)</samp>](https://github.com/soybeanjs/soybean-admin/commit/1f8e4eca)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **.gitignore**: add src-tauri/target to ignore list &nbsp;-&nbsp; by @soybeanjs [<samp>(f3975)</samp>](https://github.com/soybeanjs/soybean-admin/commit/f39753e1)
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(77299)</samp>](https://github.com/soybeanjs/soybean-admin/commit/77299691)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v2.1.1](https://github.com/soybeanjs/soybean-admin/compare/v2.1.0...v2.1.1) (2026-05-13)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
