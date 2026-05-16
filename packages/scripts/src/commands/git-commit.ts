@@ -42,25 +42,41 @@ export async function gitCommit(lang: Lang = 'en-us') {
     message: `${value.padEnd(30)} (${msg})`
   }));
 
-  const result = await prompt<PromptObject>([
-    {
-      name: 'types',
-      type: 'select',
-      message: gitCommitMessages.types,
-      choices: typesChoices
-    },
-    {
-      name: 'scopes',
-      type: 'select',
-      message: gitCommitMessages.scopes,
-      choices: scopesChoices
-    },
-    {
-      name: 'description',
-      type: 'text',
-      message: gitCommitMessages.description
+  // Suppress ERR_USE_AFTER_CLOSE thrown by enquirer's readline cleanup on Ctrl+C (Node.js v24+)
+  const errorHandler = (error: NodeJS.ErrnoException) => {
+    if (error.code === 'ERR_USE_AFTER_CLOSE') {
+      process.exit(0);
     }
-  ]);
+  };
+  process.on('uncaughtException', errorHandler);
+
+  let result: PromptObject;
+
+  try {
+    result = await prompt<PromptObject>([
+      {
+        name: 'types',
+        type: 'select',
+        message: gitCommitMessages.types,
+        choices: typesChoices
+      },
+      {
+        name: 'scopes',
+        type: 'select',
+        message: gitCommitMessages.scopes,
+        choices: scopesChoices
+      },
+      {
+        name: 'description',
+        type: 'text',
+        message: gitCommitMessages.description
+      }
+    ]);
+  } catch {
+    process.exit(0);
+  } finally {
+    process.off('uncaughtException', errorHandler);
+  }
 
   const breaking = result.description.startsWith('!') ? '!' : '';
 
