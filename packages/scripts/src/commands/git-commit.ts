@@ -17,7 +17,14 @@ interface PromptObject {
  * @param lang
  */
 export async function gitCommit(lang: Lang = 'en-us') {
-  const { gitCommitMessages, gitCommitTypes, gitCommitScopes } = locales[lang];
+  const { gitCommitMessages, gitCommitNoStaged, gitCommitTypes, gitCommitScopes } = locales[lang];
+
+  const stagedFiles = await execCommand('git', ['diff', '--cached', '--name-only']);
+
+  if (!stagedFiles) {
+    console.error(gitCommitNoStaged);
+    process.exit(1);
+  }
 
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
     const nameWithSuffix = `${value}:`;
