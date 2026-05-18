@@ -23,13 +23,53 @@
 > [!NOTE]
 > The `SoybeanAdmin` quick start series videos have been uploaded to [Bilibili](https://www.bilibili.com/video/BV1YKdRYXELC) Go online [click here](https://www.bilibili.com/video/BV1YKdRYXELC) Go check it out
 
+<div align="center">
+  <table width="100%">
+    <tr>
+      <td align="left">
+        <table>
+          <tr>
+            <td>
+              <a href="https://ui.soybeanjs.cn">
+                <img alt="SoybeanUI" src="./public/favicon.svg" width="52" />
+              </a>
+            </td>
+            <td>
+              <a href="https://ui.soybeanjs.cn">
+                <img
+                  alt="SoybeanUI"
+                  src="https://img.shields.io/badge/SoybeanUI-Headless%20%2B%20UI-6366f1?style=for-the-badge&labelColor=312e81"
+                />
+              </a>
+            </td>
+          </tr>
+        </table>
+        <strong>A powerful and elegant component system for Vue 3, delivering headless interaction capabilities and ready-to-use style encapsulation.</strong><br />
+        <sub>Built on a two-layer Headless + UI architecture to reuse interaction capabilities and unify interface expression.</sub>
+        <br /><br />
+        <img alt="Vue 3" src="https://img.shields.io/badge/Vue%203-Component%20Library-6366f1?style=flat-square&labelColor=4338ca" />
+        <img alt="Headless" src="https://img.shields.io/badge/Headless-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
+        <img alt="Admin" src="https://img.shields.io/badge/Admin-Professional%20UI-a5b4fc?style=flat-square&labelColor=4f46e5" />
+      </td>
+      <td align="right">
+        <a href="https://ui.soybeanjs.cn">
+          <img
+            alt="Visit SoybeanUI"
+            src="https://img.shields.io/badge/Visit-ui.soybeanjs.cn-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
+          />
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
 ## Introduction
 
-[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite7, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `SoybeanAdmin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
+[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite8, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `SoybeanAdmin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
 
 ## Features
 
-- **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite7, TypeScript, Pinia and UnoCSS.
+- **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite8, TypeScript, Pinia and UnoCSS.
 - **Clear project architecture**: using pnpm monorepo architecture, clear structure, elegant and easy to understand.
 - **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, prettier and simple-git-hooks to ensure the code is standardized.
 - **TypeScript**: support strict type checking to improve code maintainability.
@@ -185,20 +225,12 @@ Here are the most active contributors from the past year. Thank you all for your
 
 ## Communication
 
-`SoybeanAdmin` is a completely open source and free project, helping developers to develop medium and large-scale management systems more conveniently. It also provides WeChat and QQ communication groups. If you have any questions, please feel free to ask in the group.
+`SoybeanAdmin` is a completely open source and free project, helping developers to develop medium and large-scale management systems more conveniently. It provides FeiShu communication groups. If you have any questions, please feel free to ask in the group.
 
   <div>
-  	<p>QQ Group</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-5.jpg" style="width:200px" />
+  	<p>FeiShu Group</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/feishu-soybean-admin.png?v=202605151546" style="width:200px" />
   </div>
-	<!-- <div>
-		<p>WeChat Group</p>
-		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/picgo/soybean-admin-wechat-0620.jpg" style="width:200px" />
-	</div> -->
-	<div>
-		<p>Add the following WeChat to invite to the WeChat group</p>
-		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
-	</div>
 
 ## Star Trend
 

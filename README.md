@@ -23,13 +23,53 @@
 > [!NOTE]
 > `SoybeanAdmin` 快速上手系列视频已在 [Bilibili](https://www.bilibili.com/video/BV1YKdRYXELC) 上线 [点击这里](https://www.bilibili.com/video/BV1YKdRYXELC) 前往查看
 
+<div align="center">
+  <table width="100%">
+    <tr>
+      <td align="left">
+        <table>
+          <tr>
+            <td>
+              <a href="https://ui.soybeanjs.cn">
+                <img alt="SoybeanUI" src="./public/favicon.svg" width="52" />
+              </a>
+            </td>
+            <td>
+              <a href="https://ui.soybeanjs.cn">
+                <img
+                  alt="SoybeanUI"
+                  src="https://img.shields.io/badge/SoybeanUI-Headless%20%2B%20UI-6366f1?style=for-the-badge&labelColor=312e81"
+                />
+              </a>
+            </td>
+          </tr>
+        </table>
+        <strong>面向 Vue 3 的强大而优雅的组件系统，提供无头交互能力与开箱即用的样式封装。</strong><br />
+        <sub>采用 Headless + UI 两层架构，复用底层交互能力，统一上层界面表达。</sub>
+        <br /><br />
+        <img alt="Vue 3" src="https://img.shields.io/badge/Vue%203-Component%20Library-6366f1?style=flat-square&labelColor=4338ca" />
+        <img alt="Headless" src="https://img.shields.io/badge/Headless-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
+        <img alt="Admin" src="https://img.shields.io/badge/Admin-Professional%20UI-a5b4fc?style=flat-square&labelColor=4f46e5" />
+      </td>
+      <td align="right">
+        <a href="https://ui.soybeanjs.cn">
+          <img
+            alt="Visit SoybeanUI"
+            src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE-ui.soybeanjs.cn-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
+          />
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
 ## 简介
 
-[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite7, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。`SoybeanAdmin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
+[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite8, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。`SoybeanAdmin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
 
 ## 特性
 
-- **前沿技术应用**：采用 Vue3, Vite7, TypeScript, Pinia 和 UnoCSS 等最新流行的技术栈。
+- **前沿技术应用**：采用 Vue3, Vite8, TypeScript, Pinia 和 UnoCSS 等最新流行的技术栈。
 - **清晰的项目架构**：采用 pnpm monorepo 架构，结构清晰，优雅易懂。
 - **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，集成了eslint, prettier 和 simple-git-hooks，保证代码的规范性。
 - **TypeScript**： 支持严格的类型检查，提高代码的可维护性。
@@ -210,20 +250,12 @@ pnpm build
 
 ## 交流
 
-`SoybeanAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
+`SoybeanAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时提供飞书群供大家交流，使用问题欢迎在群内提问。
 
-  <div>
-  	<p>QQ交流群</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-5.jpg" style="width:200px" />
-  </div>
-	<!-- <div>
-		<p>微信群</p>
-		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/picgo/soybean-admin-wechat-0620.jpg" style="width:200px" />
-	</div> -->
-	<div>
-		<p>添加下面微信邀请进微信群</p>
-		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
-	</div>
+<div>
+  <p>飞书群</p>
+  <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/feishu-soybean-admin.png?v=202605151546" style="width:200px" />
+</div>
 
 ## Star 趋势
 

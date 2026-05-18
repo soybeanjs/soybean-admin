@@ -6,7 +6,13 @@ import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
 
-export const [provideMixMenuContext, useMixMenuContext] = useContext('MixMenu', useMixMenu);
+export const [provideMixMenuContext, useMixMenuContext] = useContext(
+  {
+    name: 'MixMenu',
+    key: Symbol.for('MixMenu')
+  },
+  useMixMenu
+);
 
 function useMixMenu() {
   const route = useRoute();
