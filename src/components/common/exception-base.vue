@@ -5,12 +5,13 @@ import { $t } from '@/locales';
 
 defineOptions({ name: 'ExceptionBase' });
 
-type ExceptionType = '403' | '404' | '500';
+type ExceptionType = '401' | '403' | '404' | '500';
 
 interface Props {
   /**
    * Exception type
    *
+   * - 401: unauthorized
    * - 403: no permission
    * - 404: not found
    * - 500: service error
@@ -23,6 +24,7 @@ const props = defineProps<Props>();
 const { routerPushByKey } = useRouterPush();
 
 const iconMap: Record<ExceptionType, string> = {
+  '401': 'unauthorized',
   '403': 'no-permission',
   '404': 'not-found',
   '500': 'service-error'
