@@ -13,6 +13,7 @@ import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 import {
   filterAuthRoutesByRoles,
+  filterRoutesByDev,
   getBreadcrumbsByRoute,
   getCacheRouteNames,
   getGlobalMenusByAuthRoutes,
@@ -231,7 +232,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   /** handle constant and auth routes */
   function handleConstantAndAuthRoutes() {
-    const allRoutes = [...constantRoutes.value, ...authRoutes.value];
+    const allRoutes = filterRoutesByDev([...constantRoutes.value, ...authRoutes.value]);
 
     const sortRoutes = sortRoutesByOrder(allRoutes);
 
