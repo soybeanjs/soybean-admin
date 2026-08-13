@@ -234,7 +234,7 @@ Here are the most active contributors from the past year. Thank you all for your
 
 ## Star Trend
 
-[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.dera.page/#soybeanjs/soybean-admin&Date)
 
 ## License
 
