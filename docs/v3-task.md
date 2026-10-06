@@ -73,18 +73,18 @@
 
 | ID    | 任务                                                          | 依据      | 状态 | 验收/备注                                                                                                                                          |
 | ----- | ------------------------------------------------------------- | --------- | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P1-01 | Drizzle 13 表 + 迁移 + seed（移植 unify）                     | §6.1/§6.2 | ⬜   | user/role/permission/api/menu/org/dict/dict-item + 4 关系表                                                                                        |
-| P1-02 | db0 connector 显式接线                                        | §6.2      | ⬜   | dev SQLite（better-sqlite3）/ prod Postgres（postgres-js）；**默认内存实现必须显式替换**                                                           |
-| P1-03 | 统一响应 + 错误 + 业务码                                      | §6.1      | ⬜   | `c.json` 重写为 `{code,message,data}`；AppError + error 中间件；8888/7777/9999                                                                     |
-| P1-04 | auth 模块（7 端点）                                           | §6.3/§5.5 | ⬜   | login（pwd/captcha）、register、token/refresh、logout、user-info、captcha、`POST /error`                                                           |
-| P1-05 | JWT 双 token + 黑名单                                         | §6.4      | ⬜   | `useCacheStore`（dev 内存 / prod Redis driver）；登出拉黑 refreshToken                                                                             |
-| P1-06 | RBAC 中间件 `src/middleware/01.auth.ts`                       | §6.1/§2   | ⬜   | Bearer → verifyToken（黑名单+用户状态）→ 权限码 `api:${method}:${template}` 匹配                                                                   |
-| P1-07 | 8 套 CRUD（menu/role/user/permission/api/org/dict/dict-item） | §6.3      | ⬜   | 含 role 菜单/按钮权限分配、user 分配角色                                                                                                           |
-| P1-08 | 数据模型约定                                                  | §6.1      | ⬜   | UUID v7 字符串主键、`enabled: 'Y'\|'N'\|'D'` 软删、审计四字段                                                                                      |
-| P1-09 | OpenAPI 文档端点                                              | §6.1      | ⬜   | `/_openapi.json` + `/_scalar`（dev 自动挂载）                                                                                                      |
-| P1-10 | 集成测试 ≥40 例                                               | §9 P1     | ⬜   | 参照 `ubean/examples/ubean-test/`（38 例范式）                                                                                                     |
-| P1-11 | 服务端全局 hooks `src/server.ts`（`defineServer`）            | §6.1      | ⬜   | requestId / 日志 / 错误映射                                                                                                                        |
-| P1-12 | **硬性约束**：所有 API 路由必须 `defineHandler` 包装          | §6.1      | ⬜   | `defineHandlerMeta` 只装 requiresAuth/cache/rateLimit；OpenAPI 元数据走 `describeRoute`；它们**不是宏**，当宏调用会被 build strip → 运行时语法错误 |
+| P1-01 | Drizzle 13 表 + 迁移 + seed（移植 unify）                     | §6.1/§6.2 | ✅   | user/role/permission/api/menu/org/dict/dict-item + 4 关系表                                                                                        |
+| P1-02 | db0 connector 显式接线                                        | §6.2      | ✅   | dev SQLite（better-sqlite3）/ prod Postgres（postgres-js）；**默认内存实现必须显式替换**                                                           |
+| P1-03 | 统一响应 + 错误 + 业务码                                      | §6.1      | ✅   | `c.json` 重写为 `{code,message,data}`；AppError + error 中间件；8888/7777/9999                                                                     |
+| P1-04 | auth 模块（7 端点）                                           | §6.3/§5.5 | ✅   | login（pwd/captcha）、register、token/refresh、logout、user-info、captcha、`POST /error`                                                           |
+| P1-05 | JWT 双 token + 黑名单                                         | §6.4      | ✅   | `useCacheStore`（dev 内存 / prod Redis driver）；登出拉黑 refreshToken                                                                             |
+| P1-06 | RBAC 中间件 `src/middleware/01.auth.ts`                       | §6.1/§2   | ✅   | Bearer → verifyToken（黑名单+用户状态）→ 权限码 `api:${method}:${template}` 匹配                                                                   |
+| P1-07 | 8 套 CRUD（menu/role/user/permission/api/org/dict/dict-item） | §6.3      | ✅   | 含 role 菜单/按钮权限分配、user 分配角色                                                                                                           |
+| P1-08 | 数据模型约定                                                  | §6.1      | ✅   | UUID v7 字符串主键、`enabled: 'Y'\|'N'\|'D'` 软删、审计四字段                                                                                      |
+| P1-09 | OpenAPI 文档端点                                              | §6.1      | ✅   | `/_openapi.json` + `/_scalar`（dev 自动挂载）                                                                                                      |
+| P1-10 | 集成测试 ≥40 例                                               | §9 P1     | ✅   | 参照 `ubean/examples/ubean-test/`（38 例范式）                                                                                                     |
+| P1-11 | 服务端全局 hooks `src/server.ts`（`defineServer`）            | §6.1      | ✅   | requestId / 日志 / 错误映射                                                                                                                        |
+| P1-12 | **硬性约束**：所有 API 路由必须 `defineHandler` 包装          | §6.1      | ✅   | `defineHandlerMeta` 只装 requiresAuth/cache/rateLimit；OpenAPI 元数据走 `describeRoute`；它们**不是宏**，当宏调用会被 build strip → 运行时语法错误 |
 
 **Phase 1 出口判据**：`/_scalar` 可见完整 API、认证链路（登录→刷新→登出拉黑）e2e 通过、RBAC 生效、集成测试 ≥40 例全绿。
 

@@ -185,6 +185,9 @@ importers:
       '@soybeanjs/fetch':
         specifier: ^0.1.0
         version: 0.1.0
+      '@soybeanjs/utils':
+        specifier: ^0.1.1
+        version: 0.1.1
       '@ubean/icon':
         specifier: ^0.6.0
         version: 0.6.0(@types/node@26.6.4)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(yaml@2.9.1)
@@ -206,9 +209,21 @@ importers:
       '@vueuse/core':
         specifier: ^15.0.0
         version: 15.0.0(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      bcryptjs:
+        specifier: ^3.0.3
+        version: 3.0.3
+      better-sqlite3:
+        specifier: ^13.0.3
+        version: 13.0.3
+      drizzle-orm:
+        specifier: ^0.45.3
+        version: 0.45.3(@types/better-sqlite3@9.6.0)(better-sqlite3@13.0.3)(postgres@3.4.9)
       pinia:
         specifier: ^4.0.3
         version: 4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      postgres:
+        specifier: ^3.4.9
+        version: 3.4.9
       ubean:
         specifier: ^0.6.0
         version: 0.6.0(d9a1857597912b6a392e426376bf0810)
@@ -237,6 +252,9 @@ importers:
       '@soybeanjs/unocss-preset':
         specifier: ^0.2.0
         version: 0.2.0(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.4)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(cac@7.0.0)(rollup@4.64.0)(srvx@1.0.5)
+      '@types/better-sqlite3':
+        specifier: ^9.6.0
+        version: 9.6.0
       '@types/node':
         specifier: ^26.6.4
         version: 26.6.4
@@ -1788,6 +1806,9 @@ packages:
   '@soybeanjs/unocss-preset@0.2.0':
     resolution: {integrity: sha512-ELjt4BKoU3NsrvzPHK7EsMMz2ZC8F4Qtpny38qeRvvrS7YzHEj5CwD6LeQF2USEo9msJRYU2uwLTIJRFOClNxA==}
 
+  '@soybeanjs/utils@0.1.1':
+    resolution: {integrity: sha512-Esq2pFyhtA1J6LnHvLXyS9xFGeDfVhaw80IMTabxMhVMQUwDFWMa5KAlrkT0TBmQct1hJTszRo9AvvuUCKGp0w==}
+
   '@standard-community/standard-json@0.3.6':
     resolution: {integrity: sha512-tuXKz1Ps4al0W4xhfwii7v4lskKtOv3QE7mcouRVThrBdOR6JzY4Vea3nsxcEnte84bOJvMvXGmOMWE3IBbHyA==}
     peerDependencies:
@@ -1914,6 +1935,9 @@ packages:
 
   '@types/aria-query@5.0.4':
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
+
+  '@types/better-sqlite3@9.6.0':
+    resolution: {integrity: sha512-ZEEwBSgMu7GYJOynoagg5X9JbxfL6dTJDsgViJIqh67jV44kyOr9RXfmFjLK5rzC4MWssP06t9hu/JwGDnUbCg==}
 
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
@@ -2873,6 +2897,14 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
+  bcryptjs@3.0.3:
+    resolution: {integrity: sha512-GlF5wPWnSa/X5LKM1o0wz0suXIINz1iHRLvTS+sLyi7XPbe5ycmYI3DlZqVGZZtDgl4DmasFg7gOB3JYbphV5g==}
+    hasBin: true
+
+  better-sqlite3@13.0.3:
+    resolution: {integrity: sha512-RbOBxmLBG8uvFUc15X9+9SFemKcQ0WBuISBVkpuiaUB2qblC8UWlHEjdWVoZ8AdhSwmoEgsiXKfopX0CQxaACQ==}
+    engines: {node: '>=22'}
+
   birpc@2.9.0:
     resolution: {integrity: sha512-KrayHS5pBi69Xi9JmvoqrIgYGDkD6mcSe/i6YKi3w5kekCLzrX4+nawcXqrj2tIp50Kw/mT/s3p+GVK0A0sKxw==}
 
@@ -3111,6 +3143,101 @@ packages:
   dotenv@17.4.2:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
+
+  drizzle-orm@0.45.3:
+    resolution: {integrity: sha512-CAloER21cDdcgZ1OmjrZX82EeRNsdP+y0onX/eyoYDaYzki/adrAa91lzM5jWh7zZPK4qUbw/6LGv9J+A+uizA==}
+    peerDependencies:
+      '@aws-sdk/client-rds-data': '>=3'
+      '@cloudflare/workers-types': '>=4'
+      '@electric-sql/pglite': '>=0.2.0'
+      '@libsql/client': '>=0.10.0'
+      '@libsql/client-wasm': '>=0.10.0'
+      '@neondatabase/serverless': '>=0.10.0'
+      '@netlify/db': '>=0.4.0'
+      '@op-engineering/op-sqlite': '>=2'
+      '@opentelemetry/api': ^1.4.1
+      '@planetscale/database': '>=1.13'
+      '@prisma/client': '*'
+      '@tidbcloud/serverless': '*'
+      '@types/better-sqlite3': '*'
+      '@types/pg': '*'
+      '@types/sql.js': '*'
+      '@upstash/redis': '>=1.34.7'
+      '@vercel/postgres': '>=0.8.0'
+      '@xata.io/client': '*'
+      better-sqlite3: '>=7'
+      bun-types: '*'
+      expo-sqlite: '>=14.0.0'
+      gel: '>=2'
+      knex: '*'
+      kysely: '*'
+      mysql2: '>=2'
+      pg: '>=8'
+      postgres: '>=3'
+      prisma: '*'
+      sql.js: '>=1'
+      sqlite3: '>=5'
+    peerDependenciesMeta:
+      '@aws-sdk/client-rds-data':
+        optional: true
+      '@cloudflare/workers-types':
+        optional: true
+      '@electric-sql/pglite':
+        optional: true
+      '@libsql/client':
+        optional: true
+      '@libsql/client-wasm':
+        optional: true
+      '@neondatabase/serverless':
+        optional: true
+      '@netlify/db':
+        optional: true
+      '@op-engineering/op-sqlite':
+        optional: true
+      '@opentelemetry/api':
+        optional: true
+      '@planetscale/database':
+        optional: true
+      '@prisma/client':
+        optional: true
+      '@tidbcloud/serverless':
+        optional: true
+      '@types/better-sqlite3':
+        optional: true
+      '@types/pg':
+        optional: true
+      '@types/sql.js':
+        optional: true
+      '@upstash/redis':
+        optional: true
+      '@vercel/postgres':
+        optional: true
+      '@xata.io/client':
+        optional: true
+      better-sqlite3:
+        optional: true
+      bun-types:
+        optional: true
+      expo-sqlite:
+        optional: true
+      gel:
+        optional: true
+      knex:
+        optional: true
+      kysely:
+        optional: true
+      mysql2:
+        optional: true
+      pg:
+        optional: true
+      postgres:
+        optional: true
+      prisma:
+        optional: true
+      sql.js:
+        optional: true
+      sqlite3:
+        optional: true
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -3923,6 +4050,10 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
+  node-addon-api@8.9.2:
+    resolution: {integrity: sha512-VijLXbi3UACN69I0JVXJsX4tjACjNoQDgv2gTF6sx2wWEi8tkSg2eX8p5gSIFi8z2+DL3oHmY6OyKce38SDolg==}
+    engines: {node: ^18 || ^20 || >= 21}
+
   node-fetch-native@1.6.7:
     resolution: {integrity: sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q==}
 
@@ -4133,6 +4264,10 @@ packages:
   postcss@8.5.29:
     resolution: {integrity: sha512-49cGhUbXj8Qenv0iTMxA1cFBzxXoctpC9Ujd77t1WcbJIr6nF/eI7g/8MgxrYldFRuAXvja7xQRwavoW7kgrxQ==}
     engines: {node: ^10 || ^12 || >=14}
+
+  postgres@3.4.9:
+    resolution: {integrity: sha512-GD3qdB0x1z9xgFI6cdRD6xu2Sp2WCOEoe3mtnyB5Ee0XrrL5Pe+e4CCnJrRMnL1zYtRDZmQQVbvOttLnKDLnaw==}
+    engines: {node: '>=12'}
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -6444,6 +6579,8 @@ snapshots:
       - srvx
       - vite
 
+  '@soybeanjs/utils@0.1.1': {}
+
   '@standard-community/standard-json@0.3.6(@standard-schema/spec@1.1.0)(@types/json-schema@7.0.15)(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
     dependencies:
       '@standard-schema/spec': 1.1.0
@@ -6529,6 +6666,10 @@ snapshots:
       string.prototype.matchall: 4.1.0
 
   '@types/aria-query@5.0.4': {}
+
+  '@types/better-sqlite3@9.6.0':
+    dependencies:
+      '@types/node': 26.6.4
 
   '@types/chai@5.2.3':
     dependencies:
@@ -8049,6 +8190,12 @@ snapshots:
 
   baseline-browser-mapping@2.11.27: {}
 
+  bcryptjs@3.0.3: {}
+
+  better-sqlite3@13.0.3:
+    dependencies:
+      node-addon-api: 8.9.2
+
   birpc@2.9.0: {}
 
   boolbase@1.0.0: {}
@@ -8272,6 +8419,12 @@ snapshots:
   dom-accessibility-api@0.5.16: {}
 
   dotenv@17.4.2: {}
+
+  drizzle-orm@0.45.3(@types/better-sqlite3@9.6.0)(better-sqlite3@13.0.3)(postgres@3.4.9):
+    optionalDependencies:
+      '@types/better-sqlite3': 9.6.0
+      better-sqlite3: 13.0.3
+      postgres: 3.4.9
 
   dunder-proto@1.0.1:
     dependencies:
@@ -9160,6 +9313,8 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
+  node-addon-api@8.9.2: {}
+
   node-fetch-native@1.6.7: {}
 
   node-releases@2.0.57: {}
@@ -9401,6 +9556,8 @@ snapshots:
       nanoid: 3.3.20
       picocolors: 1.1.1
       source-map-js: 1.2.2
+
+  postgres@3.4.9: {}
 
   prelude-ls@1.2.1: {}
 

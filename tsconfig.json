@@ -22,6 +22,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "skipLibCheck": true
   },
   "include": ["src/**/*.ts", "src/**/*.vue", ".ubean/**/*.d.ts", "*.config.ts"],
