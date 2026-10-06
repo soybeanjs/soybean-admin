@@ -36,3 +36,7 @@ src-tauri/target
 
 # Vite+ Git hook dispatcher（生成物；项目自有 hook 脚本 .vite-hooks/* 需提交）
 .vite-hooks/_
+.data/
+
+# 集成测试运行时产物（global-setup 写入的 dev server 地址）
+test/baseUrl.txt

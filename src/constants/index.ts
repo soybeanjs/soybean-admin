@@ -31,3 +31,6 @@ export type AppLocale = (typeof APP_LOCALES)[number];
 
 /** 默认 locale（需与 `ubean.config.ts` 的 `i18n.defaultLocale` 一致） */
 export const DEFAULT_LOCALE: AppLocale = 'zh';
+
+export * from './db';
+export * from './error-code';
