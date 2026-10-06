@@ -23,5 +23,5 @@ export default defineConfig({
     // 组件库走源码 ESM，预构建会破坏 UnoCSS 的 filesystem content 扫描
     exclude: ['@vean/ui', '@vean/aria']
   },
-  plugins: [ubeanPlugin() as never, UnoCSS()]
+  plugins: [ubeanPlugin(), UnoCSS()]
 });

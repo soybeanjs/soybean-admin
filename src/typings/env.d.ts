@@ -17,6 +17,10 @@ interface ImportMetaEnv {
   readonly VITE_API_PREFIX: string;
   /** dev 代理目标（可选） */
   readonly VITE_API_PROXY: string;
+  /** 后端多环境标识（local/dev/prod…，docs/v3.md §4.3） */
+  readonly VITE_API_ENV: string;
+  /** 初始主题预设名，需与 `themePresets` 的 `name` 匹配，未知值回落 `default` */
+  readonly VITE_THEME_PRESET: string;
 }
 
 interface ImportMeta {

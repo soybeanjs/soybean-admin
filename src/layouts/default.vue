@@ -26,10 +26,12 @@ const { effectiveMode, setMode } = useTheme();
 
 const isDark = computed(() => effectiveMode.value === 'dark');
 
-const LOCALE_LABEL: Record<AppLocale, string> = {
-  zh: '中文',
-  en: 'EN'
-};
+/** locale key -> 展示文案；未知值回退原样展示（避免 `as AppLocale` 断言） */
+function getLocaleLabel(value: string): string {
+  if (value === 'zh') return '中文';
+  if (value === 'en') return 'EN';
+  return value;
+}
 
 /** `setLocale` 来自 `ubean/client`（不是 vue-i18n 的 `useI18n()` 返回值） */
 async function toggleLocale(): Promise<void> {
@@ -54,7 +56,7 @@ function toggleColorMode(): void {
 
       <div class="flex items-center gap-2">
         <SButton size="sm" variant="ghost" @click="toggleLocale">
-          {{ LOCALE_LABEL[locale as AppLocale] ?? locale }}
+          {{ getLocaleLabel(locale) }}
         </SButton>
         <SButton size="sm" variant="ghost" @click="toggleColorMode">
           {{ isDark ? t('common.lightMode') : t('common.darkMode') }}
