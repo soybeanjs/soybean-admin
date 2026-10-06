@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { setLocale } from 'ubean/client';
 import { SButton, useTheme } from '@vean/ui';
-import { APP_TITLE } from '@/constants';
+import { APP_TITLE, DEFAULT_LOCALE } from '@/constants';
 import type { AppLocale } from '@/constants';
 import { useAppStore } from '@/store';
 
@@ -27,13 +27,13 @@ const { effectiveMode, setMode } = useTheme();
 const isDark = computed(() => effectiveMode.value === 'dark');
 
 const LOCALE_LABEL: Record<AppLocale, string> = {
-  'zh-CN': '中文',
-  'en-US': 'EN'
+  zh: '中文',
+  en: 'EN'
 };
 
 /** `setLocale` 来自 `ubean/client`（不是 vue-i18n 的 `useI18n()` 返回值） */
 async function toggleLocale(): Promise<void> {
-  const next: AppLocale = locale.value === 'zh-CN' ? 'en-US' : 'zh-CN';
+  const next: AppLocale = locale.value === DEFAULT_LOCALE ? 'en' : DEFAULT_LOCALE;
 
   await setLocale(next);
   appStore.setLocaleMirror(next);

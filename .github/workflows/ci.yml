@@ -49,3 +49,21 @@ jobs:
       # 与 benchmarks/bundle-baseline.json 比对，gzip 增长 > 5% 失败
       - name: Bundle budget
         run: pnpm analyze:check
+
+      # 样式产物守卫（G-06）。两次真实事故都是「dev 正常、build 丢样式」：
+      #   1. 漏 `import 'uno.css'`        → 产物 CSS 49 B
+      #   2. 漏 `import '@vean/ui/styles.css'` → 产物 CSS 4.2 kB（`ui: true` 的
+      #      registry 注入只在 `ubean dev` 生效，构建路径会丢）
+      # 正常值 ~188 kB；低于 150 kB 说明有一路没进产物。
+      - name: CSS artifact guard
+        run: |
+          css=$(find dist/public/assets -name '*.css' -maxdepth 1 | head -1)
+          size=$(wc -c < "$css" | tr -d ' ')
+          echo "CSS artifact: $css ($size bytes)"
+          if [ "$size" -lt 153600 ]; then
+            echo "::error::CSS artifact is only $size bytes (expected >150000)."
+            echo "Likely a missing style import in src/app.ts — it needs BOTH:"
+            echo "  import 'uno.css';            // app utilities"
+            echo "  import '@vean/ui/styles.css'; // component styles"
+            exit 1
+          fi

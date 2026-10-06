@@ -13,21 +13,23 @@ export default defineConfig({
    */
   ssr: false,
   /**
-   * UnoCSS 模式：只注册 UiResolver（组件自动导入），样式交由 `uno.config.ts`
-   * 里的 `@vean/unocss` preset 统一管理（见 §3.1 styles/）。
-   * `ui: true` 会额外注入预构建的 `@vean/ui/styles.css`，与 UnoCSS 重复，故关闭。
+   * UI 集成：注册 UiResolver（组件自动导入）。
+   *
+   * `css` 保持默认 `true`：dev 下由 module registry 把 `@vean/ui/styles.css`
+   * 注入虚拟客户端入口。**但构建路径不会带上它**（`prepareBuild()` 先写盘
+   * `client-entry.mjs` 再 `resolveModules()`，见 `src/app.ts` 的说明），
+   * 所以应用侧仍有显式 `import '@vean/ui/styles.css'` 作为唯一可靠来源；
+   * 两者解析同一模块说明符，Vite 会去重。
    */
-  ui: {
-    css: false
-  },
+  ui: true,
   colorMode: false,
   icon: true,
   pinia: true,
   i18n: {
-    defaultLocale: 'zh-CN',
+    defaultLocale: 'zh',
     locales: [
-      { code: 'zh-CN', language: 'zh-CN', name: '简体中文', dir: 'ltr' },
-      { code: 'en-US', language: 'en-US', name: 'English', dir: 'ltr' }
+      { code: 'zh', language: 'zh-CN', name: '简体中文', dir: 'ltr' },
+      { code: 'en', language: 'en-US', name: 'English', dir: 'ltr' }
     ],
     strategy: 'prefix_except_default'
   },

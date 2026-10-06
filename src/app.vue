@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SConfigProvider } from '@vean/ui';
-import { VEAN_LOCALE_MAP } from '@/constants';
 import { useThemeStore } from '@/store/modules/theme';
 
 /**
@@ -24,8 +23,14 @@ defineOptions({ name: 'AppRoot' });
 const themeStore = useThemeStore();
 const { locale } = useI18n();
 
-/** Vean 只预注册 `en` / `zh-CN`，本应用的 `en-US` 需降级到 `en` */
-const veanLocale = computed(() => VEAN_LOCALE_MAP[locale.value] ?? 'en');
+/**
+ * 把应用 locale 直接交给 SConfigProvider 做组件文案 locale。
+ *
+ * `zh` / `en` 里**只有 `en` 是 Vean（`@vean/aria/locale`）出厂注册的 key**；
+ * 中文出厂的 key 是 `zh-CN`，而未知 key 会被静默回落到 `en`。`zh` 的补注册
+ * 在 `src/app.ts` 里通过 `registerVeanLocales()` 完成（见 `@/shared/vean-locale`）。
+ */
+const veanLocale = computed(() => locale.value);
 </script>
 
 <template>
