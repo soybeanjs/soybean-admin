@@ -1,6 +1,7 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { ThemeOptions, ThemeRadiusValue } from '@vean/theme';
+import { env } from '@/env';
 
 type PaletteKey = NonNullable<ThemeOptions['base']>;
 
@@ -19,6 +20,13 @@ export const themePresets: ThemePreset[] = [
   { name: 'emerald', label: '翠绿', primary: 'emerald', base: 'gray', radius: '0.25rem' }
 ];
 
+/** 从 `VITE_THEME_PRESET` 解析初始预设名，未知值回落 `default`（即 `themePresets[0]`） */
+function getInitialPresetName(): string {
+  const fromEnv = env.themePreset;
+
+  return themePresets.some(item => item.name === fromEnv) ? fromEnv : themePresets[0]!.name;
+}
+
 /**
  * 主题**预设表**（应用级数据）。
  *
@@ -31,7 +39,7 @@ export const themePresets: ThemePreset[] = [
  * 主题定制抽屉要用），且需要在 provider 之外（如 `src/app.vue`）读取。
  */
 export const useThemeStore = defineStore('theme', () => {
-  const presetName = ref(themePresets[0]!.name);
+  const presetName = ref(getInitialPresetName());
 
   const preset = computed(() => themePresets.find(item => item.name === presetName.value) ?? themePresets[0]!);
 

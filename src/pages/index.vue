@@ -40,7 +40,7 @@ async function loadHealth(): Promise<void> {
     return;
   }
 
-  health.value = data as HealthInfo;
+  health.value = data;
 }
 
 onMounted(loadHealth);

@@ -14,6 +14,8 @@ export const env = {
   apiBaseUrl: import.meta.env.VITE_API_BASE_URL || '',
   apiPrefix: import.meta.env.VITE_API_PREFIX || '/api',
   apiProxy: import.meta.env.VITE_API_PROXY || '',
+  apiEnv: import.meta.env.VITE_API_ENV || 'local',
+  themePreset: import.meta.env.VITE_THEME_PRESET || 'default',
   mode: import.meta.env.MODE,
   isDev: import.meta.env.DEV,
   isProd: import.meta.env.PROD
