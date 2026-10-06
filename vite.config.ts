@@ -1,51 +1,27 @@
-import process from 'node:process';
-import { URL, fileURLToPath } from 'node:url';
-import { defineConfig, loadEnv } from 'vite';
-import { setupVitePlugins } from './build/plugins';
-import { createViteProxy, getBuildTime } from './build/config';
+import { defineConfig } from 'vite-plus';
+import { ubeanPlugin } from 'ubean/vite';
+import UnoCSS from 'unocss/vite';
+import { fmt, lint } from '@soybeanjs/oxc-config';
 
-export default defineConfig(configEnv => {
-  const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as Env.ImportMeta;
-
-  const buildTime = getBuildTime();
-
-  const enableProxy = configEnv.command === 'serve' && !configEnv.isPreview;
-
-  return {
-    base: viteEnv.VITE_BASE_URL,
-    resolve: {
-      alias: {
-        '~': fileURLToPath(new URL('./', import.meta.url)),
-        '@': fileURLToPath(new URL('./src', import.meta.url))
-      }
-    },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-          additionalData: `@use "@/styles/scss/global.scss" as *;`
-        }
-      }
-    },
-    plugins: setupVitePlugins(viteEnv, buildTime),
-    define: {
-      BUILD_TIME: JSON.stringify(buildTime)
-    },
-    server: {
-      host: '0.0.0.0',
-      port: 9527,
-      open: true,
-      proxy: createViteProxy(viteEnv, enableProxy)
-    },
-    preview: {
-      port: 9725
-    },
-    build: {
-      reportCompressedSize: false,
-      sourcemap: viteEnv.VITE_SOURCE_MAP === 'Y',
-      commonjsOptions: {
-        ignoreTryCatch: false
-      }
-    }
-  };
+export default defineConfig({
+  staged: {
+    '*': 'vp check --fix'
+  },
+  fmt,
+  lint,
+  // 让 vite 直接消费 tsconfig 的 `paths`（`@/*` → `./src/*`）
+  resolve: {
+    tsconfigPaths: true
+  },
+  // 开发端口：本项目 dev script 是 `vp dev`（裸 Vite 路径，ADR-0012），
+  // 该路径只认这里的 `server.port`；`ubean.config.ts` 的 `dev.port`
+  // 仅在 `ubean dev` CLI 路径生效（两者默认值同为 9527，保持一致）。
+  server: {
+    port: 9527
+  },
+  optimizeDeps: {
+    // 组件库走源码 ESM，预构建会破坏 UnoCSS 的 filesystem content 扫描
+    exclude: ['@vean/ui', '@vean/aria']
+  },
+  plugins: [ubeanPlugin() as never, UnoCSS()]
 });

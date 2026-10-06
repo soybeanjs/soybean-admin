@@ -1,30 +1,33 @@
-import type { App } from 'vue';
-import {
-  type RouterHistory,
-  createMemoryHistory,
-  createRouter,
-  createWebHashHistory,
-  createWebHistory
-} from 'vue-router';
-import { createBuiltinVueRoutes } from './routes/builtin';
-import { createRouterGuard } from './guard';
+import type { Router } from 'vue-router';
+import { progress } from '@vean/ui';
+import { APP_TITLE } from '@/constants';
 
-const { VITE_ROUTER_HISTORY_MODE = 'history', VITE_BASE_URL } = import.meta.env;
+/**
+ * 全局路由守卫（由 `defineApp({ router: { setup } })` 注册）。
+ *
+ * - 顶部加载进度条：`@vean/ui` 的 `progress`（`ProgressObserver` 静态实例）。
+ *   `SConfigProvider` 已自动挂载 `SProgressProvider`，**无需**手动包 Provider。
+ * - 页面标题：`to.meta.title` 由 `definePage({ meta })` / 扫描器写入。
+ *
+ * 注意：`setup` 必须**同步**注册守卫（守卫体本身可以异步）。
+ */
+export function setupRouterGuard(router: Router): void {
+  router.beforeEach(to => {
+    progress.start();
 
-const historyCreatorMap: Record<Env.RouterHistoryMode, (base?: string) => RouterHistory> = {
-  hash: createWebHashHistory,
-  history: createWebHistory,
-  memory: createMemoryHistory
-};
+    if (typeof document !== 'undefined') {
+      const title = to.meta?.title;
+      document.title = title ? `${String(title)} | ${APP_TITLE}` : APP_TITLE;
+    }
 
-export const router = createRouter({
-  history: historyCreatorMap[VITE_ROUTER_HISTORY_MODE](VITE_BASE_URL),
-  routes: createBuiltinVueRoutes()
-});
+    return true;
+  });
 
-/** Setup Vue Router */
-export async function setupRouter(app: App) {
-  app.use(router);
-  createRouterGuard(router);
-  await router.isReady();
+  router.afterEach(() => {
+    progress.done();
+  });
+
+  router.onError(() => {
+    progress.done(true);
+  });
 }

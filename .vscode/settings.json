@@ -7,17 +7,11 @@
   "editor.formatOnSave": true,
   "eslint.validate": ["vue"],
   "i18n-ally.displayLanguage": "zh-cn",
-  "i18n-ally.enabledParsers": ["ts"],
+  "i18n-ally.enabledParsers": ["json"],
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.editor.preferEditor": true,
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.localesPaths": ["src/locales/langs"],
-  "i18n-ally.parsers.typescript.compilerOptions": {
-    "moduleResolution": "node",
-    "ignoreDeprecations": "6.0",
-    "rootDir": ".",
-    "baseUrl": "."
-  },
-  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "i18n-ally.localesPaths": ["src/locales"],
+  "oxc.fmt.configPath": "vite.config.ts",
   "unocss.root": ["./"]
 }
