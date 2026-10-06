@@ -1,43 +1,51 @@
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { defineConfig, transformerDirectives, transformerVariantGroup } from 'unocss';
 import { presetSoybean } from '@soybeanjs/unocss-preset';
 import { presetUi } from '@vean/unocss';
 
 /**
- * `@vean/ui` 的 dist 根目录。
+ * 应用样式管线（UnoCSS 只负责「应用自己写的原子类」）。
  *
- * 组件样式是编译进 JS 的 class 字符串，而 UnoCSS 只为**扫到的**类名生成工具类；
- * 本仓库消费的是发布产物（不是源码），所以必须把它的 dist 纳入扫描集 ——
- * 否则组件内部的 `bg-popover` / `-translate-y-1/2` / `z-base` 等全部缺失，
- * 组件会渲染成无样式或错位。
+ * 三份样式的职责边界（同一份规则绝不能生成两次）：
  *
- * 用包的入口反推 dist 目录（其 exports 是 `./*` 通配，直接 resolve
- * `package.json` 会落到错误路径）。
+ * 1. **Vean 组件自身样式**（含组件内部工具类 `bg-popover` / `-translate-y-1/2`
+ *    / `z-base` …）已预构建在 `@vean/ui/styles.css` 里。它由
+ *    `ubean.config.ts` 的 `ui`（registry 注入）或 `src/app.ts` 的显式
+ *    `import '@vean/ui/styles.css'` 进入产物 —— **不是** UnoCSS 生成的。
+ * 2. **应用自己写的类**（`src/**`）由本配置按需生成。
+ * 3. **主题 token**（`:root` / `.dark` 的 CSS 变量）由 `@vean/theme` 在运行时
+ *    经 `SConfigProvider` 注入，既不在 styles.css 也不在这里。
  */
-const veanUiDist = resolve(dirname(fileURLToPath(import.meta.resolve('@vean/ui'))), '..');
-
 export default defineConfig({
   content: {
     pipeline: {
       /**
-       * 扫描过滤器。UnoCSS **始终**用这个列表过滤候选文件（它自己的默认值是
-       * `[/\.vue$/]`），所以只写 `.vue` 会让扫描过的 `.js` 被静默丢弃 ——
-       * 扫了但什么都没提取到。`.js` 是上面 `@vean/ui` dist 所必需的。
+       * 扫描过滤器。UnoCSS **始终**用这个列表过滤候选文件（其内建默认值是
+       * `[/\.vue$/]`），未列出的后缀即使被扫到也会被静默丢弃 ——
+       * 所以 `.js` / `.ts` 必须显式列出。
        */
-      include: [/\.vue($|\?)/, /\.(js|ts)($|\?)/]
-    },
-    filesystem: [`${veanUiDist}/**/*.js`]
+      include: [/\.vue($|\?)/, /\.(js|ts)($|\?)/],
+      /**
+       * 必须排除 `node_modules`。UnoCSS 默认会扫依赖目录，于是
+       * `@vean/ui/dist` 里每个候选类名都会被重新生成为全局规则 ——
+       * 实测（`ubean build`，未改此配置）产物 CSS 177.66 kB / gzip 23.32 kB，
+       * 加 `exclude: [/node_modules/]` 后 **4.21 kB / gzip 1.15 kB**：
+       * 那 ~173 kB 全部是组件库已预构建样式的重复生成。
+       *
+       * 排除之后，组件库样式只来自 `@vean/ui/styles.css`（见文件头第 1 条）。
+       */
+      exclude: [/node_modules/]
+    }
   },
   presets: [
     // SoybeanJS 通用 shortcuts（`flex-center` / `flex-c` / `flex-1-hidden` …）
     presetSoybean(),
-    // Vean 主题 + resetCSS/globalCSS/uiCSS（返回 presetWind3 / animations /
-    // scrollbar / webFonts 的整条 preset 栈，故不需要再手动加 presetWind3）
+    // Vean 预设：theme 变量 + wind3/animations/scrollbar/webFonts 整条栈。
+    // `resetCSS` / `globalCSS` / `uiCSS` 一律关闭 —— reset 与「ui 组件样式」
+    // 都改由 `@vean/ui/styles.css` 承担，本 preset 只负责按需生成应用用到的原子类。
     presetUi({
-      resetCSS: true,
-      globalCSS: true,
-      uiCSS: true
+      resetCSS: false,
+      globalCSS: false,
+      uiCSS: false
     })
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()]

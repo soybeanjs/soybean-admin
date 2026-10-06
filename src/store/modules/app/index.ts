@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import { DEFAULT_LOCALE } from '@/constants';
 import type { AppLocale } from '@/constants';
 
 /**
@@ -12,7 +13,7 @@ export const useAppStore = defineStore('app', () => {
   /** 侧边栏折叠 */
   const sidebarCollapsed = ref(false);
   /** 当前 locale 镜像 */
-  const locale = ref<AppLocale>('zh-CN');
+  const locale = ref<AppLocale>(DEFAULT_LOCALE);
 
   function toggleSidebar(): void {
     sidebarCollapsed.value = !sidebarCollapsed.value;

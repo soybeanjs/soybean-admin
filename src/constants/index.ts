@@ -16,16 +16,18 @@ export const APP_DESCRIPTION = 'A fresh and elegant admin template';
 export const APP_ROOT_ID = 'app';
 
 /**
- * 应用 locale → Vean UI 组件文案 locale 的映射。
+ * 应用 locale 列表。
  *
- * Vean（`@vean/ui`）默认只预注册 `en` 与 `zh-CN`；本应用用 `zh-CN` / `en-US`，
- * 多出来的 `en-US` 需要降级到 `en`。
+ * 刻意用裸语言码 `zh` / `en` 而不是 `zh-CN` / `en-US`：ubean 把 locale code
+ * 直接当作 URL 前缀（`strategy: 'prefix_except_default'`），裸码让路径更简洁
+ * （`/en/...` vs `/en-US/...`）。
+ *
+ * 注意：Vean（`@vean/aria/locale`）出厂只注册 `en` 与 `zh-CN`，且未知 key
+ * **静默回落到 `en`**。所以 `zh` 必须用 `registerVeanLocales()` 补注册（见
+ * `@/shared/vean-locale`，在 `src/app.ts` 调用），否则组件内置文案会变英文。
  */
-export const VEAN_LOCALE_MAP: Record<string, string> = {
-  'zh-CN': 'zh-CN',
-  'en-US': 'en'
-};
-
-/** 支持的 locale 列表 */
-export const APP_LOCALES = ['zh-CN', 'en-US'] as const;
+export const APP_LOCALES = ['zh', 'en'] as const;
 export type AppLocale = (typeof APP_LOCALES)[number];
+
+/** 默认 locale（需与 `ubean.config.ts` 的 `i18n.defaultLocale` 一致） */
+export const DEFAULT_LOCALE: AppLocale = 'zh';
