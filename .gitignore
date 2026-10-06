@@ -3,9 +3,7 @@ logs
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
 node_modules
 .DS_Store
@@ -13,11 +11,17 @@ dist
 dist-ssr
 coverage
 *.local
+*.local.yaml
 
-/cypress/videos/
-/cypress/screenshots/
+# ubean codegen（dev/build 自动生成，勿提交）
+.ubean
 
-# Editor directories and files
+# 构建/缓存
+.temp
+.turbo
+src-tauri/target
+
+# Editor
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
@@ -28,10 +32,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-
-package-lock.json
-yarn.lock
-
 .VSCodeCounter
-src-tauri/target
-.codegraph
+
+# Vite+ Git hook dispatcher（生成物；项目自有 hook 脚本 .vite-hooks/* 需提交）
+.vite-hooks/_

@@ -1,0 +1,51 @@
+---
+name: CI
+
+on:
+  pull_request:
+    branches: [main, v3]
+  push:
+    branches: [main, v3]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: typecheck / test / build / bundle budget
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      # 含「客户端导入纪律」守卫（src/shared/import-guard.test.ts）：
+      # 从裸主入口 `ubean` 导入会让入口 chunk gzip +148%
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      # 与 benchmarks/bundle-baseline.json 比对，gzip 增长 > 5% 失败
+      - name: Bundle budget
+        run: pnpm analyze:check

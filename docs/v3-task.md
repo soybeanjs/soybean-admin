@@ -3,7 +3,7 @@
 > 来源：`docs/v3.md`（soybean-admin v3.0 实现方案，提交 `1126c7fb`）
 > 版本锚点：ubean 0.6.0 · Vean（`@vean/*`）0.50.0 · `@soybeanjs/fetch` 0.1.0 · `@soybeanjs/cli` 1.8.4 · Node >= 22 / pnpm 11.24.0
 > 分支基线：`v3`（本地提交 `1126c7fb`，无 upstream；`main` = 全栈版，`lite` = 前端版）
-> 最后更新：2026-10（文档侧）
+> 最后更新：2026-10（Phase 0 实施后校准）
 
 ## 状态图例
 
@@ -15,7 +15,9 @@
 | ⛔   | 阻塞     |
 | 🔁   | 机制替换 |
 
-> 说明：本文件是 `docs/v3.md` 的**执行跟踪视图**。每个任务标注依据章节（`§`）便于回溯设计原文；`验收/备注` 列写该任务的完成判据或已确认的注意事项。**当前所有实现类任务均为 ⬜ 未开始**（v3 未开工）；✅ 项仅表示文档侧前置工作已落笔。
+> 说明：本文件是 `docs/v3.md` 的**执行跟踪视图**。每个任务标注依据章节（`§`）便于回溯设计原文；`验收/备注` 列写该任务的完成判据或已确认的注意事项。
+>
+> **进度快照（2026-10）**：Phase 0 已完成 9/11（余 2 项 🟡 见下）—— `pnpm dev`/`build`/`preview` 三路通、`.ubean/` codegen 正常、typed client 打通真实 API、CI 四闸门齐备、git hooks 已接管。余下 🟡：`VITE_API_ENV`/`VITE_THEME_PRESET` 未加、两个代码风格 skill 未落成 lint 规则。Phase 1+ 全部 ⬜。
 
 ---
 
@@ -24,15 +26,15 @@
 | 阶段                     | 任务数 | ⬜ 未开始 | 🟡 进行中 | ✅ 已完成 | ⛔ 阻塞 |
 | ------------------------ | ------ | --------- | --------- | --------- | ------- |
 | 文档前置（v3.md 补全）   | 4      | 0         | 0         | 4         | 0       |
-| Phase 0 — 地基           | 11     | 11        | 0         | 0         | 0       |
+| Phase 0 — 地基           | 11     | 0         | 2         | 9         | 0       |
 | Phase 1 — 后端内核       | 12     | 12        | 0         | 0         | 0       |
 | Phase 2 — 前端架子       | 20     | 20        | 0         | 0         | 0       |
 | Phase 3 — 业务页面       | 10     | 10        | 0         | 0         | 0       |
 | Phase 4 — 插件演示与增值 | 5      | 5         | 0         | 0         | 0       |
 | Phase 5 — 适配对接与发布 | 6      | 6         | 0         | 0         | 0       |
-| 横切任务（跨 Phase）     | 6      | 6         | 0         | 0         | 0       |
-| 待产出物 / 缺口          | 5      | 5         | 0         | 0         | 0       |
-| **合计**                 | **79** | **75**    | **0**     | **4**     | **0**   |
+| 横切任务（跨 Phase）     | 6      | 4         | 0         | 2         | 0       |
+| 待产出物 / 缺口          | 6      | 6         | 0         | 0         | 0       |
+| **合计**                 | **80** | **63**    | **2**     | **15**    | **0**   |
 
 ---
 
@@ -49,19 +51,19 @@
 
 ## Phase 0 — 地基（脚手架与工具链）
 
-| ID    | 任务                                                                                                       | 依据       | 状态 | 验收/备注                                                                                                                                            |
-| ----- | ---------------------------------------------------------------------------------------------------------- | ---------- | ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P0-01 | 单包工程重建：根目录平铺 `ubean.config.ts` + `vite.config.ts` + `src/`                                     | §3.1       | ⬜   | 删除 v2 `packages/` 私有包体系与根 `pnpm-workspace.yaml`                                                                                             |
-| P0-02 | 工具链接管：vite-plus（`vp`）dev/lint/fmt/test + `@soybeanjs/cli`（`soy`）commit/changelog/release/cleanup | §4.7       | ⬜   | commit-msg 钩子换 `soy git-commit-verify`；`vp check --fix` staged                                                                                   |
-| P0-03 | ubean 骨架跑通（fullstack + ssr:false + ui/icon/pinia/i18n/routing）                                       | §9 P0      | ⬜   | `pages/` 路由 + `src/app.ts` 守卫注入可跑                                                                                                            |
-| P0-04 | 路径别名 `#/` → `src/`（vite-plus tsconfigPaths）                                                          | §3.1       | ⬜   | 与 ubean 默认约定一致                                                                                                                                |
-| P0-05 | `src/schema/` 建立（Valibot DTO，单一契约源）                                                              | §3.1/§9 P0 | ⬜   | 前后端同进程，相对路径 import，不构建、不独立包                                                                                                      |
-| P0-06 | `.ubean/openapi.d.ts` codegen + `@soybeanjs/fetch` typed client 打通                                       | §5.4/§9 P0 | ⬜   | `src/request/client.ts`（`toFlatTypedClient<paths,'/api'>`）+ `internal.ts` 零网络直调                                                               |
-| P0-07 | 版本与工具链对齐（前置校验）                                                                               | §9 P0/§3.3 | ⬜   | engines → Node >=22 / pnpm 11.24.0；锁 ubean@0.6.x、`@vean/*`@0.50.x、fetch@0.1.x、cli@1.8.x；catalog `vite: npm:@voidzero-dev/vite-plus-core@1.0.0` |
-| P0-08 | env 精简（约 25 → 约 15）并改用 `defineEnv()` 声明                                                         | §5.10/§3.3 | ⬜   | 删 naive/mock 专属；新增 `VITE_API_ENV`/`VITE_API_PROXY`/`VITE_THEME_PRESET`；勿与 `VITE_` 原生注入混用同一变量                                      |
-| P0-09 | CI：typecheck + build + bundle 基线 + 客户端导入守卫                                                       | §4.7/§3.3  | ⬜   | gzip 增长 >5% 失败；断言客户端图不从 `ubean` 主入口导入（防 +148% gzip）                                                                             |
-| P0-10 | 代码风格对齐：lint 规则 = `vue-sfc-structure` + `typescript-functional-style`                              | §11.2      | ⬜   | 与 v2 现状（hooks 目录、`as` 泛滥）差异较大，需规则化                                                                                                |
-| P0-11 | 删除 mock：`src/service/api/*` 手写 API 层 + Apifox mock                                                   | §3.1/§4.3  | ⬜   | dev 即跑真后端（Vite middlewareMode + Hono 同进程）                                                                                                  |
+| ID    | 任务                                                                                                       | 依据       | 状态 | 验收/备注                                                                                                                                                                                                                        |
+| ----- | ---------------------------------------------------------------------------------------------------------- | ---------- | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P0-01 | 单包工程重建：根目录平铺 `ubean.config.ts` + `vite.config.ts` + `src/`                                     | §3.1       | ✅   | v2 `packages/`、旧 `src/`、`index.html`、`.npmrc`、lockfile 已删；根配置全部重写                                                                                                                                                 |
+| P0-02 | 工具链接管：vite-plus（`vp`）dev/lint/fmt/test + `@soybeanjs/cli`（`soy`）commit/changelog/release/cleanup | §4.7       | ✅   | `vp` 五条命令已跑通（fmt 53 files / lint 0 error）；`.vite-hooks/{pre-commit,commit-msg}` 已提交（`vp staged` + `soy git-commit-verify`）；已清掉 v2 遗留的 `pnpm sa git-commit-verify` 钩子；`prepare` = `vp config --no-agent` |
+| P0-03 | ubean 骨架跑通（fullstack + ssr:false + ui/icon/pinia/i18n/routing）                                       | §9 P0      | ✅   | dev/preview/build 三路通；`.ubean/` 9 文件 codegen；`uno.css` 已在 `src/app.ts` 显式引入（否则 build 产物 CSS 仅 49 B）                                                                                                          |
+| P0-04 | 路径别名 `@/*` → `./src/*`（vite-plus tsconfigPaths）                                                      | §3.1       | ✅   | **勘误：不是 `#/`** —— ubean 无内置别名约定，官方样例统一 `@/*`；`.ubean/*` 走 `~ubean/*`                                                                                                                                        |
+| P0-05 | `src/schema/` 建立（Valibot DTO，单一契约源）                                                              | §3.1/§9 P0 | ✅   | `src/schema/system.ts` + 4 个 vitest 用例；前后端同进程，相对路径 import                                                                                                                                                         |
+| P0-06 | `.ubean/openapi.d.ts` codegen + `@soybeanjs/fetch` typed client 打通                                       | §5.4/§9 P0 | ✅   | `src/request/client.ts`（`toFlatTypedClient<paths,'/api'>`）+ `internal.ts`；浏览器实测 `flatApi.get('/system/health')` 取到真实数据                                                                                             |
+| P0-07 | 版本与工具链对齐（前置校验）                                                                               | §9 P0/§3.3 | ✅   | engines Node >=22.0.0 / pnpm >=11.24.0；锁 ubean@0.6.0、`@vean/*`@0.50.0、fetch@0.1.0、cli@1.8.4；catalog `vite: npm:@voidzero-dev/vite-plus-core@1.0.0` 为**必需**（否则 `transformWithOxc` 报错）                              |
+| P0-08 | env 精简并改用 `defineEnv()` 声明                                                                          | §5.10/§3.3 | 🟡   | **勘误：`defineEnv()` 只读 `process.env`**，客户端走 `import.meta.env.VITE_*` → 已拆 `src/env.ts` + `src/env.server.ts`；`VITE_API_ENV`/`VITE_THEME_PRESET` 尚未加                                                               |
+| P0-09 | CI：typecheck + build + bundle 基线 + 客户端导入守卫                                                       | §4.7/§3.3  | ✅   | `.github/workflows/ci.yml`（5 步）；守卫 `src/shared/import-guard.test.ts`；基线 `benchmarks/bundle-baseline.json`                                                                                                               |
+| P0-10 | 代码风格对齐：lint 规则 = `vue-sfc-structure` + `typescript-functional-style`                              | §11.2      | 🟡   | `@soybeanjs/eslint-config-vue` + `@soybeanjs/oxc-config` 已接；两个 skill 的规则**尚未逐条落成 lint 约束**                                                                                                                       |
+| P0-11 | 删除 mock：`src/service/api/*` 手写 API 层 + Apifox mock                                                   | §3.1/§4.3  | ✅   | v2 `src/` 全树已删，无 mock 残留；dev 即跑真后端（Vite middlewareMode + Hono 同进程）                                                                                                                                            |
 
 **Phase 0 出口判据**：`pnpm dev` 起全栈骨架、`.ubean/` codegen 正常、typed client 可调通一条真实 API、CI 三闸门（typecheck/build/bundle 基线）绿灯。
 
@@ -163,43 +165,44 @@
 
 ## 横切任务（跨 Phase）
 
-| ID   | 任务                                            | 依据     | 状态 | 验收/备注                                                                      |
-| ---- | ----------------------------------------------- | -------- | ---- | ------------------------------------------------------------------------------ |
-| X-01 | 版本锁定策略：每升级一个 ubean minor 跑全量 e2e | §10      | ⬜   | v3.0 stable 前不追新                                                           |
-| X-02 | ubean API 隔离层 `src/shared/ubean-compat.ts`   | §10      | ⬜   | 隔离高频 API，降低破坏性变更冲击                                               |
-| X-03 | 生产 connector 配置检查文档                     | §10      | ⬜   | 强制校验，防 DB「默认内存实现」上线                                            |
-| X-04 | main→lite 单向同步（每季度）+ CI 差异文件校验   | §3.2/§10 | ⬜   | 冲突面控制在上文差异点                                                         |
-| X-05 | bundle 体积基线 CI 闸门                         | §4.7     | ⬜   | gzip 增长 >5% 失败                                                             |
-| X-06 | 工具链门槛 Node >= 22 / pnpm 11.24.0            | §3.3     | ⬜   | catalog `vite` 钉 `npm:@voidzero-dev/vite-plus-core@1.0.0`，`vite-plus: 1.0.0` |
+| ID   | 任务                                            | 依据     | 状态 | 验收/备注                                                                                                                                  |
+| ---- | ----------------------------------------------- | -------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| X-01 | 版本锁定策略：每升级一个 ubean minor 跑全量 e2e | §10      | ⬜   | v3.0 stable 前不追新                                                                                                                       |
+| X-02 | ubean API 隔离层 `src/shared/ubean-compat.ts`   | §10      | ⬜   | 隔离高频 API，降低破坏性变更冲击                                                                                                           |
+| X-03 | 生产 connector 配置检查文档                     | §10      | ⬜   | 强制校验，防 DB「默认内存实现」上线                                                                                                        |
+| X-04 | main→lite 单向同步（每季度）+ CI 差异文件校验   | §3.2/§10 | ⬜   | 冲突面控制在上文差异点                                                                                                                     |
+| X-05 | bundle 体积基线 CI 闸门                         | §4.7     | ✅   | 已落地（P0-09）：`benchmarks/bundle-baseline.json` + `pnpm analyze:check`，gzip 增长 >5% 失败                                              |
+| X-06 | 工具链门槛 Node >= 22 / pnpm 11.24.0            | §3.3     | ✅   | 已落地（P0-07）：`engines` + `packageManager: pnpm@12.9.1`；catalog `vite` 钉 `npm:@voidzero-dev/vite-plus-core@1.0.0`，`vite-plus: 1.0.0` |
 
 ---
 
 ## 待产出物 / 缺口
 
-| ID   | 产出物                                              | 依据 | 状态 | 备注                                                                                                 |
-| ---- | --------------------------------------------------- | ---- | ---- | ---------------------------------------------------------------------------------------------------- |
-| G-01 | 列模型字段映射表（NaiveUI.TableColumn → STable）    | §7.4 | ⬜   | 迁移文档前置物                                                                                       |
-| G-02 | 适配器契约签名（`useThemeTokens` / `theme-change`） | §7.2 | ⬜   | 适配器仓库开工前必须先定                                                                             |
-| G-03 | `docs/lite-delta.md`（main/lite 差异清单）          | §8   | ⬜   | CI 校验依据                                                                                          |
-| G-04 | `docs/api-contract.md`（lite 接口契约说明）         | §3.2 | ⬜   | lite 默认提供 unify 风格契约文档                                                                     |
-| G-05 | 组件文档补 `theme-customizer.md`                    | §5.6 | ⬜   | vean-ui skill 96 篇中缺失；当前 API 需直读 `soybean-ui/packages/ui/src/components/theme-customizer/` |
+| ID   | 产出物                                                     | 依据 | 状态 | 备注                                                                                                                                                                                                                                                                                                          |
+| ---- | ---------------------------------------------------------- | ---- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| G-01 | 列模型字段映射表（NaiveUI.TableColumn → STable）           | §7.4 | ⬜   | 迁移文档前置物                                                                                                                                                                                                                                                                                                |
+| G-02 | 适配器契约签名（对接 `useTheme()` / `useThemeSettings()`） | §7.2 | ⬜   | **已查实**：`useThemeTokens` / `soybean:theme-change` 两个名字在 `@vean/*` 中不存在，但 `useTheme()`（`theme`/`base`/`primary`/`radius`/`mode` + `setMode`/`savePreset`/`applyPreset`）与 `useThemeSettings()`（`resolved`/`overrides`/`setOverride`/`persist`）已提供等价能力，适配器应对接这两个 composable |
+| G-03 | `docs/lite-delta.md`（main/lite 差异清单）                 | §8   | ⬜   | CI 校验依据                                                                                                                                                                                                                                                                                                   |
+| G-04 | `docs/api-contract.md`（lite 接口契约说明）                | §3.2 | ⬜   | lite 默认提供 unify 风格契约文档                                                                                                                                                                                                                                                                              |
+| G-05 | 组件文档补 `theme-customizer.md`                           | §5.6 | ⬜   | vean-ui skill 96 篇中缺失；当前 API 需直读 `soybean-ui/packages/ui/src/components/theme-customizer/`                                                                                                                                                                                                          |
+| G-06 | UnoCSS 类名抽查清单（防"dev 正常 / build 丢样式"复发）     | §3.3 | ⬜   | **已发生一次**（漏 `import 'uno.css'` → build 产物 CSS 仅 49 B）；建议把入口导入与 `dist/public/assets/*.css` 下限（如 >100 kB）纳入 CI 断言                                                                                                                                                                  |
 
 ---
 
 ## 风险登记（源自 §10）
 
-| 风险                                                      | 等级 | 对策                                                                             | 状态 |
-| --------------------------------------------------------- | ---- | -------------------------------------------------------------------------------- | ---- |
-| ubean 0.6.x API 破坏性变更（0.x 无稳定承诺）              | 高   | lock 精确版本 + `ubean-compat.ts` 隔离 + 每 minor 全量 e2e                       | ⬜   |
-| ubean「声明宽于默认」（DB/queue 默认内存实现）            | 高   | 首版只依赖已验证子集（Hono 路由/中间件/cache/db0 显式接线）；生产 connector 检查 | ⬜   |
-| soybean-ui 缺口组件（Upload/Descriptions 等 22 个 P0/P1） | 中   | §7.3 清单化；应用层先行 + 向上游提 PR 双向收敛                                   | ⬜   |
-| `SAppShell` API 世代（0.50.0 稳定 vs 本地 beta 源）       | 中   | 架子 API 以 `SAppShell` 为目标设计；beta 期调整由 §5.2 一层映射隔离              | ⬜   |
-| vite-plus 工具链接受度                                    | 中   | 保留 eslint 兼容配置导出；CI 双跑一个 Phase 后收敛                               | ⬜   |
-| `SAppShell` 模式组合盲区（6 mode × 配置项）               | 中   | P2-20 矩阵 PoC；盲区项降级为 5 模式或 `layoutProps` 透传 `SLayout` 兜底          | ⬜   |
-| lite/main 双分支漂移                                      | 中   | 差异文件清单 CI 校验；每季度单向同步                                             | ⬜   |
-| 功能回归遗漏（隐形能力）                                  | 中   | §5.9 清单转 e2e 用例（P4-02）                                                    | ⬜   |
-| 与 v2 用户迁移断层                                        | 低   | 适配器（独立仓库）+ 迁移指南 + 字段映射表（G-01）                                | ⬜   |
-| 适配器契约未落地                                          | 中   | 先定契约签名（G-02）；基础已具备；首版先在 admin 内实现再抽包                    | ⬜   |
+| 风险                                                      | 等级 | 对策                                                                                                           | 状态 |
+| --------------------------------------------------------- | ---- | -------------------------------------------------------------------------------------------------------------- | ---- |
+| ubean 0.6.x API 破坏性变更（0.x 无稳定承诺）              | 高   | lock 精确版本 + `ubean-compat.ts` 隔离 + 每 minor 全量 e2e                                                     | ⬜   |
+| ubean「声明宽于默认」（DB/queue 默认内存实现）            | 高   | 首版只依赖已验证子集（Hono 路由/中间件/cache/db0 显式接线）；生产 connector 检查                               | ⬜   |
+| soybean-ui 缺口组件（Upload/Descriptions 等 22 个 P0/P1） | 中   | §7.3 清单化；应用层先行 + 向上游提 PR 双向收敛                                                                 | ⬜   |
+| `SAppShell` API 世代（0.50.0 稳定 vs 本地 beta 源）       | 中   | 架子 API 以 `SAppShell` 为目标设计；beta 期调整由 §5.2 一层映射隔离                                            | ⬜   |
+| vite-plus 工具链接受度                                    | 中   | 保留 eslint 兼容配置导出；CI 双跑一个 Phase 后收敛                                                             | ⬜   |
+| `SAppShell` 模式组合盲区（6 mode × 配置项）               | 中   | P2-20 矩阵 PoC；盲区项降级为 5 模式或 `layoutProps` 透传 `SLayout` 兜底                                        | ⬜   |
+| lite/main 双分支漂移                                      | 中   | 差异文件清单 CI 校验；每季度单向同步                                                                           | ⬜   |
+| 功能回归遗漏（隐形能力）                                  | 中   | §5.9 清单转 e2e 用例（P4-02）                                                                                  | ⬜   |
+| 与 v2 用户迁移断层                                        | 低   | 适配器（独立仓库）+ 迁移指南 + 字段映射表（G-01）                                                              | ⬜   |
+| 适配器契约未定                                            | 中   | 先定契约签名（G-02）；**已查实 `useTheme()` / `useThemeSettings()` 提供等价能力**；首版先在 admin 内实现再抽包 | ⬜   |
 
 ---
 
@@ -213,7 +216,7 @@ v2.x          维护分支仅收安全/严重 bug，README 置顶迁移指引
 
 | 里程碑 | 内容                        | 依赖               | 状态 |
 | ------ | --------------------------- | ------------------ | ---- |
-| M0     | Phase 0 完成（地基）        | —                  | ⬜   |
+| M0     | Phase 0 完成（地基）        | —                  | 🟡   |
 | M1     | Phase 1 完成（后端内核）    | M0                 | ⬜   |
 | M2     | Phase 2 完成（前端架子）    | M1                 | ⬜   |
 | M2.5   | lite 分支切出               | M2                 | ⬜   |
@@ -225,6 +228,8 @@ v2.x          维护分支仅收安全/严重 bug，README 置顶迁移指引
 
 ## 变更记录
 
-| 日期    | 变更                                                          |
-| ------- | ------------------------------------------------------------- |
-| 2026-10 | 初版：依据 `docs/v3.md`（`1126c7fb`）生成任务清单与状态跟踪表 |
+| 日期    | 变更                                                                                                                                                                   |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-10 | 初版：依据 `docs/v3.md`（`1126c7fb`）生成任务清单与状态跟踪表                                                                                                          |
+| 2026-10 | Phase 0 实施后校准：P0-01/03/04/05/06/07/09/11 → ✅；P0-02/08/10 → 🟡；勘误 P0-04（`@/*` 非 `#/`）与 P0-08（`defineEnv()` 只读 `process.env`）；G-02 据实更新          |
+| 2026-10 | Phase 0 收尾：P0-02 → ✅（`.vite-hooks/` 提交、清理 v2 `sa` 钩子、`prepare` = `vp config --no-agent`）；X-05/X-06 → ✅；新增 G-06（UnoCSS 样式丢失抽查）；合计 80 任务 |

@@ -1,0 +1,17 @@
+/**
+ * 应用级全局样式。
+ *
+ * Reset / 主题变量 / 组件样式全部由 UnoCSS 的 `@vean/unocss` `presetUi()`
+ * （见 `uno.config.ts`：`resetCSS` + `globalCSS` + `uiCSS`）与
+ * `SConfigProvider`（`@vean/theme` 的 `emitThemeCss`）产出 —— 这里只放
+ * 极少数「框架不管」的兜底规则。
+ */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#app {
+  height: 100%;
+}

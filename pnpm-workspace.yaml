@@ -1,10 +1,25 @@
-packages:
-  - 'packages/*'
-allowBuilds:
-  '@parcel/watcher': false
-  esbuild: false
-  simple-git-hooks: false
-  vue-demi: false
+# 单包工程（v3 起不再是 monorepo）：无 `packages:` 字段，仓库根即唯一项目。
+#
+# `vite` 必须钉在 vite-plus-core：ubean 0.6.0 的 @ubean/build 直接依赖
+# vite-plus-core 的 @experimental Builder API（`transformWithOxc` 等），
+# 解析到上游 `vite` 会在启动期抛
+#   SyntaxError: The requested module 'vite' does not provide an export named 'transformWithOxc'
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@1.0.0
+  vite-plus: 1.0.0
+  typescript: npm:typescript-native-bridge@latest
+  vue-i18n: 11.4.13
+
+overrides:
+  vite: 'catalog:'
+  typescript: 'catalog:'
+
 shamefullyHoist: true
 ignoreWorkspaceRootCheck: true
-linkWorkspacePackages: true
+minimumReleaseAge: 0
+
+allowBuilds:
+  esbuild: false
+  # vue-demi 的 postinstall 只做 Vue2/3 入口切换；本仓库仅 Vue 3
+  # （经 @vean/ui → @tanstack/vue-store 传递引入）
+  vue-demi: false
