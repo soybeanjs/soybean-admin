@@ -2,9 +2,9 @@
 import { computed } from 'vue';
 import { LAYOUT_SCROLL_EL_ID } from '@sa/materials';
 import { useAppStore } from '@/store/modules/app';
+import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 import { useTabStore } from '@/store/modules/tab';
-import { useThemeStore } from '@/store/modules/theme';
 
 defineOptions({
   name: 'GlobalContent'

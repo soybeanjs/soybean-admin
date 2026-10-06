@@ -1,10 +1,10 @@
 import { create, AxiosError } from 'axios';
 import type { AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
-import { nanoid } from '@sa/utils';
 import axiosRetry from 'axios-retry';
-import { BACKEND_ERROR_CODE, REQUEST_ID_KEY } from './constant';
-import { transformResponse } from './shared';
+import { nanoid } from '@sa/utils';
 import { createAxiosConfig, createDefaultOptions, createRetryOptions } from './options';
+import { transformResponse } from './shared';
+import { BACKEND_ERROR_CODE, REQUEST_ID_KEY } from './constant';
 import type {
   CustomAxiosRequestConfig,
   FlatRequestInstance,

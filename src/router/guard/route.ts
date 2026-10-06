@@ -1,8 +1,8 @@
 import type { LocationQueryRaw, RouteLocationNormalized, RouteLocationRaw, Router } from 'vue-router';
 import type { RouteKey, RoutePath } from '@elegant-router/types';
-import { localStg } from '@/utils/storage';
 import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
+import { localStg } from '@/utils/storage';
 import { getRouteName } from '@/router/elegant/transform';
 
 /**

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { themeSchemaRecord } from '@/constants/app';
-import { $t } from '@/locales';
 import { useThemeStore } from '@/store/modules/theme';
+import { $t } from '@/locales';
 import SettingItem from '../../../components/setting-item.vue';
 
 defineOptions({

@@ -23,12 +23,6 @@
 > [!NOTE]
 > The `SoybeanAdmin` quick start series videos have been uploaded to [Bilibili](https://www.bilibili.com/video/BV1YKdRYXELC) Go online [click here](https://www.bilibili.com/video/BV1YKdRYXELC) Go check it out
 
-> [!IMPORTANT]
-> `SoybeanAdmin` 3.0 is under development, a full rewrite built on the ubean full-stack framework and the VeanUI component library. See [Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941) for progress and design.
-
-> [!WARNING]
-> `2.3` will be the last maintained major version of the 2.x line. After that, 2.x only receives maintenance updates on that version, and new features land in 3.0. New projects should follow the 3.0 progress.
-
 <div align="center">
   <table width="100%">
     <tr>
@@ -50,18 +44,17 @@
             </td>
           </tr>
         </table>
-        <strong>A powerful and elegant component system for Vue 3, delivering Aria interaction capabilities and ready-to-use style encapsulation.</strong><br />
-        <sub>Built on a two-layer Aria + UI architecture to reuse interaction capabilities and unify interface expression.</sub>
+        <strong>A powerful and elegant component system for Vue 3, delivering headless interaction capabilities and ready-to-use style encapsulation.</strong><br />
+        <sub>Adopts a two-layer architecture of Aria + UI, reusing the underlying interaction capabilities and unifying the upper-level interface expression.</sub>
         <br /><br />
         <img alt="Vue 3" src="https://img.shields.io/badge/Vue%203-Component%20Library-6366f1?style=flat-square&labelColor=4338ca" />
         <img alt="Aria" src="https://img.shields.io/badge/Aria-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
-        <img alt="Admin" src="https://img.shields.io/badge/Admin-Professional%20UI-a5b4fc?style=flat-square&labelColor=4f46e5" />
       </td>
       <td align="right">
         <a href="https://veanui.com">
           <img
             alt="Visit VeanUI"
-            src="https://img.shields.io/badge/Visit-veanui.com-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
+            src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE-veanui.com-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
           />
         </a>
       </td>
@@ -77,7 +70,7 @@
 
 - **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite8, TypeScript, Pinia and UnoCSS.
 - **Clear project architecture**: using pnpm monorepo architecture, clear structure, elegant and easy to understand.
-- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, oxlint, oxfmt and vp hooks to ensure the code is standardized.
+- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, prettier and simple-git-hooks to ensure the code is standardized.
 - **TypeScript**: support strict type checking to improve code maintainability.
 - **Rich theme configuration**: built-in a variety of theme configurations, perfectly integrated with UnoCSS.
 - **Built-in internationalization solution**: easily realize multi-language support.
@@ -88,9 +81,6 @@
 - **Mobile adaptation**: perfectly support mobile terminal to realize adaptive layout.
 
 ## Version
-
-> [!IMPORTANT]
-> 3.0 is under development ([Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941)); `2.3` is the last maintained major version of the 2.x line.
 
 - **NaiveUI Version:**
   - [Preview Link](https://naive.soybeanjs.cn/)

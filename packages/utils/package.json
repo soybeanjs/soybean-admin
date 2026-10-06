@@ -1,6 +1,6 @@
 {
   "name": "@sa/utils",
-  "version": "2.3.0",
+  "version": "2.2.0",
   "typesVersions": {
     "*": {
       "*": [
@@ -11,15 +11,12 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "scripts": {
-    "typecheck": "tsc --noEmit --skipLibCheck"
-  },
   "dependencies": {
-    "colord": "2.10.0",
+    "colord": "2.9.3",
     "crypto-js": "4.2.0",
     "klona": "2.0.6",
     "localforage": "1.10.0",
-    "nanoid": "6.0.2"
+    "nanoid": "5.1.11"
   },
   "devDependencies": {
     "@types/crypto-js": "4.2.2"

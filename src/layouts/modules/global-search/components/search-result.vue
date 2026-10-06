@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { $t } from '@/locales';
 import { useThemeStore } from '@/store/modules/theme';
+import { $t } from '@/locales';
 
 defineOptions({ name: 'SearchResult' });
 

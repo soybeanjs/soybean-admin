@@ -2,10 +2,10 @@ import { computed, ref } from 'vue';
 import { useEventListener } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import type { RouteKey } from '@elegant-router/types';
-import { localStg } from '@/utils/storage';
+import { router } from '@/router';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
-import { router } from '@/router';
+import { localStg } from '@/utils/storage';
 import { SetupStoreId } from '@/enum';
 import { useThemeStore } from '../theme';
 import {
