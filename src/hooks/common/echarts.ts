@@ -1,5 +1,6 @@
 import { computed, effectScope, nextTick, onScopeDispose, shallowRef, watch } from 'vue';
 import { useElementSize } from '@vueuse/core';
+import * as echarts from 'echarts/core';
 import { BarChart, GaugeChart, LineChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
 import type {
   BarSeriesOption,
@@ -27,7 +28,6 @@ import type {
   ToolboxComponentOption,
   TooltipComponentOption
 } from 'echarts/components';
-import * as echarts from 'echarts/core';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useThemeStore } from '@/store/modules/theme';

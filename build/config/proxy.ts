@@ -1,6 +1,6 @@
 import type { ProxyOptions } from 'vite';
-import { consola } from 'consola';
 import { bgRed, bgYellow, green, lightBlue } from 'kolorist';
+import { consola } from 'consola';
 import { createServiceConfig } from '../../src/utils/service';
 
 /**

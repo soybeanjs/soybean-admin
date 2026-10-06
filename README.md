@@ -23,12 +23,6 @@
 > [!NOTE]
 > `SoybeanAdmin` 快速上手系列视频已在 [Bilibili](https://www.bilibili.com/video/BV1YKdRYXELC) 上线 [点击这里](https://www.bilibili.com/video/BV1YKdRYXELC) 前往查看
 
-> [!IMPORTANT]
-> `SoybeanAdmin` 3.0 版本正在开发中，将基于 ubean 全栈框架与 VeanUI 组件库进行整体重构，进展与方案请查看 [Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941)。
-
-> [!WARNING]
-> `2.3` 将是 2.x 系列最后一个维护的大版本。2.x 后续只在该版本上提供维护更新，新特性将集中在 3.0 中实现，建议新项目关注 3.0 进展。
-
 <div align="center">
   <table width="100%">
     <tr>
@@ -50,12 +44,11 @@
             </td>
           </tr>
         </table>
-        <strong>面向 Vue 3 的强大而优雅的组件系统，提供 Aria 层交互能力与开箱即用的样式封装。</strong><br />
+        <strong>面向 Vue 3 的强大而优雅的组件系统，提供无头交互能力与开箱即用的样式封装。</strong><br />
         <sub>采用 Aria + UI 两层架构，复用底层交互能力，统一上层界面表达。</sub>
         <br /><br />
         <img alt="Vue 3" src="https://img.shields.io/badge/Vue%203-Component%20Library-6366f1?style=flat-square&labelColor=4338ca" />
         <img alt="Aria" src="https://img.shields.io/badge/Aria-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
-        <img alt="Admin" src="https://img.shields.io/badge/Admin-Professional%20UI-a5b4fc?style=flat-square&labelColor=4f46e5" />
       </td>
       <td align="right">
         <a href="https://veanui.com">
@@ -77,7 +70,7 @@
 
 - **前沿技术应用**：采用 Vue3, Vite8, TypeScript, Pinia 和 UnoCSS 等最新流行的技术栈。
 - **清晰的项目架构**：采用 pnpm monorepo 架构，结构清晰，优雅易懂。
-- **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，集成了eslint、oxlint、oxfmt 和 vp hooks，保证代码的规范性。
+- **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，集成了eslint, prettier 和 simple-git-hooks，保证代码的规范性。
 - **TypeScript**： 支持严格的类型检查，提高代码的可维护性。
 - **丰富的主题配置**：内置多样的主题配置，与 UnoCSS 完美结合。
 - **内置国际化方案**：轻松实现多语言支持。
@@ -88,9 +81,6 @@
 - **移动端适配**：完美支持移动端，实现自适应布局。
 
 ## 版本
-
-> [!IMPORTANT]
-> 3.0 版本正在开发中（[Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941)）；`2.3` 是 2.x 系列最后一个维护的大版本。
 
 - **NaiveUI 版本:**
   - [预览地址](https://naive.soybeanjs.cn/)

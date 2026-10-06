@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { createReusableTemplate } from '@vueuse/core';
 import type { RouteKey } from '@elegant-router/types';
-import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '@/store/modules/theme';
+import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
 
 defineOptions({

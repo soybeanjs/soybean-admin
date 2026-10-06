@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
 import type { PopoverPlacement } from 'naive-ui';
+import { twMerge } from 'tailwind-merge';
 
 defineOptions({
   name: 'ButtonIcon',

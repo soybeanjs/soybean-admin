@@ -1,7 +1,7 @@
-import { existsSync, mkdirSync } from 'node:fs';
-import { writeFile } from 'node:fs/promises';
-import path from 'node:path';
 import process from 'node:process';
+import path from 'node:path';
+import { writeFile } from 'node:fs/promises';
+import { existsSync, mkdirSync } from 'node:fs';
 import { prompt } from 'enquirer';
 import { green, red } from 'kolorist';
 

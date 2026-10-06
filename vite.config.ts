@@ -1,8 +1,8 @@
 import process from 'node:process';
-import { defineConfig, loadEnv } from 'vite-plus';
-import { fmt, lint } from '@soybeanjs/oxc-config';
-import { createViteProxy, getBuildTime } from './build/config';
+import { URL, fileURLToPath } from 'node:url';
+import { defineConfig, loadEnv } from 'vite';
 import { setupVitePlugins } from './build/plugins';
+import { createViteProxy, getBuildTime } from './build/config';
 
 export default defineConfig(configEnv => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as Env.ImportMeta;
@@ -13,21 +13,11 @@ export default defineConfig(configEnv => {
 
   return {
     base: viteEnv.VITE_BASE_URL,
-    staged: {
-      '*': 'vp check --fix'
-    },
-    lint,
-    fmt: {
-      ...fmt,
-      ignorePatterns: [
-        'CHANGELOG.md',
-        'src/typings/components.d.ts',
-        'src/typings/elegant-router.d.ts',
-        'src/router/elegant'
-      ]
-    },
     resolve: {
-      tsconfigPaths: true
+      alias: {
+        '~': fileURLToPath(new URL('./', import.meta.url)),
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      }
     },
     css: {
       preprocessorOptions: {

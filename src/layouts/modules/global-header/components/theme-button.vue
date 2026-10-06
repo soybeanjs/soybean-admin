@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
+import { $t } from '@/locales';
 
 defineOptions({
   name: 'ThemeButton'

@@ -1,12 +1,5 @@
 packages:
   - 'packages/*'
-catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@latest
-  vite-plus: latest
-  typescript: npm:typescript-native-bridge@latest
-overrides:
-  vite: 'catalog:'
-  typescript: 'catalog:'
 allowBuilds:
   '@parcel/watcher': false
   esbuild: false
@@ -15,5 +8,3 @@ allowBuilds:
 shamefullyHoist: true
 ignoreWorkspaceRootCheck: true
 linkWorkspacePackages: true
-minimumReleaseAgeExclude:
-  - '@iconify/json@2.2.541'

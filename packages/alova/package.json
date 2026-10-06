@@ -1,6 +1,6 @@
 {
   "name": "@sa/alova",
-  "version": "2.3.0",
+  "version": "2.2.0",
   "typesVersions": {
     "*": {
       "*": [
@@ -14,12 +14,9 @@
     "./client": "./src/client.ts",
     "./mock": "./src/mock.ts"
   },
-  "scripts": {
-    "typecheck": "tsc --noEmit --skipLibCheck"
-  },
   "dependencies": {
-    "@alova/mock": "2.0.22",
+    "@alova/mock": "2.0.20",
     "@sa/utils": "workspace:*",
-    "alova": "3.5.5"
+    "alova": "3.5.1"
   }
 }

@@ -1,5 +1,5 @@
-import { colorPalettes } from '../constant';
 import { getColorName, getDeltaE, getHsl, isValidColor, transformHslToHex } from '../shared';
+import { colorPalettes } from '../constant';
 import type {
   ColorPalette,
   ColorPaletteFamily,

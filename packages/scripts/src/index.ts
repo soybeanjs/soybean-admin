@@ -1,9 +1,9 @@
 import { cac } from 'cac';
 import { blue, lightGreen } from 'kolorist';
 import { version } from '../package.json';
+import { cleanup, genChangelog, generateRoute, gitCommit, gitCommitVerify, release, updatePkg } from './commands';
 import { loadCliOptions } from './config';
 import type { Lang } from './locales';
-import { cleanup, genChangelog, generateRoute, gitCommit, gitCommitVerify, release, updatePkg } from './commands';
 
 type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify' | 'changelog' | 'release' | 'gen-route';
 
@@ -43,8 +43,7 @@ export async function setupCli() {
     .version(lightGreen(version))
     .option(
       '-e, --execute [command]',
-      // 默认值在 commands/release.ts 里定义,改文案时务必同步改那边
-      "Execute additional command after bumping and before git commit. Defaults to 'pnpm sa changelog'"
+      "Execute additional command after bumping and before git commit. Defaults to 'npx soy changelog'"
     )
     .option('-p, --push', 'Indicates whether to push the git commit and tag')
     .option('-t, --total', 'Generate changelog by total tags')

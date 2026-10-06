@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import type { RouteKey } from '@elegant-router/types';
-import { useBoolean } from '@sa/hooks';
 import { SimpleScrollbar } from '@sa/materials';
+import { useBoolean } from '@sa/hooks';
+import type { RouteKey } from '@elegant-router/types';
 import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
-import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
-import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '@/store/modules/theme';
+import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
+import { $t } from '@/locales';
 import { useMenu, useMixMenuContext } from '../context';
-import GlobalLogo from '../../global-logo/index.vue';
 import FirstLevelMenu from '../components/first-level-menu.vue';
+import GlobalLogo from '../../global-logo/index.vue';
 
 defineOptions({
   name: 'VerticalMixMenu'
