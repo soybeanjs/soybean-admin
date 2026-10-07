@@ -1,0 +1,119 @@
+/**
+ * 客户端 API 契约类型（与后端 DTO 手工对齐，v3 §6.3）。
+ *
+ * `.ubean/openapi.d.ts` 的 200 响应未携带 content schema（describeRoute 未接
+ * 响应 schema），typed client 无法推断响应体 —— 这里按服务端
+ * `src/schema/auth.ts` / `src/db/schema/menu.ts` 手工镜像，服务端改动需同步。
+ */
+
+/** 用户安全视图（镜像后端 `AuthUserDTO`，绝不含 password） */
+export interface ApiUserInfo {
+  id: string;
+  username: string;
+  fullName: string | null;
+  avatar: string | null;
+  email: string | null;
+  phone: string | null;
+  homePath: string | null;
+  description: string | null;
+  enabled: 'Y' | 'N' | 'D';
+  /** 角色码列表 */
+  roles: string[];
+}
+
+/** 登录 / 刷新令牌响应（镜像后端 `LoginResult`） */
+export interface ApiLoginResult {
+  token: string;
+  refreshToken: string;
+  user: ApiUserInfo;
+}
+
+/** 菜单类型（镜像后端 `MENU_TYPES`） */
+export type ApiMenuType = 'directory' | 'menu' | 'page' | 'iframe' | 'link' | 'button' | 'other';
+
+/** 菜单行（`GET /api/menu/user` 返回，镜像后端 menu 表列的客户端子集） */
+export interface ApiMenuRow {
+  id: string;
+  parentId: string | null;
+  name: string;
+  code: string;
+  menuType: ApiMenuType;
+  requiresAuth: 'Y' | 'N';
+  icon: string | null;
+  i18nKey: string | null;
+  order: number;
+  iframeUrl: string | null;
+  href: string | null;
+  routePath: string | null;
+  routeName: string | null;
+  routeLayout: string | null;
+  routeComponent: string | null;
+  routeRedirect: string | null;
+  routeQueries: Record<string, string> | null;
+  routeParams: Record<string, string> | null;
+  keepAlive: 'Y' | 'N' | null;
+  multiTab: 'Y' | 'N' | null;
+  pinned: 'Y' | 'N' | null;
+  description: string | null;
+}
+
+/** SAppShell 菜单项（`AppShellMenuItem` 的应用侧形态） */
+export interface MenuTreeNode {
+  /** 唯一键 = 路由名（目录为菜单 code） */
+  value: string;
+  /** 原始文案（i18nKey 缺失时的兑底；展示层用 `t(i18nKey) || label` 解析） */
+  label: string;
+  /** 菜单标题 i18n key（标题单一来源） */
+  i18nKey?: string;
+  icon?: string;
+  /** 可导航路径（叶子节点才有；选中菜单时按 path 跳转，规避动态路由名不在
+   * RouteNamedMap 字面量并集里的类型问题） */
+  path?: string;
+  children?: MenuTreeNode[];
+}
+
+/** 页签（`PageTabsOptionData` 的应用侧扩展形态） */
+export interface AppTab {
+  /** 唯一键：multiTab 页 = fullPath，普通页 = 路由名 */
+  value: string;
+  /** 原始文案（i18nKey 缺失时的兑底；展示层用 `t(i18nKey) || label` 解析） */
+  label: string;
+  /** 页签标题 i18n key（标题单一来源） */
+  i18nKey?: string;
+  icon?: string;
+  pinned?: boolean;
+  /** 归属路由名（keep-alive 驱逐 / 关页跳转用） */
+  routeName: string;
+  /** 路由完整路径（点击页签跳转用） */
+  fullPath: string;
+}
+
+/**
+ * 路由 meta 扩展（文件路由 `definePage({ meta })` + 动态路由共用）。
+ *
+ * 用 type alias 而非 interface：vue-router 的 `RouteMeta` 继承了
+ * `Record<PropertyKey, unknown>`，interface 没有隐式索引签名，赋给 RouteMeta
+ * 会因缺索引签名而不可赋值；object type alias 有隐式索引签名，双向兼容。
+ */
+export type AppRouteMeta = {
+  /** 页面标题（静态页兜底；dynamic 下以菜单 i18nKey 为单一来源） */
+  title?: string;
+  /** 菜单 i18n key（标题单一来源） */
+  i18nKey?: string;
+  /** 菜单图标 */
+  icon?: string;
+  /** 菜单排序 */
+  order?: number;
+  /** 是否隐藏在菜单中 */
+  hideInMenu?: boolean;
+  /** keep-alive 缓存（ubean `meta.cache`：PageView 据此种入 KeepAlive；dynamic 模式由菜单表下发） */
+  cache?: boolean;
+  /** multiTab：同路由不同 query 独立页签 */
+  multiTab?: boolean;
+  /** 页签固定 */
+  pinned?: boolean;
+  /** 动态路由来源的菜单 id（一致性断言用） */
+  menuId?: string;
+  /** 挂载布局（dynamic 模式 routeLayout 下发） */
+  layout?: string;
+};

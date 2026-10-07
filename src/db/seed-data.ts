@@ -1,5 +1,4 @@
 import { hashSync } from 'bcryptjs';
-import { createUuidV7 } from '../shared/uuid';
 import type { NewApi } from './schema/api';
 import type { NewDict } from './schema/dict';
 import type { NewDictItem } from './schema/dict-item';
@@ -218,18 +217,26 @@ export const seedPermissions: NewPermission[] = [
   }
 ];
 
+// 关联表行 id 必须确定性（不能用 createUuidV7 随机生成！）：seed 靠
+// INSERT OR IGNORE 幂等，随机 id 永不冲突 → 每次启动重复累积一行
+//（叠加 0002 迁移的自然键唯一索引，双保险）。
 export const seedUserRoles = [
-  { id: createUuidV7(), userId: 'U_admin', roleId: ROLE_SUPER, ...auditRow() },
-  { id: createUuidV7(), userId: 'U_user', roleId: ROLE_USER, ...auditRow() }
+  { id: `ur_${'U_admin'}_${ROLE_SUPER}`, userId: 'U_admin', roleId: ROLE_SUPER, ...auditRow() },
+  { id: `ur_${'U_user'}_${ROLE_USER}`, userId: 'U_user', roleId: ROLE_USER, ...auditRow() }
 ];
 
 export const seedRolePermissions = [
   // super 全量权限
-  ...seedPermissions.map(p => ({ id: createUuidV7(), roleId: ROLE_SUPER, permissionId: p.id!, ...auditRow() })),
+  ...seedPermissions.map(p => ({
+    id: `rp_${ROLE_SUPER}_${p.id!}`,
+    roleId: ROLE_SUPER,
+    permissionId: p.id!,
+    ...auditRow()
+  })),
   // user：公开菜单 + 自身菜单 + 自身角色（登录后渲染用）
-  { id: createUuidV7(), roleId: ROLE_USER, permissionId: 'P_api_menu_public', ...auditRow() },
-  { id: createUuidV7(), roleId: ROLE_USER, permissionId: 'P_api_menu_user', ...auditRow() },
-  { id: createUuidV7(), roleId: ROLE_USER, permissionId: 'P_api_role_user', ...auditRow() }
+  { id: 'rp_R_user_P_api_menu_public', roleId: ROLE_USER, permissionId: 'P_api_menu_public', ...auditRow() },
+  { id: 'rp_R_user_P_api_menu_user', roleId: ROLE_USER, permissionId: 'P_api_menu_user', ...auditRow() },
+  { id: 'rp_R_user_P_api_role_user', roleId: ROLE_USER, permissionId: 'P_api_role_user', ...auditRow() }
 ];
 
 export const seedApis: NewApi[] = [

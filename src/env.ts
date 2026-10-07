@@ -16,6 +16,16 @@ export const env = {
   apiProxy: import.meta.env.VITE_API_PROXY || '',
   apiEnv: import.meta.env.VITE_API_ENV || 'local',
   themePreset: import.meta.env.VITE_THEME_PRESET || 'default',
+  layoutMode: import.meta.env.VITE_LAYOUT_MODE || 'vertical',
+  authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE || 'static',
+  routeHome: import.meta.env.VITE_ROUTE_HOME || '/',
+  serviceSuccessCode: import.meta.env.VITE_SERVICE_SUCCESS_CODE || '0000',
+  /** 逗号分隔的码表，解析在 `src/constants/service.ts` */
+  serviceLogoutCodes: import.meta.env.VITE_SERVICE_LOGOUT_CODES || '',
+  serviceModalLogoutCodes: import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES || '',
+  serviceExpiredTokenCodes: import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES || '2001',
+  staticSuperRole: import.meta.env.VITE_STATIC_SUPER_ROLE || 'super',
+  storagePrefix: import.meta.env.VITE_STORAGE_PREFIX || '@soybean/',
   mode: import.meta.env.MODE,
   isDev: import.meta.env.DEV,
   isProd: import.meta.env.PROD
