@@ -92,8 +92,11 @@ afterAll(async () => {
 
 describe('GET /api/system/health', () => {
   it('公开可访问且返回 0000 包装', async () => {
-    const { status, body } = await api('GET', '/api/system/health');
-    const data = okData<{ status: string; version: string; timestamp: number }>(body);
+    const { status, body } = await api<{ status: string; version: string; timestamp: number }>(
+      'GET',
+      '/api/system/health'
+    );
+    const data = okData(body);
 
     expect(status).toBe(200);
     expect(data.status).toBe('ok');
@@ -117,11 +120,15 @@ describe('POST /api/auth/login', () => {
   });
 
   it('admin 登录返回 token 对与用户视图', async () => {
-    const data = okData<{ token: string; refreshToken: string; user: { username: string; roles: string[] } }>(
+    const data = okData(
       (
-        await api<{ token: string }>('POST', '/api/auth/login', {
-          body: { userName: 'admin', password: '123456' }
-        })
+        await api<{ token: string; refreshToken: string; user: { username: string; roles: string[] } }>(
+          'POST',
+          '/api/auth/login',
+          {
+            body: { userName: 'admin', password: '123456' }
+          }
+        )
       ).body
     );
 
@@ -154,8 +161,12 @@ describe('GET /api/auth/user-info', () => {
   });
 
   it('有效 token 返回用户视图（无密码字段、含角色）', async () => {
-    const data = okData<{ id: string; username: string; roles: string[]; password?: string }>(
-      (await api<{ id: string }>('GET', '/api/auth/user-info', { token: adminToken })).body
+    const data = okData(
+      (
+        await api<{ id: string; username: string; roles: string[]; password?: string }>('GET', '/api/auth/user-info', {
+          token: adminToken
+        })
+      ).body
     );
 
     expect(data.id).toBe('U_admin');
@@ -174,10 +185,10 @@ describe('POST /api/auth/refresh-token', () => {
       ).body
     );
 
-    const first = await api<{ token: string }>('POST', '/api/auth/refresh-token', {
+    const first = await api<{ token: string; refreshToken: string }>('POST', '/api/auth/refresh-token', {
       body: { refreshToken: login.refreshToken }
     });
-    const refreshed = okData<{ token: string; refreshToken: string }>(first.body);
+    const refreshed = okData(first.body);
 
     expect(refreshed.token).toBeTruthy();
 
