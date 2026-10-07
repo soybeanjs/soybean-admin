@@ -1,19 +1,47 @@
-<script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import { SButton, SInput, SPassword } from '@vean/ui';
-import { useAuthStore } from '@/store/modules/auth';
-import { getRouter } from '@/router/instance';
+<script lang="ts">
+import type { Component } from 'vue';
+import BindWechat from '@/views/_builtin/login/modules/bind-wechat.vue';
+import CodeLogin from '@/views/_builtin/login/modules/code-login.vue';
+import PwdLogin from '@/views/_builtin/login/modules/pwd-login.vue';
+import Register from '@/views/_builtin/login/modules/register.vue';
+import ResetPwd from '@/views/_builtin/login/modules/reset-pwd.vue';
+import type { LoginModule } from '@/views/_builtin/login/use-login';
 
 /**
- * 登录页（v3 §5.5，接入自家 `/api/auth/login`）。
+ * 模块注册表与标题 key 放**模块作用域**（普通 `<script>` 块）：
+ * 放 setup 里会让对象被 Vue 响应式包装，`<component :is>` 会警告
+ * "made a reactive object"。
+ */
+const moduleComponents: Record<LoginModule, Component> = {
+  'pwd-login': PwdLogin,
+  'code-login': CodeLogin,
+  register: Register,
+  'reset-pwd': ResetPwd,
+  'bind-wechat': BindWechat
+};
+
+const moduleTitleKeys: Record<LoginModule, string> = {
+  'pwd-login': 'common.login',
+  'code-login': 'login.codeLogin',
+  register: 'login.register',
+  'reset-pwd': 'login.resetPwd',
+  'bind-wechat': 'login.bindWechat'
+};
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import { resolveLoginModule } from '@/views/_builtin/login/use-login';
+
+/**
+ * 登录页（v3 §4.6）：单路由多模块壳。
  *
- * - 表单校验只做非空（服务端 valibot 兜底；业务错误由请求层 toast 出
- *   envelope 的 message，如 `2009` → 「用户名或密码错误」，这里 catch 住
- *   BackendError 不重复提示）。
- * - 成功后回跳：`?redirect=` 优先（守卫记录的来源页），否则 `homePath`。
- * - 布局走 `blank`（无壳），登录成功进入 default 布局。
+ * `/login?module=<模块>` 切换子组件（密码登录 / 验证码登录 / 注册 / 重置密码 /
+ * 绑定微信），与 v2 的 `views/_builtin/login/modules/*` 结构对齐 —— 5 个模块
+ * 共用一条路由，回跳参数（`?redirect=`）在切换过程中由 `gotoLoginModule`
+ * 原样保留。布局走 `blank`（无壳），登录成功进入 default 布局。
  */
 definePage({
   layout: 'blank',
@@ -25,55 +53,18 @@ definePage({
 
 const { t } = useI18n();
 const route = useRoute();
-const authStore = useAuthStore();
 
-const userName = ref('');
-const password = ref('');
-const submitting = ref(false);
-const errorMessage = ref('');
-
-/** 回跳目标：query.redirect（守卫写入）优先，其次用户 homePath */
-const redirectTarget = computed(() => {
-  const redirect = route.query.redirect;
-
-  return typeof redirect === 'string' && redirect.startsWith('/') ? redirect : authStore.homePath;
-});
-
-async function handleSubmit(): Promise<void> {
-  if (!userName.value.trim() || !password.value) {
-    errorMessage.value = '请输入用户名和密码';
-    return;
-  }
-
-  errorMessage.value = '';
-  submitting.value = true;
-
-  try {
-    await authStore.login(userName.value.trim(), password.value);
-    await getRouter().replace(redirectTarget.value);
-  } catch {
-    // 业务错误已由请求层 toast；静默恢复按钮态
-  } finally {
-    submitting.value = false;
-  }
-}
+const activeModule = computed(() => resolveLoginModule(route.query.module));
+const activeTitleKey = computed(() => moduleTitleKeys[activeModule.value]);
 </script>
 
 <template>
   <div class="flex-center h-full">
-    <div class="w-80 rounded-lg border border-gray-200 p-8 dark:border-gray-800">
-      <h1 class="mb-6 text-xl font-600">{{ t('common.login') }}</h1>
+    <div class="w-96 rounded-lg border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <h1 class="mb-1 text-center text-xl font-600">{{ t(activeTitleKey) }}</h1>
+      <p class="mb-6 text-center text-sm text-gray-500">{{ t('app.description') }}</p>
 
-      <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
-        <SInput v-model="userName" label="用户名" placeholder="admin" autocomplete="username" />
-        <SPassword v-model="password" label="密码" placeholder="123456" autocomplete="current-password" />
-
-        <p v-if="errorMessage" class="text-sm text-red-500">{{ errorMessage }}</p>
-
-        <SButton type="submit" class="mt-2 w-full" :loading="submitting">
-          {{ t('common.login') }}
-        </SButton>
-      </form>
+      <component :is="moduleComponents[activeModule]" />
     </div>
   </div>
 </template>

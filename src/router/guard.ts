@@ -50,8 +50,10 @@ export function setupRouterGuard(instance: Router): void {
       return to.meta.requiresAuth === false ? true : { name: 'Login', query: { redirect: to.fullPath } };
     }
 
-    // 已登录访问登录页 → 回首页（用户 homePath 优先）
-    if (to.name === 'Login') {
+    // 已登录访问裸登录页 → 回首页（用户 homePath 优先）。
+    // 例外：`?module=` 指向账号相关模块（注册/重置密码/绑定微信）时放行 ——
+    // 这些模块在登录态同样有意义（绑定微信本身就是登录态操作）。
+    if (to.name === 'Login' && !to.query.module) {
       return authStore.homePath;
     }
 

@@ -3,6 +3,7 @@
  *
  * 前置：dev server 就绪（global-setup.ts 自起或复用 9527）。
  * 覆盖：健康检查、认证全链路（login/register/refresh/logout/user-info/modify-password）、
+ * 图形验证码与验证码登录、重置密码、微信绑定（mock）、
  * RBAC（super 放行、普通用户按权限码）、8 套 CRUD 生命周期、分页/校验/错误归一。
  * 全部断言业务码 `{ code, message, data }` 结构。
  */
@@ -287,6 +288,174 @@ describe('POST /api/auth/register + POST /api/auth/error', () => {
     const { body } = await api('POST', '/api/auth/error');
 
     expect(body.code).toBe('1000');
+  });
+});
+
+// ---------- 图形验证码 / 验证码登录 / 重置密码 / 微信绑定（P2-08） ----------
+
+/** 拉取图形验证码并解出答案（自绘 SVG 的 `<text>` 内容即答案 —— mock 渲染器的事实） */
+async function fetchCaptcha(): Promise<{ captchaId: string; code: string }> {
+  const data = okData((await api<{ captchaId: string; img: string }>('GET', '/api/auth/captcha')).body);
+  const base64 = data.img.split(',')[1] ?? '';
+  const svg = Buffer.from(base64, 'base64').toString('utf-8');
+  const code = [...svg.matchAll(/<text[^>]*>([^<]+)<\/text>/g)].map(match => match[1] ?? '').join('');
+
+  return { captchaId: data.captchaId, code };
+}
+
+describe('GET /api/auth/captcha', () => {
+  it('公开返回验证码标识与 SVG data URL', async () => {
+    const data = okData((await api<{ captchaId: string; img: string }>('GET', '/api/auth/captcha')).body);
+
+    expect(data.captchaId).toBeTruthy();
+    expect(data.img.startsWith('data:image/svg+xml;base64,')).toBe(true);
+  });
+});
+
+describe('POST /api/auth/login (grantType: captcha)', () => {
+  it('验证码正确即登录成功（无需密码）', async () => {
+    const { captchaId, code } = await fetchCaptcha();
+    const data = okData<{ token: string; user: { username: string } }>(
+      (
+        await api<{ token: string; user: { username: string } }>('POST', '/api/auth/login', {
+          body: { userName: 'user', captchaId, captchaCode: code, grantType: 'captcha' }
+        })
+      ).body
+    );
+
+    expect(data.token).toBeTruthy();
+    expect(data.user.username).toBe('user');
+  });
+
+  it('验证码错误返回 2012', async () => {
+    const { captchaId } = await fetchCaptcha();
+    const { body } = await api('POST', '/api/auth/login', {
+      body: { userName: 'user', captchaId, captchaCode: 'ZZZZ', grantType: 'captcha' }
+    });
+
+    expect(body.code).toBe('2012');
+  });
+
+  it('验证码一次性消费：重放返回 2013', async () => {
+    const { captchaId, code } = await fetchCaptcha();
+    const first = await api('POST', '/api/auth/login', {
+      body: { userName: 'user', captchaId, captchaCode: code, grantType: 'captcha' }
+    });
+
+    expect(first.body.code).toBe('0000');
+
+    const replay = await api('POST', '/api/auth/login', {
+      body: { userName: 'user', captchaId, captchaCode: code, grantType: 'captcha' }
+    });
+
+    expect(replay.body.code).toBe('2013');
+  });
+
+  it('密码登录可附带验证码校验', async () => {
+    const { captchaId, code } = await fetchCaptcha();
+    const { body } = await api('POST', '/api/auth/login', {
+      body: { userName: 'user', password: '123456', grantType: 'pwd', captchaId, captchaCode: code }
+    });
+
+    expect(body.code).toBe('0000');
+  });
+});
+
+describe('POST /api/auth/reset-password', () => {
+  it('重置后新密码可登录（注册用户 → 重置 → 再登录 → 清理）', async () => {
+    const username = `rp_${runId}`;
+    const reg = await api('POST', '/api/auth/register', {
+      body: { userName: username, password: 'pass123456', email: `${username}@test.dev` }
+    });
+
+    expect(reg.body.code).toBe('0000');
+
+    const { captchaId, code } = await fetchCaptcha();
+    const reset = await api('POST', '/api/auth/reset-password', {
+      body: { userName: username, password: 'reset123456', captchaId, captchaCode: code }
+    });
+
+    expect(reset.body.code).toBe('0000');
+
+    const relogin = await api('POST', '/api/auth/login', {
+      body: { userName: username, password: 'reset123456' }
+    });
+
+    expect(relogin.body.code).toBe('0000');
+
+    const list = await api<{ list: Array<{ id: string; username: string }> }>('GET', '/api/user/list', {
+      token: adminToken,
+      query: { current: '1', size: '100', username }
+    });
+    const row = okData<{ list: Array<{ id: string; username: string }> }>(list.body).list.find(
+      item => item.username === username
+    );
+
+    if (row) {
+      await api('DELETE', `/api/user/${row.id}`, { token: adminToken });
+    }
+  });
+
+  it('验证码错误返回 2012', async () => {
+    const { captchaId } = await fetchCaptcha();
+    const { body } = await api('POST', '/api/auth/reset-password', {
+      body: { userName: 'user', password: 'reset123456', captchaId, captchaCode: 'ZZZZ' }
+    });
+
+    expect(body.code).toBe('2012');
+  });
+});
+
+describe('微信绑定（mock）', () => {
+  it('二维码公开可得；绑定需登录，绑定后状态可查', async () => {
+    const qr = okData<{ ticket: string; url: string }>(
+      (await api<{ ticket: string; url: string }>('GET', '/api/auth/wechat-qrcode')).body
+    );
+
+    expect(qr.ticket).toBeTruthy();
+    expect(qr.url).toContain('qrconnect');
+
+    const unauth = await api('GET', '/api/auth/bind-wechat');
+
+    expect(unauth.body.code).toBe('2000');
+
+    const login = okData<{ token: string }>(
+      (
+        await api<{ token: string }>('POST', '/api/auth/login', {
+          body: { userName: 'user', password: '123456' }
+        })
+      ).body
+    );
+    const bound = okData<{ bound: boolean; nickname: string | null }>(
+      (
+        await api<{ bound: boolean; nickname: string | null }>('POST', '/api/auth/bind-wechat', {
+          token: login.token,
+          body: { ticket: qr.ticket }
+        })
+      ).body
+    );
+
+    expect(bound.bound).toBe(true);
+    expect(bound.nickname).toBeTruthy();
+
+    const status = okData<{ bound: boolean }>(
+      (await api<{ bound: boolean }>('GET', '/api/auth/bind-wechat', { token: login.token })).body
+    );
+
+    expect(status.bound).toBe(true);
+  });
+
+  it('无效 ticket 返回非 0000 业务码', async () => {
+    const login = okData<{ token: string }>(
+      (
+        await api<{ token: string }>('POST', '/api/auth/login', {
+          body: { userName: 'user', password: '123456' }
+        })
+      ).body
+    );
+    const { body } = await api('POST', '/api/auth/bind-wechat', { token: login.token, body: { ticket: 'invalid' } });
+
+    expect(body.code).not.toBe('0000');
   });
 });
 

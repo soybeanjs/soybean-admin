@@ -20,14 +20,22 @@ export type AuthUserDTO = {
 };
 
 /** 登录请求（pwd 密码登录 / captcha 图形验证码登录，v2 双类型契约） */
-export const loginSchema = v.object({
-  userName: v.pipe(v.string(), v.nonEmpty('用户名不能为空')),
-  password: v.pipe(v.string(), v.nonEmpty('密码不能为空')),
-  /** 登录类型：pwd 密码；captcha 验证码（配合 captchaId/captchaCode） */
-  grantType: v.optional(v.picklist(['pwd', 'captcha']), 'pwd'),
-  captchaId: v.optional(v.string()),
-  captchaCode: v.optional(v.string())
-});
+export const loginSchema = v.union([
+  v.object({
+    grantType: v.optional(v.literal('pwd')),
+    userName: v.pipe(v.string(), v.nonEmpty('用户名不能为空')),
+    password: v.pipe(v.string(), v.nonEmpty('密码不能为空')),
+    /** 密码登录可选携带图形验证码（两个都传才校验） */
+    captchaId: v.optional(v.string()),
+    captchaCode: v.optional(v.string())
+  }),
+  v.object({
+    grantType: v.literal('captcha'),
+    userName: v.pipe(v.string(), v.nonEmpty('用户名不能为空')),
+    captchaId: v.pipe(v.string(), v.nonEmpty('验证码标识不能为空')),
+    captchaCode: v.pipe(v.string(), v.nonEmpty('验证码不能为空'))
+  })
+]);
 
 export type LoginDTO = v.InferOutput<typeof loginSchema>;
 
@@ -47,6 +55,28 @@ export const refreshTokenSchema = v.object({
 });
 
 export type RefreshTokenDTO = v.InferOutput<typeof refreshTokenSchema>;
+
+/**
+ * 重置密码请求（未登录，图形验证码代替短信验证码）。
+ *
+ * 无短信通道（demo 无短信服务商），重置凭证用图形验证码承担，语义与 v2
+ * `reset-pwd` 页面一致（v2 用手机号 + 短信码）。
+ */
+export const resetPasswordSchema = v.object({
+  userName: v.pipe(v.string(), v.nonEmpty('用户名不能为空')),
+  password: v.pipe(v.string(), v.minLength(6, '密码至少 6 个字符')),
+  captchaId: v.pipe(v.string(), v.nonEmpty('验证码标识不能为空')),
+  captchaCode: v.pipe(v.string(), v.nonEmpty('验证码不能为空'))
+});
+
+export type ResetPasswordDTO = v.InferOutput<typeof resetPasswordSchema>;
+
+/** 微信绑定请求（已登录，凭二维码 ticket 完成绑定） */
+export const bindWechatSchema = v.object({
+  ticket: v.pipe(v.string(), v.nonEmpty('ticket 不能为空'))
+});
+
+export type BindWechatDTO = v.InferOutput<typeof bindWechatSchema>;
 
 /** 登录响应（token 对 + 用户安全视图） */
 export type LoginResult = {

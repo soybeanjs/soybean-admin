@@ -53,6 +53,10 @@ export const ErrorCode = {
   USERNAME_EXISTS: '2010',
   /** 邮箱已存在 */
   EMAIL_EXISTS: '2011',
+  /** 验证码错误 */
+  CAPTCHA_INVALID: '2012',
+  /** 验证码已过期 */
+  CAPTCHA_EXPIRED: '2013',
 
   // 参数错误 (3000-3999)
   /** 参数无效 */
@@ -138,6 +142,8 @@ export const defaultErrorMessages: Record<ErrorCodeKey, string> = {
   PASSWORD_INVALID: '用户名或密码错误',
   USERNAME_EXISTS: '用户名已存在',
   EMAIL_EXISTS: '邮箱已存在',
+  CAPTCHA_INVALID: '验证码错误',
+  CAPTCHA_EXPIRED: '验证码已过期，请重新获取',
 
   // 参数错误
   PARAM_INVALID: '参数无效',

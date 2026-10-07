@@ -20,7 +20,10 @@ export const POST = defineHandler(
   validate('json', registerSchema),
   async c => {
     const body = c.req.valid('json');
-    const result = await authService.register(body.userName, body.password);
+    const result = await authService.register(body.userName, body.password, {
+      email: body.email,
+      fullName: body.fullName
+    });
 
     return c.json(result);
   }
