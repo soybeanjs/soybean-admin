@@ -28,6 +28,31 @@ export interface ApiLoginResult {
   user: ApiUserInfo;
 }
 
+/** 图形验证码（镜像后端 `captcha.service.ts` 的 `CaptchaResult`） */
+export interface ApiCaptcha {
+  /** 验证码标识（提交时回传） */
+  captchaId: string;
+  /** SVG 图片的 data URL，可直接用作 `<img :src>` */
+  img: string;
+}
+
+/** 微信绑定二维码（镜像后端 `WechatQrcodeResult`，mock） */
+export interface ApiWechatQrcode {
+  /** 二维码票据（POST /api/auth/bind-wechat 提交） */
+  ticket: string;
+  /** 形似官方 qrconnect 的授权地址（仅展示） */
+  url: string;
+  /** 有效期（秒） */
+  expiresIn: number;
+}
+
+/** 微信绑定状态（镜像后端 `WechatBindingResult`） */
+export interface ApiWechatBinding {
+  bound: boolean;
+  /** 绑定后的假昵称（未绑定时为 null） */
+  nickname: string | null;
+}
+
 /** 菜单类型（镜像后端 `MENU_TYPES`） */
 export type ApiMenuType = 'directory' | 'menu' | 'page' | 'iframe' | 'link' | 'button' | 'other';
 

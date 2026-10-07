@@ -1,3 +1,4 @@
+import { useKV } from 'ubean/server';
 import { eq } from 'drizzle-orm';
 import {
   addTokenToBlacklist,
@@ -15,6 +16,7 @@ import { serverEnv } from '@/env.server';
 import type { AuthUserDTO } from '@/schema/auth';
 import { appDb } from '../db';
 import { user } from '../db/schema';
+import { verifyCaptcha } from './captcha.service';
 import { roleService } from './role.service';
 
 /**
@@ -30,6 +32,22 @@ export type LoginResult = { token: string; refreshToken: string; user: AuthUserD
 
 export const BLACKLIST_TOKEN_TTL = 60 * 60; // 1h
 export const BLACKLIST_REFRESH_TTL = 60 * 60 * 24 * 7; // 7d
+
+/** 微信二维码 ticket 有效期（秒） */
+export const WECHAT_TICKET_TTL = 300;
+
+/** 事实上的「扫码后」微信昵称（无真实开放平台凭证，按 userId 派生稳定假名） */
+function mockWechatNickname(userId: string): string {
+  return `wechat_${userId.slice(0, 8)}`;
+}
+
+function wechatTicketStore() {
+  return useKV<string>('wechat-ticket', { prefix: 'wechat-ticket:' });
+}
+
+function wechatBindingStore() {
+  return useKV<string>('wechat-binding', { prefix: 'wechat-binding:' });
+}
 
 /** 摘除 password 后的 AuthUserDTO（unify createUser 范式）；roles 由调用方按需附加 */
 export function toAuthUserDTO(row: UserRow, roles: string[] = []): AuthUserDTO {
@@ -65,8 +83,21 @@ function assertUserUsable(row: UserRow): void {
 }
 
 export const authService = {
-  async login(username: string, passwordValue: string): Promise<LoginResult> {
+  /**
+   * 密码登录（`grantType: 'pwd'`）。
+   *
+   * `captcha` 传入时先消费图形验证码（密码登录页可开启验证码开关）。
+   */
+  async login(
+    username: string,
+    passwordValue: string,
+    captcha?: { captchaId: string; captchaCode: string }
+  ): Promise<LoginResult> {
     try {
+      if (captcha?.captchaId && captcha.captchaCode) {
+        await verifyCaptcha(captcha.captchaId, captcha.captchaCode);
+      }
+
       const row = findUserByUsername(username);
       if (!row || !(await comparePassword(passwordValue, row.password))) {
         throw new AppError('PASSWORD_INVALID', '用户名或密码错误');
@@ -85,7 +116,108 @@ export const authService = {
     }
   },
 
-  async register(username: string, passwordValue: string): Promise<LoginResult> {
+  /**
+   * 验证码登录（`grantType: 'captcha'`）。
+   *
+   * 图形验证码代替 v2 的短信验证码承担凭证角色：校验通过即按用户名签发 token
+   * 对（用户名不存在报 `USER_NOT_FOUND`）。
+   */
+  async loginByCaptcha(username: string, captchaId: string, captchaCode: string): Promise<LoginResult> {
+    try {
+      await verifyCaptcha(captchaId, captchaCode);
+
+      const row = findUserByUsername(username);
+      if (!row) {
+        throw new AppError('USER_NOT_FOUND', '用户不存在');
+      }
+      assertUserUsable(row);
+
+      const authUser = await toAuthUserWithRoles(row);
+
+      return {
+        token: await generateToken(authUser),
+        refreshToken: await generateRefreshToken(authUser),
+        user: authUser
+      };
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+
+      throw AppError.from(error, 'SYSTEM_ERROR', '登录失败');
+    }
+  },
+
+  /** 重置密码（未登录；图形验证码校验通过后直接改密） */
+  async resetPassword(username: string, newPassword: string, captchaId: string, captchaCode: string): Promise<void> {
+    try {
+      await verifyCaptcha(captchaId, captchaCode);
+
+      const row = findUserByUsername(username);
+      if (!row) {
+        throw new AppError('USER_NOT_FOUND', '用户不存在');
+      }
+
+      appDb
+        .update(user)
+        .set({
+          password: await hashPassword(newPassword),
+          updatedBy: row.username,
+          updatedTime: new Date().toISOString()
+        })
+        .where(eq(user.id, row.id))
+        .run();
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+
+      throw AppError.from(error, 'DATABASE_ERROR', '重置密码失败');
+    }
+  },
+
+  /**
+   * 生成微信绑定二维码（mock）。
+   *
+   * 无微信开放平台凭证，返回自建 ticket + 形似官方 qrconnect 的 url；
+   * `ticket` 入 KV（TTL 5 分钟），绑定成功后单向消费。
+   */
+  async createWechatQrcode(): Promise<{ ticket: string; url: string; expiresIn: number }> {
+    const ticket = crypto.randomUUID();
+
+    await wechatTicketStore().set(ticket, 'pending', WECHAT_TICKET_TTL);
+
+    return {
+      ticket,
+      url: `https://open.weixin.qq.com/connect/qrconnect?appid=demo_appid&scope=snsapi_login&state=${ticket}`,
+      expiresIn: WECHAT_TICKET_TTL
+    };
+  },
+
+  /** 完成微信绑定（mock：ticket 有效即视为扫码成功）；返回派生昵称 */
+  async bindWechat(userId: string, ticket: string): Promise<{ bound: boolean; nickname: string }> {
+    const pending = await wechatTicketStore().get(ticket);
+
+    if (pending !== 'pending') {
+      throw new AppError('RESOURCE_EXPIRED', '二维码已失效，请刷新后重试');
+    }
+
+    await wechatTicketStore().remove(ticket);
+
+    const nickname = mockWechatNickname(userId);
+    await wechatBindingStore().set(userId, nickname);
+
+    return { bound: true, nickname };
+  },
+
+  /** 查询某用户的微信绑定状态 */
+  async getWechatBinding(userId: string): Promise<{ bound: boolean; nickname: string | null }> {
+    const nickname = await wechatBindingStore().get(userId);
+
+    return { bound: nickname !== null, nickname };
+  },
+
+  async register(
+    username: string,
+    passwordValue: string,
+    extra: { email?: string; fullName?: string } = {}
+  ): Promise<LoginResult> {
     try {
       if (findUserByUsername(username)) {
         throw new AppError('USERNAME_EXISTS', '用户名已存在');
@@ -97,8 +229,8 @@ export const authService = {
         username,
         password: await hashPassword(passwordValue),
         phone: null,
-        email: null,
-        fullName: username,
+        email: extra.email ?? null,
+        fullName: extra.fullName || username,
         avatar: null,
         description: null,
         homePath: '/home',

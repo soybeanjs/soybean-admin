@@ -8,7 +8,7 @@ import {
   setAuthStorage,
   setLogoutHandler
 } from '@/utils/auth';
-import { fetchGetUserInfo, fetchLogin, fetchLogout } from '@/service/api/auth';
+import { fetchGetUserInfo, fetchLogin, fetchLoginByCaptcha, fetchLogout, fetchRegister } from '@/service/api/auth';
 import { env } from '@/env';
 import type { ApiLoginResult, ApiUserInfo } from '@/typings/app';
 
@@ -41,8 +41,18 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     /** 登录：调接口 → 落存储 → 拉用户信息 */
-    async login(userName: string, password: string) {
-      const result = await fetchLogin(userName, password);
+    async login(userName: string, password: string, captcha?: { captchaId: string; captchaCode: string }) {
+      const result = await fetchLogin(userName, password, captcha);
+      this.handleLoginResult(result);
+    },
+    /** 验证码登录（图形验证码代替短信验证码） */
+    async loginByCaptcha(userName: string, captchaId: string, captchaCode: string) {
+      const result = await fetchLoginByCaptcha(userName, captchaId, captchaCode);
+      this.handleLoginResult(result);
+    },
+    /** 注册（后端注册即登录，直接拿到 token 对） */
+    async register(payload: { userName: string; password: string; email?: string; fullName?: string }) {
+      const result = await fetchRegister(payload);
       this.handleLoginResult(result);
     },
     /** 登录成功后的统一落库（登录/刷新共用） */
