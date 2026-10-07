@@ -162,6 +162,29 @@ CREATE TABLE IF NOT EXISTS "user_org" (
   org_id text NOT NULL,
   ${AUDIT_COLUMNS}
 );`
+  },
+  {
+    // 0002：关联表补自然键唯一索引（幂等修数后建索引）。
+    // 背景：0001 只给了 id 主键，而 seed 的关联行 id 每次启动随机生成，
+    // INSERT OR IGNORE 永不命中 → 每次启动重复累积（dev 环境已累积 36 倍）。
+    name: '0002-unique-keys-for-relation-tables',
+    up: `DELETE FROM "user_role" WHERE id NOT IN (
+  SELECT MIN(id) FROM "user_role" GROUP BY user_id, role_id
+);
+DELETE FROM "role_permission" WHERE id NOT IN (
+  SELECT MIN(id) FROM "role_permission" GROUP BY role_id, permission_id
+);
+DELETE FROM "org_role" WHERE id NOT IN (
+  SELECT MIN(id) FROM "org_role" GROUP BY org_id, role_id
+);
+DELETE FROM "user_org" WHERE id NOT IN (
+  SELECT MIN(id) FROM "user_org" GROUP BY user_id, org_id
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uk_user_role ON "user_role" (user_id, role_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uk_role_permission ON "role_permission" (role_id, permission_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uk_org_role ON "org_role" (org_id, role_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uk_user_org ON "user_org" (user_id, org_id);`
   }
 ];
 

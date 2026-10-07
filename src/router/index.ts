@@ -1,33 +1,11 @@
-import type { Router } from 'vue-router';
-import { progress } from '@vean/ui';
-import { APP_TITLE } from '@/constants';
+export { setupRouterGuard } from './guard';
 
 /**
- * 全局路由守卫（由 `defineApp({ router: { setup } })` 注册）。
- *
- * - 顶部加载进度条：`@vean/ui` 的 `progress`（`ProgressObserver` 静态实例）。
- *   `SConfigProvider` 已自动挂载 `SProgressProvider`，**无需**手动包 Provider。
- * - 页面标题：`to.meta.title` 由 `definePage({ meta })` / 扫描器写入。
- *
- * 注意：`setup` 必须**同步**注册守卫（守卫体本身可以异步）。
+ * 路由出口（刻意极薄）：
+ * - `./instance`：router 单例存取（叶子模块）。store / 布局 / 页面要用 router
+ *   时**只准** `import { getRouter } from '@/router/instance'`，不准经由本
+ *   index —— index 会拉进 guard，guard 又依赖 `@/store`，形成
+ *   `store → @/router → guard → store` 模块环。该环 + 动态 import 会让
+ *   vp dev 的转换管线静默死锁（0% CPU、HTML/模块请求永不返回，已实测）。
+ * - `./guard`：守卫链（`defineApp({ router: { setup } })` 的注册函数）。
  */
-export function setupRouterGuard(router: Router): void {
-  router.beforeEach(to => {
-    progress.start();
-
-    if (typeof document !== 'undefined') {
-      const title = to.meta?.title;
-      document.title = title ? `${String(title)} | ${APP_TITLE}` : APP_TITLE;
-    }
-
-    return true;
-  });
-
-  router.afterEach(() => {
-    progress.done();
-  });
-
-  router.onError(() => {
-    progress.done(true);
-  });
-}

@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SConfigProvider } from '@vean/ui';
+import { APP_TITLE } from '@/constants';
 import { useThemeStore } from '@/store/modules/theme';
 
 /**
@@ -17,11 +19,15 @@ import { useThemeStore } from '@/store/modules/theme';
  * 主题**不由本组件管理**：`SConfigProvider` 自己持有 base/primary/radius/mode，
  * 并由内部 watcher 把 `effectiveMode` 写成 `<html class="dark">`
  * （`theme.darkSelector: 'class'`）。消费方用 `useTheme()` 读改。
+ *
+ * 页面标题也在这里统一解析（守卫的 `useI18n()` 不可用）：`t(i18nKey) || title`
+ * 的单一来源逻辑，路由/语言变化时自动更新 `document.title`。
  */
 defineOptions({ name: 'AppRoot' });
 
+const route = useRoute();
 const themeStore = useThemeStore();
-const { locale } = useI18n();
+const { t, locale } = useI18n();
 
 /**
  * 把应用 locale 直接交给 SConfigProvider 做组件文案 locale。
@@ -31,6 +37,23 @@ const { locale } = useI18n();
  * 在 `src/app.ts` 里通过 `registerVeanLocales()` 完成（见 `@/shared/vean-locale`）。
  */
 const veanLocale = computed(() => locale.value);
+
+/** 标题单一来源：`t(meta.i18nKey) || meta.title`（无则回落应用名）。
+ * RouteMeta 已在 app.d.ts 全局扩展为 AppRouteMeta，直接读扩展字段 */
+const documentTitle = computed(() => {
+  const meta = route.meta;
+  const title = (meta.i18nKey ? t(meta.i18nKey) : '') || meta.title || '';
+
+  return title ? `${title} | ${APP_TITLE}` : APP_TITLE;
+});
+
+watch(
+  documentTitle,
+  title => {
+    if (typeof document !== 'undefined') document.title = title;
+  },
+  { immediate: true }
+);
 </script>
 
 <template>

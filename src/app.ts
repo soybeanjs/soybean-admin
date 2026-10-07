@@ -1,11 +1,22 @@
+import type { App } from 'vue';
 import { defineApp } from 'ubean/client';
 import { createPinia } from 'pinia';
 import 'uno.css';
 import '@vean/ui/styles.css';
 import { APP_DESCRIPTION, APP_ROOT_ID, APP_TITLE, DEFAULT_LOCALE } from '@/constants';
 import { registerVeanLocales } from '@/shared/vean-locale';
+import { setupAuthDirectives } from '@/directives/auth';
+import { initAuthStore } from '@/store/modules/auth';
 import { setupRouterGuard } from '@/router';
 import '@/styles/index.css';
+
+/**
+ * 注册请求层登出回调（token 失效/业务码登出的统一入口）。
+ *
+ * 这里必须在模块顶层调用：`router.setup`（注册守卫）在 pinia 安装之前执行，
+ * `initAuthStore` 特意做成不依赖 pinia 的普通函数（回调体使用期才动态取 store）。
+ */
+initAuthStore();
 
 /**
  * 注册 Vean 组件内置文案的 locale key（详见 `@/shared/vean-locale`）。
@@ -56,5 +67,10 @@ export default defineApp({
   plugins: [createPinia()],
   router: {
     setup: setupRouterGuard
+  },
+  onAppCreated(app: App) {
+    // 自定义指令（v-auth 权限指令，详见 @/directives/auth）。
+    // defineApp 没有 setup 钩子，指令注册走 onAppCreated（app 创建后、挂载前）。
+    setupAuthDirectives(app);
   }
 });
