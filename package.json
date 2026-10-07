@@ -41,6 +41,7 @@
     "prepare": "vp config --no-agent",
     "preview": "vp preview",
     "release": "soy release",
+    "remove:i18n": "node scripts/remove-i18n.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",

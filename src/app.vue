@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SConfigProvider } from '@vean/ui';
 import { APP_TITLE } from '@/constants';
+import { syncDocumentLocale } from '@/shared/i18n';
 import { useThemeStore } from '@/store/modules/theme';
 
 /**
@@ -54,6 +55,15 @@ watch(
   },
   { immediate: true }
 );
+
+/**
+ * locale → `<html lang>` / `<html dir>` 同步。
+ *
+ * `defineApp({ head: { htmlAttrs } })` 是构建期静态值，切语言不会变；屏幕阅读器
+ * 的朗读语言、浏览器翻译提示、CSS `:lang()` 都要靠这里实时跟上。无 DOM 的
+ * 预渲染上下文里 `syncDocumentLocale` 自会静默返回。
+ */
+watch(locale, syncDocumentLocale, { immediate: true });
 </script>
 
 <template>

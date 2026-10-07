@@ -13,6 +13,7 @@ import type { HealthInfo } from '@/schema/system';
 definePage({
   meta: {
     title: '首页',
+    i18nKey: 'common.home',
     icon: 'mdi:home'
   }
 });
@@ -51,7 +52,7 @@ onMounted(loadHealth);
     <section class="rounded-lg border border-gray-200 p-6 dark:border-gray-800">
       <h1 class="text-2xl font-600">{{ t('app.title') }}</h1>
       <p class="mt-2 text-sm opacity-70">{{ t('app.description') }}</p>
-      <p class="mt-4 text-xs opacity-50">version: {{ APP_VERSION }}</p>
+      <p class="mt-4 text-xs opacity-50">{{ t('common.version') }}: {{ APP_VERSION }}</p>
     </section>
 
     <section class="rounded-lg border border-gray-200 p-6 dark:border-gray-800">
