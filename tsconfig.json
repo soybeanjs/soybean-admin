@@ -26,6 +26,6 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "test/**/*.ts", ".ubean/**/*.d.ts", "*.config.ts"],
+  "include": ["src/**/*.ts", "src/**/*.vue", "test/**/*.ts", "scripts/**/*.ts", ".ubean/**/*.d.ts", "*.config.ts"],
   "exclude": ["node_modules", "dist", "public"]
 }

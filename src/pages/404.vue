@@ -6,7 +6,8 @@ definePage({
   name: 'NotFound',
   layout: 'blank',
   meta: {
-    title: '页面不存在'
+    title: '页面不存在',
+    i18nKey: 'common.notFound'
   }
 });
 

@@ -5,8 +5,8 @@ import { useI18n } from 'vue-i18n';
 import { setLocale } from 'ubean/client';
 import { SAppShell, SAvatar, SDropdownMenu, SThemeModeSwitch, useTheme } from '@vean/ui';
 import type { PageTabsOptionData } from '@vean/ui';
-import { APP_TITLE, DEFAULT_LOCALE } from '@/constants';
-import type { AppLocale } from '@/constants';
+import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE } from '@/constants';
+import { registerVeanLocalePack } from '@/shared/vean-locale';
 import { useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
 import { getRouter } from '@/router/instance';
 import type { AppTab, MenuTreeNode } from '@/typings/app';
@@ -144,18 +144,37 @@ function onUserMenuSelect(value: unknown): void {
   if (value === 'logout') void authStore.logout();
 }
 
-/** locale key → 展示文案；未知值原样展示（避免 `as AppLocale` 断言） */
-function getLocaleLabel(value: string): string {
-  if (value === 'zh') return '中文';
-  if (value === 'en') return 'EN';
-  return value;
-}
+/**
+ * 语言下拉项：直接由 `APP_LOCALES` 派生（新增语言只改常量 + JSON），
+ * 当前语言置灰（点自己无意义）。
+ */
+const localeMenuItems = computed(() =>
+  APP_LOCALES.map(code => ({
+    value: code,
+    label: APP_LOCALE_LABELS[code],
+    disabled: code === locale.value
+  }))
+);
 
-/** `setLocale` 来自 `ubean/client`（vue-i18n 的 locale 由 ubean 同步） */
-async function toggleLocale(): Promise<void> {
-  const next: AppLocale = locale.value === DEFAULT_LOCALE ? 'en' : DEFAULT_LOCALE;
+/** 当前语言展示名；未知值原样展示（避免 `as AppLocale` 断言） */
+const currentLocaleLabel = computed(() => {
+  const current = locale.value;
+  const matched = APP_LOCALES.find(code => code === current);
 
-  await setLocale(next);
+  return matched ? APP_LOCALE_LABELS[matched] : current;
+});
+
+/**
+ * 切语言：先按需补注册 Vean 组件文案包（`zh` / `en` 是幂等空转，新增语言才真正
+ * 走动态 `import()`），再调 `setLocale` —— 后者由 `ubean/client` 负责写 cookie、
+ * 懒加载 `src/locales/*.json`、并按 `prefix_except_default` 策略 `router.replace`
+ * 到带语言前缀的路径。
+ */
+async function onLocaleMenuSelect(value: unknown): Promise<void> {
+  if (typeof value !== 'string' || value === locale.value) return;
+
+  await registerVeanLocalePack(value);
+  await setLocale(value);
 }
 </script>
 
@@ -182,9 +201,18 @@ async function toggleLocale(): Promise<void> {
 
     <template #header-end>
       <div class="flex items-center gap-2">
-        <button type="button" class="rounded px-2 py-1 text-sm hover:bg-current/5" @click="toggleLocale">
-          {{ getLocaleLabel(locale) }}
-        </button>
+        <SDropdownMenu :items="localeMenuItems" placement="bottom-end" @select="onLocaleMenuSelect">
+          <template #trigger>
+            <button
+              type="button"
+              class="flex items-center gap-1 rounded px-2 py-1 text-sm hover:bg-current/5"
+              :aria-label="t('common.language')"
+            >
+              <span class="i-lucide:languages" />
+              {{ currentLocaleLabel }}
+            </button>
+          </template>
+        </SDropdownMenu>
         <SThemeModeSwitch size="sm" />
         <SDropdownMenu :items="userMenuItems" placement="bottom-end" @select="onUserMenuSelect">
           <template #trigger>

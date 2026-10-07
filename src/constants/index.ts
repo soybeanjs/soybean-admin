@@ -32,5 +32,18 @@ export type AppLocale = (typeof APP_LOCALES)[number];
 /** 默认 locale（需与 `ubean.config.ts` 的 `i18n.defaultLocale` 一致） */
 export const DEFAULT_LOCALE: AppLocale = 'zh';
 
+/**
+ * locale → 展示名（**各语言的原生写法**，切语言时不变形）。
+ *
+ * 语言下拉的单一来源：`APP_LOCALES` 加一项 + 此处补一行即可，
+ * 不要在视图里写 `if (value === 'zh')` 这类硬编码分支。
+ * （`ubean.config.ts` 的 `i18n.locales[].name` 是服务端中间件/head 用的元数据，
+ * 客户端下拉不读它：那份配置只在 Node 侧可用，客户端要另起运行时请求。）
+ */
+export const APP_LOCALE_LABELS: Record<AppLocale, string> = {
+  zh: '简体中文',
+  en: 'English'
+};
+
 export * from './db';
 export * from './error-code';

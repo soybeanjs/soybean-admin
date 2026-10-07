@@ -51,3 +51,60 @@ describe('Vean 组件文案：locale key 对齐', () => {
     }
   });
 });
+
+/**
+ * 13 个出厂语言包的「存在性 + 可用性」守卫。
+ *
+ * `VEAN_LOCALE_PACKS` 是手写清单（`@vean/aria` 没有导出语言包枚举），写错
+ * 一个码（`pt-br` 大小写、`zh-TW` 漏写）在 dev 下不会报错 —— 只有该语言切
+ * 过去时组件文案静默变英文。这里逐个真的 `import()`，钉死包名与内容。
+ */
+describe('Vean 出厂语言包：13 个包全可用', () => {
+  it('清单与子路径导出逐个对得上（key / 文案分组 / 方向）', async () => {
+    const { VEAN_LOCALE_PACKS, isVeanLocalePack, registerVeanLocalePack, resolveVeanLocalePack } =
+      await import('@/shared/vean-locale');
+
+    expect(VEAN_LOCALE_PACKS).toHaveLength(13);
+
+    for (const pack of VEAN_LOCALE_PACKS) {
+      expect(isVeanLocalePack(pack), pack).toBe(true);
+
+      const registry = await import(`@vean/aria/locale/${pack}`).then(mod => mod.default);
+
+      expect(registry.key, pack).toBe(pack);
+      expect(registry.name.length, pack).toBeGreaterThan(0);
+      expect(Object.keys(registry.messages).length, pack).toBeGreaterThan(20);
+
+      // 按需注册后，该包在 Vean 内部也能解析到自己
+      await expect(registerVeanLocalePack(pack)).resolves.toBe(true);
+      expect(resolveLocaleRegistry(pack).key, pack).toBe(pack);
+    }
+
+    // 未知语言：解析成 null、注册失败（调用方据此跳过，而不是静默挂 en）
+    expect(resolveVeanLocalePack('xx-YY')).toBeNull();
+    expect(isVeanLocalePack('xx-YY')).toBe(false);
+    await expect(registerVeanLocalePack('xx-YY')).resolves.toBe(false);
+  });
+
+  it('裸码经映射表解析到语言包（zh → zh-CN，en → en）', async () => {
+    const { resolveVeanLocalePack } = await import('@/shared/vean-locale');
+
+    expect(resolveVeanLocalePack('zh')).toBe('zh-CN');
+    expect(resolveVeanLocalePack('en')).toBe('en');
+    expect(resolveVeanLocalePack('zh-TW')).toBe('zh-TW');
+    expect(resolveVeanLocalePack('pt-BR')).toBe('pt-BR');
+  });
+
+  it('ar 包注册后方向为 rtl（与 src/shared/i18n.ts 的集合同口径）', async () => {
+    const { registerVeanLocalePack } = await import('@/shared/vean-locale');
+    const { resolveLocaleDir } = await import('@/shared/i18n');
+    const arRegistry = await import('@vean/aria/locale/ar').then(mod => mod.default);
+
+    await registerVeanLocalePack('ar');
+
+    // 包自带 dir；`@vean/aria/locale` 不导出 resolveLocaleDirection，方向以包内字段为准
+    expect(arRegistry.dir).toBe('rtl');
+    expect(resolveLocaleDir('ar')).toBe('rtl');
+    expect(resolveLocaleDir('zh-CN')).toBe('ltr');
+  });
+});
