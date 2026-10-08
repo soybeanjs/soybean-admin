@@ -11,6 +11,9 @@ import type { ApiCaptcha } from '@/typings/app';
  * 登录页是**单路由多模块**：`/login?module=<模块>` 决定渲染哪个子组件，
  * 与 v2 的 `src/views/_builtin/login/modules/*` 结构一致 —— 免去为 5 个
  * 页面各建一条路由，回跳（`?redirect=`）与页签语义也更简单。
+ *
+ * 表单校验（P3-05）在各自模块里由 `useForm` + `src/schema/auth.ts` 的
+ * valibot schema 承担，本文件只管路由/回跳/验证码这三件与校验无关的事。
  */
 
 /** 可用模块（与 `?module=` 取值一一对应；`pwd-login` 为默认模块） */
