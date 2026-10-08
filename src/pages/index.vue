@@ -1,69 +1,40 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { SButton } from '@vean/ui';
-import { APP_VERSION } from '@/constants';
-import { flatApi } from '@/request';
-import type { HealthInfo } from '@/schema/system';
+import HomeCreativityBanner from '@/views/home/modules/creativity-banner.vue';
+import HomeGreetingBanner from '@/views/home/modules/greeting-banner.vue';
+import HomeLineChart from '@/views/home/modules/line-chart.vue';
+import HomePieChart from '@/views/home/modules/pie-chart.vue';
+import HomeProjectNews from '@/views/home/modules/project-news.vue';
+import HomeStatCards from '@/views/home/modules/stat-cards.vue';
 
 /**
- * 首页 —— Phase 0 的「链路自证页」：同时验证
- * 文件式路由 / 布局链 / i18n / typed client / OpenAPI codegen。
+ * 首页工作台（P3-01）：问候横幅 / 4 统计卡 / 折线 + 饼图 / 项目动态 / 创意横幅。
+ *
+ * 数据全为本地静态 mock（与 v2 对齐，不新增端点）；重模块放 `src/views/home/modules/`
+ * （login 页先例），页面只做组合与路由 meta。
  */
 definePage({
   meta: {
-    title: '首页',
-    i18nKey: 'common.home',
-    icon: 'mdi:home'
+    title: '工作台',
+    i18nKey: 'route.home',
+    icon: 'mdi:monitor-dashboard',
+    order: 1
   }
 });
-
-const { t } = useI18n();
-
-const health = ref<HealthInfo | null>(null);
-const errorMessage = ref('');
-const pending = ref(false);
-
-/**
- * `flatApi` 的路径是**剥掉前缀后**的 OpenAPI path：
- * `createTypedClient<paths, '/api'>` 已把 `/api` 从 path key 上移除。
- */
-async function loadHealth(): Promise<void> {
-  pending.value = true;
-  errorMessage.value = '';
-
-  const { data, error } = await flatApi.get('/system/health');
-
-  pending.value = false;
-
-  if (error) {
-    errorMessage.value = error.message;
-    return;
-  }
-
-  health.value = data;
-}
-
-onMounted(loadHealth);
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <section class="rounded-lg border border-gray-200 p-6 dark:border-gray-800">
-      <h1 class="text-2xl font-600">{{ t('app.title') }}</h1>
-      <p class="mt-2 text-sm opacity-70">{{ t('app.description') }}</p>
-      <p class="mt-4 text-xs opacity-50">{{ t('common.version') }}: {{ APP_VERSION }}</p>
-    </section>
+    <HomeGreetingBanner />
+    <HomeStatCards />
 
-    <section class="rounded-lg border border-gray-200 p-6 dark:border-gray-800">
-      <div class="flex items-center justify-between gap-4">
-        <h2 class="text-lg font-600">{{ t('common.health') }}</h2>
-        <SButton size="sm" :disabled="pending" @click="loadHealth">GET /api/system/health</SButton>
-      </div>
+    <div class="grid grid-cols-1 gap-4 xl:grid-cols-5">
+      <HomeLineChart class="xl:col-span-3" />
+      <HomePieChart class="xl:col-span-2" />
+    </div>
 
-      <p v-if="errorMessage" class="mt-3 text-sm text-red-500">{{ errorMessage }}</p>
-      <pre v-else-if="health" class="mt-3 text-xs">{{ JSON.stringify(health, null, 2) }}</pre>
-      <p v-else class="mt-3 text-sm opacity-60">{{ t('common.loading') }}</p>
-    </section>
+    <div class="grid grid-cols-1 gap-4 xl:grid-cols-5">
+      <HomeProjectNews class="xl:col-span-3" />
+      <HomeCreativityBanner class="xl:col-span-2" />
+    </div>
   </div>
 </template>
