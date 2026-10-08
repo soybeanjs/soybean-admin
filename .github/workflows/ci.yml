@@ -35,6 +35,13 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # ubean 的类型定义（.ubean/**）是构建产物、不入库（.gitignore 里忽略了 .ubean），
+      # 而 `~ubean/openapi` 只有 build 的 openapi 步骤会写（dev 路径用 UBEAN_CODEGEN_BY_CLI=1
+      # 跳过、`vp config` / npm `prepare` 也不生成）→ 必须在 typecheck 之前先 build，
+      # 否则全新 checkout 会报 `Cannot find name 'definePage'` / `Cannot find module '~ubean/openapi'`。
+      - name: Build
+        run: pnpm build
+
       - name: Typecheck
         run: pnpm typecheck
 
@@ -42,9 +49,6 @@ jobs:
       # 从裸主入口 `ubean` 导入会让入口 chunk gzip +148%
       - name: Test
         run: pnpm test
-
-      - name: Build
-        run: pnpm build
 
       # 与 benchmarks/bundle-baseline.json 比对，gzip 增长 > 5% 失败
       - name: Bundle budget
