@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" fill="none">
+  <!-- 500 服务异常：断裂的折线 + 警示三角。低透明度色块 + 描边 -->
+  <circle cx="200" cy="150" r="104" fill="#f97316" fill-opacity="0.10" />
+  <path
+    d="M200 68l72 124a14 14 0 0 1-12 21H140a14 14 0 0 1-12-21L200 68z"
+    stroke="#f97316"
+    stroke-width="7"
+    stroke-linejoin="round"
+  />
+  <path d="M200 120v46" stroke="#f97316" stroke-width="9" stroke-linecap="round" />
+  <circle cx="200" cy="188" r="7" fill="#f97316" />
+</svg>

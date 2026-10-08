@@ -1,6 +1,8 @@
 import type { Router } from 'vue-router';
 import { progress } from '@vean/ui';
 import { hasRole } from '@/shared/permission';
+import { shouldTreatMissingRouteAsForbidden } from '@/shared/route-exist';
+import { fetchIsRouteExist } from '@/service/api/menu';
 import { useAuthStore, useMenuStore, useTabStore } from '@/store';
 import { env } from '@/env';
 import { installRouter } from './instance';
@@ -17,6 +19,10 @@ import { installRouter } from './instance';
  *    dynamic 拉取 + `addRoute`）。dynamic 模式首跳目标若因路由未注册而落
  *    `NotFound`，初始化后重定向原路径让 router 重新解析（真 404 第二次仍会
  *    正常落 NotFound，不会死循环）。
+ * 4. 404 vs 403：dynamic 模式路由按权限下发，菜单里存在但无权 → 路由没注册
+ *    → 落 `NotFound`。此时反查 `POST /api/menu/exist-path`，路径存在即改判
+ *    403（v3 §4.2）。static 模式路由本地全注册，落 NotFound 就是真 404，
+ *    不查后端。判定抽在 `@/shared/route-exist`，便于单测。
  *
  * ⚠️ vp dev 关键约束（实测教训，勿回退）：
  * ubean dev 的 HTML 请求会在 **Node 里预渲染执行应用与守卫**，且该上下文带
@@ -73,11 +79,30 @@ export function setupRouterGuard(instance: Router): void {
       return { name: 'Forbidden', query: { from: to.fullPath } };
     }
 
-    // dynamic 模式首跳：目标路由可能刚由 initMenu 注册 —— 回跳原路径重新解析。
     // `NotFound` 是内置路由名，不在 `.ubean/typed-router.d.ts` 的
     // RouteNamedMap 字面量并集里，转 string 比较（不引入 as 断言）。
-    if (!menuWasInited && env.authRouteMode === 'dynamic' && String(to.name) === 'NotFound') {
+    const isNotFound = String(to.name) === 'NotFound';
+
+    // dynamic 模式首跳：目标路由可能刚由 initMenu 注册 —— 回跳原路径重新解析。
+    if (!menuWasInited && env.authRouteMode === 'dynamic' && isNotFound) {
       return to.fullPath;
+    }
+
+    // dynamic 模式真 NotFound：反查后端菜单表。存在但无权限 → 403。
+    // 网络异常时静默降级为 404（不能因反查失败阻塞导航）。
+    if (isNotFound && env.authRouteMode === 'dynamic') {
+      let routeExists = false;
+
+      try {
+        const { exists } = await fetchIsRouteExist({ routePath: to.path });
+        routeExists = exists;
+      } catch {
+        routeExists = false;
+      }
+
+      if (shouldTreatMissingRouteAsForbidden({ authRouteMode: 'dynamic', menuInited: menuWasInited, routeExists })) {
+        return { name: 'Forbidden', query: { from: to.fullPath } };
+      }
     }
 
     return true;

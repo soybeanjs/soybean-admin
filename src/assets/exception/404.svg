@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" fill="none">
+  <!-- 404 页面不存在：放大镜里空荡荡。低透明度色块 + 描边 -->
+  <circle cx="200" cy="150" r="104" fill="#0ea5e9" fill-opacity="0.10" />
+  <circle cx="184" cy="138" r="52" stroke="#0ea5e9" stroke-width="7" />
+  <path d="M222 176l40 40" stroke="#0ea5e9" stroke-width="9" stroke-linecap="round" />
+  <path
+    d="M150 132c6-12 20-20 34-20s28 8 34 20"
+    stroke="#0ea5e9"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-dasharray="10 12"
+  />
+</svg>

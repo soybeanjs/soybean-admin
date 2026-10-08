@@ -23,6 +23,8 @@ export function toAppRouteMeta(meta: RouteMeta): AppRouteMeta {
     cache: typeof meta.cache === 'boolean' ? meta.cache : undefined,
     multiTab: typeof meta.multiTab === 'boolean' ? meta.multiTab : undefined,
     pinned: typeof meta.pinned === 'boolean' ? meta.pinned : undefined,
+    href: typeof meta.href === 'string' ? meta.href : undefined,
+    iframeUrl: typeof meta.iframeUrl === 'string' ? meta.iframeUrl : undefined,
     menuId: typeof meta.menuId === 'string' ? meta.menuId : undefined,
     layout: typeof meta.layout === 'string' ? meta.layout : undefined
   };

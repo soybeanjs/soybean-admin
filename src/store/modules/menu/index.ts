@@ -90,7 +90,12 @@ export const useMenuStore = defineStore('menu', {
           label: String(meta.title ?? String(route.name)),
           i18nKey: meta.i18nKey,
           icon: meta.icon,
-          path: route.path
+          path: route.path,
+          // `meta.href` / `meta.iframeUrl`（P3-07）：静态页也可以声明成外链菜单项
+          // （v3 §4.2「meta.href 行为保留」）。有它就不用 `path` 导航，
+          // 布局的 onMenuSelect 会分流到新窗口 / 内嵌页。
+          href: meta.href,
+          iframeUrl: meta.iframeUrl
         };
       });
     },
@@ -129,7 +134,11 @@ export const useMenuStore = defineStore('menu', {
           label: row.name,
           i18nKey: row.i18nKey ?? undefined,
           icon: row.icon ?? undefined,
-          path: row.routePath ?? undefined
+          path: row.routePath ?? undefined,
+          // 外链/内嵌页（P3-07）：没有可导航的内部 path，改由布局的
+          // onMenuSelect 分别走「新窗口打开」与「/?url= 跳转」。
+          href: row.menuType === 'link' && row.href ? row.href : undefined,
+          iframeUrl: row.menuType === 'iframe' && row.iframeUrl ? row.iframeUrl : undefined
         });
       }
 
@@ -233,11 +242,31 @@ function viewKeyToName(key: string): string {
     .replace(/\//g, '_');
 }
 
-/** dynamic 菜单行 → 路由记录（menu|page 且有 routePath/routeName；缺页占位兜底） */
+/** dynamic 菜单行 → 路由记录（menu|page 且有 routePath/routeName；iframe 落到内嵌页；缺页占位兜底） */
 export function transformMenuToRoute(
   row: ApiMenuRow,
   views: Record<string, () => Promise<{ default: RouteComponent }>>
 ): RouteRecordRaw | null {
+  // iframe（P3-07）：菜单行不配 routePath/routeName，但菜单需要一个可跳转的
+  // 路由名 —— 统一复用内置的 `/iframe` 页，地址通过 query.url 下发。
+  // 这里刻意不生成 `[url].vue` 动态段：URL 含 `//` 与 `?`，当路径段会被
+  // router 拆碎，query 才是稳定表达。
+  if (row.menuType === 'iframe' && row.iframeUrl) {
+    return {
+      path: `/iframe/${encodeURIComponent(row.code)}`,
+      name: row.code,
+      redirect: { path: '/iframe', query: { url: row.iframeUrl } },
+      meta: {
+        title: row.name,
+        i18nKey: row.i18nKey ?? undefined,
+        icon: row.icon ?? undefined,
+        order: row.order,
+        menuId: row.id,
+        layout: row.routeLayout || 'default'
+      }
+    };
+  }
+
   if (!row.routePath || !row.routeName || (row.menuType !== 'menu' && row.menuType !== 'page')) {
     return null;
   }

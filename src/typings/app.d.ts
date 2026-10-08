@@ -96,6 +96,16 @@ export interface MenuTreeNode {
   /** 可导航路径（叶子节点才有；选中菜单时按 path 跳转，规避动态路由名不在
    * RouteNamedMap 字面量并集里的类型问题） */
   path?: string;
+  /**
+   * 外链（menuType `link`）：新窗口打开；与 `path` 互斥（P3-07）。
+   * 布局的 `onMenuSelect` 优先看它。
+   */
+  href?: string;
+  /**
+   * 内嵌外链（menuType `iframe`）：值即 iframe 地址，点击时拼 `/?url=` 跳转。
+   * 与 `path` 互斥（P3-07）。
+   */
+  iframeUrl?: string;
   children?: MenuTreeNode[];
 }
 
@@ -152,6 +162,18 @@ export type AppRouteMeta = {
   multiTab?: boolean;
   /** 页签固定 */
   pinned?: boolean;
+  /**
+   * 外链地址（`menuType === 'link'`）：点击菜单以新窗口打开，不产生路由。
+   *
+   * `src/layouts/default.vue` 的 `onMenuSelect` 在跳路由前先看它（P3-07）。
+   */
+  href?: string;
+  /**
+   * 内嵌外链地址（`menuType === 'iframe'`）：点击菜单跳 `/?url=<编码后的地址>`。
+   *
+   * 动态菜单下发；`/iframe` 页读 query 后做 http(s) 协议白名单（P3-07）。
+   */
+  iframeUrl?: string;
   /** 动态路由来源的菜单 id（一致性断言用） */
   menuId?: string;
   /** 挂载布局（dynamic 模式 routeLayout 下发） */

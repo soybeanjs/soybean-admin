@@ -6,6 +6,7 @@ import { setLocale } from 'ubean/client';
 import { SAppShell, SAvatar, SButtonIcon, SDropdownMenu, SPageTabs, SThemeModeSwitch, useTheme } from '@vean/ui';
 import type { PageTabsContextMenuOptionData, PageTabsOptionData, PageTabsState } from '@vean/ui';
 import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/constants';
+import { resolveExternalUrl } from '@/shared/iframe';
 import { resolveLayoutMatrix } from '@/shared/layout-matrix';
 import { registerVeanLocalePack } from '@/shared/vean-locale';
 import { useAppStore, useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
@@ -107,10 +108,48 @@ const menuPathMap = computed(() => {
   return map;
 });
 
-/** 菜单叶子选中 → 按 path 跳转（页签由 afterEach 守卫补）。不按路由名跳：
- * dynamic 模式运行时注册的路由名不在 RouteNamedMap 字面量并集里，
- * `push({ name })` 过不了类型；目录节点本就无可导航 path，忽略即可 */
+/** 菜单 value → 节点（外链/内嵌页需要 href / iframeUrl，两者都没有 path） */
+const menuNodeMap = computed(() => {
+  const map = new Map<string, MenuTreeNode>();
+
+  const walk = (nodes: MenuTreeNode[]) => {
+    for (const node of nodes) {
+      map.set(node.value, node);
+      if (node.children) walk(node.children);
+    }
+  };
+
+  walk(menuStore.items);
+
+  return map;
+});
+
+/**
+ * 菜单叶子选中 → 跳转（页签由 afterEach 守卫补）。三条通道，优先级：
+ * 1. `href`（`menuType: 'link'`）—— 新窗口打开，不产生路由/页签；
+ * 2. `iframeUrl`（`menuType: 'iframe'`）—— 跳内置 `/iframe?url=`，地址做
+ *    `encodeURIComponent`（URL 里的 `//`、`?` 进不了路径段，只能走 query）；
+ * 3. `path` —— 普通路由，内部页面。
+ * 不按路由名跳：dynamic 模式运行时注册的路由名不在 RouteNamedMap 字面量并集
+ * 里，`push({ name })` 过不了类型；目录节点本就无可导航目标，忽略即可。
+ */
 function onMenuSelect(key: string): void {
+  const node = menuNodeMap.value.get(key);
+
+  if (node?.href) {
+    const href = resolveExternalUrl(node.href);
+
+    if (href) window.open(href, '_blank', 'noopener,noreferrer');
+    return;
+  }
+
+  if (node?.iframeUrl) {
+    const url = resolveExternalUrl(node.iframeUrl);
+
+    if (url) void getRouter().push({ path: '/iframe', query: { url } });
+    return;
+  }
+
   const path = menuPathMap.value.get(key);
 
   if (path) void getRouter().push(path);
