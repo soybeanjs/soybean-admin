@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton } from '@vean/ui';
 import { APP_VERSION } from '@/constants';
-import { flatApi } from '@/request/client';
+import { flatApi } from '@/request';
 import type { HealthInfo } from '@/schema/system';
 
 /**

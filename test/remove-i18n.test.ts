@@ -6,6 +6,7 @@ import {
   applyRemoveI18nPlan,
   collectSourceFiles,
   flattenMessages,
+  inlineLabelFields,
   inlineTitleKeyMaps,
   inlineTranslations,
   interpolate,
@@ -13,7 +14,8 @@ import {
   planRemoveI18n,
   scanLeftovers,
   stripUnusedI18nHarness,
-  toLiteral
+  toLiteral,
+  unwrapLabelCalls
 } from '../scripts/remove-i18n';
 
 /**
@@ -90,6 +92,47 @@ describe('remove-i18n：内联与结构改写', () => {
     expect(result.code).toContain('const activeTitle = computed(() => moduleTitles[activeModule.value]);');
     expect(result.code).toContain('{{ activeTitle }}');
     expect(scanLeftovers(result.code)).toEqual([]);
+  });
+
+  it('常量表 label 字段 → 文案，只认文案表里有的 key', () => {
+    const source = [
+      'const TABS = [',
+      "  { value: 'pwd-login', label: 'common.logout' },",
+      "  { value: 'code-login', label: 'login.codeLogin' },",
+      "  { value: 'other', label: 'not.in.messages' }",
+      '];',
+      "const raw = 'common.logout';",
+      'const item = { i18nKey: "login.codeLogin", label: "原文" };'
+    ].join('\n');
+    const result = inlineLabelFields(source, messages);
+
+    expect(result.code).toContain("label: '退出登录'");
+    expect(result.code).toContain("label: '验证码登录'");
+    // 文案表里没有的 key: 原样留着（不会把未知 key 猜成文案）
+    expect(result.code).toContain("label: 'not.in.messages'");
+    // 非 label 字段（i18nKey / 普通字符串）不动：它们是数据
+    expect(result.code).toContain('i18nKey: "login.codeLogin"');
+    expect(result.code).toContain("const raw = 'common.logout';");
+    expect(result.inlined).toEqual(['common.logout', 'login.codeLogin']);
+  });
+
+  it('解包 t(x.label)，但不动 t(i18nKey) 与带参/带函数的调用', () => {
+    const source = [
+      '<span>{{ t(preset.label) }}</span>',
+      '<span>{{ $t(item.label) }}</span>',
+      'const tabItems = computed(() => TABS.map(item => ({ value: item.value, label: t(item.label) })));',
+      'const label = item.i18nKey ? t(item.i18nKey) : item.label;',
+      'const kept = t(label);'
+    ].join('\n');
+    const result = unwrapLabelCalls(source);
+
+    expect(result.code).toContain('{{ preset.label }}');
+    expect(result.code).toContain('{{ item.label }}');
+    expect(result.code).toContain('label: item.label }))');
+    // 动态 key 与「t 包已翻译变量」不是本规则的事
+    expect(result.code).toContain('item.i18nKey ? t(item.i18nKey) : item.label');
+    expect(result.code).toContain('const kept = t(label);');
+    expect(result.rewrites).toHaveLength(3);
   });
 
   it('useI18n 装配只在文件里已无 t() 时才清掉', () => {

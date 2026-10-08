@@ -4,9 +4,11 @@ import { createPinia } from 'pinia';
 import 'uno.css';
 import '@vean/ui/styles.css';
 import { APP_DESCRIPTION, APP_ROOT_ID, APP_TITLE, DEFAULT_LOCALE } from '@/constants';
+import { seedPresetState } from '@/shared/theme-preset';
 import { registerVeanLocales } from '@/shared/vean-locale';
 import { setupAuthDirectives } from '@/directives/auth';
 import { initAuthStore } from '@/store/modules/auth';
+import { readStoredThemeSettings, resolvePresetThemeState } from '@/store/modules/theme';
 import { setupRouterGuard } from '@/router';
 import '@/styles/index.css';
 
@@ -26,6 +28,16 @@ initAuthStore();
  * 表格空态、标签页等组件内部文案会全部变英文（不报错）。
  */
 registerVeanLocales();
+
+/**
+ * 写入首屏主题信封（P2-10）。
+ *
+ * 用户在 `SThemeCustomizer` 里调过配色/圆角时，`__VEAN_THEME` 信封已经是更完整
+ * 的那份真值，`seedPresetState` 会自己跳过；只有「首次访问 / 信封被清」时才按
+ * 持久化的 `presetName` + `mode` 种一次。这里必须早于 `SConfigProvider` 挂载，
+ * 而 `src/app.ts` 的模块顶层正好早于根组件 setup。
+ */
+seedPresetState(resolvePresetThemeState(readStoredThemeSettings()));
 
 /**
  * 应用入口（ubean 约定：`src/app.ts`）。

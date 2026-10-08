@@ -12,10 +12,12 @@
  *
  * 处理范围：
  * 1. 字面量 `t('a.b')` → `'文案'`；带参 `t('a.b', { name })` → `` `文案：${name}` ``；
- * 2. `*TitleKeys` 常量表（`Record<K, string>` 的 i18n key 表）→ `*Titles` 文案表，
+ * 2. 常量表里的 `label: 'a.b'` → 文案，并解包 `t(item.label)`（常量表把取值与
+ *    展示文案放在同一条记录里，只能逐字段内联，不能整表删）；
+ * 3. `*TitleKeys` 常量表（`Record<K, string>` 的 i18n key 表）→ `*Titles` 文案表，
  *    并把 `t(activeTitle)` 这类「t 包一个已翻译变量」的解包；
- * 3. 基础设施文件删除 + `app.ts` / `app.vue` / 布局 / 登录壳的定点改写（见 FILE_RULES）；
- * 4. 残留扫描：`useI18n`、动态 `t(…)`、`@/shared/vean-locale`、`setLocale` 等。
+ * 4. 基础设施文件删除 + `app.ts` / `app.vue` / 布局 / 登录壳的定点改写（见 FILE_RULES）；
+ * 5. 残留扫描：`useI18n`、动态 `t(…)`、`@/shared/vean-locale`、`setLocale` 等。
  *
  * 不处理（有意留下）：`i18nKey` / `title` 字段本身 —— 它们是数据（可来自后端菜单），
  * 去掉解析后就是普通文本字段，删字段属于业务改造，不在本脚本职责内。
@@ -221,6 +223,51 @@ export function inlineTitleKeyMaps(source: string, messages: Messages): { code: 
   return { code, rewrites };
 }
 
+/**
+ * 常量表里的 `label: 'a.b'` → 文案。
+ *
+ * 选项表（主题抽屉的下拉/分段控件候选）把取值与展示文案放在同一条记录里：
+ * `{ value: 'card', label: 'theme.tabVariant.card' }`。取值要留着做持久化，标签要换成
+ * 文案，所以只能逐字段内联 —— 判据仍是「文案表里有这个 key」，纯数据字段
+ * （`i18nKey` / `title`）不受影响。
+ */
+export function inlineLabelFields(source: string, messages: Messages): { code: string; inlined: string[] } {
+  const inlined: string[] = [];
+  const code = source.replace(
+    /(\blabel\s*:\s*)(['"])([^'"\n]+)\2/g,
+    (match, prefix: string, _quote: string, key: string) => {
+      const text = messages.flat.get(key);
+
+      if (text === undefined) return match;
+
+      inlined.push(key);
+
+      return `${prefix}${toLiteral(text)}`;
+    }
+  );
+
+  return { code, inlined };
+}
+
+/**
+ * `t(item.label)` → `item.label`。
+ *
+ * `inlineLabelFields` 之后 `label` 已经是文案，再包一层 `t()` 会把文案当 key 查
+ * （vue-i18n 直接回显 key 并告警）。只解包「以 `.label` 结尾」的实参：
+ * `t(node.i18nKey)` 这类真・动态 key 不在本规则职责内，由 `FILE_RULES` 定点处理。
+ */
+export function unwrapLabelCalls(source: string): { code: string; rewrites: string[] } {
+  const rewrites: string[] = [];
+  const pattern = /(?:\$t|(?<![\w.$])t)\(\s*([A-Za-z_$][\w$]*(?:\.[\w$]+)*\.label)\s*\)/g;
+  const code = source.replace(pattern, (_match, expression: string) => {
+    rewrites.push(`t(${expression}) → ${expression}`);
+
+    return expression;
+  });
+
+  return { code, rewrites };
+}
+
 /** 文件里已无 `t()` 调用时，拆掉 `useI18n` 装配（import + 解构），避免未使用变量报错 */
 export function stripUnusedI18nHarness(source: string): { code: string; stripped: boolean } {
   if (/(?:\$t|(?<![\w.$])t)\(/.test(stripComments(source))) return { code: source, stripped: false };
@@ -300,12 +347,23 @@ export const FILE_RULES: FileRule[] = [
     ]
   },
   {
+    file: 'src/components/global-search/index.vue',
+    note: '菜单条目文案直接取 label（不再走 t(i18nKey) 解析）',
+    patterns: [
+      {
+        find: 'label: item.i18nKey ? t(item.i18nKey) : item.label',
+        replace: 'label: item.label',
+        description: '菜单条目文案直接取 label'
+      }
+    ]
+  },
+  {
     file: 'src/layouts/default.vue',
     note: '去掉语言切换下拉与菜单/页签的 t() 解析',
     patterns: [
       {
-        find: "import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE } from '@/constants';",
-        replace: "import { APP_TITLE } from '@/constants';",
+        find: "import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/constants';",
+        replace: "import { APP_TITLE, APP_VERSION } from '@/constants';",
         description: '常量 import 去掉语言表'
       },
       {
@@ -480,16 +538,19 @@ export function planRemoveI18n(root: string, messages: Messages): RemoveI18nPlan
 
   const read = (file: string) => content.get(file) ?? readFileSync(join(root, file), 'utf8');
 
-  // 1. 内联字面量 t() / $t()（含 key 表重写与 useI18n 装配清理）
+  // 1. 内联字面量 t() / $t()（含常量表 label 字段与 useI18n 装配清理）
   for (const file of collectSourceFiles(root)) {
     const original = read(file);
     const inline = inlineTranslations(original, messages);
-    const titleMaps = inlineTitleKeyMaps(inline.code, messages);
+    const labelFields = inlineLabelFields(inline.code, messages);
+    const unwrapped = unwrapLabelCalls(labelFields.code);
+    const titleMaps = inlineTitleKeyMaps(unwrapped.code, messages);
     const next = stripUnusedI18nHarness(titleMaps.code).code;
 
     content.set(file, next);
-    inlined += inline.inlined.length;
+    inlined += inline.inlined.length + labelFields.inlined.length;
     problems.push(...inline.problems.map(problem => `${file}：${problem}`));
+    rewrites.push(...unwrapped.rewrites.map(rewrite => `${file}：${rewrite}`));
     rewrites.push(...titleMaps.rewrites.map(rewrite => `${file}：${rewrite}`));
 
     if (next !== original) changed.set(file, next);

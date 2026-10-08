@@ -19,7 +19,9 @@ const { env, validate } = defineEnv({
     JWT_EXPIRES_IN: { type: String, default: '1d' },
     REFRESH_TOKEN_EXPIRES_IN: { type: String, default: '7d' },
     DATABASE_URL: { type: String, default: '' },
-    REDIS_URL: { type: String, default: '' }
+    REDIS_URL: { type: String, default: '' },
+    /** 多 baseURL 代理上游：`key=origin,key2=origin2`，见 src/shared/api-proxy.ts */
+    API_PROXY_TARGETS: { type: String, default: '' }
   }
 });
 

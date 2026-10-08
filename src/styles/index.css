@@ -6,6 +6,8 @@
  * `SConfigProvider`（`@vean/theme` 的 `emitThemeCss`）产出 —— 这里只放
  * 极少数「框架不管」的兜底规则。
  */
+@import './transition.css';
+
 html,
 body {
   height: 100%;

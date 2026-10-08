@@ -829,3 +829,44 @@ describe('dict / dict-item CRUD', () => {
     expect(body.code).toBe('3000');
   });
 });
+
+/**
+ * 多 baseURL 代理（P2-18）。
+ *
+ * dev 环境把 `default` 指回本进程（`API_PROXY_TARGETS=default=http://127.0.0.1:9527`），
+ * 因此这里能真实验证「routeRules.proxy → 上游 → 原样回传」，不需要外部后端。
+ */
+describe('代理前缀 /_p/{key}（P2-18）', () => {
+  it('已知 key 把 /_p/{key}/api/** 转发到上游，返回同一份信封', async () => {
+    const direct = await api<{ status: string; version: string }>('GET', '/api/system/health');
+    const proxied = await api<{ status: string; version: string }>('GET', '/_p/default/api/system/health');
+
+    expect(proxied.status).toBe(direct.status);
+    expect(proxied.body.message).toBe(direct.body.message);
+    // 不比对 timestamp：两次请求本就会有微小差异，能对齐的字段对齐即可
+    expect(okData(proxied.body)).toEqual({
+      status: okData(direct.body).status,
+      version: okData(direct.body).version,
+      timestamp: expect.any(Number)
+    });
+  });
+
+  it('代理保留上游 /api 前缀（规则用 /** 追加后缀，未发生 /_p/** 自循环）', async () => {
+    const proxied = await api<{ status: string }>('GET', '/_p/default/api/system/health');
+
+    expect(okData<{ status: string }>(proxied.body).status).toBe('ok');
+  });
+
+  it('上游业务码与鉴权语义原样透传（未授权仍是 2000）', async () => {
+    const { body } = await api('GET', '/_p/default/api/auth/user-info');
+
+    expect(body.code).toBe('2000');
+  });
+
+  it('未配置的 key 不生成代理规则，请求不会被转发到上游', async () => {
+    const res = await fetch(new URL('/_p/unknown/api/system/health', BASE_URL));
+    const text = await res.text();
+
+    expect(text).not.toContain('"code":"0000"');
+  });
+});
