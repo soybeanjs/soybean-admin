@@ -272,9 +272,11 @@ export function unwrapLabelCalls(source: string): { code: string; rewrites: stri
 export function stripUnusedI18nHarness(source: string): { code: string; stripped: boolean } {
   if (/(?:\$t|(?<![\w.$])t)\(/.test(stripComments(source))) return { code: source, stripped: false };
 
+  // 解构可能带缩进（composable 里 `const { t } = useI18n();` 位于函数体内），
+  // 旧版只认顶格的写法，会漏掉带缩进的一类，导致残留扫描报 useI18n。
   const next = source
-    .replace(/^import \{ useI18n \} from 'vue-i18n';\n/m, '')
-    .replace(/^const \{[^}]*\} = useI18n\(\);\n/m, '');
+    .replace(/^\s*import \{ useI18n \} from 'vue-i18n';\n/m, '')
+    .replace(/^\s*const \{[^}]*\} = useI18n\(\);\n/m, '');
 
   return { code: next, stripped: next !== source };
 }
