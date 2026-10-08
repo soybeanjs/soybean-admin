@@ -19,23 +19,25 @@ export type AuthUserDTO = {
   roles: string[];
 };
 
+/** 密码登录分支（可选携带图形验证码：两个都传才校验） */
+export const pwdLoginSchema = v.object({
+  grantType: v.optional(v.literal('pwd')),
+  userName: v.pipe(v.string(), v.nonEmpty('用户名不能为空')),
+  password: v.pipe(v.string(), v.nonEmpty('密码不能为空')),
+  captchaId: v.optional(v.string()),
+  captchaCode: v.optional(v.string())
+});
+
+/** 图形验证码登录分支 */
+export const captchaLoginSchema = v.object({
+  grantType: v.literal('captcha'),
+  userName: v.pipe(v.string(), v.nonEmpty('用户名不能为空')),
+  captchaId: v.pipe(v.string(), v.nonEmpty('验证码标识不能为空')),
+  captchaCode: v.pipe(v.string(), v.nonEmpty('验证码不能为空'))
+});
+
 /** 登录请求（pwd 密码登录 / captcha 图形验证码登录，v2 双类型契约） */
-export const loginSchema = v.union([
-  v.object({
-    grantType: v.optional(v.literal('pwd')),
-    userName: v.pipe(v.string(), v.nonEmpty('用户名不能为空')),
-    password: v.pipe(v.string(), v.nonEmpty('密码不能为空')),
-    /** 密码登录可选携带图形验证码（两个都传才校验） */
-    captchaId: v.optional(v.string()),
-    captchaCode: v.optional(v.string())
-  }),
-  v.object({
-    grantType: v.literal('captcha'),
-    userName: v.pipe(v.string(), v.nonEmpty('用户名不能为空')),
-    captchaId: v.pipe(v.string(), v.nonEmpty('验证码标识不能为空')),
-    captchaCode: v.pipe(v.string(), v.nonEmpty('验证码不能为空'))
-  })
-]);
+export const loginSchema = v.union([pwdLoginSchema, captchaLoginSchema]);
 
 export type LoginDTO = v.InferOutput<typeof loginSchema>;
 
@@ -84,3 +86,95 @@ export type LoginResult = {
   refreshToken: string;
   user: AuthUserDTO;
 };
+
+/* -------------------------------------------------------------------------- */
+/*                          登录页表单（P3-05）                                */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * 登录页表单 schema。
+ *
+ * 它们是**服务端 schema 的超集**，同一份 valibot 声明同时驱动两端（P3-05
+ * 契约）：`useForm`（`@vean/ui`）直接吃 valibot（Standard Schema），前端不再
+ * 手写「非空 / 长度 / 邮箱格式」这套重复校验 —— 只保留服务端没有的
+ * 「确认密码一致」。
+ *
+ * **字段名与类型必须宽兼容服务端 schema**：`useForm` 用
+ * `@tanstack/form-core` 的 `DeepKeys<Values>` 推导字段名，一旦引入
+ * `undefined` 成员（`v.optional(…)` 且无默认值）会整体退化成 `never[]`，
+ * `SFormField` 的 `name` 与插槽类型随之失效。所以这里一律「每个键都有值」，
+ * 用空串表达「未填 / 未用」；提交前折算成 DTO 时再把空串去掉。
+ */
+
+/** 密码登录表单（服务端 `loginSchema` 的 pwd 分支） */
+export const passwordLoginFormSchema = v.object({
+  ...pwdLoginSchema.entries,
+  // 覆盖服务端的 optional 成员：表单里总有值（空串 = 未用）
+  captchaId: v.string(),
+  captchaCode: v.string()
+});
+
+export type PasswordLoginFormValues = v.InferOutput<typeof passwordLoginFormSchema>;
+
+/** 图形验证码登录表单（服务端 `loginSchema` 的 captcha 分支） */
+export const codeLoginFormSchema = v.object({
+  ...captchaLoginSchema.entries
+});
+
+export type CodeLoginFormValues = v.InferOutput<typeof codeLoginFormSchema>;
+
+/**
+ * 注册表单（服务端 `registerSchema` + 确认密码）。
+ *
+ * `email` 服务端是 `v.optional(...)`，表单里放宽成 `v.string()`（空串 =
+ * 未填）—— 这样「不填邮箱」不再触发邮箱格式错误，提交前 `|| undefined`
+ * 归一后再交给服务端同一份规则。
+ *
+ * 「两次密码一致」是服务端没有的规则，用 `v.forward` + `v.partialCheck`
+ * 把 issue 挂到 `confirmPassword` 字段上（无字段路径的 issue 会落到 `_form`
+ * 键，弹窗/表单里没地方渲染）。
+ */
+export const registerFormSchema = v.pipe(
+  v.object({
+    ...registerSchema.entries,
+    email: v.string(),
+    fullName: v.string(),
+    confirmPassword: v.string()
+  }),
+  v.forward(
+    v.partialCheck(
+      [['password'], ['confirmPassword']],
+      values => values.password === values.confirmPassword,
+      '两次输入的密码不一致'
+    ),
+    ['confirmPassword']
+  )
+);
+
+export type RegisterFormValues = v.InferOutput<typeof registerFormSchema>;
+
+/** 重置密码表单（服务端 `resetPasswordSchema` + 确认密码，同上） */
+export const resetPasswordFormSchema = v.pipe(
+  v.object({
+    ...resetPasswordSchema.entries,
+    confirmPassword: v.string()
+  }),
+  v.forward(
+    v.partialCheck(
+      [['password'], ['confirmPassword']],
+      values => values.password === values.confirmPassword,
+      '两次输入的密码不一致'
+    ),
+    ['confirmPassword']
+  )
+);
+
+export type ResetPasswordFormValues = v.InferOutput<typeof resetPasswordFormSchema>;
+
+/** 登录页 4 个表单模块的 schema 清单（`src/schema/login-form.test.ts` 用） */
+export const LOGIN_PAGE_FORM_SCHEMAS = {
+  pwdLogin: passwordLoginFormSchema,
+  codeLogin: codeLoginFormSchema,
+  register: registerFormSchema,
+  resetPwd: resetPasswordFormSchema
+} as const;
