@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" fill="none">
+  <!-- 403 无权限：盾牌 + 锁孔。低透明度色块 + 描边，明暗主题下都可读 -->
+  <circle cx="200" cy="150" r="104" fill="#6366f1" fill-opacity="0.10" />
+  <path
+    d="M200 62l62 24v54c0 44-27 78-62 92-35-14-62-48-62-92V86l62-24z"
+    stroke="#6366f1"
+    stroke-width="7"
+    stroke-linejoin="round"
+  />
+  <circle cx="200" cy="140" r="15" stroke="#6366f1" stroke-width="7" />
+  <path d="M200 155v26" stroke="#6366f1" stroke-width="7" stroke-linecap="round" />
+</svg>
