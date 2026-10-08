@@ -14,6 +14,8 @@ export const env = {
   apiBaseUrl: import.meta.env.VITE_API_BASE_URL || '',
   apiPrefix: import.meta.env.VITE_API_PREFIX || '/api',
   apiProxy: import.meta.env.VITE_API_PROXY || '',
+  /** 逗号分隔的 `/_p/{key}` 代理 key（真实上游在服务端 `API_PROXY_TARGETS`） */
+  apiProxyKeys: import.meta.env.VITE_API_PROXY_KEYS || '',
   apiEnv: import.meta.env.VITE_API_ENV || 'local',
   themePreset: import.meta.env.VITE_THEME_PRESET || 'default',
   layoutMode: import.meta.env.VITE_LAYOUT_MODE || 'vertical',

@@ -1,0 +1,124 @@
+/**
+ * 页面切换动画（P2-15）。
+ *
+ * 名称与 `src/constants/theme.ts` 的 `PAGE_ANIMATION_MODES` 一一对应：ubean 的
+ * `<PageView :transition="name" />` 内部就是一个 Vue `<Transition>`，class 前缀
+ * 即该 name，所以必须写成 `<name>-enter-*` / `<name>-leave-*`。
+ *
+ * 时长与位移沿用 v2（`styles/css/transition.css`），保证迁移后的观感一致；
+ * `none` 模式没有对应类 —— 动画靠 `transition: false` 关闭，不靠 CSS。
+ *
+ * `mode` 保持默认（cross-fade）：vue@3.5 的 `out-in` 在 KeepAlive 页面交换时会渲染
+ * hollow placeholder 导致崩溃（vuejs/core#10771），`PageView` 已把它降级。
+ */
+
+/* fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* fade-slide（默认） */
+.fade-slide-leave-active,
+.fade-slide-enter-active {
+  transition: all 0.3s;
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* fade-bottom */
+.fade-bottom-enter-active,
+.fade-bottom-leave-active {
+  transition:
+    opacity 0.25s,
+    transform 0.3s;
+}
+
+.fade-bottom-enter-from {
+  opacity: 0;
+  transform: translateY(-10%);
+}
+
+.fade-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(10%);
+}
+
+/* fade-scale */
+.fade-scale-leave-active,
+.fade-scale-enter-active {
+  transition: all 0.28s;
+}
+
+.fade-scale-enter-from {
+  opacity: 0;
+  transform: scale(1.2);
+}
+
+.fade-scale-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* zoom-fade */
+.zoom-fade-enter-active,
+.zoom-fade-leave-active {
+  transition:
+    transform 0.2s,
+    opacity 0.3s ease-out;
+}
+
+.zoom-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.zoom-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+/* zoom-out */
+.zoom-out-enter-active,
+.zoom-out-leave-active {
+  transition:
+    opacity 0.1s ease-in-out,
+    transform 0.15s ease-out;
+}
+
+.zoom-out-enter-from,
+.zoom-out-leave-to {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* 无障碍：系统要求减少动效时全部关掉（动画开关本身在主题抽屉「通用」Tab） */
+@media (prefers-reduced-motion: reduce) {
+  .fade-enter-active,
+  .fade-leave-active,
+  .fade-slide-leave-active,
+  .fade-slide-enter-active,
+  .fade-bottom-enter-active,
+  .fade-bottom-leave-active,
+  .fade-scale-leave-active,
+  .fade-scale-enter-active,
+  .zoom-fade-enter-active,
+  .zoom-fade-leave-active,
+  .zoom-out-enter-active,
+  .zoom-out-leave-active {
+    transition: none;
+  }
+}

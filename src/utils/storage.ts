@@ -10,7 +10,7 @@ import { env } from '@/env';
 
 const PREFIX = env.storagePrefix;
 
-function isClient(): boolean {
+export function isClient(): boolean {
   return import.meta.client && typeof localStorage !== 'undefined';
 }
 

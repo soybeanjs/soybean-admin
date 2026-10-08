@@ -3,11 +3,12 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { setLocale } from 'ubean/client';
-import { SAppShell, SAvatar, SDropdownMenu, SThemeModeSwitch, useTheme } from '@vean/ui';
-import type { PageTabsOptionData } from '@vean/ui';
-import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE } from '@/constants';
+import { SAppShell, SAvatar, SButtonIcon, SDropdownMenu, SPageTabs, SThemeModeSwitch, useTheme } from '@vean/ui';
+import type { PageTabsContextMenuOptionData, PageTabsOptionData, PageTabsState } from '@vean/ui';
+import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/constants';
+import { resolveLayoutMatrix } from '@/shared/layout-matrix';
 import { registerVeanLocalePack } from '@/shared/vean-locale';
-import { useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
+import { useAppStore, useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
 import { getRouter } from '@/router/instance';
 import type { AppTab, MenuTreeNode } from '@/typings/app';
 
@@ -17,16 +18,56 @@ import type { AppTab, MenuTreeNode } from '@/typings/app';
  * - 菜单/页签标题在此解析 `t(i18nKey) || label`（layout 是 setup 上下文，
  *   切语言后 computed 重算 —— 标题单一来源仍是 i18nKey，store 只存 key）。
  * - 页签状态由 SPageTabs 内部持有并以 `update:tabs` 全量回写
- *   （close/pin/drag 都走它），应用侧只做 value 对齐 + pinned 合并。
+ *   （close/pin/drag/右键菜单都走它），应用侧只做 value 对齐 + pinned 合并。
+ *   用 `#tabs` 槽而不是 `tabs` prop 是为了注入 `variant`（页签风格）——
+ *   壳的 `tabProps` 类型是 `PageTabsCompactProps`，不含样式层的 `variant`。
  * - 出口是 `<PageView />`（ubean 内置，自带 KeepAlive + 转场），
- *   布局内不要再套 `<RouterView>`。
+ *   布局内不要再套 `<RouterView>`；转场名来自主题设置（P2-15）。
+ * - 壳模式与 layoutProps 全部来自 `resolveLayoutMatrix()`（P2-20）：
+ *   `scrollBehavior: 'content'` 之类需要联动的维度在矩阵里统一裁决，
+ *   不在此处写第二份条件分支。
  */
 const { locale, t } = useI18n();
 const route = useRoute();
+const appStore = useAppStore();
 const themeStore = useThemeStore();
 const authStore = useAuthStore();
 const menuStore = useMenuStore();
 const tabStore = useTabStore();
+
+/**
+ * 「布局模式 × 设置」矩阵（P2-20）。
+ *
+ * `contentScroll` 传 `true`：内容滚动模式下 `<PageView>` 自带滚动容器，
+ * 页脚跟内容一起滚，矩阵据此不再强制关闭 `fixedFooter`。
+ */
+const layoutMatrix = computed(() =>
+  resolveLayoutMatrix(themeStore.settings, { isMobile: appStore.isMobile, contentScroll: true })
+);
+
+/** 侧栏展开（桌面）/ 抽屉展开（移动）都是 app store 的受控态（P2-13） */
+const sidebarOpen = computed({
+  get: () => appStore.sidebarOpen,
+  set: (value: boolean) => appStore.setSidebarOpen(value)
+});
+
+const mobileOpen = computed({
+  get: () => appStore.mobileOpen,
+  set: (value: boolean) => appStore.setMobileOpen(value)
+});
+
+/**
+ * 页面转场（P2-15）。
+ *
+ * `false` 是「明确关闭」：`PageView` 里 `transition === false` 会短路掉
+ * `route.meta.transition` 与全局 `usePageTransition()` 两级兜底，传空串反而会
+ * 落回全局值。所以关闭动画只能传 `false`，不能用 `''`。
+ */
+const pageTransition = computed(() => {
+  const { pageAnimate, pageAnimateMode } = themeStore.settings;
+
+  return pageAnimate && pageAnimateMode !== 'none' ? pageAnimateMode : false;
+});
 
 // SThemeModeSwitch 是 context 绑定组件（绑 SConfigProvider 主题，无 v-model），
 // 这里引用 useTheme 仅保证在 provider 上下文中（提供 consumerName 便于调试）。
@@ -81,7 +122,7 @@ function onMenuSelect(key: string): void {
 
 /** 页签展示文案同菜单：t(i18nKey) || label */
 const shellTabs = computed<PageTabsOptionData[]>(() => {
-  if (!themeStore.layout.tabVisible) return [];
+  if (!themeStore.settings.tabVisible) return [];
 
   return tabStore.tabs.map(tab => ({
     value: tab.value,
@@ -97,9 +138,16 @@ function onTabValueChange(value: unknown): void {
   void tabStore.switchTab(String(value));
 }
 
-/** 页签点击（SPageTabs 的 `tab-click`）→ 切换路由 */
-function onTabClick(tab: PageTabsOptionData): void {
-  void tabStore.switchTab(String(tab.value));
+/**
+ * 页签点击 → 切换路由。
+ *
+ * `SPageTabs` 把 `click` 同时声明成了组件事件（页签数据）和原生事件（根元素），
+ * 模板上绑定的处理函数得同时吃下两种参数，所以这里按参数形状分派一次。
+ */
+function onTabClick(payload: PageTabsOptionData | PointerEvent): void {
+  if (typeof payload === 'object' && payload !== null && 'value' in payload) {
+    void tabStore.switchTab(String(payload.value));
+  }
 }
 
 /**
@@ -127,6 +175,61 @@ function onTabsUpdate(tabs: PageTabsOptionData[]): void {
   for (const tab of removed) {
     tabStore.evictCacheIfNeeded(tab.routeName);
   }
+}
+
+/**
+ * 页签右键菜单（v2 `TabsDropdown` 的等价物）。
+ *
+ * 动作全部走 `PageTabsState` 提供的操作，组件内部照旧把它们汇进
+ * `update:items` 回写 —— 应用层不需要为每个动作写一遍 store 调用。
+ * 不可用项交给 `disabled`（工具栏显示灰态，和 v2 一致）。
+ */
+function tabMenuFactory(tab: PageTabsOptionData, state: PageTabsState): PageTabsContextMenuOptionData[] {
+  const reload = () => onTabReload(tab.value);
+
+  return [
+    { value: 'reload', label: t('tab.reload'), icon: 'lucide:rotate-cw', action: reload },
+    {
+      value: 'close',
+      label: t('tab.close'),
+      icon: 'lucide:x',
+      disabled: !state.closable,
+      action: state.close
+    },
+    {
+      value: 'close-other',
+      label: t('tab.closeOther'),
+      disabled: !state.otherClosable,
+      action: state.closeOther
+    },
+    {
+      value: 'close-left',
+      label: t('tab.closeLeft'),
+      disabled: !state.leftClosable,
+      action: state.closeLeft
+    },
+    {
+      value: 'close-right',
+      label: t('tab.closeRight'),
+      disabled: !state.rightClosable,
+      action: state.closeRight
+    },
+    { value: 'close-all', label: t('tab.closeAll'), action: state.closeAll }
+  ];
+}
+
+/**
+ * 右键菜单的「重载」：非当前页签要先切过去再重载，
+ * 否则 `reloadTab()` 驱逐的是当前页的 keep-alive 缓存，点在别的页签上会重载错页。
+ */
+async function onTabReload(value: string): Promise<void> {
+  const tab = tabStore.tabs.find(item => item.value === value);
+
+  if (!tab) return;
+
+  if (tabStore.activeTabValue !== value) await getRouter().push(tab.fullPath);
+
+  await tabStore.reloadTab();
 }
 
 // ---------------------------------------------------------------------------
@@ -180,18 +283,36 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
 
 <template>
   <SAppShell
+    v-model:open="sidebarOpen"
+    v-model:mobile-open="mobileOpen"
     :model-value="activeMenuValue"
     :items="shellItems"
-    :mode="themeStore.shellMode"
-    :layout-props="themeStore.layoutProps"
+    :mode="layoutMatrix.shell"
+    v-bind="layoutMatrix.layoutProps"
     :tabs="shellTabs"
     :tab-value="tabStore.activeTabValue"
     expand-strategy="selected"
     @select="onMenuSelect"
-    @update:tab-value="onTabValueChange"
-    @tab-click="onTabClick"
-    @update:tabs="onTabsUpdate"
   >
+    <!--
+      页签走 `#tabs` 槽而不是 `tabs` prop：页签风格（chrome/card/slider）在样式层
+      `PageTabsProps.variant`，壳的 `tabProps` 是 `PageTabsCompactProps`，类型上给不到。
+      槽内 SPageTabs 的事件与壳内置版一致（壳也是把 `update:items` 透传成 `update:tabs`），
+      这里直接绑到 store，少一层事件转发。
+    -->
+    <template #tabs>
+      <SPageTabs
+        v-if="shellTabs.length"
+        :items="shellTabs"
+        :model-value="tabStore.activeTabValue"
+        :variant="themeStore.settings.tabStyle"
+        :menu-factory="tabMenuFactory"
+        class="h-full grow-1"
+        @update:model-value="onTabValueChange"
+        @update:items="onTabsUpdate"
+        @click="onTabClick"
+      />
+    </template>
     <template #logo>
       <img src="/favicon.svg" alt="logo" class="size-6" />
     </template>
@@ -201,6 +322,20 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
 
     <template #header-end>
       <div class="flex items-center gap-2">
+        <SButtonIcon
+          icon="lucide:search"
+          size="sm"
+          variant="ghost"
+          :aria-label="t('search.placeholder')"
+          @click="appStore.toggleSearch()"
+        />
+        <SButtonIcon
+          icon="lucide:palette"
+          size="sm"
+          variant="ghost"
+          :aria-label="t('theme.settings')"
+          @click="appStore.setThemeDrawerVisible(true)"
+        />
         <SDropdownMenu :items="localeMenuItems" placement="bottom-end" @select="onLocaleMenuSelect">
           <template #trigger>
             <button
@@ -227,6 +362,13 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
       </div>
     </template>
 
-    <PageView />
+    <template #footer>
+      <div class="flex items-center justify-between gap-4 px-1 py-1 text-xs text-muted-foreground">
+        <span>{{ t('app.footer.copyright') }}</span>
+        <span>{{ APP_TITLE }} · v{{ APP_VERSION }}</span>
+      </div>
+    </template>
+
+    <PageView :transition="pageTransition" />
   </SAppShell>
 </template>

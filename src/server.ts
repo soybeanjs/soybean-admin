@@ -1,4 +1,6 @@
 import { defineServer } from 'ubean/server';
+import { createUbeanLogger } from '@ubean/shared/logger';
+import { createRequestLoggerMiddleware } from '@ubean/shared/logger/hono';
 import { errorMiddleware } from '@/middleware/03.error';
 import { runAppMigrations } from '@/db/migrations';
 import { runSeed } from '@/db/seed';
@@ -14,12 +16,47 @@ import { serverEnv } from '@/env.server';
  * 与业务码 `{ code, message, data }` 不同构。插件 setup 拿到 hono 实例后注册
  * 应用级 onError（hono 单槽、后注册覆盖先注册），统一归一为 AppError 业务码。
  *
- * 注：`hooks` / `globalHooks` 是 Hono 级别的钩子；启动日志走标准输出
- * （ubean CLI 在 dev 下自带请求/生命周期日志，见 `ubean.config.ts` 的 `logging`）。
+ * 注：`hooks` / `globalHooks` 是 Hono 级别的钩子。
+ *
+ * 请求日志（P2-18）：ubean CLI 自带的是生命周期日志，这里额外挂
+ * `createRequestLoggerMiddleware` 拿到**方法 / 路径 / 状态码 / 耗时**。
+ * logger 用 tslog pretty 输出：等级按级别着色，交互式终端上色、被管道重定向
+ * 时自动去色（也遵守 `NO_COLOR`），所以本地彩色、CI 纯文本两不误。
  */
+const requestLogger = createUbeanLogger({
+  name: 'api',
+  minLevel: 'INFO',
+  pretty: {
+    template: '{{hh}}:{{MM}}:{{ss}} {{logLevelName}} {{name}} ',
+    timeZone: 'local'
+  }
+});
+
 export default defineServer({
   hooks: {},
   plugins: [
+    {
+      name: 'api-request-logger',
+      setup: app => {
+        app.hono.use(
+          '*',
+          createRequestLoggerMiddleware({
+            logger: requestLogger,
+            // 静态资源 / devtools / 代理自身会刷屏；业务 API 与代理流量全记
+            exclude: [
+              '/_assets/**',
+              '/_devtools/**',
+              '/favicon.ico',
+              '/@fs/**',
+              '/@id/**',
+              '/@vite/**',
+              '/node_modules/**'
+            ],
+            slowThreshold: 1000
+          })
+        );
+      }
+    },
     {
       name: 'api-error-handler',
       setup: app => {

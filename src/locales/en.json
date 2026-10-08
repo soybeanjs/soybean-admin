@@ -1,7 +1,10 @@
 {
   "app": {
     "title": "SoybeanAdmin",
-    "description": "A fresh and elegant admin template"
+    "description": "A fresh and elegant admin template",
+    "footer": {
+      "copyright": "© 2025 SoybeanAdmin · Vue 3 + Vite"
+    }
   },
   "common": {
     "home": "Home",
@@ -56,5 +59,150 @@
     "wechatMockScan": "Simulate scan & bind",
     "wechatBound": "WeChat bound: {nickname}",
     "refreshQrcode": "Refresh QR code"
+  },
+  "theme": {
+    "settings": "Theme settings",
+    "drawerTitle": "Theme configuration",
+    "mode": "Appearance mode",
+    "tab": {
+      "appearance": "Appearance",
+      "layout": "Layout",
+      "general": "General",
+      "operation": "Actions",
+      "title": "Tabs",
+      "mode": "Tab style"
+    },
+    "tabVariant": {
+      "chrome": "Chrome",
+      "card": "Card",
+      "slider": "Underline"
+    },
+    "preset": {
+      "title": "Theme preset",
+      "default": "Indigo",
+      "sky": "Sky",
+      "emerald": "Emerald"
+    },
+    "variant": {
+      "title": "Menu variant",
+      "sidebar": "Sidebar",
+      "floating": "Floating",
+      "inset": "Inset"
+    },
+    "collapsible": {
+      "title": "Collapsible",
+      "offcanvas": "Off canvas",
+      "icon": "Icon only"
+    },
+    "sider": "Sidebar",
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "siderWidth": "Sidebar width",
+    "siderCollapsedWidth": "Collapsed width",
+    "mobileSiderWidth": "Mobile sidebar width",
+    "headerHeight": "Header height",
+    "tabHeight": "Tab height",
+    "footerHeight": "Footer height",
+    "headerVisible": "Show header",
+    "tabVisible": "Show tabs",
+    "footerVisible": "Show footer",
+    "siderTrigger": "Show collapse trigger",
+    "breadcrumb": {
+      "visible": "Show breadcrumb"
+    },
+    "header": "Header",
+    "page": {
+      "title": "Page",
+      "animate": "Page transition",
+      "animateMode": "Transition type"
+    },
+    "footer": {
+      "title": "Footer"
+    },
+    "layoutMode": {
+      "title": "Layout mode",
+      "vertical": "Sidebar",
+      "verticalMix": "Dual sidebar",
+      "horizontal": "Top menu",
+      "topHybridSidebarFirst": "Top + sidebar (sidebar first)",
+      "topHybridHeaderFirst": "Top + sidebar (top first)",
+      "verticalHybridHeaderFirst": "Top + dual sidebar",
+      "mobileDisabled": "Mobile only supports the sidebar layout; switch to a wider screen first"
+    },
+    "fixedHeaderAndTab": "Sticky header and tabs",
+    "fixedFooter": "Fixed footer",
+    "stretchFooter": "Stretch footer to content width",
+    "fullContent": "Full-screen content",
+    "scroll": {
+      "title": "Scroll mode",
+      "wrapper": "Scroll the wrapper",
+      "content": "Scroll the content"
+    },
+    "pageAnimateMode": {
+      "fadeSlide": "Slide",
+      "fade": "Fade",
+      "fadeBottom": "Fade from bottom",
+      "fadeScale": "Fade and scale",
+      "zoomFade": "Zoom fade",
+      "zoomOut": "Zoom out",
+      "none": "None"
+    },
+    "resetCache": {
+      "title": "Cache reset strategy",
+      "close": "Close tabs",
+      "refresh": "Refresh tabs"
+    },
+    "watermark": {
+      "title": "Watermark",
+      "visible": "Show watermark",
+      "text": "Watermark text",
+      "userName": "Show user name",
+      "time": "Show time",
+      "timeFormat": "Time format"
+    },
+    "shortcuts": {
+      "title": "Shortcuts",
+      "drawer": "Theme drawer",
+      "search": "Global search"
+    },
+    "copyConfig": "Copy config",
+    "resetConfig": "Reset config",
+    "copySuccess": "Config copied to the clipboard",
+    "copyFailed": "Copy failed; copy the console output manually",
+    "copyUnsupported": "Clipboard is unavailable in this environment",
+    "resetSuccess": "Theme settings have been reset",
+    "grayscaleTitle": "Accessibility",
+    "grayscale": "Grayscale mode",
+    "grayscaleDesc": "Simulate grayscale vision",
+    "colorWeakness": "Color weakness mode",
+    "colorWeaknessDesc": "Invert colors to reveal palette differences",
+    "operation": {
+      "title": "Actions"
+    }
+  },
+  "search": {
+    "placeholder": "Search menus…",
+    "empty": "No matching results",
+    "group": {
+      "menu": "Menus",
+      "action": "Actions"
+    },
+    "action": {
+      "themeDrawer": "Open theme settings",
+      "toggleMode": "Toggle light/dark mode"
+    },
+    "hint": {
+      "navigate": "Navigate",
+      "select": "Select",
+      "close": "Close"
+    }
+  },
+  "tab": {
+    "reload": "Reload page",
+    "close": "Close tab",
+    "closeOther": "Close other tabs",
+    "closeLeft": "Close tabs to the left",
+    "closeRight": "Close tabs to the right",
+    "closeAll": "Close all tabs"
   }
 }

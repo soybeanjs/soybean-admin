@@ -1,4 +1,18 @@
+import { loadEnv } from 'vite-plus';
 import { defineConfig } from 'ubean';
+import { buildProxyRouteRules, parseApiProxyTargets } from './src/shared/api-proxy';
+
+/**
+ * 多 baseURL 代理（P2-18）：`API_PROXY_TARGETS`（server 变量，`.env`）里的每个
+ * `key=origin` 生成一条 `/_p/{key}/**` → `{origin}/**` 的 routeRule。
+ *
+ * config 是同步求值的（`defineConfig(config?: UbeanConfig): UbeanConfig` 不支持
+ * async），所以用 vite-plus 同步导出的 `loadEnv` 读 `.env`；解析逻辑放在纯函数
+ * `src/shared/api-proxy.ts`，与客户端（只拿 key）、测试三方共用。
+ */
+const apiProxyTargets = parseApiProxyTargets(
+  loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '').API_PROXY_TARGETS ?? ''
+);
 
 export default defineConfig({
   srcDir: 'src',
@@ -42,5 +56,7 @@ export default defineConfig({
   dev: {
     port: 9527
   },
+  /** `/_p/{key}/**` 转发到各自上游；key 为空时不产出规则，代理整体关闭 */
+  routeRules: buildProxyRouteRules(apiProxyTargets),
   devtools: true
 });

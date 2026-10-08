@@ -1,7 +1,10 @@
 {
   "app": {
     "title": "SoybeanAdmin",
-    "description": "一个清新优雅的中后台模版"
+    "description": "一个清新优雅的中后台模版",
+    "footer": {
+      "copyright": "© 2025 SoybeanAdmin · Vue 3 + Vite"
+    }
   },
   "common": {
     "home": "首页",
@@ -56,5 +59,150 @@
     "wechatMockScan": "模拟扫码绑定",
     "wechatBound": "已绑定微信：{nickname}",
     "refreshQrcode": "刷新二维码"
+  },
+  "theme": {
+    "settings": "主题设置",
+    "drawerTitle": "主题配置",
+    "mode": "明暗模式",
+    "tab": {
+      "appearance": "外观",
+      "layout": "布局",
+      "general": "通用",
+      "operation": "操作",
+      "title": "页签",
+      "mode": "页签风格"
+    },
+    "tabVariant": {
+      "chrome": "Chrome",
+      "card": "卡片",
+      "slider": "下划线"
+    },
+    "preset": {
+      "title": "主题预设",
+      "default": "靛蓝",
+      "sky": "天空",
+      "emerald": "翡翠"
+    },
+    "variant": {
+      "title": "菜单样式",
+      "sidebar": "左侧菜单",
+      "floating": "悬浮菜单",
+      "inset": "内嵌菜单"
+    },
+    "collapsible": {
+      "title": "折叠方式",
+      "offcanvas": "不折叠",
+      "icon": "图标折叠"
+    },
+    "sider": "侧栏",
+    "collapse": "折叠",
+    "expand": "展开",
+    "siderWidth": "侧栏宽度",
+    "siderCollapsedWidth": "折叠后宽度",
+    "mobileSiderWidth": "移动端侧栏宽度",
+    "headerHeight": "头部高度",
+    "tabHeight": "页签高度",
+    "footerHeight": "页脚高度",
+    "headerVisible": "显示头部",
+    "tabVisible": "显示页签",
+    "footerVisible": "显示页脚",
+    "siderTrigger": "显示折叠触发器",
+    "breadcrumb": {
+      "visible": "显示面包屑"
+    },
+    "header": "头部",
+    "page": {
+      "title": "页面",
+      "animate": "页面切换动画",
+      "animateMode": "动画类型"
+    },
+    "footer": {
+      "title": "页脚"
+    },
+    "layoutMode": {
+      "title": "布局模式",
+      "vertical": "左侧菜单",
+      "verticalMix": "双栏侧边",
+      "horizontal": "顶部菜单",
+      "topHybridSidebarFirst": "顶部 + 侧边（侧边优先）",
+      "topHybridHeaderFirst": "顶部 + 侧边（顶部优先）",
+      "verticalHybridHeaderFirst": "顶部 + 双栏",
+      "mobileDisabled": "移动端仅支持「左侧菜单」布局，请切换到宽屏后再试"
+    },
+    "fixedHeaderAndTab": "头部与页签吸顶",
+    "fixedFooter": "页脚吸底",
+    "stretchFooter": "页脚撑满内容宽度",
+    "fullContent": "全屏内容",
+    "scroll": {
+      "title": "滚动模式",
+      "wrapper": "主体滚动",
+      "content": "内容滚动"
+    },
+    "pageAnimateMode": {
+      "fadeSlide": "横向滑动",
+      "fade": "淡入淡出",
+      "fadeBottom": "底部淡入",
+      "fadeScale": "缩放淡入",
+      "zoomFade": "渐显",
+      "zoomOut": "缩放消失",
+      "none": "无动画"
+    },
+    "resetCache": {
+      "title": "缓存重置策略",
+      "close": "关闭页签",
+      "refresh": "刷新页签"
+    },
+    "watermark": {
+      "title": "水印",
+      "visible": "显示水印",
+      "text": "水印文字",
+      "userName": "显示用户名",
+      "time": "显示时间",
+      "timeFormat": "时间格式"
+    },
+    "shortcuts": {
+      "title": "快捷键",
+      "drawer": "主题抽屉",
+      "search": "全局搜索"
+    },
+    "copyConfig": "复制配置",
+    "resetConfig": "重置配置",
+    "copySuccess": "配置已复制到剪贴板",
+    "copyFailed": "复制失败，请手动复制控制台输出",
+    "copyUnsupported": "当前环境不支持剪贴板",
+    "resetSuccess": "主题配置已重置",
+    "grayscaleTitle": "无障碍",
+    "grayscale": "灰色模式",
+    "grayscaleDesc": "模拟灰色视觉障碍",
+    "colorWeakness": "色弱模式",
+    "colorWeaknessDesc": "反色显示，便于识别配色差异",
+    "operation": {
+      "title": "操作"
+    }
+  },
+  "search": {
+    "placeholder": "搜索菜单…",
+    "empty": "没有匹配的结果",
+    "group": {
+      "menu": "菜单",
+      "action": "操作"
+    },
+    "action": {
+      "themeDrawer": "打开主题设置",
+      "toggleMode": "切换明暗模式"
+    },
+    "hint": {
+      "navigate": "切换",
+      "select": "选择",
+      "close": "关闭"
+    }
+  },
+  "tab": {
+    "reload": "刷新页面",
+    "close": "关闭页签",
+    "closeOther": "关闭其他页签",
+    "closeLeft": "关闭左侧页签",
+    "closeRight": "关闭右侧页签",
+    "closeAll": "关闭全部页签"
   }
 }
