@@ -11,6 +11,10 @@
     "login": "Sign in",
     "logout": "Sign out",
     "notFound": "Page not found",
+    "forbidden": "Access denied",
+    "forbiddenDesc": "Your account has no role or permission for this page. Ask an administrator to grant access.",
+    "goBack": "Go back",
+    "relogin": "Sign in again",
     "total": "Total {total} items",
     "perPage": "{size} / page",
     "actions": "Actions",
@@ -390,6 +394,78 @@
     "managePermission": "Permission management",
     "manageOrg": "Organization",
     "manageDict": "Dictionary",
-    "manageDictItem": "Dict items"
+    "manageDictItem": "Dict items",
+    "function": "Functions",
+    "functionTab": "Tab operations",
+    "functionMultiTab": "Multi tab",
+    "functionRequest": "Request demo",
+    "functionToggleAuth": "Toggle auth",
+    "functionHideChild": "Hide child",
+    "functionHideChildOne": "Hide child 1",
+    "functionHideChildTwo": "Hide child 2",
+    "functionHideChildThree": "Hide child 3",
+    "functionSuperPage": "Super page"
+  },
+  "function": {
+    "tab": {
+      "title": "Tab operations",
+      "description": "Full tab capability demo: navigate, close the active/named tab, multi tab. Tab state lives in the tab store and is consumed by SPageTabs in the layout.",
+      "closeActive": "Close active tab",
+      "closeByName": "Close \"Home\" tab",
+      "openMultiTab": "Open multi tab page",
+      "openMultiTabQuery": "Open multi tab page (with query)",
+      "openNoTab": "Open missing route (404)",
+      "openSuperPage": "Open super-only page",
+      "toHome": "Go to Home",
+      "switchActive": "Switch active tab"
+    },
+    "multiTab": {
+      "title": "Multi tab",
+      "description": "This page sets meta.multiTab = true: the tab value is the fullPath, so different queries of the same route become separate tabs.",
+      "queryLabel": "Current route query",
+      "emptyQuery": "(no query)",
+      "toTab": "Back to tab operations",
+      "openAnother": "Open this page again (different query)"
+    },
+    "request": {
+      "title": "Request demo",
+      "description": "Six buttons against the real endpoint POST /api/auth/error?code=…: 8888 silent logout, 7777 modal logout, 9999 single-flight refresh, 2222/3333 duplicate-message dedupe (3s window).",
+      "systemError": "Plain business error (1000)",
+      "silentLogout": "Silent logout (8888)",
+      "modalLogout": "Modal logout (7777)",
+      "refreshToken": "Trigger refresh replay (9999)",
+      "repeatedMessage": "3 concurrent identical errors (dedupe)",
+      "repeatedModal": "3 concurrent modal logouts (dedupe)",
+      "codeHint": "The request layer dispatches by business code (toast dedupe / dialog / refresh replay); pages never handle errors themselves."
+    },
+    "toggleAuth": {
+      "title": "Toggle auth",
+      "description": "Switch accounts to compare how the same page renders with different permission sets; button visibility is decided by the v-auth directive from userInfo.buttons at mount time.",
+      "account": "Account",
+      "switchTo": "Switch to {name}",
+      "currentAccount": "Current account",
+      "currentRoles": "Current role codes",
+      "currentButtons": "Current permission codes ({count})",
+      "buttonDemo": "Button-level permission (v-auth codes)",
+      "superOnly": "Super role only (v-auth.super)",
+      "adminOnly": "Admin role only (v-auth:role)",
+      "switchDone": "Switched to {name}",
+      "noButtons": "(no button permission codes for this account)"
+    },
+    "hideChild": {
+      "title": "Hide child",
+      "description": "All three child pages set meta.hideInMenu = true and point meta.activeMenu at the parent menu, so the sidebar highlights \"Hide child\".",
+      "routeLabel": "Current route:",
+      "gotoOne": "Hide child 1",
+      "gotoThree": "Hide child 3",
+      "hint": "Current page highlights parent menu: {activeMenu}",
+      "gotoTwo": "Hide child 2"
+    },
+    "superPage": {
+      "title": "Super page",
+      "description": "This page sets meta.roles = [\"super\"]: a non-super role is intercepted by the router guard and lands on the 403 page (path exists, no permission).",
+      "roles": "Required role codes",
+      "current": "Current role codes"
+    }
   }
 }

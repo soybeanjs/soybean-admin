@@ -1,5 +1,6 @@
 import type { Router } from 'vue-router';
 import { progress } from '@vean/ui';
+import { hasRole } from '@/shared/permission';
 import { useAuthStore, useMenuStore, useTabStore } from '@/store';
 import { env } from '@/env';
 import { installRouter } from './instance';
@@ -63,6 +64,14 @@ export function setupRouterGuard(instance: Router): void {
 
     await authStore.initUserInfo();
     await menuStore.initMenu();
+
+    // 路由级角色门禁（`definePage({ meta: { roles: [...] } })`）：角色码不命中 → 403。
+    // 判定与 `v-auth:role` 共用 `@/shared/permission` 的纯函数（超级角色恒过）。
+    const requiredRoles = to.meta.roles;
+
+    if (requiredRoles && !hasRole(authStore.userInfo?.roles ?? [], requiredRoles)) {
+      return { name: 'Forbidden', query: { from: to.fullPath } };
+    }
 
     // dynamic 模式首跳：目标路由可能刚由 initMenu 注册 —— 回跳原路径重新解析。
     // `NotFound` 是内置路由名，不在 `.ubean/typed-router.d.ts` 的

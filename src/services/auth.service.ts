@@ -17,6 +17,7 @@ import type { AuthUserDTO } from '@/schema/auth';
 import { appDb } from '../db';
 import { user } from '../db/schema';
 import { verifyCaptcha } from './captcha.service';
+import { permissionService } from './permission.service';
 import { roleService } from './role.service';
 
 /**
@@ -49,19 +50,26 @@ function wechatBindingStore() {
   return useKV<string>('wechat-binding', { prefix: 'wechat-binding:' });
 }
 
-/** 摘除 password 后的 AuthUserDTO（unify createUser 范式）；roles 由调用方按需附加 */
-export function toAuthUserDTO(row: UserRow, roles: string[] = []): AuthUserDTO {
+/** 摘除 password 后的 AuthUserDTO（unify createUser 范式）；roles/buttons 由调用方按需附加 */
+export function toAuthUserDTO(row: UserRow, roles: string[] = [], buttons: string[] = []): AuthUserDTO {
   const { password: _password, ...rest } = row;
   void _password;
 
-  return { ...rest, roles };
+  return { ...rest, roles, buttons };
 }
 
-/** 带角色码的用户安全视图（RBAC 依赖 roles，登录/user-info/refresh 全链路一致） */
+/**
+ * 带角色码 + 按钮权限码的用户安全视图。
+ *
+ * `roles` 供路由/菜单级判定与 `v-auth="['role']"`；`buttons` 是全量权限码，
+ * 供按钮级 `hasAuth(code)` / `v-auth="['system:user:add']"`（P3-06）。超级管理员的
+ * 权限码来自 `rolePermission` 关联表（seed 里已给全量），无需特例。
+ */
 export async function toAuthUserWithRoles(row: UserRow): Promise<AuthUserDTO> {
   const roles = roleService.getRolesByUserId(row.id).map(role => role.code);
+  const buttons = permissionService.getUserPermissionCodes(row.id);
 
-  return toAuthUserDTO(row, roles);
+  return toAuthUserDTO(row, roles, buttons);
 }
 
 export function findUserByUsername(username: string): UserRow | undefined {
