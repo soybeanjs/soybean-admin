@@ -289,6 +289,24 @@ describe('POST /api/auth/register + POST /api/auth/error', () => {
 
     expect(body.code).toBe('1000');
   });
+
+  it('演示错误端点按 query.code 输出 8888 / 7777 / 9999', async () => {
+    const silentLogout = await api('POST', '/api/auth/error', { query: { code: '8888' } });
+    const modalLogout = await api('POST', '/api/auth/error', { query: { code: '7777' } });
+    const refreshToken = await api('POST', '/api/auth/error', { query: { code: '9999' } });
+
+    expect(silentLogout.body.code).toBe('8888');
+    expect(modalLogout.body.code).toBe('7777');
+    expect(refreshToken.body.code).toBe('9999');
+  });
+
+  it('演示错误端点对未知 code 回落 1000，且无需登录', async () => {
+    const unknown = await api('POST', '/api/auth/error', { query: { code: '1234' } });
+
+    expect(unknown.body.code).toBe('1000');
+    // 同上：未带 token 也返回业务码而非 2000，证明端点在公开路径集合内
+    expect(unknown.body.code).not.toBe('2000');
+  });
 });
 
 // ---------- 图形验证码 / 验证码登录 / 重置密码 / 微信绑定（P2-08） ----------

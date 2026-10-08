@@ -17,8 +17,10 @@ export interface ApiUserInfo {
   homePath: string | null;
   description: string | null;
   enabled: 'Y' | 'N' | 'D';
-  /** 角色码列表 */
+  /** 角色码列表（粗粒度：路由/菜单级判定） */
   roles: string[];
+  /** 按钮级权限码列表（P3-06；`hasAuth(code)` / `v-auth` 判定） */
+  buttons: string[];
 }
 
 /** 登录 / 刷新令牌响应（镜像后端 `LoginResult`） */
@@ -131,6 +133,19 @@ export type AppRouteMeta = {
   order?: number;
   /** 是否隐藏在菜单中 */
   hideInMenu?: boolean;
+  /**
+   * 需要拥有的角色码（任一命中即可）；静态路由不配则视为公开。
+   *
+   * 路由级判定在 `src/router/guard.ts`：不命中 → `403` 页（P3-06）。
+   * 仅作粗粒度门禁，细粒度按钮权限走 `v-auth` / `hasAuth`。
+   */
+  roles?: string[];
+  /**
+   * 激活的高亮菜单值（子页不在菜单时指向父菜单，隐藏子菜单演示用）。
+   *
+   * `src/layouts/default.vue` 把它喂给 `SAppShell` 的 `model-value`。
+   */
+  activeMenu?: string;
   /** keep-alive 缓存（ubean `meta.cache`：PageView 据此种入 KeepAlive；dynamic 模式由菜单表下发） */
   cache?: boolean;
   /** multiTab：同路由不同 query 独立页签 */

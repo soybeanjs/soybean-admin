@@ -77,3 +77,15 @@ export function fetchWechatBinding() {
 export function fetchBindWechat(ticket: string) {
   return request.post<ApiWechatBinding>('/api/auth/bind-wechat', { ticket });
 }
+
+/**
+ * 错误归一演示（`/function/request`）。
+ *
+ * 恒返回 HTTP 200 + 业务错误码（后端抛 `AppError`，全局错误中间件转 envelope）：
+ * - 不传 `code` → `1000 SYSTEM_ERROR`（普通失败提示，3s 去重）
+ * - `1000` → 同上（显式演示「普通错误」）、`8888` → 静默登出、`7777` → 弹窗登出、
+ *   `9999` → 触发令牌刷新后重放（未登录访问会直接失败，属预期）
+ */
+export function fetchCustomBackendError(code?: string) {
+  return request.post<null>('/api/auth/error', undefined, { query: code ? { code } : undefined });
+}

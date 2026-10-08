@@ -11,6 +11,10 @@
     "login": "登录",
     "logout": "退出登录",
     "notFound": "页面不存在",
+    "forbidden": "无访问权限",
+    "forbiddenDesc": "当前账号没有访问该页面的角色或权限，请联系管理员开通。",
+    "goBack": "返回上一页",
+    "relogin": "重新登录",
     "total": "共 {total} 条",
     "perPage": "每页 {size} 条",
     "actions": "操作",
@@ -390,6 +394,78 @@
     "managePermission": "权限管理",
     "manageOrg": "组织管理",
     "manageDict": "字典管理",
-    "manageDictItem": "字典项管理"
+    "manageDictItem": "字典项管理",
+    "function": "系统功能",
+    "functionTab": "标签页操作",
+    "functionMultiTab": "多标签页",
+    "functionRequest": "请求演示",
+    "functionToggleAuth": "切换权限",
+    "functionHideChild": "隐藏子菜单",
+    "functionHideChildOne": "隐藏子菜单 1",
+    "functionHideChildTwo": "隐藏子菜单 2",
+    "functionHideChildThree": "隐藏子菜单 3",
+    "functionSuperPage": "超管可见页"
+  },
+  "function": {
+    "tab": {
+      "title": "标签页操作",
+      "description": "页签能力全量演示：跳转、关闭当前/指定页签、多标签页。页签状态由 tab store 持有，布局层的 SPageTabs 消费。",
+      "closeActive": "关闭当前页签",
+      "closeByName": "关闭「首页」页签",
+      "openMultiTab": "打开多标签页",
+      "openMultiTabQuery": "打开多标签页（带 query）",
+      "openNoTab": "打开不存在的路由（404）",
+      "openSuperPage": "打开超管可见页",
+      "toHome": "跳转「首页」",
+      "switchActive": "切换激活页签"
+    },
+    "multiTab": {
+      "title": "多标签页",
+      "description": "本页 meta.multiTab = true：页签 value 取 fullPath，同一路由的不同 query 会各自成为一个页签。",
+      "queryLabel": "当前路由 query",
+      "emptyQuery": "（无 query）",
+      "toTab": "返回标签页操作",
+      "openAnother": "再开一个本页页签（不同 query）"
+    },
+    "request": {
+      "title": "请求演示",
+      "description": "六个按钮对接真实端点 POST /api/auth/error?code=…：8888 静默登出、7777 弹窗登出、9999 触发单飞刷新，2222/3333 演示同文案错误去重（3 秒窗口）。",
+      "systemError": "普通业务错误（1000）",
+      "silentLogout": "静默登出（8888）",
+      "modalLogout": "弹窗登出（7777）",
+      "refreshToken": "触发刷新重放（9999）",
+      "repeatedMessage": "并发 3 次同文案错误（去重）",
+      "repeatedModal": "并发 3 次弹窗登出（去重）",
+      "codeHint": "命中业务码后由请求层统一分派（toast 去重 / dialog / 刷新重放），页面不再写错误处理。"
+    },
+    "toggleAuth": {
+      "title": "切换权限",
+      "description": "切换登录账号演示「同一页面、不同权限集合」的渲染差异；按钮可见性由 v-auth 指令在挂载时按 userInfo.buttons 判定。",
+      "account": "账号",
+      "switchTo": "切换到 {name}",
+      "currentAccount": "当前账号",
+      "currentRoles": "当前角色码",
+      "currentButtons": "当前权限码 ({count})",
+      "buttonDemo": "按钮级权限（v-auth 权限码）",
+      "superOnly": "超级角色专属（v-auth.super）",
+      "adminOnly": "管理员角色专属（v-auth:role）",
+      "switchDone": "已切换到 {name}",
+      "noButtons": "（当前账号无按钮权限码）"
+    },
+    "hideChild": {
+      "title": "隐藏子菜单",
+      "description": "三个子页都 meta.hideInMenu = true，通过 meta.activeMenu 指向父级菜单名，侧栏高亮落在「隐藏子菜单」上。",
+      "routeLabel": "当前路由：",
+      "gotoOne": "隐藏子菜单 1",
+      "gotoThree": "隐藏子菜单 3",
+      "hint": "当前页高亮到父菜单：{activeMenu}",
+      "gotoTwo": "隐藏子菜单 2"
+    },
+    "superPage": {
+      "title": "超管可见页",
+      "description": "本页 meta.roles = [\"super\"]：非超级角色访问会被路由守卫拦到 403 页（路径存在但无权限）。",
+      "roles": "要求的角色码",
+      "current": "当前角色码"
+    }
   }
 }

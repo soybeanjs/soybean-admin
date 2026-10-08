@@ -17,6 +17,14 @@ export type AuthUserDTO = {
   description: string | null;
   enabled: 'Y' | 'N' | 'D';
   roles: string[];
+  /**
+   * 按钮级权限码列表（v3 §4.6：`userInfo.buttons` + `hasAuth(code)` + `v-auth`）。
+   *
+   * 与 `roles` 的分工：`roles` 是角色码（粗粒度、做路由/菜单级判定），
+   * `buttons` 是权限码（细粒度、做按钮级判定）。超级管理员拿到全量权限码，
+   * 前端只需按 `buttons.includes(code)` 判定，不再逐个角色推导。
+   */
+  buttons: string[];
 };
 
 /** 密码登录分支（可选携带图形验证码：两个都传才校验） */
@@ -72,6 +80,19 @@ export const resetPasswordSchema = v.object({
 });
 
 export type ResetPasswordDTO = v.InferOutput<typeof resetPasswordSchema>;
+
+/**
+ * `POST /api/auth/error` 的演示码入参（P3-06）。
+ *
+ * `code` 只接受 `demoErrorCodeMap` 里登记的三个演示码，缺省（空串）回落到
+ * `SYSTEM_ERROR`，让「请求演示页」能逐条触发请求层的四类分派
+ * （静默登出 / 弹窗登出 / 刷新重放 / 普通报错）。
+ */
+export const demoErrorQuerySchema = v.object({
+  code: v.optional(v.string(), '')
+});
+
+export type DemoErrorQueryDTO = v.InferOutput<typeof demoErrorQuerySchema>;
 
 /** 微信绑定请求（已登录，凭二维码 ticket 完成绑定） */
 export const bindWechatSchema = v.object({

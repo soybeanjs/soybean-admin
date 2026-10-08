@@ -88,8 +88,8 @@ function resolveMenuItems(nodes: MenuTreeNode[]): MenuTreeNode[] {
 
 const shellItems = computed(() => resolveMenuItems(menuStore.items));
 
-/** 当前激活菜单 = 当前路由名（壳据它派生侧栏几何 + 面包屑） */
-const activeMenuValue = computed(() => String(route.name ?? ''));
+/** 当前激活菜单：路由声明了 `activeMenu`（隐藏子菜单指向父菜单）则用它，否则用路由名 */
+const activeMenuValue = computed(() => route.meta.activeMenu ?? String(route.name ?? ''));
 
 /** 菜单 value → 可导航 path（扁平收集，含子级；store 节点已携带原始 path） */
 const menuPathMap = computed(() => {

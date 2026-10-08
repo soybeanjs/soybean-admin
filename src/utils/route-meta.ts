@@ -16,6 +16,10 @@ export function toAppRouteMeta(meta: RouteMeta): AppRouteMeta {
     icon: typeof meta.icon === 'string' ? meta.icon : undefined,
     order: typeof meta.order === 'number' ? meta.order : undefined,
     hideInMenu: typeof meta.hideInMenu === 'boolean' ? meta.hideInMenu : undefined,
+    roles: Array.isArray(meta.roles)
+      ? meta.roles.filter((role): role is string => typeof role === 'string')
+      : undefined,
+    activeMenu: typeof meta.activeMenu === 'string' ? meta.activeMenu : undefined,
     cache: typeof meta.cache === 'boolean' ? meta.cache : undefined,
     multiTab: typeof meta.multiTab === 'boolean' ? meta.multiTab : undefined,
     pinned: typeof meta.pinned === 'boolean' ? meta.pinned : undefined,
