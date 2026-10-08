@@ -3,7 +3,6 @@ import type { Ref, ShallowRef } from 'vue';
 import { refDebounced } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 import { toast } from '@vean/ui';
-
 /**
  * 表格 operate 弹窗 / 搜索 / 刷新范式（v3 §5.7，P3-02）。
  *
@@ -42,6 +41,14 @@ export interface UseTableOperateOptions<T extends TableQuery, I extends TableIdT
   loading: ShallowRef<boolean>;
   /** 实体 id 类型，默认 `string` */
   idType?: I;
+  /** 删除成功提示文案（页面传 `t()` 结果；不传用中文兜底） */
+  messages?: TableOperateMessages;
+}
+
+/** 删除/批量删除提示文案 */
+export interface TableOperateMessages {
+  deleted?: string;
+  batchDeleted?: string;
 }
 
 /**
@@ -55,7 +62,7 @@ function cloneQuery<T extends TableQuery>(query: T): T {
 export function useTableOperate<T extends TableQuery, I extends TableIdType = 'string'>(
   options: UseTableOperateOptions<T, I>
 ) {
-  const { query, page, pageSize, fetchData, loading } = options;
+  const { query, page, pageSize, fetchData, loading, messages } = options;
 
   /** 当前 operate 弹窗操作的实体 id（`undefined` = 新增） */
   const operateId = shallowRef<TableId<I> | undefined>(undefined);
@@ -107,13 +114,13 @@ export function useTableOperate<T extends TableQuery, I extends TableIdType = 's
 
   /** 单条删除成功回调：提示 + 刷新 */
   async function onDeleted(): Promise<void> {
-    toast.success('删除成功');
+    toast.success(messages?.deleted ?? '删除成功');
     await handleRefresh();
   }
 
   /** 批量删除成功回调：提示 + 清空选中 + 刷新 */
   async function onBatchDeleted(): Promise<void> {
-    toast.success('批量删除成功');
+    toast.success(messages?.batchDeleted ?? '批量删除成功');
     selected.value = [];
     await handleRefresh();
   }
@@ -149,7 +156,6 @@ export function useTableOperate<T extends TableQuery, I extends TableIdType = 's
     onBatchDeleted
   };
 }
-
 /** 可选每页条数（与 `SPagination` 的 `pageSizeOptions` 对接） */
 export const DEFAULT_PAGE_SIZES = [10, 15, 20, 25, 30, 40, 50, 100];
 

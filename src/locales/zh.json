@@ -40,7 +40,133 @@
     "loading": "加载中…",
     "version": "版本",
     "viewUnderConstruction": "视图建设中",
-    "viewUnderConstructionDesc": "该页面尚未实现（dynamic 菜单占位视图）"
+    "viewUnderConstructionDesc": "该页面尚未实现（dynamic 菜单占位视图）",
+    "deleteSuccess": "删除成功",
+    "batchDeleteSuccess": "批量删除成功"
+  },
+  "manage": {
+    "search": "搜索",
+    "searchAll": "全部",
+    "list": "列表",
+    "total": "共 {count} 条",
+    "selected": "已选 {count} 条",
+    "addTitle": "新增",
+    "editTitle": "编辑",
+    "createSuccess": "新增成功",
+    "updateSuccess": "更新成功",
+    "enabledDeleted": "已删除",
+    "parent": "上级",
+    "noParent": "无（顶级）",
+    "bindResource": "绑定资源",
+    "noResource": "未绑定",
+    "addChild": "新增子项",
+    "viewDictItems": "字典项",
+    "field": {
+      "enabled": "状态",
+      "parentId": "上级",
+      "description": "描述",
+      "createdTime": "创建时间",
+      "updatedTime": "更新时间",
+      "createdBy": "创建人",
+      "updatedBy": "更新人",
+      "order": "排序"
+    },
+    "menuType": {
+      "directory": "目录",
+      "menu": "菜单",
+      "page": "页面",
+      "iframe": "内嵌",
+      "link": "外链",
+      "button": "按钮",
+      "other": "其他"
+    },
+    "resourceType": {
+      "menu": "菜单",
+      "api": "接口",
+      "button": "按钮",
+      "other": "其他"
+    },
+    "api": {
+      "name": "接口名称",
+      "path": "接口路径",
+      "method": "请求方法",
+      "description": "描述"
+    },
+    "user": {
+      "username": "用户名",
+      "password": "密码",
+      "passwordOptional": "密码（可选）",
+      "passwordPlaceholder": "留空则不修改",
+      "fullName": "姓名",
+      "phone": "手机号",
+      "email": "邮箱",
+      "homePath": "首页路径",
+      "avatar": "头像",
+      "roleIds": "角色",
+      "description": "描述",
+      "createPasswordRequired": "新增用户必须填写密码"
+    },
+    "role": {
+      "name": "角色名称",
+      "code": "角色编码",
+      "permissionIds": "权限",
+      "description": "描述",
+      "userCount": "用户数",
+      "permissionCount": "已选 {count} 项",
+      "pickPermission": "选择权限"
+    },
+    "org": {
+      "name": "组织名称",
+      "code": "组织编码",
+      "description": "描述"
+    },
+    "dict": {
+      "name": "字典名称",
+      "code": "字典编码",
+      "isSystem": "系统字典",
+      "description": "描述",
+      "itemCount": "字典项"
+    },
+    "dictItem": {
+      "dictId": "所属字典",
+      "label": "标签",
+      "value": "值",
+      "description": "描述",
+      "parentId": "上级"
+    },
+    "permission": {
+      "name": "权限名称",
+      "code": "权限码",
+      "resourceType": "资源类型",
+      "resourceId": "资源",
+      "description": "描述"
+    },
+    "menu": {
+      "name": "名称",
+      "code": "编码",
+      "menuType": "类型",
+      "requiresAuth": "需登录",
+      "icon": "图标",
+      "i18nKey": "国际化 Key",
+      "order": "排序",
+      "iframeUrl": "内嵌地址",
+      "href": "外链地址",
+      "routeName": "路由名",
+      "routePath": "路由路径",
+      "routeLayout": "布局",
+      "routeComponent": "页面组件",
+      "routeRedirect": "重定向",
+      "routeParams": "路由参数",
+      "routeQueries": "路由查询",
+      "keepAlive": "缓存",
+      "multiTab": "多页签",
+      "pinned": "固定页签",
+      "description": "描述",
+      "paramName": "参数名",
+      "paramValue": "参数值",
+      "addParam": "添加参数",
+      "addQuery": "添加查询"
+    }
   },
   "login": {
     "pwdLogin": "密码登录",
@@ -256,6 +382,14 @@
     }
   },
   "route": {
-    "home": "工作台"
+    "home": "工作台",
+    "manageApi": "接口管理",
+    "manageUser": "用户管理",
+    "manageRole": "角色管理",
+    "manageMenu": "菜单管理",
+    "managePermission": "权限管理",
+    "manageOrg": "组织管理",
+    "manageDict": "字典管理",
+    "manageDictItem": "字典项管理"
   }
 }

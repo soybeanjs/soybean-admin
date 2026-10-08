@@ -40,7 +40,133 @@
     "loading": "Loading…",
     "version": "Version",
     "viewUnderConstruction": "Under construction",
-    "viewUnderConstructionDesc": "This page is not implemented yet (dynamic menu placeholder)"
+    "viewUnderConstructionDesc": "This page is not implemented yet (dynamic menu placeholder)",
+    "deleteSuccess": "Deleted successfully",
+    "batchDeleteSuccess": "Deleted successfully"
+  },
+  "manage": {
+    "search": "Search",
+    "searchAll": "All",
+    "list": "List",
+    "total": "{count} items",
+    "selected": "{count} selected",
+    "addTitle": "Create",
+    "editTitle": "Edit",
+    "createSuccess": "Created successfully",
+    "updateSuccess": "Updated successfully",
+    "enabledDeleted": "Deleted",
+    "parent": "Parent",
+    "noParent": "None (top level)",
+    "bindResource": "Bind resource",
+    "noResource": "Unbound",
+    "addChild": "Add child",
+    "viewDictItems": "Dict items",
+    "field": {
+      "enabled": "Status",
+      "parentId": "Parent",
+      "description": "Description",
+      "createdTime": "Created at",
+      "updatedTime": "Updated at",
+      "createdBy": "Created by",
+      "updatedBy": "Updated by",
+      "order": "Order"
+    },
+    "menuType": {
+      "directory": "Directory",
+      "menu": "Menu",
+      "page": "Page",
+      "iframe": "Iframe",
+      "link": "Link",
+      "button": "Button",
+      "other": "Other"
+    },
+    "resourceType": {
+      "menu": "Menu",
+      "api": "API",
+      "button": "Button",
+      "other": "Other"
+    },
+    "api": {
+      "name": "API name",
+      "path": "API path",
+      "method": "Method",
+      "description": "Description"
+    },
+    "user": {
+      "username": "Username",
+      "password": "Password",
+      "passwordOptional": "Password (optional)",
+      "passwordPlaceholder": "Leave blank to keep unchanged",
+      "fullName": "Full name",
+      "phone": "Phone",
+      "email": "Email",
+      "homePath": "Home path",
+      "avatar": "Avatar",
+      "roleIds": "Roles",
+      "description": "Description",
+      "createPasswordRequired": "Password is required when creating a user"
+    },
+    "role": {
+      "name": "Role name",
+      "code": "Role code",
+      "permissionIds": "Permissions",
+      "description": "Description",
+      "userCount": "Users",
+      "permissionCount": "{count} selected",
+      "pickPermission": "Pick permissions"
+    },
+    "org": {
+      "name": "Org name",
+      "code": "Org code",
+      "description": "Description"
+    },
+    "dict": {
+      "name": "Dict name",
+      "code": "Dict code",
+      "isSystem": "System dict",
+      "description": "Description",
+      "itemCount": "Items"
+    },
+    "dictItem": {
+      "dictId": "Dict",
+      "label": "Label",
+      "value": "Value",
+      "description": "Description",
+      "parentId": "Parent"
+    },
+    "permission": {
+      "name": "Permission name",
+      "code": "Permission code",
+      "resourceType": "Resource type",
+      "resourceId": "Resource",
+      "description": "Description"
+    },
+    "menu": {
+      "name": "Name",
+      "code": "Code",
+      "menuType": "Type",
+      "requiresAuth": "Requires auth",
+      "icon": "Icon",
+      "i18nKey": "i18n key",
+      "order": "Order",
+      "iframeUrl": "Iframe URL",
+      "href": "Link URL",
+      "routeName": "Route name",
+      "routePath": "Route path",
+      "routeLayout": "Layout",
+      "routeComponent": "Component",
+      "routeRedirect": "Redirect",
+      "routeParams": "Route params",
+      "routeQueries": "Route queries",
+      "keepAlive": "Keep alive",
+      "multiTab": "Multi tab",
+      "pinned": "Pinned",
+      "description": "Description",
+      "paramName": "Param name",
+      "paramValue": "Param value",
+      "addParam": "Add param",
+      "addQuery": "Add query"
+    }
   },
   "login": {
     "pwdLogin": "Password login",
@@ -256,6 +382,14 @@
     }
   },
   "route": {
-    "home": "Dashboard"
+    "home": "Dashboard",
+    "manageApi": "API management",
+    "manageUser": "User management",
+    "manageRole": "Role management",
+    "manageMenu": "Menu management",
+    "managePermission": "Permission management",
+    "manageOrg": "Organization",
+    "manageDict": "Dictionary",
+    "manageDictItem": "Dict items"
   }
 }
