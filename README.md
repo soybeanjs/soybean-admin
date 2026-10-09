@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="./public/favicon.svg" width="160" />
+	<img src="https://r2.soybeanjs.tech/soybeanjs/logo-soybean-admin.svg?20261009211" width="160" />
 	<h1>SoybeanAdmin</h1>
   <span>中文 | <a href="./README.en_US.md">English</a></span>
 </div>
@@ -23,6 +23,12 @@
 > [!NOTE]
 > `SoybeanAdmin` 快速上手系列视频已在 [Bilibili](https://www.bilibili.com/video/BV1YKdRYXELC) 上线 [点击这里](https://www.bilibili.com/video/BV1YKdRYXELC) 前往查看
 
+> [!IMPORTANT]
+> `SoybeanAdmin` 3.0 版本正在开发中，将基于 ubean 全栈框架与 VeanUI 组件库进行整体重构，进展与方案请查看 [Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941)。
+
+> [!WARNING]
+> `2.3` 将是 2.x 系列最后一个维护的大版本。2.x 后续只在该版本上提供维护更新，新特性将集中在 3.0 中实现，建议新项目关注 3.0 进展。
+
 <div align="center">
   <table width="100%">
     <tr>
@@ -30,32 +36,32 @@
         <table>
           <tr>
             <td>
-              <a href="https://ui.soybeanjs.cn">
-                <img alt="SoybeanUI" src="./public/favicon.svg" width="52" />
+              <a href="https://veanui.com">
+                <img alt="VeanUI" src="https://r2.veanui.com/imgs/logo-vean-ui.svg" width="52" />
               </a>
             </td>
             <td>
-              <a href="https://ui.soybeanjs.cn">
+              <a href="https://veanui.com">
                 <img
-                  alt="SoybeanUI"
-                  src="https://img.shields.io/badge/SoybeanUI-Headless%20%2B%20UI-6366f1?style=for-the-badge&labelColor=312e81"
+                  alt="VeanUI"
+                  src="https://img.shields.io/badge/VeanUI-Aria%20%2B%20UI-6366f1?style=for-the-badge&labelColor=312e81"
                 />
               </a>
             </td>
           </tr>
         </table>
-        <strong>面向 Vue 3 的强大而优雅的组件系统，提供无头交互能力与开箱即用的样式封装。</strong><br />
-        <sub>采用 Headless + UI 两层架构，复用底层交互能力，统一上层界面表达。</sub>
+        <strong>面向 Vue 3 的强大而优雅的组件系统，提供 Aria 层交互能力与开箱即用的样式封装。</strong><br />
+        <sub>采用 Aria + UI 两层架构，复用底层交互能力，统一上层界面表达。</sub>
         <br /><br />
         <img alt="Vue 3" src="https://img.shields.io/badge/Vue%203-Component%20Library-6366f1?style=flat-square&labelColor=4338ca" />
-        <img alt="Headless" src="https://img.shields.io/badge/Headless-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
+        <img alt="Aria" src="https://img.shields.io/badge/Aria-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
         <img alt="Admin" src="https://img.shields.io/badge/Admin-Professional%20UI-a5b4fc?style=flat-square&labelColor=4f46e5" />
       </td>
       <td align="right">
-        <a href="https://ui.soybeanjs.cn">
+        <a href="https://veanui.com">
           <img
-            alt="Visit SoybeanUI"
-            src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE-ui.soybeanjs.cn-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
+            alt="Visit VeanUI"
+            src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE-veanui.com-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
           />
         </a>
       </td>
@@ -82,6 +88,9 @@
 - **移动端适配**：完美支持移动端，实现自适应布局。
 
 ## 版本
+
+> [!IMPORTANT]
+> 3.0 版本正在开发中（[Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941)）；`2.3` 是 2.x 系列最后一个维护的大版本。
 
 - **NaiveUI 版本:**
   - [预览地址](https://naive.soybeanjs.cn/)
