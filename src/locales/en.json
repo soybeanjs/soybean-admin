@@ -433,7 +433,12 @@
     "functionSuperPage": "Super page",
     "about": "About",
     "userCenterProfile": "Profile",
-    "userCenterSettings": "Settings"
+    "userCenterSettings": "Settings",
+    "multiMenu": "Multi menu",
+    "multiMenuFirst": "Second menu",
+    "multiMenuSecond": "Second menu",
+    "multiMenuSecondNew": "Second menu (with children)",
+    "multiMenuThird": "Third menu"
   },
   "function": {
     "tab": {
@@ -530,5 +535,14 @@
       "tip": "Shares the same configuration as the theme drawer; changes are saved locally right away.",
       "openDrawer": "Open in drawer"
     }
+  },
+  "multiMenu": {
+    "currentRoute": "Current route",
+    "level": "Menu level",
+    "trail": "Menu trail",
+    "firstDesc": "A first-level menu. The hierarchy is declared by `meta.menuParent`, never guessed from path prefixes: this page declares no parent, so it stays top level, while the second-level pages point back here with `menuParent: \"MultiMenuIndex\"`.",
+    "secondDesc": "A second-level menu whose `menuParent` points back to Multi menu. It is indented under the first level in the sidebar.",
+    "secondNewDesc": "A second-level menu with children: its `menuParent` still points back to Multi menu, but a third-level page points at this one, so the sidebar renders it as an expandable group.",
+    "thirdDesc": "A third-level menu whose `menuParent` points at Second menu (with children): Multi menu › Second menu › Second menu (with children) › Third menu."
   }
 }

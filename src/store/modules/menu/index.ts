@@ -76,28 +76,11 @@ export const useMenuStore = defineStore('menu', {
     // ------------------------------------------------------------------
 
     initStaticMenu() {
-      const routes = getRouter()
-        .getRoutes()
-        .filter(route => route.name && route.name !== 'NotFound')
-        .filter(route => !route.meta.hideInMenu && Boolean(route.meta.title || route.meta.i18nKey))
-        .sort((a, b) => (a.meta.order ?? 0) - (b.meta.order ?? 0));
-
-      this.items = routes.map(route => {
-        const meta = toAppRouteMeta(route.meta);
-
-        return {
-          value: String(route.name),
-          label: String(meta.title ?? String(route.name)),
-          i18nKey: meta.i18nKey,
-          icon: meta.icon,
-          path: route.path,
-          // `meta.href` / `meta.iframeUrl`（P3-07）：静态页也可以声明成外链菜单项
-          // （v3 §4.2「meta.href 行为保留」）。有它就不用 `path` 导航，
-          // 布局的 onMenuSelect 会分流到新窗口 / 内嵌页。
-          href: meta.href,
-          iframeUrl: meta.iframeUrl
-        };
-      });
+      this.items = buildStaticMenuTree(
+        getRouter()
+          .getRoutes()
+          .map(route => ({ name: String(route.name), path: route.path, meta: toAppRouteMeta(route.meta) }))
+      );
     },
 
     // ------------------------------------------------------------------
@@ -213,6 +196,116 @@ export const useMenuStore = defineStore('menu', {
 // ---------------------------------------------------------------------------
 // 纯函数（store 外，便于单测）
 // ---------------------------------------------------------------------------
+
+/** 静态菜单的建树输入（调用方已把 vue-router 的 RouteMeta 收窄过） */
+export interface StaticMenuRoute {
+  name: string;
+  path: string;
+  meta: AppRouteMeta;
+}
+
+/**
+ * 静态模式菜单树（P3-10）。
+ *
+ * 文件式路由不产生嵌套（`src/pages/multi-menu/**` 扫出来是 4 条平级记录），
+ * 所以层级用 `meta.menuParent` 显式声明，而不是从 path 前缀猜：
+ * path 前缀推断会把 `/manage/*` 八套管理页也折叠进一个大目录，
+ * 那是导航结构的改变，不是演示页能自行决定的事。
+ *
+ * 父节点缺失（拼错 `menuParent`）时降级为一级菜单并告警，不丢菜单。
+ * 隐藏页（`hideInMenu`）在建树前已被过滤：它只靠 `meta.activeMenu` 让布局
+ * 高亮不掉，不参与菜单树。
+ */
+export function buildStaticMenuTree(routes: readonly StaticMenuRoute[]): MenuTreeNode[] {
+  const entries = routes.filter(route => route.name && route.name !== 'NotFound');
+
+  const visible = entries.filter(entry => !entry.meta.hideInMenu && Boolean(entry.meta.title || entry.meta.i18nKey));
+  const nodeMap = new Map<string, MenuTreeNode>();
+  const orderMap = new Map<string, number>();
+
+  for (const entry of visible) {
+    nodeMap.set(entry.name, toStaticMenuNode(entry));
+    orderMap.set(entry.name, entry.meta.order ?? 0);
+  }
+
+  const roots: MenuTreeNode[] = [];
+
+  for (const entry of visible) {
+    const node = nodeMap.get(entry.name);
+    if (!node) continue;
+
+    const parent = resolveStaticMenuParent(entry, nodeMap, entries);
+
+    if (parent) {
+      parent.children ??= [];
+      parent.children.push(node);
+    } else {
+      roots.push(node);
+    }
+  }
+
+  sortMenuNodes(roots, orderMap);
+
+  return roots;
+}
+
+function toStaticMenuNode(entry: StaticMenuRoute): MenuTreeNode {
+  return {
+    value: entry.name,
+    label: String(entry.meta.title ?? entry.name),
+    i18nKey: entry.meta.i18nKey,
+    icon: entry.meta.icon,
+    path: entry.path,
+    // `meta.href` / `meta.iframeUrl`（P3-07）：静态页也可以声明成外链菜单项
+    // （v3 §4.2「meta.href 行为保留」）。有它就不用 `path` 导航，
+    // 布局的 onMenuSelect 会分流到新窗口 / 内嵌页。
+    href: entry.meta.href,
+    iframeUrl: entry.meta.iframeUrl
+  };
+}
+
+function resolveStaticMenuParent(
+  entry: StaticMenuRoute,
+  nodeMap: Map<string, MenuTreeNode>,
+  allEntries: readonly StaticMenuRoute[]
+): MenuTreeNode | undefined {
+  const parentName = entry.meta.menuParent || undefined;
+
+  if (!parentName) return undefined;
+
+  const parent = nodeMap.get(parentName);
+
+  if (!parent) {
+    // 降级为一级菜单而不是丢菜单：拼错 menuParent 时菜单还在，只是层级不对
+    console.warn(
+      `[menu] ${entry.name} 声明的父菜单 ${parentName} 不在菜单中（已完成 ${allEntries.length} 条路由的建树，降级为一级菜单）`
+    );
+  }
+
+  return parent;
+}
+
+/** 按 `order` 递归排序（同级稳定；缺 order 视为 0） */
+function sortMenuNodes(nodes: MenuTreeNode[], orderMap: Map<string, number>): void {
+  nodes.sort((a, b) => (orderMap.get(a.value) ?? 0) - (orderMap.get(b.value) ?? 0));
+
+  for (const node of nodes) {
+    if (node.children) sortMenuNodes(node.children, orderMap);
+  }
+}
+
+/** 根 → 目标节点的菜单链（全局搜索/多级菜单演示用；无命中返回空数组） */
+export function findMenuTrail(nodes: readonly MenuTreeNode[], value: string): MenuTreeNode[] {
+  for (const node of nodes) {
+    if (node.value === value) return [node];
+
+    const inner = node.children ? findMenuTrail(node.children, value) : [];
+
+    if (inner.length > 0) return [node, ...inner];
+  }
+
+  return [];
+}
 
 /** `layout.base$view.system_user` → `system_user` */
 export function parseViewName(routeComponent: string | null): string | null {

@@ -433,7 +433,12 @@
     "functionSuperPage": "超管可见页",
     "about": "关于",
     "userCenterProfile": "个人资料",
-    "userCenterSettings": "个人设置"
+    "userCenterSettings": "个人设置",
+    "multiMenu": "多级菜单",
+    "multiMenuFirst": "二级菜单",
+    "multiMenuSecond": "二级菜单",
+    "multiMenuSecondNew": "二级菜单（有子菜单）",
+    "multiMenuThird": "三级菜单"
   },
   "function": {
     "tab": {
@@ -530,5 +535,14 @@
       "tip": "与右上角主题抽屉共用同一份配置，修改即时保存到本地。",
       "openDrawer": "在抽屉中打开"
     }
+  },
+  "multiMenu": {
+    "currentRoute": "当前路由",
+    "level": "菜单层级",
+    "trail": "菜单链路",
+    "firstDesc": "一级菜单。层级不是从路径前缀猜的，而是由 `meta.menuParent` 显式声明：本页不声明父级，所以是一级；二级页面用 `menuParent: \"MultiMenuIndex\"` 指回本页。",
+    "secondDesc": "二级菜单，`menuParent` 指回「多级菜单」。侧栏里缩进显示在一级之下。",
+    "secondNewDesc": "二级菜单（有子菜单），`menuParent` 同样指回「多级菜单」，但有一个三级页面把 `menuParent` 指向本页，因此侧栏里它是可展开分组。",
+    "thirdDesc": "三级菜单，`menuParent` 指回「二级菜单（有子菜单）」，链路为 一级 › 二级 › 二级(有子) › 三级。"
   }
 }
