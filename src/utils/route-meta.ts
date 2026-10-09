@@ -20,6 +20,7 @@ export function toAppRouteMeta(meta: RouteMeta): AppRouteMeta {
       ? meta.roles.filter((role): role is string => typeof role === 'string')
       : undefined,
     activeMenu: typeof meta.activeMenu === 'string' ? meta.activeMenu : undefined,
+    menuParent: typeof meta.menuParent === 'string' ? meta.menuParent : undefined,
     cache: typeof meta.cache === 'boolean' ? meta.cache : undefined,
     multiTab: typeof meta.multiTab === 'boolean' ? meta.multiTab : undefined,
     pinned: typeof meta.pinned === 'boolean' ? meta.pinned : undefined,
