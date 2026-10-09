@@ -18,8 +18,8 @@
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@alova/mock": "2.0.20",
+    "@alova/mock": "2.0.22",
     "@sa/utils": "workspace:*",
-    "alova": "3.5.1"
+    "alova": "3.5.5"
   }
 }

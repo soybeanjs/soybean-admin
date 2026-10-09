@@ -18,16 +18,16 @@
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "devDependencies": {
-    "@soybeanjs/changelog": "0.4.7",
-    "bumpp": "11.1.0",
+    "@soybeanjs/changelog": "0.5.3",
+    "bumpp": "12.3.0",
     "c12": "3.3.4",
-    "cac": "7.0.0",
+    "cac": "7.0.1",
     "consola": "3.4.2",
     "enquirer": "2.4.1",
-    "execa": "9.6.1",
+    "execa": "10.1.0",
     "kolorist": "1.8.0",
-    "npm-check-updates": "22.2.0",
-    "picomatch": "4.0.4",
+    "npm-check-updates": "23.1.0",
+    "picomatch": "4.0.7",
     "rimraf": "6.1.3"
   }
 }

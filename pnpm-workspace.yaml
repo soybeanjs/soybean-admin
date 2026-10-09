@@ -15,3 +15,5 @@ allowBuilds:
 shamefullyHoist: true
 ignoreWorkspaceRootCheck: true
 linkWorkspacePackages: true
+minimumReleaseAgeExclude:
+  - '@iconify/json@2.2.541'
