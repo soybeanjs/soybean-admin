@@ -2,6 +2,12 @@ import { defineConfig } from 'vite-plus';
 import { ubeanPlugin } from 'ubean/vite';
 import UnoCSS from 'unocss/vite';
 import { fmt, lint } from '@soybeanjs/oxc-config';
+import { buildDependencyManifest } from './scripts/dependency-manifest';
+
+// about 页的依赖清单在构建期解析：版本号真实值只在 pnpm-workspace.yaml 的 catalog 段，
+// 解析要带 YAML 解析器（约 30 kB gzip）。这里解析一次并把结果字面量注入客户端，
+// `yaml` 因此只需是 devDependency。（函数值无法进 define，必须 JSON.stringify。）
+const dependencyManifest = JSON.stringify(buildDependencyManifest());
 
 export default defineConfig({
   staged: {
@@ -15,6 +21,10 @@ export default defineConfig({
     // strictPort 让端口被占时直接失败，而不是静默漂移到 5173+。
     port: 9527,
     strictPort: true
+  },
+  define: {
+    __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+    __DEPENDENCIES__: dependencyManifest
   },
   fmt,
   lint,

@@ -48,3 +48,21 @@ interface ImportMeta {
   /** ubean 注入：是否服务端环境 */
   readonly server: boolean;
 }
+
+/**
+ * 构建时间戳（ISO 8601，`vite.config.ts` 的 `define` 注入）。
+ *
+ * dev（vite dev server）与 build 都会在**模块求值前**由 esbuild/rolldown
+ * 做纯文本替换，因此 dev 下每次重启会给新值、HMR 不重算（与 vite 官方
+ * `define` 行为一致）。about 页读它展示「最后构建时间」。
+ *
+ * 类型声明放这里（而非 `src/constants`）的原因：它是构建器注入的自由变量，
+ * 不是常量模块导出的值。
+ */
+declare const __BUILD_TIME__: string;
+
+/**
+ * about 页的依赖清单（`vite.config.ts` / `vitest.config.ts` 经 `define` 注入）。
+ * 类型来自构建期解析器 `scripts/dependency-manifest.ts`，浏览器侧只消费结果。
+ */
+declare const __DEPENDENCIES__: import('../../scripts/dependency-manifest').DependencyManifest;
