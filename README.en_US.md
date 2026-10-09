@@ -229,7 +229,7 @@ Here are the most active contributors from the past year. Thank you all for your
 
   <div>
   	<p>FeiShu Group</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/feishu-soybean-admin.png?v=202605151546" style="width:200px" />
+    <img src="https://r2.soybeanjs.tech/soybeanjs/feishu-soybean-admin.png?v=202610092025" style="width:200px" />
   </div>
 
 ## Star Trend
