@@ -252,6 +252,67 @@ describe('POST /api/auth/modify-password', () => {
   });
 });
 
+describe('PUT /api/auth/profile（个人中心改资料）', () => {
+  it('未登录返回 2000', async () => {
+    const { body } = await api('PUT', '/api/auth/profile', { body: { fullName: 'x' } });
+
+    expect(body.code).toBe('2000');
+  });
+
+  it('非法邮箱返回参数校验业务码 3000', async () => {
+    const { body } = await api('PUT', '/api/auth/profile', {
+      token: userToken,
+      body: { email: 'not-an-email' }
+    });
+
+    expect(body.code).toBe('3000');
+  });
+
+  it('更新自己的资料并回读，且不能改状态与角色', async () => {
+    const before = okData<{ description: string | null; enabled: string; roles: string[] }>(
+      (
+        await api<{ description: string | null; enabled: string; roles: string[] }>('GET', '/api/auth/user-info', {
+          token: userToken
+        })
+      ).body
+    );
+
+    const marker = `profile_${runId}`;
+    const updated = await api<{
+      description: string | null;
+      enabled: string;
+      roles: string[];
+      fullName: string | null;
+    }>('PUT', '/api/auth/profile', {
+      token: userToken,
+      // enabled / roleIds 不在 profileUpdateSchema 里，传了也会被剥掉
+      body: { description: marker, enabled: 'D', roleIds: ['R_super'] }
+    });
+
+    const data = okData<{ description: string | null; enabled: string; roles: string[] }>(updated.body);
+
+    expect(data.description).toBe(marker);
+    // 状态与角色未被个人中心接口改动
+    expect(data.enabled).toBe(before.enabled);
+    expect(data.roles).toEqual(before.roles);
+
+    // 回读（GET /api/auth/user-info 与 profile 共用同一份视图）
+    const after = okData<{ description: string | null }>(
+      (await api<{ description: string | null }>('GET', '/api/auth/user-info', { token: userToken })).body
+    );
+
+    expect(after.description).toBe(marker);
+
+    // 还原，避免污染其它用例
+    const restored = await api<{ description: string | null }>('PUT', '/api/auth/profile', {
+      token: userToken,
+      body: { description: null }
+    });
+
+    expect(okData<{ description: string | null }>(restored.body).description).toBeNull();
+  });
+});
+
 describe('POST /api/auth/register + POST /api/auth/error', () => {
   it('注册即登录（返回 token 对），重复注册返回非 0000，清理后删除', async () => {
     const username = `it_${runId}`;
