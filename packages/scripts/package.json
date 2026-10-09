@@ -14,6 +14,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "devDependencies": {
     "@soybeanjs/changelog": "0.4.7",
     "bumpp": "11.1.0",

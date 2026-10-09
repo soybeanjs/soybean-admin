@@ -14,6 +14,9 @@
     "./client": "./src/client.ts",
     "./mock": "./src/mock.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "@alova/mock": "2.0.20",
     "@sa/utils": "workspace:*",
