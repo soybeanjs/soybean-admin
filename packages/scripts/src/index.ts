@@ -43,6 +43,7 @@ export async function setupCli() {
     .version(lightGreen(version))
     .option(
       '-e, --execute [command]',
+      // 默认值在 commands/release.ts 里定义,改文案时务必同步改那边
       "Execute additional command after bumping and before git commit. Defaults to 'pnpm sa changelog'"
     )
     .option('-p, --push', 'Indicates whether to push the git commit and tag')
