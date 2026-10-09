@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
+import { useThemeStore } from '@/store/modules/theme';
 import SettingItem from '../../../components/setting-item.vue';
 
 defineOptions({

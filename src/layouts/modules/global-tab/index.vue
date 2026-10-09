@@ -3,11 +3,11 @@ import { nextTick, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useElementBounding } from '@vueuse/core';
 import { PageTab } from '@sa/materials';
-import { useAppStore } from '@/store/modules/app';
-import { useThemeStore } from '@/store/modules/theme';
-import { useTabStore } from '@/store/modules/tab';
-import { isPC } from '@/utils/agent';
 import { GLOBAL_TAB_WHEEL_SPEED_RATIO } from '@/constants/app';
+import { isPC } from '@/utils/agent';
+import { useAppStore } from '@/store/modules/app';
+import { useTabStore } from '@/store/modules/tab';
+import { useThemeStore } from '@/store/modules/theme';
 import BetterScroll from '@/components/custom/better-scroll.vue';
 import ContextMenu from './context-menu.vue';
 

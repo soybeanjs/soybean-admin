@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { defu } from 'defu';
+import { $t } from '@/locales';
 import { useThemeStore } from '@/store/modules/theme';
 import { themeSettings } from '@/theme/settings';
-import { $t } from '@/locales';
 
 defineOptions({
   name: 'ThemePreset'

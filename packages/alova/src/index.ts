@@ -1,10 +1,10 @@
 import { createAlova } from 'alova';
 import type { AlovaDefaultCacheAdapter, AlovaGenerics, AlovaGlobalCacheAdapter, AlovaRequestAdapter } from 'alova';
+import { createServerTokenAuthentication } from 'alova/client';
+import adapterFetch from 'alova/fetch';
+import type { FetchRequestInit } from 'alova/fetch';
 import VueHook from 'alova/vue';
 import type { VueHookType } from 'alova/vue';
-import adapterFetch from 'alova/fetch';
-import { createServerTokenAuthentication } from 'alova/client';
-import type { FetchRequestInit } from 'alova/fetch';
 import { BACKEND_ERROR_CODE } from './constant';
 import type { CustomAlovaConfig, RequestOptions } from './type';
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { createReusableTemplate } from '@vueuse/core';
-import { SimpleScrollbar } from '@sa/materials';
-import { transformColorWithOpacity } from '@sa/color';
 import type { RouteKey } from '@elegant-router/types';
+import { transformColorWithOpacity } from '@sa/color';
+import { SimpleScrollbar } from '@sa/materials';
 
 defineOptions({
   name: 'FirstLevelMenu'
