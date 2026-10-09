@@ -2,10 +2,10 @@
 import { computed, ref, watch } from 'vue';
 import type { SelectOption } from 'naive-ui';
 import { enableStatusOptions, menuIconTypeOptions, menuTypeOptions } from '@/constants/business';
-import { fetchGetAllRoles } from '@/service/api';
-import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { getLocalIcons } from '@/utils/icon';
+import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
+import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import SvgIcon from '@/components/custom/svg-icon.vue';
 import {
   getLayoutAndPage,

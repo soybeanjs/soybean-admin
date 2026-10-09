@@ -1,5 +1,5 @@
+import { setupVueRootValidator } from 'vite-plugin-vue-transition-root-validator/client';
 import { createApp } from 'vue';
-import './plugins/assets';
 import {
   setupAppVersionNotification,
   setupDayjs,
@@ -8,10 +8,10 @@ import {
   setupNProgress,
   setupProNaiveComponents
 } from './plugins';
-import { setupVueRootValidator } from 'vite-plugin-vue-transition-root-validator/client';
+import './plugins/assets';
+import { getLocale, setupI18n } from './locales';
 import { setupStore } from './store';
 import { setupRouter } from './router';
-import { getLocale, setupI18n } from './locales';
 import App from './App.vue';
 
 async function setupApp() {

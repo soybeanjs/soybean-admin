@@ -4,6 +4,9 @@ export const GLOBAL_HEADER_MENU_ID = '__GLOBAL_HEADER_MENU__';
 
 export const GLOBAL_SIDER_MENU_ID = '__GLOBAL_SIDER_MENU__';
 
+/** Wheel speed ratio for horizontal scrolling on the global tab bar. <1 slower, >1 faster */
+export const GLOBAL_TAB_WHEEL_SPEED_RATIO = 0.3;
+
 export const themeSchemaRecord: Record<UnionKey.ThemeScheme, App.I18n.I18nKey> = {
   light: 'theme.appearance.themeSchema.light',
   dark: 'theme.appearance.themeSchema.dark',

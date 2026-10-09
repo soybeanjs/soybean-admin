@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { ProDataTableColumns, ProSearchFormColumns } from 'pro-naive-ui';
 import {
   createProSearchForm,
   renderProCopyableText,
@@ -9,6 +8,7 @@ import {
   renderProTags,
   useNDataTable
 } from 'pro-naive-ui';
+import type { ProDataTableColumns, ProSearchFormColumns } from 'pro-naive-ui';
 import { $t } from '@/locales';
 import ConfigProvider from '../../ConfigProvider.vue';
 

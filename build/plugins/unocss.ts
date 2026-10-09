@@ -1,5 +1,5 @@
-import process from 'node:process';
 import path from 'node:path';
+import process from 'node:process';
 import { presetIcons } from 'unocss';
 import unocss from 'unocss/vite';
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders';

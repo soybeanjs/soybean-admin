@@ -1,6 +1,6 @@
 {
   "name": "@sa/axios",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "typesVersions": {
     "*": {
       "*": [
@@ -11,11 +11,14 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "@sa/utils": "workspace:*",
-    "axios": "1.16.0",
+    "axios": "1.20.0",
     "axios-retry": "4.5.0",
-    "qs": "6.15.1"
+    "qs": "6.16.0"
   },
   "devDependencies": {
     "@types/qs": "6.15.1"

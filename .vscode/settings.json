@@ -18,6 +18,6 @@
     "rootDir": ".",
     "baseUrl": "."
   },
-  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "oxc.fmt.configPath": "./vite.config.ts",
   "unocss.root": ["./"]
 }

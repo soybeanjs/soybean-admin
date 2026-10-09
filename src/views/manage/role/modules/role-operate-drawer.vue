@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { jsonClone } from '@sa/utils';
 import { useBoolean } from '@sa/hooks';
+import { jsonClone } from '@sa/utils';
 import { enableStatusOptions } from '@/constants/business';
-import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import MenuAuthModal from './menu-auth-modal.vue';
+import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import ButtonAuthModal from './button-auth-modal.vue';
+import MenuAuthModal from './menu-auth-modal.vue';
 
 defineOptions({
   name: 'RoleOperateDrawer'

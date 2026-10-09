@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { html } from 'pinyin-pro';
 import domPurify from 'dompurify';
+import { html } from 'pinyin-pro';
 
 const domRef = ref<HTMLElement | null>(null);
 const domRef2 = ref<HTMLElement | null>(null);

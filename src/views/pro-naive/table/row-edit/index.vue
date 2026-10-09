@@ -1,8 +1,8 @@
 <script setup lang="tsx">
 import { computed, ref } from 'vue';
 import { NButton, NFlex, useMessage } from 'naive-ui';
-import type { ProEditDataTableColumns } from 'pro-naive-ui';
 import { createProForm } from 'pro-naive-ui';
+import type { ProEditDataTableColumns } from 'pro-naive-ui';
 import { $t } from '@/locales';
 import ConfigProvider from '../../ConfigProvider.vue';
 

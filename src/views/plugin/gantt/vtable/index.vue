@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { onMounted, onUnmounted, shallowRef, watch } from 'vue';
-import * as VTableGantt from '@visactor/vtable-gantt';
 import * as VTable_editors from '@visactor/vtable-editors';
+import * as VTableGantt from '@visactor/vtable-gantt';
 import { useThemeStore } from '@/store/modules/theme';
 import { basicGanttRecords, customGanttRecords, linkGanttRecords } from './data';
 

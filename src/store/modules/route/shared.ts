@@ -1,7 +1,8 @@
 import type { RouteLocationNormalizedLoaded, RouteRecordRaw, _RouteRecordBase } from 'vue-router';
 import type { ElegantConstRoute, LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types';
-import { useSvgIcon } from '@/hooks/common/icon';
+import { isDev } from '@/constants/env';
 import { $t } from '@/locales';
+import { useSvgIcon } from '@/hooks/common/icon';
 
 /**
  * Filter auth routes by roles
@@ -40,6 +41,47 @@ function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]): Eleg
   }
 
   return hasPermission || isEmptyRoles ? [filterRoute] : [];
+}
+
+/**
+ * Filter routes by `isDev` of meta
+ *
+ * The route with `meta.isDev` set to true is only loaded in the development environment
+ *
+ * @param routes Auth routes
+ */
+export function filterRoutesByDev(routes: ElegantConstRoute[]) {
+  // in the development environment, all routes are loaded
+  if (isDev) {
+    return routes;
+  }
+
+  return routes.flatMap(route => filterRouteByDev(route));
+}
+
+/**
+ * Filter route by `isDev` of meta
+ *
+ * @param route Auth route
+ */
+function filterRouteByDev(route: ElegantConstRoute): ElegantConstRoute[] {
+  // exclude the route configured with `meta.isDev` outside the development environment
+  if (route.meta?.isDev) {
+    return [];
+  }
+
+  const filterRoute = { ...route };
+
+  if (filterRoute.children?.length) {
+    filterRoute.children = filterRoute.children.flatMap(item => filterRouteByDev(item));
+  }
+
+  // Exclude the route if it has no children after filtering
+  if (filterRoute.children?.length === 0) {
+    return [];
+  }
+
+  return [filterRoute];
 }
 
 /**

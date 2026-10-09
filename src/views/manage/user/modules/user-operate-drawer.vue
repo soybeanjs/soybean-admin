@@ -3,8 +3,8 @@ import { computed, ref, watch } from 'vue';
 import { jsonClone } from '@sa/utils';
 import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 import { fetchGetAllRoles } from '@/service/api';
-import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
+import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 
 defineOptions({
   name: 'UserOperateDrawer'

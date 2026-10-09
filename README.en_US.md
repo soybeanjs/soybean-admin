@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="./public/favicon.svg" width="160" />
+	<img src="https://img.soybeanjs.dev/logo-soybean-admin.svg?20261009211" width="160" />
 	<h1>SoybeanAdmin</h1>
   <span><a href="./README.md">中文</a> | English</span>
 </div>
@@ -23,6 +23,12 @@
 > [!NOTE]
 > The `SoybeanAdmin` quick start series videos have been uploaded to [Bilibili](https://www.bilibili.com/video/BV1YKdRYXELC) Go online [click here](https://www.bilibili.com/video/BV1YKdRYXELC) Go check it out
 
+> [!IMPORTANT]
+> `SoybeanAdmin` 3.0 is under development, a full rewrite built on the ubean full-stack framework and the VeanUI component library. See [Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941) for progress and design.
+
+> [!WARNING]
+> `2.3` will be the last maintained major version of the 2.x line. After that, 2.x only receives maintenance updates on that version, and new features land in 3.0. New projects should follow the 3.0 progress.
+
 <div align="center">
   <table width="100%">
     <tr>
@@ -30,32 +36,32 @@
         <table>
           <tr>
             <td>
-              <a href="https://ui.soybeanjs.cn">
-                <img alt="SoybeanUI" src="./public/favicon.svg" width="52" />
+              <a href="https://veanui.com">
+                <img alt="VeanUI" src="https://img.soybeanjs.dev/logo-vean-ui.svg" width="52" />
               </a>
             </td>
             <td>
-              <a href="https://ui.soybeanjs.cn">
+              <a href="https://veanui.com">
                 <img
-                  alt="SoybeanUI"
-                  src="https://img.shields.io/badge/SoybeanUI-Headless%20%2B%20UI-6366f1?style=for-the-badge&labelColor=312e81"
+                  alt="VeanUI"
+                  src="https://img.shields.io/badge/VeanUI-Aria%20%2B%20UI-6366f1?style=for-the-badge&labelColor=312e81"
                 />
               </a>
             </td>
           </tr>
         </table>
-        <strong>A powerful and elegant component system for Vue 3, delivering headless interaction capabilities and ready-to-use style encapsulation.</strong><br />
-        <sub>Built on a two-layer Headless + UI architecture to reuse interaction capabilities and unify interface expression.</sub>
+        <strong>A powerful and elegant component system for Vue 3, delivering Aria interaction capabilities and ready-to-use style encapsulation.</strong><br />
+        <sub>Built on a two-layer Aria + UI architecture to reuse interaction capabilities and unify interface expression.</sub>
         <br /><br />
         <img alt="Vue 3" src="https://img.shields.io/badge/Vue%203-Component%20Library-6366f1?style=flat-square&labelColor=4338ca" />
-        <img alt="Headless" src="https://img.shields.io/badge/Headless-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
+        <img alt="Aria" src="https://img.shields.io/badge/Aria-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
         <img alt="Admin" src="https://img.shields.io/badge/Admin-Professional%20UI-a5b4fc?style=flat-square&labelColor=4f46e5" />
       </td>
       <td align="right">
-        <a href="https://ui.soybeanjs.cn">
+        <a href="https://veanui.com">
           <img
-            alt="Visit SoybeanUI"
-            src="https://img.shields.io/badge/Visit-ui.soybeanjs.cn-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
+            alt="Visit VeanUI"
+            src="https://img.shields.io/badge/Visit-veanui.com-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
           />
         </a>
       </td>
@@ -71,7 +77,7 @@
 
 - **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite8, TypeScript, Pinia and UnoCSS.
 - **Clear project architecture**: using pnpm monorepo architecture, clear structure, elegant and easy to understand.
-- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, prettier and simple-git-hooks to ensure the code is standardized.
+- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, oxlint, oxfmt and vp hooks to ensure the code is standardized.
 - **TypeScript**: support strict type checking to improve code maintainability.
 - **Rich theme configuration**: built-in a variety of theme configurations, perfectly integrated with UnoCSS.
 - **Built-in internationalization solution**: easily realize multi-language support.
@@ -82,6 +88,9 @@
 - **Mobile adaptation**: perfectly support mobile terminal to realize adaptive layout.
 
 ## Version
+
+> [!IMPORTANT]
+> 3.0 is under development ([Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941)); `2.3` is the last maintained major version of the 2.x line.
 
 - **NaiveUI Version:**
   - [Preview Link](https://naive.soybeanjs.cn/)
@@ -114,17 +123,17 @@
 
 ## Example Images
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-01.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-02.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-03.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-04.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-05.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-06.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-07.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-08.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-01.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-02.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-03.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-04.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-05.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-06.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-07.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-08.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-09.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-10.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-mobile.png)
 
 ## Usage
 
@@ -225,24 +234,16 @@ Here are the most active contributors from the past year. Thank you all for your
 
 ## Communication
 
-`SoybeanAdmin` is a completely open source and free project, helping developers to develop medium and large-scale management systems more conveniently. It also provides WeChat and QQ communication groups. If you have any questions, please feel free to ask in the group.
+`SoybeanAdmin` is a completely open source and free project, helping developers to develop medium and large-scale management systems more conveniently. It provides FeiShu communication groups. If you have any questions, please feel free to ask in the group.
 
   <div>
-  	<p>QQ Group</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-5.jpg" style="width:200px" />
+  	<p>FeiShu Group</p>
+    <img src="https://img.soybeanjs.dev/soybean-admin-feishu.png?v=202610092025" style="width:200px" />
   </div>
-	<!-- <div>
-		<p>WeChat Group</p>
-		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/picgo/soybean-admin-wechat-0620.jpg" style="width:200px" />
-	</div> -->
-	<div>
-		<p>Add the following WeChat to invite to the WeChat group</p>
-		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
-	</div>
 
 ## Star Trend
 
-[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.dera.page/#soybeanjs/soybean-admin&Date)
 
 ## License
 

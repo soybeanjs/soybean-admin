@@ -1,6 +1,6 @@
 {
   "name": "@sa/hooks",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "typesVersions": {
     "*": {
       "*": [
@@ -10,6 +10,9 @@
   },
   "exports": {
     ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@sa/axios": "workspace:*",

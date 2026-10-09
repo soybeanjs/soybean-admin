@@ -2,8 +2,8 @@ import { computed, effectScope, onScopeDispose, ref, watch } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import VChart, { registerLiquidChart } from '@visactor/vchart';
 import type { ISpec, ITheme } from '@visactor/vchart';
-import light from '@visactor/vchart-theme/public/light.json';
 import dark from '@visactor/vchart-theme/public/dark.json';
+import light from '@visactor/vchart-theme/public/light.json';
 import { useThemeStore } from '@/store/modules/theme';
 
 registerLiquidChart();

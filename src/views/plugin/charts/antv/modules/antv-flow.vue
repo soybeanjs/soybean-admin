@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { shallowRef, useTemplateRef, watch } from 'vue';
-import { useDebounceFn } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
+import { useDebounceFn } from '@vueuse/core';
 import type { CustomBehaviorOption, Graph } from '@antv/g6';
 import { useAntFlow } from './antv-g6-flow';
 import { nodeStatus } from './status';

@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="./public/favicon.svg" width="160" />
+	<img src="https://img.soybeanjs.dev/logo-soybean-admin.svg?20261009211" width="160" />
 	<h1>SoybeanAdmin</h1>
   <span>中文 | <a href="./README.en_US.md">English</a></span>
 </div>
@@ -23,6 +23,12 @@
 > [!NOTE]
 > `SoybeanAdmin` 快速上手系列视频已在 [Bilibili](https://www.bilibili.com/video/BV1YKdRYXELC) 上线 [点击这里](https://www.bilibili.com/video/BV1YKdRYXELC) 前往查看
 
+> [!IMPORTANT]
+> `SoybeanAdmin` 3.0 版本正在开发中，将基于 ubean 全栈框架与 VeanUI 组件库进行整体重构，进展与方案请查看 [Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941)。
+
+> [!WARNING]
+> `2.3` 将是 2.x 系列最后一个维护的大版本。2.x 后续只在该版本上提供维护更新，新特性将集中在 3.0 中实现，建议新项目关注 3.0 进展。
+
 <div align="center">
   <table width="100%">
     <tr>
@@ -30,32 +36,32 @@
         <table>
           <tr>
             <td>
-              <a href="https://ui.soybeanjs.cn">
-                <img alt="SoybeanUI" src="./public/favicon.svg" width="52" />
+              <a href="https://veanui.com">
+                <img alt="VeanUI" src="https://img.soybeanjs.dev/logo-vean-ui.svg" width="52" />
               </a>
             </td>
             <td>
-              <a href="https://ui.soybeanjs.cn">
+              <a href="https://veanui.com">
                 <img
-                  alt="SoybeanUI"
-                  src="https://img.shields.io/badge/SoybeanUI-Headless%20%2B%20UI-6366f1?style=for-the-badge&labelColor=312e81"
+                  alt="VeanUI"
+                  src="https://img.shields.io/badge/VeanUI-Aria%20%2B%20UI-6366f1?style=for-the-badge&labelColor=312e81"
                 />
               </a>
             </td>
           </tr>
         </table>
-        <strong>面向 Vue 3 的强大而优雅的组件系统，提供无头交互能力与开箱即用的样式封装。</strong><br />
-        <sub>采用 Headless + UI 两层架构，复用底层交互能力，统一上层界面表达。</sub>
+        <strong>面向 Vue 3 的强大而优雅的组件系统，提供 Aria 层交互能力与开箱即用的样式封装。</strong><br />
+        <sub>采用 Aria + UI 两层架构，复用底层交互能力，统一上层界面表达。</sub>
         <br /><br />
         <img alt="Vue 3" src="https://img.shields.io/badge/Vue%203-Component%20Library-6366f1?style=flat-square&labelColor=4338ca" />
-        <img alt="Headless" src="https://img.shields.io/badge/Headless-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
+        <img alt="Aria" src="https://img.shields.io/badge/Aria-Logic%20%26%20State-818cf8?style=flat-square&labelColor=3730a3" />
         <img alt="Admin" src="https://img.shields.io/badge/Admin-Professional%20UI-a5b4fc?style=flat-square&labelColor=4f46e5" />
       </td>
       <td align="right">
-        <a href="https://ui.soybeanjs.cn">
+        <a href="https://veanui.com">
           <img
-            alt="Visit SoybeanUI"
-            src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE-ui.soybeanjs.cn-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
+            alt="Visit VeanUI"
+            src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E8%AE%BF%E9%97%AE-veanui.com-6366f1?style=for-the-badge&labelColor=312e81&logo=vercel&logoColor=white"
           />
         </a>
       </td>
@@ -71,7 +77,7 @@
 
 - **前沿技术应用**：采用 Vue3, Vite8, TypeScript, Pinia 和 UnoCSS 等最新流行的技术栈。
 - **清晰的项目架构**：采用 pnpm monorepo 架构，结构清晰，优雅易懂。
-- **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，集成了eslint, prettier 和 simple-git-hooks，保证代码的规范性。
+- **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，集成了eslint、oxlint、oxfmt 和 vp hooks，保证代码的规范性。
 - **TypeScript**： 支持严格的类型检查，提高代码的可维护性。
 - **丰富的主题配置**：内置多样的主题配置，与 UnoCSS 完美结合。
 - **内置国际化方案**：轻松实现多语言支持。
@@ -82,6 +88,9 @@
 - **移动端适配**：完美支持移动端，实现自适应布局。
 
 ## 版本
+
+> [!IMPORTANT]
+> 3.0 版本正在开发中（[Roadmap Issue #941](https://github.com/soybeanjs/soybean-admin/issues/941)）；`2.3` 是 2.x 系列最后一个维护的大版本。
 
 - **NaiveUI 版本:**
   - [预览地址](https://naive.soybeanjs.cn/)
@@ -139,17 +148,17 @@
 
 ## 示例图片
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-01.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-02.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-03.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-04.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-05.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-06.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-07.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-08.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-01.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-02.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-03.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-04.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-05.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-06.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-07.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-08.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-09.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-10.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-mobile.png)
 
 ## 使用
 
@@ -250,24 +259,16 @@ pnpm build
 
 ## 交流
 
-`SoybeanAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
+`SoybeanAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时提供飞书群供大家交流，使用问题欢迎在群内提问。
 
-  <div>
-  	<p>QQ交流群</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-5.jpg" style="width:200px" />
-  </div>
-	<!-- <div>
-		<p>微信群</p>
-		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/picgo/soybean-admin-wechat-0620.jpg" style="width:200px" />
-	</div> -->
-	<div>
-		<p>添加下面微信邀请进微信群</p>
-		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
-	</div>
+<div>
+  <p>飞书群</p>
+  <img src="https://img.soybeanjs.dev/soybean-admin-feishu.png?v=202610092025" style="width:200px" />
+</div>
 
 ## Star 趋势
 
-[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.dera.page/#soybeanjs/soybean-admin&Date)
 
 ## 开源协议
 

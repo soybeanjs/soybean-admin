@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useMessage } from 'naive-ui';
-import type { ProSearchFormColumns } from 'pro-naive-ui';
 import { createProSearchForm } from 'pro-naive-ui';
+import type { ProSearchFormColumns } from 'pro-naive-ui';
 import { $t } from '@/locales';
 import ConfigProvider from '../../ConfigProvider.vue';
 

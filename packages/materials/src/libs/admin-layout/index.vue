@@ -181,12 +181,12 @@ function handleClickMask() {
       <!-- Mobile Sider -->
       <template v-if="showMobileSider">
         <aside
-          class="absolute left-0 top-0 h-full w-0 bg-white"
+          class="absolute left-0 top-0 h-full bg-white"
           :class="[
             commonClass,
             mobileSiderClass,
             style['layout-mobile-sider'],
-            siderCollapse ? 'overflow-hidden' : style['layout-sider']
+            siderCollapse ? 'w-0 overflow-hidden' : style['layout-sider']
           ]"
         >
           <slot name="sider"></slot>

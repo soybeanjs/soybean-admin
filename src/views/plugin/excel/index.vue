@@ -4,9 +4,9 @@ import { NButton, NTag } from 'naive-ui';
 import { utils, writeFile } from 'xlsx';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { fetchGetUserList } from '@/service/api';
+import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { isTableColumnHasKey, useNaiveTable } from '@/hooks/common/table';
-import { $t } from '@/locales';
 
 const appStore = useAppStore();
 

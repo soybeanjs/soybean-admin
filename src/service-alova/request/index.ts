@@ -1,9 +1,9 @@
 import { createAlovaRequest } from '@sa/alova';
-import { createAlovaMockAdapter } from '@sa/alova/mock';
 import adapterFetch from '@sa/alova/fetch';
-import { useAuthStore } from '@/store/modules/auth';
+import { createAlovaMockAdapter } from '@sa/alova/mock';
 import { getServiceBaseURL } from '@/utils/service';
 import { $t } from '@/locales';
+import { useAuthStore } from '@/store/modules/auth';
 import featureUsers20241014 from '../mocks/feature-users-20241014';
 import { getAuthorization, handleRefreshToken, showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';

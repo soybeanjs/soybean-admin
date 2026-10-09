@@ -1,18 +1,19 @@
 import { computed, nextTick, ref, shallowRef } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
-import { useBoolean } from '@sa/hooks';
 import type { CustomRoute, ElegantConstRoute, LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types';
-import { router } from '@/router';
+import { useBoolean } from '@sa/hooks';
 import { fetchGetConstantRoutes, fetchGetUserRoutes, fetchIsRouteExist } from '@/service/api';
+import { router } from '@/router';
 import { SetupStoreId } from '@/enum';
+import { getRouteName, getRoutePath } from '@/router/elegant/transform';
 import { createStaticRoutes, getAuthVueRoutes } from '@/router/routes';
 import { ROOT_ROUTE } from '@/router/routes/builtin';
-import { getRouteName, getRoutePath } from '@/router/elegant/transform';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 import {
   filterAuthRoutesByRoles,
+  filterRoutesByDev,
   getBreadcrumbsByRoute,
   getCacheRouteNames,
   getGlobalMenusByAuthRoutes,
@@ -231,7 +232,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   /** handle constant and auth routes */
   function handleConstantAndAuthRoutes() {
-    const allRoutes = [...constantRoutes.value, ...authRoutes.value];
+    const allRoutes = filterRoutesByDev([...constantRoutes.value, ...authRoutes.value]);
 
     const sortRoutes = sortRoutesByOrder(allRoutes);
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { $t } from '@/locales';
-import CaptchaVerification from './modules/captcha-verification.vue';
 import BrowserVisibilityRequest from './modules/browser-visibility-request.vue';
-import PollingRequest from './modules/polling-request.vue';
-import NetworkToggleRequest from './modules/network-toggle-request.vue';
+import CaptchaVerification from './modules/captcha-verification.vue';
 import CrossComponentRequest from './modules/cross-component-request.vue';
+import NetworkToggleRequest from './modules/network-toggle-request.vue';
+import PollingRequest from './modules/polling-request.vue';
 </script>
 
 <template>

@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { computed, onMounted, ref } from 'vue';
+import VChart from '@visactor/vchart';
 import {
   Group,
   Image,
@@ -17,7 +18,6 @@ import {
   VTable,
   registerChartModule
 } from '@visactor/vue-vtable';
-import VChart from '@visactor/vchart';
 import { useThemeStore } from '@/store/modules/theme';
 import { customListRecords, listTableRecords, pivotChartColumns, pivotChartIndicators, pivotChartRows } from './data';
 
@@ -313,6 +313,7 @@ onMounted(() => {
           <ListColumn field="bloggerId" title="Order Number" width="100" />
 
           <!-- Anchor Nickname Column with Custom Layout -->
+          <!-- @vue-skip -->
           <ListColumn field="bloggerName" title="Anchor Nickname" :width="330">
             <template #customLayout="{ record, height, width }">
               <Group :height="height" :width="width" display="flex" flex-direction="row" flex-wrap="nowrap">
