@@ -1,4 +1,5 @@
 import request from '@/request';
+import type { UpdateProfilePayload } from '@/schema/profile';
 import type { ApiCaptcha, ApiLoginResult, ApiUserInfo, ApiWechatBinding, ApiWechatQrcode } from '@/typings/app';
 
 /**
@@ -79,8 +80,26 @@ export function fetchBindWechat(ticket: string) {
 }
 
 /**
- * 错误归一演示（`/function/request`）。
+ * 更新当前登录用户的个人资料（P3-09 个人中心）。
  *
+ * 走 `/api/auth/profile` 而不是 `/api/user/:id`：前者只允许改自己的展示字段
+ * （`userId` 由服务端从 token 取），后者是管理员语义、需要 RBAC 权限码。
+ */
+export function fetchUpdateProfile(payload: UpdateProfilePayload) {
+  return request.put<ApiUserInfo>('/api/auth/profile', payload);
+}
+
+/**
+ * 修改当前登录用户的密码（服务端校验当前密码）。
+ *
+ * 成功后不主动登出：旧 token 仍有效，客户端想强制重新登录可以自行 `authStore.logout()`。
+ */
+export function fetchModifyPassword(payload: { currentPassword: string; newPassword: string }) {
+  return request.post<null>('/api/auth/modify-password', payload);
+}
+
+/**
+ * 错误归一演示（`/function/request`）。
  * 恒返回 HTTP 200 + 业务错误码（后端抛 `AppError`，全局错误中间件转 envelope）：
  * - 不传 `code` → `1000 SYSTEM_ERROR`（普通失败提示，3s 去重）
  * - `1000` → 同上（显式演示「普通错误」）、`8888` → 静默登出、`7777` → 弹窗登出、

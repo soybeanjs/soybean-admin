@@ -7,10 +7,15 @@ import { createUuidV7 } from '@/shared/uuid';
 import type { UserCreateDTO, UserQuery, UserUpdateDTO } from '@/schema/user';
 import { appDb } from '../db';
 import { user, userRole } from '../db/schema';
+import { permissionService } from './permission.service';
+import { roleService } from './role.service';
 
 /**
  * 用户服务（P1-07，unify user.service 范式）。
  * 列表永不返回 password；分配角色 = delete + insert 全量替换。
+ *
+ * 依赖 `roleService` / `permissionService` 只用于 `getProfile`（P3-09 个人中心），
+ * 二者都不 import 本模块，无循环依赖。
  */
 
 export type UserRow = typeof user.$inferSelect;
@@ -80,6 +85,22 @@ export const userService = {
     return row;
   },
 
+  /**
+   * 当前用户的个人资料视图（P3-09）。
+   *
+   * 比 `getUserById` 多的是展示所需的角色码 / 按钮权限码（个人中心要显示
+   * 「我有哪些角色和权限」），少的是 `password`。与 `authService.getUserInfo`
+   * 同构，但后者是**登录态**语义（还带 `homePath` 等），这里是**自助编辑**
+   * 语义的返回值，放在 user 域避免路由层跨服务拼装。
+   */
+  async getProfile(id: string): Promise<Omit<UserRow, 'password'> & { roles: string[]; buttons: string[] }> {
+    const row = this.getUserById(id);
+    const roles = roleService.getRolesByUserId(id).map(role => role.code);
+    const buttons = permissionService.getUserPermissionCodes(id);
+
+    return { ...stripPassword(row), roles, buttons };
+  },
+
   replaceUserRoles(userId: string, roleIds: string[]): void {
     appDb.delete(userRole).where(eq(userRole.userId, userId)).run();
 
@@ -141,6 +162,7 @@ export const userService = {
         fullName: dto.fullName !== undefined ? dto.fullName : current.fullName,
         avatar: dto.avatar !== undefined ? dto.avatar : current.avatar,
         homePath: dto.homePath !== undefined ? dto.homePath : current.homePath,
+        description: dto.description !== undefined ? dto.description : current.description,
         enabled: dto.enabled ?? current.enabled,
         password: nextPassword,
         updatedBy: ACTOR,

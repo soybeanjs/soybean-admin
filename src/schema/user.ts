@@ -22,6 +22,7 @@ export const userUpdateSchema = v.object({
   fullName: v.optional(v.nullable(v.string())),
   avatar: v.optional(v.nullable(v.string())),
   homePath: v.optional(v.nullable(v.string())),
+  description: v.optional(v.nullable(v.string())),
   enabled: v.optional(enabledSchema),
   roleIds: v.optional(v.array(idSchema))
 });

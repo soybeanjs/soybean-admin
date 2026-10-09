@@ -431,7 +431,9 @@
     "functionHideChildTwo": "隐藏子菜单 2",
     "functionHideChildThree": "隐藏子菜单 3",
     "functionSuperPage": "超管可见页",
-    "about": "关于"
+    "about": "关于",
+    "userCenterProfile": "个人资料",
+    "userCenterSettings": "个人设置"
   },
   "function": {
     "tab": {
@@ -493,6 +495,40 @@
       "description": "本页 meta.roles = [\"super\"]：非超级角色访问会被路由守卫拦到 403 页（路径存在但无权限）。",
       "roles": "要求的角色码",
       "current": "当前角色码"
+    }
+  },
+  "userCenter": {
+    "profile": {
+      "title": "个人资料",
+      "editTitle": "编辑资料",
+      "fullName": "姓名",
+      "fullNamePlaceholder": "请输入姓名",
+      "email": "邮箱",
+      "emailPlaceholder": "请输入邮箱",
+      "phone": "手机号",
+      "phonePlaceholder": "请输入手机号",
+      "homePath": "登录后首页",
+      "homePathPlaceholder": "例如 / 或 /manage/user",
+      "description": "个人简介",
+      "descriptionPlaceholder": "请输入个人简介",
+      "roles": "角色",
+      "saveSuccess": "资料已更新"
+    },
+    "password": {
+      "title": "修改密码",
+      "tip": "修改成功后当前登录状态保持有效，下次登录请使用新密码。",
+      "current": "当前密码",
+      "currentPlaceholder": "请输入当前密码",
+      "new": "新密码",
+      "newPlaceholder": "至少 6 个字符",
+      "confirm": "确认新密码",
+      "confirmPlaceholder": "请再次输入新密码",
+      "saveSuccess": "密码已修改"
+    },
+    "settings": {
+      "title": "个性化设置",
+      "tip": "与右上角主题抽屉共用同一份配置，修改即时保存到本地。",
+      "openDrawer": "在抽屉中打开"
     }
   }
 }

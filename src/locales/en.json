@@ -431,7 +431,9 @@
     "functionHideChildTwo": "Hide child 2",
     "functionHideChildThree": "Hide child 3",
     "functionSuperPage": "Super page",
-    "about": "About"
+    "about": "About",
+    "userCenterProfile": "Profile",
+    "userCenterSettings": "Settings"
   },
   "function": {
     "tab": {
@@ -493,6 +495,40 @@
       "description": "This page sets meta.roles = [\"super\"]: a non-super role is intercepted by the router guard and lands on the 403 page (path exists, no permission).",
       "roles": "Required role codes",
       "current": "Current role codes"
+    }
+  },
+  "userCenter": {
+    "profile": {
+      "title": "Profile",
+      "editTitle": "Edit profile",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "phone": "Phone",
+      "phonePlaceholder": "Enter your phone number",
+      "homePath": "Home path after sign-in",
+      "homePathPlaceholder": "e.g. / or /manage/user",
+      "description": "Bio",
+      "descriptionPlaceholder": "Tell us something about you",
+      "roles": "Roles",
+      "saveSuccess": "Profile updated"
+    },
+    "password": {
+      "title": "Change password",
+      "tip": "Your current session stays valid after the change; use the new password next time.",
+      "current": "Current password",
+      "currentPlaceholder": "Enter your current password",
+      "new": "New password",
+      "newPlaceholder": "At least 6 characters",
+      "confirm": "Confirm new password",
+      "confirmPlaceholder": "Enter the new password again",
+      "saveSuccess": "Password changed"
+    },
+    "settings": {
+      "title": "Personalization",
+      "tip": "Shares the same configuration as the theme drawer; changes are saved locally right away.",
+      "openDrawer": "Open in drawer"
     }
   }
 }

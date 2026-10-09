@@ -62,6 +62,16 @@ export const useAuthStore = defineStore('auth', {
       this.refreshToken = result.refreshToken;
       this.userInfo = result.user;
     },
+    /**
+     * 覆盖本地用户信息（个人中心改资料后调用）。
+     *
+     * 必须同时写 localStorage：否则刷新页面后 `userInfo` 从旧快照恢复，
+     * 改动看起来「丢了」。
+     */
+    setUserInfo(userInfo: ApiUserInfo) {
+      this.userInfo = userInfo;
+      setAuthStorage({ token: this.token, refreshToken: this.refreshToken, user: userInfo });
+    },
     /** 恢复用户信息（页面刷新后 token 在而 userInfo 缺失时补拉） */
     async initUserInfo() {
       if (!this.isLogin) return;

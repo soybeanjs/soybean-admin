@@ -279,11 +279,29 @@ const userLabel = computed(() => authStore.userInfo?.fullName || authStore.userI
 
 const userAvatarSrc = computed(() => authStore.userInfo?.avatar ?? '');
 
-/** 用户下拉菜单项（value → 动作） */
-const userMenuItems = computed(() => [{ value: 'logout', label: t('common.logout') }]);
+/** 用户下拉菜单项（`value` 常量与判定分支配对，见 `onUserMenuSelect`） */
+const USER_MENU_PROFILE = 'profile';
+const USER_MENU_SETTINGS = 'settings';
+const USER_MENU_LOGOUT = 'logout';
+
+const userMenuItems = computed(() => [
+  { value: USER_MENU_PROFILE, label: t('userCenter.profile.title') },
+  { value: USER_MENU_SETTINGS, label: t('userCenter.settings.title') },
+  { value: USER_MENU_LOGOUT, label: t('common.logout') }
+]);
 
 function onUserMenuSelect(value: unknown): void {
-  if (value === 'logout') void authStore.logout();
+  if (value === USER_MENU_PROFILE) {
+    void getRouter().push('/user-center/profile');
+    return;
+  }
+
+  if (value === USER_MENU_SETTINGS) {
+    void getRouter().push('/user-center/settings');
+    return;
+  }
+
+  if (value === USER_MENU_LOGOUT) void authStore.logout();
 }
 
 /**
