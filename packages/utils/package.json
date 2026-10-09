@@ -11,6 +11,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "colord": "2.9.3",
     "crypto-js": "4.2.0",

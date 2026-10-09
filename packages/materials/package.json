@@ -11,11 +11,15 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "@sa/utils": "workspace:*",
     "simplebar-vue": "2.4.2"
   },
   "devDependencies": {
-    "typed-css-modules": "0.9.1"
+    "typed-css-modules": "0.9.1",
+    "vue-tsc": "^3.3.12"
   }
 }

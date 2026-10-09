@@ -11,6 +11,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "@sa/axios": "workspace:*",
     "@sa/utils": "workspace:*"

@@ -71,7 +71,7 @@
 
 - **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite8, TypeScript, Pinia and UnoCSS.
 - **Clear project architecture**: using pnpm monorepo architecture, clear structure, elegant and easy to understand.
-- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, prettier and simple-git-hooks to ensure the code is standardized.
+- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, oxlint, oxfmt and vp hooks to ensure the code is standardized.
 - **TypeScript**: support strict type checking to improve code maintainability.
 - **Rich theme configuration**: built-in a variety of theme configurations, perfectly integrated with UnoCSS.
 - **Built-in internationalization solution**: easily realize multi-language support.
