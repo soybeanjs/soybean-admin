@@ -4,10 +4,10 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import progress from 'vite-plugin-progress';
 import vueRootValidator from 'vite-plugin-vue-transition-root-validator';
 import { setupElegantRouter } from './router';
+import { setupDevtoolsPlugin } from './devtools';
+import { setupHtmlPlugin } from './html';
 import { setupUnocss } from './unocss';
 import { setupUnplugin } from './unplugin';
-import { setupHtmlPlugin } from './html';
-import { setupDevtoolsPlugin } from './devtools';
 
 export function setupVitePlugins(viteEnv: Env.ImportMeta, buildTime: string) {
   const plugins: PluginOption = [
