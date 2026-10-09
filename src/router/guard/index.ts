@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router';
-import { createRouteGuard } from './route';
 import { createProgressGuard } from './progress';
+import { createRouteGuard } from './route';
 import { createDocumentTitleGuard } from './title';
 
 /**
