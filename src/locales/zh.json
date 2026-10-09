@@ -389,6 +389,26 @@
         "desc4": "Soybean 正在忙于为 soybean-admin 写项目说明文档！",
         "desc5": "Soybean 刚才把工作台页面随便写了一些，凑合能看了！"
       }
+    },
+    "about": {
+      "project": "项目信息",
+      "description": "一个基于 ubean（Hono + Vite）与 Vean 组件库的清新优雅的中后台模版。",
+      "version": "版本",
+      "packageName": "包名",
+      "license": "开源协议",
+      "author": "作者",
+      "buildTime": "最后构建时间",
+      "homepage": "项目主页",
+      "techStack": "技术栈",
+      "dependencies": "依赖清单",
+      "depName": "依赖",
+      "depVersion": "声明版本",
+      "depGroup": "类型",
+      "depAll": "全部",
+      "depRuntime": "运行时",
+      "depDev": "开发时",
+      "depSearchPlaceholder": "搜索依赖名",
+      "depEmpty": "没有匹配的依赖"
     }
   },
   "route": {
@@ -410,7 +430,8 @@
     "functionHideChildOne": "隐藏子菜单 1",
     "functionHideChildTwo": "隐藏子菜单 2",
     "functionHideChildThree": "隐藏子菜单 3",
-    "functionSuperPage": "超管可见页"
+    "functionSuperPage": "超管可见页",
+    "about": "关于"
   },
   "function": {
     "tab": {

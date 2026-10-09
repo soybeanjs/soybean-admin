@@ -389,6 +389,26 @@
         "desc4": "Soybean is busy writing project documentation for soybean-admin!",
         "desc5": "Soybean just wrote some of the workbench pages casually, and it was enough to see!"
       }
+    },
+    "about": {
+      "project": "Project info",
+      "description": "A fresh and elegant admin template built on ubean (Hono + Vite) and Vean components.",
+      "version": "Version",
+      "packageName": "Package",
+      "license": "License",
+      "author": "Author",
+      "buildTime": "Last build time",
+      "homepage": "Homepage",
+      "techStack": "Tech stack",
+      "dependencies": "Dependencies",
+      "depName": "Package",
+      "depVersion": "Declared version",
+      "depGroup": "Group",
+      "depAll": "All",
+      "depRuntime": "Runtime",
+      "depDev": "Dev",
+      "depSearchPlaceholder": "Search package name",
+      "depEmpty": "No matching dependency"
     }
   },
   "route": {
@@ -410,7 +430,8 @@
     "functionHideChildOne": "Hide child 1",
     "functionHideChildTwo": "Hide child 2",
     "functionHideChildThree": "Hide child 3",
-    "functionSuperPage": "Super page"
+    "functionSuperPage": "Super page",
+    "about": "About"
   },
   "function": {
     "tab": {
