@@ -184,6 +184,18 @@ export type AppRouteMeta = {
    * 动态菜单下发；`/iframe` 页读 query 后做 http(s) 协议白名单（P3-07）。
    */
   iframeUrl?: string;
+  /**
+   * 是否需要登录（`false` = 公开页）。
+   *
+   * ⚠️ 必须写在 `definePage({ meta: { requiresAuth: false } })` 里，**不能**写成
+   * `definePage` 的顶层字段。ubean 0.6.0 的生成器只发射顶层 `requiresAuth: true`
+   * （`@ubean/vue/dist/generator.js` 的 `renderRouteRecord`：
+   * `if (page.pageMeta?.requiresAuth === true)`），顶层 `false` 会被静默丢弃，
+   * 于是 `to.meta.requiresAuth === false` 永假 → 未登录访问公开页被守卫无限
+   * 重定向（真实浏览器里渲染进程 100% CPU 卡死）。`meta` 是逐字透传的
+   * （`computeMeta()`），只有这条路径可靠。回归保护见 `test/page-access.test.ts`。
+   */
+  requiresAuth?: boolean;
   /** 动态路由来源的菜单 id（一致性断言用） */
   menuId?: string;
   /** 挂载布局（dynamic 模式 routeLayout 下发） */

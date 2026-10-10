@@ -39,6 +39,12 @@ import { installRouter } from './instance';
  * `setup` 必须**同步**注册守卫（回调可异步）。页面标题不在这里设置 ——
  * `useI18n()` 只能在 setup 上下文用，标题的 i18n 解析统一放 `src/app.vue`
  * 的 watcher（见该文件）。
+ *
+ * ⚠️ 公开页判定读的是 `to.meta.requiresAuth`，因此页面必须写成
+ * `definePage({ meta: { requiresAuth: false } })`。ubean 0.6.0 生成器只发射
+ * 顶层 `requiresAuth: true`，顶层 `false` 被静默丢弃 → 本守卫会把登录页自己
+ * 也重定向到登录页，形成无限重定向（真浏览器里 CPU 打满卡死）。
+ * 回归保护见 `test/page-access.test.ts`。
  */
 export function setupRouterGuard(instance: Router): void {
   installRouter(instance);

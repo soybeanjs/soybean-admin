@@ -43,6 +43,7 @@
     "release": "soy release",
     "remove:i18n": "node scripts/remove-i18n.ts",
     "test": "vitest run",
+    "test:e2e": "PW_E2E=1 vitest run test/e2e.test.ts",
     "test:watch": "vitest",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "upkg": "soy ncu"
@@ -95,6 +96,8 @@
     "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^26.6.4",
     "eslint": "^10.12.0",
+    "jsdom": "^30.1.2",
+    "playwright": "1.64.0",
     "typescript": "catalog:",
     "unocss": "^66.10.5",
     "vite-plus": "catalog:",

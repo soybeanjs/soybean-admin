@@ -47,6 +47,13 @@ jobs:
 
       # 含「客户端导入纪律」守卫（src/shared/import-guard.test.ts）：
       # 从裸主入口 `ubean` 导入会让入口 chunk gzip +148%
+      # 另含 P4-02 的两条静态守卫：`src/shared/env-flag-guard.test.ts`（禁
+      # `import.meta.client` / `import.meta.server`，ubean 不注入、恒 undefined，
+      # 曾导致全部 localStorage 静默失效）与 `src/shared/page-meta-guard.test.ts`
+      # （禁 `definePage` 顶层 `requiresAuth` / `cache`，生成器会静默丢弃，
+      # 曾导致 `/login` 无限重定向卡死浏览器）。
+      # `test/e2e.test.ts` 需要真实浏览器（PW_E2E=1），CI 无浏览器安装步骤，
+      # 默认整体 skip，不计入门槛。
       - name: Test
         run: pnpm test
 

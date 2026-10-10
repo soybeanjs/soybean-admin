@@ -163,7 +163,7 @@ export const useMenuStore = defineStore('menu', {
      * 路由落到 `src/views/placeholder.vue`）。
      */
     assertRouteConsistency() {
-      if (!import.meta.env.DEV || import.meta.server) return;
+      if (!import.meta.env.DEV || typeof window === 'undefined') return;
 
       const available = availableViewNames();
       const missing: string[] = [];
@@ -367,7 +367,7 @@ export function transformMenuToRoute(
   const viewName = parseViewName(row.routeComponent);
   const viewKey = viewName ? Object.keys(views).find(key => viewKeyToName(key) === viewName) : undefined;
 
-  if (!viewKey && import.meta.env.DEV && import.meta.client) {
+  if (!viewKey && import.meta.env.DEV && typeof window !== 'undefined') {
     console.warn(`[menu] 视图缺失：${row.routeName} → view.${viewName ?? '(未配置)'}，使用占位组件`);
   }
 

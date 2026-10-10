@@ -42,12 +42,21 @@ import { resolveLoginModule } from '@/views/_builtin/login/use-login';
  * 绑定微信），与 v2 的 `views/_builtin/login/modules/*` 结构对齐 —— 5 个模块
  * 共用一条路由，回跳参数（`?redirect=`）在切换过程中由 `gotoLoginModule`
  * 原样保留。布局走 `blank`（无壳），登录成功进入 default 布局。
+ *
+ * ⚠️ `requiresAuth: false` 必须写在 **`meta` 里**，不能写成顶层字段。
+ * ubean 0.6.0 的生成器只发射顶层 `requiresAuth: true`
+ * （`@ubean/vue/dist/generator.js` 的 `renderRouteRecord`：
+ * `if (page.pageMeta?.requiresAuth === true)`），`false` 被静默丢弃，
+ * 于是 `to.meta.requiresAuth === false` 永假 → 未登录访问登录页会被守卫
+ * 无限重定向到登录页（真实浏览器里表现为渲染进程 100% CPU 卡死）。
+ * `meta` 是逐字透传的（`computeMeta()`），所以只有这条路径可靠。
+ * 回归保护见 `test/page-access.test.ts`。
  */
 definePage({
   layout: 'blank',
-  requiresAuth: false,
   meta: {
-    title: '登录'
+    title: '登录',
+    requiresAuth: false
   }
 });
 
