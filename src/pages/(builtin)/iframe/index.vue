@@ -16,14 +16,17 @@ import { resolveIframeUrl } from '@/shared/iframe';
  * 安全：只接受 `http(s)` 协议（`javascript:` / `data:` 会被浏览器拒绝执行脚本
  * 但也可能被当作下载，一律拦掉）；无 sandbox 是刻意的 —— 内嵌页需要自己的
  * 脚本与存储，sandbox 会让常见站点白屏。此处只做协议白名单。
+ *
+ * ⚠️ `requiresAuth: false` 写在 `meta` 里而非顶层：ubean 生成器只发射顶层
+ * `requiresAuth: true`，`false` 会被静默丢弃（详见 `src/pages/(builtin)/login.vue`）。
  */
 definePage({
   name: 'IframeUrl',
-  requiresAuth: false,
   meta: {
     title: '内嵌页面',
     i18nKey: 'common.iframePage',
-    hideInMenu: true
+    hideInMenu: true,
+    requiresAuth: false
   }
 });
 

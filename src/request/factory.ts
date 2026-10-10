@@ -1,4 +1,4 @@
-import { createRequest } from '@soybeanjs/fetch';
+import { BACKEND_ERROR_FLAG, createRequest } from '@soybeanjs/fetch';
 import type { FetchError, FetchResponse } from '@soybeanjs/fetch';
 import { createTypedClient, toFlatTypedClient } from '@soybeanjs/fetch/openapi';
 import type { paths } from '~ubean/openapi';
@@ -129,8 +129,8 @@ function notifyError(message: string): void {
   lastErrorMessage = message;
   lastErrorAt = now;
 
-  // 全局提示由 toast 承接（SConfigProvider 已挂 Provider）；SSR 阶段静默
-  if (import.meta.client) {
+  // 全局提示由 toast 承接（SConfigProvider 已挂 Provider）；无 DOM 时静默
+  if (typeof document !== 'undefined') {
     import('@vean/ui').then(({ toast }) => toast.error(message));
   }
 }
@@ -179,8 +179,21 @@ function createApiRequest(baseURL: string) {
         notifyError(envelope.message);
         return null;
       },
-      /** 传输层错误（网络/超时/5xx）：去重提示 */
+      /**
+       * 传输层错误（网络/超时/5xx）与**业务失败**共用同一入口。
+       *
+       * ⚠️ 业务失败必须跳过：`onBackendFail` 已经用后端 `message` 提示过，
+       * 但 `@soybeanjs/fetch` 在 `onBackendFail` 返回空后仍会 `throw
+       * new BackendError(backendErrorMsg)`，那条错误会再走一次本钩子。
+       * 两处都提示的后果不只是「弹两次」—— 两条文案不同（后端 message
+       * vs `backendErrorMsg` 的英文兜底），而 `notifyError` 的去重键是
+       * **文案**，于是同一业务错误连发时永远命不中去重窗口，页面上会叠
+       * 出 N 组双 toast。判据用包导出的 `BACKEND_ERROR_FLAG`（`error.code`
+       * 即该值），不要去比对 message。
+       */
       onError: (error: FetchError<ApiEnvelope>) => {
+        if (error.code === BACKEND_ERROR_FLAG) return;
+
         notifyError(error.message || '网络异常，请稍后重试');
       }
     }

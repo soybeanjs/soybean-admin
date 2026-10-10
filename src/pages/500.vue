@@ -17,15 +17,18 @@ import { getRouter } from '@/router/instance';
  *
  * 必须 `requiresAuth: false`：系统异常时用户可能刚好处于登录态失效状态，
  * 再被守卫推去登录页会掩盖真实错误。
+ *
+ * ⚠️ 写在 `meta` 里而非顶层：ubean 生成器只发射顶层 `requiresAuth: true`，
+ * `false` 会被静默丢弃（详见 `src/pages/(builtin)/login.vue` 的说明）。
  */
 definePage({
   name: 'ServiceError',
   layout: 'blank',
-  requiresAuth: false,
   meta: {
     title: '服务异常',
     i18nKey: 'common.serviceError',
-    hideInMenu: true
+    hideInMenu: true,
+    requiresAuth: false
   }
 });
 

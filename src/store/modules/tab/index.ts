@@ -19,6 +19,21 @@ import type { AppTab } from '@/typings/app';
 
 const TABS_STORAGE_KEY = 'tabs';
 
+/**
+ * `addTab` 真正读取的路由切片。
+ *
+ * 用最小结构而非 `RouteLocationNormalized`：守卫传进来的仍是完整对象（结构
+ * 兼容），而测试可以只造这几个字段、**不需要 `as RouteLocationNormalized`
+ * 断言**（本仓 eslint 禁 `as T`）。同时它把「页签依赖路由的哪几个字段」写成
+ * 可检查的契约：多读一个字段就要改这里。
+ */
+export interface TabRouteLike {
+  /** `RouteRecordName`（string | symbol）—— 调用点传守卫的 `to` 或测试字面量均可 */
+  name?: string | symbol;
+  fullPath: string;
+  meta: RouteLocationNormalized['meta'];
+}
+
 interface TabState {
   tabs: AppTab[];
   /** 当前激活页签 value */
@@ -44,7 +59,7 @@ export const useTabStore = defineStore('tab', {
 
     /** 守卫 afterEach 调用：把目标路由加为页签并激活（RouteMeta 已全局扩展为
      * AppRouteMeta，`to.meta` 直接访问扩展字段，无需断言） */
-    addTab(to: RouteLocationNormalized) {
+    addTab(to: TabRouteLike) {
       const name = String(to.name ?? '');
       if (!name || name === 'NotFound') return;
 

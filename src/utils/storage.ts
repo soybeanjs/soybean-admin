@@ -4,14 +4,22 @@ import { env } from '@/env';
  * SSR 安全的 localStorage 封装。
  *
  * ubean 是全栈框架（SSR），store 初始化会在服务端执行 —— 直接碰
- * `localStorage` 会炸。所有存取都先判 `import.meta.client`。
+ * `localStorage` 会炸。所有存取都先判「有没有 localStorage」。
  * key 统一加 `VITE_STORAGE_PREFIX` 前缀，避免同域多应用互踩。
+ *
+ * ⚠️ 判据是**能力检测**，不是 `import.meta.client`（P4-02 实测教训）。
+ * ubean 0.6.0 从不定义 `import.meta.client` / `import.meta.server`：dev
+ * 按需转换的模块与 `vp build` 的产物里都原样留下 `import.meta.client`，
+ * 浏览器求值即 `undefined`。用它当判据会让 `isClient()` 恒假 → 全应用
+ * **静默丢掉所有 localStorage 读写**：token / 用户信息 / 主题设置 / 页签
+ * 全部刷新即失，且不报错。同源教训见 `src/router/guard.ts` 与
+ * `src/shared/i18n.ts`（都用能力检测）。
  */
 
 const PREFIX = env.storagePrefix;
 
 export function isClient(): boolean {
-  return import.meta.client && typeof localStorage !== 'undefined';
+  return typeof localStorage !== 'undefined';
 }
 
 export function getLocal(key: string): string | null {
