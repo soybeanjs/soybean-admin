@@ -58,10 +58,10 @@ jobs:
       #   1. 漏 `import 'uno.css'`        → 产物 CSS 49 B
       #   2. 漏 `import '@vean/ui/styles.css'` → 产物 CSS 4.2 kB（`ui: true` 的
       #      registry 注入只在 `ubean dev` 生效，构建路径会丢）
-      # 正常值 ~188 kB；低于 150 kB 说明有一路没进产物。
+      # 正常值 ~188 kB（app-*.css）+ 懒加载页的独立 CSS；低于 150 kB 说明有一路没进产物。
       - name: CSS artifact guard
         run: |
-          css=$(find dist/public/assets -name '*.css' -maxdepth 1 | head -1)
+          css=$(find dist/public/assets -name 'app-*.css' -maxdepth 1 | head -1)
           size=$(wc -c < "$css" | tr -d ' ')
           echo "CSS artifact: $css ($size bytes)"
           if [ "$size" -lt 153600 ]; then

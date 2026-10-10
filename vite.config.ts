@@ -9,6 +9,40 @@ import { buildDependencyManifest } from './scripts/dependency-manifest';
 // `yaml` 因此只需是 devDependency。（函数值无法进 define，必须 JSON.stringify。）
 const dependencyManifest = JSON.stringify(buildDependencyManifest());
 
+/**
+ * 必须打进服务端 bundle 的第三方包（dev 走 `ssr.noExternal`，build 走
+ * `environments.ubean.resolve.noExternal`，两份共用本列表）。
+ *
+ * 这些库的 ESM/CJS 产物 Node 直接 import 就炸，两类原因：
+ *
+ * 1. **解析不了** —— `@visactor/*`（vchart / vtable / vrender / vdataset…）的产物用无扩展名
+ *    相对导入（`from "./input-editor"`、`from "./register-arc"`），Node ESM 拒绝解析；
+ * 2. **求值就崩** —— `wangeditor` / `print-js` / `vue-pdf-embed` 在模块顶层访问 `window`，
+ *    Node 下抛 `window is not defined`。
+ *
+ * 后果不只是运行时：构建期「从 SSR entry 取 `/_openapi.json` 生成 `.ubean/openapi.d.ts`」
+ * 会因 entry import 失败而跳过（只 warn 不报错），于是 CI 里 `pnpm build` 之后
+ * `pnpm typecheck` 找不到 `~ubean/openapi`。
+ *
+ * 每条都带 `(\/.*)?` 允许子路径：这些包之间大量用深路径互引
+ * （`@visactor/vrender-core/es/register/graphic`），只写包名匹配不到。
+ */
+const SSR_BUNDLED_PACKAGES = [
+  /^@visactor\/vchart(-theme)?(\/.*)?$/,
+  /^@visactor\/vtable(-gantt|-editors)?(\/.*)?$/,
+  /^@visactor\/vue-vtable(\/.*)?$/,
+  /^dhtmlx-gantt(\/.*)?$/,
+  /^eventemitter3(\/.*)?$/,
+  /^wangeditor(\/.*)?$/,
+  /^print-js(\/.*)?$/,
+  /^vue-pdf-embed(\/.*)?$/,
+  /^@visactor\/vrender(-components|-core|-kits|-animate)?(\/.*)?$/,
+  /^@visactor\/vutils(-extension)?(\/.*)?$/,
+  /^@visactor\/vlayouts(\/.*)?$/,
+  /^@visactor\/vscale(\/.*)?$/,
+  /^@visactor\/vdataset(\/.*)?$/
+];
+
 export default defineConfig({
   staged: {
     '*': 'vp check --fix'
@@ -30,6 +64,12 @@ export default defineConfig({
   lint,
   resolve: {
     tsconfigPaths: true
+  },
+  ssr: { noExternal: SSR_BUNDLED_PACKAGES },
+  environments: {
+    ubean: {
+      resolve: { noExternal: SSR_BUNDLED_PACKAGES }
+    }
   },
   plugins: [ubeanPlugin(), UnoCSS()]
 });
