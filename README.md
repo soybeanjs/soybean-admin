@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="https://r2.soybeanjs.tech/soybeanjs/logo-soybean-admin.svg?20261009211" width="160" />
+	<img src="https://img.soybeanjs.dev/logo-soybean-admin.svg?20261009211" width="160" />
 	<h1>SoybeanAdmin</h1>
   <span>中文 | <a href="./README.en_US.md">English</a></span>
 </div>
@@ -37,7 +37,7 @@
           <tr>
             <td>
               <a href="https://veanui.com">
-                <img alt="VeanUI" src="https://r2.veanui.com/imgs/logo-vean-ui.svg" width="52" />
+                <img alt="VeanUI" src="https://img.soybeanjs.dev/logo-vean-ui.svg" width="52" />
               </a>
             </td>
             <td>
@@ -263,7 +263,7 @@ pnpm build
 
 <div>
   <p>飞书群</p>
-  <img src="https://r2.soybeanjs.tech/soybeanjs/feishu-soybean-admin.png?v=202610092025" style="width:200px" />
+  <img src="https://img.soybeanjs.dev/feishu-soybean-admin.png?v=202610092025" style="width:200px" />
 </div>
 
 ## Star 趋势
