@@ -148,17 +148,17 @@
 
 ## 示例图片
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-01.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-02.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-03.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-04.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-05.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-06.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-07.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-08.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-01.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-02.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-03.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-04.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-05.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-06.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-07.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-08.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-09.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-10.png)
+![](https://img.soybeanjs.dev/soybean-admin-v1-mobile.png)
 
 ## 使用
 
@@ -263,7 +263,7 @@ pnpm build
 
 <div>
   <p>飞书群</p>
-  <img src="https://img.soybeanjs.dev/feishu-soybean-admin.png?v=202610092025" style="width:200px" />
+  <img src="https://img.soybeanjs.dev/soybean-admin-feishu.png?v=202610092025" style="width:200px" />
 </div>
 
 ## Star 趋势
