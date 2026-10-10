@@ -23,3 +23,9 @@ allowBuilds:
   # vue-demi 的 postinstall 只做 Vue2/3 入口切换；本仓库仅 Vue 3
   # （经 @vean/ui → @tanstack/vue-store 传递引入）
   vue-demi: false
+  # P4-01 第三方集成页引入的构建脚本，一律拒绝执行（纯字符串处理，
+  # 不跑脚本不影响功能）
+  core-js: false
+  core-js-pure: false
+  es5-ext: false
+  typeit: false

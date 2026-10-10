@@ -77,7 +77,9 @@ export function parseApiProxyKeys(raw: string): string[] {
   return keys;
 }
 
-/** key → 客户端 baseURL（`/_p/{key}`），未知 key 返回 `''` 表示不可用 */
+/**
+ * key → 客户端 baseURL（`/_p/{key}`），未知 key 返回 `''` 表示不可用
+ */
 export function resolveProxyBaseUrl(key: string): string {
   return PROXY_KEY_PATTERN.test(key) ? `${API_PROXY_PREFIX}/${key}` : '';
 }
@@ -99,6 +101,29 @@ export function buildProxyRouteRules(targets: ApiProxyTarget[]): Record<string, 
   }
 
   return rules;
+}
+
+/**
+ * 浏览器专用演示页的 SSR 豁免（P4-01）。
+ *
+ * ubean 的 dev server 会对每个 HTML 请求在 Node 里预渲染整棵应用树
+ * （AGENTS.md 的已知陷阱：`import.meta.server === false` 且没有 `window`）。
+ * `src/views/plugin/**` 的第三方集成库都在模块求值期就碰浏览器 API
+ * （`new WangEditor`、`window.HTMLCanvasElement`…），预渲染必然抛错。
+ *
+ * 这些页面本来就只是本地演示、没有 SSR 价值，统一按 URL 前缀降级为 CSR：
+ * `routeRules['/plugin/**'] = { ssr: false }`。框架语义见 `@ubean/routes` 的
+ * `resolveSelectSsr` —— `ssr === false` → `mode: 'csr'`，既不跑 loader 也不渲染，
+ * 只回 CSR shell，由客户端路由挂载页面。
+ *
+ * **注意 routeRules 的 key 是请求路径**（`createRouteRulesMiddleware` 用
+ * `c.req.path` 匹配），不是源文件路径。
+ */
+export const PLUGIN_DEMO_ROUTE_PREFIX = '/plugin';
+
+/** 演示页的 SSR 豁免规则（`ssr: false`），与代理规则合并后交给 ubean 的 `routeRules` */
+export function buildPluginSsrRouteRules(): Record<string, { ssr: false }> {
+  return { [`${PLUGIN_DEMO_ROUTE_PREFIX}/**`]: { ssr: false } };
 }
 
 /** 客户端 baseURL 前缀 → key（`/_p/default` → `default`），不匹配返回 `''` */

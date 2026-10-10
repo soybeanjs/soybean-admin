@@ -2,10 +2,33 @@ import { computed, effectScope, nextTick, onScopeDispose, ref, toValue, watch } 
 import type { MaybeRefOrGetter } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { useTheme } from '@vean/ui';
-import { LineChart, PieChart } from 'echarts/charts';
-import type { LineSeriesOption, PieSeriesOption } from 'echarts/charts';
-import { GridComponent, LegendComponent, TooltipComponent } from 'echarts/components';
-import type { GridComponentOption, LegendComponentOption, TooltipComponentOption } from 'echarts/components';
+import { BarChart, GaugeChart, LineChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
+import type {
+  BarSeriesOption,
+  GaugeSeriesOption,
+  LineSeriesOption,
+  PictorialBarSeriesOption,
+  PieSeriesOption,
+  RadarSeriesOption,
+  ScatterSeriesOption
+} from 'echarts/charts';
+import {
+  DatasetComponent,
+  GridComponent,
+  LegendComponent,
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  TransformComponent
+} from 'echarts/components';
+import type {
+  DatasetComponentOption,
+  GridComponentOption,
+  LegendComponentOption,
+  TitleComponentOption,
+  ToolboxComponentOption,
+  TooltipComponentOption
+} from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -13,16 +36,26 @@ import { CanvasRenderer } from 'echarts/renderers';
 /**
  * echarts 按需注册（P3-01 起，v2 `hooks/common/echarts.ts` 的移植）。
  *
- * 只注册当前用到的图表/组件：折线 + 饼图 + 网格/图例/提示 + Canvas 渲染器。
- * 新增图表类型时**在这里加一行**，不要在页面里 `import 'echarts'`（整包会
- * 把体积从 ~100 kB 推到 ~1 MB gzip）。
+ * 注册清单是工作台 + `/plugin/charts/echarts` 演示页的并集：折线 / 饼 / 柱 /
+ * 雷达 / 散点 / 象形柱 / 仪表 + 标题 / 图例 / 提示 / 网格 / 工具箱 / 数据集 / 变换
+ * + Canvas 渲染器。新增图表类型时**在这里加一行**，不要在页面里
+ * `import 'echarts'`（整包会把体积从 ~100 kB 推到 ~1 MB gzip）。
  */
 echarts.use([
-  GridComponent,
+  TitleComponent,
   LegendComponent,
   TooltipComponent,
+  GridComponent,
+  DatasetComponent,
+  TransformComponent,
+  ToolboxComponent,
+  BarChart,
   LineChart,
   PieChart,
+  ScatterChart,
+  PictorialBarChart,
+  RadarChart,
+  GaugeChart,
   LabelLayout,
   UniversalTransition,
   CanvasRenderer
@@ -30,7 +63,19 @@ echarts.use([
 
 /** 已注册模块能表达的 option 类型（写 options 时有补全与约束） */
 export type ECOption = echarts.ComposeOption<
-  LineSeriesOption | PieSeriesOption | GridComponentOption | LegendComponentOption | TooltipComponentOption
+  | BarSeriesOption
+  | LineSeriesOption
+  | PieSeriesOption
+  | ScatterSeriesOption
+  | PictorialBarSeriesOption
+  | RadarSeriesOption
+  | GaugeSeriesOption
+  | TitleComponentOption
+  | LegendComponentOption
+  | TooltipComponentOption
+  | GridComponentOption
+  | ToolboxComponentOption
+  | DatasetComponentOption
 >;
 
 export interface EchartsHooks {

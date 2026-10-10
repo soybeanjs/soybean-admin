@@ -1,6 +1,6 @@
 import { loadEnv } from 'vite-plus';
 import { defineConfig } from 'ubean';
-import { buildProxyRouteRules, parseApiProxyTargets } from './src/shared/api-proxy';
+import { buildPluginSsrRouteRules, buildProxyRouteRules, parseApiProxyTargets } from './src/shared/api-proxy';
 
 /**
  * 多 baseURL 代理（P2-18）：`API_PROXY_TARGETS`（server 变量，`.env`）里的每个
@@ -56,7 +56,11 @@ export default defineConfig({
   dev: {
     port: 9527
   },
-  /** `/_p/{key}/**` 转发到各自上游；key 为空时不产出规则，代理整体关闭 */
-  routeRules: buildProxyRouteRules(apiProxyTargets),
+  /**
+   * `/_p/{key}/**` 转发到各自上游；key 为空时不产出规则，代理整体关闭。
+   * 另外把 `/plugin/**` 演示页降级为 CSR —— 那些第三方集成库在模块求值期就碰
+   * 浏览器 API，Node 预渲染必炸（详见 `buildPluginSsrRouteRules` 的注释）。
+   */
+  routeRules: { ...buildProxyRouteRules(apiProxyTargets), ...buildPluginSsrRouteRules() },
   devtools: true
 });

@@ -53,6 +53,15 @@ const LEFTOVER_PATTERNS = [
   { label: 'syncDocumentLocale', pattern: /syncDocumentLocale/ }
 ];
 
+/**
+ * 有意保留 `useI18n` 装配的文件（相对仓库根，POSIX 分隔）。
+ *
+ * `src/views/plugin/**` 是第三方库集成示例页：它们整体保留、只是被 code-split，
+ * 页面标题/说明走静态 `t('plugin.x')` 字面量属于产品行为，不做文案内联。
+ * 与 `KEPT_ON_PURPOSE` 的区别：这里豁免的是「删掉会改变页面表现」的活代码。
+ */
+const PLUGIN_DEMO_PREFIX = 'src/views/plugin/';
+
 /** 有意保留（不报残留）：数据字段与常量表 */
 const KEPT_ON_PURPOSE = [
   'i18nKey / title 字段（数据，可来自后端菜单）',
@@ -432,6 +441,9 @@ export function collectSourceFiles(root: string, dir = 'src'): string[] {
   return files;
 }
 
+/** 残留扫描的落盘后文件名（统一 POSIX 分隔，便于前缀豁免） */
+const toPosixPath = (file: string): string => file.split('\\').join('/');
+
 /** 扫描残留的活跃 i18n API（跳过注释；`i18nKey` 之类的数据字段不报） */
 export function scanLeftovers(source: string): Array<{ label: string; line: number; text: string }> {
   const findings: Array<{ label: string; line: number; text: string }> = [];
@@ -612,6 +624,9 @@ export function planRemoveI18n(root: string, messages: Messages): RemoveI18nPlan
   const remaining = Array.from(content.keys()).sort((a, b) => a.localeCompare(b));
 
   for (const file of remaining) {
+    // 第三方库集成示例页整体保留（见 PLUGIN_DEMO_PREFIX）
+    if (toPosixPath(file).startsWith(PLUGIN_DEMO_PREFIX)) continue;
+
     const findings = scanLeftovers(content.get(file) ?? '');
 
     leftovers.push(...findings.map(finding => `${file}:${finding.line} [${finding.label}] ${finding.text}`));
