@@ -56,11 +56,11 @@ const LEFTOVER_PATTERNS = [
 /**
  * 有意保留 `useI18n` 装配的文件（相对仓库根，POSIX 分隔）。
  *
- * `src/views/plugin/**` 是第三方库集成示例页：它们整体保留、只是被 code-split，
+ * `src/pages/plugin/**` 是第三方库集成示例页：它们整体保留、只是被 code-split，
  * 页面标题/说明走静态 `t('plugin.x')` 字面量属于产品行为，不做文案内联。
  * 与 `KEPT_ON_PURPOSE` 的区别：这里豁免的是「删掉会改变页面表现」的活代码。
  */
-const PLUGIN_DEMO_PREFIX = 'src/views/plugin/';
+const PLUGIN_DEMO_PREFIX = 'src/pages/plugin/';
 
 /** 有意保留（不报残留）：数据字段与常量表 */
 const KEPT_ON_PURPOSE = [

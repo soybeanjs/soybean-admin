@@ -36,13 +36,22 @@ const FORBIDDEN_TOP_LEVEL = ['requiresAuth', 'cache'] as const;
 /** 只扫 `definePage({...})` 的顶层键：行首两空格 + `key:`（`meta` 内部的键缩进更深） */
 const TOP_LEVEL_KEY = /^ {2}([A-Za-z_$][\w$]*)\s*:/;
 
+/**
+ * 页面私有目录：`modules/` 装搜索表单 / 操作弹窗等子组件，`components/` 装页面局部
+ * 组件。两者都不是页面（ubean 扫描器同样忽略它们），因此不要求声明 `meta`。
+ */
+const PRIVATE_DIRS = new Set(['modules', 'components']);
+
 function collectPages(dir: string): string[] {
   return readdirSync(dir).flatMap(child => {
     const full = join(dir, child);
 
-    if (statSync(full).isDirectory()) return collectPages(full);
+    if (statSync(full).isDirectory()) {
+      return PRIVATE_DIRS.has(child) ? [] : collectPages(full);
+    }
 
-    return full.endsWith('.vue') ? [full] : [];
+    // `_*` 与 ubean 扫描器的 ignore 约定一致：下划线开头不参与页面扫描
+    return full.endsWith('.vue') && !child.startsWith('_') ? [full] : [];
   });
 }
 

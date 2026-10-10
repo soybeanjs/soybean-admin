@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { Component } from 'vue';
-import BindWechat from '@/views/_builtin/login/modules/bind-wechat.vue';
-import CodeLogin from '@/views/_builtin/login/modules/code-login.vue';
-import PwdLogin from '@/views/_builtin/login/modules/pwd-login.vue';
-import Register from '@/views/_builtin/login/modules/register.vue';
-import ResetPwd from '@/views/_builtin/login/modules/reset-pwd.vue';
-import type { LoginModule } from '@/views/_builtin/login/use-login';
+import BindWechat from '@/pages/(builtin)/login/modules/bind-wechat.vue';
+import CodeLogin from '@/pages/(builtin)/login/modules/code-login.vue';
+import PwdLogin from '@/pages/(builtin)/login/modules/pwd-login.vue';
+import Register from '@/pages/(builtin)/login/modules/register.vue';
+import ResetPwd from '@/pages/(builtin)/login/modules/reset-pwd.vue';
+import type { LoginModule } from '@/pages/(builtin)/login/use-login';
 
 /**
  * 模块注册表与标题 key 放**模块作用域**（普通 `<script>` 块）：
@@ -33,7 +33,7 @@ const moduleTitleKeys: Record<LoginModule, string> = {
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { resolveLoginModule } from '@/views/_builtin/login/use-login';
+import { resolveLoginModule } from '@/pages/(builtin)/login/use-login';
 
 /**
  * 登录页（v3 §4.6）：单路由多模块壳。

@@ -53,6 +53,18 @@ export default defineConfig({
     defaultLayout: 'default',
     notFoundRouteComponent: '404.vue'
   },
+  /**
+   * 页面内部的 `modules/` 目录装的是页面私有子组件（搜索表单、操作弹窗等），
+   * 不是页面。ubean 的扫描器只硬编码忽略 `components/**` 与 `_*`，`modules/`
+   * 不在其列，会被当成页面扫出 `/manage/api/modules/api-search` 这类垃圾路由
+   * （P4-01 视图目录合并进 `src/pages` 后才暴露）。用一条全局 ignore 排除。
+   *
+   * `resolveUbeanConfig` 用 `defu` 合并，用户 ignore 追加在默认项之后，不会
+   * 覆盖 `DEFAULT_IGNORE`；且这些目录里的文件本来也不需要用 `definePage`。
+   */
+  scanOptions: {
+    ignore: ['**/modules/**']
+  },
   dev: {
     port: 9527
   },

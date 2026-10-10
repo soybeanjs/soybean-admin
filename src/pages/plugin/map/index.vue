@@ -1,14 +1,48 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
-
-const PluginMap = defineAsyncComponent(() => import('@/views/plugin/map/index.vue'));
+import { computed, ref } from 'vue';
+import type { Component } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { SCard, STabs } from '@vean/ui';
+import { BaiduMap, GaodeMap, TencentMap } from './components';
 
 /**
- * 高德 / 腾讯 / 百度三图 SDK 直连（无 key，用官方示例 SDK 地址）。
+ * 地图插件（P4-01）。
  *
- * `src/pages/**` 只注册路由与菜单元信息，视图逻辑在 `src/views/**`（dynamic 路由
- * 模式只扫描 `src/views/**`）。
+ * 与 v2 的差异：
+ * - `NTabs type="line"` → `STabs`（`items` 必填，面板内容走 `#content` 插槽）；
+ * - 地图容器给固定高度：三方 SDK 都要**有尺寸的**容器才肯渲染，v2 靠布局撑满，
+ *   这里写死 `h-150` 避免在无 `h-full` 上下文的页面里塌成 0；
+ * - SDK 加载与地图实例由各子组件自己管（`useScriptTag` 按 URL 去重）。
  */
+defineOptions({ name: 'PluginMap' });
+
+const { t } = useI18n();
+
+interface MapTab {
+  value: string;
+  label: string;
+  component: Component;
+}
+
+/**
+ * 三张地图，值为 SDK 名。
+ *
+ * 三个子组件都会挂载（`STabs` 的内容面板按 `hidden` 切换），地图 SDK 各自注入；
+ * `useScriptTag` 内部按 `script[src]` 去重，切换 tab 不会重复下载。
+ */
+const maps: MapTab[] = [
+  { value: 'gaode', label: '高德地图', component: GaodeMap },
+  { value: 'tencent', label: '腾讯地图', component: TencentMap },
+  { value: 'baidu', label: '百度地图', component: BaiduMap }
+];
+
+const items = computed(() => maps.map(({ value, label }) => ({ value, label })));
+
+const activeMap = ref('gaode');
+
+/** 当前选中的地图组件（模板里不写内联箭头） */
+const activeMapComponent = computed(() => maps.find(item => item.value === activeMap.value)?.component);
+
 definePage({
   meta: {
     title: '地图',
@@ -21,5 +55,13 @@ definePage({
 </script>
 
 <template>
-  <PluginMap />
+  <SCard :title="t('plugin.map')">
+    <STabs v-model="activeMap" :items="items">
+      <template #content>
+        <div class="h-150 w-full pt-3">
+          <component :is="activeMapComponent" />
+        </div>
+      </template>
+    </STabs>
+  </SCard>
 </template>

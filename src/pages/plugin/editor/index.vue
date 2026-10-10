@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { SCard } from '@vean/ui';
+import { PluginGroup } from '../modules';
 
-const PluginEditorIndex = defineAsyncComponent(() => import('@/views/plugin/editor/index.vue'));
+/** 编辑器分组落地页（P4-01）。 */
+defineOptions({ name: 'PluginEditorIndex' });
 
-/**
- * 编辑器分组目录：本页是分组的落地页，子项靠 `meta.menuParent` 挂到它下面。
- *
- * `src/pages/**` 只注册路由与菜单元信息，视图逻辑在 `src/views/**`（dynamic 路由
- * 模式只扫描 `src/views/**`）。
- */
+const { t } = useI18n();
+
+const links = [
+  { path: '/plugin/editor/markdown', label: t('route.pluginEditorMarkdown'), icon: 'mdi:language-markdown' },
+  { path: '/plugin/editor/rich-text', label: t('route.pluginEditorRichText'), icon: 'mdi:file-document-edit-outline' }
+];
+
 definePage({
   meta: {
     title: '编辑器',
@@ -21,5 +25,7 @@ definePage({
 </script>
 
 <template>
-  <PluginEditorIndex />
+  <SCard :title="t('route.pluginEditor')">
+    <PluginGroup :description="t('plugin.editorTip')" :links="links" />
+  </SCard>
 </template>

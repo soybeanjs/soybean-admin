@@ -15,7 +15,7 @@ const REPO_ROOT = join(fileURLToPath(import.meta.url), '..', '..');
 const LOCALE_FILES = ['src/locales/zh.json', 'src/locales/en.json'] as const;
 
 /** 需要扫描 `t('…')` 的源码目录（页面、视图、组件、组合式函数、常量） */
-const SCAN_DIRS = ['src/pages', 'src/views', 'src/components', 'src/composables', 'src/constants', 'src/layouts'];
+const SCAN_DIRS = ['src/pages', 'src/components', 'src/composables', 'src/constants', 'src/layouts'];
 
 const T_CALL_PATTERN = /(?:^|[^\w$.])t\(\s*'([\w.]+)'\s*[,)]/g;
 

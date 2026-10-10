@@ -108,7 +108,7 @@ export function buildProxyRouteRules(targets: ApiProxyTarget[]): Record<string, 
  *
  * ubean 的 dev server 会对每个 HTML 请求在 Node 里预渲染整棵应用树
  * （AGENTS.md 的已知陷阱：`import.meta.server === false` 且没有 `window`）。
- * `src/views/plugin/**` 的第三方集成库都在模块求值期就碰浏览器 API
+ * `src/pages/plugin/**` 的第三方集成库都在模块求值期就碰浏览器 API
  * （`new WangEditor`、`window.HTMLCanvasElement`…），预渲染必然抛错。
  *
  * 这些页面本来就只是本地演示、没有 SSR 价值，统一按 URL 前缀降级为 CSR：

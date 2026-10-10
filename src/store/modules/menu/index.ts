@@ -34,10 +34,10 @@ interface MenuState {
 /** 可进菜单的 menuType（button/other 不进） */
 const MENU_VISIBLE_TYPES: readonly ApiMenuRow['menuType'][] = ['directory', 'menu', 'page', 'iframe', 'link'];
 
-/** src/views 下全部视图组件（Vite 编译期静态分析，勿改为运行时拼接）。
+/** src/pages 下全部视图组件（Vite 编译期静态分析，勿改为运行时拼接）。
  * .vue 模块的真实形状是 `{ default: Component }`，恰好匹配 vue-router
  * 惰性组件的 `Lazy<Promise<{ default: T }>>` 形状，无需断言 */
-const viewModules = import.meta.glob<{ default: RouteComponent }>('@/views/**/*.vue');
+const viewModules = import.meta.glob<{ default: RouteComponent }>('@/pages/**/*.vue');
 
 export const useMenuStore = defineStore('menu', {
   state: (): MenuState => ({
@@ -159,8 +159,8 @@ export const useMenuStore = defineStore('menu', {
 
     /**
      * dev 下断言 dynamic 菜单与本地视图的一致性，输出缺页清单。
-     * 菜单指向的 `view.*` 组件在 `src/views/**` 不存在时告警（不阻断启动，
-     * 路由落到 `src/views/placeholder.vue`）。
+     * 菜单指向的 `view.*` 组件在 `src/pages/**` 不存在时告警（不阻断启动，
+     * 路由落到 `src/pages/_placeholder.vue`）。
      */
     assertRouteConsistency() {
       if (!import.meta.env.DEV || typeof window === 'undefined') return;
@@ -316,7 +316,7 @@ export function parseViewName(routeComponent: string | null): string | null {
   return match ? match[1] : null;
 }
 
-/** src/views 的可用视图名集合：'system/user/index.vue' → 'system_user' */
+/** src/pages 的可用视图名集合：'system/user/index.vue' → 'system_user' */
 export function availableViewNames(): Set<string> {
   const names = new Set<string>();
 
@@ -326,10 +326,10 @@ export function availableViewNames(): Set<string> {
   return names;
 }
 
-/** glob 键 → 视图名：'/src/views/system/user/index.vue' → 'system_user' */
+/** glob 键 → 视图名：'/src/pages/system/user/index.vue' → 'system_user' */
 function viewKeyToName(key: string): string {
   return key
-    .replace(/^.*\/views\//, '')
+    .replace(/^.*\/pages\//, '')
     .replace(/\.vue$/, '')
     .replace(/\/index$/, '')
     .replace(/\//g, '_');
@@ -383,7 +383,7 @@ export function transformMenuToRoute(
     layout: row.routeLayout || 'default'
   };
 
-  const component = viewKey ? views[viewKey] : views['/src/views/placeholder.vue'];
+  const component = viewKey ? views[viewKey] : views['/src/pages/_placeholder.vue'];
 
   return {
     path: row.routePath,

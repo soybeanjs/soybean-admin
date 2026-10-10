@@ -9,7 +9,7 @@ import type { ApiCaptcha } from '@/typings/app';
  * 登录页公共逻辑（v3 §4.6）。
  *
  * 登录页是**单路由多模块**：`/login?module=<模块>` 决定渲染哪个子组件，
- * 与 v2 的 `src/views/_builtin/login/modules/*` 结构一致 —— 免去为 5 个
+ * 与 v2 的视图层结构一致（对应 `src/pages/(builtin)/login/modules/*`） —— 免去为 5 个
  * 页面各建一条路由，回跳（`?redirect=`）与页签语义也更简单。
  *
  * 表单校验（P3-05）在各自模块里由 `useForm` + `src/schema/auth.ts` 的

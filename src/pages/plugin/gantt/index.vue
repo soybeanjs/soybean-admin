@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { SCard } from '@vean/ui';
+import { PluginGroup } from '../modules';
 
-const PluginGanttIndex = defineAsyncComponent(() => import('@/views/plugin/gantt/index.vue'));
+/** 甘特图分组落地页（P4-01）。 */
+defineOptions({ name: 'PluginGanttIndex' });
 
-/**
- * 甘特图分组目录：本页是分组的落地页，子项靠 `meta.menuParent` 挂到它下面。
- *
- * `src/pages/**` 只注册路由与菜单元信息，视图逻辑在 `src/views/**`（dynamic 路由
- * 模式只扫描 `src/views/**`）。
- */
+const { t } = useI18n();
+
+const links = [
+  { path: '/plugin/gantt/dhtmlx', label: t('route.pluginGanttDhtmlx'), icon: 'mdi:chart-timeline-variant' },
+  { path: '/plugin/gantt/vtable', label: t('route.pluginGanttVtable'), icon: 'mdi:table-clock' }
+];
+
 definePage({
   meta: {
     title: '甘特图',
@@ -21,5 +25,7 @@ definePage({
 </script>
 
 <template>
-  <PluginGanttIndex />
+  <SCard :title="t('route.pluginGantt')">
+    <PluginGroup :description="t('plugin.ganttTip')" :links="links" />
+  </SCard>
 </template>

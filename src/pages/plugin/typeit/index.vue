@@ -1,14 +1,53 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
-
-const PluginTypeit = defineAsyncComponent(() => import('@/views/plugin/typeit/index.vue'));
+import { onMounted, onUnmounted, useTemplateRef } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { SCard } from '@vean/ui';
+import TypeIt from 'typeit';
+import type { Options } from 'typeit';
+import PluginDocLinks from '../modules/plugin-doc-links.vue';
+import type { DocLink } from '../modules/types';
 
 /**
- * TypeIt 打字机动画。
+ * 打字机演示（P4-01）。
  *
- * `src/pages/**` 只注册路由与菜单元信息，视图逻辑在 `src/views/**`（dynamic 路由
- * 模式只扫描 `src/views/**`）。
+ * TypeIt 实例持有内部定时器，必须 `destroy()`；v2 版本只 `.go()` 没销毁，
+ * 离开页面后循环动画还在跑。这里补上卸载清理。
  */
+defineOptions({ name: 'PluginTypeit' });
+
+const { t } = useI18n();
+
+/** 文档链接（模板属性里的多行数组字面量会被 vue-tsc 误判，提到脚本里） */
+const TYPEIT_DOC_LINKS: DocLink[] = [
+  { label: 'GitHub', href: 'https://github.com/alexmacarthur/typeit' },
+  { label: 'Docs', href: 'https://www.typeitjs.com/docs/vanilla/usage/' }
+];
+
+const textRef = useTemplateRef<HTMLElement>('textRef');
+
+let typeit: TypeIt | null = null;
+
+onMounted(() => {
+  if (!textRef.value) {
+    return;
+  }
+
+  const options: Options = {
+    strings: 'SoybeanAdmin 是一个清新优雅、高颜值且功能强大的后台管理模板',
+    lifeLike: true,
+    speed: 120,
+    loop: true
+  };
+
+  typeit = new TypeIt(textRef.value, options);
+  typeit.go();
+});
+
+onUnmounted(() => {
+  typeit?.destroy();
+  typeit = null;
+});
+
 definePage({
   meta: {
     title: '打字机',
@@ -21,5 +60,12 @@ definePage({
 </script>
 
 <template>
-  <PluginTypeit />
+  <div class="flex flex-col gap-4">
+    <SCard :title="t('plugin.typeit')">
+      <div class="flex flex-col gap-4">
+        <PluginDocLinks :links="TYPEIT_DOC_LINKS" />
+        <p ref="textRef" class="min-h-8 text-lg" />
+      </div>
+    </SCard>
+  </div>
 </template>

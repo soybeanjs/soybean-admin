@@ -1,14 +1,24 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
-
-const PluginChartsIndex = defineAsyncComponent(() => import('@/views/plugin/charts/index.vue'));
+import { useI18n } from 'vue-i18n';
+import { SCard } from '@vean/ui';
+import { PluginGroup } from '../modules';
 
 /**
- * 图表分组目录：本页是分组的落地页，子项靠 `meta.menuParent` 挂到它下面（v3 §5.8 的分组在文件式路由里没有额外语法）。
+ * 图表分组落地页（P4-01）。
  *
- * `src/pages/**` 只注册路由与菜单元信息，视图逻辑在 `src/views/**`（dynamic 路由
- * 模式只扫描 `src/views/**`）。
+ * 分组在侧栏里是一个父节点，点进来要能看到本组全部子页 —— 文件式路由没有
+ * 「无视图目录」的概念，所以每个分组自己带一个真实页面。
  */
+defineOptions({ name: 'PluginChartsIndex' });
+
+const { t } = useI18n();
+
+const links = [
+  { path: '/plugin/charts/echarts', label: t('route.pluginChartsEcharts'), icon: 'simple-icons:apacheecharts' },
+  { path: '/plugin/charts/vchart', label: t('route.pluginChartsVchart'), icon: 'mdi:chart-line-variant' },
+  { path: '/plugin/charts/antv', label: t('route.pluginChartsAntv'), icon: 'mdi:graph-outline' }
+];
+
 definePage({
   meta: {
     title: '图表',
@@ -21,5 +31,7 @@ definePage({
 </script>
 
 <template>
-  <PluginChartsIndex />
+  <SCard :title="t('route.pluginCharts')">
+    <PluginGroup :description="t('plugin.chartsTip')" :links="links" />
+  </SCard>
 </template>
