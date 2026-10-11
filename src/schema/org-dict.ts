@@ -1,110 +1,113 @@
-import * as v from 'valibot';
-import {
-  batchDeleteSchema,
-  descriptionSchema,
-  idParamSchema,
-  idSchema,
-  orderSchema,
-  paginationQuerySchema
-} from './shared';
+import { array, description, intersect, nonEmpty, nullable, object, optional, partial, pipe, string } from 'valibot';
+import type { InferOutput } from 'valibot';
+import { descriptionSchema, idSchema, orderSchema, paginationQuerySchema, yesOrNoSchema } from './shared';
 
-/** org DTO（unify org.service 范式） */
+/**
+ * 组织 / 字典 / 字典项 DTO（v3 §6.3，unify org / dict / dict-item 三套范式）。
+ *
+ * 三域同文件承载（对外导出名与 v2 一致），内部按域分段；`update` 一律由
+ * `create` + `partial` 推导，值域只声明一份。
+ */
 
-export const orgCreateSchema = v.object({
-  parentId: v.optional(v.nullable(idSchema), null),
-  name: v.pipe(v.string(), v.nonEmpty()),
-  code: v.pipe(v.string(), v.nonEmpty()),
+/* -------------------------------------------------------------------------- */
+/*                                    组织                                     */
+/* -------------------------------------------------------------------------- */
+
+/** 新增组织 */
+export const orgCreateSchema = object({
+  parentId: optional(nullable(pipe(idSchema, description('父组织 ID，顶层为 null'))), null),
+  name: pipe(string(), nonEmpty('组织名称不能为空'), description('组织名称')),
+  code: pipe(string(), nonEmpty('组织编码不能为空'), description('组织编码，全局唯一')),
   description: descriptionSchema
 });
-export type OrgCreateDTO = v.InferOutput<typeof orgCreateSchema>;
 
-export const orgUpdateSchema = v.object({
-  parentId: v.optional(v.nullable(idSchema)),
-  name: v.optional(v.pipe(v.string(), v.nonEmpty())),
-  code: v.optional(v.pipe(v.string(), v.nonEmpty())),
-  description: v.optional(v.nullable(v.string()))
-});
-export type OrgUpdateDTO = v.InferOutput<typeof orgUpdateSchema>;
+/** 更新组织（字段同新增，全部可选） */
+export const orgUpdateSchema = partial(orgCreateSchema);
 
-export const orgQuerySchema = v.intersect([
+/** 组织分页查询 */
+export const orgQuerySchema = intersect([
   paginationQuerySchema,
-  v.object({
-    name: v.optional(v.string()),
-    code: v.optional(v.string())
+  object({
+    name: optional(pipe(string(), description('组织名称，模糊匹配'))),
+    code: optional(pipe(string(), description('组织编码，模糊匹配')))
   })
 ]);
-export type OrgQuery = v.InferOutput<typeof orgQuerySchema>;
 
-export const orgBatchDeleteSchema = batchDeleteSchema;
-export const orgIdParamSchema = idParamSchema;
+/** 组织绑定角色 */
+export const orgRoleAssignSchema = object({
+  roleIds: pipe(array(idSchema), description('角色 ID 列表，全量替换'))
+});
 
-/** org 绑定角色 */
-export const orgRoleAssignSchema = v.object({ roleIds: v.array(idSchema) });
+/** 组织绑定用户 */
+export const orgUserAssignSchema = object({
+  userIds: pipe(array(idSchema), description('用户 ID 列表，全量替换'))
+});
 
-/** user 归属 org */
-export const orgUserAssignSchema = v.object({ userIds: v.array(idSchema) });
+export type OrgCreateDTO = InferOutput<typeof orgCreateSchema>;
+export type OrgUpdateDTO = InferOutput<typeof orgUpdateSchema>;
+export type OrgQuery = InferOutput<typeof orgQuerySchema>;
 
-/** dict / dict-item DTO（unify dict.service 范式） */
+/* -------------------------------------------------------------------------- */
+/*                                    字典                                     */
+/* -------------------------------------------------------------------------- */
 
-export const dictCreateSchema = v.object({
-  name: v.pipe(v.string(), v.nonEmpty()),
-  code: v.pipe(v.string(), v.nonEmpty()),
+/** 新增字典 */
+export const dictCreateSchema = object({
+  name: pipe(string(), nonEmpty('字典名称不能为空'), description('字典名称')),
+  code: pipe(string(), nonEmpty('字典编码不能为空'), description('字典编码，全局唯一')),
   description: descriptionSchema,
-  isSystem: v.optional(v.picklist(['Y', 'N']), 'N')
+  isSystem: optional(yesOrNoSchema, 'N')
 });
-export type DictCreateDTO = v.InferOutput<typeof dictCreateSchema>;
 
-export const dictUpdateSchema = v.object({
-  name: v.optional(v.pipe(v.string(), v.nonEmpty())),
-  code: v.optional(v.pipe(v.string(), v.nonEmpty())),
-  description: v.optional(v.nullable(v.string())),
-  isSystem: v.optional(v.picklist(['Y', 'N']))
-});
-export type DictUpdateDTO = v.InferOutput<typeof dictUpdateSchema>;
+/** 更新字典（字段同新增，全部可选） */
+export const dictUpdateSchema = partial(dictCreateSchema);
 
-export const dictQuerySchema = v.intersect([
+/** 字典分页查询 */
+export const dictQuerySchema = intersect([
   paginationQuerySchema,
-  v.object({
-    name: v.optional(v.string()),
-    code: v.optional(v.string()),
-    isSystem: v.optional(v.picklist(['Y', 'N']))
+  object({
+    name: optional(pipe(string(), description('字典名称，模糊匹配'))),
+    code: optional(pipe(string(), description('字典编码，模糊匹配'))),
+    isSystem: optional(yesOrNoSchema)
   })
 ]);
-export type DictQuery = v.InferOutput<typeof dictQuerySchema>;
 
-export const dictBatchDeleteSchema = batchDeleteSchema;
-export const dictIdParamSchema = idParamSchema;
+export type DictCreateDTO = InferOutput<typeof dictCreateSchema>;
+export type DictUpdateDTO = InferOutput<typeof dictUpdateSchema>;
+export type DictQuery = InferOutput<typeof dictQuerySchema>;
 
-export const dictItemCreateSchema = v.object({
-  dictId: idSchema,
-  parentId: v.optional(v.nullable(idSchema), null),
-  label: v.pipe(v.string(), v.nonEmpty()),
-  value: v.pipe(v.string(), v.nonEmpty()),
+/* -------------------------------------------------------------------------- */
+/*                                   字典项                                    */
+/* -------------------------------------------------------------------------- */
+
+/** 新增字典项 */
+export const dictItemCreateSchema = object({
+  dictId: pipe(idSchema, description('所属字典 ID')),
+  parentId: optional(nullable(pipe(idSchema, description('父字典项 ID，顶层为 null'))), null),
+  label: pipe(string(), nonEmpty('字典项名称不能为空'), description('字典项名称')),
+  value: pipe(string(), nonEmpty('字典项值不能为空'), description('字典项值')),
   order: orderSchema
 });
-export type DictItemCreateDTO = v.InferOutput<typeof dictItemCreateSchema>;
 
-export const dictItemUpdateSchema = v.object({
-  dictId: v.optional(idSchema),
-  parentId: v.optional(v.nullable(idSchema)),
-  label: v.optional(v.pipe(v.string(), v.nonEmpty())),
-  value: v.optional(v.pipe(v.string(), v.nonEmpty())),
-  order: v.optional(v.nullable(v.number()))
-});
-export type DictItemUpdateDTO = v.InferOutput<typeof dictItemUpdateSchema>;
+/** 更新字典项（字段同新增，全部可选） */
+export const dictItemUpdateSchema = partial(dictItemCreateSchema);
 
-export const dictItemQuerySchema = v.intersect([
+/** 字典项分页查询 */
+export const dictItemQuerySchema = intersect([
   paginationQuerySchema,
-  v.object({
-    dictId: v.optional(idSchema),
-    label: v.optional(v.string()),
-    value: v.optional(v.string())
+  object({
+    dictId: optional(pipe(idSchema, description('所属字典 ID'))),
+    label: optional(pipe(string(), description('字典项名称，模糊匹配'))),
+    value: optional(pipe(string(), description('字典项值，模糊匹配')))
   })
 ]);
-export type DictItemQuery = v.InferOutput<typeof dictItemQuerySchema>;
 
-export const dictItemBatchDeleteSchema = batchDeleteSchema;
-export const dictItemIdParamSchema = idParamSchema;
+/** 字典树查询（`GET /api/dict-item/tree/:id`） */
+export const dictItemTreeParamSchema = object({ id: pipe(idSchema, description('字典 ID')) });
 
-/** 字典树（按 dictId 查全量并建树） */
-export const dictItemTreeParamSchema = v.object({ id: idSchema });
+export type DictItemCreateDTO = InferOutput<typeof dictItemCreateSchema>;
+export type DictItemUpdateDTO = InferOutput<typeof dictItemUpdateSchema>;
+export type DictItemQuery = InferOutput<typeof dictItemQuerySchema>;
+export type DictItemTreeParam = InferOutput<typeof dictItemTreeParamSchema>;
+
+export { batchDeleteSchema, idParamSchema } from './shared';

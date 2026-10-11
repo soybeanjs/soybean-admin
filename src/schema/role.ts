@@ -1,45 +1,37 @@
-import * as v from 'valibot';
-import {
-  batchDeleteSchema,
-  descriptionSchema,
-  enabledSchema,
-  idParamSchema,
-  idSchema,
-  paginationQuerySchema
-} from './shared';
+import { array, description, intersect, nonEmpty, object, optional, partial, pipe, string } from 'valibot';
+import type { InferOutput } from 'valibot';
+import { descriptionSchema, enabledSchema, idSchema, paginationQuerySchema } from './shared';
 
-/** role DTO（unify role.service 范式） */
+/** 角色 DTO（v3 §6.3，unify role.service 范式）。 */
 
-export const roleCreateSchema = v.object({
-  name: v.pipe(v.string(), v.nonEmpty()),
-  code: v.pipe(v.string(), v.nonEmpty()),
+/** 新增角色 */
+export const roleCreateSchema = object({
+  name: pipe(string(), nonEmpty('角色名称不能为空'), description('角色名称')),
+  code: pipe(string(), nonEmpty('角色编码不能为空'), description('角色编码，全局唯一')),
   description: descriptionSchema,
-  permissionIds: v.optional(v.array(idSchema), [])
+  permissionIds: optional(pipe(array(idSchema), description('绑定的权限 ID 列表')), [])
 });
-export type RoleCreateDTO = v.InferOutput<typeof roleCreateSchema>;
 
-export const roleUpdateSchema = v.object({
-  name: v.optional(v.pipe(v.string(), v.nonEmpty())),
-  code: v.optional(v.pipe(v.string(), v.nonEmpty())),
-  description: v.optional(v.nullable(v.string())),
-  enabled: v.optional(enabledSchema),
-  permissionIds: v.optional(v.array(idSchema))
-});
-export type RoleUpdateDTO = v.InferOutput<typeof roleUpdateSchema>;
+/** 更新角色（字段同新增，全部可选；额外允许改启用状态） */
+export const roleUpdateSchema = partial(
+  object({
+    ...roleCreateSchema.entries,
+    enabled: optional(enabledSchema)
+  })
+);
 
-export const roleQuerySchema = v.intersect([
+/** 角色分页查询 */
+export const roleQuerySchema = intersect([
   paginationQuerySchema,
-  v.object({
-    name: v.optional(v.string()),
-    code: v.optional(v.string()),
-    enabled: v.optional(enabledSchema)
+  object({
+    name: optional(pipe(string(), description('角色名称，模糊匹配'))),
+    code: optional(pipe(string(), description('角色编码，模糊匹配'))),
+    enabled: optional(enabledSchema)
   })
 ]);
-export type RoleQuery = v.InferOutput<typeof roleQuerySchema>;
 
-export const roleBatchDeleteSchema = batchDeleteSchema;
-export const roleIdParamSchema = idParamSchema;
+export type RoleCreateDTO = InferOutput<typeof roleCreateSchema>;
+export type RoleUpdateDTO = InferOutput<typeof roleUpdateSchema>;
+export type RoleQuery = InferOutput<typeof roleQuerySchema>;
 
-/** 角色菜单/按钮权限分配（v3 §6.3 role 分配能力） */
-export const roleMenuAssignSchema = v.object({ menuIds: v.array(idSchema) });
-export const roleButtonAssignSchema = v.object({ buttonIds: v.array(idSchema) });
+export { batchDeleteSchema, idParamSchema } from './shared';
