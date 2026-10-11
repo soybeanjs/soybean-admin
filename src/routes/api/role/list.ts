@@ -1,7 +1,7 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { roleService } from '@/services/role.service';
-import { roleQuerySchema } from '@/schema/role';
+import { rolePageSchema, roleQuerySchema } from '@/schema/role';
 
 /**
  * `GET /api/role/list` —— 角色分页列表。
@@ -10,7 +10,13 @@ export const GET = defineHandler(
   describeRoute({
     tags: ['角色'],
     summary: '角色分页列表',
-    responses: { 200: { description: '分页结果' } }
+    description: '按名称、编码、状态筛选，返回分页角色（含已分配用户数）。',
+    responses: {
+      200: {
+        description: '查询成功',
+        content: { 'application/json': { schema: resolver(rolePageSchema) } }
+      }
+    }
   }),
   validate('query', roleQuerySchema),
   c => {

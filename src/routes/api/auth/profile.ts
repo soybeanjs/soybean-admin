@@ -1,7 +1,8 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { userService } from '@/services/user.service';
 import { profileUpdateSchema } from '@/schema/profile';
+import { userProfileSchema } from '@/schema/user';
 
 /**
  * `PUT /api/auth/profile` —— 当前登录用户自助更新个人资料（P3-09）。
@@ -17,10 +18,16 @@ import { profileUpdateSchema } from '@/schema/profile';
  */
 export const PUT = defineHandler(
   describeRoute({
-    tags: ['Auth'],
+    tags: ['认证'],
     summary: '更新当前用户资料',
-    description: '按 access token 更新当前登录用户的可编辑资料字段（不含状态与角色）。',
-    responses: { 200: { description: '返回更新后的用户信息' } }
+    description:
+      '按 access token 更新当前登录用户的可编辑资料字段（不含状态与角色），返回资料视图（含角色码与按钮权限码）。',
+    responses: {
+      200: {
+        description: '更新成功',
+        content: { 'application/json': { schema: resolver(userProfileSchema) } }
+      }
+    }
   }),
   validate('json', profileUpdateSchema),
   async c => {

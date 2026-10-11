@@ -1,6 +1,11 @@
 import {
+  array,
+  boolean,
   description,
+  integer,
   intersect,
+  lazy,
+  metadata,
   nonEmpty,
   nullable,
   number,
@@ -11,11 +16,21 @@ import {
   record,
   string
 } from 'valibot';
-import type { InferOutput } from 'valibot';
+import type { GenericSchema, InferOutput } from 'valibot';
 import type { MenuRow } from '@/service/api/menu-manage';
 import { nullableText, requiredText, text } from './_form';
 import { enabledSearchSchema, menuTypeSearchSchema, searchText } from './_search';
-import { enabledSchema, idSchema, menuTypeSchema, orderSchema, paginationQuerySchema, yesOrNoSchema } from './_shared';
+import {
+  auditFields,
+  enabledSchema,
+  idSchema,
+  menuTypeSchema,
+  orderSchema,
+  pagedSchema,
+  paginationQuerySchema,
+  rowText,
+  yesOrNoSchema
+} from './_shared';
 
 /**
  * 菜单契约（v3 §6.3，unify menu.service 范式）。
@@ -78,6 +93,77 @@ export const menuExistPathSchema = object({
   routeName: optional(pipe(string(), description('待检查的路由名称'))),
   routePath: optional(pipe(string(), description('待检查的路由路径')))
 });
+
+/* -------------------------------------------------------------------------- */
+/*                                响应 schema                                 */
+/* -------------------------------------------------------------------------- */
+
+/** 菜单行字段（全表，新增 / 更新 / 详情 / 树共用） */
+const menuRowFields = {
+  id: idSchema,
+  enabled: enabledSchema,
+  parentId: rowText('父菜单 ID，顶层为 null'),
+  name: pipe(string(), description('菜单名称')),
+  code: pipe(string(), description('菜单编码，全局唯一')),
+  menuType: menuTypeSchema,
+  requiresAuth: pipe(yesOrNoSchema, description('是否需要登录态')),
+  icon: rowText('图标名'),
+  i18nKey: rowText('i18n 文案 key'),
+  order: pipe(number(), integer(), description('排序值，数字越小越靠前')),
+  iframeUrl: rowText('iframe 内嵌地址'),
+  href: rowText('外链地址'),
+  routePath: rowText('路由路径'),
+  routeName: rowText('路由名称，与页面 definePage 一致'),
+  routeLayout: rowText('布局组件标识'),
+  routeComponent: rowText('页面组件路径'),
+  routeRedirect: rowText('重定向目标路径'),
+  routeQueries: nullable(pipe(record(string(), string()), description('固定 query 参数'))),
+  routeParams: nullable(pipe(record(string(), string()), description('固定 route 参数'))),
+  keepAlive: nullable(pipe(yesOrNoSchema, description('是否缓存页面'))),
+  multiTab: nullable(pipe(yesOrNoSchema, description('是否支持多标签'))),
+  pinned: nullable(pipe(yesOrNoSchema, description('是否固定在标签栏'))),
+  description: rowText('备注说明'),
+  ...auditFields
+};
+
+/** 菜单资源（新增 / 更新 / 详情响应） */
+export const menuResourceSchema = object(menuRowFields);
+
+/** `GET /api/menu/list` 响应 data */
+export const menuPageSchema = pagedSchema(menuResourceSchema);
+
+/** `POST /api/menu/exist-path` 响应 data */
+export const menuExistPathResultSchema = object({
+  exists: pipe(boolean(), description('路由名称 / 路径是否已被占用'))
+});
+
+/** `GET /api/menu/all` / `/api/menu/public` / `/api/menu/user` 响应 data（菜单行列表） */
+export const menuListSchema = pipe(array(menuResourceSchema), description('菜单行列表'));
+
+/** 菜单树节点类型（`children` 自引用递归） */
+export type MenuTreeNode = InferOutput<typeof menuResourceSchema> & { children: MenuTreeNode[] };
+
+/**
+ * 菜单树节点 schema。
+ *
+ * 递归 schema 必须用 `metadata({ ref })` 显式命名，否则 OpenAPI 类型生成会失败：
+ * `@standard-community/standard-json` 生成的 `$defs.0` 会被
+ * `convertToOpenAPISchema` 的递归提前捕获并转成 `#/components/schemas/0`，
+ * 但 `children.items` 里的 `$ref` 仍是 `#/$defs/0` —— 悬空引用，
+ * `hono-openapi` 报 `Can't resolve $ref at #/components/schemas/0/properties/children/items`。
+ * 加 `metadata({ ref: 'MenuTree' })` 后 `$defs/0` 变成 `{ $ref: '#/components/schemas/MenuTree' }`，
+ * 由 `convertToOpenAPISchema` 正确上提为 `components.schemas.MenuTree`。
+ */
+const menuTreeSchema: GenericSchema<MenuTreeNode> = pipe(
+  object({
+    ...menuRowFields,
+    children: array(lazy(() => menuTreeSchema))
+  }),
+  metadata({ ref: 'MenuTree' })
+);
+
+/** `GET /api/menu/tree` 响应 data（菜单树根节点列表） */
+export const menuTreeListSchema = array(menuTreeSchema);
 
 /* -------------------------------------------------------------------------- */
 /*                                搜索表单 schema                              */
@@ -183,6 +269,10 @@ export function toMenuForm(row: MenuRow): MenuFormDTO {
 /*                                  类型导出                                   */
 /* -------------------------------------------------------------------------- */
 
+export type MenuResource = InferOutput<typeof menuResourceSchema>;
+export type MenuList = InferOutput<typeof menuListSchema>;
+export type MenuExistPathResult = InferOutput<typeof menuExistPathResultSchema>;
+export type MenuTreeList = InferOutput<typeof menuTreeListSchema>;
 export type MenuCreateDTO = InferOutput<typeof menuCreateSchema>;
 export type MenuUpdateDTO = InferOutput<typeof menuUpdateSchema>;
 export type MenuQuery = InferOutput<typeof menuQuerySchema>;

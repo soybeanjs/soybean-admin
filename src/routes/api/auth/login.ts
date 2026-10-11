@@ -1,7 +1,7 @@
-import { defineHandler, defineHandlerMeta, describeRoute } from 'ubean/server';
+import { defineHandler, defineHandlerMeta, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { authService } from '@/services/auth.service';
-import { loginSchema } from '@/schema/auth';
+import { loginResultSchema, loginSchema } from '@/schema/auth';
 
 /**
  * `POST /api/auth/login` —— 用户名密码登录（公开）。
@@ -13,10 +13,15 @@ import { loginSchema } from '@/schema/auth';
 export const POST = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({
-    tags: ['Auth'],
+    tags: ['认证'],
     summary: '用户登录',
     description: '密码登录（可带图形验证码）或图形验证码登录，返回 access token、refresh token 与用户安全视图。',
-    responses: { 200: { description: '登录成功' } }
+    responses: {
+      200: {
+        description: '登录成功',
+        content: { 'application/json': { schema: resolver(loginResultSchema) } }
+      }
+    }
   }),
   validate('json', loginSchema),
   async c => {

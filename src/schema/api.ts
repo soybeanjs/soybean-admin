@@ -1,9 +1,18 @@
-import { description, intersect, nonEmpty, object, optional, partial, pipe, string } from 'valibot';
+import { array, description, intersect, nonEmpty, object, optional, partial, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
 import type { ApiRow } from '@/service/api/api';
 import { nullableText, requiredText, text } from './_form';
 import { apiMethodSearchSchema, searchText } from './_search';
-import { apiMethodSchema, descriptionSchema, paginationQuerySchema } from './_shared';
+import {
+  apiMethodSchema,
+  auditFields,
+  descriptionSchema,
+  enabledSchema,
+  idSchema,
+  pagedSchema,
+  paginationQuerySchema,
+  rowText
+} from './_shared';
 
 /**
  * 接口（API）资源契约（v3 §6.3，unify api.service 范式）。
@@ -41,6 +50,27 @@ export const apiQuerySchema = intersect([
     method: optional(apiMethodSchema)
   })
 ]);
+
+/* -------------------------------------------------------------------------- */
+/*                                响应 schema                                 */
+/* -------------------------------------------------------------------------- */
+
+/** 接口资源（新增 / 更新 / 详情响应） */
+export const apiResourceSchema = object({
+  id: idSchema,
+  enabled: enabledSchema,
+  name: pipe(string(), description('接口名称')),
+  path: pipe(string(), description('接口路径，如 /api/user/list')),
+  method: apiMethodSchema,
+  description: rowText('备注说明'),
+  ...auditFields
+});
+
+/** `GET /api/api/list` 响应 data */
+export const apiPageSchema = pagedSchema(apiResourceSchema);
+
+/** `GET /api/api/all` 响应 data（全量接口，无分页） */
+export const apiListSchema = pipe(array(apiResourceSchema), description('接口全量列表'));
 
 /* -------------------------------------------------------------------------- */
 /*                                搜索表单 schema                              */
@@ -91,6 +121,8 @@ export function toApiForm(row: ApiRow): ApiFormDTO {
 /*                                  类型导出                                   */
 /* -------------------------------------------------------------------------- */
 
+export type ApiResource = InferOutput<typeof apiResourceSchema>;
+export type ApiList = InferOutput<typeof apiListSchema>;
 export type ApiCreateDTO = InferOutput<typeof apiCreateSchema>;
 export type ApiUpdateDTO = InferOutput<typeof apiUpdateSchema>;
 export type ApiQuery = InferOutput<typeof apiQuerySchema>;

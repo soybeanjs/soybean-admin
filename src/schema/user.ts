@@ -3,7 +3,15 @@ import type { InferOutput } from 'valibot';
 import type { UserDetailRow } from '@/service/api/user';
 import { requiredText, text } from './_form';
 import { enabledSearchSchema, searchText } from './_search';
-import { descriptionSchema, enabledSchema, idSchema, paginationQuerySchema } from './_shared';
+import {
+  auditFields,
+  descriptionSchema,
+  enabledSchema,
+  idSchema,
+  pagedSchema,
+  paginationQuerySchema,
+  rowText
+} from './_shared';
 
 /**
  * 用户契约（v3 §6.3，unify user.service 范式；`password` 只进不出）。
@@ -59,6 +67,52 @@ export const modifyPasswordSchema = object({
 /** 用户分配角色 */
 export const userRoleAssignSchema = object({
   roleIds: pipe(array(idSchema), description('角色 ID 列表，全量替换'))
+});
+
+/* -------------------------------------------------------------------------- */
+/*                                响应 schema                                 */
+/* -------------------------------------------------------------------------- */
+
+/** 用户行公共字段（`stripPassword(row)`；password 只在详情里单独补） */
+const userRowFields = {
+  id: idSchema,
+  enabled: enabledSchema,
+  username: pipe(string(), description('用户名，全局唯一')),
+  phone: rowText('手机号'),
+  email: rowText('邮箱'),
+  fullName: rowText('姓名'),
+  avatar: rowText('头像地址'),
+  homePath: rowText('登录后跳转的首页路径'),
+  description: rowText('备注说明'),
+  ...auditFields
+};
+
+/** 用户资源（新增 / 更新响应，无 password） */
+export const userResourceSchema = object(userRowFields);
+
+/** 用户列表行（`userService.getUserList` 输出：用户资源 + 已绑角色 ID） */
+export const userRowSchema = object({
+  ...userRowFields,
+  roles: pipe(array(object({ id: idSchema })), description('已绑定的角色 ID 列表'))
+});
+
+/** `GET /api/user/list` 响应 data */
+export const userPageSchema = pagedSchema(userRowSchema);
+
+/** 用户列表（无分页的列表端点响应 data） */
+export const userListSchema = pipe(array(userResourceSchema), description('用户列表'));
+
+/** 用户详情（`GET /api/user/:id` 刻意返回整行，**含 password**，仅管理端可见） */
+export const userDetailSchema = object({
+  ...userRowFields,
+  password: pipe(string(), description('登录密码（仅管理端详情返回）'))
+});
+
+/** 当前用户资料（`PUT /api/auth/profile` 响应 = 用户资源 + 角色码 + 按钮权限码） */
+export const userProfileSchema = object({
+  ...userRowFields,
+  roles: pipe(array(string()), description('角色码列表')),
+  buttons: pipe(array(string()), description('按钮级权限码列表'))
 });
 
 /* -------------------------------------------------------------------------- */
@@ -130,6 +184,11 @@ export function toUserForm(row: UserDetailRow & { roles?: { id: string }[] }): U
 /*                                  类型导出                                   */
 /* -------------------------------------------------------------------------- */
 
+export type UserResource = InferOutput<typeof userResourceSchema>;
+export type UserList = InferOutput<typeof userListSchema>;
+export type UserRowOutput = InferOutput<typeof userRowSchema>;
+export type UserDetail = InferOutput<typeof userDetailSchema>;
+export type UserProfile = InferOutput<typeof userProfileSchema>;
 export type UserCreateDTO = InferOutput<typeof userCreateSchema>;
 export type UserUpdateDTO = InferOutput<typeof userUpdateSchema>;
 export type UserQuery = InferOutput<typeof userQuerySchema>;

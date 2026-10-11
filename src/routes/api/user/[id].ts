@@ -1,29 +1,42 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { userService } from '@/services/user.service';
-import { userUpdateSchema } from '@/schema/user';
+import { nullDataSchema } from '@/schema/_shared';
+import { userDetailSchema, userResourceSchema, userUpdateSchema } from '@/schema/user';
 
 /**
- * `GET /api/user/:id` —— 用详情。
+ * `GET /api/user/:id` —— 用户详情。
  */
 export const GET = defineHandler(
   describeRoute({
     tags: ['用户'],
-    summary: '用详情',
-    responses: { 200: { description: '记录详情' } }
+    summary: '用户详情',
+    description: '按主键查询单个用户；该端点刻意返回整行（含 password），仅管理端使用。',
+    responses: {
+      200: {
+        description: '查询成功',
+        content: { 'application/json': { schema: resolver(userDetailSchema) } }
+      }
+    }
   }),
   c => c.json(userService.getUserById(requireParam(c, 'id')))
 );
 
 /**
- * `PUT /api/user/:id` —— 更新用。
+ * `PUT /api/user/:id` —— 更新用户。
  */
 export const PUT = defineHandler(
   describeRoute({
     tags: ['用户'],
-    summary: '更新用',
-    responses: { 200: { description: '更新后的记录' } }
+    summary: '更新用户',
+    description: '按主键更新用户（字段全部可选，未传字段保留原值）；响应不含 password。',
+    responses: {
+      200: {
+        description: '更新成功',
+        content: { 'application/json': { schema: resolver(userResourceSchema) } }
+      }
+    }
   }),
   validate('json', userUpdateSchema),
   async c => {
@@ -40,8 +53,14 @@ export const PUT = defineHandler(
 export const DELETE = defineHandler(
   describeRoute({
     tags: ['用户'],
-    summary: '删除用',
-    responses: { 200: { description: '删除成功' } }
+    summary: '删除用户',
+    description: '按主键软删用户（enabled 置为 D）；data 恒为 null。',
+    responses: {
+      200: {
+        description: '删除成功',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
+    }
   }),
   c => {
     userService.deleteUser(requireParam(c, 'id'));

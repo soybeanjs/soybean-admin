@@ -1,10 +1,14 @@
 import {
+  array,
+  boolean,
   description,
   email,
   forward,
+  integer,
   literal,
   minLength,
   nonEmpty,
+  number,
   object,
   optional,
   partialCheck,
@@ -13,7 +17,7 @@ import {
   union
 } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { ENABLED_VALUES } from './_shared';
+import { enabledSchema, idSchema, rowText } from './_shared';
 
 /**
  * 认证域 DTO（v3 §6.3/§5.5）。
@@ -214,21 +218,21 @@ export const resetPasswordDefaults: ResetPasswordFormValues = {
 };
 
 /* -------------------------------------------------------------------------- */
-/*                                  类型导出                                   */
+/*                                响应 schema                                 */
 /* -------------------------------------------------------------------------- */
 
 /** 用户安全视图（签发 token / user-info 返回，绝不含 password） */
-export type AuthUserDTO = {
-  id: string;
-  username: string;
-  fullName: string | null;
-  avatar: string | null;
-  email: string | null;
-  phone: string | null;
-  homePath: string | null;
-  description: string | null;
-  enabled: (typeof ENABLED_VALUES)[number];
-  roles: string[];
+export const authUserSchema = object({
+  id: idSchema,
+  username: pipe(string(), description('用户名，全局唯一')),
+  fullName: rowText('姓名'),
+  avatar: rowText('头像地址'),
+  email: rowText('邮箱'),
+  phone: rowText('手机号'),
+  homePath: rowText('登录后跳转的首页路径'),
+  description: rowText('备注说明'),
+  enabled: enabledSchema,
+  roles: pipe(array(string()), description('角色码列表（粗粒度，做路由 / 菜单级判定）')),
   /**
    * 按钮级权限码列表（v3 §4.6：`userInfo.buttons` + `hasAuth(code)` + `v-auth`）。
    *
@@ -236,15 +240,48 @@ export type AuthUserDTO = {
    * `buttons` 是权限码（细粒度、做按钮级判定）。超级管理员拿到全量权限码，
    * 前端只需按 `buttons.includes(code)` 判定，不再逐个角色推导。
    */
-  buttons: string[];
-};
+  buttons: pipe(array(string()), description('按钮级权限码列表（细粒度，做按钮级判定）'))
+});
+
+/** 登录 / 注册 / 刷新令牌响应（token 对 + 用户安全视图） */
+export const loginResultSchema = object({
+  token: pipe(string(), description('访问令牌（Authorization: Bearer）')),
+  refreshToken: pipe(string(), description('刷新令牌，有效期 7 天')),
+  user: authUserSchema
+});
+
+/** 图形验证码（`GET /api/auth/captcha` 响应） */
+export const captchaResultSchema = object({
+  captchaId: pipe(string(), description('验证码标识，登录 / 重置密码时回传')),
+  img: pipe(string(), description('验证码图片（SVG data URL）'))
+});
+
+/** 微信绑定二维码（`GET /api/auth/wechat-qrcode` 响应） */
+export const wechatQrcodeSchema = object({
+  ticket: pipe(string(), description('二维码 ticket，绑定请求回传')),
+  url: pipe(string(), description('授权 url（mock）')),
+  expiresIn: pipe(number(), integer(), description('二维码有效期（秒）'))
+});
+
+/** 微信绑定状态（`GET` / `POST /api/auth/bind-wechat` 响应） */
+export const wechatBindingSchema = object({
+  bound: pipe(boolean(), description('是否已绑定微信')),
+  nickname: rowText('微信昵称，未绑定时为 null')
+});
+
+/* -------------------------------------------------------------------------- */
+/*                                  类型导出                                   */
+/* -------------------------------------------------------------------------- */
+
+/** 用户安全视图（签发 token / user-info 返回，绝不含 password） */
+export type AuthUserDTO = InferOutput<typeof authUserSchema>;
 
 /** 登录响应（token 对 + 用户安全视图） */
-export type LoginResult = {
-  token: string;
-  refreshToken: string;
-  user: AuthUserDTO;
-};
+export type LoginResult = InferOutput<typeof loginResultSchema>;
+
+export type CaptchaResult = InferOutput<typeof captchaResultSchema>;
+export type WechatQrcode = InferOutput<typeof wechatQrcodeSchema>;
+export type WechatBinding = InferOutput<typeof wechatBindingSchema>;
 
 export type LoginDTO = InferOutput<typeof loginSchema>;
 export type RegisterDTO = InferOutput<typeof registerSchema>;

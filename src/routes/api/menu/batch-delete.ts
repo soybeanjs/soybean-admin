@@ -1,7 +1,7 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { menuService } from '@/services/menu.service';
-import { batchDeleteSchema } from '@/schema/_shared';
+import { batchDeleteSchema, nullDataSchema } from '@/schema/_shared';
 
 /**
  * `POST /api/menu/batch-delete` —— 批量删除菜单。
@@ -10,7 +10,13 @@ export const POST = defineHandler(
   describeRoute({
     tags: ['菜单'],
     summary: '批量删除菜单',
-    responses: { 200: { description: '删除成功' } }
+    description: '按主键列表批量软删菜单（enabled 置为 D）；data 恒为 null。',
+    responses: {
+      200: {
+        description: '删除成功',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
+    }
   }),
   validate('json', batchDeleteSchema),
   c => {

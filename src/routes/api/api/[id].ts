@@ -1,29 +1,42 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { apiService } from '@/services/api-org.service';
-import { apiUpdateSchema } from '@/schema/api';
+import { nullDataSchema } from '@/schema/_shared';
+import { apiResourceSchema, apiUpdateSchema } from '@/schema/api';
 
 /**
- * `GET /api/api/:id` —— 接详情。
+ * `GET /api/api/:id` —— 接口详情。
  */
 export const GET = defineHandler(
   describeRoute({
     tags: ['接口'],
-    summary: '接详情',
-    responses: { 200: { description: '记录详情' } }
+    summary: '接口详情',
+    description: '按主键查询单个接口（名称、路径、HTTP 方法）。',
+    responses: {
+      200: {
+        description: '查询成功',
+        content: { 'application/json': { schema: resolver(apiResourceSchema) } }
+      }
+    }
   }),
   c => c.json(apiService.getApiById(requireParam(c, 'id')))
 );
 
 /**
- * `PUT /api/api/:id` —— 更新接。
+ * `PUT /api/api/:id` —— 更新接口。
  */
 export const PUT = defineHandler(
   describeRoute({
     tags: ['接口'],
-    summary: '更新接',
-    responses: { 200: { description: '更新后的记录' } }
+    summary: '更新接口',
+    description: '按主键更新接口（字段全部可选，未传字段保留原值）。',
+    responses: {
+      200: {
+        description: '更新成功',
+        content: { 'application/json': { schema: resolver(apiResourceSchema) } }
+      }
+    }
   }),
   validate('json', apiUpdateSchema),
   c => {
@@ -40,8 +53,14 @@ export const PUT = defineHandler(
 export const DELETE = defineHandler(
   describeRoute({
     tags: ['接口'],
-    summary: '删除接',
-    responses: { 200: { description: '删除成功' } }
+    summary: '删除接口',
+    description: '按主键软删接口（enabled 置为 D）；无业务数据，data 恒为 null。',
+    responses: {
+      200: {
+        description: '删除成功',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
+    }
   }),
   c => {
     apiService.deleteApi(requireParam(c, 'id'));

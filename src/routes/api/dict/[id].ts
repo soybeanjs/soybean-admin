@@ -1,29 +1,42 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
-import { dictUpdateSchema } from '@/schema/dict';
+import { nullDataSchema } from '@/schema/_shared';
+import { dictResourceSchema, dictUpdateSchema } from '@/schema/dict';
 
 /**
- * `GET /api/dict/:id` —— 字详情。
+ * `GET /api/dict/:id` —— 字典详情。
  */
 export const GET = defineHandler(
   describeRoute({
     tags: ['字典'],
-    summary: '字详情',
-    responses: { 200: { description: '记录详情' } }
+    summary: '字典详情',
+    description: '按主键查询单个字典。',
+    responses: {
+      200: {
+        description: '查询成功',
+        content: { 'application/json': { schema: resolver(dictResourceSchema) } }
+      }
+    }
   }),
   c => c.json(dictService.getDictById(requireParam(c, 'id')))
 );
 
 /**
- * `PUT /api/dict/:id` —— 更新字。
+ * `PUT /api/dict/:id` —— 更新字典。
  */
 export const PUT = defineHandler(
   describeRoute({
     tags: ['字典'],
-    summary: '更新字',
-    responses: { 200: { description: '更新后的记录' } }
+    summary: '更新字典',
+    description: '按主键更新字典（字段全部可选，未传字段保留原值）。',
+    responses: {
+      200: {
+        description: '更新成功',
+        content: { 'application/json': { schema: resolver(dictResourceSchema) } }
+      }
+    }
   }),
   validate('json', dictUpdateSchema),
   c => {
@@ -40,8 +53,14 @@ export const PUT = defineHandler(
 export const DELETE = defineHandler(
   describeRoute({
     tags: ['字典'],
-    summary: '删除字',
-    responses: { 200: { description: '删除成功' } }
+    summary: '删除字典',
+    description: '按主键软删字典（enabled 置为 D）；data 恒为 null。',
+    responses: {
+      200: {
+        description: '删除成功',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
+    }
   }),
   c => {
     dictService.deleteDict(requireParam(c, 'id'));

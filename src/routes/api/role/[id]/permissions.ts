@@ -1,7 +1,8 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { roleService } from '@/services/role.service';
+import { nullDataSchema } from '@/schema/_shared';
 import { rolePermissionAssignSchema } from '@/schema/permission';
 
 /**
@@ -9,9 +10,15 @@ import { rolePermissionAssignSchema } from '@/schema/permission';
  */
 export const PUT = defineHandler(
   describeRoute({
-    tags: ['Role'],
+    tags: ['角色'],
     summary: '角色分配权限',
-    responses: { 200: { description: '分配成功' } }
+    description: '全量替换该角色绑定的权限点列表（先清空再写入）；data 恒为 null。',
+    responses: {
+      200: {
+        description: '分配成功',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
+    }
   }),
   validate('json', rolePermissionAssignSchema),
   c => {

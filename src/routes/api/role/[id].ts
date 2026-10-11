@@ -1,29 +1,42 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { roleService } from '@/services/role.service';
-import { roleUpdateSchema } from '@/schema/role';
+import { nullDataSchema } from '@/schema/_shared';
+import { roleDetailSchema, roleResourceSchema, roleUpdateSchema } from '@/schema/role';
 
 /**
- * `GET /api/role/:id` —— 角详情。
+ * `GET /api/role/:id` —— 角色详情。
  */
 export const GET = defineHandler(
   describeRoute({
     tags: ['角色'],
-    summary: '角详情',
-    responses: { 200: { description: '记录详情' } }
+    summary: '角色详情',
+    description: '按主键查询角色详情（含已绑定的权限点摘要）。',
+    responses: {
+      200: {
+        description: '查询成功',
+        content: { 'application/json': { schema: resolver(roleDetailSchema) } }
+      }
+    }
   }),
   c => c.json(roleService.getRoleDetailById(requireParam(c, 'id')))
 );
 
 /**
- * `PUT /api/role/:id` —— 更新角。
+ * `PUT /api/role/:id` —— 更新角色。
  */
 export const PUT = defineHandler(
   describeRoute({
     tags: ['角色'],
-    summary: '更新角',
-    responses: { 200: { description: '更新后的记录' } }
+    summary: '更新角色',
+    description: '按主键更新角色（字段全部可选，未传字段保留原值）。',
+    responses: {
+      200: {
+        description: '更新成功',
+        content: { 'application/json': { schema: resolver(roleResourceSchema) } }
+      }
+    }
   }),
   validate('json', roleUpdateSchema),
   c => {
@@ -40,8 +53,14 @@ export const PUT = defineHandler(
 export const DELETE = defineHandler(
   describeRoute({
     tags: ['角色'],
-    summary: '删除角',
-    responses: { 200: { description: '删除成功' } }
+    summary: '删除角色',
+    description: '按主键软删角色（enabled 置为 D）；data 恒为 null。',
+    responses: {
+      200: {
+        description: '删除成功',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
+    }
   }),
   c => {
     roleService.deleteRole(requireParam(c, 'id'));

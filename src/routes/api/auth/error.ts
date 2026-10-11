@@ -1,7 +1,8 @@
-import { defineHandler, defineHandlerMeta, describeRoute } from 'ubean/server';
+import { defineHandler, defineHandlerMeta, describeRoute, resolver } from 'ubean/server';
 import { demoErrorCodeMap } from '@/constants/error-code';
 import { AppError } from '@/shared/error';
 import { validate } from '@/shared/validate';
+import { nullDataSchema } from '@/schema/_shared';
 import { demoErrorQuerySchema } from '@/schema/auth';
 
 /**
@@ -20,11 +21,14 @@ import { demoErrorQuerySchema } from '@/schema/auth';
 export const POST = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({
-    tags: ['Auth'],
+    tags: ['认证'],
     summary: '错误归一演示',
     description: '按 query.code 抛出演示用业务错误，验证全局错误中间件输出业务码结构与请求层分派。',
     responses: {
-      200: { description: '始终返回业务错误响应；code=8888/7777/9999 时返回对应演示码' }
+      200: {
+        description: '始终返回业务错误响应；code=8888/7777/9999 时返回对应演示码',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
     }
   }),
   validate('query', demoErrorQuerySchema),

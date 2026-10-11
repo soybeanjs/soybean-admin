@@ -6,6 +6,7 @@ import {
   minLength,
   minValue,
   nonEmpty,
+  null_,
   nullable,
   number,
   object,
@@ -16,7 +17,7 @@ import {
   transform,
   union
 } from 'valibot';
-import type { InferOutput } from 'valibot';
+import type { GenericSchema, InferOutput } from 'valibot';
 import { API_METHODS, MENU_TYPES } from '@/db/schema/shared';
 
 /**
@@ -103,5 +104,51 @@ export const idParamSchema = object({ id: idSchema });
 export const batchDeleteSchema = object({
   ids: pipe(array(idSchema), minLength(1, '至少选择一条记录'), description('待删除的主键 ID 列表'))
 });
+
+/* -------------------------------------------------------------------------- */
+/*                              响应体 schema 片段                             */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * 成功响应的 `data` 恒为 `null`（登出 / 删除 / 批量删除 / 分配关系等无返回值的端点）。
+ *
+ * 统一响应契约 `{ code, message, data }` 由 `src/middleware/02.response.ts` 包装，
+ * 路由只声明业务 `data`，故这里描述的就是「无业务数据」。
+ */
+export const nullDataSchema = pipe(null_(), description('无业务数据，固定为 null'));
+
+/** 审计四字段（所有业务表共有；行 / 详情 schema 展开复用） */
+export const auditFields = {
+  createdBy: pipe(string(), description('创建人')),
+  createdTime: pipe(string(), description('创建时间（ISO 8601）')),
+  updatedBy: pipe(string(), description('更新人')),
+  updatedTime: pipe(string(), description('更新时间（ISO 8601）'))
+};
+
+/** 行数据里的可空文本字段（DB 列可空，响应里恒为 `string | null`） */
+export function rowText(label: string) {
+  return nullable(pipe(string(), description(label)));
+}
+
+/**
+ * 分页响应包装（`{ total, current, size, list }`，与 `src/service/api/manage-types.ts`
+ * 的 `ManagePage<Item>` 同形状）。
+ */
+export function pagedSchema<TItem extends GenericSchema>(item: TItem) {
+  return object({
+    total: pipe(number(), integer(), description('总条数')),
+    current: pipe(number(), integer(), description('当前页码')),
+    size: pipe(number(), integer(), description('每页条数')),
+    list: pipe(array(item), description('当前页记录'))
+  });
+}
+
+/** 分页响应的数据类型（`ManagePage<TItem>` 的服务端等价物） */
+export type PagedData<TItem> = {
+  total: number;
+  current: number;
+  size: number;
+  list: TItem[];
+};
 
 export type PaginationQuery = InferOutput<typeof paginationQuerySchema>;

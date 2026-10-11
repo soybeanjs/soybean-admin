@@ -3,7 +3,15 @@ import type { InferOutput } from 'valibot';
 import type { OrgRow } from '@/service/api/org-dict';
 import { nullableText, requiredText } from './_form';
 import { searchText } from './_search';
-import { descriptionSchema, idSchema, paginationQuerySchema } from './_shared';
+import {
+  auditFields,
+  descriptionSchema,
+  enabledSchema,
+  idSchema,
+  pagedSchema,
+  paginationQuerySchema,
+  rowText
+} from './_shared';
 
 /**
  * 组织契约（v3 §6.3，unify org.service 范式）。
@@ -44,6 +52,27 @@ export const orgRoleAssignSchema = object({
 export const orgUserAssignSchema = object({
   userIds: pipe(array(idSchema), description('用户 ID 列表，全量替换'))
 });
+
+/* -------------------------------------------------------------------------- */
+/*                                响应 schema                                 */
+/* -------------------------------------------------------------------------- */
+
+/** 组织资源（新增 / 更新 / 详情响应） */
+export const orgResourceSchema = object({
+  id: idSchema,
+  enabled: enabledSchema,
+  parentId: rowText('父组织 ID，顶层为 null'),
+  name: pipe(string(), description('组织名称')),
+  code: pipe(string(), description('组织编码，全局唯一')),
+  description: rowText('备注说明'),
+  ...auditFields
+});
+
+/** `GET /api/org/list` 响应 data */
+export const orgPageSchema = pagedSchema(orgResourceSchema);
+
+/** `GET /api/org/all` 响应 data（全量组织，无分页） */
+export const orgListSchema = pipe(array(orgResourceSchema), description('组织全量列表'));
 
 /* -------------------------------------------------------------------------- */
 /*                                搜索表单 schema                              */
@@ -93,6 +122,8 @@ export function toOrgForm(row: OrgRow): OrgFormDTO {
 /*                                  类型导出                                   */
 /* -------------------------------------------------------------------------- */
 
+export type OrgResource = InferOutput<typeof orgResourceSchema>;
+export type OrgList = InferOutput<typeof orgListSchema>;
 export type OrgCreateDTO = InferOutput<typeof orgCreateSchema>;
 export type OrgUpdateDTO = InferOutput<typeof orgUpdateSchema>;
 export type OrgQuery = InferOutput<typeof orgQuerySchema>;

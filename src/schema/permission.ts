@@ -3,7 +3,16 @@ import type { InferOutput } from 'valibot';
 import type { PermissionRow } from '@/service/api/permission';
 import { nullableText, text } from './_form';
 import { enabledSearchSchema, resourceTypeSearchSchema, searchText } from './_search';
-import { descriptionSchema, enabledSchema, idSchema, paginationQuerySchema, resourceTypeSchema } from './_shared';
+import {
+  auditFields,
+  descriptionSchema,
+  enabledSchema,
+  idSchema,
+  pagedSchema,
+  paginationQuerySchema,
+  resourceTypeSchema,
+  rowText
+} from './_shared';
 
 /**
  * 权限点契约（v3 §6.3，unify permission.service 范式）。
@@ -44,6 +53,28 @@ export const permissionQuerySchema = intersect([
 export const rolePermissionAssignSchema = object({
   permissionIds: pipe(array(idSchema), description('权限 ID 列表，全量替换'))
 });
+
+/* -------------------------------------------------------------------------- */
+/*                                响应 schema                                 */
+/* -------------------------------------------------------------------------- */
+
+/** 权限点资源（新增 / 更新 / 详情 / 按角色查询响应） */
+export const permissionResourceSchema = object({
+  id: idSchema,
+  enabled: enabledSchema,
+  name: pipe(string(), description('权限名称')),
+  code: pipe(string(), description('权限编码')),
+  resourceType: resourceTypeSchema,
+  resourceId: rowText('绑定的资源 ID'),
+  description: rowText('备注说明'),
+  ...auditFields
+});
+
+/** `GET /api/permission/list` 响应 data */
+export const permissionPageSchema = pagedSchema(permissionResourceSchema);
+
+/** `GET /api/permission/all` 响应 data（全量权限点，无分页） */
+export const permissionListSchema = pipe(array(permissionResourceSchema), description('权限点全量列表'));
 
 /* -------------------------------------------------------------------------- */
 /*                                搜索表单 schema                              */
@@ -107,6 +138,8 @@ export function toPermissionForm(row: PermissionRow): PermissionFormDTO {
 /*                                  类型导出                                   */
 /* -------------------------------------------------------------------------- */
 
+export type PermissionResource = InferOutput<typeof permissionResourceSchema>;
+export type PermissionList = InferOutput<typeof permissionListSchema>;
 export type PermissionCreateDTO = InferOutput<typeof permissionCreateSchema>;
 export type PermissionUpdateDTO = InferOutput<typeof permissionUpdateSchema>;
 export type PermissionQuery = InferOutput<typeof permissionQuerySchema>;

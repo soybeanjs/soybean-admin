@@ -1,9 +1,30 @@
-import { description, intersect, nonEmpty, nullable, number, object, optional, partial, pipe, string } from 'valibot';
+import {
+  array,
+  description,
+  integer,
+  intersect,
+  nonEmpty,
+  nullable,
+  number,
+  object,
+  optional,
+  partial,
+  pipe,
+  string
+} from 'valibot';
 import type { InferOutput } from 'valibot';
 import type { DictItemRow } from '@/service/api/org-dict';
 import { requiredText } from './_form';
 import { searchText } from './_search';
-import { idSchema, orderSchema, paginationQuerySchema } from './_shared';
+import {
+  auditFields,
+  enabledSchema,
+  idSchema,
+  orderSchema,
+  pagedSchema,
+  paginationQuerySchema,
+  rowText
+} from './_shared';
 
 /**
  * 字典项契约（v3 §6.3，unify dict-item 范式）。
@@ -39,6 +60,28 @@ export const dictItemQuerySchema = intersect([
 
 /** 字典树查询（`GET /api/dict-item/tree/:id`） */
 export const dictItemTreeParamSchema = object({ id: pipe(idSchema, description('字典 ID')) });
+
+/* -------------------------------------------------------------------------- */
+/*                                响应 schema                                 */
+/* -------------------------------------------------------------------------- */
+
+/** 字典项资源（新增 / 更新 / 详情响应） */
+export const dictItemResourceSchema = object({
+  id: idSchema,
+  enabled: enabledSchema,
+  dictId: pipe(idSchema, description('所属字典 ID')),
+  parentId: rowText('父字典项 ID，顶层为 null'),
+  label: pipe(string(), description('字典项名称')),
+  value: pipe(string(), description('字典项值')),
+  order: pipe(number(), integer(), description('排序值，数字越小越靠前')),
+  ...auditFields
+});
+
+/** `GET /api/dict-item/list` 响应 data */
+export const dictItemPageSchema = pagedSchema(dictItemResourceSchema);
+
+/** 字典项列表（无分页的列表端点响应 data） */
+export const dictItemListSchema = pipe(array(dictItemResourceSchema), description('字典项列表'));
 
 /* -------------------------------------------------------------------------- */
 /*                                搜索表单 schema                              */
@@ -92,6 +135,8 @@ export function toDictItemForm(row: DictItemRow): DictItemFormDTO {
 /*                                  类型导出                                   */
 /* -------------------------------------------------------------------------- */
 
+export type DictItemResource = InferOutput<typeof dictItemResourceSchema>;
+export type DictItemList = InferOutput<typeof dictItemListSchema>;
 export type DictItemCreateDTO = InferOutput<typeof dictItemCreateSchema>;
 export type DictItemUpdateDTO = InferOutput<typeof dictItemUpdateSchema>;
 export type DictItemQuery = InferOutput<typeof dictItemQuerySchema>;

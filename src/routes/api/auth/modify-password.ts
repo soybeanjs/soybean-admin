@@ -1,6 +1,7 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { userService } from '@/services/user.service';
+import { nullDataSchema } from '@/schema/_shared';
 import { modifyPasswordSchema } from '@/schema/user';
 
 /**
@@ -10,10 +11,15 @@ import { modifyPasswordSchema } from '@/schema/user';
  */
 export const POST = defineHandler(
   describeRoute({
-    tags: ['Auth'],
+    tags: ['认证'],
     summary: '修改当前用户密码',
-    description: '校验当前密码后设置新密码。',
-    responses: { 200: { description: '修改成功' } }
+    description: '校验当前密码后设置新密码；data 恒为 null。',
+    responses: {
+      200: {
+        description: '修改成功',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
+    }
   }),
   validate('json', modifyPasswordSchema),
   async c => {

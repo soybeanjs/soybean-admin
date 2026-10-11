@@ -1,6 +1,7 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { AppError } from '@/shared/error';
 import { authService } from '@/services/auth.service';
+import { nullDataSchema } from '@/schema/_shared';
 
 /**
  * `POST /api/auth/logout` —— 登出（需登录）。
@@ -10,10 +11,15 @@ import { authService } from '@/services/auth.service';
  */
 export const POST = defineHandler(
   describeRoute({
-    tags: ['Auth'],
+    tags: ['认证'],
     summary: '退出登录',
-    description: '拉黑当前 access token 与 refreshToken，使其立即失效。',
-    responses: { 200: { description: '登出成功' } }
+    description: '拉黑当前 access token 与 refreshToken，使其立即失效；data 恒为 null。',
+    responses: {
+      200: {
+        description: '退出成功',
+        content: { 'application/json': { schema: resolver(nullDataSchema) } }
+      }
+    }
   }),
   async c => {
     const authorization = c.req.header('Authorization');

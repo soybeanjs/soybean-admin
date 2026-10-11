@@ -1,16 +1,22 @@
-import { defineHandler, describeRoute } from 'ubean/server';
+import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
-import { dictCreateSchema } from '@/schema/dict';
+import { dictCreateSchema, dictResourceSchema } from '@/schema/dict';
 
 /**
- * `POST /api/dict` —— 新增字。
+ * `POST /api/dict` —— 新增字典。
  */
 export const POST = defineHandler(
   describeRoute({
     tags: ['字典'],
-    summary: '新增字',
-    responses: { 200: { description: '创建后的记录' } }
+    summary: '新增字典',
+    description: '新增字典；编码全局唯一。',
+    responses: {
+      200: {
+        description: '创建成功',
+        content: { 'application/json': { schema: resolver(dictResourceSchema) } }
+      }
+    }
   }),
   validate('json', dictCreateSchema),
   c => {

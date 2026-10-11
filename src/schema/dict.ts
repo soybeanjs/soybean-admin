@@ -1,9 +1,18 @@
-import { description, intersect, nonEmpty, object, optional, partial, picklist, pipe, string } from 'valibot';
+import { array, description, intersect, nonEmpty, object, optional, partial, picklist, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
 import type { DictRow } from '@/service/api/org-dict';
 import { nullableText, requiredText } from './_form';
 import { searchText, yesOrNoSearchSchema } from './_search';
-import { descriptionSchema, paginationQuerySchema, yesOrNoSchema } from './_shared';
+import {
+  auditFields,
+  descriptionSchema,
+  enabledSchema,
+  idSchema,
+  pagedSchema,
+  paginationQuerySchema,
+  rowText,
+  yesOrNoSchema
+} from './_shared';
 
 /**
  * 字典契约（v3 §6.3，unify dict.service 范式）。
@@ -35,6 +44,27 @@ export const dictQuerySchema = intersect([
     isSystem: optional(yesOrNoSchema)
   })
 ]);
+
+/* -------------------------------------------------------------------------- */
+/*                                响应 schema                                 */
+/* -------------------------------------------------------------------------- */
+
+/** 字典资源（新增 / 更新 / 详情响应） */
+export const dictResourceSchema = object({
+  id: idSchema,
+  enabled: enabledSchema,
+  name: pipe(string(), description('字典名称')),
+  code: pipe(string(), description('字典编码，全局唯一')),
+  isSystem: pipe(yesOrNoSchema, description('是否系统内置：Y 是 / N 否')),
+  description: rowText('备注说明'),
+  ...auditFields
+});
+
+/** `GET /api/dict/list` 响应 data */
+export const dictPageSchema = pagedSchema(dictResourceSchema);
+
+/** `GET /api/dict/all` 响应 data（全量字典，无分页） */
+export const dictListSchema = pipe(array(dictResourceSchema), description('字典全量列表'));
 
 /* -------------------------------------------------------------------------- */
 /*                                搜索表单 schema                              */
@@ -85,6 +115,8 @@ export function toDictForm(row: DictRow): DictFormDTO {
 /*                                  类型导出                                   */
 /* -------------------------------------------------------------------------- */
 
+export type DictResource = InferOutput<typeof dictResourceSchema>;
+export type DictList = InferOutput<typeof dictListSchema>;
 export type DictCreateDTO = InferOutput<typeof dictCreateSchema>;
 export type DictUpdateDTO = InferOutput<typeof dictUpdateSchema>;
 export type DictQuery = InferOutput<typeof dictQuerySchema>;
