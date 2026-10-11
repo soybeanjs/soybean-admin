@@ -192,8 +192,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       '@ubean/icon':
-        specifier: ^0.6.1
-        version: 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(yaml@2.9.1)
+        specifier: ^0.6.2
+        version: 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(yaml@2.9.1)
       '@valibot/to-json-schema':
         specifier: ^1.8.0
         version: 1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
@@ -261,8 +261,8 @@ importers:
         specifier: ^8.8.7
         version: 8.8.7
       ubean:
-        specifier: ^0.6.1
-        version: 0.6.1(bb4651c486ba8229118242903cc2e16f)
+        specifier: ^0.6.2
+        version: 0.6.2(bb4651c486ba8229118242903cc2e16f)
       valibot:
         specifier: ^1.5.0
         version: 1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)
@@ -2522,26 +2522,26 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@ubean/app@0.6.1':
-    resolution: {integrity: sha512-cemPzm8GL0YGR05ZQD+9D7JwLeZMhZdmIkOT+1k54/I6vOb3idqXVOKrkctRY+C6atgALsWZnkpT6FKdNcUWVA==}
+  '@ubean/app@0.6.2':
+    resolution: {integrity: sha512-bVj1pCk3vFCyr+2dQGGWyR71TOO7W+vjwTs1OrkFpG7MCZ+rGmIH/X0f/v4enaqlzlp1g5FuBG1Y8QeeBL077A==}
     peerDependencies:
-      '@ubean/pages': 0.6.1
-      '@ubean/seo': 0.6.1
+      '@ubean/pages': 0.6.2
+      '@ubean/seo': 0.6.2
     peerDependenciesMeta:
       '@ubean/pages':
         optional: true
       '@ubean/seo':
         optional: true
 
-  '@ubean/build@0.6.1':
-    resolution: {integrity: sha512-/xkAI3IRyuDOITaMtFXGruOzi1XdnkIqfA22xCKHwwC4vW9G41es9+RQCGCT0TOZK0xvlWOf7HqIVtCDVQCYEw==}
+  '@ubean/build@0.6.2':
+    resolution: {integrity: sha512-WjakQ2YHnS88fn92ZnYwLXpkwDqSnGYIoKZajwvoJGB8ZKBI29fL5LF5WTIKxeFTmK+vopaqQjTBNTKX5Obvjw==}
 
-  '@ubean/cli@0.6.1':
-    resolution: {integrity: sha512-aoWZY2Zh6iV6qW3h+8WNiN3aW7vFbHbmDj6REwkzey88DkyOMdgWaf5DPY2YQQhSgv+qzGFOpdddJd/WlecmNA==}
+  '@ubean/cli@0.6.2':
+    resolution: {integrity: sha512-oj/Jt7SxF6FMYz92ijTGXFQonpmkJGsCpHDLHmllFEnClqkNxMnGcWJ+m+ZUJkmA2ZDzAPG72vFeQkBer0xWhg==}
     hasBin: true
     peerDependencies:
-      '@ubean/content': 0.6.1
-      '@ubean/devtools': 0.6.1
+      '@ubean/content': 0.6.2
+      '@ubean/devtools': 0.6.2
       '@vitejs/plugin-vue': ^6.0.8
     peerDependenciesMeta:
       '@ubean/content':
@@ -2551,19 +2551,19 @@ packages:
       '@vitejs/plugin-vue':
         optional: true
 
-  '@ubean/client@0.6.1':
-    resolution: {integrity: sha512-mhbDya/YeyCSJPSyp+PzQqO9Jh8MP+4MQ3jBCIJu0CwP9rH2HLGwrnHS1ZbO26BpxRpHSjzEZ8oQr1xqGPtToQ==}
+  '@ubean/client@0.6.2':
+    resolution: {integrity: sha512-2v6jpQ2cI6MFrnVk1vJZeQtPG3zXU2wbopY35aqjko9J+p2vvXzyFiNduhQvPyFXq7Tk8VUi6PwtEgpKy7aH0g==}
     engines: {node: '>=22'}
     peerDependencies:
-      '@ubean/seo': 0.6.1
+      '@ubean/seo': 0.6.2
     peerDependenciesMeta:
       '@ubean/seo':
         optional: true
 
-  '@ubean/config@0.6.1':
-    resolution: {integrity: sha512-ByAiULM2Z1b3dORFGoO/f1P1HjHy+19FELgwtzQX0OrHhtyuxGfBQXonEnFeGkIQgIfsvZ30hA7EEuQPrJsOPw==}
+  '@ubean/config@0.6.2':
+    resolution: {integrity: sha512-A0asnqCE32MNa/Nq2iamAIhM8lS/uBy8RqfYg7BvoZiT8Wz+MES5jwf1eNkTcZtyRdZbwsPMF0BZUt4X27dSCg==}
     peerDependencies:
-      '@ubean/content': 0.6.1
+      '@ubean/content': 0.6.2
       hono: ^4.0.0
     peerDependenciesMeta:
       '@ubean/content':
@@ -2571,20 +2571,20 @@ packages:
       hono:
         optional: true
 
-  '@ubean/i18n@0.6.1':
-    resolution: {integrity: sha512-E0628gK1hZm+S4LBVic4sXeazP5ilTA8uxEXrpHggkJurRx9jPprbScxfRY1jfwdQfSYHS+v8GdkLA1H8IhtPQ==}
+  '@ubean/i18n@0.6.2':
+    resolution: {integrity: sha512-2f+USHy11Q0kuA2EZ6tsQSG33HQck9gJOUzG1iPsR3hsdRgo83LzoGflHwtM35ug10sK93UJWyr6qUnzN11b7Q==}
     engines: {node: '>=22'}
 
-  '@ubean/icon@0.6.1':
-    resolution: {integrity: sha512-kNiXz9/LURCymlX8HGz75n60VuA6lpr2nVkF4h1zHqqTptI1mq8zZEoa6yU/G/IvPNxvOtZ1zSeuLBNREMTS2Q==}
+  '@ubean/icon@0.6.2':
+    resolution: {integrity: sha512-AcUde4Xrm650SAJxppaaBoOwosHVtzsaFwRPcoCRShPR+yIHRGoV7s91mskFX85V7oZipVzekhqIO72QP3B91Q==}
     peerDependencies:
       vue: ^3.0.0
     peerDependenciesMeta:
       vue:
         optional: true
 
-  '@ubean/integrations@0.6.1':
-    resolution: {integrity: sha512-A9rkdansiWZpN5R7Q15Dddz5UwaipzhMSP27XXMeew4ILSOOZaIAjCs6wYzpWebAcxcUPm413dqvln7hK3KkCw==}
+  '@ubean/integrations@0.6.2':
+    resolution: {integrity: sha512-x2jpgks2vJsJtLaQGWQD+UxAJXOPkX/7TE5N/YosEUQMzxLDyoapEYp6NiC0Xnk3ue5TK52+3hYqNbUtkmeCKw==}
     peerDependencies:
       '@vean/ui': '>=0.50.0-0'
       electron: ^28.0.0 || ^29.0.0 || ^30.0.0 || ^31.0.0 || ^32.0.0 || ^33.0.0 || ^34.0.0 || ^35.0.0 || ^36.0.0 || ^37.0.0
@@ -2600,11 +2600,11 @@ packages:
       vue:
         optional: true
 
-  '@ubean/islands@0.6.1':
-    resolution: {integrity: sha512-j86zSk4vv2VA5sSpP+MsXSJnI84Lfj7FdatjhfaIV4hshPmul5tCVrMXOMv1N2WzZh+q345kL4FwodKTkU+R0w==}
+  '@ubean/islands@0.6.2':
+    resolution: {integrity: sha512-pQeCz8EA08KrDq5dytgC9cv6vR+vvycwNSruVnuHAnycnZmpl9OUuzKDRBVukwLXZnYdQ4VMQFStAN58Eickvg==}
 
-  '@ubean/markdown@0.6.1':
-    resolution: {integrity: sha512-uK535i6KrVSe8hXmzDKG6NrBiyP4MzPAU6zMv2AlPY7zei+HhsSRThuDlRQFaok/+KnDa/TXtRaWfiB2tY4Rlg==}
+  '@ubean/markdown@0.6.2':
+    resolution: {integrity: sha512-mSm7Wrh/L4V+q5piygI2+KtTKkqJ4Cp4G3+9lQH7eiBxyONW8z+EHzTs949LMteRsbpm5YcGSiwmTqvDQi78Ag==}
     peerDependencies:
       '@mdx-js/mdx': ^3.0.0
       vue: ^3.0.0
@@ -2612,19 +2612,19 @@ packages:
       '@mdx-js/mdx':
         optional: true
 
-  '@ubean/pages@0.6.1':
-    resolution: {integrity: sha512-sZqBhu+EGcQnEZ34OVV2CcKAQ+D4UrqOq6tin7d5EkDzinB6FS0OsohLIjm0R45KcMJh/oeqLsrd0uA1O3cNZw==}
+  '@ubean/pages@0.6.2':
+    resolution: {integrity: sha512-PmWFkETowdRRDsC4hC4bGL6IDUXbQc+qAb4RmO9KuvbvQrcuugr9aUE41MDH7YG/YLRm2111pl7d+URCJtRlAQ==}
     peerDependencies:
       vue: '>=3.4.0'
 
-  '@ubean/preset@0.6.1':
-    resolution: {integrity: sha512-dxO/rPvXD7gN98viYf5PFhKwb/vnBCqZbZkrInhorMH+T93u8G8iO2MvrKOxsqTYfvSggQA+u9GMlg/vyvKiUQ==}
+  '@ubean/preset@0.6.2':
+    resolution: {integrity: sha512-FPD3g9BKTEz5iW1rbWOOB9QBCIdHPcohhQM0qqI2uv+DQ1suEc4OsGiThZN/Z+BM1IAnOhpIMNaz7swhQ28NTA==}
 
-  '@ubean/routes@0.6.1':
-    resolution: {integrity: sha512-4ZeZPBAPm87oXcDae5iluduD+RPVYbFD3vWtPivb963HLqUNOjF91wyQ7RGfwdAw820JhPS0Etc1V4N7vKtvQw==}
+  '@ubean/routes@0.6.2':
+    resolution: {integrity: sha512-/FJWQ4wlofICWvEisFjJweQr2HWgNLim9TxEUCM63+yXekGdVcVA5nMeDn0AqipiPN1OOoJhUq6VvUx/DBLQ8g==}
     peerDependencies:
-      '@ubean/pages': 0.6.1
-      '@ubean/scan': 0.6.1
+      '@ubean/pages': 0.6.2
+      '@ubean/scan': 0.6.2
       vue: ^3.0.0
     peerDependenciesMeta:
       '@ubean/pages':
@@ -2634,16 +2634,16 @@ packages:
       vue:
         optional: true
 
-  '@ubean/scan@0.6.1':
-    resolution: {integrity: sha512-N7GEGCDiMba6SqyZUlJZaud1Ku3n0Be9A0+slzX5QKExjKjpJMwbCHa3WdnRQTzE99c3IytyTNahMfi0yrwQpQ==}
+  '@ubean/scan@0.6.2':
+    resolution: {integrity: sha512-f0Khsf9mQ7YP/48uKEkqiLNUXSJTs59mdQjbZrV/tRcl6hJSf+Bpq4kOmE3Tky8s3IMTxQwzbY6hBpKP5J/GLQ==}
     peerDependencies:
       vue-router: ^4.0.0
     peerDependenciesMeta:
       vue-router:
         optional: true
 
-  '@ubean/seo@0.6.1':
-    resolution: {integrity: sha512-Alx3JAoPyliN/cLFaoKYdOhAZZOS94GxDd/xjRCl9ATrl9dqxQ3tFtu4HQlDpAqtnexyhwrnwLatuOl2zpWRuQ==}
+  '@ubean/seo@0.6.2':
+    resolution: {integrity: sha512-qvDrDljv/XKjf8VaRLVlliIuWkOFq1qIFxYg5cxJp5wZynQUkyp4FJ1kLfX8B79Mo5JPhxoIwHBryiLOk5QXwQ==}
     peerDependencies:
       '@resvg/resvg-js': ^2.6.0
       satori: ^0.12.0
@@ -2656,14 +2656,14 @@ packages:
       vue:
         optional: true
 
-  '@ubean/server@0.6.1':
-    resolution: {integrity: sha512-KwbC7zFtnCNV7c0Vqew1TJ6khJHq4WoLIZ4pXdToal05Do1YxvdfaKAC2JtKwMhxorlUen+41d++RbVVJBDlLw==}
+  '@ubean/server@0.6.2':
+    resolution: {integrity: sha512-yn5C4E20qpcxuMaLmktC53xhGFiqrZ11n3tDNySJEdgHx73v8u7VMmgf5AgyVi3+oDYsudYeowUKeZsehX53Jw==}
 
-  '@ubean/shared@0.6.1':
-    resolution: {integrity: sha512-YkrpEgxnDjfMVff4K2ItqAzKsY47Ehvnf/ejbDNiGE9CZjuLyOznhF3vnA1wdrVAO9TOb008eeWdYh/toe4m0A==}
+  '@ubean/shared@0.6.2':
+    resolution: {integrity: sha512-E/KPyUiKOoh/weIR+I6wcUWvpdQTTgHFbHjwYTZpoRqVx0eei/pVU8XBmiNb9DoY+Btbignjq34FUGnQRYsG3w==}
 
-  '@ubean/vue@0.6.1':
-    resolution: {integrity: sha512-n8/BJ02eyjB4vEwE6/aMHDcmgBsA+nSZ8ehL+M2FGB7wy7zabo6HvVhrj/qt2QYNvYadQEWtRjq1mDeSNwoFBg==}
+  '@ubean/vue@0.6.2':
+    resolution: {integrity: sha512-qYYo7UEM9V44HFHvaWHvc9IHUD1ZapgT2ZMPlh7LPeIDOJi2MQkYlLXBGM2uloTIN5QQ718tHHNqFwx2ELd8Cw==}
     peerDependencies:
       '@ubean/markdown': '>=0.1.0'
       '@unhead/vue': '>=2.0.0'
@@ -5686,8 +5686,8 @@ packages:
     engines: {node: '>=20.19'}
     hasBin: true
 
-  ubean@0.6.1:
-    resolution: {integrity: sha512-eDLyxVoP7LD0FnPsIwIt/+0DN9mWkuJNNxRDacThdq7SI7fpFKgMSj1yW1uo2/Wk1JRHHrDa8zN2l93oWYnnFg==}
+  ubean@0.6.2:
+    resolution: {integrity: sha512-KeiPbkoX35cEtjelQDBzrxSkosn550tR+ANlmM5nb9Zs4MwBeKRA66WInR+0zxCgyi0ozmiYBkbwYq9YBK35bA==}
     hasBin: true
     peerDependencies:
       vue: ^3.0.0
@@ -8352,20 +8352,20 @@ snapshots:
   '@typescript-native-bridge/win32-x64@6.0.3-bridge.18.tsgo.7.0.2':
     optional: true
 
-  '@ubean/app@0.6.1(da1e39104aeaca30af6b63560187c610)':
+  '@ubean/app@0.6.2(c00efcb6b31313371de7520bf15d02a0)':
     dependencies:
-      '@ubean/i18n': 0.6.1
-      '@ubean/islands': 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/routes': 0.6.1(@ubean/pages@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/scan@0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a))(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/scan': 0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a)
-      '@ubean/server': 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/shared': 0.6.1
+      '@ubean/i18n': 0.6.2
+      '@ubean/islands': 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/routes': 0.6.2(@ubean/pages@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/scan@0.6.2(4bee13b13957240ec442b51303fd688e))(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/scan': 0.6.2(4bee13b13957240ec442b51303fd688e)
+      '@ubean/server': 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/shared': 0.6.2
       hono: 4.13.13
       hookable: 6.1.2
       pathe: 2.0.3
     optionalDependencies:
-      '@ubean/pages': 0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/seo': 0.6.1(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/pages': 0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/seo': 0.6.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
       - '@farmfe/core'
@@ -8409,22 +8409,22 @@ snapshots:
       - zod-openapi
       - zod-to-json-schema
 
-  '@ubean/build@0.6.1(c5404decda3a55dee882cb8c12f4e602)':
+  '@ubean/build@0.6.2(0889b01b2c2ebe401b46315ba20e6a85)':
     dependencies:
       '@intlify/unplugin-vue-i18n': 11.2.5(@types/node@26.6.5)(eslint@10.12.0(jiti@2.7.0)(supports-color@10.2.2))(jiti@2.7.0)(rollup@4.64.5)(supports-color@10.2.2)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue-i18n@11.4.14(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(yaml@2.9.1)
-      '@ubean/app': 0.6.1(da1e39104aeaca30af6b63560187c610)
-      '@ubean/client': 0.6.1(@oxc-project/types@0.151.0)(@types/node@26.6.5)(@ubean/markdown@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/seo@0.6.1(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(lightningcss@1.33.0)(oxc-parser@0.150.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/config': 0.6.1(@types/node@26.6.5)(dotenv@17.4.2)(giget@3.3.1)(hono@4.13.13)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/i18n': 0.6.1
-      '@ubean/islands': 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/markdown': 0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/pages': 0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/preset': 0.6.1
-      '@ubean/routes': 0.6.1(@ubean/pages@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/scan@0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a))(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/scan': 0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a)
-      '@ubean/server': 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/shared': 0.6.1
-      '@ubean/vue': 0.6.1(@types/node@26.6.5)(@ubean/markdown@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@unhead/vue@3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/app': 0.6.2(c00efcb6b31313371de7520bf15d02a0)
+      '@ubean/client': 0.6.2(@oxc-project/types@0.151.0)(@types/node@26.6.5)(@ubean/markdown@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/seo@0.6.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(lightningcss@1.33.0)(oxc-parser@0.150.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/config': 0.6.2(@types/node@26.6.5)(dotenv@17.4.2)(giget@3.3.1)(hono@4.13.13)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/i18n': 0.6.2
+      '@ubean/islands': 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/markdown': 0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/pages': 0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/preset': 0.6.2
+      '@ubean/routes': 0.6.2(@ubean/pages@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/scan@0.6.2(4bee13b13957240ec442b51303fd688e))(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/scan': 0.6.2(4bee13b13957240ec442b51303fd688e)
+      '@ubean/server': 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/shared': 0.6.2
+      '@ubean/vue': 0.6.2(@types/node@26.6.5)(@ubean/markdown@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@unhead/vue@3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
       '@vitejs/plugin-vue': 6.0.10(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
       openapi-typescript: 7.13.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)
       pathe: 2.0.3
@@ -8495,15 +8495,15 @@ snapshots:
       - zod-openapi
       - zod-to-json-schema
 
-  '@ubean/cli@0.6.1(345f7d30a36ba6197d4637eac915a1d5)':
+  '@ubean/cli@0.6.2(c4296afe636d654dc80c7f0744612a61)':
     dependencies:
-      '@ubean/build': 0.6.1(c5404decda3a55dee882cb8c12f4e602)
-      '@ubean/config': 0.6.1(@types/node@26.6.5)(dotenv@17.4.2)(giget@3.3.1)(hono@4.13.13)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/i18n': 0.6.1
-      '@ubean/islands': 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/preset': 0.6.1
-      '@ubean/scan': 0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a)
-      '@ubean/shared': 0.6.1
+      '@ubean/build': 0.6.2(0889b01b2c2ebe401b46315ba20e6a85)
+      '@ubean/config': 0.6.2(@types/node@26.6.5)(dotenv@17.4.2)(giget@3.3.1)(hono@4.13.13)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/i18n': 0.6.2
+      '@ubean/islands': 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/preset': 0.6.2
+      '@ubean/scan': 0.6.2(4bee13b13957240ec442b51303fd688e)
+      '@ubean/shared': 0.6.2
       citty: 0.2.2
       kolorist: 1.8.0
       pathe: 2.0.3
@@ -8568,20 +8568,20 @@ snapshots:
       - zod-openapi
       - zod-to-json-schema
 
-  '@ubean/client@0.6.1(@oxc-project/types@0.151.0)(@types/node@26.6.5)(@ubean/markdown@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/seo@0.6.1(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(lightningcss@1.33.0)(oxc-parser@0.150.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
+  '@ubean/client@0.6.2(@oxc-project/types@0.151.0)(@types/node@26.6.5)(@ubean/markdown@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/seo@0.6.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(lightningcss@1.33.0)(oxc-parser@0.150.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
     dependencies:
-      '@ubean/i18n': 0.6.1
-      '@ubean/islands': 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/pages': 0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/shared': 0.6.1
-      '@ubean/vue': 0.6.1(@types/node@26.6.5)(@ubean/markdown@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@unhead/vue@3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/i18n': 0.6.2
+      '@ubean/islands': 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/pages': 0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/shared': 0.6.2
+      '@ubean/vue': 0.6.2(@types/node@26.6.5)(@ubean/markdown@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@unhead/vue@3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
       '@unhead/vue': 3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
       '@vue/server-renderer': 3.5.43
       vue: 3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)
       vue-i18n: 11.4.14(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
       vue-router: 5.4.0(@types/node@26.6.5)(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(yaml@2.9.1)
     optionalDependencies:
-      '@ubean/seo': 0.6.1(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/seo': 0.6.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
       - '@farmfe/core'
@@ -8619,9 +8619,9 @@ snapshots:
       - webpack
       - yaml
 
-  '@ubean/config@0.6.1(@types/node@26.6.5)(dotenv@17.4.2)(giget@3.3.1)(hono@4.13.13)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
+  '@ubean/config@0.6.2(@types/node@26.6.5)(dotenv@17.4.2)(giget@3.3.1)(hono@4.13.13)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
     dependencies:
-      '@ubean/shared': 0.6.1
+      '@ubean/shared': 0.6.2
       c12: 4.0.0-rc.2(dotenv@17.4.2)(giget@3.3.1)(jiti@2.7.0)
       defu: 6.1.7
       hookable: 6.1.2
@@ -8651,13 +8651,13 @@ snapshots:
       - unrun
       - yaml
 
-  '@ubean/i18n@0.6.1':
+  '@ubean/i18n@0.6.2':
     dependencies:
       '@intlify/core': 11.4.14
-      '@ubean/shared': 0.6.1
+      '@ubean/shared': 0.6.2
       hono: 4.13.13
 
-  '@ubean/icon@0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(yaml@2.9.1)':
+  '@ubean/icon@0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(yaml@2.9.1)':
     dependencies:
       defu: 6.1.7
       pathe: 2.0.3
@@ -8683,9 +8683,9 @@ snapshots:
       - unrun
       - yaml
 
-  '@ubean/integrations@0.6.1(70b9fe592156d67205f7148fdb4ab6f7)':
+  '@ubean/integrations@0.6.2(f936354ac518e66aa9d201108cb49fa4)':
     dependencies:
-      '@ubean/build': 0.6.1(c5404decda3a55dee882cb8c12f4e602)
+      '@ubean/build': 0.6.2(0889b01b2c2ebe401b46315ba20e6a85)
       defu: 6.1.7
       ohash: 2.0.12
       vite: '@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)'
@@ -8757,9 +8757,9 @@ snapshots:
       - zod-openapi
       - zod-to-json-schema
 
-  '@ubean/islands@0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
+  '@ubean/islands@0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
     dependencies:
-      '@ubean/shared': 0.6.1
+      '@ubean/shared': 0.6.2
       hono: 4.13.13
       pathe: 2.0.3
       vite: '@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)'
@@ -8783,29 +8783,29 @@ snapshots:
       - unrun
       - yaml
 
-  '@ubean/markdown@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
+  '@ubean/markdown@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
     dependencies:
       markdown-exit: 1.3.0
       vue: 3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)
 
-  '@ubean/pages@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
+  '@ubean/pages@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
     dependencies:
-      '@ubean/shared': 0.6.1
+      '@ubean/shared': 0.6.2
       vue: 3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)
 
-  '@ubean/preset@0.6.1': {}
+  '@ubean/preset@0.6.2': {}
 
-  '@ubean/routes@0.6.1(@ubean/pages@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/scan@0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a))(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
+  '@ubean/routes@0.6.2(@ubean/pages@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/scan@0.6.2(4bee13b13957240ec442b51303fd688e))(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
     dependencies:
       '@soybeanjs/fetch': 0.1.1
-      '@ubean/i18n': 0.6.1
-      '@ubean/shared': 0.6.1
+      '@ubean/i18n': 0.6.2
+      '@ubean/shared': 0.6.2
       hono: 4.13.13
       hono-openapi: 1.3.5(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(hono@4.13.13)(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
       rou3: 1.0.0
     optionalDependencies:
-      '@ubean/pages': 0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/scan': 0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a)
+      '@ubean/pages': 0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/scan': 0.6.2(4bee13b13957240ec442b51303fd688e)
       vue: 3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)
     transitivePeerDependencies:
       - '@valibot/to-json-schema'
@@ -8818,10 +8818,10 @@ snapshots:
       - zod-openapi
       - zod-to-json-schema
 
-  '@ubean/scan@0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a)':
+  '@ubean/scan@0.6.2(4bee13b13957240ec442b51303fd688e)':
     dependencies:
-      '@ubean/shared': 0.6.1
-      '@ubean/vue': 0.6.1(@types/node@26.6.5)(@ubean/markdown@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@unhead/vue@3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/shared': 0.6.2
+      '@ubean/vue': 0.6.2(@types/node@26.6.5)(@ubean/markdown@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@unhead/vue@3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
       pathe: 2.0.3
       tinyglobby: 0.2.17
     optionalDependencies:
@@ -8858,7 +8858,7 @@ snapshots:
       - webpack
       - yaml
 
-  '@ubean/seo@0.6.1(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
+  '@ubean/seo@0.6.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))':
     dependencies:
       '@unhead/vue': 3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
       pathe: 2.0.3
@@ -8881,9 +8881,9 @@ snapshots:
       - vite
       - webpack
 
-  '@ubean/server@0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
+  '@ubean/server@0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
     dependencies:
-      '@ubean/shared': 0.6.1
+      '@ubean/shared': 0.6.2
       hono: 4.13.13
       hookable: 6.1.2
       pathe: 2.0.3
@@ -8907,7 +8907,7 @@ snapshots:
       - unrun
       - yaml
 
-  '@ubean/shared@0.6.1':
+  '@ubean/shared@0.6.2':
     dependencies:
       '@standard-schema/spec': 1.1.0
       hono: 4.13.13
@@ -8915,7 +8915,7 @@ snapshots:
       scule: 1.3.0
       tslog: 5.2.0
 
-  '@ubean/vue@0.6.1(@types/node@26.6.5)(@ubean/markdown@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@unhead/vue@3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
+  '@ubean/vue@0.6.2(@types/node@26.6.5)(@ubean/markdown@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@unhead/vue@3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)':
     dependencies:
       pathe: 2.0.3
       scule: 1.3.0
@@ -8925,7 +8925,7 @@ snapshots:
       vue: 3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)
       vue-router: 5.4.0(@types/node@26.6.5)(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(yaml@2.9.1)
     optionalDependencies:
-      '@ubean/markdown': 0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/markdown': 0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
       '@unhead/vue': 3.4.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
@@ -12198,24 +12198,24 @@ snapshots:
       '@typescript-native-bridge/win32-arm64': 6.0.3-bridge.18.tsgo.7.0.2
       '@typescript-native-bridge/win32-x64': 6.0.3-bridge.18.tsgo.7.0.2
 
-  ubean@0.6.1(bb4651c486ba8229118242903cc2e16f):
+  ubean@0.6.2(bb4651c486ba8229118242903cc2e16f):
     dependencies:
-      '@ubean/app': 0.6.1(da1e39104aeaca30af6b63560187c610)
-      '@ubean/build': 0.6.1(c5404decda3a55dee882cb8c12f4e602)
-      '@ubean/cli': 0.6.1(345f7d30a36ba6197d4637eac915a1d5)
-      '@ubean/client': 0.6.1(@oxc-project/types@0.151.0)(@types/node@26.6.5)(@ubean/markdown@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/seo@0.6.1(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(lightningcss@1.33.0)(oxc-parser@0.150.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/config': 0.6.1(@types/node@26.6.5)(dotenv@17.4.2)(giget@3.3.1)(hono@4.13.13)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/i18n': 0.6.1
-      '@ubean/integrations': 0.6.1(70b9fe592156d67205f7148fdb4ab6f7)
-      '@ubean/islands': 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/markdown': 0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/pages': 0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/preset': 0.6.1
-      '@ubean/routes': 0.6.1(@ubean/pages@0.6.1(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/scan@0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a))(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/scan': 0.6.1(6c8b5257fc52c1849d7fb28a36bcf70a)
-      '@ubean/seo': 0.6.1(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
-      '@ubean/server': 0.6.1(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
-      '@ubean/shared': 0.6.1
+      '@ubean/app': 0.6.2(c00efcb6b31313371de7520bf15d02a0)
+      '@ubean/build': 0.6.2(0889b01b2c2ebe401b46315ba20e6a85)
+      '@ubean/cli': 0.6.2(c4296afe636d654dc80c7f0744612a61)
+      '@ubean/client': 0.6.2(@oxc-project/types@0.151.0)(@types/node@26.6.5)(@ubean/markdown@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/seo@0.6.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(@vue/compiler-sfc@3.5.43)(jiti@2.7.0)(lightningcss@1.33.0)(oxc-parser@0.150.0)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(rollup@4.64.5)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/config': 0.6.2(@types/node@26.6.5)(dotenv@17.4.2)(giget@3.3.1)(hono@4.13.13)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/i18n': 0.6.2
+      '@ubean/integrations': 0.6.2(f936354ac518e66aa9d201108cb49fa4)
+      '@ubean/islands': 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/markdown': 0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/pages': 0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/preset': 0.6.2
+      '@ubean/routes': 0.6.2(@ubean/pages@0.6.2(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(@ubean/scan@0.6.2(4bee13b13957240ec442b51303fd688e))(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/scan': 0.6.2(4bee13b13957240ec442b51303fd688e)
+      '@ubean/seo': 0.6.2(@oxc-project/types@0.151.0)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1))(lightningcss@1.33.0)(oxc-parser@0.150.0)(rollup@4.64.5)(vue@3.5.43(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
+      '@ubean/server': 0.6.2(@types/node@26.6.5)(jiti@2.7.0)(terser@5.51.2)(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)(yaml@2.9.1)
+      '@ubean/shared': 0.6.2
       hono: 4.13.13
       hono-openapi: 1.3.5(@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)))(hono@4.13.13)(valibot@1.5.0(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2))
     optionalDependencies:
