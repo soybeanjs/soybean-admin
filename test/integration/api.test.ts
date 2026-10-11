@@ -749,10 +749,13 @@ describe('menu CRUD', () => {
 
 describe('permission / api CRUD', () => {
   it('permission create → list → delete', async () => {
+    // `permission.name` 在 DDL 里带 UNIQUE（src/db/migrations.ts:53），必须带 runId，
+    // 否则上一次运行失败残留的行会让下一次在 create 阶段直接撞唯一约束（业务码 1000）。
+    const name = `集成权限_${runId}`;
     const code = `it:perm:${runId}`;
     const create = await api<{ id: string }>('POST', '/api/permission', {
       token: adminToken,
-      body: { name: '集成权限', code, resourceType: 'other' }
+      body: { name, code, resourceType: 'other' }
     });
     const created = okData<{ id: string }>(create.body);
 
