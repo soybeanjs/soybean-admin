@@ -50,6 +50,7 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm analyze:check
 - **测试目录分层**（对齐 `soybean-ui/packages/ui/test`）：单测写在 `test/specs/<域>/*.test.ts`（`components`/`composables`/`constants`/`db`/`guards`/`request`/`schema`/`scripts`/`shared`/`store`，环境 `node`），真实 HTTP 集成测试写在 `test/integration/*.test.ts`，跨用例辅助放 `test/shared/*`（不被 `include` 收集）。**`src/**` 下不放 `*.test.ts`** —— `unplugin-vue-i18n` 会把 `src/locales/*.test.ts` 当语言包资源解析，`pnpm build` 直接报错。测试经 `@/*` 别名导入被测模块（不用相对路径），文件锚点时 `dirname(fileURLToPath(import.meta.url))` 而非 `fileURLToPath(import.meta.url)` 直接 `join`。
 - 别名：`@/*` → `src/*`，`~ubean/*` → `./.ubean/*`。`.ubean/**`、`src/router/_generated/**`、`dist/**` 是 codegen 与构建产物，直接手改会在下次生成时丢失。
 - 契约单一来源：DTO 与校验写 `src/schema/**`（Valibot）；接口响应固定 `{ code, message, data }`，业务码集中在 `src/constants/error-code.ts`；新端点要同步 `.ubean/openapi.d.ts` 所依赖的路由定义。
+- **`src/routes/api` 下不再用 `(r)/` 路由组**：静态路径与 `[id]` 动态段的注册顺序由框架保证（ubean ≥ 0.6.2 在 `registerApiRoutes` 里按路径特异性降序注册），不依赖目录名字母序。新增端点直接与 `[id].ts` 平铺同级即可。
 - 新增或修改端点时，在 `test/integration/api.test.ts` 补真实 HTTP 用例（成功路径、错误业务码、未授权 2000）。
 - 样式只走 `@vean/ui` + UnoCSS（`uno.config.ts` = `presetSoybean()` + `presetUi()`）；全局样式进 `src/styles/`。
 - i18n 文案写 `src/locales/{zh,en}.json`；新增 key 后先跑一次 `pnpm dev`（或 `pnpm build`）让 `.ubean/i18n.d.ts` 重新生成，再 `pnpm typecheck`。
