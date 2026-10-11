@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton, SCard, STag } from '@vean/ui';
-import { getRouter } from '@/router/instance';
 
 /**
  * 隐藏子菜单（P3-06，v3 §4.6）。
@@ -19,7 +18,7 @@ defineOptions({ name: 'FunctionHideChild' });
 
 const { t } = useI18n();
 const route = useRoute();
-const router = getRouter();
+const router = useRouter();
 
 /** 当前路由名（子页/父页共用同一视图，用它区分展示） */
 const currentRouteName = computed(() => String(route.name ?? '-'));

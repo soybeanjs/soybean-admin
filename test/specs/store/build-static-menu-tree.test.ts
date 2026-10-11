@@ -6,7 +6,7 @@ import type { AppRouteMeta } from '@/typings/app';
 /**
  * `buildStaticMenuTree` / `findMenuTrail` 的单测（P3-10 多级菜单）。
  *
- * `initStaticMenu()` 直接把 `getRouter().getRoutes()` 映射成 `StaticMenuRoute[]`
+ * `initStaticMenu(router)` 直接把 `router.getRoutes()` 映射成 `StaticMenuRoute[]`
  * 后交给这两个纯函数，所以这里只需喂自定义的路由列表，不必真的建 router。
  */
 

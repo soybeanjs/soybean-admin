@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton, SCard } from '@vean/ui';
-import { getRouter } from '@/router/instance';
 
 /**
  * 多标签页（P3-06，v3 §4.6「多标签」）。
@@ -20,7 +19,7 @@ defineOptions({ name: 'FunctionMultiTab' });
 
 const { t } = useI18n();
 const route = useRoute();
-const router = getRouter();
+const router = useRouter();
 
 /** 当前 query 的可读快照（`useRoute()` 的 query 是响应式的） */
 const queryText = computed(() => {

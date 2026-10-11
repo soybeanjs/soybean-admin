@@ -2,10 +2,9 @@ import type { Router } from 'vue-router';
 import { progress } from '@vean/ui';
 import { hasRole } from '@/shared/permission';
 import { shouldTreatMissingRouteAsForbidden } from '@/shared/route-exist';
-import { useAuthStore, useMenuStore, useTabStore } from '@/store';
+import { initAuthStore, useAuthStore, useMenuStore, useTabStore } from '@/store';
 import { env } from '@/env';
 import { api } from '@/request';
-import { installRouter } from './instance';
 
 /**
  * 全局路由守卫（由 `defineApp({ router: { setup } })` 注册）。
@@ -32,9 +31,10 @@ import { installRouter } from './instance';
  * 因此守卫体首行必须以 `typeof window === 'undefined'` 早退放行，鉴权只在
  * 真浏览器执行（客户端水合后再跳转，语义不变）。
  *
- * 模块依赖：本文件静态 import `@/store`（守卫运行时 Pinia 已安装）；
- * store 反向拿 router 只准走 `./instance` 的 `getRouter()`（叶子模块），
- * 不准 `import { router } from '@/router'` —— index 会拉回 guard 形成环。
+ * 模块依赖：本文件静态 import `@/store`（守卫运行时 Pinia 已安装）。
+ * store 侧**不持有** router 引用 —— 需要导航的 action 一律由调用方把 router
+ * 传进来（组件用 `useRouter()`，守卫用这里的 `setup` 入参）。这样既没有
+ * `store → @/router → guard → store` 的模块环，也不再需要 router 单例模块。
  *
  * `setup` 必须**同步**注册守卫（回调可异步）。页面标题不在这里设置 ——
  * `useI18n()` 只能在 setup 上下文用，标题的 i18n 解析统一放 `src/app.vue`
@@ -47,7 +47,14 @@ import { installRouter } from './instance';
  * 回归保护见 `test/specs/guards/page-meta-guard.test.ts`。
  */
 export function setupRouterGuard(instance: Router): void {
-  installRouter(instance);
+  /**
+   * 注册请求层登出回调。
+   *
+   * 放在这里（而不是 `src/app.ts` 模块顶层）是因为回调要跳登录页，需要 router
+   * 实例 —— 本函数是框架唯一把实例交到应用手里的时候。回调体仍动态 import
+   * store / 组件库：`router.setup` 在 pinia 安装之前执行，此刻取不到活跃 pinia。
+   */
+  initAuthStore(instance);
 
   const router = instance;
 
@@ -75,7 +82,7 @@ export function setupRouterGuard(instance: Router): void {
     const menuWasInited = menuStore.inited;
 
     await authStore.initUserInfo();
-    await menuStore.initMenu();
+    await menuStore.initMenu(router);
 
     // 路由级角色门禁（`definePage({ meta: { roles: [...] } })`）：角色码不命中 → 403。
     // 判定与 `v-auth:role` 共用 `@/shared/permission` 的纯函数（超级角色恒过）。

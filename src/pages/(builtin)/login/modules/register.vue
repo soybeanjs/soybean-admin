@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton, SForm, SInput, SPassword, toast, useForm } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
-import { getRouter } from '@/router/instance';
 import { registerFormSchema, registerDefaults } from '@/schema/auth';
 import type { RegisterFormValues } from '@/schema/auth';
-import { gotoLoginModule, useLoginRedirect } from '../use-login';
+import { useLoginModuleNavigate, useLoginRedirect } from '../use-login';
 
 /**
  * 注册（v3 §4.6 / §5.7 P3-05）。
@@ -20,7 +20,9 @@ import { gotoLoginModule, useLoginRedirect } from '../use-login';
 defineOptions({ name: 'Register' });
 
 const { t } = useI18n();
+const gotoLoginModule = useLoginModuleNavigate();
 const authStore = useAuthStore();
+const router = useRouter();
 const redirectTarget = useLoginRedirect();
 
 const { SFormField, handleSubmit, isSubmitting } = useForm({
@@ -38,7 +40,7 @@ async function onSubmit(values: RegisterFormValues): Promise<void> {
       fullName: values.fullName || undefined
     });
     toast.success(t('login.registerSuccess'));
-    await getRouter().replace(redirectTarget.value);
+    await router.replace(redirectTarget.value);
   } catch {
     // 业务错误（如 2011 用户名已存在）已由请求层 toast
   }

@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createMemoryHistory, createRouter } from 'vue-router';
 // @vitest-environment jsdom
 import { createPinia, setActivePinia } from 'pinia';
 import type { TabRouteLike } from '@/store/modules/tab';
@@ -125,17 +124,6 @@ describe('页签持久化', () => {
 
 describe('跨用户清页签', () => {
   it('登出（authStore.resetStore）清空页签与 token', async () => {
-    // resetStore 里的 `getRouter().replace('/login')` 需要已安装的 router 实例
-    const router = createRouter({
-      history: createMemoryHistory(),
-      routes: [
-        { path: '/', name: 'Index', component: { template: '<div />' } },
-        { path: '/login', name: 'Login', component: { template: '<div />' } }
-      ]
-    });
-    const { installRouter } = await import('@/router/instance');
-    installRouter(router);
-
     localStorage.setItem('@soybean/token', 'stale-token');
 
     const { useTabStore } = await import('@/store/modules/tab');

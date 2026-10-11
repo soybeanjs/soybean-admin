@@ -70,3 +70,23 @@ export function handleLogoutRequest(silent: boolean): void {
     logoutHandler(silent);
   }
 }
+
+type AuthResetHandler = () => void;
+
+let authResetHandler: AuthResetHandler | null = null;
+
+/**
+ * 注册「登录态刚被清空」的收尾动作（守卫在拿到 router 实例时注册）。
+ *
+ * `authStore.resetStore()` 只清状态、不碰路由；跳登录页需要 router 实例，
+ * 而实例只有守卫与组件拿得到 —— 用回调把它注入进来，store 就不必依赖
+ * `@/router`（那会形成 `store → @/router → guard → store` 模块环）。
+ */
+export function setAuthResetHandler(handler: AuthResetHandler): void {
+  authResetHandler = handler;
+}
+
+/** 由 `resetStore()` 在清完状态后调用；未注册时是空操作（单测环境即如此） */
+export function handleAuthReset(): void {
+  authResetHandler?.();
+}

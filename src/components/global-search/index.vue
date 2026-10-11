@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { onKeyStroke } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 import { SCommand, SDialog, SKbd, useTheme } from '@vean/ui';
 import type { SelectEvent } from '@vean/ui';
 import { useAppStore, useMenuStore } from '@/store';
-import { getRouter } from '@/router/instance';
 import { SEARCH_GROUP_ACTION, flattenMenuEntries, groupEntries } from './shared';
 import type { SearchEntry } from './shared';
 
@@ -26,6 +26,7 @@ const { t } = useI18n();
 
 const appStore = useAppStore();
 const menuStore = useMenuStore();
+const router = useRouter();
 const theme = useTheme('GlobalSearch');
 
 /** 动作条目的 value（非路由名，选中时分派） */
@@ -89,7 +90,7 @@ function onSelect(event: SelectEvent<string>): void {
     const path = entryPathMap.value.get(value);
 
     if (path) {
-      void getRouter().push(path);
+      void router.push(path);
     } else if (value === ACTION_THEME_DRAWER) {
       appStore.setThemeDrawerVisible(true);
     } else if (value === ACTION_TOGGLE_MODE) {

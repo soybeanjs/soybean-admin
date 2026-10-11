@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
 import forbiddenIllustration from '@/assets/exception/403.svg';
 import notFoundIllustration from '@/assets/exception/404.svg';
 import serviceErrorIllustration from '@/assets/exception/500.svg';
-import { getRouter } from '@/router/instance';
 
 /**
  * 异常页统一壳（P3-07，替代 unify 的 `components/exception-base.vue`）。
@@ -46,13 +46,14 @@ const illustrationMap = {
 
 const illustration = computed(() => illustrationMap[props.code]);
 const codeText = computed(() => props.code);
+const router = useRouter();
 
 function goBack(): void {
-  getRouter().back();
+  router.back();
 }
 
 function goHome(): void {
-  void getRouter().push(authStore.homePath);
+  void router.push(authStore.homePath);
 }
 </script>
 

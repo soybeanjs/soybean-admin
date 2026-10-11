@@ -1,8 +1,7 @@
 import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '@/store/modules/auth';
 import { api } from '@/request';
-import { getRouter } from '@/router/instance';
 import type { CaptchaResult } from '@/schema/auth';
 
 /**
@@ -37,19 +36,25 @@ export function resolveLoginModule(value: unknown): LoginModule {
 }
 
 /**
- * 切换模块：`replace` 而非 `push`（不污染历史），并保留 `?redirect=` 等既有
+ * 模块切换器：`replace` 而非 `push`（不污染历史），并保留 `?redirect=` 等既有
  * query —— 在注册/重置密码之间来回切换时回跳目标不丢。
+ *
+ * 做成 composable（而不是收 `router` 参数的裸函数）：调用点全在组件 setup 里，
+ * 拿到的函数直接给模板用，`useRouter()` 只在 setup 期求值一次。
  */
-export function gotoLoginModule(module: LoginModule): void {
-  const router = getRouter();
-  const query: Record<string, string> = {};
+export function useLoginModuleNavigate() {
+  const router = useRouter();
 
-  for (const [key, value] of Object.entries(router.currentRoute.value.query)) {
-    if (typeof value === 'string' && key !== 'module') query[key] = value;
-  }
-  if (module !== 'pwd-login') query.module = module;
+  return (module: LoginModule): void => {
+    const query: Record<string, string> = {};
 
-  void router.replace({ query });
+    for (const [key, value] of Object.entries(router.currentRoute.value.query)) {
+      if (typeof value === 'string' && key !== 'module') query[key] = value;
+    }
+    if (module !== 'pwd-login') query.module = module;
+
+    void router.replace({ query });
+  };
 }
 
 /**

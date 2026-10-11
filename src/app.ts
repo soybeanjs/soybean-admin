@@ -7,18 +7,9 @@ import { APP_DESCRIPTION, APP_ROOT_ID, APP_TITLE, DEFAULT_LOCALE } from '@/const
 import { seedPresetState } from '@/shared/theme-preset';
 import { registerVeanLocales } from '@/shared/vean-locale';
 import { setupAuthDirectives } from '@/directives/auth';
-import { initAuthStore } from '@/store/modules/auth';
 import { readStoredThemeSettings, resolvePresetThemeState } from '@/store/modules/theme';
 import { setupRouterGuard } from '@/router';
 import '@/styles/index.css';
-
-/**
- * 注册请求层登出回调（token 失效/业务码登出的统一入口）。
- *
- * 这里必须在模块顶层调用：`router.setup`（注册守卫）在 pinia 安装之前执行，
- * `initAuthStore` 特意做成不依赖 pinia 的普通函数（回调体使用期才动态取 store）。
- */
-initAuthStore();
 
 /**
  * 注册 Vean 组件内置文案的 locale key（详见 `@/shared/vean-locale`）。
@@ -45,7 +36,9 @@ seedPresetState(resolvePresetThemeState(readStoredThemeSettings()));
  * - `plugins`：Pinia 实例。`ubean.config.ts` 的 `pinia: true` 只做 Vite
  *   预构建优化；SSR 状态水合需另配 `serializeState` / `hydrateState`
  *   （Phase 0 `ssr: false`，暂不需要）。
- * - `router.setup`：注册全局守卫（进度条 + 标题）。
+ * - `router.setup`：注册全局守卫（进度条 + 标题），并顺带把 router 实例
+ *   交给 `initAuthStore`（请求层登出回调需要它跳登录页）—— 这是框架唯一把
+ *   实例交到应用手里的时机。
  * - 应用根组件走 `src/app.vue` 文件约定（`appRoot` 优先级：
  *   `defineApp({ appRoot })` > `src/app.vue` > `src/App.vue`），
  *   出口是该组件的默认插槽 —— **不要**在这里渲染 `<PageView />`。

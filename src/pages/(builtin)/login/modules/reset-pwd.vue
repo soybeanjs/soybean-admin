@@ -5,7 +5,7 @@ import { SButton, SForm, SInput, SPassword, toast, useForm } from '@vean/ui';
 import { api } from '@/request';
 import { resetPasswordFormSchema, resetPasswordDefaults } from '@/schema/auth';
 import type { ResetPasswordFormValues } from '@/schema/auth';
-import { gotoLoginModule, useLoginCaptcha } from '../use-login';
+import { useLoginCaptcha, useLoginModuleNavigate } from '../use-login';
 
 /**
  * 重置密码（v3 §4.6 / §5.7 P3-05）。
@@ -19,6 +19,7 @@ import { gotoLoginModule, useLoginCaptcha } from '../use-login';
 defineOptions({ name: 'ResetPwd' });
 
 const { t } = useI18n();
+const gotoLoginModule = useLoginModuleNavigate();
 const { captcha, loading: captchaLoading, refreshCaptcha } = useLoginCaptcha();
 
 const { SFormField, form, handleSubmit, isSubmitting } = useForm({

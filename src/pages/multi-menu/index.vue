@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton } from '@vean/ui';
-import { getRouter } from '@/router/instance';
 import MultiMenuPanel from './modules/multi-menu-panel.vue';
 
 /**
@@ -14,13 +14,14 @@ import MultiMenuPanel from './modules/multi-menu-panel.vue';
 defineOptions({ name: 'MultiMenuIndex' });
 
 const { t } = useI18n();
+const router = useRouter();
 
 function toSecond(): void {
-  void getRouter().push('/multi-menu/first/second');
+  void router.push('/multi-menu/first/second');
 }
 
 function toThird(): void {
-  void getRouter().push('/multi-menu/first/second-new/third');
+  void router.push('/multi-menu/first/second-new/third');
 }
 
 /**

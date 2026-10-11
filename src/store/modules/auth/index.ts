@@ -1,3 +1,4 @@
+import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { STATIC_SUPER_ROLE } from '@/constants/service';
 import {
@@ -5,6 +6,8 @@ import {
   getLocalRefreshToken,
   getLocalToken,
   getLocalUserInfo,
+  handleAuthReset,
+  setAuthResetHandler,
   setAuthStorage,
   setLogoutHandler
 } from '@/utils/auth';
@@ -16,7 +19,8 @@ import type { AuthUserDTO, LoginResult } from '@/schema/auth';
  * 认证 store（v3 §5.5）：token 对 + 用户信息 + 登录/登出流程。
  *
  * token 与用户信息同步落 localStorage（`src/utils/auth.ts`），刷新页面经
- * `initUserInfo` 恢复；请求层的登出回调在这里注册（避免循环引用）。
+ * `initUserInfo` 恢复；请求层的登出回调由守卫在拿到 router 后注册（见
+ * `initAuthStore` 与 `src/router/guard.ts`）。
  */
 
 interface AuthState {
@@ -108,7 +112,13 @@ export const useAuthStore = defineStore('auth', {
       }
       this.resetStore();
     },
-    /** 重置登录态并跳转登录页 */
+    /**
+     * 重置登录态并回登录页。
+     *
+     * 跳转经 `handleAuthReset()`（守卫注册的回调持有 router 实例），因此本
+     * action 不需要 router 参数，从任何上下文（组件事件、请求层回调、测试）
+     * 调用都能完成「清空 + 回登录页」。
+     */
     resetStore() {
       clearAuthStorage();
       this.token = '';
@@ -119,22 +129,21 @@ export const useAuthStore = defineStore('auth', {
         useMenuStore().resetStore();
         useTabStore().resetStore();
       });
-      void import('@/router/instance').then(({ getRouter }) => {
-        void getRouter().replace('/login');
-      });
+      handleAuthReset();
     }
   }
 });
 
 /**
- * 注册请求层登出回调（app 启动时调用一次）。
+ * 注册请求层登出回调与「重置收尾」回调（`setupRouterGuard` 拿到 router 后调用一次）。
  *
  * ①故意做成**模块级普通函数**而非 store action：ubean 的 `router.setup` 在
  * `applyAppConfig`（安装 plugins/pinia）**之前**执行，此时拿不到活跃 pinia；
  * 回调注册本身不需要 store 实例，回调体在使用期（接口响应时）才动态取 store。
  * ②回调体动态 import，避免 store ↔ 请求层循环引用。
+ * ③两个回调都靠注册时注入的 router 实例，不依赖任何单例模块。
  */
-export function initAuthStore(): void {
+export function initAuthStore(router: Router): void {
   setLogoutHandler((silent: boolean) => {
     void import('@/store').then(({ useAuthStore: resolveAuthStore }) => {
       const authStore = resolveAuthStore();
@@ -153,5 +162,10 @@ export function initAuthStore(): void {
       }
       authStore.resetStore();
     });
+  });
+
+  // 登录态清空后回登录页（`resetStore()` 的跳转出口）。
+  setAuthResetHandler(() => {
+    void router.replace('/login');
   });
 }

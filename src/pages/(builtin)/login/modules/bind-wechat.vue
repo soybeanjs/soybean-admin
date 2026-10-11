@@ -5,7 +5,7 @@ import { SButton, toast } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
 import { api } from '@/request';
 import type { WechatQrcode } from '@/schema/auth';
-import { gotoLoginModule } from '../use-login';
+import { useLoginModuleNavigate } from '../use-login';
 
 /**
  * 绑定微信（v3 §4.6）。
@@ -24,6 +24,7 @@ defineOptions({ name: 'BindWechat' });
 const QR_SIZE = 21;
 
 const { t } = useI18n();
+const gotoLoginModule = useLoginModuleNavigate();
 const authStore = useAuthStore();
 
 const qrcode = ref<WechatQrcode | null>(null);

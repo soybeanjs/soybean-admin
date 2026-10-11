@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton, SForm, SInput, toast, useForm } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
-import { getRouter } from '@/router/instance';
 import { codeLoginFormSchema, codeLoginDefaults } from '@/schema/auth';
 import type { CodeLoginFormValues } from '@/schema/auth';
-import { gotoLoginModule, useLoginCaptcha, useLoginRedirect } from '../use-login';
+import { useLoginCaptcha, useLoginModuleNavigate, useLoginRedirect } from '../use-login';
 
 /**
  * 验证码登录（v3 §4.6 / §5.7 P3-05）。
@@ -19,7 +19,9 @@ import { gotoLoginModule, useLoginCaptcha, useLoginRedirect } from '../use-login
 defineOptions({ name: 'CodeLogin' });
 
 const { t } = useI18n();
+const gotoLoginModule = useLoginModuleNavigate();
 const authStore = useAuthStore();
+const router = useRouter();
 const redirectTarget = useLoginRedirect();
 const { captcha, loading: captchaLoading, refreshCaptcha } = useLoginCaptcha();
 
@@ -33,7 +35,7 @@ async function onSubmit(values: CodeLoginFormValues): Promise<void> {
   try {
     await authStore.loginByCaptcha(values.userName, values.captchaId, values.captchaCode);
     toast.success(t('login.loginSuccess'));
-    await getRouter().replace(redirectTarget.value);
+    await router.replace(redirectTarget.value);
   } catch {
     // 验证码一次性消费：失败后必须换新的（否则重放恒报已过期）
     form.setFieldValue('captchaCode', '');

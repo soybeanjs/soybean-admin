@@ -60,6 +60,7 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm analyze:check
 ## 已知陷阱（踩过，别重踩）
 
 - ubean dev 会对每个 HTML 请求在 Node 里预渲染执行应用与 vue-router 守卫，那里 `import.meta.server === false` 且没有 `window` / `localStorage`。浏览器专属逻辑（鉴权重定向、localStorage 读取）在守卫顶部用 `typeof window === 'undefined'` 早退；判据是能力检测，不是编译标志。
-- router 单例只从 `src/router/instance.ts` 的 `getRouter()` 取：store / 布局 / 页面 import 它，而 `@/router` 只导出 `setupRouterGuard`。否则 store ↔ router 模块环会让 dev 转换管线静默死锁。
+- **没有 router 单例**：组件用 `useRouter()`（`vue-router` 的 `inject(routerKey)`）；store 的导航类 action 收 `router: Router` 参数（组件把 setup 期拿到的实例传进去，守卫用 `setupRouterGuard(router)` 的入参）；`authStore.resetStore()` 回登录页走 `src/utils/auth.ts` 的 `setAuthResetHandler` / `handleAuthReset` 回调。**不要**再引入 `getRouter()` 之类模块级单例 —— 那正是历史上 store ↔ router 模块环导致 dev 转换管线静默死锁的根源。
+- `useRouter()` **只在 setup 与导航守卫里可用**：`inject()` 依赖 `currentInstance`，而事件回调的统一入口 `callWithErrorHandling` 不设置它；裸 store action 里调用会拿到 `undefined` 并告警 `inject() can only be used inside setup() or functional components.`。做法是 setup 期捕获实例、之后在回调里调其方法。
 - 本机 curl 访问 dev server 用 `--noproxy '*'`，否则系统代理会返回 502。
 - 注释里写的测试路径引用要先确认目标文件真的存在 —— `src/constants/manage.ts` 曾长期声称 `src/constants/manage.test.ts` 断言了值域一致性，而该文件在 git 历史里从未存在过（现已补齐为 `test/specs/constants/manage.test.ts`）。

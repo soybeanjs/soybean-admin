@@ -1,9 +1,8 @@
-import type { RouteComponent, RouteRecordRaw } from 'vue-router';
+import type { RouteComponent, RouteRecordRaw, Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { toAppRouteMeta } from '@/utils/route-meta';
 import { env } from '@/env';
 import { api } from '@/request';
-import { getRouter } from '@/router/instance';
 import type { MenuResource } from '@/schema/menu';
 import type { AppRouteMeta, MenuTreeNode } from '@/typings/app';
 
@@ -11,16 +10,17 @@ import type { AppRouteMeta, MenuTreeNode } from '@/typings/app';
  * 菜单 store（v3 §5.3，菜单/路由/标题一元模型的菜单侧）。
  *
  * - static 模式：从本地文件路由的 `definePage({ meta })` 派生菜单；
- * - dynamic 模式：`GET /api/menu/user` 菜单行 → 树 + `getRouter().addRoute`
+ * - dynamic 模式：`GET /api/menu/user` 菜单行 → 树 + `router.addRoute`
  *   动态路由（`transformMenuToRoute`），并做启动期一致性断言（P2-04）。
  *
  * 标题单一来源：节点携带 `i18nKey`，**翻译在展示层**（layout/tab 的 setup
  * 上下文里 `t(i18nKey) || label`）—— `useI18n()` 只能在 setup 用，store
  * 不能在 action 里解析 locale（否则切语言后 label 不更新）。
  *
- * 为什么静态 import `router` 不构成循环依赖：`@/router` 只依赖 progress 与
- * 常量；守卫（`@/router/guard`）才反向依赖 store，ESM 活绑定 + 函数体内
- * 延迟引用让环在调用期才解析。
+ * 为什么 router 从参数进而不 import：读路由表/注册路由都需要实例，而实例只有
+ * 守卫与组件拿得到（`useRouter()`）。让调用方传进来，store 就不依赖 `@/router`，
+ * `store → @/router → guard → store` 的模块环自然消失。守卫是唯一调用点，
+ * 它拿到的正是框架 `setup` 入参。
  */
 
 interface MenuState {
@@ -61,13 +61,13 @@ export const useMenuStore = defineStore('menu', {
   },
   actions: {
     /** 初始化菜单（登录后守卫调用；幂等） */
-    async initMenu() {
+    async initMenu(router: Router) {
       if (this.inited) return;
 
       if (env.authRouteMode === 'dynamic') {
-        await this.initDynamicMenu();
+        await this.initDynamicMenu(router);
       } else {
-        this.initStaticMenu();
+        this.initStaticMenu(router);
       }
       this.inited = true;
     },
@@ -76,9 +76,9 @@ export const useMenuStore = defineStore('menu', {
     // static 模式：文件路由 meta → 菜单
     // ------------------------------------------------------------------
 
-    initStaticMenu() {
+    initStaticMenu(router: Router) {
       this.items = buildStaticMenuTree(
-        getRouter()
+        router
           .getRoutes()
           .map(route => ({ name: String(route.name), path: route.path, meta: toAppRouteMeta(route.meta) }))
       );
@@ -88,7 +88,7 @@ export const useMenuStore = defineStore('menu', {
     // dynamic 模式：菜单行 → 动态路由 + 菜单树
     // ------------------------------------------------------------------
 
-    async initDynamicMenu() {
+    async initDynamicMenu(router: Router) {
       this.userMenus = await api.get('/menu/user');
 
       // 先注册路由（保证菜单树里的 routeName 都可导航）
@@ -97,7 +97,7 @@ export const useMenuStore = defineStore('menu', {
         .filter((route): route is RouteRecordRaw => route !== null);
 
       for (const route of routes) {
-        if (!route.name || !getRouter().hasRoute(route.name)) getRouter().addRoute(route);
+        if (!route.name || !router.hasRoute(route.name)) router.addRoute(route);
       }
 
       this.items = this.buildMenuTree(this.userMenus);

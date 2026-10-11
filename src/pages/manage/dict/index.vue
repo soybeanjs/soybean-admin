@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton, SButtonIcon, SPopconfirm, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
@@ -10,7 +11,6 @@ import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
 import { api, flatApi } from '@/request';
-import { getRouter } from '@/router/instance';
 import type { DictResource, DictSearchFormDTO } from '@/schema/dict';
 import DictOperate from './modules/dict-operate.vue';
 import DictSearch from './modules/dict-search.vue';
@@ -24,6 +24,7 @@ import DictSearch from './modules/dict-search.vue';
 defineOptions({ name: 'ManageDict' });
 
 const { t } = useI18n();
+const router = useRouter();
 
 const query = ref<ManagePageQuery & DictSearchFormDTO>({
   page: 1,
@@ -94,7 +95,7 @@ function isSystemLabel(value: DictResource['isSystem']) {
 
 /** 跳转到字典项页并预置 dictId 筛选 */
 function onViewItems(id: string) {
-  void getRouter().push({ path: '/manage/dict-item', query: { dictId: id } });
+  void router.push({ path: '/manage/dict-item', query: { dictId: id } });
 }
 
 async function onDeleteConfirm(id: string) {

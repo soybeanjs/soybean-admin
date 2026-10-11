@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton, SForm, SInput, SPassword, toast, useForm } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
-import { getRouter } from '@/router/instance';
 import { passwordLoginFormSchema, passwordLoginDefaults } from '@/schema/auth';
 import type { PasswordLoginFormValues } from '@/schema/auth';
-import { gotoLoginModule, useLoginRedirect } from '../use-login';
+import { useLoginModuleNavigate, useLoginRedirect } from '../use-login';
 
 /**
  * 密码登录（v3 §4.6 / §5.7 P3-05）。
@@ -19,14 +19,16 @@ import { gotoLoginModule, useLoginRedirect } from '../use-login';
 defineOptions({ name: 'PwdLogin' });
 
 const { t } = useI18n();
+const gotoLoginModule = useLoginModuleNavigate();
 const authStore = useAuthStore();
+const router = useRouter();
 const redirectTarget = useLoginRedirect();
 
 async function onSubmit(values: PasswordLoginFormValues): Promise<void> {
   try {
     await authStore.login(values.userName, values.password);
     toast.success(t('login.loginSuccess'));
-    await getRouter().replace(redirectTarget.value);
+    await router.replace(redirectTarget.value);
   } catch {
     // 业务错误已由请求层 toast；静默恢复按钮态
   }

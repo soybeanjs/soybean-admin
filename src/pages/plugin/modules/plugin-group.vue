@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { SIcon, SLink } from '@vean/ui';
-import { getRouter } from '@/router/instance';
 
 /**
  * 分组落地页的公共列表（P4-01）。
@@ -25,7 +25,7 @@ defineProps<{
   links: PluginGroupLink[];
 }>();
 
-const router = getRouter();
+const router = useRouter();
 
 function go(path: string) {
   void router.push(path);

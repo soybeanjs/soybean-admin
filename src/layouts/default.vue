@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { setLocale } from 'ubean/client';
 import { SAppShell, SAvatar, SButtonIcon, SDropdownMenu, SPageTabs, SThemeModeSwitch, useTheme } from '@vean/ui';
@@ -10,7 +10,6 @@ import { resolveExternalUrl } from '@/shared/iframe';
 import { resolveLayoutMatrix } from '@/shared/layout-matrix';
 import { registerVeanLocalePack } from '@/shared/vean-locale';
 import { useAppStore, useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
-import { getRouter } from '@/router/instance';
 import type { AppTab, MenuTreeNode } from '@/typings/app';
 
 /**
@@ -30,6 +29,7 @@ import type { AppTab, MenuTreeNode } from '@/typings/app';
  */
 const { locale, t } = useI18n();
 const route = useRoute();
+const router = useRouter();
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const authStore = useAuthStore();
@@ -146,13 +146,13 @@ function onMenuSelect(key: string): void {
   if (node?.iframeUrl) {
     const url = resolveExternalUrl(node.iframeUrl);
 
-    if (url) void getRouter().push({ path: '/iframe', query: { url } });
+    if (url) void router.push({ path: '/iframe', query: { url } });
     return;
   }
 
   const path = menuPathMap.value.get(key);
 
-  if (path) void getRouter().push(path);
+  if (path) void router.push(path);
 }
 
 // ---------------------------------------------------------------------------
@@ -174,7 +174,7 @@ const shellTabs = computed<PageTabsOptionData[]>(() => {
 
 /** 页签激活值变化（SPageTabs 的 `update:tab-value`）→ 切换路由 */
 function onTabValueChange(value: unknown): void {
-  void tabStore.switchTab(String(value));
+  void tabStore.switchTab(router, String(value));
 }
 
 /**
@@ -185,7 +185,7 @@ function onTabValueChange(value: unknown): void {
  */
 function onTabClick(payload: PageTabsOptionData | PointerEvent): void {
   if (typeof payload === 'object' && payload !== null && 'value' in payload) {
-    void tabStore.switchTab(String(payload.value));
+    void tabStore.switchTab(router, String(payload.value));
   }
 }
 
@@ -266,9 +266,9 @@ async function onTabReload(value: string): Promise<void> {
 
   if (!tab) return;
 
-  if (tabStore.activeTabValue !== value) await getRouter().push(tab.fullPath);
+  if (tabStore.activeTabValue !== value) await router.push(tab.fullPath);
 
-  await tabStore.reloadTab();
+  await tabStore.reloadTab(router);
 }
 
 // ---------------------------------------------------------------------------
@@ -292,12 +292,12 @@ const userMenuItems = computed(() => [
 
 function onUserMenuSelect(value: unknown): void {
   if (value === USER_MENU_PROFILE) {
-    void getRouter().push('/user-center/profile');
+    void router.push('/user-center/profile');
     return;
   }
 
   if (value === USER_MENU_SETTINGS) {
-    void getRouter().push('/user-center/settings');
+    void router.push('/user-center/settings');
     return;
   }
 

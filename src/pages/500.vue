@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton } from '@vean/ui';
 import ExceptionBase from '@/components/exception-base/index.vue';
-import { getRouter } from '@/router/instance';
 
 /**
  * 500 服务异常（P3-07）。
@@ -34,12 +33,13 @@ definePage({
 
 const { t } = useI18n();
 const route = useRoute();
+const router = useRouter();
 
 /** 来源路径（`?from=`）：重试时导航回去；缺省时只留「回到首页」 */
 const from = computed(() => (typeof route.query.from === 'string' ? route.query.from : ''));
 
 function retry(): void {
-  if (from.value) void getRouter().push(from.value);
+  if (from.value) void router.push(from.value);
 }
 </script>
 

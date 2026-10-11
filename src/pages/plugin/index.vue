@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SAlert, SCard, SIcon, SLink } from '@vean/ui';
-import { getRouter } from '@/router/instance';
 
 /**
  * plugin 演示总入口（P4-01，v3 §5.8）。
@@ -10,13 +10,13 @@ import { getRouter } from '@/router/instance';
  * 之外的入口一个可用落地页：按分组列出全部子页，点击直达。
  *
  * 链接清单与 `src/pages/plugin/**` 一一对应；这里刻意用静态数组而不是从
- * `getRouter().getRoutes()` 反查 —— 演示页的导航顺序是人工编排的，反射出来的
+ * `router.getRoutes()` 反查 —— 演示页的导航顺序是人工编排的，反射出来的
  * 顺序会跟着 meta.order 变，反而不稳定。
  */
 defineOptions({ name: 'PluginIndex' });
 
 const { t } = useI18n();
-const router = getRouter();
+const router = useRouter();
 
 interface PluginLink {
   /** 路由 path */

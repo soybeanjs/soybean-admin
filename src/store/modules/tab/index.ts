@@ -1,8 +1,7 @@
-import type { RouteLocationNormalized } from 'vue-router';
+import type { RouteLocationNormalized, Router } from 'vue-router';
 import { reloadPage, excludePageCache, includePageCache } from 'ubean/client';
 import { defineStore } from 'pinia';
 import { getLocalJson, setLocalJson } from '@/utils/storage';
-import { getRouter } from '@/router/instance';
 import type { AppTab } from '@/typings/app';
 
 /**
@@ -15,6 +14,10 @@ import type { AppTab } from '@/typings/app';
  * `<KeepAlive :include>` 直接消费）—— 应用侧不自建缓存列表。
  *
  * 持久化：页签列表写 localStorage（`@/utils/storage` 前缀封装），刷新恢复。
+ *
+ * 导航类 action（`switchTab` / `reloadTab`）由调用方传入 router：store 不持有
+ * router 引用，也就不会 `store → @/router → guard → store` 成环（见
+ * `src/router/guard.ts` 的依赖说明）。组件传 `useRouter()`，守卫传 `setup` 入参。
  */
 
 const TABS_STORAGE_KEY = 'tabs';
@@ -162,25 +165,25 @@ export const useTabStore = defineStore('tab', {
     // 导航
     // ------------------------------------------------------------------
 
-    /** 点击页签跳转 */
-    switchTab(value: string) {
+    /** 点击页签跳转（`router` 由组件传入，见文件头依赖说明） */
+    switchTab(router: Router, value: string) {
       const tab = this.tabs.find(item => item.value === value);
 
-      if (tab) void getRouter().push(tab.fullPath);
+      if (tab) void router.push(tab.fullPath);
     },
 
     /** 关页签并跳转到 removeTab 返回的相邻页签 */
-    closeAndSwitch(value: string) {
+    closeAndSwitch(router: Router, value: string) {
       const next = this.removeTab(value);
 
-      if (next) this.switchTab(next);
-      else if (this.activeTabValue) this.switchTab(this.activeTabValue);
+      if (next) this.switchTab(router, next);
+      else if (this.activeTabValue) this.switchTab(router, this.activeTabValue);
     },
 
     /** 重载当前页签（驱逐缓存重挂载，ubean `reloadPage(name)` 只重挂该页） */
-    async reloadTab() {
+    async reloadTab(router: Router) {
       const tab = this.tabs.find(item => item.value === this.activeTabValue);
-      const name = tab?.routeName ?? String(getRouter().currentRoute.value.name ?? '');
+      const name = tab?.routeName ?? String(router.currentRoute.value.name ?? '');
 
       if (name) await reloadPage(name);
     },
