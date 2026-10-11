@@ -1,9 +1,9 @@
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { fetchCaptcha } from '@/service/api/auth';
 import { useAuthStore } from '@/store/modules/auth';
+import { api } from '@/request';
 import { getRouter } from '@/router/instance';
-import type { ApiCaptcha } from '@/typings/app';
+import type { CaptchaResult } from '@/schema/auth';
 
 /**
  * 登录页公共逻辑（v3 §4.6）。
@@ -74,14 +74,14 @@ export function useLoginRedirect() {
  * 提交、服务端校验一次即消费 —— 校验失败后必须重新拉取。
  */
 export function useLoginCaptcha() {
-  const captcha = ref<ApiCaptcha | null>(null);
+  const captcha = ref<CaptchaResult | null>(null);
   const loading = ref(false);
 
   async function refreshCaptcha(): Promise<void> {
     loading.value = true;
 
     try {
-      captcha.value = await fetchCaptcha();
+      captcha.value = await api.get('/auth/captcha');
     } catch {
       // 网络/服务端异常已由请求层 toast
     } finally {

@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SCard, SForm, SPassword, toast, useForm } from '@vean/ui';
-import { fetchModifyPassword } from '@/service/api/auth';
+import { api } from '@/request';
 import { EMPTY_PASSWORD_FORM, changePasswordFormSchema } from '@/schema/profile';
 import type { ChangePasswordFormValues } from '@/schema/profile';
 
@@ -34,7 +34,9 @@ async function save(values: ChangePasswordFormValues): Promise<void> {
   loading.value = true;
 
   try {
-    await fetchModifyPassword({ currentPassword: values.currentPassword, newPassword: values.newPassword });
+    await api.post('/auth/modify-password', {
+      body: { currentPassword: values.currentPassword, newPassword: values.newPassword }
+    });
     handleReset();
     toast.success(t('userCenter.password.saveSuccess'));
   } finally {

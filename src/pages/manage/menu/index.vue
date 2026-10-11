@@ -4,15 +4,13 @@ import { useI18n } from 'vue-i18n';
 import { SButtonIcon, SPopconfirm, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { filterValidQuery } from '@/shared/common';
-import { defaultTableTransform } from '@/shared/table';
-import { toPageQuery } from '@/service/api/manage-types';
-import type { ManagePageQuery } from '@/service/api/manage-types';
-import { batchDeleteMenus, deleteMenu, fetchAllMenus, fetchMenuList } from '@/service/api/menu-manage';
-import type { MenuRow } from '@/service/api/menu-manage';
+import { defaultTableTransform, toPageQuery } from '@/shared/table';
 import { useTableOperate } from '@/composables/use-table-operate';
+import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { MenuSearchFormDTO } from '@/schema/menu';
+import { api, flatApi } from '@/request';
+import type { MenuResource, MenuSearchFormDTO } from '@/schema/menu';
 import MenuOperate from './modules/menu-operate.vue';
 import MenuSearch from './modules/menu-search.vue';
 
@@ -40,11 +38,11 @@ const query = ref<MenuTableQuery>({
 });
 
 /** 全量菜单（父级名称映射 + 弹窗候选） */
-const allMenus = shallowRef<MenuRow[]>([]);
+const allMenus = shallowRef<MenuResource[]>([]);
 
 const menuNameMap = computed(() => new Map(allMenus.value.map(menu => [menu.id, menu.name])));
 
-const menuColumns = computed<TableColumn<MenuRow>[]>(() => [
+const menuColumns = computed<TableColumn<MenuResource>[]>(() => [
   { type: 'selection' },
   { type: 'index', header: '#' },
   { accessorKey: 'enabled', header: t('manage.field.enabled') },
@@ -62,7 +60,7 @@ const menuColumns = computed<TableColumn<MenuRow>[]>(() => [
 ]);
 
 const { loading, tableData, columns, columnChecks, fetchData, page, pageSize, total } = usePaginatedTable({
-  api: () => fetchMenuList(toPageQuery(filterValidQuery(query.value))),
+  api: async () => (await flatApi.get('/menu/list', { query: { ...toPageQuery(filterValidQuery(query.value)) } })).data,
   transform: defaultTableTransform,
   columns: () => menuColumns.value
 });
@@ -87,7 +85,7 @@ const {
   messages: { deleted: t('common.deleteSuccess'), batchDeleted: t('common.batchDeleteSuccess') }
 });
 
-function rowKey(row: MenuRow) {
+function rowKey(row: MenuResource) {
   return row.id;
 }
 
@@ -103,7 +101,7 @@ function onEdit(id: string) {
   handleEdit(id);
 }
 
-function menuTypeLabel(type: MenuRow['menuType']) {
+function menuTypeLabel(type: MenuResource['menuType']) {
   if (type === 'directory') return t('manage.menuType.directory');
   if (type === 'menu') return t('manage.menuType.menu');
   if (type === 'page') return t('manage.menuType.page');
@@ -113,11 +111,11 @@ function menuTypeLabel(type: MenuRow['menuType']) {
   return t('manage.menuType.other');
 }
 
-function yesOrNoLabel(value: MenuRow['requiresAuth']) {
+function yesOrNoLabel(value: MenuResource['requiresAuth']) {
   return value === 'Y' ? t('common.yes') : t('common.no');
 }
 
-function parentLabel(id: MenuRow['parentId']) {
+function parentLabel(id: MenuResource['parentId']) {
   if (!id) {
     return t('manage.noParent');
   }
@@ -126,17 +124,17 @@ function parentLabel(id: MenuRow['parentId']) {
 }
 
 async function onDeleteConfirm(id: string) {
-  await deleteMenu(id);
+  await api.delete('/menu/{id}', { pathParams: { id } });
   await onDeleted();
 }
 
 async function onBatchDelete() {
-  await batchDeleteMenus(selected.value);
+  await api.post('/menu/batch-delete', { body: { ids: selected.value } });
   await onBatchDeleted();
 }
 
 async function loadAllMenus(): Promise<void> {
-  allMenus.value = await fetchAllMenus();
+  allMenus.value = (await api.get('/menu/all')) ?? [];
 }
 
 onMounted(() => {

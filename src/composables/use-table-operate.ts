@@ -23,6 +23,17 @@ export type TableQuery = {
   [key: string]: unknown;
 };
 
+/**
+ * 管理页（8 套 CRUD 列表页）的查询状态：分页字段 + 排序 + 各页自己的搜索字段。
+ *
+ * 用 type 别名而非 `interface ... extends TableQuery`：`useTableOperate<T extends
+ * TableQuery>` 要求索引签名，interface 不会从父接口继承它。
+ */
+export type ManagePageQuery = TableQuery & {
+  /** 排序（如 `-createdTime`），各页自行决定是否下发 */
+  sort?: string;
+};
+
 /** 实体 id 类型（本仓 8 套 CRUD 均为 uuid 字符串，故默认 `string`） */
 export type TableIdType = 'number' | 'string';
 

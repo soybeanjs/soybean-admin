@@ -4,15 +4,13 @@ import { useI18n } from 'vue-i18n';
 import { SButtonIcon, SPopconfirm, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { filterValidQuery } from '@/shared/common';
-import { defaultTableTransform } from '@/shared/table';
-import { toPageQuery } from '@/service/api/manage-types';
-import type { ManagePageQuery } from '@/service/api/manage-types';
-import { batchDeletePermissions, deletePermission, fetchPermissionList } from '@/service/api/permission';
-import type { PermissionRow } from '@/service/api/permission';
+import { defaultTableTransform, toPageQuery } from '@/shared/table';
 import { useTableOperate } from '@/composables/use-table-operate';
+import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { PermissionSearchFormDTO } from '@/schema/permission';
+import { api, flatApi } from '@/request';
+import type { PermissionResource, PermissionSearchFormDTO } from '@/schema/permission';
 import PermissionOperate from './modules/permission-operate.vue';
 import PermissionSearch from './modules/permission-search.vue';
 
@@ -36,7 +34,7 @@ const query = ref<PermissionTableQuery>({
   enabled: ''
 });
 
-const permissionColumns = computed<TableColumn<PermissionRow>[]>(() => [
+const permissionColumns = computed<TableColumn<PermissionResource>[]>(() => [
   { type: 'selection' },
   { type: 'index', header: '#' },
   { accessorKey: 'enabled', header: t('manage.field.enabled') },
@@ -49,7 +47,8 @@ const permissionColumns = computed<TableColumn<PermissionRow>[]>(() => [
 ]);
 
 const { loading, tableData, columns, columnChecks, fetchData, page, pageSize, total } = usePaginatedTable({
-  api: () => fetchPermissionList(toPageQuery(filterValidQuery(query.value))),
+  api: async () =>
+    (await flatApi.get('/permission/list', { query: { ...toPageQuery(filterValidQuery(query.value)) } })).data,
   transform: defaultTableTransform,
   columns: () => permissionColumns.value
 });
@@ -74,7 +73,7 @@ const {
   messages: { deleted: t('common.deleteSuccess'), batchDeleted: t('common.batchDeleteSuccess') }
 });
 
-function rowKey(row: PermissionRow) {
+function rowKey(row: PermissionResource) {
   return row.id;
 }
 
@@ -90,7 +89,7 @@ function onEdit(id: string) {
   handleEdit(id);
 }
 
-function resourceTypeLabel(type: PermissionRow['resourceType']) {
+function resourceTypeLabel(type: PermissionResource['resourceType']) {
   if (type === 'menu') return t('manage.resourceType.menu');
   if (type === 'api') return t('manage.resourceType.api');
   if (type === 'button') return t('manage.resourceType.button');
@@ -98,12 +97,12 @@ function resourceTypeLabel(type: PermissionRow['resourceType']) {
 }
 
 async function onDeleteConfirm(id: string) {
-  await deletePermission(id);
+  await api.delete('/permission/{id}', { pathParams: { id } });
   await onDeleted();
 }
 
 async function onBatchDelete() {
-  await batchDeletePermissions(selected.value);
+  await api.post('/permission/batch-delete', { body: { ids: selected.value } });
   await onBatchDeleted();
 }
 

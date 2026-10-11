@@ -1,6 +1,5 @@
 import { array, description, intersect, nonEmpty, nullable, object, optional, partial, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { PermissionRow } from '@/service/api/permission';
 import { nullableText, text } from './_form';
 import { enabledSearchSchema, resourceTypeSearchSchema, searchText } from './_search';
 import {
@@ -123,7 +122,7 @@ export const emptyPermissionForm: PermissionFormDTO = {
 };
 
 /** 权限点行 → 编辑表单值 */
-export function toPermissionForm(row: PermissionRow): PermissionFormDTO {
+export function toPermissionForm(row: PermissionResource): PermissionFormDTO {
   return {
     name: text(row.name),
     code: text(row.code),

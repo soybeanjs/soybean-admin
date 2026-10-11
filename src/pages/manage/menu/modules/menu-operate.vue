@@ -4,11 +4,10 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SInputNumber, SSelect, STextarea, toast, useForm } from '@vean/ui';
 import { MENU_CHILD_TYPES, MANAGE_MENU_TYPES } from '@/constants/manage';
 import type { ManageMenuType } from '@/constants/manage';
-import { createMenu, fetchMenuById, updateMenu } from '@/service/api/menu-manage';
-import type { MenuRow } from '@/service/api/menu-manage';
 import { useManageOptions } from '@/composables/use-manage-options';
+import { api } from '@/request';
 import { menuFormSchema, emptyMenuForm, toMenuForm } from '@/schema/menu';
-import type { MenuFormDTO, MenuCreateDTO } from '@/schema/menu';
+import type { MenuFormDTO, MenuCreateDTO, MenuResource } from '@/schema/menu';
 import RouteParamForm from './route-param-form.vue';
 
 /**
@@ -27,7 +26,7 @@ const props = defineProps<{
   /** 正在编辑的菜单 id；`undefined` 表示为新增 */
   menuId?: string;
   /** 全量菜单（父级选择器与组件名候选） */
-  menus: MenuRow[];
+  menus: MenuResource[];
 }>();
 
 const emit = defineEmits<{
@@ -172,9 +171,9 @@ async function submit(values: MenuFormDTO): Promise<void> {
     const body = buildBody(values);
 
     if (props.menuId) {
-      await updateMenu(props.menuId, body);
+      await api.put('/menu/{id}', { pathParams: { id: props.menuId }, body });
     } else {
-      await createMenu(body);
+      await api.post('/menu', { body });
     }
 
     open.value = false;
@@ -201,10 +200,12 @@ async function initForm(id: string | undefined): Promise<void> {
   loading.value = true;
 
   try {
-    const row = await fetchMenuById(id);
+    const row = await api.get('/menu/{id}', { pathParams: { id } });
 
-    isRedirectRoute.value = Boolean(row.routeRedirect);
-    form.reset(toMenuForm(row));
+    if (row) {
+      isRedirectRoute.value = Boolean(row.routeRedirect);
+      form.reset(toMenuForm(row));
+    }
   } finally {
     loading.value = false;
   }

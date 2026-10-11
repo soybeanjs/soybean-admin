@@ -2,8 +2,8 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SSelect, STextarea, toast, useForm } from '@vean/ui';
-import { createOrg, fetchOrgById, updateOrg } from '@/service/api/org-dict';
 import type { SelectOption } from '@/composables/use-manage-options';
+import { api } from '@/request';
 import { orgFormSchema, emptyOrgForm, toOrgForm } from '@/schema/org';
 import type { OrgFormDTO, OrgCreateDTO, OrgUpdateDTO } from '@/schema/org';
 
@@ -55,7 +55,7 @@ async function submit(values: OrgFormDTO): Promise<void> {
         description: values.description
       };
 
-      await updateOrg(props.orgId, body);
+      await api.put('/org/{id}', { pathParams: { id: props.orgId }, body });
     } else {
       const body: OrgCreateDTO = {
         parentId: values.parentId,
@@ -64,7 +64,7 @@ async function submit(values: OrgFormDTO): Promise<void> {
         description: values.description
       };
 
-      await createOrg(body);
+      await api.post('/org', { body });
     }
 
     open.value = false;
@@ -90,8 +90,9 @@ async function initForm(id: string | undefined): Promise<void> {
   loading.value = true;
 
   try {
-    const row = await fetchOrgById(id);
-    form.reset(toOrgForm(row));
+    const row = await api.get('/org/{id}', { pathParams: { id } });
+
+    if (row) form.reset(toOrgForm(row));
   } finally {
     loading.value = false;
   }

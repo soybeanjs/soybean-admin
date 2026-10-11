@@ -2,7 +2,7 @@
 import { onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SForm, SInput, SPassword, toast, useForm } from '@vean/ui';
-import { fetchResetPassword } from '@/service/api/auth';
+import { api } from '@/request';
 import { resetPasswordFormSchema, resetPasswordDefaults } from '@/schema/auth';
 import type { ResetPasswordFormValues } from '@/schema/auth';
 import { gotoLoginModule, useLoginCaptcha } from '../use-login';
@@ -38,11 +38,13 @@ watch(
 
 async function onSubmit(values: ResetPasswordFormValues): Promise<void> {
   try {
-    await fetchResetPassword({
-      userName: values.userName,
-      password: values.password,
-      captchaId: values.captchaId,
-      captchaCode: values.captchaCode
+    await api.post('/auth/reset-password', {
+      body: {
+        userName: values.userName,
+        password: values.password,
+        captchaId: values.captchaId,
+        captchaCode: values.captchaCode
+      }
     });
     toast.success(t('login.resetSuccess'));
     gotoLoginModule('pwd-login');

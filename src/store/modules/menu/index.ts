@@ -1,10 +1,11 @@
 import type { RouteComponent, RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
 import { toAppRouteMeta } from '@/utils/route-meta';
-import { fetchGetUserMenus } from '@/service/api/menu';
 import { env } from '@/env';
+import { api } from '@/request';
 import { getRouter } from '@/router/instance';
-import type { ApiMenuRow, AppRouteMeta, MenuTreeNode } from '@/typings/app';
+import type { MenuResource } from '@/schema/menu';
+import type { AppRouteMeta, MenuTreeNode } from '@/typings/app';
 
 /**
  * 菜单 store（v3 §5.3，菜单/路由/标题一元模型的菜单侧）。
@@ -26,13 +27,13 @@ interface MenuState {
   /** 菜单树（展示层解析 i18nKey） */
   items: MenuTreeNode[];
   /** dynamic 模式的用户菜单行 */
-  userMenus: ApiMenuRow[];
+  userMenus: MenuResource[];
   /** 菜单是否已初始化（守卫只拉一次） */
   inited: boolean;
 }
 
 /** 可进菜单的 menuType（button/other 不进） */
-const MENU_VISIBLE_TYPES: readonly ApiMenuRow['menuType'][] = ['directory', 'menu', 'page', 'iframe', 'link'];
+const MENU_VISIBLE_TYPES: readonly MenuResource['menuType'][] = ['directory', 'menu', 'page', 'iframe', 'link'];
 
 /** src/pages 下全部视图组件（Vite 编译期静态分析，勿改为运行时拼接）。
  * .vue 模块的真实形状是 `{ default: Component }`，恰好匹配 vue-router
@@ -50,7 +51,7 @@ export const useMenuStore = defineStore('menu', {
     isEmpty: state => state.items.length === 0,
     /** dynamic 路由名 → 菜单行（页签/权限判定用） */
     routeNameMap: state => {
-      const map = new Map<string, ApiMenuRow>();
+      const map = new Map<string, MenuResource>();
 
       for (const row of state.userMenus) {
         if (row.routeName) map.set(row.routeName, row);
@@ -88,7 +89,7 @@ export const useMenuStore = defineStore('menu', {
     // ------------------------------------------------------------------
 
     async initDynamicMenu() {
-      this.userMenus = await fetchGetUserMenus();
+      this.userMenus = await api.get('/menu/user');
 
       // 先注册路由（保证菜单树里的 routeName 都可导航）
       const routes = this.userMenus
@@ -105,7 +106,7 @@ export const useMenuStore = defineStore('menu', {
 
     /** 平铺菜单行 → 树（按 order 排序；孤儿行挂顶层，不丢菜单）。叶子节点
      * 携带 path，供 layout 选中菜单时按路径跳转 */
-    buildMenuTree(rows: ApiMenuRow[]): MenuTreeNode[] {
+    buildMenuTree(rows: MenuResource[]): MenuTreeNode[] {
       const nodeMap = new Map<string, MenuTreeNode>();
       const rowMap = new Map(rows.map(row => [row.id, row]));
 
@@ -337,7 +338,7 @@ function viewKeyToName(key: string): string {
 
 /** dynamic 菜单行 → 路由记录（menu|page 且有 routePath/routeName；iframe 落到内嵌页；缺页占位兜底） */
 export function transformMenuToRoute(
-  row: ApiMenuRow,
+  row: MenuResource,
   views: Record<string, () => Promise<{ default: RouteComponent }>>
 ): RouteRecordRaw | null {
   // iframe（P3-07）：菜单行不配 routePath/routeName，但菜单需要一个可跳转的

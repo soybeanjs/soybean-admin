@@ -4,15 +4,13 @@ import { useI18n } from 'vue-i18n';
 import { SButtonIcon, SPopconfirm, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { filterValidQuery } from '@/shared/common';
-import { defaultTableTransform } from '@/shared/table';
-import { toPageQuery } from '@/service/api/manage-types';
-import type { ManagePageQuery } from '@/service/api/manage-types';
-import { batchDeleteRoles, deleteRole, fetchRoleList } from '@/service/api/role';
-import type { RoleRow } from '@/service/api/role';
+import { defaultTableTransform, toPageQuery } from '@/shared/table';
 import { useTableOperate } from '@/composables/use-table-operate';
+import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { RoleSearchFormDTO } from '@/schema/role';
+import { api, flatApi } from '@/request';
+import type { RoleRowOutput, RoleSearchFormDTO } from '@/schema/role';
 import RoleOperate from './modules/role-operate.vue';
 import RoleSearch from './modules/role-search.vue';
 
@@ -35,7 +33,7 @@ const query = ref<RoleTableQuery>({
   enabled: ''
 });
 
-const roleColumns = computed<TableColumn<RoleRow>[]>(() => [
+const roleColumns = computed<TableColumn<RoleRowOutput>[]>(() => [
   { type: 'selection' },
   { type: 'index', header: '#' },
   { accessorKey: 'enabled', header: t('manage.field.enabled') },
@@ -48,7 +46,7 @@ const roleColumns = computed<TableColumn<RoleRow>[]>(() => [
 ]);
 
 const { loading, tableData, columns, columnChecks, fetchData, page, pageSize, total } = usePaginatedTable({
-  api: () => fetchRoleList(toPageQuery(filterValidQuery(query.value))),
+  api: async () => (await flatApi.get('/role/list', { query: { ...toPageQuery(filterValidQuery(query.value)) } })).data,
   transform: defaultTableTransform,
   columns: () => roleColumns.value
 });
@@ -73,7 +71,7 @@ const {
   messages: { deleted: t('common.deleteSuccess'), batchDeleted: t('common.batchDeleteSuccess') }
 });
 
-function rowKey(row: RoleRow) {
+function rowKey(row: RoleRowOutput) {
   return row.id;
 }
 
@@ -90,12 +88,12 @@ function onEdit(id: string) {
 }
 
 async function onDeleteConfirm(id: string) {
-  await deleteRole(id);
+  await api.delete('/role/{id}', { pathParams: { id } });
   await onDeleted();
 }
 
 async function onBatchDelete() {
-  await batchDeleteRoles(selected.value);
+  await api.post('/role/batch-delete', { body: { ids: selected.value } });
   await onBatchDeleted();
 }
 

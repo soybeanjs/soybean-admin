@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SInput, STable, STag } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
-import type { PermissionRow } from '@/service/api/permission';
+import type { PermissionResource } from '@/schema/permission';
 
 /**
  * 权限点选择器（P3-03，角色弹窗内嵌）。
@@ -18,7 +18,7 @@ defineOptions({ name: 'PermissionPicker' });
 
 const props = defineProps<{
   /** 全量权限点（`GET /api/permission/all`） */
-  permissions: PermissionRow[];
+  permissions: PermissionResource[];
 }>();
 
 const emit = defineEmits<{
@@ -34,7 +34,7 @@ const { t } = useI18n();
 const keyword = ref('');
 const draft = ref<string[]>([]);
 
-const columns = computed<TableColumn<PermissionRow>[]>(() => [
+const columns = computed<TableColumn<PermissionResource>[]>(() => [
   { type: 'selection' },
   { accessorKey: 'name', header: t('manage.permission.name') },
   { accessorKey: 'code', header: t('manage.permission.code') },
@@ -53,14 +53,14 @@ const filtered = computed(() => {
   );
 });
 
-function resourceTypeLabel(type: PermissionRow['resourceType']) {
+function resourceTypeLabel(type: PermissionResource['resourceType']) {
   if (type === 'menu') return t('manage.resourceType.menu');
   if (type === 'api') return t('manage.resourceType.api');
   if (type === 'button') return t('manage.resourceType.button');
   return t('manage.resourceType.other');
 }
 
-function rowKey(row: PermissionRow) {
+function rowKey(row: PermissionResource) {
   return row.id;
 }
 

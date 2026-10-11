@@ -1,6 +1,5 @@
 import { array, description, intersect, nonEmpty, nullable, object, optional, partial, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { UserDetailRow } from '@/service/api/user';
 import { requiredText, text } from './_form';
 import { enabledSearchSchema, searchText } from './_search';
 import {
@@ -167,7 +166,7 @@ export const emptyUserForm: UserFormDTO = {
 };
 
 /** 用户行 → 编辑表单值 */
-export function toUserForm(row: UserDetailRow & { roles?: { id: string }[] }): UserFormDTO {
+export function toUserForm(row: UserDetail & { roles?: { id: string }[] }): UserFormDTO {
   return {
     username: row.username,
     password: '',

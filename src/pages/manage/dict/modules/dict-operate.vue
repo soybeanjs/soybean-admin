@@ -2,8 +2,8 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SSelect, STextarea, toast, useForm } from '@vean/ui';
-import { createDict, fetchDictById, updateDict } from '@/service/api/org-dict';
 import { useManageOptions } from '@/composables/use-manage-options';
+import { api } from '@/request';
 import { dictFormSchema, emptyDictForm, toDictForm } from '@/schema/dict';
 import type { DictFormDTO, DictCreateDTO, DictUpdateDTO } from '@/schema/dict';
 
@@ -50,7 +50,7 @@ async function submit(values: DictFormDTO): Promise<void> {
         description: values.description
       };
 
-      await updateDict(props.dictId, body);
+      await api.put('/dict/{id}', { pathParams: { id: props.dictId }, body });
     } else {
       const body: DictCreateDTO = {
         name: values.name,
@@ -59,7 +59,7 @@ async function submit(values: DictFormDTO): Promise<void> {
         description: values.description
       };
 
-      await createDict(body);
+      await api.post('/dict', { body });
     }
 
     open.value = false;
@@ -85,8 +85,9 @@ async function initForm(id: string | undefined): Promise<void> {
   loading.value = true;
 
   try {
-    const row = await fetchDictById(id);
-    form.reset(toDictForm(row));
+    const row = await api.get('/dict/{id}', { pathParams: { id } });
+
+    if (row) form.reset(toDictForm(row));
   } finally {
     loading.value = false;
   }

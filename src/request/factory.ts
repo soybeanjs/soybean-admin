@@ -10,7 +10,7 @@ import {
 } from '@/constants/service';
 import { getLocalRefreshToken, getLocalToken, handleLogoutRequest, setAuthStorage } from '@/utils/auth';
 import { env } from '@/env';
-import type { ApiLoginResult } from '@/typings/app';
+import type { LoginResult } from '@/schema/auth';
 
 /**
  * 请求实例工厂（v3 §5.4 / P2-18）。
@@ -48,11 +48,11 @@ function readEnvelope(response: FetchResponse<ApiEnvelope>): ApiEnvelope | null 
  * refresh-token 响应的受信边界：裸 fetch 的响应体是 `unknown`，先做关键
  * 字段运行时校验，再集中「信任」一次（避免调用处散落 as 断言）。
  */
-function trustLoginResult(_value: object): _value is ApiLoginResult {
+function trustLoginResult(_value: object): _value is LoginResult {
   return true;
 }
 
-function parseRefreshResult(raw: unknown): ApiLoginResult | null {
+function parseRefreshResult(raw: unknown): LoginResult | null {
   if (!isRecord(raw) || raw.code !== SERVICE_SUCCESS_CODE || !isRecord(raw.data)) return null;
 
   const data = raw.data;
@@ -135,8 +135,8 @@ function notifyError(message: string): void {
   }
 }
 
-// 第二泛型 `unknown`：DTO（ApiLoginResult 等）不是 envelope 形状，放开 `T extends ApiData` 约束，
-// 让 `request.post<ApiLoginResult>(...)` 这类显式 DTO 泛型可用（响应已由 transform 解包）。
+// 第二泛型 `unknown`：DTO（LoginResult 等）不是 envelope 形状，放开 `T extends ApiData` 约束，
+// 让 `request.post<LoginResult>(...)` 这类显式 DTO 泛型可用（响应已由 transform 解包）。
 function createApiRequest(baseURL: string) {
   return createRequest<ApiEnvelope, unknown>(
     { baseURL },

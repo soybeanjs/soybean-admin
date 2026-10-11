@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { transformMenuToRoute } from '@/store/modules/menu';
-import type { ApiMenuRow } from '@/typings/app';
+import type { MenuResource } from '@/schema/menu';
 
 /**
  * dynamic 菜单行 → 路由记录（P3-07 补 iframe 分支）。
@@ -13,9 +13,10 @@ import type { ApiMenuRow } from '@/typings/app';
  *
  * `views` 传空对象即代表「所有视图都缺失」，正好顺带验证占位兜底分支。
  */
-function row(partial: Partial<ApiMenuRow>): ApiMenuRow {
+function row(partial: Partial<MenuResource>): MenuResource {
   return {
     id: 'M_1',
+    enabled: 'Y',
     parentId: null,
     name: '示例',
     code: 'demo',
@@ -37,6 +38,10 @@ function row(partial: Partial<ApiMenuRow>): ApiMenuRow {
     multiTab: 'N',
     pinned: 'N',
     description: null,
+    createdBy: 'U_1',
+    createdTime: '2026-01-01 00:00:00',
+    updatedBy: 'U_1',
+    updatedTime: '2026-01-01 00:00:00',
     ...partial
   };
 }

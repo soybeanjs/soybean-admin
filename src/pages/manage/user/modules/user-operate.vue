@@ -2,10 +2,9 @@
 import { computed, onMounted, ref, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SPassword, SSelect, toast, useForm } from '@vean/ui';
-import { fetchAllRoles } from '@/service/api/role';
-import { createUser, fetchUserById, updateUser } from '@/service/api/user';
 import { useManageOptions } from '@/composables/use-manage-options';
 import type { SelectOption } from '@/composables/use-manage-options';
+import { api } from '@/request';
 import { userFormSchema, emptyUserForm, toUserForm } from '@/schema/user';
 import type { UserFormDTO, UserCreateDTO, UserUpdateDTO } from '@/schema/user';
 
@@ -85,7 +84,7 @@ async function submit(values: UserFormDTO): Promise<void> {
         body.password = values.password;
       }
 
-      await updateUser(props.userId, body);
+      await api.put('/user/{id}', { pathParams: { id: props.userId }, body });
     } else {
       const body: UserCreateDTO = {
         username: values.username,
@@ -98,7 +97,7 @@ async function submit(values: UserFormDTO): Promise<void> {
         roleIds: values.roleIds
       };
 
-      await createUser(body);
+      await api.post('/user', { body });
     }
 
     open.value = false;
@@ -125,15 +124,16 @@ async function initForm(id: string | undefined): Promise<void> {
   loading.value = true;
 
   try {
-    const row = await fetchUserById(id);
-    form.reset({ ...toUserForm(row), roleIds: props.roleIds ?? [] });
+    const row = await api.get('/user/{id}', { pathParams: { id } });
+
+    if (row) form.reset({ ...toUserForm(row), roleIds: props.roleIds ?? [] });
   } finally {
     loading.value = false;
   }
 }
 
 async function loadRoleOptions(): Promise<void> {
-  const roles = await fetchAllRoles();
+  const roles = await api.get('/role/all');
 
   roleOptions.value = roles.map(role => ({
     value: role.id,

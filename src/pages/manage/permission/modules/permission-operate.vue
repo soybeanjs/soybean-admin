@@ -2,10 +2,8 @@
 import { computed, onMounted, ref, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SSelect, STextarea, toast, useForm } from '@vean/ui';
-import { fetchAllApis } from '@/service/api/api';
-import { fetchAllMenus } from '@/service/api/menu-manage';
-import { createPermission, fetchPermissionById, updatePermission } from '@/service/api/permission';
 import type { SelectOption } from '@/composables/use-manage-options';
+import { api } from '@/request';
 import { permissionFormSchema, emptyPermissionForm, toPermissionForm } from '@/schema/permission';
 import type { PermissionFormDTO, PermissionCreateDTO, PermissionUpdateDTO } from '@/schema/permission';
 
@@ -77,7 +75,7 @@ async function submit(values: PermissionFormDTO): Promise<void> {
         description: values.description
       };
 
-      await updatePermission(props.permissionId, body);
+      await api.put('/permission/{id}', { pathParams: { id: props.permissionId }, body });
     } else {
       const body: PermissionCreateDTO = {
         name: values.name,
@@ -87,7 +85,7 @@ async function submit(values: PermissionFormDTO): Promise<void> {
         description: values.description
       };
 
-      await createPermission(body);
+      await api.post('/permission', { body });
     }
 
     open.value = false;
@@ -113,18 +111,19 @@ async function initForm(id: string | undefined): Promise<void> {
   loading.value = true;
 
   try {
-    const row = await fetchPermissionById(id);
-    form.reset(toPermissionForm(row));
+    const row = await api.get('/permission/{id}', { pathParams: { id } });
+
+    if (row) form.reset(toPermissionForm(row));
   } finally {
     loading.value = false;
   }
 }
 
 async function loadResources(): Promise<void> {
-  const [menuRows, apiRows] = await Promise.all([fetchAllMenus(), fetchAllApis()]);
+  const [menuRows, apiRows] = await Promise.all([api.get('/menu/all'), api.get('/api/all')]);
 
-  menus.value = menuRows.map(row => ({ value: row.id, label: row.name }));
-  apis.value = apiRows.map(row => ({ value: row.id, label: `${row.method.toUpperCase()} ${row.path}` }));
+  menus.value = (menuRows ?? []).map(row => ({ value: row.id, label: row.name }));
+  apis.value = (apiRows ?? []).map(row => ({ value: row.id, label: `${row.method.toUpperCase()} ${row.path}` }));
 }
 
 /** 切换资源类型时清掉上一个绑定 */

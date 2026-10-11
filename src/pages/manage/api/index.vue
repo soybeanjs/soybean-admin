@@ -4,14 +4,13 @@ import { useI18n } from 'vue-i18n';
 import { SButtonIcon, SPopconfirm, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { filterValidQuery } from '@/shared/common';
-import { defaultTableTransform } from '@/shared/table';
-import { batchDeleteApis, deleteApi, fetchApiList } from '@/service/api/api';
-import type { ApiQuery, ApiRow } from '@/service/api/api';
-import { toPageQuery } from '@/service/api/manage-types';
+import { defaultTableTransform, toPageQuery } from '@/shared/table';
 import { useTableOperate } from '@/composables/use-table-operate';
+import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { ApiSearchFormDTO } from '@/schema/api';
+import { api, flatApi } from '@/request';
+import type { ApiResource, ApiSearchFormDTO } from '@/schema/api';
 import ApiOperate from './modules/api-operate.vue';
 import ApiSearch from './modules/api-search.vue';
 
@@ -31,10 +30,17 @@ defineOptions({ name: 'ManageApi' });
 const { t } = useI18n();
 
 /** 表格查询状态：`page`/`pageSize` 由 `useTableOperate` 同步，其余是搜索条件 */
-const query = ref<ApiQuery>({ page: 1, pageSize: 10, sort: '-createdTime', name: '', path: '', method: '' });
+const query = ref<ManagePageQuery & ApiSearchFormDTO>({
+  page: 1,
+  pageSize: 10,
+  sort: '-createdTime',
+  name: '',
+  path: '',
+  method: ''
+});
 
 /** 列定义用 `computed`：`header` 是 `t()` 的结果，切语言要重算 */
-const apiColumns = computed<TableColumn<ApiRow>[]>(() => [
+const apiColumns = computed<TableColumn<ApiResource>[]>(() => [
   { type: 'selection' },
   { type: 'index', header: '#' },
   { accessorKey: 'name', header: t('manage.api.name') },
@@ -47,7 +53,7 @@ const apiColumns = computed<TableColumn<ApiRow>[]>(() => [
 ]);
 
 const { loading, tableData, columns, columnChecks, fetchData, page, pageSize, total } = usePaginatedTable({
-  api: () => fetchApiList(toPageQuery(filterValidQuery(query.value))),
+  api: async () => (await flatApi.get('/api/list', { query: { ...toPageQuery(filterValidQuery(query.value)) } })).data,
   transform: defaultTableTransform,
   columns: () => apiColumns.value
 });
@@ -72,7 +78,7 @@ const {
   messages: { deleted: t('common.deleteSuccess'), batchDeleted: t('common.batchDeleteSuccess') }
 });
 
-function rowKey(row: ApiRow) {
+function rowKey(row: ApiResource) {
   return row.id;
 }
 
@@ -89,12 +95,12 @@ function onEdit(id: string) {
 }
 
 async function onDeleteConfirm(id: string) {
-  await deleteApi(id);
+  await api.delete('/api/{id}', { pathParams: { id } });
   await onDeleted();
 }
 
 async function onBatchDelete() {
-  await batchDeleteApis(selected.value);
+  await api.post('/api/batch-delete', { body: { ids: selected.value } });
   await onBatchDeleted();
 }
 

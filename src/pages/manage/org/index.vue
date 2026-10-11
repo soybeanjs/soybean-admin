@@ -4,16 +4,14 @@ import { useI18n } from 'vue-i18n';
 import { SButtonIcon, SPopconfirm, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { filterValidQuery } from '@/shared/common';
-import { defaultTableTransform } from '@/shared/table';
-import { toPageQuery } from '@/service/api/manage-types';
-import type { ManagePageQuery } from '@/service/api/manage-types';
-import { batchDeleteOrgs, deleteOrg, fetchAllOrgs, fetchOrgList } from '@/service/api/org-dict';
-import type { OrgRow } from '@/service/api/org-dict';
+import { defaultTableTransform, toPageQuery } from '@/shared/table';
 import type { SelectOption } from '@/composables/use-manage-options';
 import { useTableOperate } from '@/composables/use-table-operate';
+import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { OrgSearchFormDTO } from '@/schema/org';
+import { api, flatApi } from '@/request';
+import type { OrgResource, OrgSearchFormDTO } from '@/schema/org';
 import OrgOperate from './modules/org-operate.vue';
 import OrgSearch from './modules/org-search.vue';
 
@@ -35,12 +33,12 @@ const query = ref<ManagePageQuery & OrgSearchFormDTO>({
   code: ''
 });
 
-const allOrgs = shallowRef<OrgRow[]>([]);
+const allOrgs = shallowRef<OrgResource[]>([]);
 
 const orgNameMap = computed(() => new Map(allOrgs.value.map(org => [org.id, org.name])));
 const orgOptions = computed<SelectOption[]>(() => allOrgs.value.map(org => ({ value: org.id, label: org.name })));
 
-const orgColumns = computed<TableColumn<OrgRow>[]>(() => [
+const orgColumns = computed<TableColumn<OrgResource>[]>(() => [
   { type: 'selection' },
   { type: 'index', header: '#' },
   { accessorKey: 'enabled', header: t('manage.field.enabled') },
@@ -53,7 +51,7 @@ const orgColumns = computed<TableColumn<OrgRow>[]>(() => [
 ]);
 
 const { loading, tableData, columns, columnChecks, fetchData, page, pageSize, total } = usePaginatedTable({
-  api: () => fetchOrgList(toPageQuery(filterValidQuery(query.value))),
+  api: async () => (await flatApi.get('/org/list', { query: { ...toPageQuery(filterValidQuery(query.value)) } })).data,
   transform: defaultTableTransform,
   columns: () => orgColumns.value
 });
@@ -78,7 +76,7 @@ const {
   messages: { deleted: t('common.deleteSuccess'), batchDeleted: t('common.batchDeleteSuccess') }
 });
 
-function rowKey(row: OrgRow) {
+function rowKey(row: OrgResource) {
   return row.id;
 }
 
@@ -94,7 +92,7 @@ function onEdit(id: string) {
   handleEdit(id);
 }
 
-function parentLabel(id: OrgRow['parentId']) {
+function parentLabel(id: OrgResource['parentId']) {
   if (!id) {
     return t('manage.noParent');
   }
@@ -103,17 +101,17 @@ function parentLabel(id: OrgRow['parentId']) {
 }
 
 async function onDeleteConfirm(id: string) {
-  await deleteOrg(id);
+  await api.delete('/org/{id}', { pathParams: { id } });
   await onDeleted();
 }
 
 async function onBatchDelete() {
-  await batchDeleteOrgs(selected.value);
+  await api.post('/org/batch-delete', { body: { ids: selected.value } });
   await onBatchDeleted();
 }
 
 async function loadAllOrgs(): Promise<void> {
-  allOrgs.value = await fetchAllOrgs();
+  allOrgs.value = (await api.get('/org/all')) ?? [];
 }
 
 onMounted(() => {

@@ -2,10 +2,9 @@
 import { computed, onMounted, ref, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SSelect, STextarea, toast, useForm } from '@vean/ui';
-import { fetchAllPermissions } from '@/service/api/permission';
-import type { PermissionRow } from '@/service/api/permission';
-import { createRole, fetchRoleById, updateRole } from '@/service/api/role';
 import { useManageOptions } from '@/composables/use-manage-options';
+import { api } from '@/request';
+import type { PermissionResource } from '@/schema/permission';
 import { roleFormSchema, emptyRoleForm, toRoleForm } from '@/schema/role';
 import type { RoleFormDTO, RoleCreateDTO, RoleUpdateDTO } from '@/schema/role';
 import PermissionPicker from './permission-picker.vue';
@@ -35,7 +34,7 @@ const { enabledOptions } = useManageOptions();
 
 const loading = ref(false);
 const pickerOpen = ref(false);
-const permissions = shallowRef<PermissionRow[]>([]);
+const permissions = shallowRef<PermissionResource[]>([]);
 
 const title = computed(() => (props.roleId ? t('manage.editTitle') : t('manage.addTitle')));
 
@@ -65,7 +64,7 @@ async function submit(values: RoleFormDTO): Promise<void> {
         permissionIds: values.permissionIds
       };
 
-      await updateRole(props.roleId, body);
+      await api.put('/role/{id}', { pathParams: { id: props.roleId }, body });
     } else {
       const body: RoleCreateDTO = {
         name: values.name,
@@ -74,7 +73,7 @@ async function submit(values: RoleFormDTO): Promise<void> {
         permissionIds: values.permissionIds
       };
 
-      await createRole(body);
+      await api.post('/role', { body });
     }
 
     open.value = false;
@@ -100,8 +99,9 @@ async function initForm(id: string | undefined): Promise<void> {
   loading.value = true;
 
   try {
-    const row = await fetchRoleById(id);
-    form.reset(toRoleForm(row));
+    const row = await api.get('/role/{id}', { pathParams: { id } });
+
+    if (row) form.reset(toRoleForm(row));
   } finally {
     loading.value = false;
   }
@@ -116,7 +116,7 @@ function onPermissionsConfirmed(ids: string[]) {
 }
 
 async function loadPermissions(): Promise<void> {
-  permissions.value = await fetchAllPermissions();
+  permissions.value = (await api.get('/permission/all')) ?? [];
 }
 
 onMounted(() => {

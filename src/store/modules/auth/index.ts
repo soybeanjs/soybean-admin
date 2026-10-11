@@ -8,9 +8,9 @@ import {
   setAuthStorage,
   setLogoutHandler
 } from '@/utils/auth';
-import { fetchGetUserInfo, fetchLogin, fetchLoginByCaptcha, fetchLogout, fetchRegister } from '@/service/api/auth';
 import { env } from '@/env';
-import type { ApiLoginResult, ApiUserInfo } from '@/typings/app';
+import { api } from '@/request';
+import type { AuthUserDTO, LoginResult } from '@/schema/auth';
 
 /**
  * 认证 store（v3 §5.5）：token 对 + 用户信息 + 登录/登出流程。
@@ -22,7 +22,7 @@ import type { ApiLoginResult, ApiUserInfo } from '@/typings/app';
 interface AuthState {
   token: string;
   refreshToken: string;
-  userInfo: ApiUserInfo | null;
+  userInfo: AuthUserDTO | null;
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -42,21 +42,32 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     /** 登录：调接口 → 落存储 → 拉用户信息 */
     async login(userName: string, password: string, captcha?: { captchaId: string; captchaCode: string }) {
-      const result = await fetchLogin(userName, password, captcha);
+      const result = await api.post('/auth/login', {
+        body: {
+          userName,
+          password,
+          grantType: 'pwd',
+          ...(captcha?.captchaId && captcha.captchaCode ? captcha : {})
+        }
+      });
+
       this.handleLoginResult(result);
     },
     /** 验证码登录（图形验证码代替短信验证码） */
     async loginByCaptcha(userName: string, captchaId: string, captchaCode: string) {
-      const result = await fetchLoginByCaptcha(userName, captchaId, captchaCode);
+      const result = await api.post('/auth/login', {
+        body: { userName, captchaId, captchaCode, grantType: 'captcha' }
+      });
+
       this.handleLoginResult(result);
     },
     /** 注册（后端注册即登录，直接拿到 token 对） */
     async register(payload: { userName: string; password: string; email?: string; fullName?: string }) {
-      const result = await fetchRegister(payload);
+      const result = await api.post('/auth/register', { body: payload });
       this.handleLoginResult(result);
     },
     /** 登录成功后的统一落库（登录/刷新共用） */
-    handleLoginResult(result: ApiLoginResult) {
+    handleLoginResult(result: LoginResult) {
       setAuthStorage(result);
       this.token = result.token;
       this.refreshToken = result.refreshToken;
@@ -68,7 +79,7 @@ export const useAuthStore = defineStore('auth', {
      * 必须同时写 localStorage：否则刷新页面后 `userInfo` 从旧快照恢复，
      * 改动看起来「丢了」。
      */
-    setUserInfo(userInfo: ApiUserInfo) {
+    setUserInfo(userInfo: AuthUserDTO) {
       this.userInfo = userInfo;
       setAuthStorage({ token: this.token, refreshToken: this.refreshToken, user: userInfo });
     },
@@ -77,7 +88,7 @@ export const useAuthStore = defineStore('auth', {
       if (!this.isLogin) return;
 
       if (!this.userInfo) {
-        this.userInfo = await fetchGetUserInfo();
+        this.userInfo = await api.get('/auth/user-info');
         setAuthStorage({
           token: this.token,
           refreshToken: this.refreshToken,
@@ -91,7 +102,7 @@ export const useAuthStore = defineStore('auth', {
      */
     async logout() {
       try {
-        await fetchLogout();
+        await api.post('/auth/logout');
       } catch {
         // 后端登出失败不阻断前端登出
       }

@@ -4,16 +4,14 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SButtonIcon, SPopconfirm, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { filterValidQuery } from '@/shared/common';
-import { defaultTableTransform } from '@/shared/table';
-import { toPageQuery } from '@/service/api/manage-types';
-import type { ManagePageQuery } from '@/service/api/manage-types';
-import { batchDeleteDicts, deleteDict, fetchDictList } from '@/service/api/org-dict';
-import type { DictRow } from '@/service/api/org-dict';
+import { defaultTableTransform, toPageQuery } from '@/shared/table';
 import { useTableOperate } from '@/composables/use-table-operate';
+import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
+import { api, flatApi } from '@/request';
 import { getRouter } from '@/router/instance';
-import type { DictSearchFormDTO } from '@/schema/dict';
+import type { DictResource, DictSearchFormDTO } from '@/schema/dict';
 import DictOperate from './modules/dict-operate.vue';
 import DictSearch from './modules/dict-search.vue';
 
@@ -36,7 +34,7 @@ const query = ref<ManagePageQuery & DictSearchFormDTO>({
   isSystem: ''
 });
 
-const dictColumns = computed<TableColumn<DictRow>[]>(() => [
+const dictColumns = computed<TableColumn<DictResource>[]>(() => [
   { type: 'selection' },
   { type: 'index', header: '#' },
   { accessorKey: 'enabled', header: t('manage.field.enabled') },
@@ -49,7 +47,7 @@ const dictColumns = computed<TableColumn<DictRow>[]>(() => [
 ]);
 
 const { loading, tableData, columns, columnChecks, fetchData, page, pageSize, total } = usePaginatedTable({
-  api: () => fetchDictList(toPageQuery(filterValidQuery(query.value))),
+  api: async () => (await flatApi.get('/dict/list', { query: { ...toPageQuery(filterValidQuery(query.value)) } })).data,
   transform: defaultTableTransform,
   columns: () => dictColumns.value
 });
@@ -74,7 +72,7 @@ const {
   messages: { deleted: t('common.deleteSuccess'), batchDeleted: t('common.batchDeleteSuccess') }
 });
 
-function rowKey(row: DictRow) {
+function rowKey(row: DictResource) {
   return row.id;
 }
 
@@ -90,7 +88,7 @@ function onEdit(id: string) {
   handleEdit(id);
 }
 
-function isSystemLabel(value: DictRow['isSystem']) {
+function isSystemLabel(value: DictResource['isSystem']) {
   return value === 'Y' ? t('common.yes') : t('common.no');
 }
 
@@ -100,12 +98,12 @@ function onViewItems(id: string) {
 }
 
 async function onDeleteConfirm(id: string) {
-  await deleteDict(id);
+  await api.delete('/dict/{id}', { pathParams: { id } });
   await onDeleted();
 }
 
 async function onBatchDelete() {
-  await batchDeleteDicts(selected.value);
+  await api.post('/dict/batch-delete', { body: { ids: selected.value } });
   await onBatchDeleted();
 }
 

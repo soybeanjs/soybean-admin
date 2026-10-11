@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SCard } from '@vean/ui';
-import { fetchCustomBackendError } from '@/service/api/auth';
+import { api } from '@/request';
 
 /**
  * 请求演示（P3-06，v3 §4.6：对接真实错误码端点 `POST /api/auth/error`）。
@@ -28,7 +28,7 @@ async function send(code?: string): Promise<void> {
   busy.value = true;
 
   try {
-    await fetchCustomBackendError(code);
+    await api.post('/auth/error', { query: code ? { code } : {} });
   } catch {
     // 请求层已提示/已分派；这里只吞掉 Promise 拒绝避免 unhandled rejection
   } finally {

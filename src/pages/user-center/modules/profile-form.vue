@@ -2,8 +2,8 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SCard, SForm, SInput, STextarea, toast, useForm } from '@vean/ui';
-import { fetchUpdateProfile } from '@/service/api/auth';
 import { useAuthStore } from '@/store';
+import { api } from '@/request';
 import { EMPTY_PROFILE_FORM, profileFormSchema, toProfileFormValues, toUpdateProfilePayload } from '@/schema/profile';
 import type { ProfileFormValues } from '@/schema/profile';
 
@@ -46,7 +46,7 @@ async function save(values: ProfileFormValues): Promise<void> {
   loading.value = true;
 
   try {
-    const user = await fetchUpdateProfile(toUpdateProfilePayload(values));
+    const user = await api.put('/auth/profile', { body: toUpdateProfilePayload(values) });
     // 响应回填 store：头像/首页/角色标签等其它区域同步刷新
     authStore.setUserInfo(user);
     form.reset(toProfileFormValues(user));

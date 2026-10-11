@@ -5,16 +5,14 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SButtonIcon, SPopconfirm, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { filterValidQuery } from '@/shared/common';
-import { defaultTableTransform } from '@/shared/table';
-import { toPageQuery } from '@/service/api/manage-types';
-import type { ManagePageQuery } from '@/service/api/manage-types';
-import { batchDeleteDictItems, deleteDictItem, fetchAllDicts, fetchDictItemList } from '@/service/api/org-dict';
-import type { DictItemRow } from '@/service/api/org-dict';
+import { defaultTableTransform, toPageQuery } from '@/shared/table';
 import type { SelectOption } from '@/composables/use-manage-options';
 import { useTableOperate } from '@/composables/use-table-operate';
+import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { DictItemSearchFormDTO } from '@/schema/dict-item';
+import { api, flatApi } from '@/request';
+import type { DictItemResource, DictItemSearchFormDTO } from '@/schema/dict-item';
 import DictItemOperate from './modules/dict-item-operate.vue';
 import DictItemSearch from './modules/dict-item-search.vue';
 
@@ -45,7 +43,7 @@ const dictOptions = shallowRef<SelectOption[]>([]);
 
 const dictNameMap = computed(() => new Map(dictOptions.value.map(option => [option.value, option.label])));
 
-const dictItemColumns = computed<TableColumn<DictItemRow>[]>(() => [
+const dictItemColumns = computed<TableColumn<DictItemResource>[]>(() => [
   { type: 'selection' },
   { type: 'index', header: '#' },
   { accessorKey: 'enabled', header: t('manage.field.enabled') },
@@ -58,7 +56,8 @@ const dictItemColumns = computed<TableColumn<DictItemRow>[]>(() => [
 ]);
 
 const { loading, tableData, columns, columnChecks, fetchData, page, pageSize, total } = usePaginatedTable({
-  api: () => fetchDictItemList(toPageQuery(filterValidQuery(query.value))),
+  api: async () =>
+    (await flatApi.get('/dict-item/list', { query: { ...toPageQuery(filterValidQuery(query.value)) } })).data,
   transform: defaultTableTransform,
   columns: () => dictItemColumns.value
 });
@@ -83,7 +82,7 @@ const {
   messages: { deleted: t('common.deleteSuccess'), batchDeleted: t('common.batchDeleteSuccess') }
 });
 
-function rowKey(row: DictItemRow) {
+function rowKey(row: DictItemResource) {
   return row.id;
 }
 
@@ -108,19 +107,19 @@ function onViewDict() {
 }
 
 async function onDeleteConfirm(id: string) {
-  await deleteDictItem(id);
+  await api.delete('/dict-item/{id}', { pathParams: { id } });
   await onDeleted();
 }
 
 async function onBatchDelete() {
-  await batchDeleteDictItems(selected.value);
+  await api.post('/dict-item/batch-delete', { body: { ids: selected.value } });
   await onBatchDeleted();
 }
 
 async function loadDictOptions(): Promise<void> {
-  const rows = await fetchAllDicts();
+  const rows = await api.get('/dict/all');
 
-  dictOptions.value = rows.map(row => ({ value: row.id, label: row.name }));
+  dictOptions.value = (rows ?? []).map(row => ({ value: row.id, label: row.name }));
 }
 
 onMounted(() => {

@@ -2,8 +2,8 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SInputNumber, SSelect, toast, useForm } from '@vean/ui';
-import { createDictItem, fetchDictItemById, updateDictItem } from '@/service/api/org-dict';
 import type { SelectOption } from '@/composables/use-manage-options';
+import { api } from '@/request';
 import { dictItemFormSchema, emptyDictItemForm, toDictItemForm } from '@/schema/dict-item';
 import type { DictItemFormDTO, DictItemCreateDTO, DictItemUpdateDTO } from '@/schema/dict-item';
 
@@ -52,7 +52,7 @@ async function submit(values: DictItemFormDTO): Promise<void> {
         order: values.order
       };
 
-      await updateDictItem(props.dictItemId, body);
+      await api.put('/dict-item/{id}', { pathParams: { id: props.dictItemId }, body });
     } else {
       const body: DictItemCreateDTO = {
         dictId: values.dictId,
@@ -62,7 +62,7 @@ async function submit(values: DictItemFormDTO): Promise<void> {
         order: values.order
       };
 
-      await createDictItem(body);
+      await api.post('/dict-item', { body });
     }
 
     open.value = false;
@@ -88,8 +88,9 @@ async function initForm(id: string | undefined): Promise<void> {
   loading.value = true;
 
   try {
-    const row = await fetchDictItemById(id);
-    form.reset(toDictItemForm(row));
+    const row = await api.get('/dict-item/{id}', { pathParams: { id } });
+
+    if (row) form.reset(toDictItemForm(row));
   } finally {
     loading.value = false;
   }

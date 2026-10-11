@@ -1,6 +1,5 @@
 import { array, description, intersect, nonEmpty, nullable, object, optional, partial, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { OrgRow } from '@/service/api/org-dict';
 import { nullableText, requiredText } from './_form';
 import { searchText } from './_search';
 import {
@@ -109,7 +108,7 @@ export const emptyOrgForm: OrgFormDTO = {
 };
 
 /** 组织行 → 编辑表单值 */
-export function toOrgForm(row: OrgRow): OrgFormDTO {
+export function toOrgForm(row: OrgResource): OrgFormDTO {
   return {
     parentId: row.parentId,
     name: row.name,

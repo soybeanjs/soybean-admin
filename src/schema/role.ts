@@ -12,7 +12,6 @@ import {
   string
 } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { RoleDetail } from '@/service/api/role';
 import { nullableText, requiredText } from './_form';
 import { enabledSearchSchema, searchText } from './_search';
 import {
@@ -136,7 +135,7 @@ export const emptyRoleForm: RoleFormDTO = {
 };
 
 /** 角色详情 → 编辑表单值 */
-export function toRoleForm(row: RoleDetail): RoleFormDTO {
+export function toRoleForm(row: RoleDetailOutput): RoleFormDTO {
   return {
     name: row.name,
     code: row.code,

@@ -1,6 +1,5 @@
 import { array, description, intersect, nonEmpty, object, optional, partial, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { ApiRow } from '@/service/api/api';
 import { nullableText, requiredText, text } from './_form';
 import { apiMethodSearchSchema, searchText } from './_search';
 import {
@@ -108,7 +107,7 @@ export const emptyApiForm: ApiFormDTO = {
 };
 
 /** 接口行 → 编辑表单值 */
-export function toApiForm(row: ApiRow): ApiFormDTO {
+export function toApiForm(row: ApiResource): ApiFormDTO {
   return {
     name: row.name,
     path: row.path,

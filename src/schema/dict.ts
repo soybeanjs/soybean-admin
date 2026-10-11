@@ -1,6 +1,5 @@
 import { array, description, intersect, nonEmpty, object, optional, partial, picklist, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { DictRow } from '@/service/api/org-dict';
 import { nullableText, requiredText } from './_form';
 import { searchText, yesOrNoSearchSchema } from './_search';
 import {
@@ -102,7 +101,7 @@ export const emptyDictForm: DictFormDTO = {
 };
 
 /** 字典行 → 编辑表单值 */
-export function toDictForm(row: DictRow): DictFormDTO {
+export function toDictForm(row: DictResource): DictFormDTO {
   return {
     name: row.name,
     code: row.code,

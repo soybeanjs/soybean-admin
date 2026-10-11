@@ -17,7 +17,6 @@ import {
   string
 } from 'valibot';
 import type { GenericSchema, InferOutput } from 'valibot';
-import type { MenuRow } from '@/service/api/menu-manage';
 import { nullableText, requiredText, text } from './_form';
 import { enabledSearchSchema, menuTypeSearchSchema, searchText } from './_search';
 import {
@@ -238,7 +237,7 @@ export const emptyMenuForm: MenuFormDTO = {
 };
 
 /** 菜单行 → 编辑表单值 */
-export function toMenuForm(row: MenuRow): MenuFormDTO {
+export function toMenuForm(row: MenuResource): MenuFormDTO {
   return {
     parentId: row.parentId,
     menuType: row.menuType,
@@ -251,9 +250,10 @@ export function toMenuForm(row: MenuRow): MenuFormDTO {
     order: row.order,
     iframeUrl: text(row.iframeUrl),
     href: text(row.href),
-    keepAlive: row.keepAlive,
-    multiTab: row.multiTab,
-    pinned: row.pinned,
+    // 表单项是必填 'Y' | 'N'，行字段可空（历史数据）→ 缺省按未启用还原
+    keepAlive: row.keepAlive ?? 'N',
+    multiTab: row.multiTab ?? 'N',
+    pinned: row.pinned ?? 'N',
     routeName: text(row.routeName),
     routePath: text(row.routePath),
     routeLayout: text(row.routeLayout),

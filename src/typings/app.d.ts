@@ -1,88 +1,13 @@
 /**
- * 客户端 API 契约类型（与后端 DTO 手工对齐，v3 §6.3）。
+ * 纯 UI 契约类型（不含任何 API 形状）。
  *
- * `.ubean/openapi.d.ts` 的 200 响应未携带 content schema（describeRoute 未接
- * 响应 schema），typed client 无法推断响应体 —— 这里按服务端
- * `src/schema/auth.ts` / `src/db/schema/menu.ts` 手工镜像，服务端改动需同步。
+ * API / DTO 类型的单一来源是 `src/schema/**`（valibot schema 推导），响应体由
+ * `src/request` 的 typed client 从 `.ubean/openapi.d.ts` 推断 —— 这里只留 UI 层
+ * 自己拆出来的视图类型（菜单项 / 页签 / 路由 meta）。
+ *
+ * 历史上这里手工镜像过 `ApiUserInfo` / `ApiLoginResult` / `ApiMenuRow` 等，
+ * 已全部删掉：路由响应 schema 补齐后它们是冗余的第二来源。
  */
-
-/** 用户安全视图（镜像后端 `AuthUserDTO`，绝不含 password） */
-export interface ApiUserInfo {
-  id: string;
-  username: string;
-  fullName: string | null;
-  avatar: string | null;
-  email: string | null;
-  phone: string | null;
-  homePath: string | null;
-  description: string | null;
-  enabled: 'Y' | 'N' | 'D';
-  /** 角色码列表（粗粒度：路由/菜单级判定） */
-  roles: string[];
-  /** 按钮级权限码列表（P3-06；`hasAuth(code)` / `v-auth` 判定） */
-  buttons: string[];
-}
-
-/** 登录 / 刷新令牌响应（镜像后端 `LoginResult`） */
-export interface ApiLoginResult {
-  token: string;
-  refreshToken: string;
-  user: ApiUserInfo;
-}
-
-/** 图形验证码（镜像后端 `captcha.service.ts` 的 `CaptchaResult`） */
-export interface ApiCaptcha {
-  /** 验证码标识（提交时回传） */
-  captchaId: string;
-  /** SVG 图片的 data URL，可直接用作 `<img :src>` */
-  img: string;
-}
-
-/** 微信绑定二维码（镜像后端 `WechatQrcodeResult`，mock） */
-export interface ApiWechatQrcode {
-  /** 二维码票据（POST /api/auth/bind-wechat 提交） */
-  ticket: string;
-  /** 形似官方 qrconnect 的授权地址（仅展示） */
-  url: string;
-  /** 有效期（秒） */
-  expiresIn: number;
-}
-
-/** 微信绑定状态（镜像后端 `WechatBindingResult`） */
-export interface ApiWechatBinding {
-  bound: boolean;
-  /** 绑定后的假昵称（未绑定时为 null） */
-  nickname: string | null;
-}
-
-/** 菜单类型（镜像后端 `MENU_TYPES`） */
-export type ApiMenuType = 'directory' | 'menu' | 'page' | 'iframe' | 'link' | 'button' | 'other';
-
-/** 菜单行（`GET /api/menu/user` 返回，镜像后端 menu 表列的客户端子集） */
-export interface ApiMenuRow {
-  id: string;
-  parentId: string | null;
-  name: string;
-  code: string;
-  menuType: ApiMenuType;
-  requiresAuth: 'Y' | 'N';
-  icon: string | null;
-  i18nKey: string | null;
-  order: number;
-  iframeUrl: string | null;
-  href: string | null;
-  routePath: string | null;
-  routeName: string | null;
-  routeLayout: string | null;
-  routeComponent: string | null;
-  routeRedirect: string | null;
-  routeQueries: Record<string, string> | null;
-  routeParams: Record<string, string> | null;
-  keepAlive: 'Y' | 'N' | null;
-  multiTab: 'Y' | 'N' | null;
-  pinned: 'Y' | 'N' | null;
-  description: string | null;
-}
 
 /** SAppShell 菜单项（`AppShellMenuItem` 的应用侧形态） */
 export interface MenuTreeNode {

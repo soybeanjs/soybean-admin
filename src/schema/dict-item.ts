@@ -13,7 +13,6 @@ import {
   string
 } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { DictItemRow } from '@/service/api/org-dict';
 import { requiredText } from './_form';
 import { searchText } from './_search';
 import {
@@ -121,7 +120,7 @@ export const emptyDictItemForm: DictItemFormDTO = {
 };
 
 /** 字典项行 → 编辑表单值 */
-export function toDictItemForm(row: DictItemRow): DictItemFormDTO {
+export function toDictItemForm(row: DictItemResource): DictItemFormDTO {
   return {
     dictId: row.dictId,
     parentId: row.parentId,

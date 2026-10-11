@@ -1,4 +1,4 @@
-import type { ApiLoginResult, ApiUserInfo } from '@/typings/app';
+import type { AuthUserDTO, LoginResult } from '@/schema/auth';
 import { getLocalJson, getLocal, removeLocal, setLocal, setLocalJson } from './storage';
 
 /**
@@ -29,11 +29,11 @@ export function setLocalRefreshToken(refreshToken: string): void {
   setLocal(REFRESH_TOKEN_KEY, refreshToken);
 }
 
-export function getLocalUserInfo(): ApiUserInfo | null {
-  return getLocalJson<ApiUserInfo>(USER_INFO_KEY);
+export function getLocalUserInfo(): AuthUserDTO | null {
+  return getLocalJson<AuthUserDTO>(USER_INFO_KEY);
 }
 
-export function setLocalUserInfo(userInfo: ApiUserInfo): void {
+export function setLocalUserInfo(userInfo: AuthUserDTO): void {
   setLocalJson(USER_INFO_KEY, userInfo);
 }
 
@@ -45,7 +45,7 @@ export function clearAuthStorage(): void {
 }
 
 /** 写入整对 token + 用户（登录/刷新成功后一次落齐） */
-export function setAuthStorage(result: ApiLoginResult): void {
+export function setAuthStorage(result: LoginResult): void {
   setLocalToken(result.token);
   setLocalRefreshToken(result.refreshToken);
   setLocalUserInfo(result.user);

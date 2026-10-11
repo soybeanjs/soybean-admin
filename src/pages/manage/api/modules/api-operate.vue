@@ -2,8 +2,8 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SSelect, STextarea, toast, useForm } from '@vean/ui';
-import { createApi, fetchApiById, updateApi } from '@/service/api/api';
 import { useManageOptions } from '@/composables/use-manage-options';
+import { api } from '@/request';
 import { apiFormSchema, emptyApiForm, toApiForm } from '@/schema/api';
 import type { ApiUpdateDTO, ApiFormDTO } from '@/schema/api';
 
@@ -59,9 +59,9 @@ async function submit(values: ApiFormDTO): Promise<void> {
         method: values.method,
         description: values.description
       };
-      await updateApi(props.apiId, body);
+      await api.put('/api/{id}', { pathParams: { id: props.apiId }, body });
     } else {
-      await createApi(values);
+      await api.post('/api', { body: values });
     }
 
     open.value = false;
@@ -88,8 +88,9 @@ async function initForm(id: string | undefined): Promise<void> {
   loading.value = true;
 
   try {
-    const row = await fetchApiById(id);
-    form.reset(toApiForm(row));
+    const row = await api.get('/api/{id}', { pathParams: { id } });
+
+    if (row) form.reset(toApiForm(row));
   } finally {
     loading.value = false;
   }

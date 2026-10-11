@@ -2,9 +2,9 @@ import type { Router } from 'vue-router';
 import { progress } from '@vean/ui';
 import { hasRole } from '@/shared/permission';
 import { shouldTreatMissingRouteAsForbidden } from '@/shared/route-exist';
-import { fetchIsRouteExist } from '@/service/api/menu';
 import { useAuthStore, useMenuStore, useTabStore } from '@/store';
 import { env } from '@/env';
+import { api } from '@/request';
 import { installRouter } from './instance';
 
 /**
@@ -100,7 +100,7 @@ export function setupRouterGuard(instance: Router): void {
       let routeExists = false;
 
       try {
-        const { exists } = await fetchIsRouteExist({ routePath: to.path });
+        const { exists } = await api.post('/menu/exist-path', { body: { routePath: to.path } });
         routeExists = exists;
       } catch {
         routeExists = false;

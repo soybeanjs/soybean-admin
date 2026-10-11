@@ -4,14 +4,15 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SCard, STable, STag, toast } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { utils, writeFile } from 'xlsx';
-import { fetchUserList } from '@/service/api/user';
-import type { UserRow } from '@/service/api/user';
+import { api } from '@/request';
+import type { UserRowOutput } from '@/schema/user';
 
 /**
  * Excel 导出演示（P4-01）。
  *
  * 与 v2 的差异：
- * - 数据来自**真实接口**（`/api/user/list`，一次性取 999 条），不是假数组 ——
+ * - 数据来自**真实接口**（`/api/user/list`，一次取 100 条 —— 服务端 `size` 上限 100），
+ *   不是假数组 ——
  *   导出的表格就是用户管理页看到的东西；
  * - xlsx 的 `aoa_to_sheet` 需要纯文本二维数组，枚举值（启用状态）先经 i18n
  *   转成可读文案再写入，否则导出的是 `Y` / `N`；
@@ -22,7 +23,7 @@ defineOptions({ name: 'PluginExcel' });
 const { t } = useI18n();
 
 const loading = ref(false);
-const rows = shallowRef<UserRow[]>([]);
+const rows = shallowRef<UserRowOutput[]>([]);
 
 /** 导出用的列（与界面列同源，`enabled` 转文案） */
 const exportColumns = computed(
@@ -37,7 +38,7 @@ const exportColumns = computed(
     ] as const
 );
 
-const columns = computed<TableColumn<UserRow>[]>(() => [
+const columns = computed<TableColumn<UserRowOutput>[]>(() => [
   { type: 'index', header: '#' },
   { accessorKey: 'username', header: t('manage.user.username') },
   { accessorKey: 'fullName', header: t('manage.user.fullName') },
@@ -47,7 +48,7 @@ const columns = computed<TableColumn<UserRow>[]>(() => [
   { accessorKey: 'homePath', header: t('manage.user.homePath') }
 ]);
 
-function enabledLabel(value: UserRow['enabled']) {
+function enabledLabel(value: UserRowOutput['enabled']) {
   if (value === 'Y') return t('common.enabled');
   if (value === 'N') return t('common.disabled');
   return 'Deleted';
@@ -56,7 +57,7 @@ function enabledLabel(value: UserRow['enabled']) {
 async function load() {
   loading.value = true;
 
-  const data = await fetchUserList({ page: 1, pageSize: 999 });
+  const data = await api.get('/user/list', { query: { current: 1, size: 100 } });
 
   loading.value = false;
 
@@ -64,7 +65,7 @@ async function load() {
 }
 
 /** 单元格取值：`enabled` 走 i18n，其余直接取字符串 */
-function cellValue(row: UserRow, key: (typeof exportColumns.value)[number]['key']): string {
+function cellValue(row: UserRowOutput, key: (typeof exportColumns.value)[number]['key']): string {
   if (key === 'enabled') {
     return enabledLabel(row.enabled);
   }
@@ -92,7 +93,7 @@ function exportExcel() {
   writeFile(book, t('plugin.excelFileName'));
 }
 
-function rowKey(row: UserRow) {
+function rowKey(row: UserRowOutput) {
   return row.id;
 }
 

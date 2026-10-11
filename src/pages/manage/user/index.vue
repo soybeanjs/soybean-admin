@@ -4,16 +4,13 @@ import { useI18n } from 'vue-i18n';
 import { SButtonIcon, SPopconfirm, STag, usePaginatedTable } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { filterValidQuery } from '@/shared/common';
-import { defaultTableTransform } from '@/shared/table';
-import { toPageQuery } from '@/service/api/manage-types';
-import type { ManagePageQuery } from '@/service/api/manage-types';
-import { fetchAllRoles } from '@/service/api/role';
-import { batchDeleteUsers, deleteUser, fetchUserList } from '@/service/api/user';
-import type { UserRow } from '@/service/api/user';
+import { defaultTableTransform, toPageQuery } from '@/shared/table';
 import { useTableOperate } from '@/composables/use-table-operate';
+import type { ManagePageQuery } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { UserSearchFormDTO } from '@/schema/user';
+import { api, flatApi } from '@/request';
+import type { UserRowOutput, UserSearchFormDTO } from '@/schema/user';
 import UserOperate from './modules/user-operate.vue';
 import UserSearch from './modules/user-search.vue';
 
@@ -55,7 +52,7 @@ const roleNameMap = shallowRef<Map<string, string>>(new Map());
 /** 当前编辑行的角色 id（列表行才有，详情接口不返回） */
 const editingRoleIds = shallowRef<string[]>([]);
 
-const userColumns = computed<TableColumn<UserRow>[]>(() => [
+const userColumns = computed<TableColumn<UserRowOutput>[]>(() => [
   { type: 'selection' },
   { type: 'index', header: '#' },
   { accessorKey: 'enabled', header: t('manage.field.enabled') },
@@ -69,7 +66,7 @@ const userColumns = computed<TableColumn<UserRow>[]>(() => [
 ]);
 
 const { loading, tableData, columns, columnChecks, fetchData, page, pageSize, total } = usePaginatedTable({
-  api: () => fetchUserList(toPageQuery(filterValidQuery(query.value))),
+  api: async () => (await flatApi.get('/user/list', { query: { ...toPageQuery(filterValidQuery(query.value)) } })).data,
   transform: defaultTableTransform,
   columns: () => userColumns.value
 });
@@ -94,7 +91,7 @@ const {
   messages: { deleted: t('common.deleteSuccess'), batchDeleted: t('common.batchDeleteSuccess') }
 });
 
-function rowKey(row: UserRow) {
+function rowKey(row: UserRowOutput) {
   return row.id;
 }
 
@@ -106,7 +103,7 @@ function onReset() {
   void handleReset();
 }
 
-function onEdit(row: UserRow) {
+function onEdit(row: UserRowOutput) {
   editingRoleIds.value = row.roles.map(role => role.id);
   handleEdit(row.id);
 }
@@ -121,19 +118,19 @@ function roleLabel(id: string) {
 }
 
 async function onDeleteConfirm(id: string) {
-  await deleteUser(id);
+  await api.delete('/user/{id}', { pathParams: { id } });
   await onDeleted();
 }
 
 async function onBatchDelete() {
-  await batchDeleteUsers(selected.value);
+  await api.post('/user/batch-delete', { body: { ids: selected.value } });
   await onBatchDeleted();
 }
 
 async function loadRoleNameMap(): Promise<void> {
-  const roles = await fetchAllRoles();
+  const roles = await api.get('/role/all');
 
-  roleNameMap.value = new Map(roles.map(role => [role.id, role.name]));
+  roleNameMap.value = new Map((roles ?? []).map(role => [role.id, role.name]));
 }
 
 onMounted(() => {

@@ -131,8 +131,8 @@ export function rowText(label: string) {
 }
 
 /**
- * 分页响应包装（`{ total, current, size, list }`，与 `src/service/api/manage-types.ts`
- * 的 `ManagePage<Item>` 同形状）。
+ * 分页响应包装（`{ total, current, size, list }`，与前端 `src/shared/table.ts` 的
+ * `PageResult<Item>` 同形状）。
  */
 export function pagedSchema<TItem extends GenericSchema>(item: TItem) {
   return object({
@@ -143,7 +143,7 @@ export function pagedSchema<TItem extends GenericSchema>(item: TItem) {
   });
 }
 
-/** 分页响应的数据类型（`ManagePage<TItem>` 的服务端等价物） */
+/** 分页响应的数据类型（前端 `PageResult<TItem>` 的服务端等价物） */
 export type PagedData<TItem> = {
   total: number;
   current: number;
