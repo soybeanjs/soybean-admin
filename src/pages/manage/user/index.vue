@@ -13,7 +13,7 @@ import type { UserRow } from '@/service/api/user';
 import { useTableOperate } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { UserSearchFormDTO } from '@/schema/search';
+import type { UserSearchFormDTO } from '@/schema/user';
 import UserOperate from './modules/user-operate.vue';
 import UserSearch from './modules/user-search.vue';
 

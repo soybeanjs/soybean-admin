@@ -12,7 +12,7 @@ import type { RoleRow } from '@/service/api/role';
 import { useTableOperate } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { RoleSearchFormDTO } from '@/schema/search';
+import type { RoleSearchFormDTO } from '@/schema/role';
 import RoleOperate from './modules/role-operate.vue';
 import RoleSearch from './modules/role-search.vue';
 

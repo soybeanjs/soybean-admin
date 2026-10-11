@@ -4,10 +4,8 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SSelect, STextarea, toast, useForm } from '@vean/ui';
 import { createApi, fetchApiById, updateApi } from '@/service/api/api';
 import { useManageOptions } from '@/composables/use-manage-options';
-import type { ApiUpdateDTO } from '@/schema/api';
-import { apiFormSchema } from '@/schema/form';
-import type { ApiFormDTO } from '@/schema/form';
-import { emptyApiForm, toApiForm } from '@/schema/form-defaults';
+import { apiFormSchema, emptyApiForm, toApiForm } from '@/schema/api';
+import type { ApiUpdateDTO, ApiFormDTO } from '@/schema/api';
 
 /**
  * 接口新增 / 编辑弹窗（P3-03）。

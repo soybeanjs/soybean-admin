@@ -4,7 +4,7 @@ import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
 import { createUuidV7 } from '@/shared/uuid';
 import type { ApiCreateDTO, ApiQuery, ApiUpdateDTO } from '@/schema/api';
-import type { OrgCreateDTO, OrgQuery, OrgUpdateDTO } from '@/schema/org-dict';
+import type { OrgCreateDTO, OrgQuery, OrgUpdateDTO } from '@/schema/org';
 import { appDb } from '../db';
 import { api, org, orgRole, userOrg } from '../db/schema';
 

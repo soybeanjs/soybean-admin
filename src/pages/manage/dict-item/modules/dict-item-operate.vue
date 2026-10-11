@@ -4,10 +4,8 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SInputNumber, SSelect, toast, useForm } from '@vean/ui';
 import { createDictItem, fetchDictItemById, updateDictItem } from '@/service/api/org-dict';
 import type { SelectOption } from '@/composables/use-manage-options';
-import { dictItemFormSchema } from '@/schema/form';
-import type { DictItemFormDTO } from '@/schema/form';
-import { emptyDictItemForm, toDictItemForm } from '@/schema/form-defaults';
-import type { DictItemCreateDTO, DictItemUpdateDTO } from '@/schema/org-dict';
+import { dictItemFormSchema, emptyDictItemForm, toDictItemForm } from '@/schema/dict-item';
+import type { DictItemFormDTO, DictItemCreateDTO, DictItemUpdateDTO } from '@/schema/dict-item';
 
 /**
  * 字典项新增 / 编辑弹窗（P3-03）。

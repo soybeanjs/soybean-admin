@@ -2,8 +2,8 @@
 import { useI18n } from 'vue-i18n';
 import { SInput, useForm } from '@vean/ui';
 import ManageSearch from '@/components/manage-search/index.vue';
-import { orgSearchFormSchema } from '@/schema/search';
-import type { OrgSearchFormDTO } from '@/schema/search';
+import { orgSearchFormSchema } from '@/schema/org';
+import type { OrgSearchFormDTO } from '@/schema/org';
 
 /**
  * 组织搜索卡（P3-03）。

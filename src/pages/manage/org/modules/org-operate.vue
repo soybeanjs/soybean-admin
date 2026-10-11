@@ -4,10 +4,8 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SDialog, SForm, SInput, SSelect, STextarea, toast, useForm } from '@vean/ui';
 import { createOrg, fetchOrgById, updateOrg } from '@/service/api/org-dict';
 import type { SelectOption } from '@/composables/use-manage-options';
-import { orgFormSchema } from '@/schema/form';
-import type { OrgFormDTO } from '@/schema/form';
-import { emptyOrgForm, toOrgForm } from '@/schema/form-defaults';
-import type { OrgCreateDTO, OrgUpdateDTO } from '@/schema/org-dict';
+import { orgFormSchema, emptyOrgForm, toOrgForm } from '@/schema/org';
+import type { OrgFormDTO, OrgCreateDTO, OrgUpdateDTO } from '@/schema/org';
 
 /**
  * 组织新增 / 编辑弹窗（P3-03）。

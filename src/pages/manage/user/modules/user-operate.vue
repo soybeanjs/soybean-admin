@@ -6,10 +6,8 @@ import { fetchAllRoles } from '@/service/api/role';
 import { createUser, fetchUserById, updateUser } from '@/service/api/user';
 import { useManageOptions } from '@/composables/use-manage-options';
 import type { SelectOption } from '@/composables/use-manage-options';
-import { userFormSchema } from '@/schema/form';
-import type { UserFormDTO } from '@/schema/form';
-import { emptyUserForm, toUserForm } from '@/schema/form-defaults';
-import type { UserCreateDTO, UserUpdateDTO } from '@/schema/user';
+import { userFormSchema, emptyUserForm, toUserForm } from '@/schema/user';
+import type { UserFormDTO, UserCreateDTO, UserUpdateDTO } from '@/schema/user';
 
 /**
  * 用户新增 / 编辑弹窗（P3-03）。

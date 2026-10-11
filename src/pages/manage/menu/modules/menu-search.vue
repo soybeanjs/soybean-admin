@@ -3,8 +3,8 @@ import { useI18n } from 'vue-i18n';
 import { SInput, SSelect, useForm } from '@vean/ui';
 import { useManageOptions } from '@/composables/use-manage-options';
 import ManageSearch from '@/components/manage-search/index.vue';
-import { menuSearchFormSchema } from '@/schema/search';
-import type { MenuSearchFormDTO } from '@/schema/search';
+import { menuSearchFormSchema } from '@/schema/menu';
+import type { MenuSearchFormDTO } from '@/schema/menu';
 
 /**
  * 菜单搜索卡（P3-03）。

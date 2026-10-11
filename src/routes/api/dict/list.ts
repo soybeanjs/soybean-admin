@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
-import { dictQuerySchema } from '@/schema/org-dict';
+import { dictQuerySchema } from '@/schema/dict';
 
 /**
  * `GET /api/dict/list` —— 字典分页列表。

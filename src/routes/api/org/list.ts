@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
-import { orgQuerySchema } from '@/schema/org-dict';
+import { orgQuerySchema } from '@/schema/org';
 
 /**
  * `GET /api/org/list` —— 组织分页列表。

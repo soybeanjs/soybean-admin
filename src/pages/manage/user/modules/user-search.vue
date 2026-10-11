@@ -3,8 +3,8 @@ import { useI18n } from 'vue-i18n';
 import { SInput, SSelect, useForm } from '@vean/ui';
 import { useManageOptions } from '@/composables/use-manage-options';
 import ManageSearch from '@/components/manage-search/index.vue';
-import { userSearchFormSchema } from '@/schema/search';
-import type { UserSearchFormDTO } from '@/schema/search';
+import { userSearchFormSchema } from '@/schema/user';
+import type { UserSearchFormDTO } from '@/schema/user';
 
 /**
  * 用户搜索卡（P3-03）。

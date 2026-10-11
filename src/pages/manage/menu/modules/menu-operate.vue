@@ -7,10 +7,8 @@ import type { ManageMenuType } from '@/constants/manage';
 import { createMenu, fetchMenuById, updateMenu } from '@/service/api/menu-manage';
 import type { MenuRow } from '@/service/api/menu-manage';
 import { useManageOptions } from '@/composables/use-manage-options';
-import { menuFormSchema } from '@/schema/form';
-import type { MenuFormDTO } from '@/schema/form';
-import { emptyMenuForm, toMenuForm } from '@/schema/form-defaults';
-import type { MenuCreateDTO } from '@/schema/menu';
+import { menuFormSchema, emptyMenuForm, toMenuForm } from '@/schema/menu';
+import type { MenuFormDTO, MenuCreateDTO } from '@/schema/menu';
 import RouteParamForm from './route-param-form.vue';
 
 /**

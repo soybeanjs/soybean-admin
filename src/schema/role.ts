@@ -1,8 +1,15 @@
 import { array, description, intersect, nonEmpty, object, optional, partial, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
-import { descriptionSchema, enabledSchema, idSchema, paginationQuerySchema } from './shared';
+import type { RoleDetail } from '@/service/api/role';
+import { nullableText, requiredText } from './_form';
+import { enabledSearchSchema, searchText } from './_search';
+import { descriptionSchema, enabledSchema, idSchema, paginationQuerySchema } from './_shared';
 
-/** 角色 DTO（v3 §6.3，unify role.service 范式）。 */
+/** 角色契约（v3 §6.3，unify role.service 范式）。 */
+
+/* -------------------------------------------------------------------------- */
+/*                              服务端请求 schema                              */
+/* -------------------------------------------------------------------------- */
 
 /** 新增角色 */
 export const roleCreateSchema = object({
@@ -30,8 +37,60 @@ export const roleQuerySchema = intersect([
   })
 ]);
 
+/* -------------------------------------------------------------------------- */
+/*                                搜索表单 schema                              */
+/* -------------------------------------------------------------------------- */
+
+/** 角色列表搜索表单 */
+export const roleSearchFormSchema = object({
+  name: searchText('角色名称'),
+  code: searchText('角色编码'),
+  enabled: enabledSearchSchema
+});
+
+/* -------------------------------------------------------------------------- */
+/*                               operate 表单 schema                           */
+/* -------------------------------------------------------------------------- */
+
+/** 角色新增 / 编辑表单 */
+export const roleFormSchema = object({
+  name: requiredText('角色名称'),
+  code: requiredText('角色编码'),
+  description: nullableText('备注说明'),
+  enabled: enabledSchema,
+  permissionIds: pipe(array(idSchema), description('绑定的权限 ID 列表'))
+});
+
+/* -------------------------------------------------------------------------- */
+/*                              表单默认值与映射                               */
+/* -------------------------------------------------------------------------- */
+
+/** 新增角色的空表默认值 */
+export const emptyRoleForm: RoleFormDTO = {
+  name: '',
+  code: '',
+  description: null,
+  enabled: 'Y',
+  permissionIds: []
+};
+
+/** 角色详情 → 编辑表单值 */
+export function toRoleForm(row: RoleDetail): RoleFormDTO {
+  return {
+    name: row.name,
+    code: row.code,
+    description: row.description,
+    enabled: row.enabled,
+    permissionIds: row.permissions.map(permission => permission.id)
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  类型导出                                   */
+/* -------------------------------------------------------------------------- */
+
 export type RoleCreateDTO = InferOutput<typeof roleCreateSchema>;
 export type RoleUpdateDTO = InferOutput<typeof roleUpdateSchema>;
 export type RoleQuery = InferOutput<typeof roleQuerySchema>;
-
-export { batchDeleteSchema, idParamSchema } from './shared';
+export type RoleSearchFormDTO = InferOutput<typeof roleSearchFormSchema>;
+export type RoleFormDTO = InferOutput<typeof roleFormSchema>;

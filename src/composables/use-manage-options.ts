@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { MANAGE_API_METHODS } from '@/constants/manage';
-import { SEARCH_ANY_VALUE } from '@/schema/search';
+import { SEARCH_ANY_VALUE } from '@/schema/_search';
 
 /**
  * 管理端下拉选项（P3-03）。

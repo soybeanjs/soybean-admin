@@ -3,8 +3,8 @@ import { useI18n } from 'vue-i18n';
 import { SInput, SSelect, useForm } from '@vean/ui';
 import { useManageOptions } from '@/composables/use-manage-options';
 import ManageSearch from '@/components/manage-search/index.vue';
-import { permissionSearchFormSchema } from '@/schema/search';
-import type { PermissionSearchFormDTO } from '@/schema/search';
+import { permissionSearchFormSchema } from '@/schema/permission';
+import type { PermissionSearchFormDTO } from '@/schema/permission';
 
 /**
  * 权限搜索卡（P3-03）。

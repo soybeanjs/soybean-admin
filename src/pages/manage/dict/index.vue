@@ -13,7 +13,7 @@ import { useTableOperate } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
 import { getRouter } from '@/router/instance';
-import type { DictSearchFormDTO } from '@/schema/search';
+import type { DictSearchFormDTO } from '@/schema/dict';
 import DictOperate from './modules/dict-operate.vue';
 import DictSearch from './modules/dict-search.vue';
 

@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { apiService } from '@/services/api-org.service';
-import { batchDeleteSchema } from '@/schema/shared';
+import { batchDeleteSchema } from '@/schema/_shared';
 
 /**
  * `POST /api/api/batch-delete` —— 批量删除接口。

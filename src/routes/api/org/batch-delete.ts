@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
-import { batchDeleteSchema } from '@/schema/shared';
+import { batchDeleteSchema } from '@/schema/_shared';
 
 /**
  * `POST /api/org/batch-delete` —— 批量删除组织。

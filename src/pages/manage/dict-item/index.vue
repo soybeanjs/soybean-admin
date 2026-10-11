@@ -14,7 +14,7 @@ import type { SelectOption } from '@/composables/use-manage-options';
 import { useTableOperate } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { DictItemSearchFormDTO } from '@/schema/search';
+import type { DictItemSearchFormDTO } from '@/schema/dict-item';
 import DictItemOperate from './modules/dict-item-operate.vue';
 import DictItemSearch from './modules/dict-item-search.vue';
 

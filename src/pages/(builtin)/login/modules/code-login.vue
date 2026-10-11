@@ -4,9 +4,8 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SForm, SInput, toast, useForm } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
 import { getRouter } from '@/router/instance';
-import { codeLoginFormSchema } from '@/schema/auth';
+import { codeLoginFormSchema, codeLoginDefaults } from '@/schema/auth';
 import type { CodeLoginFormValues } from '@/schema/auth';
-import { codeLoginDefaults } from '@/schema/login-form-defaults';
 import { gotoLoginModule, useLoginCaptcha, useLoginRedirect } from '../use-login';
 
 /**

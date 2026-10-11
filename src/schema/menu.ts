@@ -1,13 +1,32 @@
-import { description, intersect, nonEmpty, nullable, object, optional, partial, pipe, record, string } from 'valibot';
+import {
+  description,
+  intersect,
+  nonEmpty,
+  nullable,
+  number,
+  object,
+  optional,
+  partial,
+  pipe,
+  record,
+  string
+} from 'valibot';
 import type { InferOutput } from 'valibot';
-import { enabledSchema, idSchema, menuTypeSchema, orderSchema, paginationQuerySchema, yesOrNoSchema } from './shared';
+import type { MenuRow } from '@/service/api/menu-manage';
+import { nullableText, requiredText, text } from './_form';
+import { enabledSearchSchema, menuTypeSearchSchema, searchText } from './_search';
+import { enabledSchema, idSchema, menuTypeSchema, orderSchema, paginationQuerySchema, yesOrNoSchema } from './_shared';
 
 /**
- * 菜单 DTO（v3 §6.3，unify menu.service 范式）。
+ * 菜单契约（v3 §6.3，unify menu.service 范式）。
  *
  * 路由相关字段单独抽成 `routeFields`：新增与更新共用同一份值域，只有默认值
  * （新增带 `null` / `{}`，更新不带）与可选性不同。
  */
+
+/* -------------------------------------------------------------------------- */
+/*                              服务端请求 schema                              */
+/* -------------------------------------------------------------------------- */
 
 /** 路由定义字段（新增语义：带默认值） */
 const routeFields = {
@@ -60,9 +79,113 @@ export const menuExistPathSchema = object({
   routePath: optional(pipe(string(), description('待检查的路由路径')))
 });
 
+/* -------------------------------------------------------------------------- */
+/*                                搜索表单 schema                              */
+/* -------------------------------------------------------------------------- */
+
+/** 菜单列表搜索表单 */
+export const menuSearchFormSchema = object({
+  name: searchText('菜单名称'),
+  code: searchText('菜单编码'),
+  menuType: menuTypeSearchSchema,
+  enabled: enabledSearchSchema
+});
+
+/* -------------------------------------------------------------------------- */
+/*                               operate 表单 schema                           */
+/* -------------------------------------------------------------------------- */
+
+/** 菜单新增 / 编辑表单 */
+export const menuFormSchema = object({
+  parentId: nullable(idSchema),
+  menuType: menuTypeSchema,
+  name: requiredText('菜单名称'),
+  code: requiredText('菜单编码'),
+  requiresAuth: yesOrNoSchema,
+  enabled: enabledSchema,
+  icon: pipe(string(), description('图标名')),
+  i18nKey: pipe(string(), description('i18n 文案 key')),
+  order: pipe(number(), description('排序值，数字越小越靠前')),
+  iframeUrl: pipe(string(), description('iframe 内嵌地址')),
+  href: pipe(string(), description('外链地址')),
+  keepAlive: yesOrNoSchema,
+  multiTab: yesOrNoSchema,
+  pinned: yesOrNoSchema,
+  routeName: pipe(string(), description('路由名称')),
+  routePath: pipe(string(), description('路由路径')),
+  routeLayout: pipe(string(), description('布局组件标识')),
+  routeComponent: pipe(string(), description('页面组件路径')),
+  routeRedirect: pipe(string(), description('重定向目标路径')),
+  routeQueries: pipe(record(string(), string()), description('固定 query 参数')),
+  routeParams: pipe(record(string(), string()), description('固定 route 参数')),
+  description: nullableText('备注说明')
+});
+
+/* -------------------------------------------------------------------------- */
+/*                              表单默认值与映射                               */
+/* -------------------------------------------------------------------------- */
+
+/** 新增菜单的空表默认值 */
+export const emptyMenuForm: MenuFormDTO = {
+  parentId: null,
+  menuType: 'menu',
+  name: '',
+  code: '',
+  requiresAuth: 'Y',
+  enabled: 'Y',
+  icon: '',
+  i18nKey: '',
+  order: 0,
+  iframeUrl: '',
+  href: '',
+  keepAlive: 'N',
+  multiTab: 'N',
+  pinned: 'N',
+  routeName: '',
+  routePath: '',
+  routeLayout: '',
+  routeComponent: '',
+  routeRedirect: '',
+  routeQueries: {},
+  routeParams: {},
+  description: null
+};
+
+/** 菜单行 → 编辑表单值 */
+export function toMenuForm(row: MenuRow): MenuFormDTO {
+  return {
+    parentId: row.parentId,
+    menuType: row.menuType,
+    name: row.name,
+    code: row.code,
+    requiresAuth: row.requiresAuth,
+    enabled: row.enabled,
+    icon: text(row.icon),
+    i18nKey: text(row.i18nKey),
+    order: row.order,
+    iframeUrl: text(row.iframeUrl),
+    href: text(row.href),
+    keepAlive: row.keepAlive,
+    multiTab: row.multiTab,
+    pinned: row.pinned,
+    routeName: text(row.routeName),
+    routePath: text(row.routePath),
+    routeLayout: text(row.routeLayout),
+    routeComponent: text(row.routeComponent),
+    routeRedirect: text(row.routeRedirect),
+    routeQueries: row.routeQueries ?? {},
+    routeParams: row.routeParams ?? {},
+    description: text(row.description)
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  类型导出                                   */
+/* -------------------------------------------------------------------------- */
+
 export type MenuCreateDTO = InferOutput<typeof menuCreateSchema>;
 export type MenuUpdateDTO = InferOutput<typeof menuUpdateSchema>;
 export type MenuQuery = InferOutput<typeof menuQuerySchema>;
 export type MenuExistPathDTO = InferOutput<typeof menuExistPathSchema>;
-
-export { batchDeleteSchema, idParamSchema } from './shared';
+export type MenuSearchFormDTO = InferOutput<typeof menuSearchFormSchema>;
+export type MenuFormDTO = InferOutput<typeof menuFormSchema>;

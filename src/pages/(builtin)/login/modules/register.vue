@@ -3,9 +3,8 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SForm, SInput, SPassword, toast, useForm } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
 import { getRouter } from '@/router/instance';
-import { registerFormSchema } from '@/schema/auth';
+import { registerFormSchema, registerDefaults } from '@/schema/auth';
 import type { RegisterFormValues } from '@/schema/auth';
-import { registerDefaults } from '@/schema/login-form-defaults';
 import { gotoLoginModule, useLoginRedirect } from '../use-login';
 
 /**

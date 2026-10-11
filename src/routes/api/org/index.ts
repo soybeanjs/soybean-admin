@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
-import { orgCreateSchema } from '@/schema/org-dict';
+import { orgCreateSchema } from '@/schema/org';
 
 /**
  * `POST /api/org` —— 新增组。

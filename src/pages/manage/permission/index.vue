@@ -12,7 +12,7 @@ import type { PermissionRow } from '@/service/api/permission';
 import { useTableOperate } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { PermissionSearchFormDTO } from '@/schema/search';
+import type { PermissionSearchFormDTO } from '@/schema/permission';
 import PermissionOperate from './modules/permission-operate.vue';
 import PermissionSearch from './modules/permission-search.vue';
 

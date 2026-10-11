@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
-import { dictItemCreateSchema } from '@/schema/org-dict';
+import { dictItemCreateSchema } from '@/schema/dict-item';
 
 /**
  * `POST /api/dict-item` —— 新增字典。

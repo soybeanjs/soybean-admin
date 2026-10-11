@@ -13,7 +13,7 @@ import type { SelectOption } from '@/composables/use-manage-options';
 import { useTableOperate } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { OrgSearchFormDTO } from '@/schema/search';
+import type { OrgSearchFormDTO } from '@/schema/org';
 import OrgOperate from './modules/org-operate.vue';
 import OrgSearch from './modules/org-search.vue';
 

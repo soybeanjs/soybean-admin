@@ -6,10 +6,8 @@ import { fetchAllApis } from '@/service/api/api';
 import { fetchAllMenus } from '@/service/api/menu-manage';
 import { createPermission, fetchPermissionById, updatePermission } from '@/service/api/permission';
 import type { SelectOption } from '@/composables/use-manage-options';
-import { permissionFormSchema } from '@/schema/form';
-import type { PermissionFormDTO } from '@/schema/form';
-import { emptyPermissionForm, toPermissionForm } from '@/schema/form-defaults';
-import type { PermissionCreateDTO, PermissionUpdateDTO } from '@/schema/permission';
+import { permissionFormSchema, emptyPermissionForm, toPermissionForm } from '@/schema/permission';
+import type { PermissionFormDTO, PermissionCreateDTO, PermissionUpdateDTO } from '@/schema/permission';
 
 /**
  * 权限点新增 / 编辑弹窗（P3-03）。

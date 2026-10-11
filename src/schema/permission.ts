@@ -1,14 +1,21 @@
 import { array, description, intersect, nonEmpty, nullable, object, optional, partial, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
-import { descriptionSchema, enabledSchema, idSchema, paginationQuerySchema, resourceTypeSchema } from './shared';
+import type { PermissionRow } from '@/service/api/permission';
+import { nullableText, text } from './_form';
+import { enabledSearchSchema, resourceTypeSearchSchema, searchText } from './_search';
+import { descriptionSchema, enabledSchema, idSchema, paginationQuerySchema, resourceTypeSchema } from './_shared';
 
 /**
- * 权限点 DTO（v3 §6.3，unify permission.service 范式）。
+ * 权限点契约（v3 §6.3，unify permission.service 范式）。
  *
  * `name` / `code` 只有 `resourceType === 'other'` 时才是权威值；绑定
  * `menu` / `api` / `button` 资源时由服务端 `resolveResourceBinding` 推导，
  * 故两者在新增里也是可选。
  */
+
+/* -------------------------------------------------------------------------- */
+/*                              服务端请求 schema                              */
+/* -------------------------------------------------------------------------- */
 
 /** 新增权限点 */
 export const permissionCreateSchema = object({
@@ -38,8 +45,70 @@ export const rolePermissionAssignSchema = object({
   permissionIds: pipe(array(idSchema), description('权限 ID 列表，全量替换'))
 });
 
+/* -------------------------------------------------------------------------- */
+/*                                搜索表单 schema                              */
+/* -------------------------------------------------------------------------- */
+
+/** 权限点列表搜索表单 */
+export const permissionSearchFormSchema = object({
+  name: searchText('权限名称'),
+  code: searchText('权限编码'),
+  resourceType: resourceTypeSearchSchema,
+  enabled: enabledSearchSchema
+});
+
+/* -------------------------------------------------------------------------- */
+/*                               operate 表单 schema                           */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * 权限点新增 / 编辑表单。
+ *
+ * `name` / `code` 只有 `resourceType === 'other'` 时才是权威值；绑定
+ * `menu` / `api` / `button` 资源时由服务端（`resolveResourceBinding`）推导，
+ * 客户端传空串即可（服务端 create schema 里两者也是 optional）。
+ */
+export const permissionFormSchema = object({
+  name: pipe(string(), description('权限名称，绑定资源时留空')),
+  code: pipe(string(), description('权限编码，绑定资源时留空')),
+  resourceType: resourceTypeSchema,
+  resourceId: nullable(idSchema),
+  enabled: enabledSchema,
+  description: nullableText('备注说明')
+});
+
+/* -------------------------------------------------------------------------- */
+/*                              表单默认值与映射                               */
+/* -------------------------------------------------------------------------- */
+
+/** 新增权限点的空表默认值 */
+export const emptyPermissionForm: PermissionFormDTO = {
+  name: '',
+  code: '',
+  resourceType: 'other',
+  resourceId: null,
+  enabled: 'Y',
+  description: null
+};
+
+/** 权限点行 → 编辑表单值 */
+export function toPermissionForm(row: PermissionRow): PermissionFormDTO {
+  return {
+    name: text(row.name),
+    code: text(row.code),
+    resourceType: row.resourceType,
+    resourceId: row.resourceId,
+    enabled: row.enabled,
+    description: row.description
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  类型导出                                   */
+/* -------------------------------------------------------------------------- */
+
 export type PermissionCreateDTO = InferOutput<typeof permissionCreateSchema>;
 export type PermissionUpdateDTO = InferOutput<typeof permissionUpdateSchema>;
 export type PermissionQuery = InferOutput<typeof permissionQuerySchema>;
-
-export { batchDeleteSchema, idParamSchema } from './shared';
+export type PermissionSearchFormDTO = InferOutput<typeof permissionSearchFormSchema>;
+export type PermissionFormDTO = InferOutput<typeof permissionFormSchema>;

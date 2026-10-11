@@ -11,9 +11,9 @@ import {
   MENU_ROUTE_TYPES
 } from '@/constants/manage';
 import { MENU_TYPES } from '@/db/schema/shared';
+import { resourceTypeSearchSchema } from '@/schema/_search';
+import { API_METHODS, ENABLED_VALUES, enabledSchema, menuTypeSchema } from '@/schema/_shared';
 import { permissionCreateSchema } from '@/schema/permission';
-import { resourceTypeSearchSchema } from '@/schema/search';
-import { API_METHODS, ENABLED_VALUES, enabledSchema, menuTypeSchema } from '@/schema/shared';
 
 /**
  * 常量层与 schema 层的**值域一致性**护栏（P3-03）。

@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { roleService } from '@/services/role.service';
-import { batchDeleteSchema } from '@/schema/shared';
+import { batchDeleteSchema } from '@/schema/_shared';
 
 /**
  * `POST /api/role/batch-delete` —— 批量删除角色。

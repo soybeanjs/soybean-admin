@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { permissionService } from '@/services/permission.service';
-import { batchDeleteSchema } from '@/schema/shared';
+import { batchDeleteSchema } from '@/schema/_shared';
 
 /**
  * `POST /api/permission/batch-delete` —— 批量删除权限。

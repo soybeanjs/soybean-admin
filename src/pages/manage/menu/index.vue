@@ -12,7 +12,7 @@ import type { MenuRow } from '@/service/api/menu-manage';
 import { useTableOperate } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { MenuSearchFormDTO } from '@/schema/search';
+import type { MenuSearchFormDTO } from '@/schema/menu';
 import MenuOperate from './modules/menu-operate.vue';
 import MenuSearch from './modules/menu-search.vue';
 

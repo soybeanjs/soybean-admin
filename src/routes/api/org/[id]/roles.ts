@@ -2,7 +2,7 @@ import { defineHandler, describeRoute } from 'ubean/server';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
-import { orgRoleAssignSchema } from '@/schema/org-dict';
+import { orgRoleAssignSchema } from '@/schema/org';
 
 /**
  * `PUT /api/org/:id/roles` —— 组织绑定角色（全量替换）。

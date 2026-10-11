@@ -1,7 +1,7 @@
 /**
  * 管理端常量（P3-03）。
  *
- * 刻意**不**从 `@/db/schema/shared`（drizzle）或 `@/schema/shared`（valibot）
+ * 刻意**不**从 `@/db/schema/shared`（drizzle）或 `@/schema/_shared`（valibot）
  * 取值：那两份会分别把 drizzle-core / valibot 拉进客户端产物。这里的值域是
  * 稳定的字符串契约，`test/specs/constants/manage.test.ts` 断言它们与 schema 一致，
  * 用一条测试换掉一份运行时依赖。

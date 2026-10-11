@@ -2,7 +2,7 @@ import { defineHandler, describeRoute } from 'ubean/server';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
-import { orgUpdateSchema } from '@/schema/org-dict';
+import { orgUpdateSchema } from '@/schema/org';
 
 /**
  * `GET /api/org/:id` —— 组详情。

@@ -1,5 +1,6 @@
 import request from '@/request';
-import type { DictCreateDTO, DictItemCreateDTO, DictItemUpdateDTO, DictUpdateDTO } from '@/schema/org-dict';
+import type { DictCreateDTO, DictUpdateDTO } from '@/schema/dict';
+import type { DictItemCreateDTO, DictItemUpdateDTO } from '@/schema/dict-item';
 import type { AuditFields, ManagePage, ManagePageQuery } from './manage-types';
 
 /**

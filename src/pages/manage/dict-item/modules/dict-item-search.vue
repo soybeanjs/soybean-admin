@@ -3,8 +3,8 @@ import { useI18n } from 'vue-i18n';
 import { SInput, SSelect, useForm } from '@vean/ui';
 import type { SelectOption } from '@/composables/use-manage-options';
 import ManageSearch from '@/components/manage-search/index.vue';
-import { dictItemSearchFormSchema } from '@/schema/search';
-import type { DictItemSearchFormDTO } from '@/schema/search';
+import { dictItemSearchFormSchema } from '@/schema/dict-item';
+import type { DictItemSearchFormDTO } from '@/schema/dict-item';
 
 /**
  * 字典项搜索卡（P3-03）。

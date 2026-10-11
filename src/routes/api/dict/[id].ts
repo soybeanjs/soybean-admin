@@ -2,7 +2,7 @@ import { defineHandler, describeRoute } from 'ubean/server';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
-import { dictUpdateSchema } from '@/schema/org-dict';
+import { dictUpdateSchema } from '@/schema/dict';
 
 /**
  * `GET /api/dict/:id` —— 字详情。

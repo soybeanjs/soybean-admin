@@ -6,10 +6,8 @@ import { fetchAllPermissions } from '@/service/api/permission';
 import type { PermissionRow } from '@/service/api/permission';
 import { createRole, fetchRoleById, updateRole } from '@/service/api/role';
 import { useManageOptions } from '@/composables/use-manage-options';
-import { roleFormSchema } from '@/schema/form';
-import type { RoleFormDTO } from '@/schema/form';
-import { emptyRoleForm, toRoleForm } from '@/schema/form-defaults';
-import type { RoleCreateDTO, RoleUpdateDTO } from '@/schema/role';
+import { roleFormSchema, emptyRoleForm, toRoleForm } from '@/schema/role';
+import type { RoleFormDTO, RoleCreateDTO, RoleUpdateDTO } from '@/schema/role';
 import PermissionPicker from './permission-picker.vue';
 
 /**

@@ -1,7 +1,7 @@
 import { defineHandler, describeRoute } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
-import { batchDeleteSchema } from '@/schema/shared';
+import { batchDeleteSchema } from '@/schema/_shared';
 
 /**
  * `POST /api/dict/batch-delete` —— 批量删除字典。

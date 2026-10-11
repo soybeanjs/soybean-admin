@@ -13,13 +13,13 @@ import {
   union
 } from 'valibot';
 import type { InferOutput } from 'valibot';
-import type { ENABLED_VALUES } from './shared';
+import type { ENABLED_VALUES } from './_shared';
 
 /**
  * 认证域 DTO（v3 §6.3/§5.5）。
  *
  * 同一份 Valibot 声明同时驱动服务端校验与登录页表单（P3-05 契约）：表单
- * schema 通过 `...serverSchema.entries` 复用餐服务端字段对象，错误消息必然同源。
+ * schema 通过 `...serverSchema.entries` 复用服务端字段对象，错误消息必然同源。
  */
 
 /* -------------------------------------------------------------------------- */
@@ -166,6 +166,52 @@ export const LOGIN_PAGE_FORM_SCHEMAS = {
   register: registerFormSchema,
   resetPwd: resetPasswordFormSchema
 } as const;
+
+/* -------------------------------------------------------------------------- */
+/*                              表单默认值（P3-05）                            */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * `@vean/ui` 的 `useForm` 以 `defaultValues` 为基准（`handleReset` 也回这里），
+ * 与各 manage 域的 `emptyXxxForm` 同一套路。
+ *
+ * 演示账号预填：密码登录带 `admin` / `123456`（与 v2 一致），其余留空。
+ */
+
+/** 密码登录默认值（演示账号预填） */
+export const passwordLoginDefaults: PasswordLoginFormValues = {
+  grantType: 'pwd',
+  userName: 'admin',
+  password: '123456',
+  captchaId: '',
+  captchaCode: ''
+};
+
+/** 图形验证码登录默认值 */
+export const codeLoginDefaults: CodeLoginFormValues = {
+  grantType: 'captcha',
+  userName: 'admin',
+  captchaId: '',
+  captchaCode: ''
+};
+
+/** 注册默认值 */
+export const registerDefaults: RegisterFormValues = {
+  userName: '',
+  password: '',
+  email: '',
+  fullName: '',
+  confirmPassword: ''
+};
+
+/** 重置密码默认值 */
+export const resetPasswordDefaults: ResetPasswordFormValues = {
+  userName: '',
+  password: '',
+  captchaId: '',
+  captchaCode: '',
+  confirmPassword: ''
+};
 
 /* -------------------------------------------------------------------------- */
 /*                                  类型导出                                   */

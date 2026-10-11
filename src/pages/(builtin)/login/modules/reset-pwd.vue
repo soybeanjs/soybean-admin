@@ -3,9 +3,8 @@ import { onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SForm, SInput, SPassword, toast, useForm } from '@vean/ui';
 import { fetchResetPassword } from '@/service/api/auth';
-import { resetPasswordFormSchema } from '@/schema/auth';
+import { resetPasswordFormSchema, resetPasswordDefaults } from '@/schema/auth';
 import type { ResetPasswordFormValues } from '@/schema/auth';
-import { resetPasswordDefaults } from '@/schema/login-form-defaults';
 import { gotoLoginModule, useLoginCaptcha } from '../use-login';
 
 /**

@@ -11,7 +11,7 @@ import { toPageQuery } from '@/service/api/manage-types';
 import { useTableOperate } from '@/composables/use-table-operate';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 import ManagePage from '@/components/manage-page/index.vue';
-import type { ApiSearchFormDTO } from '@/schema/search';
+import type { ApiSearchFormDTO } from '@/schema/api';
 import ApiOperate from './modules/api-operate.vue';
 import ApiSearch from './modules/api-search.vue';
 

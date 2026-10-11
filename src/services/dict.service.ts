@@ -3,14 +3,8 @@ import type { SQL } from 'drizzle-orm';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
 import { createUuidV7 } from '@/shared/uuid';
-import type {
-  DictCreateDTO,
-  DictItemCreateDTO,
-  DictItemQuery,
-  DictItemUpdateDTO,
-  DictQuery,
-  DictUpdateDTO
-} from '@/schema/org-dict';
+import type { DictCreateDTO, DictQuery, DictUpdateDTO } from '@/schema/dict';
+import type { DictItemCreateDTO, DictItemQuery, DictItemUpdateDTO } from '@/schema/dict-item';
 import { appDb } from '../db';
 import { dict, dictItem } from '../db/schema';
 

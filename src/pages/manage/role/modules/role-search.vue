@@ -3,8 +3,8 @@ import { useI18n } from 'vue-i18n';
 import { SInput, SSelect, useForm } from '@vean/ui';
 import { useManageOptions } from '@/composables/use-manage-options';
 import ManageSearch from '@/components/manage-search/index.vue';
-import { roleSearchFormSchema } from '@/schema/search';
-import type { RoleSearchFormDTO } from '@/schema/search';
+import { roleSearchFormSchema } from '@/schema/role';
+import type { RoleSearchFormDTO } from '@/schema/role';
 
 /**
  * 角色搜索卡（P3-03）。
