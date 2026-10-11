@@ -8,6 +8,7 @@ import type { PageTabsContextMenuOptionData, PageTabsOptionData, PageTabsState }
 import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/constants';
 import { resolveExternalUrl } from '@/shared/iframe';
 import { resolveLayoutMatrix } from '@/shared/layout-matrix';
+import { normalizeRoutePath } from '@/shared/route';
 import { registerVeanLocalePack } from '@/shared/vean-locale';
 import { useAppStore, useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
 import type { AppTab, MenuTreeNode } from '@/typings/app';
@@ -152,7 +153,9 @@ function onMenuSelect(key: string): void {
 
   const path = menuPathMap.value.get(key);
 
-  if (path) void router.push(path);
+  // 建树时已剥过 locale 段（见 menu store `initStaticMenu`），这里再兜一次
+  // 是防 dynamic 菜单行自带前缀：`/:locale(en)?/...` 这类模板字符串不是地址。
+  if (path) void router.push(normalizeRoutePath(path));
 }
 
 // ---------------------------------------------------------------------------

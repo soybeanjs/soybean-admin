@@ -1,5 +1,6 @@
 import type { RouteComponent, RouteRecordRaw, Router } from 'vue-router';
 import { defineStore } from 'pinia';
+import { normalizeRoutePath } from '@/shared/route';
 import { toAppRouteMeta } from '@/utils/route-meta';
 import { env } from '@/env';
 import { api } from '@/request';
@@ -76,11 +77,20 @@ export const useMenuStore = defineStore('menu', {
     // static 模式：文件路由 meta → 菜单
     // ------------------------------------------------------------------
 
+    /**
+     * 从 vue-router 路由表派生菜单树。
+     *
+     * `route.path` 必须先经 `normalizeRoutePath`：i18n 策略不是 `no_prefix` 时
+     * 它长这样 —— `/:locale(en)?/about`（模板字符串，不是可导航地址），
+     * 直接当菜单 path 会 push 到字面量 `/:locale(en)?/about` → 404。
+     */
     initStaticMenu(router: Router) {
       this.items = buildStaticMenuTree(
-        router
-          .getRoutes()
-          .map(route => ({ name: String(route.name), path: route.path, meta: toAppRouteMeta(route.meta) }))
+        router.getRoutes().map(route => ({
+          name: String(route.name),
+          path: normalizeRoutePath(route.path),
+          meta: toAppRouteMeta(route.meta)
+        }))
       );
     },
 

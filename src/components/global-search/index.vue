@@ -5,6 +5,7 @@ import { onKeyStroke } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 import { SCommand, SDialog, SKbd, useTheme } from '@vean/ui';
 import type { SelectEvent } from '@vean/ui';
+import { normalizeRoutePath } from '@/shared/route';
 import { useAppStore, useMenuStore } from '@/store';
 import { SEARCH_GROUP_ACTION, flattenMenuEntries, groupEntries } from './shared';
 import type { SearchEntry } from './shared';
@@ -90,7 +91,7 @@ function onSelect(event: SelectEvent<string>): void {
     const path = entryPathMap.value.get(value);
 
     if (path) {
-      void router.push(path);
+      void router.push(normalizeRoutePath(path));
     } else if (value === ACTION_THEME_DRAWER) {
       appStore.setThemeDrawerVisible(true);
     } else if (value === ACTION_TOGGLE_MODE) {
