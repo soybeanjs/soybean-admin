@@ -15,7 +15,7 @@ import { describe, expect, it } from 'vitest';
  * 判据只看**裸主入口** `ubean`：`ubean/client`（客户端）、`ubean/server`
  * （服务端宏）、`ubean/build`（构建期）、`ubean/vite` 都不拦。
  */
-const srcDir = resolve(import.meta.dirname, '../..');
+const srcDir = resolve(import.meta.dirname, '../../../src');
 
 /** 参与客户端构建的目录/文件（SSR 复用同一份源码，因此一并算「客户端图」）。 */
 const CLIENT_GRAPH_ENTRIES = [

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { defineDatabase } from 'ubean/server';
-import { runAppMigrations } from './migrations';
-import { runSeed } from './seed';
-import { appDatabase } from './index.ts';
+import { appDatabase } from '@/db/index.ts';
+import { runAppMigrations } from '@/db/migrations';
+import { runSeed } from '@/db/seed';
 
 /**
  * 迁移 + seed 幂等性冒烟（独立内存库，不污染 dev 库、可重复运行）。

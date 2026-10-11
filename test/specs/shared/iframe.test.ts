@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { resolveExternalUrl, resolveIframeUrl } from './iframe';
+import { resolveExternalUrl, resolveIframeUrl } from '@/shared/iframe';
 
 /**
  * 外链 / 内嵌页地址解析（P3-07）。

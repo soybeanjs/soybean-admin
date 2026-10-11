@@ -21,7 +21,7 @@ const router = getRouter();
 interface PluginLink {
   /** 路由 path */
   path: string;
-  /** 展示文案：直接存 `t()` 结果，本仓 `\`test/remove-i18n.test.ts\`` 禁动态 key */
+  /** 展示文案：直接存 `t()` 结果，本仓 `\`test/specs/scripts/remove-i18n.test.ts\`` 禁动态 key */
   label: string;
   icon: string;
 }

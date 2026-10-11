@@ -50,7 +50,7 @@ import { resolveLoginModule } from '@/pages/(builtin)/login/use-login';
  * 于是 `to.meta.requiresAuth === false` 永假 → 未登录访问登录页会被守卫
  * 无限重定向到登录页（真实浏览器里表现为渲染进程 100% CPU 卡死）。
  * `meta` 是逐字透传的（`computeMeta()`），所以只有这条路径可靠。
- * 回归保护见 `test/page-access.test.ts`。
+ * 回归保护见 `test/specs/guards/page-meta-guard.test.ts`。
  */
 definePage({
   layout: 'blank',

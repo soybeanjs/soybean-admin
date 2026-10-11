@@ -7,8 +7,8 @@ import {
   readNestedStringRecord,
   readStringRecord,
   resolveVersion
-} from '../scripts/dependency-manifest';
-import type { CatalogTables, DependencyInfo } from '../scripts/dependency-manifest';
+} from '../../../scripts/dependency-manifest';
+import type { CatalogTables, DependencyInfo } from '../../../scripts/dependency-manifest';
 
 /**
  * 构建期依赖清单（about 页数据源）的契约。

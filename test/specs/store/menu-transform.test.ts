@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { transformMenuToRoute } from '@/store/modules/menu';
 import type { ApiMenuRow } from '@/typings/app';
-import { transformMenuToRoute } from './index';
 
 /**
  * dynamic 菜单行 → 路由记录（P3-07 补 iframe 分支）。

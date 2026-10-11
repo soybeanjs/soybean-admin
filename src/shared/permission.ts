@@ -3,7 +3,7 @@ import { STATIC_SUPER_ROLE } from '@/constants/service';
 /**
  * 权限判定纯函数（v3 §4.6）。放在 `src/shared/` 而非 `@/directives/auth`：
  * 路由守卫（`src/router/guard.ts`）与指令（`v-auth`）共用同一判定，且纯函数
- * 可单测（`src/shared/permission.test.ts`）—— 指令模块带 Vue 运行时依赖，
+ * 可单测（`test/specs/shared/permission.test.ts`）—— 指令模块带 Vue 运行时依赖，
  * 不适合被守卫静态引入。
  *
  * 两条通道粒度不同：

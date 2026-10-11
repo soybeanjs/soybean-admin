@@ -3,7 +3,7 @@
  *
  * 服务端行结构来自 drizzle `$inferSelect`，客户端拿不到该类型依赖，这里按
  * `src/db/schema/*.ts` 手工镜像。**与 `src/typings/app.d.ts` 同性质**：服务端
- * 列变更需同步本文件（`test/api.test.ts` 的 CRUD 生命周期用例是护栏）。
+ * 列变更需同步本文件（`test/integration/api.test.ts` 的 CRUD 生命周期用例是护栏）。
  */
 
 /** 8 套 CRUD 共用的分页响应（`{ total, current, size, list }`） */

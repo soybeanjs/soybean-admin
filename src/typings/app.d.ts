@@ -193,7 +193,7 @@ export type AppRouteMeta = {
    * `if (page.pageMeta?.requiresAuth === true)`），顶层 `false` 会被静默丢弃，
    * 于是 `to.meta.requiresAuth === false` 永假 → 未登录访问公开页被守卫无限
    * 重定向（真实浏览器里渲染进程 100% CPU 卡死）。`meta` 是逐字透传的
-   * （`computeMeta()`），只有这条路径可靠。回归保护见 `test/page-access.test.ts`。
+   * （`computeMeta()`），只有这条路径可靠。回归保护见 `test/specs/guards/page-meta-guard.test.ts`。
    */
   requiresAuth?: boolean;
   /** 动态路由来源的菜单 id（一致性断言用） */

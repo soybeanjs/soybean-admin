@@ -7,48 +7,11 @@
  * RBAC（super 放行、普通用户按权限码）、8 套 CRUD 生命周期、分页/校验/错误归一。
  * 全部断言业务码 `{ code, message, data }` 结构。
  */
-import { readFileSync } from 'node:fs';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-
-const BASE_URL = readFileSync(new URL('./baseUrl.txt', import.meta.url), 'utf-8').trim();
-
-type ApiEnvelope<T = unknown> = { code: string; message: string; data: T };
+import { api, okData, BASE_URL } from '../shared/api-client';
 
 let adminToken = '';
 let userToken = '';
-
-async function api<T = unknown>(
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
-  path: string,
-  options: { body?: unknown; token?: string; query?: Record<string, string> } = {}
-): Promise<{ status: number; body: ApiEnvelope<T> }> {
-  const url = new URL(path, BASE_URL);
-
-  for (const [key, value] of Object.entries(options.query ?? {})) {
-    url.searchParams.set(key, value);
-  }
-
-  const res = await fetch(url, {
-    method,
-    headers: {
-      ...(options.body !== undefined ? { 'Content-Type': 'application/json' } : {}),
-      ...(options.token ? { Authorization: `Bearer ${options.token}` } : {})
-    },
-    // GET 不允许携带 body（unicorn/no-invalid-fetch-options），条件展开规避 undefined 字段
-    ...(options.body !== undefined ? { body: JSON.stringify(options.body) } : {})
-  });
-  // 所有端点经响应包装中间件输出统一信封，这里直接按信封类型收（fetch json 返回 any，赋值即合法）
-  const body: ApiEnvelope<T> = await res.json();
-
-  return { status: res.status, body };
-}
-
-/** 断言业务成功（code === '0000'）并取出 data */
-function okData<T>(body: ApiEnvelope<T>): T {
-  expect(body.code).toBe('0000');
-
-  return body.data;
-}
 
 type CreatedIds = { userIds: string[]; roleIds: string[]; menuIds: string[] };
 

@@ -11,13 +11,13 @@ import {
   registerSchema,
   resetPasswordFormSchema,
   resetPasswordSchema
-} from './auth';
+} from '@/schema/auth';
 import {
   codeLoginDefaults,
   passwordLoginDefaults,
   registerDefaults,
   resetPasswordDefaults
-} from './login-form-defaults';
+} from '@/schema/login-form-defaults';
 
 /**
  * P3-05 的核心契约：**登录页表单与服务端共用同一份 valibot 声明**。

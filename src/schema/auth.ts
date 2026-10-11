@@ -192,7 +192,7 @@ export const resetPasswordFormSchema = v.pipe(
 
 export type ResetPasswordFormValues = v.InferOutput<typeof resetPasswordFormSchema>;
 
-/** 登录页 4 个表单模块的 schema 清单（`src/schema/login-form.test.ts` 用） */
+/** 登录页 4 个表单模块的 schema 清单（`test/specs/schema/login-form.test.ts` 用） */
 export const LOGIN_PAGE_FORM_SCHEMAS = {
   pwdLogin: passwordLoginFormSchema,
   codeLogin: codeLoginFormSchema,

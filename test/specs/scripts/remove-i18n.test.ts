@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { afterAll, describe, expect, it } from 'vitest';
 import {
   applyRemoveI18nPlan,
@@ -16,7 +17,7 @@ import {
   stripUnusedI18nHarness,
   toLiteral,
   unwrapLabelCalls
-} from '../scripts/remove-i18n';
+} from '../../../scripts/remove-i18n';
 
 /**
  * `remove-i18n` 裁剪脚本的守卫。
@@ -26,6 +27,9 @@ import {
  * 必须等于 `--write` 的结果（两者共用 `planRemoveI18n`），且在本仓库上跑
  * 必须 0 残留、0 待确认。
  */
+
+/** 仓库根：`REPO_ROOT` 依赖调用目录，测试与脚本都必须锚到仓库根 */
+const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 
 const messages = {
   flat: flattenMessages({ common: { logout: '退出登录', language: '语言' }, login: { codeLogin: '验证码登录' } })
@@ -148,7 +152,7 @@ describe('remove-i18n：内联与结构改写', () => {
 
 describe('remove-i18n：文件收集与残留扫描', () => {
   it('扫 src 下的 .vue / .ts，跳过测试与 locales 目录', () => {
-    const files = collectSourceFiles(process.cwd());
+    const files = collectSourceFiles(REPO_ROOT);
 
     expect(files).toContain('src/app.ts');
     expect(files).toContain('src/pages/index.vue');
@@ -172,7 +176,7 @@ describe('remove-i18n：文件收集与残留扫描', () => {
 
 describe('remove-i18n：本仓库计划（dry-run 不落盘）', () => {
   it('0 残留、0 待确认，且关键文件都在计划里', () => {
-    const plan = planRemoveI18n(process.cwd(), messagesOk());
+    const plan = planRemoveI18n(REPO_ROOT, messagesOk());
 
     expect(plan.leftovers).toEqual([]);
     expect(plan.problems).toEqual([]);
@@ -192,7 +196,7 @@ describe('remove-i18n：本仓库计划（dry-run 不落盘）', () => {
     expect(plan.inlined).toBeGreaterThan(50);
 
     // 计划阶段绝不写盘
-    expect(existsSync(join(process.cwd(), 'src/locales/zh.json'))).toBe(true);
+    expect(existsSync(join(REPO_ROOT, 'src/locales/zh.json'))).toBe(true);
   });
 });
 
@@ -242,5 +246,5 @@ describe('remove-i18n：沙箱落盘', () => {
 
 /** 真实文案表（从本仓库 `src/locales/zh.json` 读，与脚本同一来源） */
 function messagesOk() {
-  return { flat: flattenMessages(JSON.parse(readFileSync(join(process.cwd(), 'src/locales/zh.json'), 'utf8'))) };
+  return { flat: flattenMessages(JSON.parse(readFileSync(join(REPO_ROOT, 'src/locales/zh.json'), 'utf8'))) };
 }

@@ -18,7 +18,7 @@ import { apiMethodSchema, enabledSchema, idSchema, menuTypeSchema } from './shar
  * `password`）时另加字段。
  *
  * 提交时由页面把表单值裁剪成 DTO（例：新增用户不带 `enabled`，编辑用户留空
- * 密码就不提交 `password`）。`src/schema/form.test.ts` 断言两者键集合兼容。
+ * 密码就不提交 `password`）。`test/specs/schema/form.test.ts` 断言两者键集合兼容。
  */
 
 const requiredText = v.pipe(v.string(), v.nonEmpty());
@@ -172,7 +172,7 @@ export type DictItemFormDTO = v.InferOutput<typeof dictItemFormSchema>;
 export type PermissionFormDTO = v.InferOutput<typeof permissionFormSchema>;
 export type MenuFormDTO = v.InferOutput<typeof menuFormSchema>;
 
-/** 8 套 operate 表单的 schema 清单（`src/schema/form.test.ts` 用） */
+/** 8 套 operate 表单的 schema 清单（`test/specs/schema/form.test.ts` 用） */
 export const MANAGE_FORM_SCHEMAS = {
   user: userFormSchema,
   role: roleFormSchema,

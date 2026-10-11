@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { resolveWatermarkContent, shouldRunWatermarkTimer } from './watermark';
-import type { WatermarkContentSource } from './watermark';
+import { resolveWatermarkContent, shouldRunWatermarkTimer } from '@/shared/watermark';
+import type { WatermarkContentSource } from '@/shared/watermark';
 
 /**
  * P2-12：水印内容优先级与计时器开关的守卫。

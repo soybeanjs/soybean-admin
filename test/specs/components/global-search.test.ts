@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
+import {
+  SEARCH_GROUP_ACTION,
+  SEARCH_GROUP_MENU,
+  flattenMenuEntries,
+  groupEntries
+} from '@/components/global-search/shared';
 import type { MenuTreeNode } from '@/typings/app';
-import { SEARCH_GROUP_ACTION, SEARCH_GROUP_MENU, flattenMenuEntries, groupEntries } from './shared';
 
 /**
  * P2-11：全局搜索的数据整形守卫。

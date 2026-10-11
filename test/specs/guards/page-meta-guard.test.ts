@@ -28,7 +28,7 @@ import { describe, expect, it } from 'vitest';
  * `docs/v3.md` §4.2 把 `requiresAuth` 列为 `definePage` 合法顶层字段，与生成器
  * 实际行为不符；本用例以生成器行为为准。
  */
-const pagesDir = resolve(import.meta.dirname, '..', 'pages');
+const pagesDir = resolve(import.meta.dirname, '../../../src', 'pages');
 
 /** 生成器会静默丢弃或错误发射的顶层字段 */
 const FORBIDDEN_TOP_LEVEL = ['requiresAuth', 'cache'] as const;

@@ -11,7 +11,7 @@ import { SEARCH_ANY_VALUE } from '@/schema/search';
  *
  * 文案一律写成静态字面量 key，**不能**用 `t(labelKeys[value])` 这类动态取值：
  * `scripts/remove-i18n` 只能内联字面量 key，动态调用会留下无法裁剪的 `useI18n`
- * 装配（`test/remove-i18n.test.ts` 断言 `plan.leftovers === []`）。因此下面每个
+ * 装配（`test/specs/scripts/remove-i18n.test.ts` 断言 `plan.leftovers === []`）。因此下面每个
  * 选项列表都穷举 `value` 与 key 的配对。
  *
  * 必须在 setup 里调用（用到 `useI18n()`）。

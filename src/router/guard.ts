@@ -44,7 +44,7 @@ import { installRouter } from './instance';
  * `definePage({ meta: { requiresAuth: false } })`。ubean 0.6.0 生成器只发射
  * 顶层 `requiresAuth: true`，顶层 `false` 被静默丢弃 → 本守卫会把登录页自己
  * 也重定向到登录页，形成无限重定向（真浏览器里 CPU 打满卡死）。
- * 回归保护见 `test/page-access.test.ts`。
+ * 回归保护见 `test/specs/guards/page-meta-guard.test.ts`。
  */
 export function setupRouterGuard(instance: Router): void {
   installRouter(instance);

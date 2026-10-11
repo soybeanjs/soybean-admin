@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { parse } from 'valibot';
-import { healthInfoSchema, healthStatusSchema } from './system';
+import { healthInfoSchema, healthStatusSchema } from '@/schema/system';
 
 /**
  * Phase 0 的样板测试：证明 vitest + valibot + `@/` 别名可用

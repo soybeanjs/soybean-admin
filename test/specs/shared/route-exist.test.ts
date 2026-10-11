@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { shouldTreatMissingRouteAsForbidden } from './route-exist';
+import { shouldTreatMissingRouteAsForbidden } from '@/shared/route-exist';
 
 describe('shouldTreatMissingRouteAsForbidden', () => {
   it('static 模式一律 false：本地全注册，落 NotFound 就是真 404', () => {

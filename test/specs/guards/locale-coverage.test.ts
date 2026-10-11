@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
@@ -11,7 +11,7 @@ import { describe, expect, it } from 'vitest';
  * `manage.*` 命名空间，漏一个 key 很容易在评审里滑过去，所以这里把
  * 「源码里出现的每一个 `t('x.y')` 都能在两个语言包里解析到」变成测试。
  */
-const REPO_ROOT = join(fileURLToPath(import.meta.url), '..', '..');
+const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const LOCALE_FILES = ['src/locales/zh.json', 'src/locales/en.json'] as const;
 
 /** 需要扫描 `t('…')` 的源码目录（页面、视图、组件、组合式函数、常量） */

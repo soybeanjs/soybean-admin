@@ -12,7 +12,7 @@ import { ENABLED_TAG_COLORS } from '@/constants/manage';
  *
  * 文案按值**穷举**成静态字面量 key，不能写成 `t(ENABLED_LABEL_KEYS[props.enabled])`：
  * `scripts/remove-i18n` 只内联字面量 key，动态调用会留下无法裁剪的 `useI18n`
- * 装配（`test/remove-i18n.test.ts` 断言 `plan.leftovers === []`）。
+ * 装配（`test/specs/scripts/remove-i18n.test.ts` 断言 `plan.leftovers === []`）。
  */
 defineOptions({ name: 'EnabledTag' });
 

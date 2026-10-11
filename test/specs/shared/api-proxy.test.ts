@@ -6,7 +6,7 @@ import {
   parseApiProxyTargets,
   resolveProxyBaseUrl,
   resolveProxyKey
-} from './api-proxy';
+} from '@/shared/api-proxy';
 
 /**
  * P2-18：多 baseURL 代理配置的守卫。

@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import * as v from 'valibot';
-import { apiMethodSchema, enabledSchema, menuTypeSchema } from './shared';
 import {
   MANAGE_FORM_SCHEMAS,
   apiFormSchema,
@@ -11,7 +10,7 @@ import {
   permissionFormSchema,
   roleFormSchema,
   userFormSchema
-} from './form';
+} from '@/schema/form';
 import {
   emptyApiForm,
   emptyDictForm,
@@ -21,7 +20,8 @@ import {
   emptyPermissionForm,
   emptyRoleForm,
   emptyUserForm
-} from './form-defaults';
+} from '@/schema/form-defaults';
+import { apiMethodSchema, enabledSchema, menuTypeSchema } from '@/schema/shared';
 
 /**
  * 表单 schema 护栏（P3-03）。

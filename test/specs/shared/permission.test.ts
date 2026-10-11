@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { hasPermissionCode, hasRole, SUPER_ROLE } from './permission';
+import { hasPermissionCode, hasRole, SUPER_ROLE } from '@/shared/permission';
 
 /**
  * 权限判定纯函数（`src/shared/permission.ts`）。

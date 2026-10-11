@@ -7,8 +7,8 @@ import {
   describeLayoutMatrix,
   isCellEffective,
   resolveLayoutMatrix
-} from './layout-matrix';
-import type { LayoutMatrixInput } from './layout-matrix';
+} from '@/shared/layout-matrix';
+import type { LayoutMatrixInput } from '@/shared/layout-matrix';
 
 /**
  * P2-20：布局模式 × 配置项矩阵的守卫。

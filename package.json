@@ -43,7 +43,7 @@
     "release": "soy release",
     "remove:i18n": "node scripts/remove-i18n.ts",
     "test": "vitest run",
-    "test:e2e": "PW_E2E=1 vitest run test/e2e.test.ts",
+    "test:e2e": "PW_E2E=1 vitest run test/integration/e2e.test.ts",
     "test:watch": "vitest",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "upkg": "soy ncu"

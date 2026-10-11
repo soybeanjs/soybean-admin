@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createMemoryHistory, createRouter } from 'vue-router';
 // @vitest-environment jsdom
 import { createPinia, setActivePinia } from 'pinia';
+import type { TabRouteLike } from '@/store/modules/tab';
 import type { AppRouteMeta } from '@/typings/app';
-import type { TabRouteLike } from './index';
 
 /**
  * 页签 store 的持久化与跨用户清理（P4-02，v3 §5.9）。
@@ -56,7 +56,7 @@ beforeEach(async () => {
 
 describe('页签持久化', () => {
   it('addTab 写入 localStorage（前缀 + tabs 键）', async () => {
-    const { useTabStore } = await import('./index');
+    const { useTabStore } = await import('@/store/modules/tab');
     const store = useTabStore();
 
     store.addTab(route('Index', '/', { title: '工作台' }));
@@ -70,21 +70,21 @@ describe('页签持久化', () => {
   });
 
   it('重新建 store 时从 localStorage 恢复页签（刷新不丢）', async () => {
-    const { useTabStore } = await import('./index');
+    const { useTabStore } = await import('@/store/modules/tab');
     const first = useTabStore();
     first.addTab(route('Index', '/', { title: '工作台' }));
     first.addTab(route('AboutIndex', '/about', { title: '关于' }));
 
     // 模拟刷新：换一份全新 pinia 与 store 实例，state 只能来自 localStorage
     setActivePinia(createPinia());
-    const { useTabStore: freshUseTabStore } = await import('./index');
+    const { useTabStore: freshUseTabStore } = await import('@/store/modules/tab');
     const restored = freshUseTabStore();
 
     expect(restored.tabs.map(tab => tab.value)).toEqual(['Index', 'AboutIndex']);
   });
 
   it('multiTab 页用 fullPath 当唯一键（同路由不同 query 各占一个页签）', async () => {
-    const { useTabStore } = await import('./index');
+    const { useTabStore } = await import('@/store/modules/tab');
     const store = useTabStore();
 
     store.addTab(route('FunctionMultiTab', '/function/multi-tab?a=1', { title: '多标签', multiTab: true }));
@@ -94,7 +94,7 @@ describe('页签持久化', () => {
   });
 
   it('固定页签排在最前，且关闭非固定页签不会误伤它', async () => {
-    const { useTabStore } = await import('./index');
+    const { useTabStore } = await import('@/store/modules/tab');
     const store = useTabStore();
 
     store.addTab(route('Index', '/', { title: '工作台' }));
@@ -112,7 +112,7 @@ describe('页签持久化', () => {
 
   it('关闭最后一个同路由页签时驱逐 KeepAlive 缓存，重新打开时恢复资格', async () => {
     const mocked = await import('ubean/client');
-    const { useTabStore } = await import('./index');
+    const { useTabStore } = await import('@/store/modules/tab');
     const store = useTabStore();
 
     store.addTab(route('Cached', '/cached', { title: '缓存页', cache: true }));

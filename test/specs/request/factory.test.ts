@@ -51,7 +51,7 @@ describe('错误提示去重', () => {
   it('相同文案 3s 内只弹一次', async () => {
     vi.stubGlobal('fetch', async () => json(BAD_CREDENTIALS));
 
-    const { createApiClients } = await import('./factory');
+    const { createApiClients } = await import('@/request/factory');
     const client = createApiClients('');
 
     await client.request.get('/api/auth/login').catch(() => undefined);
@@ -65,7 +65,7 @@ describe('错误提示去重', () => {
   it('一次业务失败只弹一条（不会因 BackendError 再补一条英文兜底）', async () => {
     vi.stubGlobal('fetch', async () => json(BAD_CREDENTIALS));
 
-    const { createApiClients } = await import('./factory');
+    const { createApiClients } = await import('@/request/factory');
     const client = createApiClients('');
 
     await client.request.get('/api/auth/login').catch(() => undefined);
@@ -84,7 +84,7 @@ describe('错误提示去重', () => {
       return json(call === 1 ? BAD_CREDENTIALS : { code: '2009', message: '账号已锁定', data: null });
     });
 
-    const { createApiClients } = await import('./factory');
+    const { createApiClients } = await import('@/request/factory');
     const client = createApiClients('');
 
     await client.request.get('/api/auth/login').catch(() => undefined);
@@ -116,7 +116,7 @@ describe('刷新令牌单飞', () => {
       return json(expired ? EXPIRED_TOKEN : { code: '0000', message: '成功', data: { ok: true } });
     });
 
-    const { createApiClients } = await import('./factory');
+    const { createApiClients } = await import('@/request/factory');
     const client = createApiClients('');
 
     const results = await Promise.all([
@@ -145,7 +145,7 @@ describe('刷新令牌单飞', () => {
     const { setLogoutHandler } = await import('@/utils/auth');
     setLogoutHandler(silent => logoutRequests.push(silent));
 
-    const { createApiClients } = await import('./factory');
+    const { createApiClients } = await import('@/request/factory');
     const client = createApiClients('');
 
     await client.request.get('/api/a').catch(() => undefined);

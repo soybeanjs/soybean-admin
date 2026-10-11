@@ -47,9 +47,10 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm analyze:check
 
 ## 硬约定（配置里推不出、必须遵守）
 
+- **测试目录分层**（对齐 `soybean-ui/packages/ui/test`）：单测写在 `test/specs/<域>/*.test.ts`（`components`/`composables`/`constants`/`db`/`guards`/`request`/`schema`/`scripts`/`shared`/`store`，环境 `node`），真实 HTTP 集成测试写在 `test/integration/*.test.ts`，跨用例辅助放 `test/shared/*`（不被 `include` 收集）。**`src/**` 下不放 `*.test.ts`** —— `unplugin-vue-i18n` 会把 `src/locales/*.test.ts` 当语言包资源解析，`pnpm build` 直接报错。测试经 `@/*` 别名导入被测模块（不用相对路径），文件锚点时 `dirname(fileURLToPath(import.meta.url))` 而非 `fileURLToPath(import.meta.url)` 直接 `join`。
 - 别名：`@/*` → `src/*`，`~ubean/*` → `./.ubean/*`。`.ubean/**`、`src/router/_generated/**`、`dist/**` 是 codegen 与构建产物，直接手改会在下次生成时丢失。
 - 契约单一来源：DTO 与校验写 `src/schema/**`（Valibot）；接口响应固定 `{ code, message, data }`，业务码集中在 `src/constants/error-code.ts`；新端点要同步 `.ubean/openapi.d.ts` 所依赖的路由定义。
-- 新增或修改端点时，在 `test/api.test.ts` 补真实 HTTP 用例（成功路径、错误业务码、未授权 2000）。
+- 新增或修改端点时，在 `test/integration/api.test.ts` 补真实 HTTP 用例（成功路径、错误业务码、未授权 2000）。
 - 样式只走 `@vean/ui` + UnoCSS（`uno.config.ts` = `presetSoybean()` + `presetUi()`）；全局样式进 `src/styles/`。
 - i18n 文案写 `src/locales/{zh,en}.json`；新增 key 后先跑一次 `pnpm dev`（或 `pnpm build`）让 `.ubean/i18n.d.ts` 重新生成，再 `pnpm typecheck`。
 - 提交前同步文档状态：Phase 任务完成后更新 `docs/v3-task.md` 的行状态、总览计数、「进度快照」与「变更记录」。
@@ -60,3 +61,4 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm analyze:check
 - ubean dev 会对每个 HTML 请求在 Node 里预渲染执行应用与 vue-router 守卫，那里 `import.meta.server === false` 且没有 `window` / `localStorage`。浏览器专属逻辑（鉴权重定向、localStorage 读取）在守卫顶部用 `typeof window === 'undefined'` 早退；判据是能力检测，不是编译标志。
 - router 单例只从 `src/router/instance.ts` 的 `getRouter()` 取：store / 布局 / 页面 import 它，而 `@/router` 只导出 `setupRouterGuard`。否则 store ↔ router 模块环会让 dev 转换管线静默死锁。
 - 本机 curl 访问 dev server 用 `--noproxy '*'`，否则系统代理会返回 502。
+- 注释里写的测试路径引用要先确认目标文件真的存在 —— `src/constants/manage.ts` 曾长期声称 `src/constants/manage.test.ts` 断言了值域一致性，而该文件在 git 历史里从未存在过（现已补齐为 `test/specs/constants/manage.test.ts`）。

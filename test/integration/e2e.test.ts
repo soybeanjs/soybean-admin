@@ -1,6 +1,6 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it, beforeAll, afterAll } from 'vitest';
 import type { Browser, Page } from 'playwright';
+import { BASE_URL } from '../shared/api-client';
 
 /**
  * 真实浏览器回归（P4-02，v3 §5.9 中必须在真 DOM 里验证的部分）。
@@ -16,10 +16,8 @@ import type { Browser, Page } from 'playwright';
  * - **错误提示去重**：一次失败登录只应出现一条后端文案，且不应出现英文兜底。
  *
  * ⚠️ **需要本机有 Playwright 浏览器**。CI（ubuntu，无浏览器安装步骤）会整体跳过；
- * 纯逻辑 / 静态守卫的回归在 `src/**` 的单测里，CI 必跑。跳过时不影响门槛。
+ * 纯逻辑 / 静态守卫的回归在 `test/specs/**` 的单测里，CI 必跑。跳过时不影响门槛。
  */
-
-const BASE_URL = readFileSync(new URL('./baseUrl.txt', import.meta.url), 'utf-8').trim();
 
 let browser: Browser | null = null;
 

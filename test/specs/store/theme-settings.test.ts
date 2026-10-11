@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { COLOR_WEAKNESS_FILTER, GRAYSCALE_FILTER } from '@/constants/theme';
-import { readStoredThemeSettings, resolveFilterStyle, resolvePresetThemeState } from './index';
+import { readStoredThemeSettings, resolveFilterStyle, resolvePresetThemeState } from '@/store/modules/theme';
 
 /**
  * P2-10：主题设置里两块「无 DOM 也能验证」的纯逻辑 —— 滤镜互斥、预设 → 主题信封。

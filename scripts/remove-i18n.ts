@@ -411,9 +411,9 @@ export const FILE_RULES: FileRule[] = [
 export const DELETE_PATHS = [
   'src/locales',
   'src/shared/vean-locale.ts',
-  'src/shared/vean-locale.test.ts',
+  'test/specs/shared/vean-locale.test.ts',
   'src/shared/i18n.ts',
-  'src/shared/i18n.test.ts'
+  'test/specs/shared/i18n.test.ts'
 ];
 
 /** 递归收集 `src/**` 下参与替换的源码文件（相对 root 的路径，排序稳定） */

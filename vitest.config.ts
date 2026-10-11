@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
 import { buildDependencyManifest } from './scripts/dependency-manifest';
 
@@ -5,14 +6,24 @@ import { buildDependencyManifest } from './scripts/dependency-manifest';
 // dev/build，单测跑在 vitest 自己的转换管线里，自由变量不会自动可用。
 const dependencyManifest = JSON.stringify(buildDependencyManifest());
 
+const srcDir = fileURLToPath(new URL('./src/', import.meta.url));
+
 /**
- * Phase 0 起 vitest 只跑 `src/**` 下的纯逻辑测试（schema / composable / util）；
- * `test/**` 为真实 HTTP 集成测试（P1-10）：globalSetup 自起/复用 dev server，
- * 用例见 `test/api.test.ts`（认证全链路 + RBAC + 8 套 CRUD 生命周期）。
+ * 测试目录分层（对齐 `soybean-ui/packages/ui/test` 的组织方式）：
+ *
+ * - `test/specs/**`        纯逻辑单测（环境 `node`，不碰网络），按被测源码域分子目录：
+ *                          `components/` `composables/` `db/` `request/` `schema/` `shared/`
+ *                          `store/` `guards/`（静态纪律守卫）`scripts/`（构建脚本契约）。
+ * - `test/integration/**`  真实 HTTP 集成测试（P1-10）：`globalSetup` 自起/复用 dev server，
+ *                          用例见 `test/integration/api.test.ts`（认证全链路 + RBAC + 8 套
+ *                          CRUD 生命周期）；`e2e.test.ts` 需 `PW_E2E=1` 与真实浏览器。
+ * - `test/shared/**`       跨用例共用的辅助模块（断言/夹具），不被 include 收集。
+ *
+ * 单测从 `src/**` 迁出后统一经 `@/*` 别名导入被测模块，不再依赖相对路径层级。
  */
 export default defineConfig({
   test: {
-    include: ['src/**/*.{test,spec}.{ts,tsx}', 'test/**/*.{test,spec}.{ts,tsx}'],
+    include: ['test/specs/**/*.{test,spec}.{ts,tsx}', 'test/integration/**/*.{test,spec}.{ts,tsx}'],
     environment: 'node',
     testTimeout: 30_000,
     globalSetup: ['test/global-setup.ts'],
@@ -28,7 +39,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': new URL('./src/', import.meta.url).pathname
+      '@': srcDir
     }
   }
 });

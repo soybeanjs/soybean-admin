@@ -3,7 +3,7 @@
  *
  * 刻意**不**从 `@/db/schema/shared`（drizzle）或 `@/schema/shared`（valibot）
  * 取值：那两份会分别把 drizzle-core / valibot 拉进客户端产物。这里的值域是
- * 稳定的字符串契约，`src/constants/manage.test.ts` 断言它们与 schema 一致，
+ * 稳定的字符串契约，`test/specs/constants/manage.test.ts` 断言它们与 schema 一致，
  * 用一条测试换掉一份运行时依赖。
  *
  * 标签**不在这里**：文案必须以静态字面量 key 的 `t()` 调用形式写在组件/组合式

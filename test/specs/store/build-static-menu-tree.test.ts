@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
+import { buildStaticMenuTree, findMenuTrail } from '@/store/modules/menu';
+import type { StaticMenuRoute } from '@/store/modules/menu';
 import type { AppRouteMeta } from '@/typings/app';
-import { buildStaticMenuTree, findMenuTrail } from './index';
-import type { StaticMenuRoute } from './index';
 
 /**
  * `buildStaticMenuTree` / `findMenuTrail` 的单测（P3-10 多级菜单）。

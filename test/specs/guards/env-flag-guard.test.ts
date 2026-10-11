@@ -17,7 +17,7 @@ import { describe, expect, it } from 'vitest';
  * 这条用例把「一次真实浏览器排查」的结论固化成即时反馈：新增 `import.meta.client`
  * 会在单测阶段就红，而不是等到线上用户反馈「登录状态老丢」。
  */
-const srcDir = resolve(import.meta.dirname, '..');
+const srcDir = resolve(import.meta.dirname, '../../../src');
 
 /** 只匹配 `import.meta.client` / `import.meta.server` 的**属性访问**，不拦文档里提到它们的注释 */
 const FORBIDDEN_FLAG = /import\.meta\.(client|server)\b/;
