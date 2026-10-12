@@ -32,6 +32,20 @@ export default defineConfig({
     ],
     strategy: 'prefix_except_default'
   },
+  /**
+   * `modules/` 是页面私有子组件目录，不是页面。
+   *
+   * 不能删：ubean 扫描器只硬编码忽略 `components/**` 与 `_*`，`modules/` 会被
+   * 当成页面扫出 `/login/modules/pwd-login` 这类垃圾路由 —— 实测 92 条真实页面
+   * 被放大成 183 条路由，登录模块的 vee-validate 表单代码被拖进 entry chunk
+   * （`analyze:check` 的 entry gzip 从 43.7 kB 涨到 46.0 kB，超 5% 预算）。
+   *
+   * `resolveUbeanConfig` 用 `defu` 合并，用户 ignore 追加在 `DEFAULT_IGNORE` 之后，
+   * 不会覆盖默认项；这些文件本来也不需要用 `definePage`。
+   */
+  scanOptions: {
+    ignore: ['**/modules/**']
+  },
   dev: {
     port: 9527
   },
