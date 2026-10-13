@@ -550,7 +550,7 @@ describe('RBAC', () => {
   it('exist-path 判定已存在路由', async () => {
     const { body } = await api<{ exists: boolean }>('POST', '/api/menu/exist-path', {
       token: adminToken,
-      body: { routeName: 'home' }
+      body: { routeName: 'ManageUserIndex' }
     });
 
     expect(okData<{ exists: boolean }>(body).exists).toBe(true);

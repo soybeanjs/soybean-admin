@@ -1,6 +1,6 @@
 # 菜单/路由数据模式的兼容方案探讨
 
-> 状态：设计探讨（未落地）
+> 状态：**已定案并落地**（方案 B + 工具 P1；详见 §7）。§6.5 / §7 的原文保留作对照，落地结果在各节末尾标注。
 > 关联：`docs/v3.md` §5.3 路由与菜单一元模型、§5.5 鉴权流程
 > 对照实现：`soybean-admin@main`（v2，elegant-router legacy）、`soybean-unify`（elegant-router main）、本仓库 `lite` 分支（ubean 文件路由）
 
@@ -113,6 +113,8 @@ function generateRouteName(routePath) {
 
 static / dynamic 因此不是两种模式，而是同一份 `ApiMenuRow[]` 的两个产地。
 
+**落地后**：产地其实有三个，但都是同一份文件的投影 —— `pnpm menu:sync` 从页面文件生成它、seed 把它写进 DB、static 模式直接 import 它。
+
 ### 4.2 单一来源消除种子漂移
 
 现状是 `src/db/seed-data.ts` 写菜单种子，static 模式还要另写一份，两份必然漂移。改成：
@@ -134,6 +136,8 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 
 本仓库可照搬这个收敛点，把 `App.Menu[]` 定为 static / dynamic 的统一中间表示。
 
+**落地结果**：`src/store/modules/menu/shared.ts` 导出 `AppMenu`（= `src/schema/menu.ts` 的 `MenuSource`）与 `buildMenuTree`；static 侧 `loadStaticMenus` 对应 unify 的 `buildMenuByStaticMenus`，但**只补 `routePath`**（`routeLayout` / `routeComponent` 由 `transformMenuToRoute` 从 `row` 直接读，不经中间表示）；`validateMenuRoutes` 对应 `validateRoute` 并多了 directory 前缀校验。与 unify 的差异：unify 的 `App.StaticMenu` 把开关字段也剔出去了，本仓库保留（菜单与 DB 行同形，seed 直接可用）。
+
 ---
 
 ## 5. 开发者工具（方案 B 的配套）
@@ -143,13 +147,16 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 必须守的三条约束，否则手写数据会被覆盖：
 
 1. **按 `routeName` 增量 merge**：路由新增 → 追加条目（`name` / `icon` / `order` 留空待填）；已存在 → 一个字段都不动；路由消失 → 只打警告，不删。
-2. **机器产物与人产物分文件**：`src/menus/_generated.json`（工具写，含 `pending: true` 标记）+ `src/menus/index.json`（人写，覆盖标题/图标/顺序/层级）。单文件双写是冲突来源。
+2. **机器产物与人产物分文件**：`src/menus/_generated.json`（工具写，含 `pending: true` 标记）+ `src/menus/menus.json`（人写，覆盖标题/图标/顺序/层级）。单文件双写是冲突来源。
+   → **落地时改为单文件**（`src/menus/menus.json`）。此约束要防的是「工具覆盖人工字段」，实际实现只用更窄的规则就消掉了这个风险：工具**只刷新从页面文件重算的派生字段**（`routePath` / `routeComponent` / `keepAlive` / `multiTab` / `pinned`）与**只追加**新条目，而 `name` / `icon` / `i18nKey` / `order` / `parentId` 等审美决定**一个字段都不动**。降到一个文件的好处是「菜单在哪」只有一个答案 —— 两个文件反而让「这条到底算人工还是机器」成为新的含糊点。代价：工具不能再往条目里写 `pending: true`（会与人工字段混在一起），新增条目以 `order: DEFAULT_ORDER`（= 999）末位插入作标记。
 3. **面板写回原子替换 + 固定 JSON 格式**（2 空格缩进、键序稳定），否则每次 git diff 全是噪声。
 
 ### 5.2 拖拽排序 / 换父的边界
 
 - **order 无法推断**，只能：新建条目给路径字典序初值 + `pending: true`，人在面板里改。
+  → 落地实现给的是 `order: DEFAULT_ORDER`（999，末位）而非字典序，人改起来更好找。
 - **换父（拖进别的目录）实际改的是 `routePath`**，而 `routePath` 来自文件路径 → 拖拽不能直接写文件。正解：**拖拽改的是 `parentId` + 可选 `routePath` 覆盖（存在 JSON 里，不改页面文件路径）**。这要求 `routePath` 与文件路径解耦 —— `transformMenuToRoute` 已经用 `row.routePath` 而非文件路径，本来就是解耦的。
+  → 落地后：static 模式下 `routePath` 实际由 `loadStaticMenus` 从**路由表**取（不是从菜单 JSON 取），所以换父只需改 `parentId`；`routePath` 想脱离文件路径时手写的值只在路由表查不到该 `routeName` 时分生效。层级调整无需动页面文件。
 
 ### 5.3 分期
 
@@ -158,6 +165,8 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 | P1  | `scripts/menu-sync.ts` → `pnpm menu:sync`：`scanPages` + diff + 补缺 + 孤立条目清单 | 2-3 小时 |
 | P2  | 本地 ubean module：`addVitePlugin` 监听 `src/pages/**` 变更触发 P1                  | +4 小时  |
 | P3  | `addDevToolsTab` + `addDevServerHandler`：拖拽排序/换父写回 JSON                    | +1-2 天  |
+
+**P1 已完成**（`pnpm menu:sync`）。P2 / P3 未开工，记在 `docs/v3-task.md` 的 M-13 / M-14。
 
 ### 5.4 明确不做
 
@@ -212,38 +221,81 @@ if (exist) return { name: noPermissionRoute }; // → 403
 
 ### 6.5 本仓库现状与缺口
 
+> **落地后更新**：本节写于 `lite` 分支摸底期，当时列的 4 条缺口**已全部补齐**（第 3、4 项在本文撰写之后的 P3-07/P3-08 落地，第 1、2 项随方案 B 落地）。下文保留原文以记录当时的判断，落点见每条末尾。
+
 现状恰好是两种策略各取其一，缺的只有两处：
 
 1. **static 模式没有角色判权**：`src/router/guard.ts:48-51` 只判了 `requiresAuth`，没有角色检查。
+   → **已补齐**：`src/router/guard.ts` 已判 `to.meta.roles` + `hasRole`（`src/shared/permission.ts`，语义 = super 恒过 + required 空放行 + 交集，与 v2 等价）。唯一真实用例 `src/pages/function/super-page/index.vue:29`（`roles: ['super']`）。**M-07 核对通过，无需改动。**
 2. **dynamic 模式的 `exist-path` 没接进 guard**：403 形同虚设。
+   → **已补齐**：`src/router/guard.ts` 在 `isNotFound && dynamic` 时 `POST /menu/exist-path`，判定抽在 `src/shared/route-exist.ts` 的 `shouldTreatMissingRouteAsForbidden`（纯函数 + 单测）。
 
-相关现状证据：
+相关现状证据（原文）：
 
 - `src/router/guard.ts:70` 的 dynamic 首跳 hack（`String(to.name) === 'NotFound'` 回放）只处理了「路由刚注册」，没处理「存在但无权限 → 403」。
+  → 回放保留（首跳时菜单未初始化，NotFound 是假阳性），随后才做 `exist-path` 反查，两段互不冲突。
 - `src/service/api/menu.ts:14` 已有 `fetchIsRouteExist(query)` → `POST /api/menu/exist-path`，`src/routes/api/menu/(r)/exist-path.ts` 服务端已实现，但 guard 未调用。
+  → **已调用**（`src/router/guard.ts:110`）。注：`src/service/api/menu.ts` 已退役，统一走 `api.get` / `api.post`。
 - `src/typings/app.d.ts` 的 `AppRouteMeta` **没有 `roles` 字段**（只有 title / i18nKey / icon / order / hideInMenu / cache / multiTab / pinned / menuId / layout）。auth store 只有 `isStaticSuper` getter（`src/store/modules/auth/index.ts:38`），没有 `hasAnyRole`。
+  → **已加**：`AppRouteMeta.roles?: string[]`，由 `src/utils/route-meta.ts` 做运行时收窄（全仓唯一的 `RouteMeta → AppRouteMeta` 信任边界）。角色判定没有另造 `hasAnyRole`，直接用 `src/shared/permission.ts` 的 `hasRole`（与 `v-auth` 指令同一份语义）。
 - 全仓无 403 页面：grep `403` 只出现在 `src/service/api/menu.ts` 与 `src/routes/api/menu/(r)/exist-path.ts` 的注释里。
+  → **已有**：`src/pages/403.vue`（`name: 'Forbidden'`，`layout: 'blank'`）。
+
+**仍未收口（不属于「注册策略」但与此相关）**：`menuService.isMenuRouteExist` 仍是**全等匹配**，`/user/:id` 这类参数路径反查不到；且 `to.path` 在 `prefix_except_default` 下可能带 locale 前缀。两处都要复用 `src/shared/route.ts` 的 `normalizeRoutePath` / `findHonoRouteByPath`（后者至今无调用点）。记在 `docs/v3-task.md` 的 **M-06 / M-08**。
 
 ---
 
 ## 7. 待落地清单
 
-| #   | 改动                                                                      | 文件                                                                                                        | 估计     |
-| --- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------- |
-| 1   | 建单一菜单源，seed 改为 import                                            | 新建 `src/menus/menus.json`；改 `src/db/seed-data.ts`                                                       | 20 分钟  |
-| 2   | `App.Menu[]` 定为 static/dynamic 统一中间表示                             | `src/store/modules/menu/index.ts`                                                                           | 1-2 小时 |
-| 3   | static 模式补角色判权（`AppRouteMeta.roles` + `hasAnyRole` + guard 判定） | `src/typings/app.d.ts`、`src/typings/router.d.ts`、`src/store/modules/auth/index.ts`、`src/router/guard.ts` | 1 小时   |
-| 4   | dynamic 模式 `exist-path` 接进 guard，区分 403/404；补 403 页面           | `src/router/guard.ts`、新建 `src/pages/403.vue`、`src/locales/{zh,en}.json`                                 | 1 小时   |
-| 5   | `routePath` 建树 + directory 前缀校验（仅 dynamic 建树与 dev 断言）       | `src/services/menu.service.ts`、`src/store/modules/menu/index.ts`                                           | 1 小时   |
-| 6   | 菜单同步脚本（P1）                                                        | 新建 `scripts/menu-sync.ts`                                                                                 | 2-3 小时 |
-| 7   | 更新 `docs/v3.md` §5.3 / §5.5，同步 `docs/v3-task.md`                     | `docs/`                                                                                                     | 20 分钟  |
+> **本节是原始清单，落地状态见下表末列。** 实施后的实际路径与本表有两处不同：文件叫 `src/menus/menus.json`（不是 `index.json`）；`routeComponent` 的编码从 legacy 的 `layout.base$view.xxx` 改为**页面相对路径**（`manage/user/index.vue`），旧格式仍兼容。
+
+| #   | 改动                                                                      | 文件                                                                                                        | 估计     | 状态                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| --- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | 建单一菜单源，seed 改为 import                                            | 新建 `src/menus/menus.json`；改 `src/db/seed-data.ts`                                                       | 20 分钟  | ✅ 44 条（由 `pnpm menu:sync` 从真实页面生成）；`seedMenus` 改为 `parse(menuSourceFileSchema, menusSource).menus`；seed 菜单计数断言 6 → 44。旧 6 条 legacy 路由名（`home` / `system_user` / …）整体删除。**顺带修实缺陷**：旧 `M_about` 的 `requiresAuth: 'N'` 是唯一公开菜单，生成时曾误写成 `'Y'`，被 RBAC 集成测试（`public` 返回 `[]`）当场捉住。                                                                   |
+| 2   | `App.Menu[]` 定为 static/dynamic 统一中间表示                             | `src/store/modules/menu/index.ts`                                                                           | 1-2 小时 | ✅ 新建 `src/store/modules/menu/shared.ts`（`buildMenuTree` 是**唯一建树点**）+ `src/schema/menu.ts` 新增 `menuSourceSchema`（`AppMenu = MenuSource`）。两条路径不再各自建树。                                                                                                                                                                                                                                           |
+| 3   | static 模式补角色判权（`AppRouteMeta.roles` + `hasAnyRole` + guard 判定） | `src/typings/app.d.ts`、`src/typings/router.d.ts`、`src/store/modules/auth/index.ts`、`src/router/guard.ts` | 1 小时   | ✅ 已于此前的 P3-07 落地（未另造 `hasAnyRole`，用 `src/shared/permission.ts` 的 `hasRole`）。                                                                                                                                                                                                                                                                                                                            |
+| 4   | dynamic 模式 `exist-path` 接进 guard，区分 403/404；补 403 页面           | `src/router/guard.ts`、新建 `src/pages/403.vue`、`src/locales/{zh,en}.json`                                 | 1 小时   | ✅ 已于此前的 P3-08 落地（`src/shared/route-exist.ts` 纯函数 + 单测）。**待补**：参数路由与 locale 前缀的反查（M-06 / M-08）。                                                                                                                                                                                                                                                                                           |
+| 5   | `routePath` 建树 + directory 前缀校验（仅 dynamic 建树与 dev 断言）       | `src/services/menu.service.ts`、`src/store/modules/menu/index.ts`                                           | 1 小时   | 🟡 **部分**。按用户决定建树仍用 `parentId`（方案 A 已否决），`routePath` 降级为 dev 校验 —— `shared.ts` 的 `validateMenuRoutes` 第②③项已实现（路径与路由表一致 + directory 前缀）。**待补**：`menu.service` 写入时校验（M-02 / M-09）。`src/services/menu.service.ts:47-52` 现在仍对 directory 抛「目录类型菜单不能配置路由」，而当前 44 条菜单**没有 directory 行**（层级全靠 `menuParent` → `parentId`），所以未触发。 |
+| 6   | 菜单同步脚本（P1）                                                        | 新建 `scripts/menu-sync.ts`                                                                                 | 2-3 小时 | ✅ `pnpm menu:sync`（`node scripts/menu-sync.ts`）。**未按原计划分 `_generated.json`** —— 只用「只刷新派生字段 + 只追加、绝不改人工字段、绝不删」把风险消掉，多一个文件反而让「菜单到底在哪」变两份（理由写在脚本头注释）。已实测幂等。                                                                                                                                                                                  |
+| 7   | 更新 `docs/v3.md` §5.3 / §5.5，同步 `docs/v3-task.md`                     | `docs/`                                                                                                     | 20 分钟  | ✅ §5.3 已加链接；本文件 §6.5 / §7 / §8 已更新；`docs/v3-task.md` 新增 Phase 6 表（M-01…M-14）。                                                                                                                                                                                                                                                                                                                         |
+
+**落地后的真实数据流（一条，不再分叉）**：
+
+```
+                  ┌─ static ─ src/menus/menus.json ─┐
+页面文件（事实）──┴─ dynamic ─ DB seed（同一份）─────┴─> GET /api/menu/user
+                                                            ↓
+                                          loadStaticMenus / 直接映射
+                                                            ↓
+                                                      AppMenu[]
+                                                            ↓
+                                      buildMenuTree（唯一建树点）
+                                                            ↓
+                                                    MenuTreeNode[]
+```
+
+路由本身仍从页面文件自动生成（`src/pages/**`），菜单的 `routePath` 在 static 模式下被路由表的真实 path 覆盖 —— 所以**改页面文件名不会把菜单跳错**，这是 `loadStaticMenus` 存在的理由。
 
 ---
 
 ## 8. 未验证 / 风险
 
+> 落地后逐条收口（原文保留，结论跟在后面）。
+
 - `addDevToolsTab` 的 `component` 字段实际如何被 devframe 消费：只在 `@ubean/config` 里看到类型定义（`interface DevToolsCustomTab { id: string; title: string; icon?: string; component?: any }`）与 `push` 逻辑（`ctx._devToolsTabs.push(tab)`），`@ubean/devtools` 包未在 `node_modules/@ubean/` 下直接可见（可能仅在 `devtools: true` 时才解析）。P3 前需实测。
+  → **仍未实测**（P3 未开工）。风险不变。
 - `scanPages` 的独立调用签名未读函数体，可能需要 `UbeanRouter` 实例或 `cwd` 参数。P1 前需实测。
+  → **已实测**：`scanPages({ cwd, srcDir, pagesDir, ignore })` 可独立调用（`scanPages` 从 `@ubean/vue/vite` 导出，不在 `@ubean/scan` 的运行时导出里）。扫出 53 页，44 条进菜单。**踩到的坑**：`pnpm menu:sync` 走普通 `node`，**不能 import `@/` 别名模块**（`@ubean/vue/vite` 与 type-only import 可以）。
 - `routePath` 段与历史种子数据是否全部一致：只核对了 schema 与部分种子，未全量校验。
+  → **已核实为完全不一致**：历史 seed 的 `routeName` 是 legacy elegant-router 约定（`home` / `system_user` / `about`），真实页面是 ubean 的 `Index` / `ManageUserIndex` / `AboutIndex`；`routeComponent: 'layout.base$view.xxx'` 指向已不存在的 `src/views`。已整体替换（见 §7 第 1 项）。
 - 目录节点（无对应路由）的可点击性：`src/layouts/default.vue:81` 的 `resolveMenuItems` 递归映射时是否需要跳过无路由的节点，未实测。
+  → **悬空**：当前 44 条菜单**没有 directory 行**，所以没触发。一旦引入纯分组目录（`routePath` 有、无 `routeName`），需确认 `resolveMenuItems` 不会把目录渲染成可导航项。
 - static 模式 `roles` 的判定语义需与 v2 对齐（v2 是 `authStore.isStaticSuper || !routeRoles.length || hasRole`），落 `hasAnyRole` 时不要引入行为差异。
+  → **已核对等价**：`src/shared/permission.ts` 的 `hasRole` 是「super 恒过 + required 空放行 + 交集」，与 v2 逐项等价（M-07）。未另造 `hasAnyRole`。
+
+### 8.1 落地过程新发现的坑
+
+- **`resolveJsonModule` 会把 JSON 字面量放宽成 `string`**：直接 `import menus.json` 拿不到 `menuType: 'directory' \| 'menu' \| …` 的窄类型，`seedMenus: NewMenu[]` 会报 TS2322。解决：在契约单一来源 `src/schema/menu.ts` 加 `menuSourceSchema` + `parseMenuSource(raw)`，全仓唯一的 JSON → 领域类型的信任边界（与 `src/utils/route-meta.ts` 收窄 `RouteMeta` 同一套路）。注意用 `optional(nullable(x))` 而**不是** `optional(x, default)` —— 后者的 `InferOutput` 仍收窄成必填，无法兼容手写 JSON。
+- **`definePage(` 出现在注释里会“劫持”扫描**：`extractDefinePageFromCode` → `findBalancedCall` 取 script 块内**第一处** `definePage(`，命中注释即导致该页 meta 全丢（`src/pages/function/multi-tab/index.vue:10` 就这么丢了 title/i18nKey/icon/order，菜单从 45 条掉到 44 条）。已改为普通文字。**后续写注释不要出现 `definePage(` 字面量。**
+- **`extractDefinePageFromCode` 返回的 `meta` 是实时引用**：脚本直接改会污染扫描器缓存，必须浅拷贝后再改。
+- **`pipeline 排序 bug 顺带修了**：旧 `buildMenuTree`的`sortTree`用`node.value`（= `routeName \|\| code`）去查以 `id`为键的 Map，order 恒落 0。新的`buildMenuTree` 「先排好序再挂父」，每层自然有序。

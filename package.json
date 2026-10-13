@@ -38,6 +38,7 @@
     "fmt": "vp fmt",
     "lint": "vp lint --fix && eslint --fix .",
     "lint:vue": "eslint . --ext .vue",
+    "menu:sync": "node scripts/menu-sync.ts",
     "prepare": "vp config --no-agent",
     "preview": "vp preview",
     "release": "soy release",

@@ -265,6 +265,49 @@ export function toMenuForm(row: MenuResource): MenuFormDTO {
   };
 }
 
+/**
+ * 菜单源数据（`src/menus/menus.json` 的 `menus` 数组），也是 static / dynamic 两种
+ * 模式的**统一中间表示** `AppMenu`（`docs/v3-menu-route-modes.md` §4.1/§4.3）。
+ *
+ * 与 `menuCreateSchema` 是两回事：那是管理端表单（人手填），这是仓库里的源
+ * 文件（`pnpm menu:sync` 生成 + 人工调层级/标题）。字段与 `menuRowFields` 对齐，
+ * 但**可选字段允许缺省或 null** —— JSON 里没写就是没有，不必逐个写出；同时
+ * 放宽到可空，`MenuResource` 才能直接当 `AppMenu` 用（dynamic 模式的输入是
+ * 完整的数据库行，含 `enabled` 与审计字段，多出的字段不影响结构兼容）。
+ *
+ * 为什么需要它：`resolveJsonModule` 把 JSON 字面量放宽成 `string`，直接
+ * `import menus.json` 得不到 `menuType` 这类窄类型。过一遍 schema 才拿到
+ * `MenuSource`（与 `src/utils/route-meta.ts` 收窄 `RouteMeta` 同一个套路：信任
+ * 边界只在一处，其余地方不进 `as` 断言）。顺带为人手编辑把关。
+ */
+export const menuSourceSchema = object({
+  id: idSchema,
+  parentId: optional(nullable(idSchema)),
+  name: pipe(string(), nonEmpty('菜单名称不能为空')),
+  code: pipe(string(), nonEmpty('菜单编码不能为空')),
+  menuType: menuTypeSchema,
+  requiresAuth: optional(nullable(yesOrNoSchema)),
+  order: optional(nullable(pipe(number(), integer()))),
+  icon: optional(nullable(string())),
+  i18nKey: optional(nullable(string())),
+  href: optional(nullable(string())),
+  iframeUrl: optional(nullable(string())),
+  routeName: optional(nullable(string())),
+  routePath: optional(nullable(string())),
+  routeLayout: optional(nullable(string())),
+  routeComponent: optional(nullable(string())),
+  routeRedirect: optional(nullable(string())),
+  routeQueries: optional(nullable(record(string(), string()))),
+  routeParams: optional(nullable(record(string(), string()))),
+  keepAlive: optional(nullable(yesOrNoSchema)),
+  multiTab: optional(nullable(yesOrNoSchema)),
+  pinned: optional(nullable(yesOrNoSchema)),
+  description: optional(nullable(string()))
+});
+
+/** `src/menus/menus.json` 的整个文件（`$schema` 这类额外键被 object() 丢弃） */
+export const menuSourceFileSchema = object({ menus: array(menuSourceSchema) });
+
 /* -------------------------------------------------------------------------- */
 /*                                  类型导出                                   */
 /* -------------------------------------------------------------------------- */
@@ -277,5 +320,6 @@ export type MenuCreateDTO = InferOutput<typeof menuCreateSchema>;
 export type MenuUpdateDTO = InferOutput<typeof menuUpdateSchema>;
 export type MenuQuery = InferOutput<typeof menuQuerySchema>;
 export type MenuExistPathDTO = InferOutput<typeof menuExistPathSchema>;
+export type MenuSource = InferOutput<typeof menuSourceSchema>;
 export type MenuSearchFormDTO = InferOutput<typeof menuSearchFormSchema>;
 export type MenuFormDTO = InferOutput<typeof menuFormSchema>;

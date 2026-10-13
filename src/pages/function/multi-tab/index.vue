@@ -7,7 +7,7 @@ import { SButton, SCard } from '@vean/ui';
 /**
  * 多标签页（P3-06，v3 §4.6「多标签」）。
  *
- * 本页 `definePage({ meta: { multiTab: true } })`：tab store 的 `addTab` 用
+ * 本页声明 `multiTab: true`：tab store 的 `addTab` 用
  * `to.fullPath`（而非路由名）作为页签 value，所以**同一路由的不同 query 会
  * 各自成为一个页签**。页签切换时本页不会重挂载（同一路由记录，仅 query 变），
  * 因此必须用 `useRoute().query` 的响应式读取，而不是在 setup 里取一次快照。

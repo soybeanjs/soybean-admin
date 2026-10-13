@@ -1,4 +1,8 @@
+import { parse } from 'valibot';
 import { hashSync } from 'bcryptjs';
+import { DEFAULT_ORDER } from '../constants/db';
+import menusSource from '../menus/menus.json';
+import { menuSourceFileSchema } from '../schema/menu';
 import type { NewApi } from './schema/api';
 import type { NewDict } from './schema/dict';
 import type { NewDictItem } from './schema/dict-item';
@@ -30,6 +34,8 @@ function idRow() {
 const ROLE_SUPER = 'R_super';
 const ROLE_USER = 'R_user';
 
+/** 菜单源数据（`src/menus/menus.json`，由 `pnpm menu:sync` 与页面文件对账） */
+const staticMenus = parse(menuSourceFileSchema, menusSource).menus;
 export const seedUsers: NewUser[] = [
   {
     id: 'U_admin',
@@ -55,91 +61,28 @@ export const seedRoles: NewRole[] = [
   { id: ROLE_USER, name: '普通用户', code: 'user', description: '仅可访问公开页面', ...idRow() }
 ];
 
-export const seedMenus: NewMenu[] = [
-  {
-    id: 'M_home',
-    name: '首页',
-    code: 'M_home',
-    menuType: 'menu',
-    requiresAuth: 'Y',
-    routePath: '/',
-    routeName: 'home',
-    routeComponent: 'layout.base$view.home',
-    i18nKey: 'route.home',
-    icon: 'mdi:monitor-dashboard',
-    order: 100,
-    ...idRow()
-  },
-  {
-    id: 'M_system',
-    name: '系统管理',
-    code: 'M_system',
-    menuType: 'directory',
-    requiresAuth: 'Y',
-    routePath: '/system',
-    routeName: 'system',
-    i18nKey: 'route.system',
-    icon: 'mdi:settings-outline',
-    order: 200,
-    ...idRow()
-  },
-  {
-    id: 'M_system_user',
-    parentId: 'M_system',
-    name: '用户管理',
-    code: 'M_system_user',
-    menuType: 'menu',
-    requiresAuth: 'Y',
-    routePath: '/system/user',
-    routeName: 'system_user',
-    routeComponent: 'layout.base$view.system_user',
-    i18nKey: 'route.system_user',
-    order: 1,
-    ...idRow()
-  },
-  {
-    id: 'M_system_role',
-    parentId: 'M_system',
-    name: '角色管理',
-    code: 'M_system_role',
-    menuType: 'menu',
-    requiresAuth: 'Y',
-    routePath: '/system/role',
-    routeName: 'system_role',
-    routeComponent: 'layout.base$view.system_role',
-    i18nKey: 'route.system_role',
-    order: 2,
-    ...idRow()
-  },
-  {
-    id: 'M_system_menu',
-    parentId: 'M_system',
-    name: '菜单管理',
-    code: 'M_system_menu',
-    menuType: 'menu',
-    requiresAuth: 'Y',
-    routePath: '/system/menu',
-    routeName: 'system_menu',
-    routeComponent: 'layout.base$view.system_menu',
-    i18nKey: 'route.system_menu',
-    order: 3,
-    ...idRow()
-  },
-  {
-    id: 'M_about',
-    name: '关于',
-    code: 'M_about',
-    menuType: 'menu',
-    requiresAuth: 'N',
-    routePath: '/about',
-    routeName: 'about',
-    routeComponent: 'layout.base$view.about',
-    i18nKey: 'route.about',
-    icon: 'mdi:information-outline',
-    order: 900,
-    ...idRow()
-  }
-];
+/**
+ * 菜单种子 = 仓库里的菜单源数据（`src/menus/menus.json`），不在这里另写一份。
+ *
+ * 为什么必须同源（`docs/v3-menu-route-modes.md` §4.2）：菜单有两份就必然漂移。
+ * 改造前这里手写着 6 行 `routeName: 'home' / 'system_user'`（legacy elegant-router
+ * 的命名）与 `routeComponent: 'layout.base$view.home'`（指向已不存在的 `src/views`），
+ * 而真实页面早就叫 `Index` / `ManageUserIndex`（`src/pages/manage/user/index.vue`）
+ * —— two sources, guaranteed drift。现在 static 模式读同一份 JSON，seed 读这一份，
+ * 漂移在结构上不可能发生。
+ */
+export const seedMenus: NewMenu[] = staticMenus.map(row => ({
+  ...row,
+  // 源文件里可省/可为 null 的字段，入库前补成 DB 的 NOT NULL 默认值
+  requiresAuth: row.requiresAuth ?? 'Y',
+  order: row.order ?? DEFAULT_ORDER,
+  keepAlive: row.keepAlive ?? 'N',
+  multiTab: row.multiTab ?? 'N',
+  pinned: row.pinned ?? 'N',
+  // id 来自菜单源文件，不交给 drizzle 的 $defaultFn；审计字段统一补
+  enabled: 'Y',
+  ...idRow()
+}));
 
 /** 权限：按钮权限（挂菜单）+ API 权限（挂 API 记录） */
 export const seedPermissions: NewPermission[] = [
@@ -148,7 +91,7 @@ export const seedPermissions: NewPermission[] = [
     name: '新增用户',
     code: 'system:user:add',
     resourceType: 'menu',
-    resourceId: 'M_system_user',
+    resourceId: 'M_manage_user_index',
     ...idRow()
   },
   {
@@ -156,7 +99,7 @@ export const seedPermissions: NewPermission[] = [
     name: '编辑用户',
     code: 'system:user:edit',
     resourceType: 'menu',
-    resourceId: 'M_system_user',
+    resourceId: 'M_manage_user_index',
     ...idRow()
   },
   {
@@ -164,7 +107,7 @@ export const seedPermissions: NewPermission[] = [
     name: '删除用户',
     code: 'system:user:delete',
     resourceType: 'menu',
-    resourceId: 'M_system_user',
+    resourceId: 'M_manage_user_index',
     ...idRow()
   },
   {

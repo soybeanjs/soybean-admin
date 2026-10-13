@@ -11,6 +11,7 @@ import type { AppRouteMeta } from '@/typings/app';
  */
 export function toAppRouteMeta(meta: RouteMeta): AppRouteMeta {
   return {
+    pageName: typeof meta.pageName === 'string' ? meta.pageName : undefined,
     title: typeof meta.title === 'string' ? meta.title : undefined,
     i18nKey: typeof meta.i18nKey === 'string' ? meta.i18nKey : undefined,
     icon: typeof meta.icon === 'string' ? meta.icon : undefined,

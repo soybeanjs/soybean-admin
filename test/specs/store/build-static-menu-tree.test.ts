@@ -1,196 +1,181 @@
-import { describe, expect, it, vi } from 'vitest';
-import { buildStaticMenuTree, findMenuTrail } from '@/store/modules/menu';
-import type { StaticMenuRoute } from '@/store/modules/menu';
-import type { AppRouteMeta } from '@/typings/app';
+import { describe, expect, it } from 'vitest';
+import { buildMenuTree, findMenuTrail, loadStaticMenus, validateMenuRoutes } from '@/store/modules/menu/shared';
+import type { AppMenu, MenuRouteEntry } from '@/store/modules/menu/shared';
 
 /**
- * `buildStaticMenuTree` / `findMenuTrail` 的单测（P3-10 多级菜单）。
+ * 菜单建树 / 加载 / 校验的单测（`docs/v3-menu-route-modes.md` §4）。
  *
- * `initStaticMenu(router)` 直接把 `router.getRoutes()` 映射成 `StaticMenuRoute[]`
- * 后交给这两个纯函数，所以这里只需喂自定义的路由列表，不必真的建 router。
+ * 这三个纯函数是 static（`src/menus/menus.json` + 路由表）与 dynamic
+ * （`GET /api/menu/user`）两条路径的**公共收敛点**，所以它们的行为就是两种模式
+ * 共同的行为 —— 这里测一遍等于两种模式都测了。
  */
 
-function route(name: string, path: string, meta: Partial<AppRouteMeta>): StaticMenuRoute {
-  return { name, path, meta };
+function menu(id: string, partial: Partial<AppMenu> = {}): AppMenu {
+  return { id, name: id, code: id, menuType: 'menu', order: 0, ...partial };
 }
 
-const MENU_LEVEL_ONE = route('MultiMenuIndex', '/multi-menu', {
-  title: '多级菜单',
-  i18nKey: 'route.multiMenu',
-  order: 26
-});
+describe('buildMenuTree', () => {
+  const l1 = menu('M_l1', { routeName: 'LevelOneIndex', routePath: '/l1', order: 1 });
+  const l2 = menu('M_l2', { parentId: 'M_l1', routeName: 'LevelTwoIndex', routePath: '/l1/l2', order: 2 });
+  const l3 = menu('M_l3', { parentId: 'M_l2', routeName: 'LevelThreeIndex', routePath: '/l1/l2/l3', order: 3 });
 
-const MENU_LEVEL_TWO = route('MultiMenuFirstSecondIndex', '/multi-menu/first/second', {
-  title: '二级菜单',
-  i18nKey: 'route.multiMenuSecond',
-  order: 28,
-  menuParent: 'MultiMenuIndex'
-});
-
-const MENU_LEVEL_TWO_WITH_CHILDREN = route('MultiMenuFirstSecondNewIndex', '/multi-menu/first/second-new', {
-  title: '二级菜单（有子菜单）',
-  i18nKey: 'route.multiMenuSecondNew',
-  order: 29,
-  menuParent: 'MultiMenuIndex'
-});
-
-const MENU_LEVEL_THREE = route('MultiMenuFirstSecondNewThirdIndex', '/multi-menu/first/second-new/third', {
-  title: '三级菜单',
-  i18nKey: 'route.multiMenuThird',
-  order: 30,
-  menuParent: 'MultiMenuFirstSecondNewIndex'
-});
-
-describe('buildStaticMenuTree', () => {
-  it('按 menuParent 建出三级嵌套，一级菜单是唯一根节点', () => {
-    const tree = buildStaticMenuTree([MENU_LEVEL_TWO, MENU_LEVEL_THREE, MENU_LEVEL_ONE, MENU_LEVEL_TWO_WITH_CHILDREN]);
+  it('按 parentId 建出三级嵌套，一级菜单是唯一根节点', () => {
+    const tree = buildMenuTree([l3, l1, l2]);
 
     expect(tree).toHaveLength(1);
-    expect(tree[0]?.value).toBe('MultiMenuIndex');
-    expect(tree[0]?.children?.map(node => node.value)).toEqual([
-      'MultiMenuFirstSecondIndex',
-      'MultiMenuFirstSecondNewIndex'
-    ]);
-    expect(tree[0]?.children?.[1]?.children?.map(node => node.value)).toEqual(['MultiMenuFirstSecondNewThirdIndex']);
+    expect(tree[0]?.value).toBe('LevelOneIndex');
+    expect(tree[0]?.children?.map(node => node.value)).toEqual(['LevelTwoIndex']);
+    expect(tree[0]?.children?.[0]?.children?.map(node => node.value)).toEqual(['LevelThreeIndex']);
   });
 
-  it('叶子节点（一级菜单）不产生空的 children 数组', () => {
-    const tree = buildStaticMenuTree([MENU_LEVEL_ONE]);
-
-    expect(tree[0]?.children).toBeUndefined();
+  it('叶子节点不产生空的 children 数组', () => {
+    expect(buildMenuTree([l1])[0]?.children).toBeUndefined();
   });
 
-  it('同级按 meta.order 排序，子级同样递归排序', () => {
-    const tree = buildStaticMenuTree([
-      MENU_LEVEL_TWO_WITH_CHILDREN,
-      route('MultiMenuFirstSecondIndex', '/multi-menu/first/second', {
-        title: '二级菜单',
-        order: 28,
-        menuParent: 'MultiMenuIndex'
-      }),
-      route('MultiMenuIndex', '/multi-menu', { title: '多级菜单', order: 26 })
+  it('同级按 order 升序，子级同样有序（挂父前已排好）', () => {
+    const tree = buildMenuTree([
+      menu('M_l1', { routeName: 'LevelOneIndex', order: 9 }),
+      menu('M_b', { parentId: 'M_l1', routeName: 'BIndex', order: 2 }),
+      menu('M_a', { parentId: 'M_l1', routeName: 'AIndex', order: 1 })
     ]);
 
-    expect(tree[0]?.children?.map(node => node.value)).toEqual([
-      'MultiMenuFirstSecondIndex',
-      'MultiMenuFirstSecondNewIndex'
-    ]);
+    expect(tree[0]?.children?.map(node => node.value)).toEqual(['AIndex', 'BIndex']);
   });
 
-  it('未声明 menuParent 的路由都升为一级菜单', () => {
-    const tree = buildStaticMenuTree([
-      route('Index', '/', { title: '工作台', order: 1 }),
-      route('ManageApiIndex', '/manage/api', { title: '接口管理', order: 10 })
-    ]);
+  it('parentId 指向不存在的菜单时降级为一级菜单，不丢菜单项', () => {
+    const tree = buildMenuTree([l1, menu('M_orphan', { parentId: 'M_not_exist', routeName: 'OrphanIndex', order: 5 })]);
 
-    expect(tree.map(node => node.value)).toEqual(['Index', 'ManageApiIndex']);
+    expect(tree.map(node => node.value)).toEqual(['LevelOneIndex', 'OrphanIndex']);
   });
 
-  it('menuParent 指向不存在的路由时降级为一级菜单并告警，不丢菜单项', () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-
-    const tree = buildStaticMenuTree([
-      MENU_LEVEL_ONE,
-      route('OrphanIndex', '/orphan', { title: '孤儿菜单', order: 40, menuParent: 'NotExistIndex' })
+  it('button / other 不进菜单树，其子项也一并降级为一级', () => {
+    const tree = buildMenuTree([
+      menu('M_btn', { menuType: 'button' }),
+      menu('M_child', { parentId: 'M_btn', routeName: 'ChildIndex', routePath: '/child' })
     ]);
 
-    expect(tree.map(node => node.value)).toEqual(['MultiMenuIndex', 'OrphanIndex']);
-    expect(warn).toHaveBeenCalledOnce();
-    expect(warn.mock.calls[0]?.[0]).toContain('NotExistIndex');
-
-    warn.mockRestore();
+    expect(tree.map(node => node.value)).toEqual(['ChildIndex']);
   });
 
-  it('hideInMenu 的页面不进入菜单树（只靠 activeMenu 让布局高亮）', () => {
-    const tree = buildStaticMenuTree([
-      MENU_LEVEL_ONE,
-      route('MultiMenuFirstIndex', '/multi-menu/first', {
-        title: '二级菜单',
-        order: 27,
-        menuParent: 'MultiMenuIndex'
-      }),
-      route('MultiMenuFirstHiddenIndex', '/multi-menu/first/hidden', {
-        title: '隐藏子页',
-        order: 27,
-        hideInMenu: true,
-        activeMenu: 'MultiMenuFirstIndex'
-      })
+  it('value 取 routeName，缺 routeName 时回落 code', () => {
+    const tree = buildMenuTree([
+      menu('M_directory', { menuType: 'directory', code: 'system', name: '系统管理' }),
+      menu('M_link', { menuType: 'link', code: 'docs', href: 'https://example.com' })
     ]);
 
-    expect(tree).toHaveLength(1);
-    expect(tree[0]?.children?.map(node => node.value)).toEqual(['MultiMenuFirstIndex']);
-    expect(tree[0]?.children?.[0]?.children).toBeUndefined();
+    expect(tree[0]?.value).toBe('system');
+    expect(tree[0]?.path).toBeUndefined();
+    expect(tree[1]).toMatchObject({ value: 'docs', href: 'https://example.com' });
   });
 
-  it('hideInMenu 的页面即使声明了 menuParent 也不进入菜单树', () => {
-    const tree = buildStaticMenuTree([
-      MENU_LEVEL_ONE,
-      route('HiddenIndex', '/hidden', {
-        title: '隐藏页',
-        order: 27,
-        hideInMenu: true,
-        menuParent: 'MultiMenuIndex',
-        activeMenu: 'MultiMenuIndex'
-      })
-    ]);
+  it('iframe 菜单把地址给到 iframeUrl 而不是 path', () => {
+    const tree = buildMenuTree([menu('M_iframe', { menuType: 'iframe', code: 'embed', iframeUrl: 'https://e.com/a' })]);
 
-    expect(tree).toHaveLength(1);
-    expect(tree[0]?.value).toBe('MultiMenuIndex');
-    expect(tree[0]?.children ?? []).toEqual([]);
-  });
-
-  it('过滤掉 hidenInMenu、NotFound 与无名无标题路由', () => {
-    const tree = buildStaticMenuTree([
-      MENU_LEVEL_ONE,
-      route('NotFound', '/:pathMatch(.*)*', { title: '页面不存在' }),
-      route('', '/blank', { title: '无路由名' }),
-      route('NoTitleIndex', '/no-title', { icon: 'mdi:help' }),
-      route('HiddenIndex', '/hidden', { title: '隐藏页', hideInMenu: true })
-    ]);
-
-    expect(tree.map(node => node.value)).toEqual(['MultiMenuIndex']);
-  });
-
-  it('把 meta 的图标、i18nKey、外链与内嵌地址映射到菜单节点', () => {
-    const tree = buildStaticMenuTree([
-      route('MultiMenuIndex', '/multi-menu', {
-        title: '多级菜单',
-        i18nKey: 'route.multiMenu',
-        icon: 'mdi:file-tree',
-        order: 26
-      }),
-      route('LinkIndex', '/link', { title: '外链', order: 31, href: 'https://example.com' }),
-      route('IframeIndex', '/iframe-demo', { title: '内嵌', order: 32, iframeUrl: 'https://example.com/embed' })
-    ]);
-
-    expect(tree[0]).toMatchObject({
-      value: 'MultiMenuIndex',
-      label: '多级菜单',
-      i18nKey: 'route.multiMenu',
-      icon: 'mdi:file-tree',
-      path: '/multi-menu'
-    });
-    expect(tree[1]).toMatchObject({ value: 'LinkIndex', href: 'https://example.com' });
-    expect(tree[2]).toMatchObject({ value: 'IframeIndex', iframeUrl: 'https://example.com/embed' });
+    expect(tree[0]?.iframeUrl).toBe('https://e.com/a');
+    expect(tree[0]?.path).toBeUndefined();
   });
 });
 
 describe('findMenuTrail', () => {
-  const tree = buildStaticMenuTree([MENU_LEVEL_TWO, MENU_LEVEL_THREE, MENU_LEVEL_ONE, MENU_LEVEL_TWO_WITH_CHILDREN]);
+  const tree = buildMenuTree([
+    menu('M_l1', { routeName: 'LevelOneIndex', order: 1 }),
+    menu('M_l2', { parentId: 'M_l1', routeName: 'LevelTwoIndex', order: 2 }),
+    menu('M_l3', { parentId: 'M_l2', routeName: 'LevelThreeIndex', order: 3 })
+  ]);
 
-  it('返回根 → 目标节点的完整链路（三级为 3 段）', () => {
-    expect(findMenuTrail(tree, 'MultiMenuFirstSecondNewThirdIndex').map(node => node.value)).toEqual([
-      'MultiMenuIndex',
-      'MultiMenuFirstSecondNewIndex',
-      'MultiMenuFirstSecondNewThirdIndex'
+  it('返回根 → 目标节点的完整链路', () => {
+    expect(findMenuTrail(tree, 'LevelThreeIndex').map(node => node.value)).toEqual([
+      'LevelOneIndex',
+      'LevelTwoIndex',
+      'LevelThreeIndex'
     ]);
-  });
-
-  it('一级菜单链路长度为 1', () => {
-    expect(findMenuTrail(tree, 'MultiMenuIndex')).toHaveLength(1);
   });
 
   it('目标不存在时返回空数组', () => {
     expect(findMenuTrail(tree, 'NotExistIndex')).toEqual([]);
+  });
+});
+
+describe('loadStaticMenus', () => {
+  const routes: MenuRouteEntry[] = [
+    { name: 'Index', path: '/:locale(en)?/' },
+    { name: 'AboutIndex', path: '/:locale(en)?/about' }
+  ];
+
+  it('用路由表上的真实 path 覆盖菜单里写的 routePath（并剥掉 locale 段）', () => {
+    const menus = loadStaticMenus([menu('M_index', { routeName: 'Index', routePath: '/stale' })], routes);
+
+    expect(menus[0]?.routePath).toBe('/');
+  });
+
+  it('路由表里没有该 routeName 时保留菜单写的 routePath（问题交给校验器报出）', () => {
+    const menus = loadStaticMenus([menu('M_ghost', { routeName: 'GhostIndex', routePath: '/ghost' })], routes);
+
+    expect(menus[0]?.routePath).toBe('/ghost');
+  });
+
+  it('不影响其它字段', () => {
+    const menus = loadStaticMenus(
+      [menu('M_about', { routeName: 'AboutIndex', routePath: '/about', icon: 'mdi:info', order: 900 })],
+      routes
+    );
+
+    expect(menus[0]).toMatchObject({ icon: 'mdi:info', order: 900, routePath: '/about' });
+  });
+});
+
+describe('validateMenuRoutes', () => {
+  const routes: MenuRouteEntry[] = [
+    { name: 'Index', path: '/:locale(en)?/' },
+    { name: 'ManageUserIndex', path: '/:locale(en)?/manage/user' }
+  ];
+
+  it('菜单与路由表一致时没有问题', () => {
+    const menus = [menu('M_index', { routeName: 'Index', routePath: '/' })];
+
+    expect(validateMenuRoutes(menus, routes)).toEqual([]);
+  });
+
+  it('routeName 指向不存在的路由时报出', () => {
+    const problems = validateMenuRoutes([menu('M_ghost', { routeName: 'GhostIndex', routePath: '/ghost' })], routes);
+
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('GhostIndex');
+  });
+
+  it('菜单路径与路由表路径不一致时报出（locale 前缀不算不一致）', () => {
+    const mismatch = validateMenuRoutes(
+      [menu('M_user', { routeName: 'ManageUserIndex', routePath: '/manage/user-wrong' })],
+      routes
+    );
+    const matched = validateMenuRoutes(
+      [menu('M_user', { routeName: 'ManageUserIndex', routePath: '/manage/user' })],
+      routes
+    );
+
+    expect(mismatch[0]).toContain('/manage/user');
+    expect(matched).toEqual([]);
+  });
+
+  it('directory 行的路径必须是子菜单路径的前缀', () => {
+    const problems = validateMenuRoutes(
+      [
+        menu('M_dir', { menuType: 'directory', routePath: '/wrong' }),
+        menu('M_child', { parentId: 'M_dir', routeName: 'ManageUserIndex', routePath: '/manage/user' })
+      ],
+      routes
+    );
+
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('前缀');
+  });
+
+  it('directory 不查路由表（它本来就没有对应路由）', () => {
+    const menus = [
+      menu('M_dir', { menuType: 'directory', routePath: '/manage' }),
+      menu('M_child', { parentId: 'M_dir', routeName: 'ManageUserIndex', routePath: '/manage/user' })
+    ];
+
+    expect(validateMenuRoutes(menus, routes)).toEqual([]);
   });
 });

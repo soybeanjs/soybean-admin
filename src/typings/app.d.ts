@@ -31,7 +31,7 @@ export interface MenuTreeNode {
    * 与 `path` 互斥（P3-07）。
    */
   iframeUrl?: string;
-  /** 子节点（多级菜单；静态模式由 `meta.menuParent` 建树，dynamic 模式来自菜单表 parentId） */
+  /** 子节点（多级菜单；**统一来自菜单行的 `parentId`**，见 `buildMenuTree`） */
   children?: MenuTreeNode[];
 }
 
@@ -59,6 +59,21 @@ export interface AppTab {
  * 会因缺索引签名而不可赋值；object type alias 有隐式索引签名，双向兼容。
  */
 export type AppRouteMeta = {
+  /**
+   * ubean keep-alive 的契约字段：`PageView` 用它决定是否给页面组件套一层
+   * 以它为 `name` 的包装（`getNamedPageWrapper`），`<KeepAlive :include>` 匹配的
+   * 就是这个包装名。静态页由生成器写入（`@ubean/vue` 的 `buildRouteMeta`）；
+   * dynamic 路由由 `transformMenuToRoute` 手动补 —— 不补则 `cache` 静默失效。
+   */
+  pageName?: string;
+  /**
+   * 激活的高亮菜单值（子页不在菜单时指向父菜单，隐藏子菜单演示用）。
+   *
+   * 只影响侧栏高亮：`src/layouts/default.vue` 的 `activeMenuValue` 把它喂给
+   * `SAppShell` 的 `model-value`。隐藏子页不进菜单（`hideInMenu`），所以没有
+   * 「挂到父节点」的问题。
+   */
+  activeMenu?: string;
   /** 页面标题（静态页兜底；dynamic 下以菜单 i18nKey 为单一来源） */
   title?: string;
   /** 菜单 i18n key（标题单一来源） */
@@ -77,18 +92,13 @@ export type AppRouteMeta = {
    */
   roles?: string[];
   /**
-   * 激活的高亮菜单值（子页不在菜单时指向父菜单，隐藏子菜单演示用）。
-   *
-   * `src/layouts/default.vue` 把它喂给 `SAppShell` 的 `model-value`。
-   * 静态菜单的建树也用它兜底：声明了 `activeMenu` 的隐藏子页会挂到该父节点下。
-   */
-  activeMenu?: string;
-  /**
    * 静态菜单树的父节点值（父路由的路由名）。
    *
    * 文件式路由不产生嵌套关系（每个页面都是一条平级记录），多级菜单演示
    * （`/multi-menu/**`）靠这个字段显式声明层级；不配则是一级菜单。
-   * 建树在 `src/store/modules/menu/index.ts` 的 `buildStaticMenuTree()`。
+   * **作为菜单源生成期的事实**：`scripts/menu-sync.ts` 把它转成菜单行的
+   * `parentId`（`M_${snake(menuParent)}`）；运行时建树只看 `parentId`
+   * （`src/store/modules/menu/shared.ts` 的 `buildMenuTree`）。
    */
   menuParent?: string;
   /** keep-alive 缓存（ubean `meta.cache`：PageView 据此种入 KeepAlive；dynamic 模式由菜单表下发） */

@@ -23,8 +23,13 @@ describe('db migrations + seed', () => {
     expect(users.rows.length).toBe(2);
     expect(users.rows[0]).toMatchObject({ username: 'admin' });
 
+    // 44 条 = src/menus/menus.json 的行数（菜单源文件是 seed 的输入，
+    // 改造前这里手写 6 行 legacy 路由名，与真实页面对不上）
     const menus = await db.sql<{ c: number }>`SELECT count(*) AS c FROM menu`;
-    expect(Number(menus.rows[0]?.c)).toBe(6);
+    expect(Number(menus.rows[0]?.c)).toBe(44);
+
+    const menuRow = await db.sql`SELECT route_name, route_path FROM menu WHERE id = 'M_manage_user_index'`;
+    expect(menuRow.rows[0]).toMatchObject({ route_name: 'ManageUserIndex', route_path: '/manage/user' });
 
     const perms = await db.sql<{ c: number }>`SELECT count(*) AS c FROM permission`;
     expect(Number(perms.rows[0]?.c)).toBe(9);

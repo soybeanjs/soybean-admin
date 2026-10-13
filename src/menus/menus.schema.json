@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://soybeanjs.dev/schema/menus.schema.json",
+  "title": "菜单源数据",
+  "description": "src/menus/menus.json 的结构约束。字段与 src/db/schema/menu.ts 的列一一对应（不含 enabled 与审计四字段），是 seed 与 static 模式菜单的共同输入。",
+  "type": "object",
+  "required": ["menus"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "_comment": { "type": "string", "description": "给协作者的说明，不参与构建" },
+    "menus": { "type": "array", "items": { "$ref": "#/definitions/menu" } }
+  },
+  "definitions": {
+    "menu": {
+      "type": "object",
+      "required": ["id", "name", "code", "menuType"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "稳定主键，被 permission.resourceId 引用，改名会断掉权限关联"
+        },
+        "parentId": { "type": ["string", "null"], "description": "父菜单 id，顶层不写" },
+        "name": { "type": "string", "minLength": 1, "description": "菜单显示名（i18nKey 缺失时的兜底）" },
+        "code": { "type": "string", "minLength": 1, "description": "全局唯一编码" },
+        "menuType": { "enum": ["directory", "menu", "page", "iframe", "link", "button", "other"] },
+        "requiresAuth": { "enum": ["Y", "N"], "default": "Y", "description": "是否需要登录态" },
+        "order": { "type": ["number", "null"], "description": "越小越靠前，同级排序" },
+        "icon": { "type": ["string", "null"] },
+        "i18nKey": { "type": ["string", "null"], "description": "标题单一来源，必须在 src/locales/{zh,en}.json 存在" },
+        "href": { "type": ["string", "null"], "description": "外链地址，仅 menuType=link" },
+        "iframeUrl": { "type": ["string", "null"], "description": "内嵌地址，仅 menuType=iframe" },
+        "routeName": {
+          "type": ["string", "null"],
+          "description": "路由名，须与页面 definePage 的 name 一致；菜单与路由的唯一接缝"
+        },
+        "routePath": {
+          "type": ["string", "null"],
+          "description": "路由路径，static 模式下会被生成路由表的真实 path 覆盖"
+        },
+        "routeLayout": { "type": ["string", "null"] },
+        "routeComponent": {
+          "type": ["string", "null"],
+          "description": "视图相对路径（相对 src/pages，如 manage/user/index.vue），由 pnpm menu:sync 从页面文件刷新"
+        },
+        "routeRedirect": { "type": ["string", "null"] },
+        "routeQueries": { "type": ["object", "null"], "additionalProperties": { "type": "string" } },
+        "routeParams": { "type": ["object", "null"], "additionalProperties": { "type": "string" } },
+        "keepAlive": { "enum": ["Y", "N", null] },
+        "multiTab": { "enum": ["Y", "N", null] },
+        "pinned": { "enum": ["Y", "N", null] },
+        "description": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
