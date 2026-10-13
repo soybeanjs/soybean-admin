@@ -163,10 +163,12 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 | 期  | 内容                                                                                | 估计     |
 | --- | ----------------------------------------------------------------------------------- | -------- |
 | P1  | `scripts/menu-sync.ts` → `pnpm menu:sync`：`scanPages` + diff + 补缺 + 孤立条目清单 | 2-3 小时 |
-| P2  | 本地 ubean module：`addVitePlugin` 监听 `src/pages/**` 变更触发 P1                  | +4 小时  |
+| P2  | `scripts/menu-watch.ts`：vite 插件监听 `src/pages/**` 变更触发 P1                   | +4 小时  |
 | P3  | `addDevToolsTab` + `addDevServerHandler`：拖拽排序/换父写回 JSON                    | +1-2 天  |
 
-**P1 已完成**（`pnpm menu:sync`）。P2 / P3 未开工，记在 `docs/v3-task.md` 的 M-13 / M-14。
+**P1 / P2 已完成**（`pnpm menu:sync`；dev 下自动触发）。P3 未开工，记在 `docs/v3-task.md` 的 M-14。
+
+> **P2 未走 ubean module**（与本文原计划不同）：`ubean.config.ts` 的 `modules` 只在 `ubean build` CLI 的 `prepareBuild` 里被 `resolveModules` 解析，`@ubean/build` 只解构 `{ plugins }`，`serverHandlers` / `devServerHandlers` / `devToolsTabs` 三个数组**无人消费**；`vp dev`（裸 Vite）下注入的 `modules` 探针 25 秒 0 次命中 —— 即该路径在 dev 下完全不执行。所以 P2 做成 `vite.config.ts` 的 `plugins` 项。
 
 ### 5.4 明确不做
 
@@ -285,7 +287,7 @@ if (exist) return { name: noPermissionRoute }; // → 403
 > 落地后逐条收口（原文保留，结论跟在后面）。
 
 - `addDevToolsTab` 的 `component` 字段实际如何被 devframe 消费：只在 `@ubean/config` 里看到类型定义（`interface DevToolsCustomTab { id: string; title: string; icon?: string; component?: any }`）与 `push` 逻辑（`ctx._devToolsTabs.push(tab)`），`@ubean/devtools` 包未在 `node_modules/@ubean/` 下直接可见（可能仅在 `devtools: true` 时才解析）。P3 前需实测。
-  → **仍未实测**（P3 未开工）。风险不变。
+  → **部分实测**：`node_modules/@ubean/` 下确实**没有** `@ubean/devtools` 包；全 `node_modules/.pnpm/` grep `_devToolsTabs` / `devServerHandlers` / `_serverHandlers` 除 `@ubean/config` 自身外**零命中**，且 `@ubean/build` 调 `resolveModules` 时只取 `{ plugins }`。所以 P3 开工前必须先在 devframe 里实测一个自定义 tab 能不能渲染出来（或改用自建 dev 路由 + 页面）。风险仍为未消除。
 - `scanPages` 的独立调用签名未读函数体，可能需要 `UbeanRouter` 实例或 `cwd` 参数。P1 前需实测。
   → **已实测**：`scanPages({ cwd, srcDir, pagesDir, ignore })` 可独立调用（`scanPages` 从 `@ubean/vue/vite` 导出，不在 `@ubean/scan` 的运行时导出里）。扫出 53 页，44 条进菜单。**踩到的坑**：`pnpm menu:sync` 走普通 `node`，**不能 import `@/` 别名模块**（`@ubean/vue/vite` 与 type-only import 可以）。
 - `routePath` 段与历史种子数据是否全部一致：只核对了 schema 与部分种子，未全量校验。
@@ -301,3 +303,6 @@ if (exist) return { name: noPermissionRoute }; // → 403
 - **`definePage(` 出现在注释里会“劫持”扫描**：`extractDefinePageFromCode` → `findBalancedCall` 取 script 块内**第一处** `definePage(`，命中注释即导致该页 meta 全丢（`src/pages/function/multi-tab/index.vue:10` 就这么丢了 title/i18nKey/icon/order，菜单从 45 条掉到 44 条）。已改为普通文字。**后续写注释不要出现 `definePage(` 字面量。**
 - **`extractDefinePageFromCode` 返回的 `meta` 是实时引用**：脚本直接改会污染扫描器缓存，必须浅拷贝后再改。
 - **`pipeline 排序 bug 顺带修了**：旧 `buildMenuTree`的`sortTree`用`node.value`（= `routeName \|\| code`）去查以 `id`为键的 Map，order 恒落 0。新的`buildMenuTree` 「先排好序再挂父」，每层自然有序。
+- **`ubean.config.ts` 的 `modules` 在 `vp dev` 下不执行**：探针（`modules: [{ name, setup, vitePlugin: { configureServer } }]`）在 `vp dev` 25 秒内 0 次命中。`resolveModules` 只在 `ubean build` CLI 的 `prepareBuild` 里被调用，且 `@ubean/build` 只解构 `{ plugins }`。**dev 期钩子必须写成 `vite.config.ts` 的 vite 插件**；`@ubean/config` 的 `addDevToolsTab` / `addDevServerHandler` 目前是死路径（P3 需另找挂点）。
+- **`_` 前缀页面文件不参与扫描**：`scanPages` 忽略 `_` 开头的文件（`src/pages/_placeholder.vue` 即此例）。用探针文件测 watcher 时要避开这个前缀，否则「触发成功但计数不变」看起来像 watcher 没工作。
+- **菜单同步写回必须比对内容**：`syncMenus` 若每次都无条件 `writeFileSync`，会刷新 `menus.json` 的 mtime，dev 下被 vite 监听到并反复重载（日志里刷 `page reload src/menus/menus.json`）。改为「内容没变就不写」后消失。
