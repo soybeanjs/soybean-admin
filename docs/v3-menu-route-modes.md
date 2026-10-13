@@ -164,11 +164,13 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 | --- | ----------------------------------------------------------------------------------- | -------- |
 | P1  | `scripts/menu-sync.ts` → `pnpm menu:sync`：`scanPages` + diff + 补缺 + 孤立条目清单 | 2-3 小时 |
 | P2  | `scripts/menu-watch.ts`：vite 插件监听 `src/pages/**` 变更触发 P1                   | +4 小时  |
-| P3  | `addDevToolsTab` + `addDevServerHandler`：拖拽排序/换父写回 JSON                    | +1-2 天  |
+| P3  | 菜单面板（拖拽排序/换父写回 JSON）                                                  | +1-2 天  |
 
-**P1 / P2 已完成**（`pnpm menu:sync`；dev 下自动触发）。P3 未开工，记在 `docs/v3-task.md` 的 M-14。
+**P1 / P2 已完成**（`pnpm menu:sync`；dev 下自动触发）。**P3 勘察后判定为阻塞**（见下），记在 `docs/v3-task.md` 的 M-14。
 
 > **P2 未走 ubean module**（与本文原计划不同）：`ubean.config.ts` 的 `modules` 只在 `ubean build` CLI 的 `prepareBuild` 里被 `resolveModules` 解析，`@ubean/build` 只解构 `{ plugins }`，`serverHandlers` / `devServerHandlers` / `devToolsTabs` 三个数组**无人消费**；`vp dev`（裸 Vite）下注入的 `modules` 探针 25 秒 0 次命中 —— 即该路径在 dev 下完全不执行。所以 P2 做成 `vite.config.ts` 的 `plugins` 项。
+>
+> **P3 的挂点也不可用**（原计划写的 `addDevToolsTab({ id, title, icon, component })` 两处都错）：该 API 只存在于 `@ubean/config` 的 `ModuleKitContext`，而 `ctx._devToolsTabs` 除 config 自身外**无消费者**；真正的面板是 `@ubean/devtools` + `@devframes/{hub,hub-ui,vite}`（**全是 optional peer**，`@ubean/cli` 动态 import 后 `catch {}` 静默吞错），自定义 tab 的正确签名是 `defineDevToolsTab({ id, label, icon?, src, sandbox? })`（`src` 是要被 hub 加载的 URL，不是组件）。**面板本身能跑**（实测：装齐那 4 个包后 `npx ubean dev` 下 `/__devframes/` → 200、`/_devtools` → 200、`/__devframes/__connection.json` 返回 `{ backend: 'websocket', websocket: { path: '/__devframes/__ws' }, ... }`），**但 hub 只在 ubean CLI 的 `createDevViteServer` 里装配**，而本项目的 `pnpm dev` / `pnpm test` 走 `vp dev`（裸 Vite + `vite.config.ts`）→ 装齐包后 `vp dev` 下 `/__devframes/` 仍是 **404**（实测）。因此代价是：+4 个 devDependencies（版本需与 ubean 0.6.2 对齐，但不在其 peer 约束里）、dev 命令从 `vp dev` 换成 `ubean dev`（牵动 `test/global-setup.ts` 的 `spawn('pnpm', ['dev'])` 与 9527 对齐逻辑）、以及为一个「改 JSON 排序」的需求引入整套 devtools 面板 —— **不值得**。`order` / `parentId` 手改 `menus.json` 即可（schema 在旁，`pnpm menu:sync` 保证不覆盖这两个字段）。若将来真要做面板，最小可用形态是自建 dev 路由：实测 `vite.config.ts` 插件里 `server.middlewares.use` 挂 `/menu-panel`，`vp dev` 下 200，约 20 行。
 
 ### 5.4 明确不做
 
@@ -287,7 +289,7 @@ if (exist) return { name: noPermissionRoute }; // → 403
 > 落地后逐条收口（原文保留，结论跟在后面）。
 
 - `addDevToolsTab` 的 `component` 字段实际如何被 devframe 消费：只在 `@ubean/config` 里看到类型定义（`interface DevToolsCustomTab { id: string; title: string; icon?: string; component?: any }`）与 `push` 逻辑（`ctx._devToolsTabs.push(tab)`），`@ubean/devtools` 包未在 `node_modules/@ubean/` 下直接可见（可能仅在 `devtools: true` 时才解析）。P3 前需实测。
-  → **部分实测**：`node_modules/@ubean/` 下确实**没有** `@ubean/devtools` 包；全 `node_modules/.pnpm/` grep `_devToolsTabs` / `devServerHandlers` / `_serverHandlers` 除 `@ubean/config` 自身外**零命中**，且 `@ubean/build` 调 `resolveModules` 时只取 `{ plugins }`。所以 P3 开工前必须先在 devframe 里实测一个自定义 tab 能不能渲染出来（或改用自建 dev 路由 + 页面）。风险仍为未消除。
+  → **已实测，结论是「挂点错了两处」**：① `@ubean/config` 的 `_devToolsTabs` 是**死路径**（全 `node_modules/.pnpm/` grep `_devToolsTabs` / `_serverHandlers` / `devServerHandlers`，除 `@ubean/config` 自身外零命中；`@ubean/build` 调 `resolveModules` 只取 `{ plugins }`）；② 真正生效的 API 是 `@ubean/devtools` 的 `defineDevToolsTab({ id, label, icon?, src, sandbox? })`（`src` 是 URL 不是组件），注册进全局 registry 后由 `getCustomTabs()` 透出，需要 `@devframes/{hub,hub-ui,vite}` 三个包装配 hub。**hub 只在 `ubean dev` CLI 下装配**（`@ubean/cli/dist/cli.js:531-562` 动态 import + `catch {}`），本仓库走 `vp dev` → 装齐包后 `/__devframes/` 仍 404。所以风险已转化为「要用就得换 dev 命令 + 加 4 个依赖」，见 §5.3。
 - `scanPages` 的独立调用签名未读函数体，可能需要 `UbeanRouter` 实例或 `cwd` 参数。P1 前需实测。
   → **已实测**：`scanPages({ cwd, srcDir, pagesDir, ignore })` 可独立调用（`scanPages` 从 `@ubean/vue/vite` 导出，不在 `@ubean/scan` 的运行时导出里）。扫出 53 页，44 条进菜单。**踩到的坑**：`pnpm menu:sync` 走普通 `node`，**不能 import `@/` 别名模块**（`@ubean/vue/vite` 与 type-only import 可以）。
 - `routePath` 段与历史种子数据是否全部一致：只核对了 schema 与部分种子，未全量校验。
