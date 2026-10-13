@@ -1,6 +1,8 @@
 import type { Router } from 'vue-router';
 import { progress } from '@vean/ui';
+import { APP_LOCALES } from '@/constants';
 import { hasRole } from '@/shared/permission';
+import { stripLocalePrefix } from '@/shared/route';
 import { shouldTreatMissingRouteAsForbidden } from '@/shared/route-exist';
 import { initAuthStore, useAuthStore, useMenuStore, useTabStore } from '@/store';
 import { env } from '@/env';
@@ -21,7 +23,9 @@ import { api } from '@/request';
  * 4. 404 vs 403：dynamic 模式路由按权限下发，菜单里存在但无权 → 路由没注册
  *    → 落 `NotFound`。此时反查 `POST /api/menu/exist-path`，路径存在即改判
  *    403（v3 §4.2）。static 模式路由本地全注册，落 NotFound 就是真 404，
- *    不查后端。判定抽在 `@/shared/route-exist`，便于单测。
+ *    不查后端。判定抽在 `@/shared/route-exist`，便于单测。反查前用
+ *    `stripLocalePrefix` 剥掉实际地址里的语言前缀（`/en/about` → `/about`），
+ *    菜单的 `routePath` 一律无前缀，不剥就永远查不到。
  *
  * ⚠️ vp dev 关键约束（实测教训，勿回退）：
  * ubean dev 的 HTML 请求会在 **Node 里预渲染执行应用与守卫**，且该上下文带
@@ -107,7 +111,9 @@ export function setupRouterGuard(instance: Router): void {
       let routeExists = false;
 
       try {
-        const { exists } = await api.post('/menu/exist-path', { body: { routePath: to.path } });
+        const { exists } = await api.post('/menu/exist-path', {
+          body: { routePath: stripLocalePrefix(to.path, APP_LOCALES) }
+        });
         routeExists = exists;
       } catch {
         routeExists = false;

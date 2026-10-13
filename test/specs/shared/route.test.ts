@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { buildApiPermissionCode, normalizeApiPermissionPath, normalizeRoutePath } from '@/shared/route';
+import {
+  buildApiPermissionCode,
+  normalizeApiPermissionPath,
+  normalizeRoutePath,
+  stripLocalePrefix
+} from '@/shared/route';
 
 /**
  * `normalizeRoutePath` 守卫（P3-11）。
@@ -85,5 +90,42 @@ describe('buildApiPermissionCode', () => {
 
   it('method 大小写不敏感', () => {
     expect(buildApiPermissionCode('get', '/api/user/list')).toBe(buildApiPermissionCode('GET', '/api/user/list'));
+  });
+});
+
+/**
+ * `stripLocalePrefix`（M-08）。
+ *
+ * 回归背景：dynamic 模式落 `NotFound` 时要反查后端菜单表区分 403/404，
+ * 而 `to.path` 是**已解析**的实际地址（`/en/about`），菜单表里存的是无前缀的
+ * `/about` → 不剥就永远查不到，403 会退化成 404。
+ *
+ * 与 `normalizeRoutePath` 分工不同：后者剥路由**模板**里的 `:locale(en)?`。
+ */
+describe('stripLocalePrefix', () => {
+  const locales = ['zh', 'en'] as const;
+
+  it('剥掉已解析地址里的语言前缀', () => {
+    expect(stripLocalePrefix('/en/about', locales)).toBe('/about');
+    expect(stripLocalePrefix('/en/manage/user', locales)).toBe('/manage/user');
+  });
+
+  it('默认语言无前缀时是恒等变换', () => {
+    expect(stripLocalePrefix('/about', locales)).toBe('/about');
+    expect(stripLocalePrefix('/manage/user', locales)).toBe('/manage/user');
+  });
+
+  it('剥完落根路径', () => {
+    expect(stripLocalePrefix('/en', locales)).toBe('/');
+    expect(stripLocalePrefix('/zh', locales)).toBe('/');
+  });
+
+  it('只剥整段匹配的首段（/english 不是 locale）', () => {
+    expect(stripLocalePrefix('/english/about', locales)).toBe('/english/about');
+    expect(stripLocalePrefix('/about/en', locales)).toBe('/about/en');
+  });
+
+  it('缺失前导斜杠时补上（防御性）', () => {
+    expect(stripLocalePrefix('en/about', locales)).toBe('/about');
   });
 });

@@ -572,6 +572,37 @@ describe('RBAC', () => {
 
     expect(okData<{ exists: boolean }>(body).exists).toBe(false);
   });
+
+  it('exist-path 支持参数路径反查（M-08）', async () => {
+    // 菜单里的参数路由（如 `/manage/user/:id`）存的是模板，守卫传进来的是
+    // 已解析的具体路径。全等匹配查不到 → 会误判 404 而不是 403。
+    const create = await api<{ id: string }>('POST', '/api/menu', {
+      token: adminToken,
+      body: {
+        name: '集成参数路由',
+        code: `it_m8_${runId}`,
+        menuType: 'page',
+        routeName: `ItM8${runId}`,
+        routePath: `/it-m8-${runId}/:id`
+      }
+    });
+    const created = okData<{ id: string }>(create.body);
+
+    createdIds.menuIds.push(created.id);
+
+    const hit = await api<{ exists: boolean }>('POST', '/api/menu/exist-path', {
+      token: adminToken,
+      body: { routePath: `/it-m8-${runId}/abc123` }
+    });
+    const miss = await api<{ exists: boolean }>('POST', '/api/menu/exist-path', {
+      token: adminToken,
+      body: { routePath: `/it-m8-${runId}/abc123/deeper` }
+    });
+
+    expect(okData<{ exists: boolean }>(hit.body).exists).toBe(true);
+    // `:id` 只匹配单个路径段，多一段就不该命中
+    expect(okData<{ exists: boolean }>(miss.body).exists).toBe(false);
+  });
 });
 
 // ---------- 用户 CRUD ----------

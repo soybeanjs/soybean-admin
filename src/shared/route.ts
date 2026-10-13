@@ -45,6 +45,25 @@ export function buildApiPermissionCode(method: string, routePath: string): strin
 }
 
 /**
+ * 剥掉**已解析**路径里的 locale 前缀（`/en/about` → `/about`）。
+ *
+ * 与 `normalizeRoutePath` 的区别：后者剥的是路由**模板**里的参数段
+ * （`/:locale(en)?/about`），本函数剥的是实际地址里的具体语言码。两者都需要的
+ * 场景是「拿实际路径去比对菜单里存的干净路径」—— 菜单的 `routePath` 一律无
+ * locale 前缀（`prefix_except_default` 下默认语言无前缀，其它语言由运行时加上）。
+ *
+ * 只剥首段且必须整段等于某个 locale（`/en` 会剥，`/english` 不会）。
+ */
+export function stripLocalePrefix(path: string, locales: readonly string[]): string {
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  const [first, ...rest] = normalized.split('/').filter(Boolean);
+
+  if (!first || !locales.includes(first)) return normalized;
+
+  return rest.length ? `/${rest.join('/')}` : '/';
+}
+
+/**
  * 剥掉 vue-router 路径里的 locale 参数段（`/:locale(en)?/about` → `/about`）。
  *
  * **为什么需要**：i18n 策略不是 `no_prefix` 时，ubean 把每条页面路由注册在带

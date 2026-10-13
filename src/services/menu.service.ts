@@ -1,7 +1,8 @@
-import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
+import { and, count, eq, inArray, isNotNull, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
+import { findHonoRouteByPath } from '@/shared/route';
 import { createUuidV7 } from '@/shared/uuid';
 import type { MenuCreateDTO, MenuQuery, MenuUpdateDTO } from '@/schema/menu';
 import { appDb } from '../db';
@@ -320,8 +321,12 @@ export const menuService = {
       if (row) return true;
     }
     if (routePath) {
-      const [row] = appDb.select({ id: menu.id }).from(menu).where(eq(menu.routePath, routePath)).all();
-      if (row) return true;
+      // 不能用 `eq` 全等：菜单里可能存在参数路由（`/manage/user/:id`），
+      // 而守卫传进来的是已解析的具体路径（`/manage/user/123`）。
+      // 表很小（几十行）且只在 NotFound 时命中一次，全表扫描可接受。
+      const rows = appDb.select({ routePath: menu.routePath }).from(menu).where(isNotNull(menu.routePath)).all();
+
+      if (rows.some(row => row.routePath && findHonoRouteByPath(row.routePath, routePath))) return true;
     }
 
     return false;
