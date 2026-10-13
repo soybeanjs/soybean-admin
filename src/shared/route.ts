@@ -21,6 +21,30 @@ export function findHonoRouteByPath(routePath: string, path: string): boolean {
 }
 
 /**
+ * 归一化接口路径为权限码里的 path 段。
+ *
+ * 权限码范式 `api:${method}:(${path})` 里的 path **不含 `/api/` 前缀**，且用
+ * **路由模板**（`[id]`）而非请求路径 —— 两边任何一处不统一，权限码就匹配不上：
+ *
+ * ```
+ * 中间件（请求 /api/user/123）  api:get:(/user/123)   ← 错，永远匹配不到 seed
+ * 中间件（路由模板）           api:get:(/user/[id])  ← 对
+ * ```
+ *
+ * 接口管理页录入的 `api.path` 可能带 `/api/` 前缀或写成 `:id`，这里一并归一。
+ */
+export function normalizeApiPermissionPath(path: string): string {
+  const stripped = path.replace(/^\/api\//, '');
+
+  return (stripped.startsWith('/') ? stripped : `/${stripped}`).replace(/:(\w+)/g, '[$1]');
+}
+
+/** 由接口方法与路由模板生成 RBAC 权限码（中间件与 `permission.service` 共用） */
+export function buildApiPermissionCode(method: string, routePath: string): string {
+  return `api:${method.toLowerCase()}:(${normalizeApiPermissionPath(routePath)})`;
+}
+
+/**
  * 剥掉 vue-router 路径里的 locale 参数段（`/:locale(en)?/about` → `/about`）。
  *
  * **为什么需要**：i18n 策略不是 `no_prefix` 时，ubean 把每条页面路由注册在带

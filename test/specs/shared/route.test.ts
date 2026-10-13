@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeRoutePath } from '@/shared/route';
+import { buildApiPermissionCode, normalizeApiPermissionPath, normalizeRoutePath } from '@/shared/route';
 
 /**
  * `normalizeRoutePath` 守卫（P3-11）。
@@ -38,5 +38,52 @@ describe('normalizeRoutePath', () => {
 
   it('缺失前导斜杠时补上（防御性）', () => {
     expect(normalizeRoutePath('about')).toBe('/about');
+  });
+});
+
+/**
+ * API 权限码归一化（M-06）。
+ *
+ * 回归背景：`src/middleware/01.auth.ts` 原先用 `new URL(c.req.url).pathname`
+ * 拼权限码，`GET /api/user/123` 产出 `api:get:(/user/123)`，而 seed 登记的是
+ * `api:get:(/user/[id])` → 带路径参数的端点 RBAC 全部失效（要么误拒、要么在
+ * 该权限被授予他人时误放）。根因是权限码要用**路由模板**而不是具体路径。
+ */
+describe('normalizeApiPermissionPath', () => {
+  it('剥掉 /api/ 前缀（权限码里的 path 不含它）', () => {
+    expect(normalizeApiPermissionPath('/api/user/list')).toBe('/user/list');
+  });
+
+  it('hono 路由模板的 :id 归一为 [id]（与接口管理页录入格式一致）', () => {
+    expect(normalizeApiPermissionPath('/api/user/:id')).toBe('/user/[id]');
+    expect(normalizeApiPermissionPath('/api/user/:id/roles')).toBe('/user/[id]/roles');
+  });
+
+  it('已是 [id] 形式时保持原样（幂等）', () => {
+    expect(normalizeApiPermissionPath('/api/user/[id]')).toBe('/user/[id]');
+  });
+
+  it('无前缀时补前导斜杠（接口管理页允许不写 /api/）', () => {
+    expect(normalizeApiPermissionPath('user/list')).toBe('/user/list');
+  });
+
+  it('不误伤静态路径里的冒号之外内容', () => {
+    expect(normalizeApiPermissionPath('/api/dict-item/list')).toBe('/dict-item/list');
+  });
+});
+
+describe('buildApiPermissionCode', () => {
+  it('方法与路径拼成登记格式的权限码', () => {
+    expect(buildApiPermissionCode('GET', '/api/user/list')).toBe('api:get:(/user/list)');
+    expect(buildApiPermissionCode('POST', '/api/menu/exist-path')).toBe('api:post:(/menu/exist-path)');
+  });
+
+  it('带路径参数的端点产出模板码（这是 M-06 的修复点）', () => {
+    expect(buildApiPermissionCode('GET', '/api/user/:id')).toBe('api:get:(/user/[id])');
+    expect(buildApiPermissionCode('PUT', '/api/role/:id/permissions')).toBe('api:put:(/role/[id]/permissions)');
+  });
+
+  it('method 大小写不敏感', () => {
+    expect(buildApiPermissionCode('get', '/api/user/list')).toBe(buildApiPermissionCode('GET', '/api/user/list'));
   });
 });

@@ -13,9 +13,15 @@ import { api, okData, BASE_URL } from '../shared/api-client';
 let adminToken = '';
 let userToken = '';
 
-type CreatedIds = { userIds: string[]; roleIds: string[]; menuIds: string[] };
+type CreatedIds = {
+  userIds: string[];
+  roleIds: string[];
+  menuIds: string[];
+  apiIds: string[];
+  permissionIds: string[];
+};
 
-const createdIds: CreatedIds = { userIds: [], roleIds: [], menuIds: [] };
+const createdIds: CreatedIds = { userIds: [], roleIds: [], menuIds: [], apiIds: [], permissionIds: [] };
 
 /** 每次运行唯一的后缀（避免跨次运行残留数据造成重复冲突） */
 const runId = Date.now().toString(36);
@@ -24,7 +30,9 @@ async function cleanup() {
   const batches: Array<[string, string[]]> = [
     ['/api/user/batch-delete', createdIds.userIds],
     ['/api/role/batch-delete', createdIds.roleIds],
-    ['/api/menu/batch-delete', createdIds.menuIds]
+    ['/api/menu/batch-delete', createdIds.menuIds],
+    ['/api/api/batch-delete', createdIds.apiIds],
+    ['/api/permission/batch-delete', createdIds.permissionIds]
   ];
 
   for (const [path, ids] of batches) {
@@ -567,6 +575,103 @@ describe('RBAC', () => {
 });
 
 // ---------- 用户 CRUD ----------
+
+describe('RBAC 参数路由权限码（M-06）', () => {
+  /**
+   * 回归背景：中间件原先用具体请求路径拼权限码，`GET /api/user/123` 产出
+   * `api:get:(/user/123)`，与登记的 `api:get:(/user/[id])` 永不相等。
+   *
+   * 这里**不靠 super**（super 在中间件里直接放行、看不到权限码），而是自建
+   * 一个普通用户 + 角色 + 接口 + 权限点，走完整 RBAC 链路：普通用户先被拒
+   * （`4003`），授权后同一请求放行 —— 若权限码仍用具体路径，授权也不会生效。
+   */
+  it('带路径参数的端点：未授权 4003，按模板码授权后放行', async () => {
+    const suffix = `${runId}m6`;
+
+    // 1. 登记接口（用 hono 模板写法 :id，与接口管理页录入习惯一致）。
+    //    必须对应**真实存在的路由**（`src/routes/api/user/[id].ts` → `/api/user/:id`），
+    //    因为中间件是从 hono 的注册表反查模板的，虚构路径匹配不上。
+    const apiRow = okData<{ id: string }>(
+      (
+        await api<{ id: string }>('POST', '/api/api', {
+          token: adminToken,
+          body: { name: '集成参数接口', path: '/user/:id', method: 'get' }
+        })
+      ).body
+    );
+
+    createdIds.apiIds.push(apiRow.id);
+
+    // 2. 由接口推导权限码（服务端 resolveResourceBinding）
+    const permRow = okData<{ id: string; code: string }>(
+      (
+        await api<{ id: string; code: string }>('POST', '/api/permission', {
+          token: adminToken,
+          body: { resourceType: 'api', resourceId: apiRow.id }
+        })
+      ).body
+    );
+
+    createdIds.permissionIds.push(permRow.id);
+
+    // 权限码必须是 [id] 模板形式（归一化生效的正面证据）
+    expect(permRow.code).toBe('api:get:(/user/[id])');
+
+    // 3. 普通用户 + 角色（初始不给权限）
+    const roleRow = okData<{ id: string }>(
+      (
+        await api<{ id: string }>('POST', '/api/role', {
+          token: adminToken,
+          body: { name: `集成参数角色 ${suffix}`, code: `it_role_m6_${suffix}` }
+        })
+      ).body
+    );
+
+    createdIds.roleIds.push(roleRow.id);
+
+    const userName = `it_m6_${suffix}`;
+    const userRow = okData<{ id: string }>(
+      (
+        await api<{ id: string }>('POST', '/api/user', {
+          token: adminToken,
+          body: { username: userName, password: '123456', roleIds: [roleRow.id] }
+        })
+      ).body
+    );
+
+    createdIds.userIds.push(userRow.id);
+
+    const m6Token = okData<{ token: string }>(
+      (await api<{ token: string }>('POST', '/api/auth/login', { body: { userName, password: '123456' } })).body
+    ).token;
+
+    // 4. 未授权：模板码没授出去 → 4003（中间件在 handler 之前拦下）
+    const probeId = `probe-${suffix}`;
+    const denied = await api('GET', `/api/user/${probeId}`, { token: m6Token });
+
+    expect(denied.body.code).toBe('4003');
+
+    // 5. 授权（把权限点挂到角色上）
+    const grant = await api('PUT', `/api/role/${roleRow.id}/permissions`, {
+      token: adminToken,
+      body: { permissionIds: [permRow.id] }
+    });
+
+    expect(grant.body.code).toBe('0000');
+
+    // 6. 同一请求通过 RBAC：走的是模板码匹配，而非具体路径。
+    //    该 id 不存在，handler 会返回 4000 —— 关键是**不再是 4003**。
+    const allowed = await api('GET', `/api/user/${probeId}`, { token: m6Token });
+
+    expect(allowed.body.code).not.toBe('4003');
+  });
+
+  it('静态端点不受影响（回归保护）', async () => {
+    const denied = await api('GET', '/api/user/list', { token: userToken, query: { current: '1', size: '1' } });
+
+    expect(denied.body.code).toBe('4003');
+  });
+});
 
 describe('user CRUD', () => {
   it('create → list 查得 → update → get → assign roles → batch delete', async () => {

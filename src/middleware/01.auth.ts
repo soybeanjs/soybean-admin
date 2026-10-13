@@ -1,6 +1,7 @@
 import { defineMiddleware } from 'ubean/server';
 import type { Context, Next } from 'hono';
 import { AppError } from '@/shared/error';
+import { buildApiPermissionCode } from '@/shared/route';
 import { authService } from '@/services/auth.service';
 import { permissionService } from '@/services/permission.service';
 import type { AuthUserDTO } from '@/schema/auth';
@@ -64,9 +65,11 @@ export default defineMiddleware(async (c: Context, next: Next) => {
     return next();
   }
 
-  const matched = route ?? { method: c.req.method, path: c.req.path, meta: {} };
-  const pathname = new URL(c.req.url).pathname;
-  const permissionCode = `api:${matched.method.toLowerCase()}:(/${pathname.replace(/^\/api\//, '')})`;
+  // 权限码必须用**路由模板**（`/api/user/:id`），不能用具体请求路径 —— 后者会拼出
+  // `api:get:(/user/123)`，与登记的 `api:get:(/user/[id])` 永不相等，带路径参数的
+  // 端点 RBAC 会静默失效。`c.get('route').path` 就是 `c.req.path`（具体路径），
+  // 模板只能从 `c.req.routePath` 取（hono 按 routeIndex 反查注册表）。
+  const permissionCode = buildApiPermissionCode(c.req.method, c.req.routePath);
   const allowed = await permissionService.checkUserHasPermission(authUser.id, permissionCode);
 
   if (!allowed) {

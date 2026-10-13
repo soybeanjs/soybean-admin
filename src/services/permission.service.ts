@@ -2,6 +2,7 @@ import { and, count, eq, inArray, like, or, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
+import { buildApiPermissionCode } from '@/shared/route';
 import { createUuidV7 } from '@/shared/uuid';
 import type { PermissionCreateDTO, PermissionQuery, PermissionUpdateDTO } from '@/schema/permission';
 import { appDb } from '../db';
@@ -35,7 +36,7 @@ function resolveResourceBinding(
       throw new AppError('RESOURCE_NOT_FOUND', '接口不存在');
     }
 
-    return { name: `接口:${apiRow.name}`, code: `api:${apiRow.method.toLowerCase()}:(${apiRow.path})` };
+    return { name: `接口:${apiRow.name}`, code: buildApiPermissionCode(apiRow.method, apiRow.path) };
   }
 
   if (resourceType === 'menu') {
