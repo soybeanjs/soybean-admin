@@ -39,11 +39,11 @@ export const PUT = defineHandler(
     }
   }),
   validate('json', roleUpdateSchema),
-  c => {
+  async c => {
     const id = requireParam(c, 'id');
     const body = c.req.valid('json');
 
-    return c.json(roleService.updateRole(id, body));
+    return c.json(await roleService.updateRole(id, body));
   }
 );
 
@@ -62,8 +62,8 @@ export const DELETE = defineHandler(
       }
     }
   }),
-  c => {
-    roleService.deleteRole(requireParam(c, 'id'));
+  async c => {
+    await roleService.deleteRole(requireParam(c, 'id'));
 
     return c.json(null);
   }

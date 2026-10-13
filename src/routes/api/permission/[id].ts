@@ -39,11 +39,11 @@ export const PUT = defineHandler(
     }
   }),
   validate('json', permissionUpdateSchema),
-  c => {
+  async c => {
     const id = requireParam(c, 'id');
     const body = c.req.valid('json');
 
-    return c.json(permissionService.updatePermission(id, body));
+    return c.json(await permissionService.updatePermission(id, body));
   }
 );
 
@@ -62,8 +62,8 @@ export const DELETE = defineHandler(
       }
     }
   }),
-  c => {
-    permissionService.deletePermission(requireParam(c, 'id'));
+  async c => {
+    await permissionService.deletePermission(requireParam(c, 'id'));
 
     return c.json(null);
   }

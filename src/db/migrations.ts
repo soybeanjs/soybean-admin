@@ -185,6 +185,32 @@ CREATE UNIQUE INDEX IF NOT EXISTS uk_user_role ON "user_role" (user_id, role_id)
 CREATE UNIQUE INDEX IF NOT EXISTS uk_role_permission ON "role_permission" (role_id, permission_id);
 CREATE UNIQUE INDEX IF NOT EXISTS uk_org_role ON "org_role" (org_id, role_id);
 CREATE UNIQUE INDEX IF NOT EXISTS uk_user_org ON "user_org" (user_id, org_id);`
+  },
+  {
+    // 0003：api 表自然键 + 鉴权链路索引（§5.1 / §5.2 配套）。
+    //
+    // 一、修已知漂移。seed 是 `INSERT OR IGNORE`，而 api 行的**主键是 id**：
+    //     `A_auth_refresh` / `A_api_list` 这两个 id 在旧库里已存在（指向错误路径），
+    //     新 seed 同 id 不同 path → 会被 IGNORE 掉，漂移永远修不掉。
+    //     所以得在迁移里按 id 改回正确路径。（全新库迁移时这两行还不存在，UPDATE 空跑。）
+    //
+    // 二、自然键。`(method, path)` 唯一索引同时是治理幽灵行/重复登记的手段。
+    //
+    // 三、鉴权热路径索引。RBAC 链路是 user_id → user_role → role_permission → permission，
+    //     0002 的 uk_user_role/uk_role_permission 已覆盖最左前缀；这里补 permission.code
+    //     反查（按 code 直查权限点）与单列索引。
+    name: '0003-api-natural-key-and-auth-indexes',
+    up: `UPDATE "api" SET path = '/auth/refresh-token' WHERE id = 'A_auth_refresh';
+UPDATE "api" SET path = '/api/list' WHERE id = 'A_api_list';
+
+DELETE FROM "api" WHERE id NOT IN (
+  SELECT MIN(id) FROM "api" GROUP BY method, path
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uk_api_method_path ON "api" (method, path);
+CREATE INDEX IF NOT EXISTS idx_permission_code ON "permission" (code);
+CREATE INDEX IF NOT EXISTS idx_user_role_user ON "user_role" (user_id);
+CREATE INDEX IF NOT EXISTS idx_role_permission_role ON "role_permission" (role_id);`
   }
 ];
 

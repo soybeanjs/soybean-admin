@@ -19,9 +19,9 @@ export const POST = defineHandler(
     }
   }),
   validate('json', roleCreateSchema),
-  c => {
+  async c => {
     const body = c.req.valid('json');
 
-    return c.json(roleService.createRole(body));
+    return c.json(await roleService.createRole(body));
   }
 );

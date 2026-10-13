@@ -2,6 +2,7 @@ import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
+import { invalidateUserPermissionCacheMany } from '@/shared/permission-cache';
 import { createUuidV7 } from '@/shared/uuid';
 import type { RoleCreateDTO, RoleQuery, RoleUpdateDTO } from '@/schema/role';
 import { appDb } from '../db';
@@ -10,11 +11,29 @@ import { permissionService } from './permission.service';
 
 /**
  * 角色服务（P1-07，unify role.service 范式）。
+ *
+ * **enabled 过滤（§5.1）**：`getRolesByUserId` 只返回启用中的角色 —— 停用的角色
+ * 不得继续参与鉴权（否则停用只是可见性变更，不是权限变更）。
+ *
+ * **缓存失效（§5.2）**：任何改动「某角色持有哪些权限」或「某用户持有哪些角色」
+ * 的操作都会影响权限码集合，必须同步失效对应缓存，否则停权后旧 token 仍然放行。
  */
 
 export type RoleRow = typeof role.$inferSelect;
 
 const ACTOR = 'admin';
+
+/** 反查持有某角色的用户 id（角色权限变更后精准失效用） */
+function getUserIdsByRoleIds(roleIds: readonly string[]): string[] {
+  if (!roleIds.length) return [];
+
+  return appDb
+    .selectDistinct({ userId: userRole.userId })
+    .from(userRole)
+    .where(inArray(userRole.roleId, [...roleIds]))
+    .all()
+    .map(row => row.userId);
+}
 
 export const roleService = {
   getRoleList(query: RoleQuery) {
@@ -75,7 +94,7 @@ export const roleService = {
     return { ...row, permissions };
   },
 
-  createRole(dto: RoleCreateDTO): RoleRow {
+  async createRole(dto: RoleCreateDTO): Promise<RoleRow> {
     const [existing] = appDb.select().from(role).where(eq(role.name, dto.name)).all();
     if (existing) {
       throw new AppError('RESOURCE_EXISTS', '角色名称已存在');
@@ -96,13 +115,13 @@ export const roleService = {
     appDb.insert(role).values(row).run();
 
     if (dto.permissionIds?.length) {
-      this.replaceRolePermissions(row.id, dto.permissionIds);
+      await this.replaceRolePermissions(row.id, dto.permissionIds);
     }
 
     return row;
   },
 
-  updateRole(id: string, dto: RoleUpdateDTO): RoleRow {
+  async updateRole(id: string, dto: RoleUpdateDTO): Promise<RoleRow> {
     const current = this.getRoleById(id);
 
     if (dto.name && dto.name !== current.name) {
@@ -126,54 +145,68 @@ export const roleService = {
       .run();
 
     if (dto.permissionIds) {
-      this.replaceRolePermissions(id, dto.permissionIds);
+      await this.replaceRolePermissions(id, dto.permissionIds);
+    }
+
+    // 停用/启用角色 → 持有该角色的用户缓存全部失效（角色码变更不影响权限码集合）
+    if (dto.enabled !== undefined) {
+      await invalidateUserPermissionCacheMany(getUserIdsByRoleIds([id]));
     }
 
     return this.getRoleById(id);
   },
 
-  deleteRole(id: string): void {
+  async deleteRole(id: string): Promise<void> {
     this.getRoleById(id);
+    const affected = getUserIdsByRoleIds([id]);
     appDb.delete(rolePermission).where(eq(rolePermission.roleId, id)).run();
     appDb.delete(userRole).where(eq(userRole.roleId, id)).run();
     appDb.delete(role).where(eq(role.id, id)).run();
+    await invalidateUserPermissionCacheMany(affected);
   },
 
-  batchDeleteRoles(ids: string[]): void {
+  async batchDeleteRoles(ids: string[]): Promise<void> {
     if (!ids.length) return;
+    const affected = getUserIdsByRoleIds(ids);
     appDb.delete(rolePermission).where(inArray(rolePermission.roleId, ids)).run();
     appDb.delete(userRole).where(inArray(userRole.roleId, ids)).run();
     appDb.delete(role).where(inArray(role.id, ids)).run();
+    await invalidateUserPermissionCacheMany(affected);
   },
 
-  /** 全量替换角色-权限关联 */
-  replaceRolePermissions(roleId: string, permissionIds: string[]): void {
+  /** 全量替换角色-权限关联（失效持有该角色的用户缓存） */
+  async replaceRolePermissions(roleId: string, permissionIds: string[]): Promise<void> {
+    const affected = getUserIdsByRoleIds([roleId]);
     appDb.delete(rolePermission).where(eq(rolePermission.roleId, roleId)).run();
 
-    if (!permissionIds.length) return;
-    const now = new Date().toISOString();
-    appDb
-      .insert(rolePermission)
-      .values(
-        permissionIds.map(permissionId => ({
-          id: createUuidV7(),
-          roleId,
-          permissionId,
-          createdBy: ACTOR,
-          createdTime: now,
-          updatedBy: ACTOR,
-          updatedTime: now
-        }))
-      )
-      .run();
+    if (permissionIds.length) {
+      const now = new Date().toISOString();
+      appDb
+        .insert(rolePermission)
+        .values(
+          permissionIds.map(permissionId => ({
+            id: createUuidV7(),
+            roleId,
+            permissionId,
+            createdBy: ACTOR,
+            createdTime: now,
+            updatedBy: ACTOR,
+            updatedTime: now
+          }))
+        )
+        .run();
+    }
+
+    await invalidateUserPermissionCacheMany(affected);
   },
 
+  /** 用户角色列表（只含启用中的角色，供鉴权与菜单授权） */
   getRolesByUserId(userId: string): RoleRow[] {
     return appDb
       .select({ role })
       .from(userRole)
       .innerJoin(role, eq(userRole.roleId, role.id))
-      .where(eq(userRole.userId, userId))
+      .where(and(eq(userRole.userId, userId), eq(role.enabled, 'Y')))
       .all()
       .map(row => row.role);
   }

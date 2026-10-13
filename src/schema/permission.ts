@@ -34,8 +34,13 @@ export const permissionCreateSchema = object({
   description: descriptionSchema
 });
 
-/** 更新权限点（字段同新增，全部可选） */
-export const permissionUpdateSchema = partial(permissionCreateSchema);
+/** 更新权限点（字段同新增，全部可选；额外允许停用/启用） */
+export const permissionUpdateSchema = partial(
+  object({
+    ...permissionCreateSchema.entries,
+    enabled: optional(enabledSchema)
+  })
+);
 
 /** 权限点分页查询 */
 export const permissionQuerySchema = intersect([

@@ -1,7 +1,10 @@
 import { defineServer } from 'ubean/server';
 import { createUbeanLogger } from '@ubean/shared/logger';
 import { createRequestLoggerMiddleware } from '@ubean/shared/logger/hono';
+import { diffApiRoutes, formatApiRouteDiff } from '@/shared/api-route-sync';
+import type { RegisteredRoute } from '@/shared/api-route-sync';
 import { errorMiddleware } from '@/middleware/03.error';
+import { apiService } from '@/services/api-org.service';
 import { runAppMigrations } from '@/db/migrations';
 import { runSeed } from '@/db/seed';
 import { serverEnv } from '@/env.server';
@@ -18,6 +21,11 @@ import { serverEnv } from '@/env.server';
  *
  * 注：`hooks` / `globalHooks` 是 Hono 级别的钩子。
  *
+ * 路由对账（§5.2-5）：`route:register` 钩子收集本次启动真实注册的全部 API 路由，
+ * `onServerReady` 里（迁移 + seed 之后）与 `api` 表比对，缺失/幽灵行打 warning。
+ * 只警告不写库 —— 漏登记的代价是多一条日志，自动写库的代价是 id/审计/幂等键
+ * 全都得在启动期正确处理，得不偿失。
+ *
  * 请求日志（P2-18）：ubean CLI 自带的是生命周期日志，这里额外挂
  * `createRequestLoggerMiddleware` 拿到**方法 / 路径 / 状态码 / 耗时**。
  * logger 用 tslog pretty 输出：等级按级别着色，交互式终端上色、被管道重定向
@@ -32,8 +40,20 @@ const requestLogger = createUbeanLogger({
   }
 });
 
+/** 本次启动注册的路由（`route:register` 钩子填充，`onServerReady` 里对账） */
+const registeredApiRoutes: RegisteredRoute[] = [];
+
 export default defineServer({
-  hooks: {},
+  hooks: {
+    'route:register': route => {
+      const method = route.method.toLowerCase();
+
+      // 只收业务 API（`/api/**`）；页面路由与静态资源不参与权限对账
+      if (method === 'all' || !route.path.startsWith('/api/')) return;
+
+      registeredApiRoutes.push({ method, path: route.path });
+    }
+  },
   plugins: [
     {
       name: 'api-request-logger',
@@ -71,6 +91,14 @@ export default defineServer({
     // 务必然「no such table: user」—— 集成测试与首次登录全挂。
     await runAppMigrations();
     await runSeed();
+
+    // seed 之后才能对账（否则全新库的 api 表还是空的，会把全部路由报成 missing）
+    const diff = diffApiRoutes(registeredApiRoutes, apiService.getAllApis());
+    const lines = formatApiRouteDiff(diff);
+
+    if (lines.length) {
+      lines.forEach(line => console.warn(line));
+    }
 
     console.log(`[soybean-admin] server ready at ${serverEnv.SERVER_HOST}:${serverEnv.SERVER_PORT}`);
   }

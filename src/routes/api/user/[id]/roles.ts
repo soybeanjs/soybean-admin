@@ -21,11 +21,11 @@ export const PUT = defineHandler(
     }
   }),
   validate('json', userRoleAssignSchema),
-  c => {
+  async c => {
     const id = requireParam(c, 'id');
     const { roleIds } = c.req.valid('json');
 
-    userService.replaceUserRoles(id, roleIds);
+    await userService.replaceUserRoles(id, roleIds);
 
     return c.json(null);
   }

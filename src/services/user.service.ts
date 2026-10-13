@@ -3,6 +3,7 @@ import type { SQL } from 'drizzle-orm';
 import { comparePassword, hashPassword } from '@/shared/auth';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
+import { invalidateUserPermissionCacheMany } from '@/shared/permission-cache';
 import { createUuidV7 } from '@/shared/uuid';
 import type { UserCreateDTO, UserQuery, UserUpdateDTO } from '@/schema/user';
 import { appDb } from '../db';
@@ -16,6 +17,9 @@ import { roleService } from './role.service';
  *
  * 依赖 `roleService` / `permissionService` 只用于 `getProfile`（P3-09 个人中心），
  * 二者都不 import 本模块，无循环依赖。
+ *
+ * **缓存失效（§5.2）**：角色分配 / 停用用户后必须清该用户的权限码缓存，
+ * 否则旧 token 在 TTL 内仍按旧权限放行。
  */
 
 export type UserRow = typeof user.$inferSelect;
@@ -96,30 +100,34 @@ export const userService = {
   async getProfile(id: string): Promise<Omit<UserRow, 'password'> & { roles: string[]; buttons: string[] }> {
     const row = this.getUserById(id);
     const roles = roleService.getRolesByUserId(id).map(role => role.code);
-    const buttons = permissionService.getUserPermissionCodes(id);
+    const buttons = await permissionService.getUserPermissionCodes(id);
 
     return { ...stripPassword(row), roles, buttons };
   },
 
-  replaceUserRoles(userId: string, roleIds: string[]): void {
+  /** 全量替换用户-角色关联（失效该用户权限码缓存） */
+  async replaceUserRoles(userId: string, roleIds: string[]): Promise<void> {
     appDb.delete(userRole).where(eq(userRole.userId, userId)).run();
 
-    if (!roleIds.length) return;
-    const now = new Date().toISOString();
-    appDb
-      .insert(userRole)
-      .values(
-        roleIds.map(roleId => ({
-          id: createUuidV7(),
-          userId,
-          roleId,
-          createdBy: ACTOR,
-          createdTime: now,
-          updatedBy: ACTOR,
-          updatedTime: now
-        }))
-      )
-      .run();
+    if (roleIds.length) {
+      const now = new Date().toISOString();
+      appDb
+        .insert(userRole)
+        .values(
+          roleIds.map(roleId => ({
+            id: createUuidV7(),
+            userId,
+            roleId,
+            createdBy: ACTOR,
+            createdTime: now,
+            updatedBy: ACTOR,
+            updatedTime: now
+          }))
+        )
+        .run();
+    }
+
+    await invalidateUserPermissionCacheMany([userId]);
   },
 
   async createUser(dto: UserCreateDTO): Promise<Omit<UserRow, 'password'>> {
@@ -145,7 +153,7 @@ export const userService = {
       updatedTime: now
     };
     appDb.insert(user).values(row).run();
-    this.replaceUserRoles(row.id, dto.roleIds ?? []);
+    await this.replaceUserRoles(row.id, dto.roleIds ?? []);
 
     return stripPassword(row);
   },
@@ -172,22 +180,27 @@ export const userService = {
       .run();
 
     if (dto.roleIds) {
-      this.replaceUserRoles(id, dto.roleIds);
+      await this.replaceUserRoles(id, dto.roleIds);
+    } else if (dto.enabled !== undefined) {
+      // 停用用户 → 权限码缓存失效（启用同理，保持对称）
+      await invalidateUserPermissionCacheMany([id]);
     }
 
     return stripPassword(this.getUserById(id));
   },
 
-  deleteUser(id: string): void {
+  async deleteUser(id: string): Promise<void> {
     this.getUserById(id);
     appDb.delete(userRole).where(eq(userRole.userId, id)).run();
     appDb.delete(user).where(eq(user.id, id)).run();
+    await invalidateUserPermissionCacheMany([id]);
   },
 
-  batchDeleteUsers(ids: string[]): void {
+  async batchDeleteUsers(ids: string[]): Promise<void> {
     if (!ids.length) return;
     appDb.delete(userRole).where(inArray(userRole.userId, ids)).run();
     appDb.delete(user).where(inArray(user.id, ids)).run();
+    await invalidateUserPermissionCacheMany(ids);
   },
 
   /** 修改当前用户密码 */

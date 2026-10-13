@@ -21,11 +21,11 @@ export const PUT = defineHandler(
     }
   }),
   validate('json', rolePermissionAssignSchema),
-  c => {
+  async c => {
     const id = requireParam(c, 'id');
     const { permissionIds } = c.req.valid('json');
 
-    roleService.replaceRolePermissions(id, permissionIds);
+    await roleService.replaceRolePermissions(id, permissionIds);
 
     return c.json(null);
   }

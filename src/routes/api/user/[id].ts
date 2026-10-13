@@ -62,8 +62,8 @@ export const DELETE = defineHandler(
       }
     }
   }),
-  c => {
-    userService.deleteUser(requireParam(c, 'id'));
+  async c => {
+    await userService.deleteUser(requireParam(c, 'id'));
 
     return c.json(null);
   }

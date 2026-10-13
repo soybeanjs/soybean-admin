@@ -1,12 +1,13 @@
-import { and, count, eq, inArray, like, or, sql } from 'drizzle-orm';
+import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
+import { getCachedPermissionCodes, invalidateAllPermissionCache } from '@/shared/permission-cache';
 import { buildApiPermissionCode } from '@/shared/route';
 import { createUuidV7 } from '@/shared/uuid';
 import type { PermissionCreateDTO, PermissionQuery, PermissionUpdateDTO } from '@/schema/permission';
 import { appDb } from '../db';
-import { api, menu, permission, rolePermission, userRole } from '../db/schema';
+import { api, menu, permission, role, rolePermission, userRole } from '../db/schema';
 
 /**
  * 权限服务（P1-07，unify permission.service 范式）。
@@ -15,6 +16,13 @@ import { api, menu, permission, rolePermission, userRole } from '../db/schema';
  * - API 权限码: `api:${method.toLowerCase()}:(path)`（与中间件生成的权限码一致）
  * - 菜单权限码: `menu:${menuType}:${code}`
  * - 其他: 直接用录入的 code
+ *
+ * **enabled 过滤（§5.1）**：鉴权链路上的每次查询都必须带 `enabled = 'Y'` 条件，
+ * 否则停用的角色/权限点仍然放行 —— 停用只是列表里变灰、鉴权却照旧，是静默的最坏情况。
+ *
+ * **缓存（§5.2）**：`checkUserHasPermission` 是每个已登录请求的热路径，权限码集合
+ * 走 `src/shared/permission-cache.ts` 的 KV 缓存；权限点自身变更（改动 code / 删除）
+ * 无法廉价反查受影响用户，直接全清缓存（权限点是低频管理操作）。
  */
 
 export type PermissionRecord = typeof permission.$inferSelect;
@@ -132,13 +140,14 @@ export const permissionService = {
     return row;
   },
 
-  updatePermission(id: string, dto: PermissionUpdateDTO): PermissionRecord {
+  async updatePermission(id: string, dto: PermissionUpdateDTO): Promise<PermissionRecord> {
     const current = this.getPermissionById(id);
     const nextType = dto.resourceType ?? current.resourceType;
     const nextResourceId = dto.resourceId !== undefined ? dto.resourceId : current.resourceId;
     const binding = resolveResourceBinding(nextType, nextResourceId);
     const nextName = binding?.name ?? dto.name ?? current.name;
     const nextCode = binding?.code ?? dto.code ?? current.code;
+    const nextEnabled = dto.enabled ?? current.enabled;
 
     if (nextCode !== current.code && this.getPermissionByCode(nextCode)) {
       throw new AppError('RESOURCE_EXISTS', '权限编码已存在');
@@ -151,6 +160,7 @@ export const permissionService = {
         code: nextCode,
         resourceType: nextType,
         resourceId: nextResourceId ?? null,
+        enabled: nextEnabled,
         description: dto.description !== undefined ? dto.description : current.description,
         updatedBy: 'admin',
         updatedTime: new Date().toISOString()
@@ -158,19 +168,31 @@ export const permissionService = {
       .where(eq(permission.id, id))
       .run();
 
+    // 改了 code / 启用停用 / 改挂载资源，缓存里的权限码集合都可能失效 → 全清
+    if (
+      nextCode !== current.code ||
+      nextEnabled !== current.enabled ||
+      dto.resourceId !== undefined ||
+      dto.resourceType !== undefined
+    ) {
+      await invalidateAllPermissionCache();
+    }
+
     return this.getPermissionById(id);
   },
 
-  deletePermission(id: string): void {
+  async deletePermission(id: string): Promise<void> {
     this.getPermissionById(id);
     appDb.delete(rolePermission).where(eq(rolePermission.permissionId, id)).run();
     appDb.delete(permission).where(eq(permission.id, id)).run();
+    await invalidateAllPermissionCache();
   },
 
-  batchDeletePermissions(ids: string[]): void {
+  async batchDeletePermissions(ids: string[]): Promise<void> {
     if (!ids.length) return;
     appDb.delete(rolePermission).where(inArray(rolePermission.permissionId, ids)).run();
     appDb.delete(permission).where(inArray(permission.id, ids)).run();
+    await invalidateAllPermissionCache();
   },
 
   getRolePermissions(roleId: string) {
@@ -178,56 +200,71 @@ export const permissionService = {
       .select({ permission })
       .from(rolePermission)
       .innerJoin(permission, eq(rolePermission.permissionId, permission.id))
-      .where(eq(rolePermission.roleId, roleId))
+      .where(and(eq(rolePermission.roleId, roleId), eq(permission.enabled, 'Y')))
       .all()
       .map(row => row.permission);
   },
 
-  /** 用户是否拥有某权限码（RBAC 中间件核心查询） */
-  checkUserHasPermission(userId: string, code: string): boolean {
-    const [perm] = appDb.select().from(permission).where(eq(permission.code, code)).all();
-    if (!perm) return false;
+  /**
+   * 用户是否拥有某权限码（RBAC 中间件核心查询）。
+   *
+   * 判定完全基于缓存里的**权限码集合**（一次 KV 读），不再每次三查库：
+   * 该用户可见的权限码集合已经过 enabled 过滤，成员判定与旧实现等价。
+   */
+  async checkUserHasPermission(userId: string, code: string): Promise<boolean> {
+    const codes = await getCachedPermissionCodes(userId, () => this.queryUserPermissionCodes(userId));
 
-    const userRoles = appDb.select({ roleId: userRole.roleId }).from(userRole).where(eq(userRole.userId, userId)).all();
-    if (!userRoles.length) return false;
-
-    const roleIds = userRoles.map(row => row.roleId);
-    const [link] = appDb
-      .select()
-      .from(rolePermission)
-      .where(and(inArray(rolePermission.roleId, roleIds), eq(rolePermission.permissionId, perm.id)))
-      .all();
-
-    return Boolean(link);
+    return codes.includes(code);
   },
 
-  /** 用户全量权限码集合（去重） */
-  getUserPermissionCodes(userId: string): string[] {
-    const userRoles = appDb.select({ roleId: userRole.roleId }).from(userRole).where(eq(userRole.userId, userId)).all();
-    if (!userRoles.length) return [];
+  /** 用户全量权限码集合（去重，带缓存） */
+  getUserPermissionCodes(userId: string): Promise<string[]> {
+    return getCachedPermissionCodes(userId, () => this.queryUserPermissionCodes(userId));
+  },
 
-    const roleIds = userRoles.map(row => row.roleId);
+  /**
+   * 权限码集合回源（同步三查，缓存未命中时调用）。
+   *
+   * 三处 enabled 过滤缺一不可：角色停用、权限点停用、软删（D）都不该再放行。
+   */
+  queryUserPermissionCodes(userId: string): string[] {
+    const roleIds = appDb
+      .select({ roleId: userRole.roleId })
+      .from(userRole)
+      .innerJoin(role, eq(userRole.roleId, role.id))
+      .where(and(eq(userRole.userId, userId), eq(role.enabled, 'Y')))
+      .all()
+      .map(row => row.roleId);
+
+    if (!roleIds.length) return [];
+
     const rows = appDb
       .select({ code: permission.code })
       .from(rolePermission)
       .innerJoin(permission, eq(rolePermission.permissionId, permission.id))
-      .where(inArray(rolePermission.roleId, roleIds))
+      .where(and(inArray(rolePermission.roleId, roleIds), eq(permission.enabled, 'Y')))
       .all();
 
     return [...new Set(rows.map(row => row.code))];
   },
 
-  /** 用户全量权限记录（菜单树授权用） */
+  /** 用户全量权限记录（菜单树授权用）；同样只取启用中的角色与权限点 */
   getUserPermissions(userId: string): PermissionRecord[] {
-    const userRoles = appDb.select({ roleId: userRole.roleId }).from(userRole).where(eq(userRole.userId, userId)).all();
-    if (!userRoles.length) return [];
+    const roleIds = appDb
+      .select({ roleId: userRole.roleId })
+      .from(userRole)
+      .innerJoin(role, eq(userRole.roleId, role.id))
+      .where(and(eq(userRole.userId, userId), eq(role.enabled, 'Y')))
+      .all()
+      .map(row => row.roleId);
 
-    const roleIds = userRoles.map(row => row.roleId);
+    if (!roleIds.length) return [];
+
     const rows = appDb
       .select({ permission })
       .from(rolePermission)
       .innerJoin(permission, eq(rolePermission.permissionId, permission.id))
-      .where(and(inArray(rolePermission.roleId, roleIds), or(eq(permission.enabled, 'Y'), eq(permission.enabled, 'D'))))
+      .where(and(inArray(rolePermission.roleId, roleIds), eq(permission.enabled, 'Y')))
       .all();
 
     const map = new Map<string, PermissionRecord>();

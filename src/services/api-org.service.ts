@@ -241,7 +241,7 @@ export const orgService = {
     appDb.delete(org).where(inArray(org.id, ids)).run();
   },
 
-  /** 组织绑定角色 */
+  /** 组织绑定角色（不影响鉴权热路径：鉴权只看 user_role，org_role 尚未接入） */
   assignOrgRoles(orgId: string, roleIds: string[]): void {
     this.getOrgById(orgId);
     appDb.delete(orgRole).where(eq(orgRole.orgId, orgId)).run();

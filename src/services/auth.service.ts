@@ -67,7 +67,7 @@ export function toAuthUserDTO(row: UserRow, roles: string[] = [], buttons: strin
  */
 export async function toAuthUserWithRoles(row: UserRow): Promise<AuthUserDTO> {
   const roles = roleService.getRolesByUserId(row.id).map(role => role.code);
-  const buttons = permissionService.getUserPermissionCodes(row.id);
+  const buttons = await permissionService.getUserPermissionCodes(row.id);
 
   return toAuthUserDTO(row, roles, buttons);
 }

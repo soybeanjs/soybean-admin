@@ -19,10 +19,10 @@ export const POST = defineHandler(
     }
   }),
   validate('json', batchDeleteSchema),
-  c => {
+  async c => {
     const { ids } = c.req.valid('json');
 
-    roleService.batchDeleteRoles(ids);
+    await roleService.batchDeleteRoles(ids);
 
     return c.json(null);
   }
