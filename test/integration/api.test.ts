@@ -879,6 +879,68 @@ describe('menu CRUD', () => {
 
     expect(del.body.code).toBe('0000');
   });
+
+  it('directory 可带 routePath、不可带 routeName，且子项路径必须在其下（M-02 / M-09）', async () => {
+    // M-02：目录是纯分组节点，允许 routePath（作为子项前缀），但不能有 routeName
+    const dir = await api<{ id: string }>('POST', '/api/menu', {
+      token: adminToken,
+      body: {
+        menuType: 'directory',
+        name: '集成目录',
+        code: `M_it_dir_${runId}`,
+        order: 9999,
+        routePath: `/it-dir-${runId}`
+      }
+    });
+    const created = okData<{ id: string }>(dir.body);
+
+    createdIds.menuIds.push(created.id);
+
+    // 目录带 routeName 仍被拒
+    const withName = await api('POST', '/api/menu', {
+      token: adminToken,
+      body: {
+        menuType: 'directory',
+        name: '集成目录带名',
+        code: `M_it_dir2_${runId}`,
+        routeName: `it_dir_${runId}`,
+        routePath: `/it-dir2-${runId}`
+      }
+    });
+
+    expect(withName.body.code).toBe('3000');
+
+    // 子项路径不在目录下 → 被拒（M-09）
+    const outside = await api('POST', '/api/menu', {
+      token: adminToken,
+      body: {
+        menuType: 'menu',
+        name: '集成目录外子项',
+        code: `M_it_dir_child_${runId}`,
+        parentId: created.id,
+        routeName: `it_dir_child_${runId}`,
+        routePath: `/it-elsewhere-${runId}`
+      }
+    });
+
+    expect(outside.body.code).toBe('3000');
+
+    // 落在目录下 → 通过
+    const inside = await api<{ id: string }>('POST', '/api/menu', {
+      token: adminToken,
+      body: {
+        menuType: 'menu',
+        name: '集成目录内子项',
+        code: `M_it_dir_child_ok_${runId}`,
+        parentId: created.id,
+        routeName: `it_dir_child_ok_${runId}`,
+        routePath: `/it-dir-${runId}/child`
+      }
+    });
+
+    expect(inside.body.code).toBe('0000');
+    createdIds.menuIds.push(okData<{ id: string }>(inside.body).id);
+  });
 });
 
 // ---------- permission / api / org / dict / dict-item CRUD ----------

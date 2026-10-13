@@ -46,8 +46,10 @@ function validateMenuTypeConstraints(row: {
   const { menuType, routeName, routePath, iframeUrl, href } = row;
 
   if (menuType === 'directory') {
-    if (routeName || routePath) {
-      throw new AppError('PARAM_INVALID', '目录类型菜单不能配置路由');
+    // 目录是纯分组节点：可以带 `routePath`（作为子项的路径前缀，供 dev 校验用），
+    // 但不能有 `routeName` / `routeComponent` —— 它本身不是一个路由。
+    if (routeName) {
+      throw new AppError('PARAM_INVALID', '目录类型菜单不能配置路由名称');
     }
 
     return;
@@ -95,6 +97,45 @@ function validateParent(parentId: string | null, selfId?: string): void {
   }
 
   requireMenu(parentId);
+}
+
+/**
+ * 目录前缀校验（M-09）：目录与其子项的 `routePath` 必须同前缀。
+ *
+ * 目录是纯分组节点、没有对应路由，路径分家在导航上看不出来 —— 这是它唯一能
+ * 自检的地方。与 `src/store/modules/menu/shared.ts` 的 `validateMenuRoutes`
+ * 同一规则，但那个跑在 dev 启动期的菜单源快照上，这个跑在**写入时**的库上
+ * （管理页新增/改父/改路径都能当场拦住）。
+ *
+ * 两个方向各查一次，不递归：
+ * 1. 本条是目录 → 它现有的子项必须落在它下面（改目录路径时拦住）；
+ * 2. 本条有父目录 → 本条路径必须落在父目录下面（改父/改路径时拦住）。
+ */
+function validateDirectoryPrefix(row: { id?: string; parentId: string | null; routePath: string | null }): void {
+  const isUnder = (child: string, parent: string) => child === parent || child.startsWith(`${parent}/`);
+  const selfPath = row.routePath;
+
+  if (row.id && selfPath && selfPath !== '/') {
+    const children = appDb.select({ routePath: menu.routePath }).from(menu).where(eq(menu.parentId, row.id)).all();
+    const outside = children
+      .map(child => child.routePath)
+      .filter((childPath): childPath is string => Boolean(childPath) && childPath !== '/')
+      .filter(childPath => !isUnder(childPath, selfPath));
+
+    if (outside.length > 0) {
+      throw new AppError('PARAM_INVALID', `目录路径 ${selfPath} 不是子菜单路径的前缀（${outside.join('、')}）`);
+    }
+  }
+
+  if (row.parentId && selfPath && selfPath !== '/') {
+    const [parent] = appDb.select().from(menu).where(eq(menu.id, row.parentId)).all();
+
+    if (parent?.menuType === 'directory' && parent.routePath && parent.routePath !== '/') {
+      if (!isUnder(selfPath, parent.routePath)) {
+        throw new AppError('PARAM_INVALID', `菜单路径 ${selfPath} 不在父目录 ${parent.routePath} 下`);
+      }
+    }
+  }
 }
 
 /** 收集后代 id（环检测用） */
@@ -194,6 +235,7 @@ export const menuService = {
       href: dto.href ?? null
     });
     validateRouteDefinition(dto.routeName ?? null, dto.routePath ?? null);
+    validateDirectoryPrefix({ parentId: dto.parentId ?? null, routePath: dto.routePath ?? null });
 
     const now = new Date().toISOString();
     const row: MenuRow = {
@@ -237,6 +279,7 @@ export const menuService = {
     validateParent(next.parentId, id);
     validateMenuTypeConstraints(next);
     validateRouteDefinition(next.routeName, next.routePath, id);
+    validateDirectoryPrefix({ id, parentId: next.parentId, routePath: next.routePath });
 
     if (next.parentId) {
       const descendants = collectDescendantIds(id);
