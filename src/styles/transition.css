@@ -4,18 +4,64 @@
  * 名称与 `src/constants/theme.ts` 的 `PAGE_ANIMATION_MODES` 一一对应：ubean 的
  * `<PageView :transition="name" />` 内部就是一个 Vue `<Transition>`，class 前缀
  * 即该 name，所以必须写成 `<name>-enter-*` / `<name>-leave-*`。
- *
- * 时长与位移沿用 v2（`styles/css/transition.css`），保证迁移后的观感一致；
  * `none` 模式没有对应类 —— 动画靠 `transition: false` 关闭，不靠 CSS。
  *
- * `mode` 保持默认（cross-fade）：vue@3.5 的 `out-in` 在 KeepAlive 页面交换时会渲染
- * hollow placeholder 导致崩溃（vuejs/core#10771），`PageView` 已把它降级。
+ * ## 为什么离场页要 `position: absolute`
+ *
+ * `PageView` 用的是**交叉淡出**（同时存在两份页面），而不是 `out-in`：ubean 在
+ * `mode="out-in"` 时会把两份页面同时渲染再主动降级，并打一条警告 ——
+ * `[PageView] mode="out-in" is degraded to "default": vue@3.5.41 out-in + KeepAlive
+ * trips emptyPlaceholder bugs`。所以传 `out-in` 只是多一条控制台噪音，行为不变。
+ *
+ * 两份页面若都在文档流里，旧页会把新页顶到下方 —— 实测新页
+ * `getBoundingClientRect().top` 是 1042（旧页高 926，把新页顶到了下一屏），于是
+ * 视口里看到的是旧页左滑淡出、新页整块从下方升起，也就是「从底下往上顶」。
+ *
+ * 把**离场页**提出文档流、并钉在容器左上角，两份页面就完全重叠。钉左上角而不是
+ * 居中，是因为进场的位移量固定在左边（`fade-slide` 是 `translateX(-30px)` → 0），
+ * 从中心缩放会让它从右边滑入，与设计相左。
+ *
+ * 只提离场页（`*-leave-active`）而不动进场页：进场页留在文档流里，容器高度由它
+ * 撑开，内容区不会在动画期间塌陷。同时给容器补 `relative`（在
+ * `src/layouts/default.vue` 的 `<PageView>` 外层）作为定位基准 —— 否则离场页会
+ * 以更外层的 `relative`（内容区，带 `p-4` 与 `overflow-y-auto`）为基准，多出一份
+ * 内边距、并且滚动容器内 `absolute` 的定位会跟着内容滚。
+ *
+ * ## 为什么离场和进场要错开
+ *
+ * 重叠之后暴露出第二个问题：两份页面在整段时间里**同时可见**，中间几帧各占一半
+ * 不透明度，于是旧页的内容（实测工作台的图表）从新页底下透出来，糊成一片。
+ *
+ * 解法是让进场**等离场走完再开始** —— 给 `*-enter-active` 的 transition 加一个
+ * 等于离场时长的 `delay`。这正是 `out-in` 本来的时序（先出后进），只不过是用
+ * 交叉淡出的机制手工排出来的。离场时长取各模式原时长的一半，所以一轮总时长约
+ * 是原时长的 1.5 倍。
+ *
+ * 实测（`fade-slide`，逐帧读两份页面的 opacity）：离场 1 → 0 期间进场恒为 0，
+ * 离场结束后进场才开始 0 → 1，不再有交叠帧。
  */
 
+/* 离场页脱离文档流并钉在容器左上角（容器见 `src/layouts/default.vue` 的
+   `<PageView>` 外层 `div.relative`），两份页面因此完全重叠 —— 否则旧页会把新页
+   顶到下一屏，观感是「新页从底下往上顶」。只提离场页：进场页留在流里撑高容器。 */
+.fade-leave-active,
+.fade-slide-leave-active,
+.fade-bottom-leave-active,
+.fade-scale-leave-active,
+.zoom-fade-leave-active,
+.zoom-out-leave-active {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+}
+
 /* fade */
-.fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.15s ease-in;
+}
+
+.fade-enter-active {
+  transition: opacity 0.3s ease-in-out 0.15s;
 }
 
 .fade-enter-from,
@@ -24,9 +70,16 @@
 }
 
 /* fade-slide（默认） */
-.fade-slide-leave-active,
+.fade-slide-leave-active {
+  transition:
+    opacity 0.15s ease-in,
+    transform 0.15s ease-in;
+}
+
 .fade-slide-enter-active {
-  transition: all 0.3s;
+  transition:
+    opacity 0.3s ease-out 0.15s,
+    transform 0.3s ease-out 0.15s;
 }
 
 .fade-slide-enter-from {
@@ -40,11 +93,16 @@
 }
 
 /* fade-bottom */
-.fade-bottom-enter-active,
 .fade-bottom-leave-active {
   transition:
-    opacity 0.25s,
-    transform 0.3s;
+    opacity 0.125s ease-in,
+    transform 0.15s ease-in;
+}
+
+.fade-bottom-enter-active {
+  transition:
+    opacity 0.25s ease-out 0.125s,
+    transform 0.3s ease-out 0.15s;
 }
 
 .fade-bottom-enter-from {
@@ -58,9 +116,16 @@
 }
 
 /* fade-scale */
-.fade-scale-leave-active,
+.fade-scale-leave-active {
+  transition:
+    opacity 0.14s ease-in,
+    transform 0.14s ease-in;
+}
+
 .fade-scale-enter-active {
-  transition: all 0.28s;
+  transition:
+    opacity 0.28s ease-out 0.14s,
+    transform 0.28s ease-out 0.14s;
 }
 
 .fade-scale-enter-from {
@@ -74,11 +139,16 @@
 }
 
 /* zoom-fade */
-.zoom-fade-enter-active,
 .zoom-fade-leave-active {
   transition:
-    transform 0.2s,
-    opacity 0.3s ease-out;
+    transform 0.1s ease-in,
+    opacity 0.15s ease-in;
+}
+
+.zoom-fade-enter-active {
+  transition:
+    transform 0.2s ease-out 0.1s,
+    opacity 0.3s ease-out 0.15s;
 }
 
 .zoom-fade-enter-from {
@@ -91,12 +161,17 @@
   transform: scale(1.06);
 }
 
-/* zoom-out */
-.zoom-out-enter-active,
+/* zoom-out（本来就快，错开量按比例缩小） */
 .zoom-out-leave-active {
   transition:
-    opacity 0.1s ease-in-out,
-    transform 0.15s ease-out;
+    opacity 0.05s ease-in,
+    transform 0.075s ease-out;
+}
+
+.zoom-out-enter-active {
+  transition:
+    opacity 0.1s ease-in-out 0.05s,
+    transform 0.15s ease-out 0.075s;
 }
 
 .zoom-out-enter-from,
@@ -120,5 +195,15 @@
   .zoom-out-enter-active,
   .zoom-out-leave-active {
     transition: none;
+  }
+
+  /* 动效被禁用时不做重叠：离场页留在文档流里，避免多一帧的层叠 */
+  .fade-leave-active,
+  .fade-slide-leave-active,
+  .fade-bottom-leave-active,
+  .fade-scale-leave-active,
+  .zoom-fade-leave-active,
+  .zoom-out-leave-active {
+    position: static;
   }
 }

@@ -499,6 +499,13 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
       </div>
     </template>
 
-    <PageView :transition="pageTransition" />
+    <!--
+ 包一层 `relative` 作为离场页的定位基准：交叉淡出时两个页面同时存在，
+         CSS 会把离场那份移出文档流（见 `src/styles/transition.css`），
+         它需要最近的定位祖先来确定自己的宽度与上边距。 
+-->
+    <div class="relative">
+      <PageView :transition="pageTransition" />
+    </div>
   </SAppShell>
 </template>
