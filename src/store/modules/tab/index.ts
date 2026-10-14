@@ -1,6 +1,8 @@
 import type { RouteLocationNormalized, Router } from 'vue-router';
 import { reloadPage, excludePageCache, includePageCache } from 'ubean/client';
 import { defineStore } from 'pinia';
+import { isTabbableRoute } from '@/shared/tab';
+import { toAppRouteMeta } from '@/utils/route-meta';
 import { getLocalJson, setLocalJson } from '@/utils/storage';
 import type { AppTab } from '@/typings/app';
 
@@ -66,7 +68,14 @@ export const useTabStore = defineStore('tab', {
       const name = String(to.name ?? '');
       if (!name || name === 'NotFound') return;
 
-      const meta = to.meta;
+      // 一次收窄成 AppRouteMeta：下面的字段访问都拿到精确类型，
+      // 而不用 `RouteMeta` 的全量 unknown 索引签名（见 `@/utils/route-meta`）
+      const meta = toAppRouteMeta(to.meta);
+
+      // 空白布局（登录 / 403 / 404 / 500）不渲染后台壳，也就没有页签栏可挂 ——
+      // 不拦会让它们变成「点了跳到空白页」的假页签（判定见 `@/shared/tab`）
+      if (!isTabbableRoute(meta)) return;
+
       const value = meta.multiTab ? to.fullPath : name;
 
       if (!this.tabs.some(tab => tab.value === value)) {

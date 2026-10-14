@@ -18,7 +18,9 @@ import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/consta
 import { resolveExternalUrl } from '@/shared/iframe';
 import { resolveLayoutMatrix } from '@/shared/layout-matrix';
 import { normalizeRoutePath } from '@/shared/route';
+import { isTabbableRoute } from '@/shared/tab';
 import { registerVeanLocalePack } from '@/shared/vean-locale';
+import { toAppRouteMeta } from '@/utils/route-meta';
 import { useAppStore, useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
 import { useHydrated } from '@/composables/use-hydrated';
 import { env } from '@/env';
@@ -42,6 +44,10 @@ import type { AppTab, MenuTreeNode } from '@/typings/app';
  *   `layoutContent` 默认为**空串**（见 `styles/app-shell.js` 的 `slots`），
  *   不补的话所有页面都贴着侧栏/顶栏，卡片没有呼吸感。填充值由壳合并进
  *   `SLayout.ui.content`，所以 `scrollBehavior: 'content'` 时内滚区也带内边距。
+ * - 页签列表在展示前先按**路由布局**过一遍：`blank` 布局的页面（登录 /
+ *   403 / 404 / 500）不渲染本壳，不该出现在页签栏（判定见 `@/shared/tab`）。
+ *   写入侧 `tabStore.addTab` 已经拦了，这里是**第二道** —— 它同时清掉旧版本
+ *   持久化在 `localStorage` 里的历史脏页签（如登录成功后残留的「登录」）。
  */
 const { locale, t } = useI18n();
 const route = useRoute();
@@ -206,11 +212,26 @@ function onMenuSelect(key: string): void {
  */
 const hydrated = useHydrated();
 
+/**
+ * 页签栏里这条页签还该不该显示。
+ *
+ * 页签只持久化了 `routeName` / `fullPath`，没有布局快照 —— 所以拿 `fullPath` 回查
+ * **当下**的路由表取 `meta.layout`（用路径而非名字：页签名是裸 `string`，
+ * vue-router 的 `resolve` 只接受生成器产出的名字字面量并集）。解析不到任何记录
+ * 时按可显示处理 —— 宁可留一个点进去是 404 的页签，也不因为一次查表失败把用户
+ * 的页签静默抹掉。
+ */
+function isTabbableTab(tab: AppTab): boolean {
+  const record = router.resolve(tab.fullPath).matched.at(-1);
+
+  return !record || isTabbableRoute(toAppRouteMeta(record.meta));
+}
+
 /** 页签展示文案同菜单：t(i18nKey) || label */
 const shellTabs = computed<PageTabsOptionData[]>(() => {
   if (!hydrated.value || !themeStore.settings.tabVisible) return [];
 
-  return tabStore.tabs.map(tab => ({
+  return tabStore.tabs.filter(isTabbableTab).map(tab => ({
     value: tab.value,
     label: tab.i18nKey ? t(tab.i18nKey) : tab.label,
     icon: tab.icon,

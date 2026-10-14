@@ -120,6 +120,39 @@ describe('页签持久化', () => {
     store.removeTab('Cached');
     expect(vi.mocked(mocked.excludePageCache)).toHaveBeenCalledWith('Cached');
   });
+
+  /**
+   * 空白布局的页面不进页签栏。
+   *
+   * 登录页（`definePage({ layout: 'blank' })`）不渲染后台壳，却被 afterEach
+   * 当普通路由加进了页签 —— 实测症状是登录后页签栏 `登录 | 工作台`，点「登录」
+   * 还会被守卫弹回首页。403 / 404 / 500 同理。
+   */
+  it('blank 布局的路由不进页签（登录页等不渲染后台壳）', async () => {
+    const { useTabStore } = await import('@/store/modules/tab');
+    const store = useTabStore();
+
+    store.addTab(route('Login', '/login', { title: '登录', layout: 'blank' }));
+    expect(store.tabs).toEqual([]);
+    expect(store.activeTabValue).toBe('');
+
+    store.addTab(route('Forbidden', '/403', { title: '无访问权限', layout: 'blank' }));
+    store.addTab(route('ServiceError', '/500', { title: '服务异常', layout: 'blank' }));
+    expect(store.tabs).toEqual([]);
+
+    // 正常页仍然进，且不受影响
+    store.addTab(route('Index', '/', { title: '工作台' }));
+    expect(store.tabs.map(tab => tab.value)).toEqual(['Index']);
+  });
+
+  it('未声明 layout 的路由照常进页签（ubean 默认落在 default 布局）', async () => {
+    const { useTabStore } = await import('@/store/modules/tab');
+    const store = useTabStore();
+
+    store.addTab(route('AboutIndex', '/about', { title: '关于' }));
+
+    expect(store.tabs.map(tab => tab.value)).toEqual(['AboutIndex']);
+  });
 });
 
 describe('跨用户清页签', () => {
