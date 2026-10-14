@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { SInput, SSelect, useForm } from '@vean/ui';
+import { SInput, useForm } from '@vean/ui';
 import { useManageOptions } from '@/composables/use-manage-options';
+import ManageSearchSelect from '@/components/manage-search-select.vue';
 import ManageSearch from '@/components/manage-search/index.vue';
 import { apiSearchFormSchema } from '@/schema/api';
 import type { ApiSearchFormDTO } from '@/schema/api';
@@ -52,7 +53,7 @@ function onReset() {
     </SFormField>
 
     <SFormField name="method" :label="t('manage.api.method')">
-      <SSelect :items="apiMethodSearchOptions" />
+      <ManageSearchSelect :items="apiMethodSearchOptions" />
     </SFormField>
   </ManageSearch>
 </template>

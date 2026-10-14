@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { SInput, SSelect, useForm } from '@vean/ui';
+import { SInput, useForm } from '@vean/ui';
 import { useManageOptions } from '@/composables/use-manage-options';
+import ManageSearchSelect from '@/components/manage-search-select.vue';
 import ManageSearch from '@/components/manage-search/index.vue';
 import { dictSearchFormSchema } from '@/schema/dict';
 import type { DictSearchFormDTO } from '@/schema/dict';
@@ -49,7 +50,7 @@ function onReset() {
     </SFormField>
 
     <SFormField name="isSystem" :label="t('manage.dict.isSystem')">
-      <SSelect :items="yesOrNoSearchOptions" />
+      <ManageSearchSelect :items="yesOrNoSearchOptions" />
     </SFormField>
   </ManageSearch>
 </template>

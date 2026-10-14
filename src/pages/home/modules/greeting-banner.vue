@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SCard } from '@vean/ui';
 import { useAuthStore } from '@/store';
+import { useHydratedValue } from '@/composables/use-hydrated';
 
 defineOptions({ name: 'HomeGreetingBanner' });
 
@@ -16,7 +17,15 @@ const { t } = useI18n();
 const authStore = useAuthStore();
 
 const userName = computed(() => authStore.userInfo?.username ?? '');
-const avatarLabel = computed(() => userName.value.slice(0, 1).toUpperCase());
+
+/**
+ * 服务端 / 水合前空串（`userInfo` 来自 `localStorage`，见
+ * `@/composables/use-hydrated`）。不门控会让首屏渲染 `早安，, ...`、水合渲染
+ * `早安，admin, ...`，报 `Hydration text content mismatch`。
+ */
+const hydratedUserName = useHydratedValue(userName, '');
+
+const avatarLabel = computed(() => hydratedUserName.value.slice(0, 1).toUpperCase());
 
 /** 右上角三格统计（P3-01 与 v2 对齐，静态值） */
 const statistics = computed<StatisticItem[]>(() => [
@@ -34,7 +43,7 @@ const statistics = computed<StatisticItem[]>(() => [
       </div>
 
       <div class="min-w-56 flex-1">
-        <p class="text-base font-medium">{{ t('page.home.greeting', { userName }) }}</p>
+        <p class="text-base font-medium">{{ t('page.home.greeting', { userName: hydratedUserName }) }}</p>
         <p class="mt-1 text-sm text-muted-foreground">{{ t('page.home.weatherDesc') }}</p>
       </div>
 

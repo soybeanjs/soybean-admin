@@ -20,6 +20,8 @@ import { resolveLayoutMatrix } from '@/shared/layout-matrix';
 import { normalizeRoutePath } from '@/shared/route';
 import { registerVeanLocalePack } from '@/shared/vean-locale';
 import { useAppStore, useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
+import { useHydrated } from '@/composables/use-hydrated';
+import { env } from '@/env';
 import type { AppTab, MenuTreeNode } from '@/typings/app';
 
 /**
@@ -87,6 +89,26 @@ const pageTransition = computed(() => {
 // SThemeModeSwitch 是 context 绑定组件（绑 SConfigProvider 主题，无 v-model），
 // 这里引用 useTheme 仅保证在 provider 上下文中（提供 consumerName 便于调试）。
 useTheme('AppLayout');
+
+/**
+ * 服务端预渲染时的菜单兜底（P4 水合修复）。
+ *
+ * ubean dev 的预渲染上下文里**路由守卫不会执行**（实测：守卫里打点从未触发），
+ * 于是菜单 store 停在空数组 —— 侧栏（树菜单）、面包屑都渲染成空壳，客户端水合
+ * 出满树，控制台刷 `Hydration node/children mismatch`。这是真 bug 而非噪音：
+ * 首屏侧栏会「闪一下」才出现。
+ *
+ * static 模式的菜单是**纯数据**（`src/menus/menus.json` + 路由表），无请求、无
+ * `localStorage`，服务端可以照建，两侧于是渲染同一棵树。dynamic 模式的菜单依赖
+ * 登录态与 `GET /api/menu/user`，服务端拿不到，那里只能让客户端先渲染空壳
+ * （守卫随后补齐）。
+ *
+ * 守卫在浏览器里仍会再调一次 `initStaticMenu`：建树是幂等的纯计算，且它拿到的
+ * 是路由表当下的事实（本处只是让首屏两侧一致）。
+ */
+if (env.authRouteMode === 'static' && menuStore.isEmpty) {
+  menuStore.initStaticMenu(router);
+}
 
 // ---------------------------------------------------------------------------
 // 菜单（i18nKey → 展示文案在此解析）
@@ -175,9 +197,18 @@ function onMenuSelect(key: string): void {
 // 页签
 // ---------------------------------------------------------------------------
 
+/**
+ * 是否已完成客户端挂载。
+ *
+ * 页签、用户信息都持久化在 `localStorage`，服务端读不到 —— 不门控就是首屏
+ * 预渲染出空页签栏 / 默认头像、客户端水合出真值，控制台报
+ * `Hydration node/attribute mismatch`（详见 `@/composables/use-hydrated`）。
+ */
+const hydrated = useHydrated();
+
 /** 页签展示文案同菜单：t(i18nKey) || label */
 const shellTabs = computed<PageTabsOptionData[]>(() => {
-  if (!themeStore.settings.tabVisible) return [];
+  if (!hydrated.value || !themeStore.settings.tabVisible) return [];
 
   return tabStore.tabs.map(tab => ({
     value: tab.value,
@@ -294,6 +325,19 @@ async function onTabReload(value: string): Promise<void> {
 const userLabel = computed(() => authStore.userInfo?.fullName || authStore.userInfo?.username || '');
 
 const userAvatarSrc = computed(() => authStore.userInfo?.avatar ?? '');
+
+/**
+ * 头像兜底文案。
+ *
+ * `userInfo` 来自 `localStorage`，服务端读不到 —— 不门控就是 SSR `'U'` /
+ * 水合 `'超'` 的 `alt` 属性不匹配（与页签同一个成因，见 `mounted` 的说明）。
+ * 水合前与服务端一律用 `'U'`，挂载后才是真实姓氏。
+ */
+const userAvatarFallback = computed(() => {
+  const initial = hydrated.value ? userLabel.value.slice(0, 1).toUpperCase() : '';
+
+  return initial || 'U';
+});
 
 /** 用户下拉菜单项（`value` 常量与判定分支配对，见 `onUserMenuSelect`） */
 const USER_MENU_PROFILE = 'profile';
@@ -421,12 +465,7 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
         <SThemeModeSwitch size="sm" />
         <SDropdownMenu :items="userMenuItems" placement="bottom-end" @select="onUserMenuSelect">
           <template #trigger>
-            <SAvatar
-              :src="userAvatarSrc"
-              :fallback-label="userLabel.slice(0, 1).toUpperCase() || 'U'"
-              size="sm"
-              class="cursor-pointer"
-            />
+            <SAvatar :src="userAvatarSrc" :fallback-label="userAvatarFallback" size="sm" class="cursor-pointer" />
           </template>
         </SDropdownMenu>
       </div>

@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SAvatar, SCard, STag } from '@vean/ui';
 import { useAuthStore } from '@/store';
+import { useHydratedValue } from '@/composables/use-hydrated';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 
 /**
@@ -20,7 +21,25 @@ const authStore = useAuthStore();
 
 const user = computed(() => authStore.userInfo);
 
+/**
+ * 水合前一律 `undefined`（服务端读不到 `localStorage`，见
+ * `@/composables/use-hydrated`）。
+ *
+ * 卡片里**每一处**用户字段都走它，而不是直接用 `user` —— 名字/邮箱/角色标签
+ * 任意一处漏掉都会报 `Hydration text content mismatch`。挂载后自动变为真值。
+ */
+const hydratedUser = useHydratedValue(user, undefined);
+
 const avatarText = computed(() => (user.value?.fullName ?? user.value?.username ?? 'U').slice(0, 1).toUpperCase());
+
+/**
+ * 服务端 / 水合前一律 `'U'`。
+ *
+ * `userInfo` 来自 `localStorage`，服务端读不到 —— 直接用真值会让 SSR 渲染
+ * `'U'`、水合渲染 `'超'`，报 `Hydration attribute mismatch`（见
+ * `@/composables/use-hydrated`）。
+ */
+const hydratedAvatarText = useHydratedValue(avatarText, 'U');
 
 /** 空值统一显示 `-`（与 manage 页表格同一约定） */
 function display(value: string | null | undefined): string {
@@ -31,33 +50,33 @@ function display(value: string | null | undefined): string {
 <template>
   <SCard :title="t('userCenter.profile.title')">
     <div class="flex flex-col items-center gap-3 py-2">
-      <SAvatar :src="user?.avatar ?? ''" :fallback-label="avatarText" size="lg" />
+      <SAvatar :src="hydratedUser?.avatar ?? ''" :fallback-label="hydratedAvatarText" size="lg" />
       <div class="flex flex-col items-center gap-1">
-        <span class="text-base font-600">{{ display(user?.fullName) }}</span>
-        <span class="text-sm opacity-60">@{{ display(user?.username) }}</span>
+        <span class="text-base font-600">{{ display(hydratedUser?.fullName) }}</span>
+        <span class="text-sm opacity-60">@{{ display(hydratedUser?.username) }}</span>
       </div>
-      <EnabledTag v-if="user" :enabled="user.enabled" />
+      <EnabledTag v-if="hydratedUser" :enabled="hydratedUser.enabled" />
     </div>
 
     <div class="mt-2 flex flex-col gap-2 border-t border-border pt-3 text-sm">
       <div class="flex items-center justify-between gap-3">
         <span class="opacity-60">{{ t('userCenter.profile.email') }}</span>
-        <span class="truncate">{{ display(user?.email) }}</span>
+        <span class="truncate">{{ display(hydratedUser?.email) }}</span>
       </div>
       <div class="flex items-center justify-between gap-3">
         <span class="opacity-60">{{ t('userCenter.profile.phone') }}</span>
-        <span class="truncate">{{ display(user?.phone) }}</span>
+        <span class="truncate">{{ display(hydratedUser?.phone) }}</span>
       </div>
       <div class="flex items-center justify-between gap-3">
         <span class="opacity-60">{{ t('userCenter.profile.homePath') }}</span>
-        <span class="truncate">{{ display(user?.homePath) }}</span>
+        <span class="truncate">{{ display(hydratedUser?.homePath) }}</span>
       </div>
     </div>
 
     <div class="mt-3 flex flex-col gap-2 border-t border-border pt-3">
       <span class="text-sm opacity-60">{{ t('userCenter.profile.roles') }}</span>
-      <div v-if="user?.roles.length" class="flex flex-wrap gap-1">
-        <STag v-for="role in user.roles" :key="role" variant="soft" color="primary">{{ role }}</STag>
+      <div v-if="hydratedUser?.roles.length" class="flex flex-wrap gap-1">
+        <STag v-for="role in hydratedUser.roles" :key="role" variant="soft" color="primary">{{ role }}</STag>
       </div>
       <span v-else class="text-sm">-</span>
     </div>

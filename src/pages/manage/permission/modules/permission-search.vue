@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { SInput, SSelect, useForm } from '@vean/ui';
+import { SInput, useForm } from '@vean/ui';
 import { useManageOptions } from '@/composables/use-manage-options';
+import ManageSearchSelect from '@/components/manage-search-select.vue';
 import ManageSearch from '@/components/manage-search/index.vue';
 import { permissionSearchFormSchema } from '@/schema/permission';
 import type { PermissionSearchFormDTO } from '@/schema/permission';
@@ -49,11 +50,11 @@ function onReset() {
     </SFormField>
 
     <SFormField name="resourceType" :label="t('manage.permission.resourceType')">
-      <SSelect :items="resourceTypeSearchOptions" />
+      <ManageSearchSelect :items="resourceTypeSearchOptions" />
     </SFormField>
 
     <SFormField name="enabled" :label="t('manage.field.enabled')">
-      <SSelect :items="enabledSearchOptions" />
+      <ManageSearchSelect :items="enabledSearchOptions" />
     </SFormField>
   </ManageSearch>
 </template>

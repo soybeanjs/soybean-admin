@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { MANAGE_API_METHODS } from '@/constants/manage';
-import { SEARCH_ANY_VALUE } from '@/schema/_search';
+import { SEARCH_ANY_SELECT_VALUE, SEARCH_ANY_VALUE } from '@/schema/_search';
 
 /**
  * 管理端下拉选项（P3-03）。
@@ -15,6 +15,11 @@ import { SEARCH_ANY_VALUE } from '@/schema/_search';
  * 选项列表都穷举 `value` 与 key 的配对。
  *
  * 必须在 setup 里调用（用到 `useI18n()`）。
+ *
+ * **「全部」选项的哨兵值**：下拉里用 `SEARCH_ANY_SELECT_VALUE`（`'all'`）而不是
+ * 表单层的空串 —— `@vean/aria` 的 `SelectItem` 对 `value === ''` 会直接抛错
+ * （空串被保留给 placeholder/未选择语义）。两个值在
+ * `fromSelectValue` / `toSelectValue` 这对边界函数上互相转换。
  */
 
 /** `@vean/ui` 的 `SSelect` items 形状 */
@@ -59,7 +64,10 @@ export function useManageOptions() {
     MANAGE_API_METHODS.map(value => ({ value, label: value.toUpperCase() }))
   );
 
-  const searchAllOption = computed<SelectOption>(() => ({ value: SEARCH_ANY_VALUE, label: t('manage.searchAll') }));
+  const searchAllOption = computed<SelectOption>(() => ({
+    value: SEARCH_ANY_SELECT_VALUE,
+    label: t('manage.searchAll')
+  }));
 
   const enabledSearchOptions = computed(() => [searchAllOption.value, ...enabledOptions.value]);
 
@@ -83,6 +91,26 @@ export function useManageOptions() {
     apiMethodSearchOptions,
     yesOrNoSearchOptions
   };
+}
+
+/**
+ * `SSelect` 的选项值 → 表单值（`'all'` → `''`）。
+ *
+ * 搜索表单的默认值 / schema 仍以空串表示「全部」，只有下拉渲染层用哨兵值，
+ * 提交前在这里转回来，`filterValidQuery` 照旧把空串剔除。
+ */
+export function fromSelectValue(value: string): string {
+  return value === SEARCH_ANY_SELECT_VALUE ? SEARCH_ANY_VALUE : value;
+}
+
+/**
+ * 表单值 → `SSelect` 的选项值（`''` → `'all'`）。
+ *
+ * 给 `:model-value` / `:default-value` 之类的受控绑定用；`v-model` 场景下
+ * 用 `useSearchSelectValue` 更省事。
+ */
+export function toSelectValue(value: string): string {
+  return value === SEARCH_ANY_VALUE ? SEARCH_ANY_SELECT_VALUE : value;
 }
 
 /** 值 → 展示标签（表格单元格用，非 setup 上下文也可用） */

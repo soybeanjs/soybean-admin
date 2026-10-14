@@ -3,6 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButton, SCard, SForm, SInput, STextarea, toast, useForm } from '@vean/ui';
 import { useAuthStore } from '@/store';
+import { useHydrated } from '@/composables/use-hydrated';
 import { api } from '@/request';
 import { EMPTY_PROFILE_FORM, profileFormSchema, toProfileFormValues, toUpdateProfilePayload } from '@/schema/profile';
 import type { ProfileFormValues } from '@/schema/profile';
@@ -23,6 +24,16 @@ defineOptions({ name: 'UserCenterProfileForm' });
 
 const { t } = useI18n();
 
+/**
+ * 是否已完成客户端挂载。
+ *
+ * 表单初值来自 `localStorage` 里的用户信息，服务端读不到 —— 不门控就是 SSR
+ * 渲染空 `value`、水合渲染真值，报 `Hydration attribute mismatch ... value=""`
+ * （见 `@/composables/use-hydrated`）。门控后首屏两侧都是空值，挂载后再回填
+ * （下面的 `watch` 会跟着重新 `reset`）。
+ */
+const hydrated = useHydrated();
+
 const authStore = useAuthStore();
 
 const loading = ref(false);
@@ -38,6 +49,9 @@ const { SFormField, form, handleSubmit } = useForm({
 /** 当前用户信息 → 表单初值（`null` 统一转空串） */
 const currentValues = computed<ProfileFormValues>(() => {
   const user = authStore.userInfo;
+
+  // 水合前固定空表单：SSR 与水合首帧必须同值，真实值等挂载后由下面的 watch 回填
+  if (!hydrated.value) return { ...EMPTY_PROFILE_FORM };
 
   return user ? toProfileFormValues(user) : { ...EMPTY_PROFILE_FORM, homePath: authStore.homePath };
 });
