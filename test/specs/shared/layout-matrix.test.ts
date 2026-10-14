@@ -6,7 +6,8 @@ import {
   MATRIX_DIMENSIONS,
   describeLayoutMatrix,
   isCellEffective,
-  resolveLayoutMatrix
+  resolveLayoutMatrix,
+  resolveMenuProps
 } from '@/shared/layout-matrix';
 import type { LayoutMatrixInput } from '@/shared/layout-matrix';
 
@@ -48,7 +49,7 @@ function baseInput(overrides: Partial<LayoutMatrixInput> = {}): LayoutMatrixInpu
 
 describe('布局矩阵 · 结构不变量', () => {
   it('矩阵事实锚定在已核对的 Vean 版本上（升级 Vean 需复核）', () => {
-    expect(APP_SHELL_MATRIX_VERSION).toBe('0.50.0-vean-app-shell-skeletons');
+    expect(APP_SHELL_MATRIX_VERSION).toBe('0.50.2-vean-app-shell-skeletons');
   });
 
   it('6 种应用模式一一映射到 6 个壳模式，无重复', () => {
@@ -116,6 +117,34 @@ describe('布局矩阵 · 结构不变量', () => {
       'top-hybrid-header-first',
       'vertical-hybrid-header-first'
     ]);
+  });
+
+  it('分栏模式的侧栏宽度不下发（让壳按当前激活菜单的列数现算）', () => {
+    // 四个分栏模式：给了 layoutProps.sidebarWidth 就会短路
+    // `resolveShellWidths()` 的 `override.sidebarWidth ?? columnsWidth(tree)`，
+    // 侧栏变固定宽度、与菜单面板失准
+    const deriving: LayoutModeName[] = [
+      'vertical-mix',
+      'top-hybrid-sidebar-first',
+      'top-hybrid-header-first',
+      'vertical-hybrid-header-first'
+    ];
+
+    for (const mode of ALL_MODES) {
+      const row = resolveLayoutMatrix(baseInput({ layoutMode: mode }), { isMobile: false });
+      const derives = deriving.includes(mode);
+
+      if (derives) {
+        expect(row.layoutProps.sidebarWidth, mode).toBeUndefined();
+        expect(row.layoutProps.collapsedSidebarWidth, mode).toBeUndefined();
+        expect(row.cells.sidebarWidth.state, mode).toBe('inert');
+        expect(row.cells.sidebarWidth.reason, mode).toBe('dependency');
+        expect(row.cells.sidebarWidth.value, mode).toBe(240);
+      } else {
+        expect(row.layoutProps.sidebarWidth, mode).toBe(240);
+        expect(row.layoutProps.collapsedSidebarWidth, mode).toBe(50);
+      }
+    }
   });
 
   it('forced 格子必须给出强制后的值（抽屉要展示真值）', () => {
@@ -280,6 +309,28 @@ describe('布局矩阵 · 下发给 SAppShell 的 props', () => {
     const { layoutProps } = resolveLayoutMatrix(baseInput(), { isMobile: true });
 
     expect(layoutProps.fixedTop).toBe(false);
+  });
+
+  it('顶栏菜单模式下发 treeNav.collapsible（否则条目超出容器会把顶栏撑破）', () => {
+    const topRow = resolveLayoutMatrix(baseInput({ layoutMode: 'horizontal' }), { isMobile: false });
+
+    expect(resolveMenuProps(topRow, { more: '更多' })).toEqual({
+      treeNav: { collapsible: true, moreLabel: '更多', moreIcon: 'lucide:ellipsis' }
+    });
+
+    // 非 top 模式渲染的是 STreeMenu / SSplitNav，没有「更多」弹层这回事
+    const nonTopModes: LayoutModeName[] = [
+      'vertical',
+      'vertical-mix',
+      'top-hybrid-sidebar-first',
+      'vertical-hybrid-header-first'
+    ];
+
+    for (const mode of nonTopModes) {
+      const row = resolveLayoutMatrix(baseInput({ layoutMode: mode }), { isMobile: false });
+
+      expect(resolveMenuProps(row, { more: '更多' }), mode).toBeUndefined();
+    }
   });
 
   it('头部/页脚隐藏或内容滚动时，对应的吸顶吸底被压成 false', () => {

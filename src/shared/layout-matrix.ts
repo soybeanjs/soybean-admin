@@ -21,20 +21,26 @@
  * - `app-shell.vue` 模板：`v-bind="layoutProps"` 在前，随后
  *   `:orientation` / `:sidebar-visible` / `:collapsible="skeleton.collapsible"`
  *   / `:sidebar-width` / `:collapsed-sidebar-width` 覆盖 ⇒ **本应用设置的
- *   `collapsible` 与 `variant`（header 菜单下的侧栏宽度）不生效**；
- *   `breadcrumbVisible` 另需 `menuPlacement==='sidebar' && logoPlacement==='sidebar'`。
+ *   `collapsible` 不生效**；`breadcrumbVisible` 另需 `menuPlacement==='sidebar'
+ *   && logoPlacement==='sidebar'`。
+ * - `app-shell.vue` 的 `resolveShellWidths(size, columns, override)` 写成
+ *   `override.sidebarWidth ?? columnsWidth(tree)`：**四个分栏模式的侧栏宽度
+ *   是推导值**（`resolveSplitNavSidebarColumns()` 按「当前激活的一级菜单有没有
+ *   子菜单」决定轨道/面板列是否存在），一旦应用在 `layoutProps` 里下发
+ *   `sidebarWidth` 就会短路掉推导、侧栏变固定宽度。所以矩阵对这四个模式
+ *   **不下发**这两个键（`derivesSidebarWidth`）。
  * - `app-shell.vue`：`isMobile` 时骨架固定为 `sidebar`，与 `mode` 无关。
  *
  * **版本哨兵**：`APP_SHELL_MATRIX_VERSION` 每次改动同步 bump；改动矩阵语义时
  * 同步更新 `describeLayoutMatrix()` 的断言基线（测试里会钉住版本号）。
  */
-import type { AppShellMode, LayoutCollapsible, LayoutScrollBehavior, LayoutVariant } from '@vean/ui';
+import type { AppShellMenuProps, AppShellMode, LayoutCollapsible, LayoutScrollBehavior, LayoutVariant } from '@vean/ui';
 import { LAYOUT_MODES, MOBILE_DEGRADED_MODES, mapLayoutMode } from '@/constants/layout';
 import type { LayoutModeName } from '@/constants/layout';
 import type { TabVariant } from '@/constants/theme';
 
 /** 矩阵语义版本：与 Vean 源码事实绑定，升级 Vean 时应 bump */
-export const APP_SHELL_MATRIX_VERSION = '0.50.0-vean-app-shell-skeletons';
+export const APP_SHELL_MATRIX_VERSION = '0.50.2-vean-app-shell-skeletons';
 
 /**
  * 矩阵的列（配置项维度）。
@@ -111,8 +117,19 @@ interface ShellCapability {
   triggerCapable: boolean;
   /** 侧栏内容稳定不跳动（`stableSidebar`：宽度变化会推动 header） */
   stableSidebar: boolean;
-  /** 侧栏宽度是否被列宽约束（`resolveShellWidths` 的列数推导） */
-  sidebarWidthCapable: boolean;
+  /**
+   * 侧栏宽度是否由骨架**推导**（而不是直接采用应用设置）。
+   *
+   * 四个分栏模式（`dual-vertical` / `vertical-horizontal` /
+   * `horizontal-vertical` / `horizontal-dual-vertical`）的侧栏由
+   * `SSplitNav` 渲染「轨道 + 面板」列，列的存在取决于当前激活的一级菜单
+   * **有没有子菜单** —— 所以宽度必须由 `resolveSplitNavSidebarColumns()`
+   * 现算。应用若在 `layoutProps` 里下发 `sidebarWidth` /
+   * `collapsedSidebarWidth`，`resolveShellWidths()` 的 `override` 会短路掉
+   * 推导（`override.sidebarWidth ?? columnsWidth(tree)`），于是侧栏变成固定
+   * 宽度：叶子菜单也占着面板的宽度，激活有子菜单的一级菜单时又对不上。
+   */
+  derivesSidebarWidth: boolean;
 }
 
 const CAPABILITIES: Record<AppShellMode, ShellCapability> = {
@@ -123,7 +140,7 @@ const CAPABILITIES: Record<AppShellMode, ShellCapability> = {
     breadcrumbCapable: true,
     triggerCapable: true,
     stableSidebar: true,
-    sidebarWidthCapable: true
+    derivesSidebarWidth: false
   },
   // 双侧栏（竖向混合）：菜单/LOGO 在左栏，右栏是内容栏
   'dual-vertical': {
@@ -132,7 +149,7 @@ const CAPABILITIES: Record<AppShellMode, ShellCapability> = {
     breadcrumbCapable: true,
     triggerCapable: true,
     stableSidebar: true,
-    sidebarWidthCapable: true
+    derivesSidebarWidth: true
   },
   // 顶栏菜单：无侧栏 —— 侧栏相关维度全部失效
   top: {
@@ -141,7 +158,7 @@ const CAPABILITIES: Record<AppShellMode, ShellCapability> = {
     breadcrumbCapable: false,
     triggerCapable: false,
     stableSidebar: false,
-    sidebarWidthCapable: false
+    derivesSidebarWidth: false
   },
   // 顶栏 + 侧栏混合（侧栏优先）：LOGO 在顶栏 → 面包屑不渲染；折叠为抽屉式
   'vertical-horizontal': {
@@ -151,7 +168,7 @@ const CAPABILITIES: Record<AppShellMode, ShellCapability> = {
     breadcrumbCapable: false,
     triggerCapable: true,
     stableSidebar: false,
-    sidebarWidthCapable: true
+    derivesSidebarWidth: true
   },
   // 顶栏 + 侧栏混合（顶栏优先）
   'horizontal-vertical': {
@@ -161,7 +178,7 @@ const CAPABILITIES: Record<AppShellMode, ShellCapability> = {
     breadcrumbCapable: false,
     triggerCapable: true,
     stableSidebar: false,
-    sidebarWidthCapable: true
+    derivesSidebarWidth: true
   },
   // 竖向混合 + 顶栏（顶栏 + 双列）
   'horizontal-dual-vertical': {
@@ -170,7 +187,7 @@ const CAPABILITIES: Record<AppShellMode, ShellCapability> = {
     breadcrumbCapable: false,
     triggerCapable: true,
     stableSidebar: false,
-    sidebarWidthCapable: true
+    derivesSidebarWidth: true
   }
 };
 
@@ -218,7 +235,8 @@ export type DimensionState = 'effective' | 'forced' | 'inert';
  *
  * `degraded` 只把 `mode` 计入「该模式的固有限制」：
  * `user`（用户自己关的）与 `viewport`（桌面用不到移动端宽度）不该让抽屉报
- * 「当前模式不支持」。
+ * 「当前模式不支持」。`dependency` 是「本应用根据其他设置现算」—— 既不是模式
+ * 限制，也不是用户没开，所以同样不计入 `degraded`。
  */
 export type MatrixReason = 'mode' | 'viewport' | 'user' | 'dependency';
 
@@ -256,8 +274,18 @@ export interface LayoutMatrixProps {
   variant: LayoutVariant;
   collapsible: LayoutCollapsible;
   scrollBehavior: LayoutScrollBehavior;
-  sidebarWidth: number;
-  collapsedSidebarWidth: number;
+  /**
+   * 侧栏展开宽度。
+   *
+   * **分栏模式不下发**（`derivesSidebarWidth` 为真时缺省）：壳的
+   * `resolveShellWidths()` 写成 `override.sidebarWidth ?? columnsWidth(tree)`，
+   * 一旦给了值就短路掉「按当前列数推导」的逻辑，侧栏会变成固定宽度 ——
+   * 激活叶子菜单时仍占着面板宽度，激活有子菜单的一级菜单时又对不上。
+   * 缺省（`undefined`）时才由壳按轨道/面板列数现算。
+   */
+  sidebarWidth?: number;
+  /** 折叠态宽度；与 `sidebarWidth` 同理，分栏模式不下发 */
+  collapsedSidebarWidth?: number;
   mobileSidebarWidth: number;
   headerHeight: number;
   tabHeight: number;
@@ -275,6 +303,40 @@ export interface LayoutMatrixProps {
 
 /** 移动端壳模式：Vean 在 `isMobile` 时固定渲染 `sidebar` 骨架 */
 const MOBILE_SHELL: AppShellMode = 'sidebar';
+
+/**
+ * 顶栏菜单（`top` 模式）是否把放不下的条目收进末尾的「更多」弹层。
+ *
+ * `STreeNav` 的 `collapsible` **默认 false**（`TreeNavCompactProps` 的
+ * `@defaultValue false`），不开就只是一条横向导航：条目超出容器时既不换行也
+ * 不收缩，直接把顶栏撑破（实测容器 1002px、导航条 1311px，溢出 309px）。
+ * 开了之后 `TreeNavCompact` 会把尾部的条目逐个移进「更多」弹层。
+ */
+const TREE_NAV_COLLAPSIBLE = true;
+
+/** 与 Vean 的默认一致（`tree-nav-options-compact.vue` 的 `moreEntry`），显式写出便于搜索 */
+const TREE_NAV_MORE_ICON = 'lucide:ellipsis';
+
+/**
+ * 下发给 `SAppShell` 的 `menuProps`。
+ *
+ * 目前只有一件事：给**顶栏菜单**（`top` 骨架的 `STreeNav`）开容器超长收缩。
+ * 分栏/侧栏模式渲染的是 `STreeMenu` / `SSplitNav`，没有「更多」弹层这回事，
+ * 下发 `treeNav` 也无人消费，所以只有 `top` 模式才给。
+ *
+ * `moreLabel` 由调用方传 i18n 文案：矩阵是纯函数，不该去碰 i18n 上下文。
+ */
+export function resolveMenuProps(row: LayoutMatrixRow, labels: { more: string }): AppShellMenuProps | undefined {
+  if (row.shell !== 'top') return undefined;
+
+  return {
+    treeNav: {
+      collapsible: TREE_NAV_COLLAPSIBLE,
+      moreLabel: labels.more,
+      moreIcon: TREE_NAV_MORE_ICON
+    }
+  };
+}
 
 /** 构造非生效格子：state + 原因分类 + 一句话原因 */
 function off(
@@ -322,17 +384,31 @@ export function resolveLayoutMatrix(input: LayoutMatrixInput, context: LayoutMat
 
   const sidebarWidthCell = sidebarIsDrawer
     ? off('inert', 'viewport', '移动端侧栏为抽屉，宽侧栏不生效（见 mobileSidebarWidth）')
-    : cap.sidebarWidthCapable
-      ? on(input.sidebarWidth, cap.stableSidebar ? '列宽稳定，直接生效' : '列宽随内容浮动，仍按此设宽')
-      : off('inert', 'mode', '顶栏菜单模式无侧栏');
+    : !cap.hasSidebar
+      ? off('inert', 'mode', '顶栏菜单模式无侧栏')
+      : cap.derivesSidebarWidth
+        ? off(
+            'inert',
+            'dependency',
+            '分栏模式的侧栏宽度由「轨道 + 面板」列数现算（面板只在激活的一级菜单有子菜单时存在），下发固定宽度会让侧栏与菜单面板失准',
+            input.sidebarWidth
+          )
+        : on(input.sidebarWidth, '列宽稳定，直接生效');
 
   const collapsedWidthCell = sidebarIsDrawer
     ? off('inert', 'viewport', '移动端侧栏为抽屉，无「图标折叠态」')
-    : !cap.sidebarWidthCapable
+    : !cap.hasSidebar
       ? off('inert', 'mode', '顶栏菜单模式无侧栏')
-      : cap.forcedCollapsible === 'icon' && input.collapsible === 'icon'
-        ? on(input.collapsedSidebarWidth, '仅在 icon 折叠态生效')
-        : off('inert', 'mode', `骨架折叠形态为 ${cap.forcedCollapsible}，无图标折叠态，该宽度不参与布局`);
+      : cap.derivesSidebarWidth
+        ? off(
+            'inert',
+            'dependency',
+            '分栏模式的折叠宽度同样由列数现算，下发固定值会让折叠态与菜单面板失准',
+            input.collapsedSidebarWidth
+          )
+        : cap.forcedCollapsible === 'icon' && input.collapsible === 'icon'
+          ? on(input.collapsedSidebarWidth, '仅在 icon 折叠态生效')
+          : off('inert', 'mode', `骨架折叠形态为 ${cap.forcedCollapsible}，无图标折叠态，该宽度不参与布局`);
 
   const headerHeightCell = input.headerVisible ? on(input.headerHeight) : off('inert', 'user', '头部不可见，高度无效');
 
@@ -410,8 +486,11 @@ export function resolveLayoutMatrix(input: LayoutMatrixInput, context: LayoutMat
     variant: input.variant,
     collapsible: cap.forcedCollapsible,
     scrollBehavior: input.scrollBehavior,
-    sidebarWidth: input.sidebarWidth,
-    collapsedSidebarWidth: input.collapsedSidebarWidth,
+    // 分栏模式**不写**这两个键：壳用 `override.sidebarWidth ?? 推导值`，写了就
+    // 固定宽度、失去「按当前激活菜单的列数推导」的行为（见 `derivesSidebarWidth`）
+    ...(cap.derivesSidebarWidth
+      ? {}
+      : { sidebarWidth: input.sidebarWidth, collapsedSidebarWidth: input.collapsedSidebarWidth }),
     mobileSidebarWidth: input.mobileSidebarWidth,
     headerHeight: input.headerHeight,
     tabHeight: input.tabHeight,

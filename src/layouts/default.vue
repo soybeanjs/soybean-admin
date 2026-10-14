@@ -16,7 +16,7 @@ import {
 import type { PageTabsContextMenuOptionData, PageTabsOptionData, PageTabsState } from '@vean/ui';
 import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/constants';
 import { resolveExternalUrl } from '@/shared/iframe';
-import { resolveLayoutMatrix } from '@/shared/layout-matrix';
+import { resolveLayoutMatrix, resolveMenuProps } from '@/shared/layout-matrix';
 import { normalizeRoutePath } from '@/shared/route';
 import { isTabbableRoute } from '@/shared/tab';
 import { registerVeanLocalePack } from '@/shared/vean-locale';
@@ -67,6 +67,36 @@ const tabStore = useTabStore();
 const layoutMatrix = computed(() =>
   resolveLayoutMatrix(themeStore.settings, { isMobile: appStore.isMobile, contentScroll: true })
 );
+
+/**
+ * 下发给 `SAppShell` 的菜单参数（P2-20 补充）。
+ *
+ * 顶栏菜单（`top` 模式）需要显式开启 `treeNav.collapsible`：Vean 的
+ * `STreeNav` 默认不收缩，条目超出容器宽度时会把顶栏撑破，也不会出现末尾的
+ * 「更多」弹层。`moreLabel` 用 i18n 文案（Vean 默认是硬编码英文 `More`）。
+ */
+const layoutMatrixMenuProps = computed(() => resolveMenuProps(layoutMatrix.value, { more: t('common.more') }));
+
+/**
+ * `SAppShell` 的 `ui` 覆盖。
+ *
+ * `layoutContent`：Vean 默认给内容区空字符串，页面会贴边（P2-20）。
+ */
+const SHELL_UI = { layoutContent: 'p-4' };
+
+/**
+ * `SAppShell` 的 `menuUi` 覆盖（`top` 模式顶栏菜单的测量容器）。
+ *
+ * 开 `treeNav.collapsible` 后 Vean 把 `STreeNav` 包进一个
+ * `[data-vean-tree-nav-overflow]` 测量容器，但它的 `overflow` 槽类只有
+ * `group` —— **没有 `min-w-0`**。这个容器是 `headerCenter`
+ * （`flex-1 min-w-0 overflow-hidden`）的 flex 子项，默认 `min-width: auto`
+ * 让它被内部那条 `w-fit` 导航条撑到内容宽（实测 2081px，容器只有 1002px），
+ * 于是 `isOverflowing()` 的 `root.scrollWidth > container.clientWidth` 永远
+ * 为假 —— reflow 一次都不跑，溢出条目被 `overflow-hidden` 直接裁掉，末尾的
+ * 「更多」也不出现。补 `min-w-0` 后测量容器回到容器宽，收缩正常工作。
+ */
+const SHELL_MENU_UI = { treeNav: { overflow: 'group min-w-0' } };
 
 /** 侧栏展开（桌面）/ 抽屉展开（移动）都是 app store 的受控态（P2-13） */
 const sidebarOpen = computed({
@@ -427,10 +457,12 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
     :items="shellItems"
     :mode="layoutMatrix.shell"
     v-bind="layoutMatrix.layoutProps"
+    :menu-props="layoutMatrixMenuProps"
     :tabs="shellTabs"
     :tab-value="tabStore.activeTabValue"
     expand-strategy="selected"
-    :ui="{ layoutContent: 'p-4' }"
+    :ui="SHELL_UI"
+    :menu-ui="SHELL_MENU_UI"
     @select="onMenuSelect"
   >
     <!--
