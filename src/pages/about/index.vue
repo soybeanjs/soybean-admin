@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { SCard, SInput, STable, STag } from '@vean/ui';
+import { SCard, SInput, SLink, STable, STag } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import { APP_VERSION } from '@/constants';
 import { BUILD_TIME, DEPENDENCIES, DEPENDENCY_COUNT, PACKAGE_INFO } from './modules/dependencies';
@@ -115,14 +115,9 @@ definePage({
           </div>
           <div class="flex flex-col gap-1">
             <span class="text-xs opacity-60">{{ t('page.about.homepage') }}</span>
-            <a
-              class="text-sm text-primary hover:underline"
-              :href="PACKAGE_INFO.homepage"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <SLink class="text-sm text-primary hover:underline" :href="PACKAGE_INFO.homepage" external>
               {{ PACKAGE_INFO.homepage }}
-            </a>
+            </SLink>
           </div>
         </div>
       </div>
@@ -130,11 +125,7 @@ definePage({
 
     <SCard :title="t('page.about.techStack')">
       <div class="grid gap-3 cols-4 lt-xl:cols-3 lt-md:cols-2 lt-sm:cols-1">
-        <div
-          v-for="item in TECH_STACK"
-          :key="item.name"
-          class="rounded-lg border border-gray-200 p-3 dark:border-gray-700"
-        >
+        <div v-for="item in TECH_STACK" :key="item.name" class="rounded-lg border border-border bg-card p-3">
           <div class="text-sm font-600">{{ item.name }}</div>
           <div class="mt-1 text-xs opacity-60">{{ item.desc }}</div>
         </div>

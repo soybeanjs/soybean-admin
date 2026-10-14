@@ -65,24 +65,25 @@ onMounted(refreshCaptcha);
       <SFormField name="captchaCode" :label="t('login.captcha')" class="flex-1">
         <SInput :placeholder="t('login.captchaPlaceholder')" autocomplete="off" :maxlength="6" />
       </SFormField>
-      <button
-        type="button"
-        class="h-9 w-28 flex-center overflow-hidden rounded border border-gray-200 dark:border-gray-700"
+      <SButton
+        variant="plain"
+        size="sm"
+        class="h-9 w-28 shrink-0 overflow-hidden p-0"
         :title="t('login.refreshCaptcha')"
         :disabled="captchaLoading"
         @click="refreshCaptcha"
       >
         <img v-if="captcha" :src="captcha.img" :alt="t('login.captchaAlt')" class="h-full w-full object-cover" />
-        <span v-else class="text-xs text-gray-400">{{ t('common.loading') }}</span>
-      </button>
+        <span v-else class="text-xs text-muted-foreground">{{ t('common.loading') }}</span>
+      </SButton>
     </div>
 
     <SButton type="submit" class="w-full" :loading="isSubmitting">{{ t('common.login') }}</SButton>
 
-    <p class="text-center text-sm text-gray-500">
-      <button type="button" class="text-primary hover:underline" @click="gotoLoginModule('pwd-login')">
+    <p class="text-center text-sm text-muted-foreground">
+      <SButton variant="link" size="sm" class="h-auto px-0" @click="gotoLoginModule('pwd-login')">
         {{ t('login.usePwdLogin') }}
-      </button>
+      </SButton>
     </p>
   </SForm>
 </template>

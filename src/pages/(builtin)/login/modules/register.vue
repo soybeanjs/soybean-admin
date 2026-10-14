@@ -64,11 +64,11 @@ async function onSubmit(values: RegisterFormValues): Promise<void> {
 
     <SButton type="submit" class="w-full" :loading="isSubmitting">{{ t('login.register') }}</SButton>
 
-    <p class="text-center text-sm text-gray-500">
+    <p class="text-center text-sm text-muted-foreground">
       {{ t('login.hasAccount') }}
-      <button type="button" class="text-primary hover:underline" @click="gotoLoginModule('pwd-login')">
+      <SButton variant="link" size="sm" class="h-auto px-0" @click="gotoLoginModule('pwd-login')">
         {{ t('login.backLogin') }}
-      </button>
+      </SButton>
     </p>
   </SForm>
 </template>

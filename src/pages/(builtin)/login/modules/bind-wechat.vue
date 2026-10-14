@@ -123,7 +123,7 @@ onMounted(initModule);
 
 <template>
   <div v-if="!authStore.isLogin" class="flex flex-col items-center gap-4">
-    <p class="text-sm text-gray-500">{{ t('login.wechatNeedLogin') }}</p>
+    <p class="text-sm text-muted-foreground">{{ t('login.wechatNeedLogin') }}</p>
     <SButton class="w-full" @click="gotoLoginModule('pwd-login')">{{ t('login.goLogin') }}</SButton>
   </div>
 
@@ -135,16 +135,16 @@ onMounted(initModule);
 
     <template v-else>
       <div
-        class="h-44 w-44 rounded border border-gray-200 p-2 dark:border-gray-700"
+        class="h-44 w-44 rounded border border-border bg-card p-2"
         :style="{ display: 'grid', gridTemplateColumns: `repeat(${QR_SIZE}, minmax(0, 1fr))` }"
       >
         <div
           v-for="index in QR_SIZE * QR_SIZE"
           :key="index"
-          :class="isCellOn(index - 1) ? 'bg-gray-900' : 'bg-transparent'"
+          :class="isCellOn(index - 1) ? 'bg-foreground' : 'bg-transparent'"
         />
       </div>
-      <p class="text-center text-xs text-gray-500">{{ t('login.wechatTip') }}</p>
+      <p class="text-center text-xs text-muted-foreground">{{ t('login.wechatTip') }}</p>
       <SButton class="w-full" :loading="binding" :disabled="!qrcode" @click="handleMockScan">
         {{ t('login.wechatMockScan') }}
       </SButton>
@@ -153,8 +153,8 @@ onMounted(initModule);
       </SButton>
     </template>
 
-    <button type="button" class="text-sm text-primary hover:underline" @click="gotoLoginModule('pwd-login')">
+    <SButton variant="link" size="sm" class="h-auto px-0" @click="gotoLoginModule('pwd-login')">
       {{ t('login.backLogin') }}
-    </button>
+    </SButton>
   </div>
 </template>

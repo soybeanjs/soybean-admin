@@ -33,6 +33,9 @@ const moduleTitleKeys: Record<LoginModule, string> = {
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { SCard, SThemeModeSegment } from '@vean/ui';
+import { APP_TITLE } from '@/constants';
+import WaveBg from '@/components/wave-bg.vue';
 import { resolveLoginModule } from '@/pages/(builtin)/login/use-login';
 
 /**
@@ -42,6 +45,10 @@ import { resolveLoginModule } from '@/pages/(builtin)/login/use-login';
  * 绑定微信），与 v2 的 `views/_builtin/login/modules/*` 结构对齐 —— 5 个模块
  * 共用一条路由，回跳参数（`?redirect=`）在切换过程中由 `gotoLoginModule`
  * 原样保留。布局走 `blank`（无壳），登录成功进入 default 布局。
+ *
+ * 外观对照 soybean-unify：`WaveBg` 背景装饰 + 居中 `SCard`，卡片头部放
+ * 品牌 logo 与明暗切换，宽度靠 `ui.root` 的 `max-w-96` 约束（`SCard` 自身
+ * 没有默认宽度）。
  *
  * ⚠️ `requiresAuth: false` 必须写在 **`meta` 里**，不能写成顶层字段。
  * ubean 0.6.0 的生成器只发射顶层 `requiresAuth: true`
@@ -68,12 +75,29 @@ const activeTitleKey = computed(() => moduleTitleKeys[activeModule.value]);
 </script>
 
 <template>
-  <div class="flex-center h-full">
-    <div class="w-96 rounded-lg border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-      <h1 class="mb-1 text-center text-xl font-600">{{ t(activeTitleKey) }}</h1>
-      <p class="mb-6 text-center text-sm text-gray-500">{{ t('app.description') }}</p>
+  <div class="relative flex-center size-full overflow-hidden bg-background p-4">
+    <WaveBg />
+
+    <SCard
+      size="lg"
+      :ui="{
+        root: 'relative z-2 w-full max-w-96',
+        titleRoot: 'flex-1 justify-center',
+        title: 'text-xl'
+      }"
+    >
+      <template #title-leading>
+        <img src="/favicon.svg" alt="logo" class="size-8" />
+      </template>
+      <template #title>{{ APP_TITLE }}</template>
+      <template #extra>
+        <SThemeModeSegment size="sm" />
+      </template>
+
+      <h2 class="text-center text-lg font-600 text-primary">{{ t(activeTitleKey) }}</h2>
+      <p class="mt-1 mb-6 text-center text-sm text-muted-foreground">{{ t('app.description') }}</p>
 
       <component :is="moduleComponents[activeModule]" />
-    </div>
+    </SCard>
   </div>
 </template>

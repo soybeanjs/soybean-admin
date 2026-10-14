@@ -63,21 +63,21 @@ function onRegister(): void {
     </SFormField>
 
     <div class="flex justify-between text-sm">
-      <button type="button" class="text-primary hover:underline" @click="onForgotPassword">
+      <SButton variant="link" size="sm" class="h-auto px-0" @click="onForgotPassword">
         {{ t('login.forgotPassword') }}
-      </button>
-      <button type="button" class="text-primary hover:underline" @click="onUseCodeLogin">
+      </SButton>
+      <SButton variant="link" size="sm" class="h-auto px-0" @click="onUseCodeLogin">
         {{ t('login.useCodeLogin') }}
-      </button>
+      </SButton>
     </div>
 
     <SButton type="submit" class="w-full" :loading="isSubmitting">{{ t('common.login') }}</SButton>
 
-    <p class="text-center text-sm text-gray-500">
+    <p class="text-center text-sm text-muted-foreground">
       {{ t('login.noAccount') }}
-      <button type="button" class="text-primary hover:underline" @click="onRegister">
+      <SButton variant="link" size="sm" class="h-auto px-0" @click="onRegister">
         {{ t('login.goRegister') }}
-      </button>
+      </SButton>
     </p>
   </SForm>
 </template>

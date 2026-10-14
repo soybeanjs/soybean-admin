@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { resolveTokenColor } from '@vean/theme';
-import { SThemeCustomizer, SThemeModeSegment, useTheme } from '@vean/ui';
+import { SButton, SThemeCustomizer, SThemeModeSegment, useTheme } from '@vean/ui';
 import type { ThemeCustomizerSection } from '@vean/ui';
 import { requestPreset } from '@/shared/theme-preset';
 import { useThemeStore } from '@/store/modules/theme';
@@ -57,16 +57,16 @@ function onPresetSelect(name: string) {
     <div class="flex flex-col gap-2">
       <span class="text-sm">{{ t('theme.preset.title') }}</span>
       <div class="grid grid-cols-3 gap-2">
-        <button
+        <SButton
           v-for="preset in presets"
           :key="preset.name"
-          type="button"
+          variant="plain"
           :class="[PRESET_CARD_CLASS, activePresetName === preset.name ? 'border-primary' : 'border-transparent']"
           @click="onPresetSelect(preset.name)"
         >
           <span class="h-4 w-full shrink-0 rounded-full" :style="preset.swatch" />
           <span class="truncate text-xs">{{ t(preset.label) }}</span>
-        </button>
+        </SButton>
       </div>
     </div>
 
@@ -74,7 +74,6 @@ function onPresetSelect(name: string) {
     <SThemeCustomizer
       :sections="sections"
       :show-actions="false"
-      :label-resolver="t"
       :ui="{ root: 'flex flex-col gap-3 min-h-0 grow', panel: 'space-y-4 p-0' }"
     />
   </div>

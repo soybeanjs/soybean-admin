@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useBreakpoints } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 import { mobileViewportMaxWidth } from '@vean/aria/shared';
+import { SButton } from '@vean/ui';
 import type { LayoutCollapsible, LayoutVariant } from '@vean/ui';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
@@ -72,10 +73,10 @@ function onSelectLayoutMode(value: LayoutModeName) {
     <div class="flex flex-col gap-2">
       <span :class="THEME_SECTION_TITLE_CLASS">{{ t('theme.layoutMode.title') }}</span>
       <div class="grid grid-cols-3 gap-2">
-        <button
+        <SButton
           v-for="item in LAYOUT_MODE_DIAGRAMS"
           :key="item.value"
-          type="button"
+          variant="plain"
           :disabled="isNarrow"
           :class="[
             LAYOUT_MODE_CARD_CLASS,
@@ -87,8 +88,8 @@ function onSelectLayoutMode(value: LayoutModeName) {
           <span :class="LAYOUT_MODE_CANVAS_CLASS">
             <span v-for="box in item.boxes" :key="box" :class="box" />
           </span>
-          <span class="truncate text-xs">{{ t(item.label) }}</span>
-        </button>
+          <span class="truncate text-xs" :title="t(item.label)">{{ t(item.label) }}</span>
+        </SButton>
       </div>
       <p v-if="isNarrow" class="text-xs text-muted-foreground">{{ t('theme.layoutMode.mobileDisabled') }}</p>
     </div>
@@ -177,13 +178,9 @@ function onSelectLayoutMode(value: LayoutModeName) {
 
     <div :class="THEME_ROW_CLASS">
       <span class="text-sm">{{ t('theme.sider') }}</span>
-      <button
-        type="button"
-        class="rounded-md border border-border px-3 py-1 text-xs transition-colors hover:border-primary"
-        @click="appStore.toggleSidebar()"
-      >
+      <SButton variant="plain" size="sm" @click="appStore.toggleSidebar()">
         {{ appStore.sidebarOpen ? t('theme.collapse') : t('theme.expand') }}
-      </button>
+      </SButton>
     </div>
   </div>
 </template>

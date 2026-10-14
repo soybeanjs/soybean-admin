@@ -3,7 +3,16 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { setLocale } from 'ubean/client';
-import { SAppShell, SAvatar, SButtonIcon, SDropdownMenu, SPageTabs, SThemeModeSwitch, useTheme } from '@vean/ui';
+import {
+  SAppShell,
+  SAvatar,
+  SButton,
+  SButtonIcon,
+  SDropdownMenu,
+  SPageTabs,
+  SThemeModeSwitch,
+  useTheme
+} from '@vean/ui';
 import type { PageTabsContextMenuOptionData, PageTabsOptionData, PageTabsState } from '@vean/ui';
 import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/constants';
 import { resolveExternalUrl } from '@/shared/iframe';
@@ -27,6 +36,10 @@ import type { AppTab, MenuTreeNode } from '@/typings/app';
  * - 壳模式与 layoutProps 全部来自 `resolveLayoutMatrix()`（P2-20）：
  *   `scrollBehavior: 'content'` 之类需要联动的维度在矩阵里统一裁决，
  *   不在此处写第二份条件分支。
+ * - `ui.layoutContent` 补内容区内边距：`@vean/ui` 的 `app-shell` 把
+ *   `layoutContent` 默认为**空串**（见 `styles/app-shell.js` 的 `slots`），
+ *   不补的话所有页面都贴着侧栏/顶栏，卡片没有呼吸感。填充值由壳合并进
+ *   `SLayout.ui.content`，所以 `scrollBehavior: 'content'` 时内滚区也带内边距。
  */
 const { locale, t } = useI18n();
 const route = useRoute();
@@ -352,6 +365,7 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
     :tabs="shellTabs"
     :tab-value="tabStore.activeTabValue"
     expand-strategy="selected"
+    :ui="{ layoutContent: 'p-4' }"
     @select="onMenuSelect"
   >
     <!--
@@ -374,10 +388,10 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
       />
     </template>
     <template #logo>
-      <img src="/favicon.svg" alt="logo" class="size-6" />
+      <img src="/favicon.svg" alt="logo" class="size-7" />
     </template>
     <template #title>
-      <span class="font-600">{{ APP_TITLE }}</span>
+      <span class="text-base font-600">{{ APP_TITLE }}</span>
     </template>
 
     <template #header-end>
@@ -398,14 +412,10 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
         />
         <SDropdownMenu :items="localeMenuItems" placement="bottom-end" @select="onLocaleMenuSelect">
           <template #trigger>
-            <button
-              type="button"
-              class="flex items-center gap-1 rounded px-2 py-1 text-sm hover:bg-current/5"
-              :aria-label="t('common.language')"
-            >
+            <SButton variant="ghost" size="sm" class="gap-1 px-2" :aria-label="t('common.language')">
               <span class="i-lucide:languages" />
               {{ currentLocaleLabel }}
-            </button>
+            </SButton>
           </template>
         </SDropdownMenu>
         <SThemeModeSwitch size="sm" />

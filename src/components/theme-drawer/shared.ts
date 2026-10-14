@@ -45,7 +45,7 @@ export const THEME_SECTION_TITLE_CLASS = 'text-sm font-medium';
 
 /** 预设色卡按钮：边框即选中态（对齐 v2 LayoutModeCard 的交互） */
 export const PRESET_CARD_CLASS =
-  'flex flex-col items-stretch gap-1 rounded-md border-2 bg-transparent px-2 py-1.5 text-left transition-colors hover:border-primary';
+  'h-auto flex flex-col items-stretch gap-1 rounded-md border-2 bg-transparent px-2 py-1.5 text-left transition-colors hover:border-primary';
 
 /**
  * 预设色卡的底色（内联 style，不是 class）。
@@ -108,7 +108,7 @@ export const LAYOUT_MODE_DIAGRAMS: LayoutModeDiagram[] = LAYOUT_MODE_BLOCKS.map(
 
 /** `LayoutModeCard` 外壳 class：选中态由边框表达 */
 export const LAYOUT_MODE_CARD_CLASS =
-  'flex cursor-pointer flex-col items-stretch gap-1 rounded-md border-2 bg-transparent p-1.5 transition-colors hover:border-primary';
+  'h-auto cursor-pointer flex flex-col items-stretch gap-1 rounded-md border-2 bg-transparent p-1.5 transition-colors hover:border-primary';
 
 /** 缩略图画布 */
 export const LAYOUT_MODE_CANVAS_CLASS = 'relative h-8 w-full overflow-hidden rounded-sm border border-border';
