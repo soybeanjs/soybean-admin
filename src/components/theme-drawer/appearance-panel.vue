@@ -70,11 +70,18 @@ function onPresetSelect(name: string) {
       </div>
     </div>
 
-    <!-- ui.root 覆盖 recipe 默认的 `w-96 h-[70vh]`：盒子尺寸归抽屉，customizer 只填满 -->
+    <!--
+      `ui.root` 必须显式给 `w-full h-full`：`ui` 覆盖走 tailwind-merge **叠加**，
+      而 recipe 默认是 `w-96 max-w-[calc(100vw-2rem)] max-h-fit h-[70vh]` —— 不显式
+      给尺寸类，`w-96`（384px）与 `h-[70vh]`（实测 630px）都会留下来。抽屉内容列
+      实测只有 334px，于是 customizer 右边超出 50px 被抽屉裁掉；高度上 `h-[70vh]`
+      比父级可用高度还大，底部又溢出 22px。`w-full` / `h-full` 与默认值同属
+      width / height 组，合并时后者胜出（`grow` 覆盖不了 `h-[70vh]`，必须给 `h-full`）。
+    -->
     <SThemeCustomizer
       :sections="sections"
       :show-actions="false"
-      :ui="{ root: 'flex flex-col gap-3 min-h-0 grow', panel: 'space-y-4 p-0' }"
+      :ui="{ root: 'flex w-full h-full flex-col gap-3 min-h-0', panel: 'space-y-4 p-0' }"
     />
   </div>
 </template>
