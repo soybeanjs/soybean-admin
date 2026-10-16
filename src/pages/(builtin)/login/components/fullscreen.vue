@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { SCard, SThemeModeSegment } from '@vean/ui';
+import { SThemeModeSegment, SCard } from '@vean/ui';
 import { APP_TITLE } from '@/constants';
 import loginBackdrop from '@/assets/login/bg.png';
 import type { LoginLayoutProps } from '../shared';
+import LoginLayoutSwitcher from './layout-switcher.vue';
 
 /**
  * 登录壳：全屏背景 + 居中玻璃卡。
@@ -25,6 +26,11 @@ defineProps<LoginLayoutProps>();
     />
     <div class="absolute inset-0 bg-primary-100/40 backdrop-blur-2xl dark:bg-primary-600/30" />
 
+    <div class="absolute top-4 right-4 z-10 flex items-center gap-2">
+      <LoginLayoutSwitcher />
+      <SThemeModeSegment size="sm" />
+    </div>
+
     <SCard
       size="lg"
       :ui="{
@@ -37,9 +43,6 @@ defineProps<LoginLayoutProps>();
         <AppLogo class="size-8" />
       </template>
       <template #title>{{ APP_TITLE }}</template>
-      <template #extra>
-        <SThemeModeSegment size="sm" />
-      </template>
 
       <h2 class="text-center text-lg font-600 text-primary">{{ title }}</h2>
       <p class="mt-1 mb-6 text-center text-sm text-muted-foreground">{{ description }}</p>

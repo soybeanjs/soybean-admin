@@ -1,6 +1,6 @@
 # v3 注释沉淀（注释清理回收站）
 
-> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **452 条**（N-001 – N-449、N-454 – N-456；另有 N-450 – N-453 只在下面的注意事项汇编里，来自 `src/router/guard/**` 的拆分）。
+> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **453 条**（N-001 – N-449、N-454 – N-457；另有 N-450 – N-453 只在下面的注意事项汇编里，来自 `src/router/guard/**` 的拆分）。
 > 代码里只保留「这是什么 / 必须怎么做」的一两行说明，**为什么这么做**的历史推理放在这里；
 > 代码注释里出现 `docs/v3-notes.md N-0xx` 时即指向对应条目（当前 356 处引用、覆盖 214 个文件）。
 > 重建完整注释时，把该条目正文按原位置贴回即可；条目正文就是压缩前的原文，带原始缩进与 ``` 围栏。
@@ -18,7 +18,7 @@
 - **pages**：97 条（N-290 – N-386）
 - **scripts**：15 条（N-387 – N-401）
 - **test**：45 条（N-402 – N-446）
-- **登录页与 SSR 豁免**：3 条（N-447 – N-449）
+- **登录页与 SSR 豁免 / 外观切换**：4 条（N-447 – N-449、N-457）
 - **菜单下拉 / 语言切换**：3 条（N-454 – N-456）
 
 ## 注意事项汇编（从现有代码注释汇总，供项目文档参考）
@@ -701,6 +701,7 @@
 - **N-447** `src/pages/(builtin)/login/components/split.vue:24` — 登录分栏壳左栏的「窄屏隐藏」写法。 本项目 `hidden md:flex` **必失效**：`@vean/ui/dist/styles.css` 末尾有无 media 的 `.hidden{display:none;}`，排在 UnoCSS 之后，同优先级后者赢。改用 `flex max-md:hidden`。
 - **N-448** `src/pages/(builtin)/login/index.vue:40` — 登录页的 `definePage`。 不加 `ssr: false`（实测 dev 下 `pageMeta.ssr` 到不了服务端），SSR 豁免走 `ubean.config.ts` 的 `routeRules`。
 - **N-449** `src/shared/api-proxy.ts:86` — `buildPluginSsrRouteRules()` 里登录页的 SSR 豁免。 登录壳来自 localStorage，Node 预渲染只能出 `card`，客户端读 `split` 后 hydration diff 会把两个壳混进一棵树。
+- **N-457** `src/pages/(builtin)/login/components/layout-switcher.vue:9-13` — 登录页右上的布局下拉独立成组件（三套壳都要它，复制三遍会漂移）；`v-model` 走 `toSettingValue()` 收窄，不用 `as` 断言。
 
 ## 工程根 / 应用入口
 
@@ -6539,3 +6540,20 @@ function confirmLogout(): void {
 **为什么要有这个确认**：`authStore.logout()` 会清 token + 三个 store + 页签并跳 `/login`，是不可逆的一步；参考实现 `soybean-unify` 的 `apps/admin/src/layouts/modules/layout-header/user-avatar.vue:48` 同样先弹确认再重置。
 
 `SDialogProvider` 由 `SConfigProvider` 内部渲染（`node_modules/@vean/ui/dist/components/config-provider/config-provider.js` 的 render 里 `c(r)` 即 dialog-provider），所以 `src/app.vue` 无需再手动挂 provider。
+
+### N-457 · src/pages/(builtin)/login/components/layout-switcher.vue:9-17
+
+```ts
+/**
+ * 登录页右上角的外观切换（与主题抽屉 → 通用 → 登录页布局写的是同一份 store 数据）。
+ *
+ * 独立成组件而不是写进三个壳：三套壳都要这一个下拉，复制三遍会漂移。
+ */
+defineOptions({ name: 'LoginLayoutSwitcher' });
+```
+
+**为什么登录页也要放一个**：换个外观得先登录、再从后台开抽屉改设置、再退到登录页看效果 —— 反馈回路太长。两处写的是同一个 `themeStore.settings.loginLayout`，改哪边另一边都跟着变（无新存储键）。
+
+**位置放在壳外部而非 `SCard` 的 `#extra`**：`card` / `fullscreen` 两个壳原来把暗色模式切换放在 `SCard` 的 `#extra`，本次统一提到右上角与布局下拉并列（`absolute top-4 right-4 z-10 flex items-center gap-2`），`split` 壳本来就是右上角，三壳一致；`SCard` 的 `titleRoot: 'flex-1 justify-center'` 因此成为唯一的居中手段（原来靠 `#extra` 的宽度撑对称）。
+
+**取值收窄**：`SSelect` 的 `v-model` 回传 `string | number`（`SelectCompact` 的 `T` 要显式给才行），这里复用主题抽屉的 `toSettingValue(value, layoutNames, DEFAULT_LOGIN_LAYOUT)` 收窄回 `LoginLayoutName`，不走 `as` 断言。`DEFAULT_LOGIN_LAYOUT` 是兜底：万一存进来的值不在候选表里（旧数据）也落回一个合法值。

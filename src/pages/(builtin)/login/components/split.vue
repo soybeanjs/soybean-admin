@@ -4,6 +4,7 @@ import { SThemeModeSegment } from '@vean/ui';
 import { APP_TITLE } from '@/constants';
 import loginIllustration from '@/assets/login/bg.png';
 import type { LoginLayoutProps } from '../shared';
+import LoginLayoutSwitcher from './layout-switcher.vue';
 
 /**
  * 登录壳：左右分栏（迁移自 koi-ui `src/views/login/index.vue` 的 el-row 外观）。
@@ -36,7 +37,8 @@ const { t } = useI18n();
 
     <!-- 右栏：表单 -->
     <div class="relative flex flex-1 flex-col items-center justify-center px-6 py-10">
-      <div class="absolute top-4 right-4 z-10">
+      <div class="absolute top-4 right-4 z-10 flex items-center gap-2">
+        <LoginLayoutSwitcher />
         <SThemeModeSegment size="sm" />
       </div>
 
