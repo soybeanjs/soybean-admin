@@ -14,6 +14,7 @@ import {
   useTheme
 } from '@vean/ui';
 import type { PageTabsContextMenuOptionData, PageTabsOptionData, PageTabsState } from '@vean/ui';
+import { AUTH_ROUTE_MODE as ENV_AUTH_ROUTE_MODE } from 'ubean:env/client';
 import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/constants';
 import { resolveExternalUrl } from '@/shared/iframe';
 import { resolveLayoutMatrix, resolveMenuProps } from '@/shared/layout-matrix';
@@ -23,7 +24,6 @@ import { registerVeanLocalePack } from '@/shared/vean-locale';
 import { toAppRouteMeta } from '@/utils/route-meta';
 import { useAppStore, useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
 import { useHydrated } from '@/composables/use-hydrated';
-import { env } from '@/env';
 import type { AppTab, MenuTreeNode } from '@/typings/app';
 
 /** - 壳模式与 layoutProps 全部来自 `resolveLayoutMatrix()`（P2-20）： 详见 docs/v3-notes.md N-051。 */
@@ -73,7 +73,7 @@ const pageTransition = computed(() => {
 useTheme('AppLayout');
 
 /** 出满树，控制台刷 `Hydration node/children mismatch`。这是真 bug 而非噪音： 详见 docs/v3-notes.md N-057。 */
-if (env.authRouteMode === 'static' && menuStore.isEmpty) {
+if (ENV_AUTH_ROUTE_MODE === 'static' && menuStore.isEmpty) {
   menuStore.initStaticMenu(router);
 }
 

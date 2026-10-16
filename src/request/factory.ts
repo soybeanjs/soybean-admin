@@ -1,6 +1,7 @@
 import { BACKEND_ERROR_FLAG, createRequest } from '@soybeanjs/fetch';
 import type { FetchError, FetchResponse } from '@soybeanjs/fetch';
 import { createTypedClient, toFlatTypedClient } from '@soybeanjs/fetch/openapi';
+import { API_BASE_URL as ENV_API_BASE_URL, API_PREFIX as ENV_API_PREFIX } from 'ubean:env/client';
 import type { paths } from '~ubean/openapi';
 import {
   SERVICE_EXPIRED_TOKEN_CODES,
@@ -9,7 +10,6 @@ import {
   SERVICE_SUCCESS_CODE
 } from '@/constants/service';
 import { getLocalRefreshToken, getLocalToken, handleLogoutRequest, setAuthStorage } from '@/utils/auth';
-import { env } from '@/env';
 import type { LoginResult } from '@/schema/auth';
 
 /** 每一个 baseURL（主实例 + 每个 `/_p/{key}` 代理实例）都从这里创建，**共享同一套钩子与模块级状态**： 详见 docs/v3-notes.md N-235。 */
@@ -66,7 +66,7 @@ function refreshTokenSingleFlight(): Promise<boolean> {
     if (!rawRefreshToken) return false;
 
     try {
-      const response = await fetch(`${env.apiBaseUrl}${env.apiPrefix}/auth/refresh-token`, {
+      const response = await fetch(`${ENV_API_BASE_URL}${ENV_API_PREFIX}/auth/refresh-token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refreshToken: rawRefreshToken })

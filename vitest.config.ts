@@ -1,4 +1,6 @@
 import { fileURLToPath } from 'node:url';
+import { ensureUbeanConfig } from 'ubean/vite';
+import { ubeanEnvPlugin } from '@ubean/build/env';
 import { defineConfig } from 'vitest/config';
 import { buildDependencyManifest } from './scripts/dependency-manifest';
 
@@ -7,6 +9,23 @@ import { buildDependencyManifest } from './scripts/dependency-manifest';
 const dependencyManifest = JSON.stringify(buildDependencyManifest());
 
 const srcDir = fileURLToPath(new URL('./src/', import.meta.url));
+
+/**
+ * 让 `ubean:env/client` / `ubean:env/server` 在单测里也能解析。
+ *
+ * 这两个虚拟模块由 `ubean/vite` 的 `ubeanPlugin()` 装配，而 vitest 走自己的 transform
+ * 管线、不加载 `vite.config.ts` —— 少了这段，任何 import `@/constants/service`（→
+ * `ubean:env/client`）的单测都会抛 `Failed to resolve import "ubean:env/client"`。
+ *
+ * 这里复用 ubean **真实**的 env 插件（而非手写桩）：取值规则（`.env` 回退链、number
+ * 转换、`mode: 'throw'` 的必填校验）与 dev/build 完全一致，不会出现「测试绿但线上炸」。
+ *
+ * `ensureUbeanConfig()` 返回已归一化的 config（含 `env.schema`，由 `ubean.config.ts` 提供）；
+ * 插件在 `configResolved` 里自己 `loadEnv()` 并读 `process.env`，因此无需额外接线。
+ * vitest 的 `environment: 'node'` 对应 vite environment name `ssr`（不是 `client`），
+ * 所以 `ubean:env/server` 不会被插件的「客户端导入即构建失败」护栏误拦截。
+ */
+const ubeanConfig = await ensureUbeanConfig();
 
 /**
  * 测试目录分层（对齐 `soybean-ui/packages/ui/test` 的组织方式）：
@@ -22,6 +41,7 @@ const srcDir = fileURLToPath(new URL('./src/', import.meta.url));
  * 单测从 `src/**` 迁出后统一经 `@/*` 别名导入被测模块，不再依赖相对路径层级。
  */
 export default defineConfig({
+  plugins: [ubeanEnvPlugin({ config: ubeanConfig })],
   test: {
     include: ['test/specs/**/*.{test,spec}.{ts,tsx}', 'test/integration/**/*.{test,spec}.{ts,tsx}'],
     environment: 'node',

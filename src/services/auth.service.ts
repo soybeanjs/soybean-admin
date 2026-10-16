@@ -1,5 +1,6 @@
 import { useKV } from 'ubean/server';
 import { eq } from 'drizzle-orm';
+import { JWT_EXPIRES_IN as ENV_JWT_EXPIRES_IN } from 'ubean:env/server';
 import {
   addTokenToBlacklist,
   comparePassword,
@@ -12,7 +13,6 @@ import {
 } from '@/shared/auth';
 import type { JwtPayload } from '@/shared/auth';
 import { AppError } from '@/shared/error';
-import { serverEnv } from '@/env.server';
 import type { AuthUserDTO } from '@/schema/auth';
 import { appDb } from '../db';
 import { user } from '../db/schema';
@@ -316,4 +316,4 @@ export const authService = {
 };
 
 // 环境默认值引用（供测试断言过期配置生效）
-export const JWT_EXPIRES_IN = serverEnv.JWT_EXPIRES_IN;
+export const JWT_EXPIRES_IN = ENV_JWT_EXPIRES_IN;

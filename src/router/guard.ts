@@ -1,11 +1,11 @@
 import type { Router } from 'vue-router';
 import { progress } from '@vean/ui';
+import { AUTH_ROUTE_MODE as ENV_AUTH_ROUTE_MODE } from 'ubean:env/client';
 import { APP_LOCALES } from '@/constants';
 import { hasRole } from '@/shared/permission';
 import { stripLocalePrefix } from '@/shared/route';
 import { shouldTreatMissingRouteAsForbidden } from '@/shared/route-exist';
 import { initAuthStore, useAuthStore, useMenuStore, useTabStore } from '@/store';
-import { env } from '@/env';
 import { api } from '@/request';
 
 /** 链路（v3 §5.2/§5.5）： 详见 docs/v3-notes.md N-080。 */
@@ -54,13 +54,13 @@ export function setupRouterGuard(instance: Router): void {
     const isNotFound = String(to.name) === 'NotFound';
 
     // dynamic 模式首跳：目标路由可能刚由 initMenu 注册 —— 回跳原路径重新解析。
-    if (!menuWasInited && env.authRouteMode === 'dynamic' && isNotFound) {
+    if (!menuWasInited && ENV_AUTH_ROUTE_MODE === 'dynamic' && isNotFound) {
       return to.fullPath;
     }
 
     // dynamic 模式真 NotFound：反查后端菜单表。存在但无权限 → 403。
     // 网络异常时静默降级为 404（不能因反查失败阻塞导航）。
-    if (isNotFound && env.authRouteMode === 'dynamic') {
+    if (isNotFound && ENV_AUTH_ROUTE_MODE === 'dynamic') {
       let routeExists = false;
 
       try {

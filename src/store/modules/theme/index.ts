@@ -2,12 +2,12 @@ import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { ThemeModePreference, ThemeOptions, ThemeRadiusValue } from '@vean/theme';
 import type { LayoutCollapsible, LayoutScrollBehavior, LayoutVariant, ThemeSettingsState } from '@vean/ui';
+import { LAYOUT_MODE as ENV_LAYOUT_MODE, THEME_PRESET as ENV_THEME_PRESET } from 'ubean:env/client';
 import { LAYOUT_MODES } from '@/constants/layout';
 import type { LayoutModeName } from '@/constants/layout';
 import { COLOR_WEAKNESS_FILTER, GRAYSCALE_FILTER, WATERMARK_TIME_FORMATS } from '@/constants/theme';
 import type { PageAnimationMode, ResetCacheStrategy, TabVariant, WatermarkTimeFormat } from '@/constants/theme';
 import { getLocalJson, setLocalJson } from '@/utils/storage';
-import { env } from '@/env';
 
 type PaletteKey = NonNullable<ThemeOptions['base']>;
 
@@ -101,11 +101,13 @@ function defaultWatermark(): WatermarkSettings {
   };
 }
 
-/** env 兜底默认值（`VITE_LAYOUT_MODE` / `VITE_THEME_PRESET` 支持 dev 快速切） */
+/** env 兜底默认值（`LAYOUT_MODE` / `THEME_PRESET` 支持 dev 快速切） */
 function defaultThemeSettings(): ThemeSettings {
-  const envMode = env.layoutMode;
+  const envMode = ENV_LAYOUT_MODE;
   const known = LAYOUT_MODES.find(item => item.value === envMode);
-  const envPreset = themePresets.some(item => item.name === env.themePreset) ? env.themePreset : themePresets[0]!.name;
+  const envPreset = themePresets.some(item => item.name === ENV_THEME_PRESET)
+    ? ENV_THEME_PRESET
+    : themePresets[0]!.name;
 
   return {
     presetName: envPreset,

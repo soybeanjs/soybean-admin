@@ -6,7 +6,7 @@ import { drizzle as drizzleSqlite } from 'drizzle-orm/better-sqlite3';
 import type { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { drizzle as drizzlePg } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import { serverEnv } from '@/env.server';
+import { DATABASE_URL as ENV_DATABASE_URL } from 'ubean:env/server';
 import * as schema from './schema';
 
 /** `$db0Create` 未注册时 `defineDatabase` 静默回落内存库，必须在使用前调 `registerDb0Create` 接线。详见 docs/v3-notes.md N-225。 */
@@ -132,7 +132,7 @@ function isSqliteUrl(url: string): boolean {
 }
 
 function resolveDatabaseUrl(): string {
-  return serverEnv.DATABASE_URL || 'file:.data/dev.sqlite3';
+  return ENV_DATABASE_URL || 'file:.data/dev.sqlite3';
 }
 
 const resolvedUrl = resolveDatabaseUrl();

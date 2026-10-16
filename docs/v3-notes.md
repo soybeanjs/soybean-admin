@@ -145,7 +145,7 @@
 
 ### src/constants/service.ts
 
-- **N-282** `src/constants/service.ts:3` — 请求层业务码配置（v3 §5.4，来自 `.env` 的 `VITE_SERVICE_*`）。
+- **N-282** `src/constants/service.ts:3` — 请求层业务码配置（v3 §5.4，来自 `.env` 的 `SERVICE_*` 环境变量）。
 
 ### src/constants/theme.ts
 
@@ -183,11 +183,11 @@
 
 ### src/env.server.ts
 
-- **N-008** `src/env.server.ts:3` — 服务端环境变量（校验 + 默认值）。 只在服务端代码里 import（`src/routes/**`、`src/services/**`、`src/db/**`、`src/crons/**`、`src/middleware/**` ）—— 浏览器里 `process` 不存在，客户端要用的变量请走 `src/env.ts`。
+- ~~**N-008** `src/env.server.ts:3`~~ — **文件已删除（P0-D）**。服务端环境变量的声明点迁到 `ubean.config.ts` 的 `env.schema`（`context: 'server'`），取值改从 `ubean:env/server` 具名导入。原注释正文保留在下方 `### N-008`。
 
 ### src/env.ts
 
-- **N-009** `src/env.ts:1` — 客户端可见环境变量。 因此客户端变量一律走 Vite 原生 `import.meta.env.VITE_*`。
+- ~~**N-009** `src/env.ts:1`~~ — **文件已删除（P0-D）**。客户端环境变量的声明点迁到 `ubean.config.ts` 的 `env.schema`（`context: 'client'`），取值改从 `ubean:env/client` 具名导入；不再需要 `VITE_` 前缀。原注释正文保留在下方 `### N-009`。
 
 ### src/layouts/default.vue
 
@@ -631,9 +631,9 @@
 
 ### src/typings/env.d.ts
 
-- **N-023** `src/typings/env.d.ts:3` — 客户端可见环境变量（Vite 原生 `import.meta.env`）。
-- **N-024** `src/typings/env.d.ts:50` — 构建时间戳（ISO 8601，`vite.config.ts` 的 `define` 注入）。
-- **N-025** `src/typings/env.d.ts:56` — about 页的依赖清单（`vite.config.ts` / `vitest.config.ts` 经 `define` 注入）。
+- ~~**N-023** `src/typings/env.d.ts:3`~~ — **已改（P0-D）**：手写 `ImportMetaEnv` 已删除，类型改由 codegen 生成 `.ubean/env.d.ts`；本文件现在只剩 `__BUILD_TIME__` / `__DEPENDENCIES__` 两个自由变量声明。原注释正文保留在下方 `### N-023`。
+- **N-024** `src/typings/env.d.ts:10` — 构建时间戳（ISO 8601，`vite.config.ts` 的 `define` 注入）。
+- **N-025** `src/typings/env.d.ts:13` — about 页的依赖清单（`vite.config.ts` / `vitest.config.ts` 经 `define` 注入）。
 
 ### src/typings/ubean.d.ts
 
@@ -649,7 +649,7 @@
 
 ### src/utils/storage.ts
 
-- **N-289** `src/utils/storage.ts:3` — SSR 安全的 localStorage 封装。 key 统一加 `VITE_STORAGE_PREFIX` 前缀，避免同域多应用互踩。
+- **N-289** `src/utils/storage.ts:3` — SSR 安全的 localStorage 封装。 key 统一加 `STORAGE_PREFIX` 前缀，避免同域多应用互踩。
 
 ### test
 
@@ -804,6 +804,8 @@ Vean（`@vean/aria/locale`）出厂注册的 key**； * 中文出厂的 key 是 
 
 ### N-008 · src/env.server.ts:3-11
 
+> **P0-D 后续**：该文件已删除，声明迁到 `ubean.config.ts` 的 `env.schema`。保留原文仅作历史记录。
+
 ```ts
 /**
  * 服务端环境变量（校验 + 默认值）。
@@ -817,6 +819,8 @@ Vean（`@vean/aria/locale`）出厂注册的 key**； * 中文出厂的 key 是 
 ```
 
 ### N-009 · src/env.ts:1-10
+
+> **P0-D 后续**：该文件已删除，声明迁到 `ubean.config.ts` 的 `env.schema`。保留原文仅作历史记录。
 
 ```ts
 /**
@@ -998,6 +1002,8 @@ Vean（`@vean/aria/locale`）出厂注册的 key**； * 中文出厂的 key 是 
 
 ### N-023 · src/typings/env.d.ts:3-8
 
+> **P0-D 后续**：这段注释连同整个手写 `ImportMetaEnv` 已删除 —— 环境变量类型现在由 `ubean.config.ts` 的 `env.schema` 经 codegen 生成到 `.ubean/env.d.ts`（`ubean:env/client` / `ubean:env/server` 两个 `declare module` + `ImportMetaEnv` 全局增强）。保留原文仅作历史记录。
+
 ```ts
 /**
  * 客户端可见环境变量（Vite 原生 `import.meta.env`）。
@@ -1007,7 +1013,7 @@ Vean（`@vean/aria/locale`）出厂注册的 key**； * 中文出厂的 key 是 
  */
 ```
 
-### N-024 · src/typings/env.d.ts:52-61
+### N-024 · src/typings/env.d.ts:10-19
 
 ```ts
 /**
@@ -1022,7 +1028,7 @@ Vean（`@vean/aria/locale`）出厂注册的 key**； * 中文出厂的 key 是 
  */
 ```
 
-### N-025 · src/typings/env.d.ts:64-67
+### N-025 · src/typings/env.d.ts:12-14
 
 ```ts
 /**

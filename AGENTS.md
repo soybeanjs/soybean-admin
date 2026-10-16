@@ -54,6 +54,7 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm analyze:check
 - 新增或修改端点时，在 `test/integration/api.test.ts` 补真实 HTTP 用例（成功路径、错误业务码、未授权 2000）。
 - 样式只走 `@vean/ui` + UnoCSS（`uno.config.ts` = `presetSoybean()` + `presetUi()`）；全局样式进 `src/styles/`。
 - i18n 文案写 `src/locales/{zh,en}.json`；新增 key 后先跑一次 `pnpm dev`（或 `pnpm build`）让 `.ubean/i18n.d.ts` 重新生成，再 `pnpm typecheck`。
+- **环境变量两处声明**：`ubean.config.ts` 的 `env.schema`（唯一声明处，`envField.string|number|boolean|enum({ context: 'client'|'server', access: 'public'|'secret', default })`）+ `.env`。客户端 `import { X } from 'ubean:env/client'`、服务端 `import { X } from 'ubean:env/server'`，**key 不需要 `VITE_` 前缀**（插件直接读 `.env` 原文）；客户端代码 import `ubean:env/server` 会让构建失败。类型由 codegen 写进 `.ubean/env.d.ts`，手写 `ImportMetaEnv` 已废弃；`__BUILD_TIME__` / `__DEPENDENCIES__` 不是 env，仍由 `vite.config.ts` 的 `define` 注入、在 `src/typings/env.d.ts` 声明。`vitest.config.ts` 必须显式挂 `ubeanEnvPlugin`（vitest 不经 `ubeanPlugin()`）。
 - 提交前同步文档状态：Phase 任务完成后更新 `docs/v3-task.md` 的行状态、总览计数、「进度快照」与「变更记录」。
 - lint 硬约束（`eslint.config.mjs`）：禁 `any`；禁 `as T` 断言（`as const` 例外）；宏顺序 `defineOptions → defineProps → defineEmits → defineSlots → defineModel`；模板内用具名函数，不写内联箭头函数。
 

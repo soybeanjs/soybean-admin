@@ -1,8 +1,8 @@
-import { env } from '@/env';
+import { STORAGE_PREFIX as ENV_STORAGE_PREFIX } from 'ubean:env/client';
 
 /** SSR 安全的 localStorage 封装 详见 docs/v3-notes.md N-289。 */
 
-const PREFIX = env.storagePrefix;
+const PREFIX = ENV_STORAGE_PREFIX;
 
 export function isClient(): boolean {
   return typeof localStorage !== 'undefined';

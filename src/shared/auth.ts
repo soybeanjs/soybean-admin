@@ -1,7 +1,11 @@
 import { useKV } from 'ubean/server';
 import { hash, compare, genSalt } from 'bcryptjs';
 import { decode, sign, verify } from 'hono/jwt';
-import { serverEnv } from '@/env.server';
+import {
+  JWT_EXPIRES_IN as ENV_JWT_EXPIRES_IN,
+  JWT_SECRET as ENV_JWT_SECRET,
+  REFRESH_TOKEN_EXPIRES_IN as ENV_REFRESH_TOKEN_EXPIRES_IN
+} from 'ubean:env/server';
 import type { AuthUserDTO } from '@/schema/auth';
 
 /** 认证工具层（v3 §6.4，unify 自研 JWT 首版）： 详见 docs/v3-notes.md N-139。 */
@@ -39,11 +43,11 @@ export async function generateToken(user: AuthUserDTO): Promise<string> {
   const payload: JwtPayload = {
     id: user.id,
     username: user.username,
-    exp: Math.floor(Date.now() / 1000) + resolveExpiresInSeconds(serverEnv.JWT_EXPIRES_IN, 86_400),
+    exp: Math.floor(Date.now() / 1000) + resolveExpiresInSeconds(ENV_JWT_EXPIRES_IN, 86_400),
     jti: crypto.randomUUID()
   };
 
-  return sign(payload, serverEnv.JWT_SECRET, 'HS256');
+  return sign(payload, ENV_JWT_SECRET, 'HS256');
 }
 
 /** 生成刷新令牌（结构与访问令牌一致，有效期独立配置） */
@@ -51,17 +55,17 @@ export async function generateRefreshToken(user: AuthUserDTO): Promise<string> {
   const payload: JwtPayload = {
     id: user.id,
     username: user.username,
-    exp: Math.floor(Date.now() / 1000) + resolveExpiresInSeconds(serverEnv.REFRESH_TOKEN_EXPIRES_IN, 604_800),
+    exp: Math.floor(Date.now() / 1000) + resolveExpiresInSeconds(ENV_REFRESH_TOKEN_EXPIRES_IN, 604_800),
     jti: crypto.randomUUID()
   };
 
-  return sign(payload, serverEnv.JWT_SECRET, 'HS256');
+  return sign(payload, ENV_JWT_SECRET, 'HS256');
 }
 
 /** 验证 JWT 令牌（签名 + 过期），失败返回 null */
 export async function verifyToken(token: string): Promise<JwtPayload | null> {
   try {
-    const payload = await verify(token, serverEnv.JWT_SECRET, 'HS256');
+    const payload = await verify(token, ENV_JWT_SECRET, 'HS256');
 
     if (!isJwtPayload(payload)) {
       return null;

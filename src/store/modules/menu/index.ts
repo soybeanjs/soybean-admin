@@ -1,6 +1,6 @@
 import type { RouteComponent, RouteRecordRaw, Router } from 'vue-router';
 import { defineStore } from 'pinia';
-import { env } from '@/env';
+import { AUTH_ROUTE_MODE as ENV_AUTH_ROUTE_MODE } from 'ubean:env/client';
 import menusSource from '@/menus/menus.json';
 import { api } from '@/request';
 import type { MenuResource } from '@/schema/menu';
@@ -47,7 +47,7 @@ export const useMenuStore = defineStore('menu', {
     async initMenu(router: Router) {
       if (this.inited) return;
 
-      if (env.authRouteMode === 'dynamic') {
+      if (ENV_AUTH_ROUTE_MODE === 'dynamic') {
         await this.initDynamicMenu(router);
       } else {
         this.initStaticMenu(router);

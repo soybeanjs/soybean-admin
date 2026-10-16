@@ -1,13 +1,13 @@
 import { defineServer } from 'ubean/server';
 import { createUbeanLogger } from '@ubean/shared/logger';
 import { createRequestLoggerMiddleware } from '@ubean/shared/logger/hono';
+import { SERVER_HOST as ENV_SERVER_HOST, SERVER_PORT as ENV_SERVER_PORT } from 'ubean:env/server';
 import { diffApiRoutes, formatApiRouteDiff } from '@/shared/api-route-sync';
 import type { RegisteredRoute } from '@/shared/api-route-sync';
 import { errorMiddleware } from '@/middleware/03.error';
 import { apiService } from '@/services/api-org.service';
 import { runAppMigrations } from '@/db/migrations';
 import { runSeed } from '@/db/seed';
-import { serverEnv } from '@/env.server';
 
 /** 服务端入口（ubean 约定：`src/server.ts`） 详见 docs/v3-notes.md N-010。 */
 const requestLogger = createUbeanLogger({
@@ -77,6 +77,6 @@ export default defineServer({
       lines.forEach(line => console.warn(line));
     }
 
-    console.log(`[soybean-admin] server ready at ${serverEnv.SERVER_HOST}:${serverEnv.SERVER_PORT}`);
+    console.log(`[soybean-admin] server ready at ${ENV_SERVER_HOST}:${ENV_SERVER_PORT}`);
   }
 });

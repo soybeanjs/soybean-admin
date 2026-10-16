@@ -1,5 +1,6 @@
 import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
+import { ROUTE_HOME as ENV_ROUTE_HOME } from 'ubean:env/client';
 import { STATIC_SUPER_ROLE } from '@/constants/service';
 import {
   clearAuthStorage,
@@ -11,7 +12,6 @@ import {
   setAuthStorage,
   setLogoutHandler
 } from '@/utils/auth';
-import { env } from '@/env';
 import { api } from '@/request';
 import type { AuthUserDTO, LoginResult } from '@/schema/auth';
 
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
     /** static 权限模式的超级管理员 */
     isStaticSuper: state => state.userInfo?.roles.includes(STATIC_SUPER_ROLE) ?? false,
     /** 登录后首页：用户 homePath 优先，其次 env 兜底 */
-    homePath: state => state.userInfo?.homePath || env.routeHome
+    homePath: state => state.userInfo?.homePath || ENV_ROUTE_HOME
   },
   actions: {
     /** 登录：调接口 → 落存储 → 拉用户信息 */

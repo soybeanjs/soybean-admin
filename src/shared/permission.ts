@@ -2,7 +2,7 @@ import { STATIC_SUPER_ROLE } from '@/constants/service';
 
 /** 两条通道粒度不同： 详见 docs/v3-notes.md N-163。 */
 
-/** 超级角色码（`VITE_STATIC_SUPER_ROLE`，与后端 seed 的角色码对齐） */
+/** 超级角色码（`STATIC_SUPER_ROLE` 环境变量，与后端 seed 的角色码对齐） */
 export const SUPER_ROLE = STATIC_SUPER_ROLE;
 
 /**
