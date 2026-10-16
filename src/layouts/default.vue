@@ -485,7 +485,7 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
       />
     </template>
     <template #logo>
-      <img src="/favicon.svg" alt="logo" class="size-7" />
+      <AppLogo class="size-7" />
     </template>
     <template #title>
       <span class="text-base font-600">{{ APP_TITLE }}</span>
@@ -534,7 +534,7 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
     <!--
  包一层 `relative` 作为离场页的定位基准：交叉淡出时两个页面同时存在，
          CSS 会把离场那份移出文档流（见 `src/styles/transition.css`），
-         它需要最近的定位祖先来确定自己的宽度与上边距。 
+         它需要最近的定位祖先来确定自己的宽度与上边距。
 -->
     <div class="relative">
       <PageView :transition="pageTransition" />

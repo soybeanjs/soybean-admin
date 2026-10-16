@@ -15,7 +15,7 @@ const apiProxyTargets = parseApiProxyTargets(
 );
 
 export default defineConfig({
-  srcDir: 'src',
+  favicon: 'https://img.soybeanjs.dev/logo-soybean-admin.svg',
   build: {
     preset: 'standard'
   },

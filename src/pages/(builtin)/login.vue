@@ -87,7 +87,7 @@ const activeTitleKey = computed(() => moduleTitleKeys[activeModule.value]);
       }"
     >
       <template #title-leading>
-        <img src="/favicon.svg" alt="logo" class="size-8" />
+        <AppLogo class="size-8" />
       </template>
       <template #title>{{ APP_TITLE }}</template>
       <template #extra>
