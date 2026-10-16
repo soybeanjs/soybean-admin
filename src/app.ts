@@ -1,6 +1,7 @@
 import type { App } from 'vue';
 import { defineApp } from 'ubean/client';
 import { createPinia } from 'pinia';
+import { createThemeInitScript } from '@vean/theme/ssr';
 import 'uno.css';
 import '@vean/ui/styles.css';
 import { APP_DESCRIPTION, APP_ROOT_ID, APP_TITLE, DEFAULT_LOCALE } from '@/constants';
@@ -66,7 +67,8 @@ export default defineApp({
       { name: 'description', content: APP_DESCRIPTION },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
-    htmlAttrs: { lang: DEFAULT_LOCALE }
+    htmlAttrs: { lang: DEFAULT_LOCALE },
+    script: [{ id: 'vean-theme-init', textContent: createThemeInitScript() }]
   },
   rootId: APP_ROOT_ID,
   plugins: [createPinia()],
