@@ -3,12 +3,7 @@ import { useI18n } from 'vue-i18n';
 import { SLink } from '@vean/ui';
 import type { DocLink } from './types';
 
-/**
- * 演示页的「外部链接」行（P4-01）。
- *
- * v2 的 `GithubLink` / `WebSiteLink` 是全局注册的自定义组件，v3 没有这套全局
- * 组件；这里收成一个局部组件，免得每个插件页各写一遍 `<a>` 结构。
- */
+/** 演示页的「外部链接」行（P4-01） 详见 docs/v3-notes.md N-366。 */
 defineOptions({ name: 'PluginDocLinks' });
 
 defineProps<{

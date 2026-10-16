@@ -3,14 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
-/**
- * i18n key 护栏（P3-03）。
- *
- * `vue-i18n` 在 key 缺失时**不报错**：它把 key 原样渲染到界面上，只有在
- * 跑到那个页面并切到那个语言时才看得见。本仓 8 套 manage 页共享
- * `manage.*` 命名空间，漏一个 key 很容易在评审里滑过去，所以这里把
- * 「源码里出现的每一个 `t('x.y')` 都能在两个语言包里解析到」变成测试。
- */
+/** i18n key 护栏（P3-03） 详见 docs/v3-notes.md N-416。 */
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const LOCALE_FILES = ['src/locales/zh.json', 'src/locales/en.json'] as const;
 

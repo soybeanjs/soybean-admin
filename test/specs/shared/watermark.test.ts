@@ -2,12 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { resolveWatermarkContent, shouldRunWatermarkTimer } from '@/shared/watermark';
 import type { WatermarkContentSource } from '@/shared/watermark';
 
-/**
- * P2-12：水印内容优先级与计时器开关的守卫。
- *
- * 这段逻辑与 UI 无关但极易回归：优先级写反只表现为「水印显示的不是预期那条」，
- * 视觉回归看不出来；计时器该停不停则是每小时一次的隐形 CPU 浪费。
- */
+/** P2-12：水印内容优先级与计时器开关的守卫 详见 docs/v3-notes.md N-440。 */
 
 function source(overrides: Partial<WatermarkContentSource> = {}): WatermarkContentSource {
   return {

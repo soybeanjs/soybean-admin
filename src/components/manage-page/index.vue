@@ -6,19 +6,7 @@ import type { TableBaseData, TableColumn, TableColumnCheck } from '@vean/ui';
 import { usePageSizeOptions } from '@/composables/use-table-operate';
 import TableHeaderOperation from '@/components/table-header-operation/index.vue';
 
-/**
- * manage 页统一外壳（P3-03，v3 §4.6「统一范式」）。
- *
- * 8 套 CRUD 页的骨架完全同形：搜索卡 → 列表卡（表头操作 + 表格 + 分页）→
- * operate 弹窗。把骨架收敛到这里，页面只留「列定义 + 字段单元格 + 弹窗」，
- * 避免 8 份几乎逐字相同的模板漂移。
- *
- * 插槽：
- * - `search`   搜索卡（各域字段不同，由页面提供）
- * - `toolbar`  表头操作区左侧附加按钮
- * - `suffix`   表头操作区最右侧附加内容
- * - 其余具名插槽（`#name` / `#enabled` / …）原样转发给 `STable` 的单元格插槽
- */
+/** 插槽： 详见 docs/v3-notes.md N-037。 */
 defineOptions({ name: 'ManagePage' });
 
 const props = withDefaults(

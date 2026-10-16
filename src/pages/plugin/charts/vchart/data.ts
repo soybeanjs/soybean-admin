@@ -6,14 +6,7 @@ interface MedalRow {
   value: number;
 }
 
-/**
- * 从自定义 mark 的回调上下文里读出画布尺寸。
- *
- * vchart 的 `IModelMarkAttributeContext` 只声明了 `[key: string]: unknown`，
- * 且不对外导出；这里用类型守卫逐层读 `ctx.vchart.getChart().getCanvasRect()`，
- * 避免 `as` 断言（本仓 eslint 禁 `as T`）。取不到时返回 `undefined`，由调用方
- * 决定回退值。
- */
+/** 从自定义 mark 的回调上下文里读出画布尺寸 详见 docs/v3-notes.md N-349。 */
 function readCanvasSize(ctx: unknown): { width: number; height: number } | undefined {
   if (typeof ctx !== 'object' || ctx === null || !('vchart' in ctx)) return undefined;
 

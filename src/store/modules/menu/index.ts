@@ -7,27 +7,7 @@ import type { MenuResource } from '@/schema/menu';
 import type { MenuTreeNode } from '@/typings/app';
 import { buildMenuTree, loadStaticMenus, normalizeRoutePath, parseMenuSource, validateMenuRoutes } from './shared';
 
-/**
- * 菜单 store（v3 §5.3，菜单/路由/标题一元模型的菜单侧）。
- *
- * 两份菜单源，同一棵菜单树（`docs/v3-menu-route-modes.md` §4）：
- *
- * - static 模式：`src/menus/menus.json`（仓库里的源数据）+ 生成的路由表；
- * - dynamic 模式：`GET /api/menu/user`（数据库里的源数据，seed 自同一份 JSON）。
- *
- * 两条路径在建树前收敛成 `AppMenu[]`（见 `./shared.ts`），所以层级与排序只有
- * 一套行为。static 模式**不注册路由**（文件路由本来就全注册），只建树；
- * dynamic 模式既注册路由又建树 —— 这是两者唯一的实质差异。
- *
- * 标题单一来源：节点携带 `i18nKey`，**翻译在展示层**（layout/tab 的 setup
- * 上下文里 `t(i18nKey) || label`）—— `useI18n()` 只能在 setup 用，store
- * 不能在 action 里解析 locale（否则切语言后 label 不更新）。
- *
- * 为什么 router 从参数进而不 import：读路由表/注册路由都需要实例，而实例只有
- * 守卫与组件拿得到（`useRouter()`）。让调用方传进来，store 就不依赖 `@/router`，
- * `store → @/router → guard → store` 的模块环自然消失。守卫是唯一调用点，
- * 它拿到的正是框架 `setup` 入参。
- */
+/** 不能在 action 里解析 locale（否则切语言后 label 不更新） 详见 docs/v3-notes.md N-103。 */
 
 interface MenuState {
   /** 菜单树（展示层解析 i18nKey） */
@@ -79,13 +59,7 @@ export const useMenuStore = defineStore('menu', {
     // static 模式：menus.json + 路由表 → 菜单树
     // ------------------------------------------------------------------
 
-    /**
-     * 从仓库里的菜单源数据建树。
-     *
-     * 路由只用来两件事：把 `routeName` 解析成真实 `path`（消除「页面改名 →
-     * 菜单跳 404」的漂移，见 `loadStaticMenus`），以及 dev 下校验两者对齐。
-     * 路由**不参与建树** —— 层级来自菜单自己的 `parentId`。
-     */
+    /** 从仓库里的菜单源数据建树 详见 docs/v3-notes.md N-104。 */
     initStaticMenu(router: Router) {
       const routes = router.getRoutes().map(route => ({ name: String(route.name), path: route.path }));
       const menus = loadStaticMenus(parseMenuSource(menusSource), routes);
@@ -121,12 +95,7 @@ export const useMenuStore = defineStore('menu', {
       this.assertRouteConsistency();
     },
 
-    /**
-     * dev 下断言 dynamic 菜单与本地视图的一致性，输出缺页清单。
-     *
-     * 菜单指向的视图在 `src/pages/**` 不存在时告警（不阻断启动，路由落到
-     * `src/pages/_placeholder.vue`）。
-     */
+    /** dev 下断言 dynamic 菜单与本地视图的一致性，输出缺页清单 详见 docs/v3-notes.md N-105。 */
     assertRouteConsistency() {
       if (!import.meta.env.DEV || typeof window === 'undefined') return;
 
@@ -160,13 +129,7 @@ export const useMenuStore = defineStore('menu', {
 // 纯函数（store 外，便于单测）
 // ---------------------------------------------------------------------------
 
-/**
- * `src/pages` 下视图相对路径的 glob 前缀。
- *
- * `import.meta.glob` 的键是相对项目根的绝对样路径（`/src/pages/...`），
- * 而 `routeComponent` 存的是页面相对路径（`manage/user/index.vue`）——
- * 短、可读、与文件系统一一对应，工具（`scripts/menu-sync.ts`）能直接生成。
- */
+/** `src/pages` 下视图相对路径的 glob 前缀。`import.meta.glob` 的键是相对项目根的绝对样路径（`/src/pages/...`），而 `routeComponent`。 */
 const VIEW_MODULE_PREFIX = '/src/pages/';
 
 /** `layout.base$view.system_user` → `system_user`（legacy elegant-router 编码） */
@@ -187,15 +150,7 @@ function viewKeyToName(key: string): string {
     .replace(/\//g, '_');
 }
 
-/**
- * `routeComponent` → `import.meta.glob` 的键（视图不存在时 undefined）。
- *
- * 两种编码都认：
- * - `src/pages` 下的相对路径（`manage/user/index.vue`）—— 现行格式，
- *   工具可直接生成，人也能一眼对到文件；
- * - legacy 的 `layout.base$view.system_user` —— v2/elegant-router 时代的
- *   存量数据（含 `src/db/seed-data.ts` 的历史行），按视图名反查。
- */
+/** 两种编码都认： 详见 docs/v3-notes.md N-107。 */
 function resolveViewKey(routeComponent: string | null): string | undefined {
   if (!routeComponent) return undefined;
 
@@ -214,10 +169,7 @@ function resolveViewKey(routeComponent: string | null): string | undefined {
 
 /** dynamic 菜单行 → 路由记录（menu|page 且有 routePath/routeName；iframe 落到内嵌页；缺页占位兜底） */
 export function transformMenuToRoute(row: MenuResource, views: typeof viewModules): RouteRecordRaw | null {
-  // iframe（P3-07）：菜单行不配 routePath/routeName，但菜单需要一个可跳转的
-  // 路由名 —— 统一复用内置的 `/iframe` 页，地址通过 query.url 下发。
-  // 这里刻意不生成 `[url].vue` 动态段：URL 含 `//` 与 `?`，当路径段会被
-  // router 拆碎，query 才是稳定表达。
+  // iframe（P3-07）：菜单行不配 routePath/routeName，但菜单需要一个可跳转的 详见 docs/v3-notes.md N-108。
   if (row.menuType === 'iframe' && row.iframeUrl) {
     return {
       path: `/iframe/${encodeURIComponent(row.code)}`,
@@ -247,10 +199,7 @@ export function transformMenuToRoute(row: MenuResource, views: typeof viewModule
   }
 
   const meta = {
-    // ubean 的 keep-alive 契约字段：PageView 靠 `$route.meta.pageName` 决定是否给
-    // 组件套 `getNamedPageWrapper`（包装组件的 `name` 才能被 `<KeepAlive :include>`
-    // 命中）。静态页由生成器写入（`@ubean/vue` 的 buildRouteMeta），dynamic 路由
-    // 没有 → `cache: true` 会静默失效。
+    // ubean 的 keep-alive 契约字段：PageView 靠 `$route.meta.pageName` 决定是否给 详见 docs/v3-notes.md N-109。
     pageName: row.routeName,
     title: row.name,
     i18nKey: row.i18nKey ?? undefined,
@@ -275,8 +224,6 @@ export function transformMenuToRoute(row: MenuResource, views: typeof viewModule
 
 /**
  * 菜单树 → 根到目标节点的链路（全局搜索、多级菜单面包屑用）。
- *
- * 实现住在 `./shared.ts`（与建树同一个纯函数模块），这里只做转导出：菜单
- * store 是 UI 层唯一入口，消费方（如多级菜单面板）不需要知道纯函数的分层。
+ * 实现住在 `./shared.ts`，这里只做转导出：消费方不需要知道纯函数的分层。
  */
 export { findMenuTrail } from './shared';

@@ -10,16 +10,7 @@ import { emptyPermissionForm, permissionFormSchema } from '@/schema/permission';
 import { emptyRoleForm, roleFormSchema } from '@/schema/role';
 import { emptyUserForm, userFormSchema } from '@/schema/user';
 
-/**
- * 表单 schema 护栏（P3-03）。
- *
- * 8 套 operate 表单的"schema 加了字段、默认值忘了加"是个静默失败：`useForm`
- * 的 `defaultValues` 少一个键，该键的 `SFormField` 渲染出来就是空且不受控，
- * 只有手点进弹窗才会发现。这里把两件事变成测试：
- * 1. 每个表单的**默认值与 schema 键集合完全一致**（多/少都报错）；
- * 2. 枚举字段复用 `src/schema/_shared.ts` 的**同一个 schema 对象**
- *    （值域若抄两份，会表现成"前端能选、后端 3000"）。
- */
+/** 的 `defaultValues` 少一个键，该键的 `SFormField` 渲染出来就是空且不受控，只有手点进弹窗才会发现。这里把两件事变成测试： 详见 docs/v3-notes.md N-420。 */
 
 /** 从 valibot 对象 schema 上取 `entries` 字段（无断言，靠 `in` + `typeof` 收窄） */
 function readEntries(schema: unknown): object | undefined {

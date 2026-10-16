@@ -9,10 +9,7 @@ import { appDb } from '../db';
 import { menu, permission } from '../db/schema';
 import { permissionService } from './permission.service';
 
-/**
- * 菜单服务（P1-07，unify menu.service 范式）。
- * v3 简化: 路由定义冲突校验保留 routeName/routePath 唯一性；权限码由 permission 服务解析。
- */
+/** 菜单服务（P1-07，unify menu.service 范式）。v3 简化: 路由定义冲突校验保留 routeName/routePath 唯一性；权限码由 permission 服务解析。 */
 
 export type MenuRow = typeof menu.$inferSelect;
 export type MenuTree = MenuRow & { children: MenuRow[] };
@@ -99,18 +96,7 @@ function validateParent(parentId: string | null, selfId?: string): void {
   requireMenu(parentId);
 }
 
-/**
- * 目录前缀校验（M-09）：目录与其子项的 `routePath` 必须同前缀。
- *
- * 目录是纯分组节点、没有对应路由，路径分家在导航上看不出来 —— 这是它唯一能
- * 自检的地方。与 `src/store/modules/menu/shared.ts` 的 `validateMenuRoutes`
- * 同一规则，但那个跑在 dev 启动期的菜单源快照上，这个跑在**写入时**的库上
- * （管理页新增/改父/改路径都能当场拦住）。
- *
- * 两个方向各查一次，不递归：
- * 1. 本条是目录 → 它现有的子项必须落在它下面（改目录路径时拦住）；
- * 2. 本条有父目录 → 本条路径必须落在父目录下面（改父/改路径时拦住）。
- */
+/** 两个方向各查一次，不递归： 详见 docs/v3-notes.md N-253。 */
 function validateDirectoryPrefix(row: { id?: string; parentId: string | null; routePath: string | null }): void {
   const isUnder = (child: string, parent: string) => child === parent || child.startsWith(`${parent}/`);
   const selfPath = row.routePath;

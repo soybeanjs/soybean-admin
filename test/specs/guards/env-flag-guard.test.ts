@@ -2,21 +2,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-/**
- * ubean 运行时标志（`import.meta.client` / `import.meta.server`）的禁用守卫（P4-02）。
- *
- * **为什么需要这条守卫**：ubean 0.6.0 **从不注入**这两个标志。dev 按需转换的
- * 模块与 `vp build` 的产物里都原样留下 `import.meta.client`，浏览器求值即
- * `undefined`。于是 `isClient()` 这类判据恒假，应用会**静默丢掉所有
- * localStorage 读写** —— token / 用户信息 / 主题设置 / 页签刷新即失，且不报错。
- *
- * 唯一正确的写法是能力检测：`typeof localStorage !== 'undefined'`、
- * `typeof window === 'undefined'`、`typeof document !== 'undefined'`
- * （见 `src/router/guard.ts`、`src/shared/i18n.ts`、`src/utils/storage.ts`）。
- *
- * 这条用例把「一次真实浏览器排查」的结论固化成即时反馈：新增 `import.meta.client`
- * 会在单测阶段就红，而不是等到线上用户反馈「登录状态老丢」。
- */
+/** ubean 运行时标志（`import.meta.client` / `import.meta.server`）的禁用守卫（P4-02） 详见 docs/v3-notes.md N-414。 */
 const srcDir = resolve(import.meta.dirname, '../../../src');
 
 /** 只匹配 `import.meta.client` / `import.meta.server` 的**属性访问**，不拦文档里提到它们的注释 */

@@ -1,11 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { filterValidQuery } from '@/shared/common';
 
-/**
- * `filterValidQuery`（P3-02）：
- * 表格搜索卡把空串字段直接拼进 query 时，后端会把 `keyword=` 当作"搜索空关键字"
- * 命中 0 行；`sort=` / `enabled=` 同理会覆盖掉有效默认值。
- */
+/** `filterValidQuery`（P3-02）：表格搜索卡把空串字段直接拼进 query 时，后端会把 `keyword=` 当作"搜索空关键字"命中 0 行；`sort=` /。 */
 describe('filterValidQuery', () => {
   it('剔除 undefined / null / 空串，保留 0 与 false', () => {
     const result = filterValidQuery({

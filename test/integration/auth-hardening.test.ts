@@ -1,21 +1,4 @@
-/**
- * 鉴权加固集成测试（authorization.md §5.1 + §5.2）—— 真实 HTTP。
- *
- * 覆盖两件在单测里测不到、只能端到端验证的事：
- *
- * 1. **enabled 过滤真的生效**：停用角色 / 停用权限点后，请求立刻 4003。
- *    改造前 `getRolesByUserId` 与权限码查询都没有 `enabled='Y'` 条件，停用只是
- *    列表里变灰，鉴权照旧放行 —— 静默失效，最坏的一类 bug。
- *
- * 2. **缓存失效真的即时而完整**：授权 / 撤权 / 停用 / 启用之间来回切换，每一步
- *    下一次请求就必须反映新状态。权限码缓存（§5.2）带 5 分钟 TTL，若写操作漏了
- *    失效，这些断言会以「TTL 内的旧状态」失败 —— 所以每个 `it` 都是一次失效回归。
- *    同一个 token 全程复用：token 里不嵌权限码，状态必须来自服务端。
- *
- * 与 `api.test.ts`（M-06）同一套自建 fixture 手法：不靠 super（super 在中间件里
- * 直接放行，看不到权限码），另建用户 + 角色 + 接口 + 权限点走完整 RBAC 链路。
- * fixture 按 runId 命名，并**先查后建**（权限码全局唯一，跨次运行会撞码）。
- */
+/** 覆盖两件在单测里测不到、只能端到端验证的事： 详见 docs/v3-notes.md N-405。 */
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { api, okData } from '../shared/api-client';
 

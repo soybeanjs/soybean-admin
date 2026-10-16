@@ -1,13 +1,7 @@
 import type { AuthUserDTO, LoginResult } from '@/schema/auth';
 import { getLocalJson, getLocal, removeLocal, setLocal, setLocalJson } from './storage';
 
-/**
- * 认证凭据的本地缓存与全局登出回调（v3 §5.5）。
- *
- * 请求层（`src/request`）与 auth store（`src/store/modules/auth`）互相依赖会造成
- * 循环引用 —— 请求层只碰这里：同步的 token 存取 + 由 store 在启动时注册的
- * `handleLogout` 回调。store 负责真正的状态重置与跳转。
- */
+/** 认证凭据的本地缓存与全局登出回调（v3 §5.5） 详见 docs/v3-notes.md N-285。 */
 
 const TOKEN_KEY = 'token';
 const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -62,8 +56,6 @@ export function setLogoutHandler(handler: LogoutHandler): void {
 
 /**
  * 请求层统一登出入口。
- *
- * @param silent true = 不弹确认框直接登出（刷新失败/登出码）；false = 走 store 的弹窗确认
  */
 export function handleLogoutRequest(silent: boolean): void {
   if (logoutHandler) {
@@ -76,11 +68,8 @@ type AuthResetHandler = () => void;
 let authResetHandler: AuthResetHandler | null = null;
 
 /**
- * 注册「登录态刚被清空」的收尾动作（守卫在拿到 router 实例时注册）。
- *
- * `authStore.resetStore()` 只清状态、不碰路由；跳登录页需要 router 实例，
- * 而实例只有守卫与组件拿得到 —— 用回调把它注入进来，store 就不必依赖
- * `@/router`（那会形成 `store → @/router → guard → store` 模块环）。
+ * 注册「登录态刚被清空」的收尾动作（守卫拿到 router 实例时注册）。
+ * store 只清状态、不碰路由，跳登录页由回调完成，避免 store 依赖 `@/router`。
  */
 export function setAuthResetHandler(handler: AuthResetHandler): void {
   authResetHandler = handler;

@@ -6,32 +6,11 @@ import { toAppRouteMeta } from '@/utils/route-meta';
 import { getLocalJson, setLocalJson } from '@/utils/storage';
 import type { AppTab } from '@/typings/app';
 
-/**
- * 页签 store（v3 §5.4 多页签）。
- *
- * 页签 value 约定：multiTab 页 = fullPath（同路由不同 query 独立页签），
- * 普通页 = 路由名。keep-alive：`meta.cache` 的路由由 ubean 启动期种入
- * KeepAlive（`initCachedViewsFromRoutes`），缓存开关走 ubean 全局的
- * `excludePageCache` / `includePageCache`（模块级响应式状态，PageView 的
- * `<KeepAlive :include>` 直接消费）—— 应用侧不自建缓存列表。
- *
- * 持久化：页签列表写 localStorage（`@/utils/storage` 前缀封装），刷新恢复。
- *
- * 导航类 action（`switchTab` / `reloadTab`）由调用方传入 router：store 不持有
- * router 引用，也就不会 `store → @/router → guard → store` 成环（见
- * `src/router/guard.ts` 的依赖说明）。组件传 `useRouter()`，守卫传 `setup` 入参。
- */
+/** 页签 store（v3 §5.4 多页签） 详见 docs/v3-notes.md N-117。 */
 
 const TABS_STORAGE_KEY = 'tabs';
 
-/**
- * `addTab` 真正读取的路由切片。
- *
- * 用最小结构而非 `RouteLocationNormalized`：守卫传进来的仍是完整对象（结构
- * 兼容），而测试可以只造这几个字段、**不需要 `as RouteLocationNormalized`
- * 断言**（本仓 eslint 禁 `as T`）。同时它把「页签依赖路由的哪几个字段」写成
- * 可检查的契约：多读一个字段就要改这里。
- */
+/** `addTab` 真正读取的路由切片 详见 docs/v3-notes.md N-118。 */
 export interface TabRouteLike {
   /** `RouteRecordName`（string | symbol）—— 调用点传守卫的 `to` 或测试字面量均可 */
   name?: string | symbol;

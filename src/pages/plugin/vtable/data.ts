@@ -1045,13 +1045,7 @@ export const pivotChartIndicators: IChartIndicator[] = [
   }
 ];
 
-/**
- * Pivot Table 的数据（P4-01）。
- *
- * v2 是运行时 `fetch('https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/North_American_Superstore_Pivot_data.json')`
- * —— 演示页依赖外部 CDN 会在离线 / 内网环境下白屏。这里改为构建期抽样落地的
- * 静态数据（450 行，覆盖 3 个 Category × 50 个 City × 3 个指标）。
- */
+/** Pivot Table 的数据（P4-01） 详见 docs/v3-notes.md N-374。 */
 export const pivotTableRecords = [
   { Category: 'Office Supplies', City: 'Aberdeen', Quantity: 3, Sales: null, Profit: null, id: 0 },
   { Category: 'Office Supplies', City: 'Aberdeen', Quantity: null, Sales: 25.5, Profit: null, id: 1 },
@@ -1505,14 +1499,7 @@ export const pivotTableRecords = [
   { Category: 'Furniture', City: 'Brentwood', Quantity: null, Sales: null, Profit: 10.51, id: 449 }
 ];
 
-/**
- * Pivot Chart 的数据（P4-01）。
- *
- * v2 是运行时 `fetch('...North_American_Superstore_Pivot_Chart_data.json')`（1.6MB），
- * 这里改为构建期分层抽样后的静态数据（216 行 = 9 个 Segment-Indicator × 4 个
- * Region × 3 个 Category × 2 行），保证 9 个图例项都能出现。每行只带自己那一个
- * 指标列（Quantity / Sales / Profit 之一），与 v2 远程数据的形状一致。
- */
+/** Pivot Chart 的数据（P4-01） 详见 docs/v3-notes.md N-375。 */
 export const pivotChartRecords = [
   {
     Region: 'Central',

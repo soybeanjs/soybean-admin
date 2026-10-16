@@ -12,13 +12,7 @@ import {
 } from './seed-data';
 import { appDatabase } from './index.ts';
 
-/**
- * Seed 执行器（幂等：INSERT OR IGNORE，可重复执行）。
- *
- * 数据本体在 ./seed-data.ts（纯数据，便于测试复用与检视）。
- * SQL 拼接安全性：表名/列名来自代码内白名单（toSnake 转换），值经
- * db.sql 的 escapeValue（单引号翻倍）转义——seed 无任何用户输入。
- */
+/** Seed 执行器（幂等：INSERT OR IGNORE，可重复执行） 详见 docs/v3-notes.md N-234。 */
 
 type SeedRow = Record<string, unknown>;
 type InsertSpec = { table: string; rows: SeedRow[] };

@@ -4,12 +4,7 @@ import { authService } from '@/services/auth.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { resetPasswordSchema } from '@/schema/auth';
 
-/**
- * `POST /api/auth/reset-password` —— 重置密码（公开）。
- *
- * 无短信通道，凭证用图形验证码承担（与 v2 `reset-pwd` 页面语义一致）。
- * 校验通过后直接覆写密码；需重新登录（不自动签发 token）。
- */
+/** `POST /api/auth/reset-password` —— 重置密码（公开） 详见 docs/v3-notes.md N-091。 */
 export const POST = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({

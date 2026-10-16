@@ -9,15 +9,7 @@ import { appDb } from '../db';
 import { role, rolePermission, userRole } from '../db/schema';
 import { permissionService } from './permission.service';
 
-/**
- * 角色服务（P1-07，unify role.service 范式）。
- *
- * **enabled 过滤（§5.1）**：`getRolesByUserId` 只返回启用中的角色 —— 停用的角色
- * 不得继续参与鉴权（否则停用只是可见性变更，不是权限变更）。
- *
- * **缓存失效（§5.2）**：任何改动「某角色持有哪些权限」或「某用户持有哪些角色」
- * 的操作都会影响权限码集合，必须同步失效对应缓存，否则停权后旧 token 仍然放行。
- */
+/** 角色服务（P1-07，unify role.service 范式） 详见 docs/v3-notes.md N-257。 */
 
 export type RoleRow = typeof role.$inferSelect;
 

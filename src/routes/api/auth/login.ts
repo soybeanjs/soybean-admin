@@ -3,13 +3,7 @@ import { validate } from '@/shared/validate';
 import { authService } from '@/services/auth.service';
 import { loginResultSchema, loginSchema } from '@/schema/auth';
 
-/**
- * `POST /api/auth/login` —— 用户名密码登录（公开）。
- *
- * 校验走 valibot `loginSchema`（联合类型：`grantType: 'pwd'` 密码登录 / `'captcha'`
- * 图形验证码登录），成功返回 token 对 + 用户安全视图。失败经 AppError（PASSWORD_INVALID /
- * CAPTCHA_INVALID 等）由全局错误中间件归一为业务码响应。
- */
+/** `POST /api/auth/login` —— 用户名密码登录（公开） 详见 docs/v3-notes.md N-085。 */
 export const POST = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({

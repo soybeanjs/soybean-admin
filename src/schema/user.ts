@@ -12,12 +12,7 @@ import {
   rowText
 } from './_shared';
 
-/**
- * 用户契约（v3 §6.3，unify user.service 范式；`password` 只进不出）。
- *
- * `update` 由 `create` + `partial` 推导；`enabled` 只在更新时可用（新增一律
- * 由服务端置 `'Y'`），故单独并入。
- */
+/** 用户契约（v3 §6.3，unify user.service 范式；`password` 只进不出）。 */
 
 /* -------------------------------------------------------------------------- */
 /*                              服务端请求 schema                              */
@@ -131,13 +126,7 @@ export const userSearchFormSchema = object({
 /*                               operate 表单 schema                           */
 /* -------------------------------------------------------------------------- */
 
-/**
- * 用户新增 / 编辑表单。
- *
- * `password` 用「空串 = 不改」语义：新增时必填（服务端 `userCreateSchema`
- * 强制），编辑时留空即从提交载荷里剔除。**不在 schema 层做条件必填** ——
- * 跨字段 refine 的 issue 无字段路径，会落到 `_form` 键，弹窗里没地方渲染。
- */
+/** 用户新增 / 编辑表单 详见 docs/v3-notes.md N-224。 */
 export const userFormSchema = object({
   username: requiredText('用户名'),
   password: pipe(string(), description('登录密码，编辑时留空表示不改')),

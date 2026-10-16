@@ -4,12 +4,7 @@ import { SButton, SCard } from '@vean/ui';
 import printJS from 'print-js';
 import PluginDocLinks from '../modules/plugin-doc-links.vue';
 
-/**
- * 打印演示（P4-01）。
- *
- * print-js 两种模式：`type: 'json'` 用 `properties` 指定列打印表格，
- * `type: 'image'` 打印图片列表。都靠新建 iframe 完成，无需额外处理。
- */
+/** 打印演示（P4-01） 详见 docs/v3-notes.md N-370。 */
 defineOptions({ name: 'PluginPrint' });
 
 const { t } = useI18n();

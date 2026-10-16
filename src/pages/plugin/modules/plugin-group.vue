@@ -2,15 +2,7 @@
 import { useRouter } from 'vue-router';
 import { SIcon, SLink } from '@vean/ui';
 
-/**
- * 分组落地页的公共列表（P4-01）。
- *
- * `/plugin/charts`、`/plugin/editor`、`/plugin/gantt` 三个分组页在侧栏里是父节点，
- * 点进去看到的只是「本组有哪些页」，结构完全一样 —— 收成一个组件。
- *
- * 文案由调用方传入 `t()` 的结果（本仓 `test/specs/scripts/remove-i18n.test.ts` 禁动态 i18n key，
- * 子组件里不能再 `t(props.key)`）。
- */
+/** 分组落地页的公共列表（P4-01） 详见 docs/v3-notes.md N-367。 */
 interface PluginGroupLink {
   path: string;
   label: string;

@@ -2,12 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { COLOR_WEAKNESS_FILTER, GRAYSCALE_FILTER } from '@/constants/theme';
 import { readStoredThemeSettings, resolveFilterStyle, resolvePresetThemeState } from '@/store/modules/theme';
 
-/**
- * P2-10：主题设置里两块「无 DOM 也能验证」的纯逻辑 —— 滤镜互斥、预设 → 主题信封。
- *
- * 放在这里而不是新增模块：这两个函数是 store 的对外契约（`src/app.ts` 与
- * `src/app.vue` 直接引用），导出位置就是它们的归属，测试跟着契约走。
- */
+/** P2-10：主题设置里两块「无 DOM 也能验证」的纯逻辑 —— 滤镜互斥、预设 → 主题信封 详见 docs/v3-notes.md N-446。 */
 
 describe('滤镜（P2-10）', () => {
   it('两个开关都关时返回空串，消费方据此清掉 <html> 的 filter', () => {

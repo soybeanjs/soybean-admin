@@ -2,13 +2,7 @@ import { defineHandler, defineHandlerMeta, describeRoute, resolver } from 'ubean
 import { authService } from '@/services/auth.service';
 import { wechatQrcodeSchema } from '@/schema/auth';
 
-/**
- * `GET /api/auth/wechat-qrcode` —— 获取微信绑定二维码（公开，mock）。
- *
- * 无微信开放平台凭证，返回自建 `ticket`（KV 存储，TTL 5 分钟）与形似官方
- * `qrconnect` 的授权 url；前端据此渲染二维码占位，「模拟扫码」调
- * `POST /api/auth/bind-wechat` 完成绑定。
- */
+/** `GET /api/auth/wechat-qrcode` —— 获取微信绑定二维码（公开，mock） 详见 docs/v3-notes.md N-093。 */
 export const GET = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({

@@ -1,13 +1,4 @@
-/**
- * about 页的构建期注入数据。
- *
- * 依赖清单在构建期由 `scripts/dependency-manifest.ts` 解析（见 `vite.config.ts` 的
- * `define`），这里只做「自由变量 → 具名导出」的桥接与运行时兜底，**不引入 `yaml`**：
- * 浏览器侧拿到的已是最终表格数据，构建期解析器不进客户端产物。
- *
- * 兜底分支只在非 vite/vitest 环境（如直接被 node require）命中，正常构建与测试
- * 都走注入值。`declare const` 由 `src/typings/env.d.ts` 提供。
- */
+/** about 页的构建期注入数据：依赖清单由 `scripts/dependency-manifest.ts` 在构建期解析并注入，此处只做「自由变量 → 具名导出」的桥接。详见 docs/v3-notes.md N-306。 */
 import type { DependencyManifest } from '../../../../scripts/dependency-manifest';
 
 /** 空清单（注入缺失时的兜底，保证页面渲染成空表而不是白屏） */

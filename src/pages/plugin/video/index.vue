@@ -5,12 +5,7 @@ import { SCard } from '@vean/ui';
 import Player from 'xgplayer';
 import 'xgplayer/dist/index.min.css';
 
-/**
- * 视频播放器演示（P4-01）。
- *
- * xgplayer 的样式是独立 CSS 文件，必须显式引入；播放器实例要 `destroy()`，
- * 否则离开页面后 video 元素与事件监听会留在 DOM 里。
- */
+/** 视频播放器演示（P4-01）。xgplayer 的样式是独立 CSS 文件，必须显式引入；播放器实例要 `destroy()`，否则离开页面后 video 元素与事件监听会留在 DOM 里。 */
 defineOptions({ name: 'PluginVideo' });
 
 const { t } = useI18n();

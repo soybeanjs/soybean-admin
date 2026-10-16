@@ -27,20 +27,11 @@ export const themePresets: ThemePreset[] = [
   { name: 'emerald', label: 'theme.preset.emerald', primary: 'emerald', base: 'gray', radius: '0.25rem' }
 ];
 
-/**
- * 布局模式（v2 语义名）与 SAppShell 模式的映射表在 `@/constants/layout`
- * （`src/shared/layout-matrix.ts` 也要读它，不该为此把 store 拖进依赖图）。
- * 这里 re-export 一份，老引用（`useThemeStore` 用法方、theme 抽屉）不必改。
- */
+/** 布局模式（v2 语义名）与 SAppShell 模式的映射表在 `@/constants/layout` 详见 docs/v3-notes.md N-119。 */
 export { LAYOUT_MODES, mapLayoutMode } from '@/constants/layout';
 export type { LayoutModeName } from '@/constants/layout';
 
-/**
- * 水印设置（P2-12）。
- *
- * 文本优先级（对齐 v2）：`enableUserName` → `enableTime` → `text`。
- * 两个开关互斥，见 `setWatermarkEnableUserName` / `setWatermarkEnableTime`。
- */
+/** 水印设置（P2-12） 详见 docs/v3-notes.md N-120。 */
 export interface WatermarkSettings {
   visible: boolean;
   text: string;
@@ -49,28 +40,11 @@ export interface WatermarkSettings {
   timeFormat: WatermarkTimeFormat;
 }
 
-/**
- * 主题 + 布局设置（P2-10 ~ P2-15、P2-20 的配置项维度）。
- *
- * 一个对象一个持久化 key：主题抽屉的所有开关都写在这里，`SAppShell` 的
- * `layoutProps` / `tabProps` 由它派生，页面动画/滤镜/水印由消费方读它。
- */
+/** 主题 + 布局设置（P2-10 ~ P2-15、P2-20 的配置项维度） 详见 docs/v3-notes.md N-121。 */
 export interface ThemeSettings {
-  /**
-   * 主题预设名（`themePresets[].name`）。
-   *
-   * 这是「用户选的是哪套预设」的记录；真正生效的 `base`/`primary`/`radius`
-   * 存在 `SConfigProvider` 的主题信封（`__VEAN_THEME`）里，两者由
-   * `src/app.vue` 的 `watchEffect` 单向同步（信封是更完整的那份真值）。
-   */
+  /** 主题预设名（`themePresets[].name`） 详见 docs/v3-notes.md N-122。 */
   presetName: string;
-  /**
-   * 明暗偏好（`light` / `dark` / `auto`）。
-   *
-   * 真值同样在 `SConfigProvider` 的主题信封里（那里还持久化 `size` / `spacing`
-   * 等本 store 不管的维度），本字段是它的镜像，仅用于「复制配置」时带上
-   * 完整的 `theme.*` 命名空间（P2-10）。
-   */
+  /** 明暗偏好（`light` / `dark` / `auto`） 详见 docs/v3-notes.md N-123。 */
   mode: ThemeModePreference;
   /** 布局模式（v2 语义名，6 选 1；经 `mapLayoutMode` 翻译成 `SAppShell` 的 mode） */
   layoutMode: LayoutModeName;
@@ -166,8 +140,7 @@ function defaultThemeSettings(): ThemeSettings {
 }
 
 /**
- * 从 localStorage 恢复：`watermark` 是唯一嵌套对象，旧数据缺该键时
- * 浅合并会留下 `undefined`，所以显式补回默认值。
+ * 从 localStorage 恢复：`watermark` 是唯一嵌套对象，旧数据缺该键时浅合并会留下 `undefined`，所以显式补回默认值。
  */
 function restoreThemeSettings(): ThemeSettings {
   const base = defaultThemeSettings();
@@ -181,21 +154,13 @@ function restoreThemeSettings(): ThemeSettings {
 
 /**
  * 读出持久化的主题设置（首屏种子用）。
- *
- * 导出成独立函数是因为 `src/app.ts` 要在 pinia 安装**之前**算出首屏主题信封
- * （见 `seedPresetState`），那时还拿不到 store 实例，只能调纯函数。
+ * 独立成纯函数：`src/app.ts` 要在 pinia 安装**之前**算出首屏信封，那时拿不到 store 实例。
  */
 export function readStoredThemeSettings(): ThemeSettings {
   return restoreThemeSettings();
 }
 
-/**
- * 主题设置 → `SConfigProvider` 的主题信封状态（首屏种子）。
- *
- * 信封里还有 `size` / `spacing` 等本 store 不管的维度，那部分由
- * `SThemeCustomizer` 编辑后自行持久化，首屏种子只补「预设 + 明暗」这两项，
- * 其余字段缺失时由 provider 走自己的默认值。
- */
+/** 主题设置 → `SConfigProvider` 的主题信封状态（首屏种子） 详见 docs/v3-notes.md N-126。 */
 export function resolvePresetThemeState(settings: ThemeSettings): ThemeSettingsState {
   const found = themePresets.find(item => item.name === settings.presetName) ?? themePresets[0]!;
   const { base, primary, radius } = found;
@@ -203,27 +168,14 @@ export function resolvePresetThemeState(settings: ThemeSettings): ThemeSettingsS
   return { base, primary, radius, mode: settings.mode };
 }
 
-/**
- * 滤镜（P2-10）：灰色 / 色弱写在 `<html>` 的 `style.filter` 上。
- *
- * 两个开关互斥 —— 与色弱同时打开的「灰色」必须显式退出，否则后开的滤镜
- * 永远被先开的那个遮蔽；`grayscale` 优先，只由它自己让位，避免来回抢。
- */
+/** 滤镜（P2-10）：灰色 / 色弱写在 `<html>` 的 `style.filter` 上。 */
 export function resolveFilterStyle(grayscale: boolean, colorWeakness: boolean): string {
   if (grayscale) return GRAYSCALE_FILTER;
   if (colorWeakness) return COLOR_WEAKNESS_FILTER;
   return '';
 }
 
-/**
- * 主题**设置表 + 预设表 + 布局设置**（应用级数据）。
- *
- * - 主题的**运行时状态**（当前 base/primary/radius/mode、明暗切换、持久化、
- *   自定义 preset）由 `@vean/ui` 的 `SConfigProvider` 持有，消费方通过
- *   `useTheme()` 读取与修改 —— 应用层不自建 mode 状态。
- * - 本 store 只管「应用自己的外观/布局开关」：布局几何、动画、水印、滤镜、
- *   显隐，持久化到 localStorage（key `theme-settings`）。
- */
+/** 主题**设置表 + 预设表 + 布局设置**（应用级数据） 详见 docs/v3-notes.md N-128。 */
 export const useThemeStore = defineStore('theme', () => {
   const settings = ref<ThemeSettings>(restoreThemeSettings());
 
@@ -235,12 +187,7 @@ export const useThemeStore = defineStore('theme', () => {
     set: (name: string) => setPreset(name)
   });
 
-  /**
-   * 传给 `SConfigProvider` 的 `theme` prop。
-   *
-   * 不传 `mode` —— 明暗偏好由 provider 内部状态 + `persistTheme` 信封管理，
-   * 避免两处真值。
-   */
+  /** 传给 `SConfigProvider` 的 `theme` prop。不传 `mode` —— 明暗偏好由 provider 内部状态 + `persistTheme` 信封管理，避免两处真值。 */
   const configProviderTheme = computed<ThemeOptions>(() => ({
     base: preset.value.base,
     primary: preset.value.primary,
@@ -248,13 +195,7 @@ export const useThemeStore = defineStore('theme', () => {
     darkSelector: 'class'
   }));
 
-  /**
-   * 当前预设对应的**完整可编辑主题状态**（引擎选项 + 明暗偏好）。
-   *
-   * 两个消费方：`src/app.ts` 启动时 `seedPresetState()` 种信封；主题抽屉
-   * 切预设时 `applyPresetState()` 广播。带上 `mode` 是为了不覆盖用户在
-   * `SThemeModeSegment` 里选的明暗（该值由 `src/app.vue` 从信封单向同步而来）。
-   */
+  /** 当前预设对应的**完整可编辑主题状态**（引擎选项 + 明暗偏好） 详见 docs/v3-notes.md N-130。 */
   const presetThemeState = computed<ThemeSettingsState>(() => ({
     base: preset.value.base,
     primary: preset.value.primary,

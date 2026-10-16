@@ -3,12 +3,7 @@ import { validate } from '@/shared/validate';
 import { authService } from '@/services/auth.service';
 import { loginResultSchema, registerSchema } from '@/schema/auth';
 
-/**
- * `POST /api/auth/register` —— 用户注册（公开）。
- *
- * 注册成功直接返回 token 对（unify 范式：注册即登录）。
- * 用户名重复抛 USERNAME_EXISTS。
- */
+/** `POST /api/auth/register` —— 用户注册（公开） 详见 docs/v3-notes.md N-090。 */
 export const POST = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({

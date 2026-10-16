@@ -9,22 +9,7 @@ import postgres from 'postgres';
 import { serverEnv } from '@/env.server';
 import * as schema from './schema';
 
-/**
- * 数据库接线（v3 §6.2，P1-02）。
- *
- * ubean 的 `Database` 面是裸 `{ sql, exec, close }`；框架对 connector 的处理是：
- * 全局 `$db0Create` 未注册时**静默回落内存库**，因此必须在任何 defineDatabase
- * 调用前 `registerDb0Create` 显式接线：
- * - dev（默认）：SQLite 文件库（better-sqlite3，`?` 定位参数，同步驱动包一层 Promise）；
- * - prod：PostgreSQL（postgres-js，`$1` 定位参数）。
- *
- * 连接目标由 `DATABASE_URL` 决定：`file:` 前缀 → SQLite，其余 → Postgres；
- * 未设置时回落 `<cwd>/.data/dev.sqlite3`。
- *
- * 类型化查询走 `appDb`（drizzle 实例，复用同一条底层连接，不额外建池）：
- * - SQLite：drizzle-orm/better-sqlite3（同步 API，与 ubean Database 的 Promise 包装共存）；
- * - Postgres：drizzle-orm/postgres-js。
- */
+/** `$db0Create` 未注册时 `defineDatabase` 静默回落内存库，必须在使用前调 `registerDb0Create` 接线。详见 docs/v3-notes.md N-225。 */
 
 type RawSqlFn = <T = Record<string, unknown>>(
   strings: TemplateStringsArray,
@@ -171,17 +156,7 @@ export const appDatabase = defineDatabase({
 
 export const isSqliteMode = isSqlite;
 
-/**
- * 应用 drizzle 实例（类型化查询用）。
- *
- * 与 appDatabase 各自持有连接（ubean 不暴露内部连接，无法复用同一句柄）：
- * SQLite 是进程内文件库，两条连接共用 WAL 无冲突；Postgres 多一条池连接，可接受。
- * 服务层统一用 appDb；ubean 的 useDatabase()/appDatabase 仅框架侧（迁移账本等）使用。
- *
- * 实现说明：SQLite 与 Postgres 的 drizzle builder 类型不兼容（union 会让链式方法坍塌为
- * never/不可调用），而 v3 首版运行时以 SQLite 为准（生产接入 PG 时再为 appDb 建独立
- * 类型入口），这里用受控断言把实例收敛为 BetterSQLite3Database 形状。
- */
+/** 与 appDatabase 各自持有连接（ubean 不暴露内部连接，无法复用同一句柄）： 详见 docs/v3-notes.md N-226。 */
 export const appDb = createAppDb();
 
 function createAppDb(): BetterSQLite3Database<typeof schema> {

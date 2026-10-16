@@ -20,15 +20,7 @@ import {
 import type { GenericSchema, InferOutput } from 'valibot';
 import { API_METHODS, MENU_TYPES } from '@/db/schema/shared';
 
-/**
- * 服务端 Valibot DTO 的公共片段（v3 §6.1）。
- *
- * 服务端校验用 Valibot（与前端校验、hono-openapi resolver 同栈）；
- * 13 表的 `enabled` 用 `'Y' | 'N' | 'D'` 软删约定（v3 §6.1 数据模型约定，P1-08）。
- *
- * 约定：值域常量与可复用 schema 都带 OpenAPI `description`，供
- * `@valibot/to-json-schema` 生成 `.ubean/openapi.d.ts` 的字段说明。
- */
+/** 服务端 Valibot DTO 的公共片段（v3 §6.1） 详见 docs/v3-notes.md N-199。 */
 
 /** 复用 drizzle 侧值域（单一来源：`src/db/schema/shared.ts`） */
 export { API_METHODS, MENU_TYPES } from '@/db/schema/shared';
@@ -109,12 +101,7 @@ export const batchDeleteSchema = object({
 /*                              响应体 schema 片段                             */
 /* -------------------------------------------------------------------------- */
 
-/**
- * 成功响应的 `data` 恒为 `null`（登出 / 删除 / 批量删除 / 分配关系等无返回值的端点）。
- *
- * 统一响应契约 `{ code, message, data }` 由 `src/middleware/02.response.ts` 包装，
- * 路由只声明业务 `data`，故这里描述的就是「无业务数据」。
- */
+/** 成功响应的 `data` 恒为 `null`（登出 / 删除 / 批量删除 / 分配关系等无返回值的端点）。 */
 export const nullDataSchema = pipe(null_(), description('无业务数据，固定为 null'));
 
 /** 审计四字段（所有业务表共有；行 / 详情 schema 展开复用） */
@@ -131,8 +118,7 @@ export function rowText(label: string) {
 }
 
 /**
- * 分页响应包装（`{ total, current, size, list }`，与前端 `src/shared/table.ts` 的
- * `PageResult<Item>` 同形状）。
+ * 分页响应包装（`{ total, current, size, list }`，与前端 `src/shared/table.ts` 的`PageResult<Item>` 同形状）。
  */
 export function pagedSchema<TItem extends GenericSchema>(item: TItem) {
   return object({

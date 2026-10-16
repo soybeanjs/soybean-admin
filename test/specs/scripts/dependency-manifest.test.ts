@@ -10,15 +10,7 @@ import {
 } from '../../../scripts/dependency-manifest';
 import type { CatalogTables, DependencyInfo } from '../../../scripts/dependency-manifest';
 
-/**
- * 构建期依赖清单（about 页数据源）的契约。
- *
- * 重点防四类回归：
- * 1. `catalog:` 协议没被解析 —— 页面出现字面量 `catalog:`，看不出真实版本；
- * 2. 清单漏项 —— `package.json` 加了依赖但页面没显示；
- * 3. 结构收窄函数对畸形 YAML / JSON 抛错 —— 应当降级而不是让构建挂掉；
- * 4. 统计数字与条目数脱节。
- */
+/** 重点防四类回归： 详见 docs/v3-notes.md N-424。 */
 
 const manifest = buildDependencyManifest();
 

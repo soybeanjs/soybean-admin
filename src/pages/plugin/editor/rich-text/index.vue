@@ -4,16 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { SCard } from '@vean/ui';
 import WangEditor from 'wangeditor';
 
-/**
- * 富文本编辑器（wangEditor，P4-01）。
- *
- * 与 v2 的差异：
- * - 主题由 CSS 变量接管：把工具栏与编辑区的背景改成 `inherit`，容器跟着
- *   `@vean/ui` 的 `--vean-card` 走，不用再单独判断明暗；
- * - `z-index` 从 10 提到 `var(--vean-z-toast)` 之下 —— 下拉面板要盖住卡片，
- *   但不能盖住 toast；
- * - v2 没销毁实例 → 这里 `onUnmounted` 调 `destroy()`。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-353。 */
 defineOptions({ name: 'PluginEditorRichText' });
 
 const { t } = useI18n();

@@ -4,12 +4,7 @@ import { useClipboard } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 import { SCard, SInput, SButton, toast } from '@vean/ui';
 
-/**
- * 文本复制演示（P4-01）。
- *
- * 分两块：`useClipboard` 手写流程（能看清"复制了什么、失败为什么"）与
- * `@vean/ui` 的 `SClipboard` 现成按钮（属性里已带复制态与降级处理）。
- */
+/** 文本复制演示（P4-01） 详见 docs/v3-notes.md N-351。 */
 defineOptions({ name: 'PluginCopy' });
 
 const { t } = useI18n();

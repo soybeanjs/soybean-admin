@@ -3,11 +3,7 @@ import { validate } from '@/shared/validate';
 import { authService } from '@/services/auth.service';
 import { loginResultSchema, refreshTokenSchema } from '@/schema/auth';
 
-/**
- * `POST /api/auth/refresh-token` —— 刷新令牌（公开，凭 refreshToken 换新 token 对）。
- *
- * 旧 refreshToken 立即拉黑防重放；黑名单中的 token 抛 REFRESH_TOKEN_BLACKLISTED。
- */
+/** `POST /api/auth/refresh-token` —— 刷新令牌（公开，凭 refreshToken 换新 token 对） 详见 docs/v3-notes.md N-089。 */
 export const POST = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({

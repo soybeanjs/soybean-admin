@@ -3,9 +3,7 @@ import { AppError } from './error';
 
 /**
  * hono 路由匹配辅助（RBAC 中间件用）。
- *
- * `matchedRoutes(ctx)` 拿到的是含 `:param` 的路由模板，需要和实际请求路径做
- * 模板匹配（`:id` 匹配单个非 `/` 段）才能确定命中的是哪条路由。
+ * `matchedRoutes(ctx)` 给的是含 `:param` 的模板，需与实际路径做模板匹配才知道命中哪条路由。
  */
 
 /** 判断 hono 路由模板（如 `/api/user/:id`）是否匹配实际请求路径 */
@@ -20,19 +18,7 @@ export function findHonoRouteByPath(routePath: string, path: string): boolean {
   return regex.test(path);
 }
 
-/**
- * 归一化接口路径为权限码里的 path 段。
- *
- * 权限码范式 `api:${method}:(${path})` 里的 path **不含 `/api/` 前缀**，且用
- * **路由模板**（`[id]`）而非请求路径 —— 两边任何一处不统一，权限码就匹配不上：
- *
- * ```
- * 中间件（请求 /api/user/123）  api:get:(/user/123)   ← 错，永远匹配不到 seed
- * 中间件（路由模板）           api:get:(/user/[id])  ← 对
- * ```
- *
- * 接口管理页录入的 `api.path` 可能带 `/api/` 前缀或写成 `:id`，这里一并归一。
- */
+/** **路由模板**（`[id]`）而非请求路径 —— 两边任何一处不统一，权限码就匹配不上： 详见 docs/v3-notes.md N-169。 */
 export function normalizeApiPermissionPath(path: string): string {
   const stripped = path.replace(/^\/api\//, '');
 
@@ -44,16 +30,7 @@ export function buildApiPermissionCode(method: string, routePath: string): strin
   return `api:${method.toLowerCase()}:(${normalizeApiPermissionPath(routePath)})`;
 }
 
-/**
- * 剥掉**已解析**路径里的 locale 前缀（`/en/about` → `/about`）。
- *
- * 与 `normalizeRoutePath` 的区别：后者剥的是路由**模板**里的参数段
- * （`/:locale(en)?/about`），本函数剥的是实际地址里的具体语言码。两者都需要的
- * 场景是「拿实际路径去比对菜单里存的干净路径」—— 菜单的 `routePath` 一律无
- * locale 前缀（`prefix_except_default` 下默认语言无前缀，其它语言由运行时加上）。
- *
- * 只剥首段且必须整段等于某个 locale（`/en` 会剥，`/english` 不会）。
- */
+/** 剥掉**已解析**路径里的 locale 前缀（`/en/about` → `/about`） 详见 docs/v3-notes.md N-170。 */
 export function stripLocalePrefix(path: string, locales: readonly string[]): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
   const [first, ...rest] = normalized.split('/').filter(Boolean);
@@ -63,20 +40,7 @@ export function stripLocalePrefix(path: string, locales: readonly string[]): str
   return rest.length ? `/${rest.join('/')}` : '/';
 }
 
-/**
- * 剥掉 vue-router 路径里的 locale 参数段（`/:locale(en)?/about` → `/about`）。
- *
- * **为什么需要**：i18n 策略不是 `no_prefix` 时，ubean 把每条页面路由注册在带
- * locale 参数段的 path 上（`prefix_except_default` → `/:locale(en)?/about`）。
- * `router.getRoutes()` 返回的 `route.path` **就是这种模板字符串**，直接拿去
- * `router.push()` 会把字面量 `/:locale(en)?/about` 当成真实地址 → 404。
- *
- * 剥完的路径同时是 locale 无关的：`prefix_except_default` / `prefix_and_default`
- * 策略下服务端与客户端路由都接受无前缀路径（落点语言跟随 locale cookie）。
- *
- * 只剥**首段**且只在它是 `:locale(...)` 形式时剥（不改具名业务参数如 `/user/:id`）。
- * `no_prefix` 策略下 `route.path` 本就没有该段，此函数是恒等变换。
- */
+/** 剥掉 vue-router 路径里的 locale 参数段（`/:locale(en)?/about` → `/about`） 详见 docs/v3-notes.md N-171。 */
 export function normalizeRoutePath(path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
   const stripped = normalized.replace(/^\/:locale(\([^)]*\))?\??/, '');
@@ -86,12 +50,7 @@ export function normalizeRoutePath(path: string): string {
   return stripped === '' ? '/' : stripped;
 }
 
-/**
- * 读取必填路径参数（ubean 文件路由 `[id].ts` → `:id`）。
- *
- * ubean 的 handler 泛型不携带具体路径，`c.req.param()` 返回 `string | undefined`；
- * 统一在这里做存在性守卫（抛 PARAM_MISSING），调用方拿到确定的 string。
- */
+/** 读取必填路径参数（ubean 文件路由 `[id].ts` → `:id`） 详见 docs/v3-notes.md N-172。 */
 export function requireParam(c: Context, key: string): string {
   const value = c.req.param(key);
 

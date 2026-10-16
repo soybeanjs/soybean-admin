@@ -3,8 +3,7 @@ import { parse } from 'valibot';
 import { healthInfoSchema, healthStatusSchema } from '@/schema/system';
 
 /**
- * Phase 0 的样板测试：证明 vitest + valibot + `@/` 别名可用
- * （也是 CI `pnpm test` 闸门的第一条实际用例）。
+ * Phase 0 的样板测试：证明 vitest + valibot + `@/` 别名可用（也是 CI `pnpm test` 闸门的第一条实际用例）。
  */
 describe('system schema', () => {
   it('accepts the three known health statuses', () => {

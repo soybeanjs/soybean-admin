@@ -2,11 +2,7 @@ import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { authService } from '@/services/auth.service';
 import { authUserSchema } from '@/schema/auth';
 
-/**
- * `GET /api/auth/user-info` —— 当前登录用户信息（需登录，无权限码要求）。
- *
- * 用户上下文由鉴权中间件写入；roles 在服务层按用户-角色关联展开。
- */
+/** `GET /api/auth/user-info` —— 当前登录用户信息（需登录，无权限码要求） 详见 docs/v3-notes.md N-092。 */
 export const GET = defineHandler(
   describeRoute({
     tags: ['认证'],

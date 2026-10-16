@@ -7,15 +7,7 @@ import { resetPasswordFormSchema, resetPasswordDefaults } from '@/schema/auth';
 import type { ResetPasswordFormValues } from '@/schema/auth';
 import { useLoginCaptcha, useLoginModuleNavigate } from '../use-login';
 
-/**
- * 重置密码（v3 §4.6 / §5.7 P3-05）。
- *
- * 未登录态页面，凭证用图形验证码（无短信通道，与 v2 `reset-pwd` 语义一致）。
- * 成功后**不**自动登录，回到密码登录模块让用户用新密码登录。
- *
- * 校验走 `resetPasswordFormSchema`（服务端 `resetPasswordSchema` + 确认密码）。
- * `captchaId` 不在表单里填，由拉取结果回写（见下方 `watch`）。
- */
+/** 重置密码（v3 §4.6 / §5.7 P3-05） 详见 docs/v3-notes.md N-297。 */
 defineOptions({ name: 'ResetPwd' });
 
 const { t } = useI18n();

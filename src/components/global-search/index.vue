@@ -10,17 +10,7 @@ import { useAppStore, useMenuStore } from '@/store';
 import { SEARCH_GROUP_ACTION, flattenMenuEntries, groupEntries } from './shared';
 import type { SearchEntry } from './shared';
 
-/**
- * 全局搜索（P2-11）。
- *
- * 数据源是菜单树（不是路由表）：菜单才是用户可见的可跳转集合，权限过滤已在
- * `menuStore.initMenu` 做过。`SCommand` 自带 Fuse 模糊匹配 + roving focus 键盘导航
- * （↑↓ / Enter / Esc），所以这里只做「树 → 条目」和「选中 → 动作」。
- *
- * Ctrl/Cmd+K 唤起；条目 `value` 是路由名，跳转用 `path` —— 与 layout 的菜单选中
- * 同一理由：dynamic 模式运行时注册的路由名不在 `RouteNamedMap` 字面量并集里，
- * `push({ name })` 过不了类型。
- */
+/** 全局搜索（P2-11） 详见 docs/v3-notes.md N-031。 */
 defineOptions({ name: 'GlobalSearch' });
 
 const { t } = useI18n();
@@ -66,12 +56,7 @@ const entryPathMap = computed(() => {
   return map;
 });
 
-/**
- * `SCommand` 的 items：分组打包 + 菜单文案解析。
- *
- * store 里存的是 i18n key（标题单一来源），菜单条目按 `t(i18nKey) || label` 解析
- * —— 与 layout 的菜单项同一语义（分组文案是常量表里的 `label` 字段，不走这里）。
- */
+/** `SCommand` 的 items：分组打包 + 菜单文案解析 详见 docs/v3-notes.md N-032。 */
 const commandItems = computed(() =>
   groupEntries(commandEntries.value).map(group => ({
     ...group,

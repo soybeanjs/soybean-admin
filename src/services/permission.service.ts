@@ -9,21 +9,7 @@ import type { PermissionCreateDTO, PermissionQuery, PermissionUpdateDTO } from '
 import { appDb } from '../db';
 import { api, menu, permission, role, rolePermission, userRole } from '../db/schema';
 
-/**
- * 权限服务（P1-07，unify permission.service 范式）。
- *
- * 权限码约定（P1-06 RBAC）:
- * - API 权限码: `api:${method.toLowerCase()}:(path)`（与中间件生成的权限码一致）
- * - 菜单权限码: `menu:${menuType}:${code}`
- * - 其他: 直接用录入的 code
- *
- * **enabled 过滤（§5.1）**：鉴权链路上的每次查询都必须带 `enabled = 'Y'` 条件，
- * 否则停用的角色/权限点仍然放行 —— 停用只是列表里变灰、鉴权却照旧，是静默的最坏情况。
- *
- * **缓存（§5.2）**：`checkUserHasPermission` 是每个已登录请求的热路径，权限码集合
- * 走 `src/shared/permission-cache.ts` 的 KV 缓存；权限点自身变更（改动 code / 删除）
- * 无法廉价反查受影响用户，直接全清缓存（权限点是低频管理操作）。
- */
+/** 权限服务（P1-07，unify permission.service 范式） 详见 docs/v3-notes.md N-254。 */
 
 export type PermissionRecord = typeof permission.$inferSelect;
 
@@ -205,12 +191,7 @@ export const permissionService = {
       .map(row => row.permission);
   },
 
-  /**
-   * 用户是否拥有某权限码（RBAC 中间件核心查询）。
-   *
-   * 判定完全基于缓存里的**权限码集合**（一次 KV 读），不再每次三查库：
-   * 该用户可见的权限码集合已经过 enabled 过滤，成员判定与旧实现等价。
-   */
+  /** 判定完全基于缓存里的**权限码集合**（一次 KV 读），不再每次三查库： 详见 docs/v3-notes.md N-255。 */
   async checkUserHasPermission(userId: string, code: string): Promise<boolean> {
     const codes = await getCachedPermissionCodes(userId, () => this.queryUserPermissionCodes(userId));
 
@@ -222,11 +203,7 @@ export const permissionService = {
     return getCachedPermissionCodes(userId, () => this.queryUserPermissionCodes(userId));
   },
 
-  /**
-   * 权限码集合回源（同步三查，缓存未命中时调用）。
-   *
-   * 三处 enabled 过滤缺一不可：角色停用、权限点停用、软删（D）都不该再放行。
-   */
+  /** 权限码集合回源（同步三查，缓存未命中时调用） 详见 docs/v3-notes.md N-256。 */
   queryUserPermissionCodes(userId: string): string[] {
     const roleIds = appDb
       .select({ roleId: userRole.roleId })

@@ -13,31 +13,14 @@ import {
 } from 'valibot';
 import type { InferOutput } from 'valibot';
 
-/**
- * user-center（个人中心）表单契约（P3-09）。
- *
- * 与 `src/schema/auth.ts` 的分工：认证域 schema 管「登录 / 注册 / 重置密码」
- * （服务端对应 `src/routes/api/auth/**`）；这里是**登录后**的个人资料与修改
- * 密码，两者共用同一套 valibot 约定（P3-05 的 StandardSchema 复用方式）。
- *
- * 服务端 `PUT /api/auth/profile` 的 DTO 是 `userUpdateSchema` 的子集
- * （`fullName` / `email` / `phone` / `description` / `homePath`，都可空），
- * 所以这里**不新造服务端规则**，只补两件服务端没有的事：
- * 1. 空串与「有值」的形状校验（邮箱 / 手机号格式）—— 服务端只校验类型；
- * 2. 密码一致的跨字段校验（`confirmPassword`，同 `registerFormSchema` 的写法）。
- */
+/** 所以这里**不新造服务端规则**，只补两件服务端没有的事： 详见 docs/v3-notes.md N-218。 */
 
 /** 邮箱：允许空串（用户没填），非空时必须是合法邮箱 */
 export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 /** 手机号：允许空串，非空时允许数字 / 空格 / `+` / `-`，6~20 位 */
 export const PHONE_PATTERN = /^[\d\s+-]{6,20}$/;
 
-/**
- * 服务端可空文本字段：`null` 或空串都视为「清空」，非空时跑格式校验。
- *
- * 服务端收到的是 `null`（`toUpdateProfilePayload` 已把空串转成 `null`），
- * 但表单回填/手写请求可能给空串，所以两种都接受 —— 校验规则与表单侧共用一个正则。
- */
+/** 服务端可空文本字段：`null` 或空串都视为「清空」，非空时跑格式校验 详见 docs/v3-notes.md N-219。 */
 const optionalText = (pattern: RegExp, message: string, label: string) =>
   optional(
     nullable(
@@ -61,12 +44,7 @@ const textWithPattern = (pattern: RegExp, message: string, label: string) =>
 /*                              服务端请求 schema                              */
 /* -------------------------------------------------------------------------- */
 
-/**
- * `PUT /api/auth/profile` 的请求体 schema（前后端共用）。
- *
- * 比 `userUpdateSchema` 窄：不含 `password` / `enabled` / `roleIds` —— 个人中心
- * 不允许改自己的状态与角色（那是 manage 页的职责）。
- */
+/** `PUT /api/auth/profile` 的请求体 schema（前后端共用） 详见 docs/v3-notes.md N-220。 */
 export const profileUpdateSchema = object({
   fullName: optional(nullable(pipe(string(), description('姓名')))),
   email: optionalText(EMAIL_PATTERN, '邮箱格式不正确', '邮箱'),
@@ -135,12 +113,7 @@ function toNullable(value: string): string | null {
   return trimmed === '' ? null : trimmed;
 }
 
-/**
- * 表单值 → 接口载荷。
- *
- * 一律 `trim()` 后转 `null`：表单里「删掉内容」应当清空字段，而不是写入空串
- * —— 空串会污染列表的 `'-'` 占位判断（见 manage 页的字段渲染）。
- */
+/** 表单值 → 接口载荷。一律 `trim()` 后转 `null`：表单里「删掉内容」应当清空字段，而不是写入空串—— 空串会污染列表的 `'-'` 占位判断（见 manage 页的字段渲染）。 */
 export function toUpdateProfilePayload(values: ProfileFormValues): UpdateProfilePayload {
   return {
     fullName: toNullable(values.fullName),

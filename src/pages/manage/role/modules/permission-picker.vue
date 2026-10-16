@@ -5,15 +5,7 @@ import { SButton, SDialog, SInput, STable, STag } from '@vean/ui';
 import type { TableColumn } from '@vean/ui';
 import type { PermissionResource } from '@/schema/permission';
 
-/**
- * 权限点选择器（P3-03，角色弹窗内嵌）。
- *
- * 权限点动辄上百条，用 `SSelect multiple` 会撑爆下拉；这里改成子弹窗里的
- * 「关键词过滤 + 表格多选」，草稿态与确认态分离 —— 关闭弹窗不改动外部选中集。
- *
- * 选中集用 `string[]`（id）而不是 `Set`：`STable` 的 `v-model:selected` 契约
- * 就是 key 数组，来回转换只会引入不一致。
- */
+/** 权限点选择器（P3-03，角色弹窗内嵌） 详见 docs/v3-notes.md N-328。 */
 defineOptions({ name: 'PermissionPicker' });
 
 const props = defineProps<{

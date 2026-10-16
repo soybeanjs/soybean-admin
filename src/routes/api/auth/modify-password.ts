@@ -4,11 +4,7 @@ import { userService } from '@/services/user.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { modifyPasswordSchema } from '@/schema/user';
 
-/**
- * `POST /api/auth/modify-password` —— 当前用户修改密码（需登录）。
- *
- * 校验 currentPassword 后更新；成功后旧 token 不强制失效（客户端自行重新登录）。
- */
+/** `POST /api/auth/modify-password` —— 当前用户修改密码（需登录） 详见 docs/v3-notes.md N-087。 */
 export const POST = defineHandler(
   describeRoute({
     tags: ['认证'],

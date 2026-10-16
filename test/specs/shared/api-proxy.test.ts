@@ -8,13 +8,7 @@ import {
   resolveProxyKey
 } from '@/shared/api-proxy';
 
-/**
- * P2-18：多 baseURL 代理配置的守卫。
- *
- * 这个模块同时被 `ubean.config.ts`（Node 配置加载）、客户端请求层、集成测试
- * 引用，是最容易「一处手滑、全局 404」的地方 —— 非法配置必须被丢弃而不是
- * 生成一条把请求打进死循环的规则。
- */
+/** P2-18：多 baseURL 代理配置的守卫。这个模块同时被 `ubean.config.ts`（Node 配置加载）、客户端请求层、集成测试引用，是最容易「一处手滑、全局 404」的地方 ——。 */
 
 describe('代理 key 解析', () => {
   it('解析 key=origin 列表并去掉尾斜杠、规整为 origin', () => {

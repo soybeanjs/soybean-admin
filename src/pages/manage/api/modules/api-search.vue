@@ -7,12 +7,7 @@ import ManageSearch from '@/components/manage-search/index.vue';
 import { apiSearchFormSchema } from '@/schema/api';
 import type { ApiSearchFormDTO } from '@/schema/api';
 
-/**
- * 接口搜索卡（P3-03）。
- *
- * `useForm` 在这里调用（`SFormField` 靠它的 `provide` 解析字段类型），
- * 提交/重置后把值交给父级页面去合并进表格 query。
- */
+/** 接口搜索卡（P3-03） 详见 docs/v3-notes.md N-318。 */
 defineOptions({ name: 'ApiSearch' });
 
 const props = defineProps<{

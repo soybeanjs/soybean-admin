@@ -2,18 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { fromSelectValue, toSelectValue } from '@/composables/use-manage-options';
 import { SEARCH_ANY_SELECT_VALUE, SEARCH_ANY_VALUE } from '@/schema/_search';
 
-/**
- * 「全部」哨兵值的边界转换。
- *
- * 背景：`@vean/aria` 把**空串**保留给「未选择」语义（`shouldShowPlaceholder`
- * 判定 `isNullish(v) || v === '' || []`，且 `SelectItem` 在 `setup` 里对
- * `value === ''` 直接抛错）。搜索表单的数据层却一直以空串表示「全部」，两者
- * 冲突。折中办法是渲染层换一个非空哨兵值，只在提交边界转换 ——
- * 转换一旦错位，要么控制台满屏报错（空串漏进 `SSelect`），要么请求带上
- * `enabled=` 这类空参数（哨兵值漏进 query）。
- *
- * 这两个函数是唯一的转换点，因此必须双向可逆，且对真实值零影响。
- */
+/** 「全部」哨兵值的边界转换 详见 docs/v3-notes.md N-411。 */
 describe('搜索「全部」哨兵值的边界转换', () => {
   it('空串与哨兵值双向互转', () => {
     expect(toSelectValue(SEARCH_ANY_VALUE)).toBe(SEARCH_ANY_SELECT_VALUE);

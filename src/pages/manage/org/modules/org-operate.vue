@@ -7,11 +7,7 @@ import { api } from '@/request';
 import { orgFormSchema, emptyOrgForm, toOrgForm } from '@/schema/org';
 import type { OrgFormDTO, OrgCreateDTO, OrgUpdateDTO } from '@/schema/org';
 
-/**
- * 组织新增 / 编辑弹窗（P3-03）。
- *
- * 父级选择器排除自身，避免自环（后端 `org.service` 也会拦，但前端先挡掉更直观）。
- */
+/** 组织新增 / 编辑弹窗（P3-03）。父级选择器排除自身，避免自环（后端 `org.service` 也会拦，但前端先挡掉更直观）。 */
 defineOptions({ name: 'OrgOperate' });
 
 const props = defineProps<{

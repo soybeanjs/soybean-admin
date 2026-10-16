@@ -4,19 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SCard } from '@vean/ui';
 import { api } from '@/request';
 
-/**
- * 请求演示（P3-06，v3 §4.6：对接真实错误码端点 `POST /api/auth/error`）。
- *
- * 演示的是**请求层的错误分派**，不是页面自己的 try/catch：
- * `src/request/factory.ts` 的 `onBackendFail` 按业务码分流 ——
- * - 普通失败 → `toast.error`（3s 内相同文案去重）
- * - 登出码（8888）→ 清会话 + 静默 toast
- * - 弹窗登出码（7777）→ 清会话 + `dialog.warning`
- * - 过期码（9999）→ 单飞刷新令牌后**重放原请求**（重放仍失败才提示）
- *
- * 所以这里的按钮**故意不 catch**，只负责发请求；错误可见性全部来自请求层。
- * 若把调用包进 `try/catch` 会吞掉请求层的 toast，演示就假了。
- */
+/** 演示的是**请求层的错误分派**，不是页面自己的 try/catch： 详见 docs/v3-notes.md N-310。 */
 defineOptions({ name: 'FunctionRequest' });
 
 const { t } = useI18n();

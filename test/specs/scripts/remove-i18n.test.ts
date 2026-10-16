@@ -19,14 +19,7 @@ import {
   unwrapLabelCalls
 } from '../../../scripts/remove-i18n';
 
-/**
- * `remove-i18n` 裁剪脚本的守卫。
- *
- * 脚本是**一次性大范围改写**（13 个文件 + 删 4 个路径），改坏了 `pnpm typecheck`
- * 才报错 —— 而那时工作区已经脏了。这里把纯函数与「计划」钉死：dry-run 的输出
- * 必须等于 `--write` 的结果（两者共用 `planRemoveI18n`），且在本仓库上跑
- * 必须 0 残留、0 待确认。
- */
+/** 必须等于 `--write` 的结果（两者共用 `planRemoveI18n`），且在本仓库上跑，必须 0 残留、0 待确认 详见 docs/v3-notes.md N-425。 */
 
 /** 仓库根：`REPO_ROOT` 依赖调用目录，测试与脚本都必须锚到仓库根 */
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
@@ -186,7 +179,7 @@ describe('remove-i18n：本仓库计划（dry-run 不落盘）', () => {
       'src/app.ts',
       'src/app.vue',
       'src/layouts/default.vue',
-      'src/pages/(builtin)/login.vue'
+      'src/pages/(builtin)/login/index.vue'
     ]) {
       expect(plan.files.has(file), file).toBe(true);
     }

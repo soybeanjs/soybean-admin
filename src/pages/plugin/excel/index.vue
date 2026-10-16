@@ -7,17 +7,7 @@ import { utils, writeFile } from 'xlsx';
 import { api } from '@/request';
 import type { UserRowOutput } from '@/schema/user';
 
-/**
- * Excel 导出演示（P4-01）。
- *
- * 与 v2 的差异：
- * - 数据来自**真实接口**（`/api/user/list`，一次取 100 条 —— 服务端 `size` 上限 100），
- *   不是假数组 ——
- *   导出的表格就是用户管理页看到的东西；
- * - xlsx 的 `aoa_to_sheet` 需要纯文本二维数组，枚举值（启用状态）先经 i18n
- *   转成可读文案再写入，否则导出的是 `Y` / `N`；
- * - `!cols` 宽度按各列字符数估算，不写死像素。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-354。 */
 defineOptions({ name: 'PluginExcel' });
 
 const { t } = useI18n();

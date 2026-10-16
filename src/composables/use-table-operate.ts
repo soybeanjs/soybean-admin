@@ -3,18 +3,7 @@ import type { Ref, ShallowRef } from 'vue';
 import { refDebounced } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 import { toast } from '@vean/ui';
-/**
- * 表格 operate 弹窗 / 搜索 / 刷新范式（v3 §5.7，P3-02）。
- *
- * 从 `soybean-unify/apps/admin/src/composables/table.ts` 重写而来，差异：
- * - 深度克隆用内建 `structuredClone`，不引入 `klona`（本仓无该依赖）；
- * - `t()` 只能在 setup 上下文用 → 走 `useI18n()`，不再有 unify 的
- *   模块级 `I18N_FLAG` 开关；
- * - 查询默认值类型放宽为 `Record<string, unknown>` 的普通对象。
- *
- * 与 `usePaginatedTable`（`@vean/ui`）的分工：后者管**数据与分页**，
- * 这里管**交互**（新增/编辑弹窗开关、批量选中、搜索/重置/刷新）。
- */
+/** 从 `soybean-unify/apps/admin/src/composables/table.ts` 重写而来，差异： 详见 docs/v3-notes.md N-268。 */
 
 /** 查询对象约束：`page`/`pageSize` 由 `watchEffect` 自动同步，业务字段随意 */
 export type TableQuery = {
@@ -23,12 +12,7 @@ export type TableQuery = {
   [key: string]: unknown;
 };
 
-/**
- * 管理页（8 套 CRUD 列表页）的查询状态：分页字段 + 排序 + 各页自己的搜索字段。
- *
- * 用 type 别名而非 `interface ... extends TableQuery`：`useTableOperate<T extends
- * TableQuery>` 要求索引签名，interface 不会从父接口继承它。
- */
+/** 管理页（8 套 CRUD 列表页）的查询状态：分页字段 + 排序 + 各页自己的搜索字段 详见 docs/v3-notes.md N-269。 */
 export type ManagePageQuery = TableQuery & {
   /** 排序（如 `-createdTime`），各页自行决定是否下发 */
   sort?: string;
@@ -62,10 +46,7 @@ export interface TableOperateMessages {
   batchDeleted?: string;
 }
 
-/**
- * 克隆查询默认值。用内建 `structuredClone`（Node 17+ / 全部现代浏览器）；
- * `toRaw` 先脱掉 reactive 代理，否则克隆出来的是 Proxy（会随 search 表单漂移）。
- */
+/** 克隆查询默认值。 */
 function cloneQuery<T extends TableQuery>(query: T): T {
   return structuredClone(toRaw(query));
 }
@@ -82,8 +63,7 @@ export function useTableOperate<T extends TableQuery, I extends TableIdType = 's
   /** 表格多选选中的 id */
   const selected = ref<TableId<I>[]>([]);
   /**
-   * 刷新按钮的 loading：请求期间**立即**跟手（0ms），结束后再拖 500ms ——
-   * 否则快速的本地查询会让按钮闪一下，看起来像"没点到"。
+   * 刷新按钮的 loading：请求期间**立即**跟手（0ms），结束后再拖 500ms ——否则快速的本地查询会让按钮闪一下，看起来像"没点到"。
    */
   const refreshLoading = refDebounced(
     loading,

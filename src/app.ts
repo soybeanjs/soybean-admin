@@ -12,54 +12,13 @@ import { readStoredThemeSettings, resolvePresetThemeState } from '@/store/module
 import { setupRouterGuard } from '@/router';
 import '@/styles/index.css';
 
-/**
- * 注册 Vean 组件内置文案的 locale key（详见 `@/shared/vean-locale`）。
- *
- * 必须在 `SConfigProvider` 解析 locale **之前**执行：Vean 出厂的 key 只有
- * `en` 与 `zh-CN`，且未知 key 会静默回落到 `en` —— 不注册的话，`zh` 下分页、
- * 表格空态、标签页等组件内部文案会全部变英文（不报错）。
- */
+/** 注册 Vean 组件内置文案的 locale key（详见 `@/shared/vean-locale`）。 */
 registerVeanLocales();
 
-/**
- * 写入首屏主题信封（P2-10）。
- *
- * 用户在 `SThemeCustomizer` 里调过配色/圆角时，`__VEAN_THEME` 信封已经是更完整
- * 的那份真值，`seedPresetState` 会自己跳过；只有「首次访问 / 信封被清」时才按
- * 持久化的 `presetName` + `mode` 种一次。这里必须早于 `SConfigProvider` 挂载，
- * 而 `src/app.ts` 的模块顶层正好早于根组件 setup。
- */
+/** 写入首屏主题信封（P2-10） 详见 docs/v3-notes.md N-002。 */
 seedPresetState(resolvePresetThemeState(readStoredThemeSettings()));
 
-/**
- * 应用入口（ubean 约定：`src/app.ts`）。
- *
- * - `plugins`：Pinia 实例。`ubean.config.ts` 的 `pinia: true` 只做 Vite
- *   预构建优化；SSR 状态水合需另配 `serializeState` / `hydrateState`
- *   （Phase 0 `ssr: false`，暂不需要）。
- * - `router.setup`：注册全局守卫（进度条 + 标题），并顺带把 router 实例
- *   交给 `initAuthStore`（请求层登出回调需要它跳登录页）—— 这是框架唯一把
- *   实例交到应用手里的时机。
- * - 应用根组件走 `src/app.vue` 文件约定（`appRoot` 优先级：
- *   `defineApp({ appRoot })` > `src/app.vue` > `src/App.vue`），
- *   出口是该组件的默认插槽 —— **不要**在这里渲染 `<PageView />`。
- *
- * ## 两个样式导入为什么都是显式的
- *
- * `import 'uno.css'` —— UnoCSS 原子类**必须**在客户端入口显式引入；
- * ubean 不注入它。漏掉会「dev 看着正常、build 产物 CSS 只剩几行」。
- *
- * `import '@vean/ui/styles.css'` —— 组件库的预构建样式（含 `bg-popover` /
- * `z-base` / `data-vean-*` 等内部规则，~198 kB）。`ubean.config.ts` 的
- * `ui: true` 本意是通过 module registry 注入它，但该注入**只在 dev 生效**：
- * `ubean dev` 在 `resolveModules()`（注册 `registerCssImport`）之后才解析虚拟
- * 入口，而构建路径 `prepareBuild()` 先在 `generateVirtualModulesToDisk()`
- * 里把 `client-entry.mjs` **写盘**、再调 `resolveModules()` —— 落盘的入口里
- * 因此没有这条 css import（实测 `ubean build` 与 `vp build` 同病：去掉显式
- * import 后产物 CSS 从 205.8 kB 掉到 4.2 kB，组件样式全丢）。
- * 显式 import 与 registry 注入解析到同一个模块说明符，Vite 会去重，
- * 两条路径同时存在不会重复。
- */
+/** - 应用根组件走 `src/app.vue` 文件约定（`appRoot` 优先级：） 详见 docs/v3-notes.md N-003。 */
 export default defineApp({
   head: {
     title: APP_TITLE,

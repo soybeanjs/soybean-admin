@@ -14,25 +14,12 @@ import type { UserRowOutput, UserSearchFormDTO } from '@/schema/user';
 import UserOperate from './modules/user-operate.vue';
 import UserSearch from './modules/user-search.vue';
 
-/**
- * 用户管理页（P3-03）。
- *
- * 与 `src/pages/manage/api/index.vue` 同范式，差异：
- * - 搜索条件有 5 个字段（`UserSearchFormDTO`）；
- * - `roles` 列只有 `{id}`（`userService.getUserList` 的输出），需要一份
- *   `GET /api/role/all` 的 id → 名称映射才能显示；
- * - 编辑时把行上的 `roles` 一并传给弹窗（详情接口不返回角色关联）。
- */
+/** 与 `src/pages/manage/api/index.vue` 同范式，差异： 详见 docs/v3-notes.md N-330。 */
 defineOptions({ name: 'ManageUser' });
 
 const { t } = useI18n();
 
-/**
- * 表格查询状态：分页字段（`ManagePageQuery`）+ 搜索字段（`UserSearchFormDTO`）。
- *
- * 交叉而非用服务层的 `UserQuery`：搜索表单的 `enabled` 允许空串（= 全部），
- * 服务层 DTO 只收 `'Y' | 'N' | 'D'`；`filterValidQuery` 会在提交前把空串剔掉。
- */
+/** 表格查询状态：分页字段（`ManagePageQuery`）+ 搜索字段（`UserSearchFormDTO`） 详见 docs/v3-notes.md N-331。 */
 type UserTableQuery = ManagePageQuery & UserSearchFormDTO;
 
 const query = ref<UserTableQuery>({

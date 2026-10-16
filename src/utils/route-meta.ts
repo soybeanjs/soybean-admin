@@ -1,14 +1,7 @@
 import type { RouteMeta } from 'vue-router';
 import type { AppRouteMeta } from '@/typings/app';
 
-/**
- * `RouteMeta`（继承 `Record<PropertyKey, unknown>`，取值是 unknown）→
- * `AppRouteMeta` 的单一受信边界：逐字段运行时收窄，无 as 断言。
- *
- * vue-router 的 RouteMeta 带全量 unknown 索引签名，整对象直接赋给
- * AppRouteMeta 在结构上不可赋值（unknown ↛ string|undefined），字段访问
- * 却又拿不到具体类型 —— 用本函数一次收窄，全仓只此一处。
- */
+/** `RouteMeta`（继承 `Record<PropertyKey, unknown>`，取值是 unknown）→ 详见 docs/v3-notes.md N-288。 */
 export function toAppRouteMeta(meta: RouteMeta): AppRouteMeta {
   return {
     pageName: typeof meta.pageName === 'string' ? meta.pageName : undefined,

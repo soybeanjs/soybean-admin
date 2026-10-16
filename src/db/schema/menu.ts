@@ -4,10 +4,7 @@ import { DEFAULT_ORDER } from '@/constants/db';
 import { auditColumns, baseColumns, MENU_TYPES } from './shared';
 import type { MenuType } from './shared';
 
-/**
- * 菜单表（unify menu 移植，最宽的业务表）。
- * 路由菜单（menu/page）与按钮/权限点（button）共用一张表，parentId 组成树。
- */
+/** 菜单表（unify menu 移植，最宽的业务表） 详见 docs/v3-notes.md N-229。 */
 export const menu = sqliteTable(
   'menu',
   {

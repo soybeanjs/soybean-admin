@@ -1,9 +1,4 @@
-/**
- * 主题 / 布局的可选项常量（P2-10 ~ P2-15）。
- *
- * `label` 一律是 **i18n key**（不是文案字面量）：这些表要进主题抽屉，
- * 切语言时必须由 `t()` 解析。真正的文案只在 `src/locales/{zh,en}.json`。
- */
+/** 主题 / 布局的可选项常量（P2-10 ~ P2-15） 详见 docs/v3-notes.md N-283。 */
 
 /** 页面切换动画模式（7 种，对齐 v2 `themePageAnimationModeRecord`） */
 export const PAGE_ANIMATION_MODES = [
@@ -33,13 +28,7 @@ export const SCROLL_MODES = [
   { value: 'content', label: 'theme.scroll.content' }
 ] as const;
 
-/**
- * 水印时间格式（7 种，对齐 v2 `watermarkTimeFormatOptions`）。
- *
- * `value` 直接就是 `@vueuse/core` `useDateFormat` 的 format 串（内部走 dayjs
- * token），所以 label 与 value 同字面量 —— 这是「格式串本身即展示」的场景，
- * 不进 i18n。
- */
+/** 水印时间格式（7 种，对齐 v2 `watermarkTimeFormatOptions`） 详见 docs/v3-notes.md N-284。 */
 export const WATERMARK_TIME_FORMATS = [
   'YYYY-MM-DD HH:mm',
   'YYYY-MM-DD HH:mm:ss',

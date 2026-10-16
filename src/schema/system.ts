@@ -1,12 +1,7 @@
 import { description, number, object, picklist, pipe, string } from 'valibot';
 import type { InferOutput } from 'valibot';
 
-/**
- * 系统域 DTO（v3 §6.3）。
- *
- * `src/schema/` 是前后端**唯一契约源**：Valibot schema 即运行时校验器，
- * 推导类型即 DTO。前后端同进程，直接相对路径 import，不做构建、不独立发包。
- */
+/** 系统域 DTO（v3 §6.3） 详见 docs/v3-notes.md N-222。 */
 
 /** 服务健康状态 */
 export const healthStatusSchema = picklist(['ok', 'degraded', 'down'], '服务状态');

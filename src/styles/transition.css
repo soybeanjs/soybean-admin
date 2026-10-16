@@ -1,45 +1,4 @@
-/**
- * 页面切换动画（P2-15）。
- *
- * 名称与 `src/constants/theme.ts` 的 `PAGE_ANIMATION_MODES` 一一对应：ubean 的
- * `<PageView :transition="name" />` 内部就是一个 Vue `<Transition>`，class 前缀
- * 即该 name，所以必须写成 `<name>-enter-*` / `<name>-leave-*`。
- * `none` 模式没有对应类 —— 动画靠 `transition: false` 关闭，不靠 CSS。
- *
- * ## 为什么离场页要 `position: absolute`
- *
- * `PageView` 用的是**交叉淡出**（同时存在两份页面），而不是 `out-in`：ubean 在
- * `mode="out-in"` 时会把两份页面同时渲染再主动降级，并打一条警告 ——
- * `[PageView] mode="out-in" is degraded to "default": vue@3.5.41 out-in + KeepAlive
- * trips emptyPlaceholder bugs`。所以传 `out-in` 只是多一条控制台噪音，行为不变。
- *
- * 两份页面若都在文档流里，旧页会把新页顶到下方 —— 实测新页
- * `getBoundingClientRect().top` 是 1042（旧页高 926，把新页顶到了下一屏），于是
- * 视口里看到的是旧页左滑淡出、新页整块从下方升起，也就是「从底下往上顶」。
- *
- * 把**离场页**提出文档流、并钉在容器左上角，两份页面就完全重叠。钉左上角而不是
- * 居中，是因为进场的位移量固定在左边（`fade-slide` 是 `translateX(-30px)` → 0），
- * 从中心缩放会让它从右边滑入，与设计相左。
- *
- * 只提离场页（`*-leave-active`）而不动进场页：进场页留在文档流里，容器高度由它
- * 撑开，内容区不会在动画期间塌陷。同时给容器补 `relative`（在
- * `src/layouts/default.vue` 的 `<PageView>` 外层）作为定位基准 —— 否则离场页会
- * 以更外层的 `relative`（内容区，带 `p-4` 与 `overflow-y-auto`）为基准，多出一份
- * 内边距、并且滚动容器内 `absolute` 的定位会跟着内容滚。
- *
- * ## 为什么离场和进场要错开
- *
- * 重叠之后暴露出第二个问题：两份页面在整段时间里**同时可见**，中间几帧各占一半
- * 不透明度，于是旧页的内容（实测工作台的图表）从新页底下透出来，糊成一片。
- *
- * 解法是让进场**等离场走完再开始** —— 给 `*-enter-active` 的 transition 加一个
- * 等于离场时长的 `delay`。这正是 `out-in` 本来的时序（先出后进），只不过是用
- * 交叉淡出的机制手工排出来的。离场时长取各模式原时长的一半，所以一轮总时长约
- * 是原时长的 1.5 倍。
- *
- * 实测（`fade-slide`，逐帧读两份页面的 opacity）：离场 1 → 0 期间进场恒为 0，
- * 离场结束后进场才开始 0 → 1，不再有交叠帧。
- */
+/** 页面切换动画（P2-15） 详见 docs/v3-notes.md N-071。 */
 
 /* 离场页脱离文档流并钉在容器左上角（容器见 `src/layouts/default.vue` 的
    `<PageView>` 外层 `div.relative`），两份页面因此完全重叠 —— 否则旧页会把新页

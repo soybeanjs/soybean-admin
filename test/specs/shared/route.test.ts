@@ -6,14 +6,7 @@ import {
   stripLocalePrefix
 } from '@/shared/route';
 
-/**
- * `normalizeRoutePath` 守卫（P3-11）。
- *
- * 回归背景：i18n 策略为 `prefix_except_default` 时，ubean 把每条页面路由
- * 注册在 `/:locale(en)?/about` 这样的 path 上；菜单树从 `router.getRoutes()`
- * 取 path 后原样 `router.push()`，会跳到字面量 `/:locale(en)?/about` → 404
- * （「点击菜单关于」的真实 bug）。
- */
+/** `normalizeRoutePath` 守卫（P3-11） 详见 docs/v3-notes.md N-434。 */
 describe('normalizeRoutePath', () => {
   it('剥掉 prefix_except_default 的可选 locale 段', () => {
     expect(normalizeRoutePath('/:locale(en)?/about')).toBe('/about');
@@ -46,14 +39,7 @@ describe('normalizeRoutePath', () => {
   });
 });
 
-/**
- * API 权限码归一化（M-06）。
- *
- * 回归背景：`src/middleware/01.auth.ts` 原先用 `new URL(c.req.url).pathname`
- * 拼权限码，`GET /api/user/123` 产出 `api:get:(/user/123)`，而 seed 登记的是
- * `api:get:(/user/[id])` → 带路径参数的端点 RBAC 全部失效（要么误拒、要么在
- * 该权限被授予他人时误放）。根因是权限码要用**路由模板**而不是具体路径。
- */
+/** API 权限码归一化（M-06） 详见 docs/v3-notes.md N-435。 */
 describe('normalizeApiPermissionPath', () => {
   it('剥掉 /api/ 前缀（权限码里的 path 不含它）', () => {
     expect(normalizeApiPermissionPath('/api/user/list')).toBe('/user/list');
@@ -93,15 +79,7 @@ describe('buildApiPermissionCode', () => {
   });
 });
 
-/**
- * `stripLocalePrefix`（M-08）。
- *
- * 回归背景：dynamic 模式落 `NotFound` 时要反查后端菜单表区分 403/404，
- * 而 `to.path` 是**已解析**的实际地址（`/en/about`），菜单表里存的是无前缀的
- * `/about` → 不剥就永远查不到，403 会退化成 404。
- *
- * 与 `normalizeRoutePath` 分工不同：后者剥路由**模板**里的 `:locale(en)?`。
- */
+/** `stripLocalePrefix`（M-08） 详见 docs/v3-notes.md N-436。 */
 describe('stripLocalePrefix', () => {
   const locales = ['zh', 'en'] as const;
 

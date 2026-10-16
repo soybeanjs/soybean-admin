@@ -1,15 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { expect } from 'vitest';
 
-/**
- * 集成测试共用的 HTTP 客户端（`test/integration/**`）。
- *
- * `test/global-setup.ts` 自起（或复用）dev server 后把实际地址写进
- * `test/baseUrl.txt`，这里读它 —— 因此用例不硬编码 9527，也不管是自起还是复用。
- *
- * 所有端点经响应包装中间件输出统一信封 `{ code, message, data }`（v3 §6.1），
- * 所以 `api()` 直接按信封类型收，`okData()` 断言业务码 `0000` 并取出 `data`。
- */
+/** 集成测试共用的 HTTP 客户端（`test/integration/**`） 详见 docs/v3-notes.md N-408。 */
 
 /** dev server 地址（由 `test/global-setup.ts` 写入，末尾无换行已 trim） */
 export const BASE_URL = readFileSync(new URL('../baseUrl.txt', import.meta.url), 'utf-8').trim();
@@ -17,12 +9,7 @@ export const BASE_URL = readFileSync(new URL('../baseUrl.txt', import.meta.url),
 /** 统一响应信封（v3 §6.1：接口响应固定 `{ code, message, data }`） */
 export type ApiEnvelope<T = unknown> = { code: string; message: string; data: T };
 
-/**
- * 发起一次 API 请求，返回 HTTP 状态码 + 已解析的信封。
- *
- * 注意：**不断言状态码**。后端对业务失败也返回 200 + 非 `0000` 业务码，
- * 只有未认证/路由不存在等才用 HTTP 码，所以断言留给用例自己按需写。
- */
+/** 注意：**不断言状态码**。后端对业务失败也返回 200 + 非 `0000` 业务码， 详见 docs/v3-notes.md N-409。 */
 export async function api<T = unknown>(
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   path: string,

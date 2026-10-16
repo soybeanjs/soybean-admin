@@ -1,23 +1,7 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-/**
- * 请求层两条「隐形能力」的回归（P4-02，v3 §5.9）。
- *
- * ① **错误提示去重**：`notifyError` 按文案 + 3s 窗口去重。这条能力一旦破掉
- *    不会有类型错误、不会有异常，只是页面上多叠几个 toast —— 所以必须有断言。
- *    真实回归案例（P4-02 修）：`@soybeanjs/fetch` 在 `onBackendFail` 返回空后
- *    会 `throw new BackendError(backendErrorMsg)`，那条错误又走 `onError`，
- *    于是**一次业务失败弹两条文案不同的 toast**；文案不同 → 去重键不同 →
- *    连发时永远命不中窗口。修法是 `onError` 里按 `BACKEND_ERROR_FLAG` 跳过。
- *
- * ② **刷新令牌单飞**：模块级 `refreshPromise` 保证并发过期只发一次 refresh。
- *    没有它，10 个并发 401 会打 10 次刷新接口，后 9 次用已被轮换掉的
- *    refreshToken，直接把用户踢下线。
- *
- * 两条都靠模块级状态（`lastErrorMessage` / `refreshPromise`），所以每个用例
- * 都要 `vi.resetModules()` 拿一份全新的模块实例。
- */
+/** 请求层两条「隐形能力」的回归（P4-02，v3 §5.9） 详见 docs/v3-notes.md N-419。 */
 const toastError = vi.fn();
 
 vi.mock('@vean/ui', () => ({ toast: { error: toastError } }));

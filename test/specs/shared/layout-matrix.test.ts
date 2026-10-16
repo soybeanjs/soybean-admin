@@ -11,13 +11,7 @@ import {
 } from '@/shared/layout-matrix';
 import type { LayoutMatrixInput } from '@/shared/layout-matrix';
 
-/**
- * P2-20：布局模式 × 配置项矩阵的守卫。
- *
- * 这里的断言全部来自 Vean 源码事实（`appShellSkeletons`、`app-shell.vue` 模板的
- * 覆盖顺序、`showBreadcrumb` / `showTrigger` 的条件），而不是「跑起来看着对」。
- * 原因：这些组合失效时**不报错**——只是某个开关默默无反应，视觉回归和 CI 全绿。
- */
+/** P2-20：布局模式 × 配置项矩阵的守卫 详见 docs/v3-notes.md N-432。 */
 
 const ALL_MODES = LAYOUT_MODES.map(item => item.value);
 

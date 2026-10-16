@@ -1,9 +1,4 @@
-/**
- * UUID v7 生成器（P1-08：所有表主键为 UUID v7 字符串）。
- *
- * 单调序列保证同一毫秒内不重复且趋势递增（对 SQLite/PG 的 B-tree 插入友好）。
- * 格式：`xxxxxxxx-xxxx-7xxx-8xxx-xxxxxxxxxxxx`（版本 7 + 变体位）。
- */
+/** UUID v7 生成器（P1-08：所有表主键为 UUID v7 字符串） 详见 docs/v3-notes.md N-182。 */
 
 let lastTimestamp = 0;
 let sequence = 0;

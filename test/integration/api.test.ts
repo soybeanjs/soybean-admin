@@ -1,12 +1,4 @@
-/**
- * API 集成测试（P1-10，v3 §6.1/§6.3）。
- *
- * 前置：dev server 就绪（global-setup.ts 自起或复用 9527）。
- * 覆盖：健康检查、认证全链路（login/register/refresh/logout/user-info/modify-password）、
- * 图形验证码与验证码登录、重置密码、微信绑定（mock）、
- * RBAC（super 放行、普通用户按权限码）、8 套 CRUD 生命周期、分页/校验/错误归一。
- * 全部断言业务码 `{ code, message, data }` 结构。
- */
+/** API 集成测试（P1-10，v3 §6.1/§6.3） 详见 docs/v3-notes.md N-402。 */
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { api, okData, BASE_URL } from '../shared/api-client';
 
@@ -608,14 +600,7 @@ describe('RBAC', () => {
 // ---------- 用户 CRUD ----------
 
 describe('RBAC 参数路由权限码（M-06）', () => {
-  /**
-   * 回归背景：中间件原先用具体请求路径拼权限码，`GET /api/user/123` 产出
-   * `api:get:(/user/123)`，与登记的 `api:get:(/user/[id])` 永不相等。
-   *
-   * 这里**不靠 super**（super 在中间件里直接放行、看不到权限码），而是自建
-   * 一个普通用户 + 角色 + 接口 + 权限点，走完整 RBAC 链路：普通用户先被拒
-   * （`4003`），授权后同一请求放行 —— 若权限码仍用具体路径，授权也不会生效。
-   */
+  /** 回归背景：中间件原先用具体请求路径拼权限码，`GET /api/user/123` 产出 详见 docs/v3-notes.md N-403。 */
   it('带路径参数的端点：未授权 4003，按模板码授权后放行', async () => {
     const suffix = `${runId}m6`;
 
@@ -1073,12 +1058,7 @@ describe('dict / dict-item CRUD', () => {
   });
 });
 
-/**
- * 多 baseURL 代理（P2-18）。
- *
- * dev 环境把 `default` 指回本进程（`API_PROXY_TARGETS=default=http://127.0.0.1:9527`），
- * 因此这里能真实验证「routeRules.proxy → 上游 → 原样回传」，不需要外部后端。
- */
+/** 多 baseURL 代理（P2-18）。 */
 describe('代理前缀 /_p/{key}（P2-18）', () => {
   it('已知 key 把 /_p/{key}/api/** 转发到上游，返回同一份信封', async () => {
     const direct = await api<{ status: string; version: string }>('GET', '/api/system/health');

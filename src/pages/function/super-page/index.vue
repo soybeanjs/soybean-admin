@@ -4,14 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { SAlert, SCard, STag } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
 
-/**
- * 超管可见页（P3-06，v3 §4.6）。
- *
- * 路由声明 `meta.roles: ['super']` —— 守卫（`src/router/guard.ts`）用
- * `@/shared/permission` 的 `hasRole` 判定：非 super 访问直接重定向到 403，
- * **正常路径下非超管根本进不到本组件**。所以这里不再做二次拦截，只展示
- * 当前身份与「为什么能看到」的说明。
- */
+/** 超管可见页（P3-06，v3 §4.6） 详见 docs/v3-notes.md N-311。 */
 defineOptions({ name: 'FunctionSuperPage' });
 
 const { t } = useI18n();

@@ -7,12 +7,7 @@ import {
 } from '@/components/global-search/shared';
 import type { MenuTreeNode } from '@/typings/app';
 
-/**
- * P2-11：全局搜索的数据整形守卫。
- *
- * 菜单树是唯一数据源：目录节点（无 `path`）必须被排除、父子顺序必须稳定
- * （分组顺序 = 首次出现顺序），否则搜索结果会出现「点进去 404 的目录项」。
- */
+/** P2-11：全局搜索的数据整形守卫。菜单树是唯一数据源：目录节点（无 `path`）必须被排除、父子顺序必须稳定（分组顺序 = 首次出现顺序），否则搜索结果会出现「点进去 404 的目录项」。 */
 
 const MENU: MenuTreeNode[] = [
   { value: 'dashboard', label: '仪表盘', i18nKey: 'route.dashboard', icon: 'lucide:home', path: '/dashboard' },

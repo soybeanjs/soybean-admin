@@ -19,19 +19,7 @@ const appStore = useAppStore();
 
 const activeTab = ref<ThemeDrawerTab>('appearance');
 
-/**
- * 抽屉容器样式覆盖。
- *
- * - `popup`：SDrawer 侧栏默认 `w-3/4 sm:max-w-sm`（≈384px），这里对齐 v2 的 400px
- *   并保留窄屏 90vw 上限。class 走 tailwind-merge 覆盖，不是叠加。
- * - `content`：面板自身不滚动，滚动条留在抽屉内容层（`SThemeCustomizer` 内部
- *   还要再滚一层，见 appearance-panel 的 `ui.root` 覆盖）。
- *
- * `showConfirm` / `showCancel` 显式关掉：SDrawer 默认渲染一整条确认/取消页脚，
- * 但主题抽屉的改动是**即时生效**的（每个控件直接写 store / provider 信封），
- * 没有「草稿 → 提交」语义，默认的「确认」按钮点了不做事，反而让人以为
- * 还需要保存。各 Tab 的即时生效控件自己就是操作入口。
- */
+/** 抽屉容器样式覆盖 详见 docs/v3-notes.md N-044。 */
 const drawerUi = {
   popup: 'w-[90vw] max-w-[90vw] sm:w-[400px] sm:max-w-[400px]',
   content: 'flex min-h-0 grow flex-col overflow-y-auto p-4'

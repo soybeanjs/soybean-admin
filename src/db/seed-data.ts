@@ -11,14 +11,7 @@ import type { NewPermission } from './schema/permission';
 import type { NewRole } from './schema/role';
 import type { NewUser } from './schema/user';
 
-/**
- * Seed 数据（v3 §6.2：dev 默认库带演示数据）。
- *
- * - 超级管理员 admin / 123456、普通用户 user / 123456（bcrypt 现场生成）；
- * - 菜单树（目录/菜单 + 按钮）+ 权限码 + API 清单 + 字典；
- * - 权限码范式 `api:${method}:(/${path})`，与 RBAC 中间件一致；
- * - 固定主键（U_/R_/M_/P_/A_/D_/DI_ 前缀）保证幂等与关系稳定。
- */
+/** Seed 数据（v3 §6.2：dev 默认库带演示数据） 详见 docs/v3-notes.md N-231。 */
 
 function auditRow() {
   const time = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -61,16 +54,7 @@ export const seedRoles: NewRole[] = [
   { id: ROLE_USER, name: '普通用户', code: 'user', description: '仅可访问公开页面', ...idRow() }
 ];
 
-/**
- * 菜单种子 = 仓库里的菜单源数据（`src/menus/menus.json`），不在这里另写一份。
- *
- * 为什么必须同源（`docs/v3-menu-route-modes.md` §4.2）：菜单有两份就必然漂移。
- * 改造前这里手写着 6 行 `routeName: 'home' / 'system_user'`（legacy elegant-router
- * 的命名）与 `routeComponent: 'layout.base$view.home'`（指向已不存在的 `src/views`），
- * 而真实页面早就叫 `Index` / `ManageUserIndex`（`src/pages/manage/user/index.vue`）
- * —— two sources, guaranteed drift。现在 static 模式读同一份 JSON，seed 读这一份，
- * 漂移在结构上不可能发生。
- */
+/** 菜单种子 = 仓库里的菜单源数据（`src/menus/menus.json`），不在这里另写一份 详见 docs/v3-notes.md N-232。 */
 export const seedMenus: NewMenu[] = staticMenus.map(row => ({
   ...row,
   // 源文件里可省/可为 null 的字段，入库前补成 DB 的 NOT NULL 默认值
@@ -182,16 +166,7 @@ export const seedRolePermissions = [
   { id: 'rp_R_user_P_api_role_user', roleId: ROLE_USER, permissionId: 'P_api_role_user', ...auditRow() }
 ];
 
-/**
- * API 清单（RBAC 权限码的资源来源）。
- *
- * **必须与 `src/routes/api/**` 的真实路由一一对应**（§5.2-5）：路由有了而这里没有，
- * 该端点就没有权限点可授予，只剩 super 角色能访问 —— 「接口裸奔」（authorization.md §4.3）。
- * 修复前的三处漂移：`/auth/token/refresh`（实际 `/auth/refresh-token`）、
- * `/api-resource/list`（实际 `/api/list`），以及 12 个完全没登记的端点。
- *
- * 启动时 `src/server.ts` 会拿真实路由与这张表对账，新增端点忘了登记会打 warning。
- */
+/** API 清单（RBAC 权限码的资源来源） 详见 docs/v3-notes.md N-233。 */
 export const seedApis: NewApi[] = [
   // 认证
   { id: 'A_auth_login', name: '登录', path: '/auth/login', method: 'post', ...idRow() },

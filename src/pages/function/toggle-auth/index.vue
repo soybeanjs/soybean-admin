@@ -4,18 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { SButton, SCard, STag, toast } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
 
-/**
- * 切换权限（P3-06，v3 §4.6）。
- *
- * 演示「角色/按钮权限」在真实账号上的差异：
- * - `admin`（角色 `super`）→ 路由级全通、`buttons` 为全量权限码；
- * - `user`（角色 `user`）→ 无 `system:user:*` 权限码，`function/super-page`
- *   声明了 `meta.roles: ['super']`，切到 user 访问会落 403。
- *
- * 切换账号 = 重新登录 + **整页重载**：`v-auth` 指令只在 `mounted` 判定一次
- * （与 v2 语义一致），动态重建指令不如直接 reload 干净；菜单树也随重载重新
- * 初始化。按钮示例用 `v-auth` 静态字面量数组写法。
- */
+/** 演示「角色/按钮权限」在真实账号上的差异： 详见 docs/v3-notes.md N-313。 */
 defineOptions({ name: 'FunctionToggleAuth' });
 
 const { t } = useI18n();

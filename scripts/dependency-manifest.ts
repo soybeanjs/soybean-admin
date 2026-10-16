@@ -1,18 +1,4 @@
-/**
- * 构建期依赖清单（about 页数据源，P3-08）。
- *
- * 为什么在 **Node 侧** 解析而不是在浏览器里：
- * 版本号的真实值只存在于 `pnpm-workspace.yaml` 的 `catalog` 段，解析它要带一个
- * YAML 解析器（`yaml` 约 30 kB gzip）。把解析搬到构建期，产物里只剩最终表格
- * 数据（`vite.config.ts` 通过 `define` 注入 `__DEPENDENCIES__`），`yaml` 也就
- * 只需要是开发依赖。
- *
- * 数据来源两处：
- * - `package.json` 的 `dependencies` / `devDependencies`（声明范围，多数是 `^x.y.z`）
- * - `pnpm-workspace.yaml` 的 `catalog` / `catalogs`（`catalog:` 协议的落点）
- *
- * 该模块只被 `vite.config.ts`、`vitest.config.ts` 与本目录测试引用，不进客户端图。
- */
+/** 数据来源两处： 详见 docs/v3-notes.md N-387。 */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -51,12 +37,7 @@ export interface DependencyManifest {
   };
 }
 
-/**
- * 从任意值里读一个「字符串 → 字符串」对象字段。
- *
- * 缺失 / 类型不符 / 值非字符串时逐项跳过，永不抛错 —— YAML 与 package.json 都是
- * 外部数据，一处手写错误不该让整条构建流程挂掉。
- */
+/** 从任意值里读一个「字符串 → 字符串」对象字段 详见 docs/v3-notes.md N-388。 */
 export function readStringRecord(source: unknown, key: string): Record<string, string> {
   const result: Record<string, string> = {};
 
@@ -73,11 +54,7 @@ export function readStringRecord(source: unknown, key: string): Record<string, s
   return result;
 }
 
-/**
- * 从任意值里读一个「字符串 → 字符串记录」的两层对象字段（`catalogs.<name>`）。
- *
- * 非对象分支整体跳过（不产出空对象），保持结果只含真实存在的 catalog。
- */
+/** 从任意值里读一个「字符串 → 字符串记录」的两层对象字段（`catalogs.<name>`） 详见 docs/v3-notes.md N-389。 */
 export function readNestedStringRecord(source: unknown, key: string): Record<string, Record<string, string>> {
   const result: Record<string, Record<string, string>> = {};
 
@@ -111,16 +88,7 @@ export interface CatalogTables {
   namedCatalogs: Record<string, Record<string, string>>;
 }
 
-/**
- * 把 `package.json` 里的依赖版本声明解析成展示值。
- *
- * - 裸 `catalog:` → 按**包名**查默认 catalog（pnpm 的裸协议即「这个包在默认
- *   catalog 里的版本」）。
- * - `catalog:<name>` → 查该具名 catalog 里的同名包。
- * - 查不到 → 保留原串（宁可在页面上看到 `catalog:`，也不编造版本号）。
- * - 其余（`^1.2.3` / `npm:xxx@latest` / git 地址）原样显示：它们表达的是声明
- *   范围而非安装结果，改写反而失真。
- */
+/** 把 `package.json` 里的依赖版本声明解析成展示值 详见 docs/v3-notes.md N-390。 */
 export function resolveVersion(name: string, raw: string, tables: CatalogTables): string {
   if (!raw.startsWith('catalog:')) return raw;
 

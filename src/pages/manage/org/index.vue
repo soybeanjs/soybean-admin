@@ -15,12 +15,7 @@ import type { OrgResource, OrgSearchFormDTO } from '@/schema/org';
 import OrgOperate from './modules/org-operate.vue';
 import OrgSearch from './modules/org-search.vue';
 
-/**
- * 组织管理页（P3-03）。
- *
- * `parentId` 列只存 id，需要一份 `GET /api/org/all` 的 id → 名称映射；同一份
- * 列表也传给 `OrgOperate` 做父级候选。
- */
+/** 组织管理页（P3-03）。`parentId` 列只存 id，需要一份 `GET /api/org/all` 的 id → 名称映射；同一份列表也传给 `OrgOperate` 做父级候选。 */
 defineOptions({ name: 'ManageOrg' });
 
 const { t } = useI18n();

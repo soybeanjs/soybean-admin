@@ -1,22 +1,6 @@
 import { useKV } from 'ubean/server';
 
-/**
- * 用户权限码缓存（§5.2 鉴权热路径优化）。
- *
- * **为什么需要**：RBAC 中间件对每个已登录请求都要判定权限码。改造前
- * `checkUserHasPermission` 每次三查（permission → user_role → role_permission），
- * 而 JWT 里不带权限码，等于每个请求都打三遍库。这里把「用户 → 权限码集合」
- * 缓存进 `useKV`（dev 内存 driver，prod 可换 Redis driver），热路径退化为一次
- * KV 读。
- *
- * **失效策略**：写操作显式失效 + TTL 兜底（二者缺一不可）。
- * - 显式失效覆盖正常路径：角色/权限/用户-角色/组织-角色 变更后立刻清对应键；
- * - TTL 是兜底网：漏掉的失效路径最多脏 `PERMISSION_CACHE_TTL` 秒。
- *
- * 本模块**不 import 任何 db / service**（纯 KV 逻辑，loader 由调用方注入），
- * 避免 `shared → services → db` 的反向依赖；反向查用户、失效编排在
- * `permission.service` / `role.service` 里做。
- */
+/** 用户权限码缓存（§5.2 鉴权热路径优化） 详见 docs/v3-notes.md N-160。 */
 
 /** 缓存 TTL（秒）。5 分钟：足够覆盖正常写路径的显式失效，又限制漏失效的脏读窗口 */
 export const PERMISSION_CACHE_TTL = 300;
@@ -36,12 +20,7 @@ export function userPermissionCacheKey(userId: string): string {
   return userId;
 }
 
-/**
- * 读缓存，未命中则 `loader` 回源并写回。
- *
- * `loader` 是同步的（drizzle better-sqlite3 同步 API），回源失败时异常向上抛，
- * 不写半截缓存。
- */
+/** 读缓存，未命中则 `loader` 回源并写回 详见 docs/v3-notes.md N-161。 */
 export async function getCachedPermissionCodes(
   userId: string,
   loader: () => CachedPermissionCodes
@@ -73,12 +52,7 @@ export async function invalidateUserPermissionCacheMany(userIds: readonly string
   await Promise.all(unique.map(userId => invalidateUserPermissionCache(userId)));
 }
 
-/**
- * 清空整个权限码命名空间。
- *
- * 权限点自身变更（改 code / 删除）无法廉价反查到用户集合，直接全清 ——
- * 权限点是低频管理操作，全清比逐个反查更简单也更不容易漏。
- */
+/** 清空整个权限码命名空间 详见 docs/v3-notes.md N-162。 */
 export async function invalidateAllPermissionCache(): Promise<void> {
   await permissionStore().clear();
 }

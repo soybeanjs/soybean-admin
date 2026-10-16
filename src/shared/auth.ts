@@ -4,11 +4,7 @@ import { decode, sign, verify } from 'hono/jwt';
 import { serverEnv } from '@/env.server';
 import type { AuthUserDTO } from '@/schema/auth';
 
-/**
- * 认证工具层（v3 §6.4，unify 自研 JWT 首版）：
- * - 签发/校验用 hono/jwt（HS256），密码哈希用 bcryptjs；
- * - 令牌黑名单走 `useKV`（dev 内存 driver，演进 v3.1+ 换 Redis driver），键 `blacklist:${token}`。
- */
+/** 认证工具层（v3 §6.4，unify 自研 JWT 首版）： 详见 docs/v3-notes.md N-139。 */
 
 /** JWT payload（与 unify 对齐：最小化，只带 id + username；jti 保证同一秒内签发的令牌串不重复，避免黑名单误伤同秒并发登录） */
 export type JwtPayload = Pick<AuthUserDTO, 'id' | 'username'> & {

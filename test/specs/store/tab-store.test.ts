@@ -4,24 +4,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import type { TabRouteLike } from '@/store/modules/tab';
 import type { AppRouteMeta } from '@/typings/app';
 
-/**
- * 页签 store 的持久化与跨用户清理（P4-02，v3 §5.9）。
- *
- * 两条都是「不报错就悄悄坏掉」的能力：
- *
- * ① **持久化**：页签列表写 localStorage，刷新后恢复。P4-02 实测发现
- *    `src/utils/storage.ts` 曾用 `import.meta.client` 当判据（ubean 不注入该
- *    标志，恒 undefined），于是 `isClient()` 恒假 → 页签、token、主题设置全部
- *    刷新即失且不报错。这里的断言就是那条排查结论的固化。
- *
- * ② **跨用户清页签**：登出/换用户必须清空页签，否则新用户会看到上一个用户的
- *    页面痕迹（信息泄露）。走 `authStore.resetStore()` → `tabStore.resetStore()`
- *    这条真实链路，而不是直接调 `tabStore.resetStore()`。
- *
- * `ubean/client` 的缓存 API 是构建期虚拟模块，单测里必须 mock（默认 ESM loader
- * 不支持 `virtual:` 协议，会报 `Only URLs with a scheme in: file, data, and node
- * are supported`）。
- */
+/** 两条都是「不报错就悄悄坏掉」的能力： 详见 docs/v3-notes.md N-443。 */
 vi.mock('ubean/client', () => ({
   reloadPage: vi.fn(),
   excludePageCache: vi.fn(),
@@ -31,11 +14,7 @@ vi.mock('ubean/client', () => ({
 const excludePageCache = vi.fn();
 const includePageCache = vi.fn();
 
-/**
- * 造一个 `TabRouteLike`（store 只读 name / fullPath / meta）。
- *
- * 不需要 `as` 断言：`addTab` 的入参已收敛为最小结构（见 `./index.ts`）。
- */
+/** 造一个 `TabRouteLike`（store 只读 name / fullPath / meta）。 */
 function route(name: string, fullPath: string, meta: AppRouteMeta = {}): TabRouteLike {
   return { name, fullPath, meta };
 }
@@ -121,13 +100,7 @@ describe('页签持久化', () => {
     expect(vi.mocked(mocked.excludePageCache)).toHaveBeenCalledWith('Cached');
   });
 
-  /**
-   * 空白布局的页面不进页签栏。
-   *
-   * 登录页（`definePage({ layout: 'blank' })`）不渲染后台壳，却被 afterEach
-   * 当普通路由加进了页签 —— 实测症状是登录后页签栏 `登录 | 工作台`，点「登录」
-   * 还会被守卫弹回首页。403 / 404 / 500 同理。
-   */
+  /** 空白布局的页面不进页签栏 详见 docs/v3-notes.md N-445。 */
   it('blank 布局的路由不进页签（登录页等不渲染后台壳）', async () => {
     const { useTabStore } = await import('@/store/modules/tab');
     const store = useTabStore();

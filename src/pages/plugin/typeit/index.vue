@@ -7,12 +7,7 @@ import type { Options } from 'typeit';
 import PluginDocLinks from '../modules/plugin-doc-links.vue';
 import type { DocLink } from '../modules/types';
 
-/**
- * 打字机演示（P4-01）。
- *
- * TypeIt 实例持有内部定时器，必须 `destroy()`；v2 版本只 `.go()` 没销毁，
- * 离开页面后循环动画还在跑。这里补上卸载清理。
- */
+/** 打字机演示（P4-01） 详见 docs/v3-notes.md N-372。 */
 defineOptions({ name: 'PluginTypeit' });
 
 const { t } = useI18n();

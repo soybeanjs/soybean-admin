@@ -7,11 +7,7 @@ import type { TableColumnCheck } from '@vean/ui';
 
 defineOptions({ name: 'TableColumnSetting' });
 
-/**
- * 列检查表由 `usePaginatedTable` 的 `columnChecks` 提供，双向绑定。
- * 「列顺序」只对可见列有意义，所以拖动的是 `visibleColumns` 派生视图，
- * 回写时再按对象同一性把重排结果合并回原始数组，避免丢失 `hidden` 列。
- */
+/** 列检查表由 `usePaginatedTable` 的 `columnChecks` 提供，双向绑定。 */
 const columns = defineModel<TableColumnCheck[]>('columns', { required: true });
 
 const { t } = useI18n();

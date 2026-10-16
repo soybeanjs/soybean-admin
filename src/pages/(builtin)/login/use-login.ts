@@ -4,16 +4,7 @@ import { useAuthStore } from '@/store/modules/auth';
 import { api } from '@/request';
 import type { CaptchaResult } from '@/schema/auth';
 
-/**
- * 登录页公共逻辑（v3 §4.6）。
- *
- * 登录页是**单路由多模块**：`/login?module=<模块>` 决定渲染哪个子组件，
- * 与 v2 的视图层结构一致（对应 `src/pages/(builtin)/login/modules/*`） —— 免去为 5 个
- * 页面各建一条路由，回跳（`?redirect=`）与页签语义也更简单。
- *
- * 表单校验（P3-05）在各自模块里由 `useForm` + `src/schema/auth.ts` 的
- * valibot schema 承担，本文件只管路由/回跳/验证码这三件与校验无关的事。
- */
+/** 登录页公共逻辑（v3 §4.6） 详见 docs/v3-notes.md N-298。 */
 
 /** 可用模块（与 `?module=` 取值一一对应；`pwd-login` 为默认模块） */
 export const LOGIN_MODULES = ['pwd-login', 'code-login', 'register', 'reset-pwd', 'bind-wechat'] as const;
@@ -35,13 +26,7 @@ export function resolveLoginModule(value: unknown): LoginModule {
   return isLoginModule(value) ? value : 'pwd-login';
 }
 
-/**
- * 模块切换器：`replace` 而非 `push`（不污染历史），并保留 `?redirect=` 等既有
- * query —— 在注册/重置密码之间来回切换时回跳目标不丢。
- *
- * 做成 composable（而不是收 `router` 参数的裸函数）：调用点全在组件 setup 里，
- * 拿到的函数直接给模板用，`useRouter()` 只在 setup 期求值一次。
- */
+/** 模块切换器：`replace` 而非 `push`（不污染历史），并保留 `?redirect=` 等既有query —— 在注册/重置密码之间来回切换时回跳目标不丢。 */
 export function useLoginModuleNavigate() {
   const router = useRouter();
 
@@ -57,10 +42,7 @@ export function useLoginModuleNavigate() {
   };
 }
 
-/**
- * 回跳目标：`query.redirect`（守卫写入的来源页）优先，其次用户 `homePath`。
- * 只接受站内绝对路径，避免开放重定向。
- */
+/** 回跳目标：`query.redirect`（守卫写入的来源页）优先，其次用户 `homePath`。 */
 export function useLoginRedirect() {
   const route = useRoute();
   const authStore = useAuthStore();
@@ -75,8 +57,7 @@ export function useLoginRedirect() {
 }
 
 /**
- * 图形验证码（验证码登录 / 重置密码共用）：拉取即刷新，`captchaId` 随表单
- * 提交、服务端校验一次即消费 —— 校验失败后必须重新拉取。
+ * 图形验证码（验证码登录 / 重置密码共用）：拉取即刷新，`captchaId` 随表单提交、服务端校验一次即消费 —— 校验失败后必须重新拉取。
  */
 export function useLoginCaptcha() {
   const captcha = ref<CaptchaResult | null>(null);

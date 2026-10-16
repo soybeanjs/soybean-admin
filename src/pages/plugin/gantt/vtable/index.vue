@@ -8,17 +8,7 @@ import * as VTableGantt from '@visactor/vtable-gantt';
 import { PluginDocLinks } from '../../modules';
 import { basicGanttRecords, customGanttRecords, linkGanttRecords } from './data';
 
-/**
- * VTable Gantt 的三种用法（P4-01，v2 `views/plugin/gantt/vtable/index.vue` 的移植）。
- *
- * 与 v2 的差异：
- * - `useThemeStore().darkMode` → `useTheme().effectiveMode`（v3 无 theme store）；
- * - 去掉全部 `any` 与 `as` 断言：`format` 收 `DateFormatArgumentType`，
- *   `customLayout` 收 vtable 的 `CustomRenderFunctionArg` / gantt 的
- *   `TaskBarCustomLayoutArgumentType`，容器 ref 用 `useTemplateRef<HTMLElement>`；
- * - 三个实例在 `onUnmounted` 里 `release()`（v2 只停 watch，没释放 canvas）；
- * - `NSpace` / `NCard` / 全局 `WebSiteLink` → `SCard` + `PluginDocLinks`。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-356。 */
 
 /** 表格编辑器注册（vtable 的全局注册表，模块级执行一次即可） */
 VTableGantt.VTable.register.editor('input', new VTable_editors.InputEditor());

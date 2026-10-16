@@ -3,23 +3,11 @@ import PasswordForm from './modules/password-form.vue';
 import ProfileCard from './modules/profile-card.vue';
 import ProfileForm from './modules/profile-form.vue';
 
-/**
- * 个人中心 · 资料（P3-09）：左侧身份概览 + 右侧资料编辑与修改密码。
- *
- * 为什么不用页签把「资料 / 密码」拆成两个视图：两块内容都不长，并排滚动比来回切
- * 页签少一次记忆负担（用户改完资料常顺手想改密码）。settings 侧内容体量更大且
- * 互不相关，才用 `STabs` 折叠。
- */
+/** 个人中心 · 资料（P3-09）：左侧身份概览 + 右侧资料编辑与修改密码 详见 docs/v3-notes.md N-384。 */
 
 defineOptions({ name: 'UserCenterProfile' });
 
-/**
- * 个人中心 · 资料页。
- *
- * `hideInMenu: true`：个人中心从右上角头像下拉进入，不进侧边菜单
- * （菜单是「按职责分区」的导航，个人中心是「当前用户」的附属入口）。
- * 两个子页互为平级，用切换按钮而非菜单表达。
- */
+/** 个人中心 · 资料页 详见 docs/v3-notes.md N-385。 */
 
 definePage({
   meta: {

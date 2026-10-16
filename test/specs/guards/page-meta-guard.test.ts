@@ -2,32 +2,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-/**
- * `definePage` 顶层字段纪律（P4-02）。
- *
- * **为什么需要这条守卫**：ubean 0.6.0 的生成器（`@ubean/vue/dist/generator.js`
- * 的 `renderRouteRecord`）只发射两个顶层字段：
- *
- * ```js
- * if (page.pageMeta?.cache === true) parts.push(`    cache: true`);
- * if (page.pageMeta?.requiresAuth === true) parts.push(`    requiresAuth: true`);
- * ```
- *
- * 其余顶层字段（`requiresAuth: false` 尤其致命）被**静默丢弃**，而且 `cache` /
- * `requiresAuth` 发射在**路由记录顶层**而非 `meta` 里 —— vue-router 只认
- * `route.meta.*`，顶层是未知 key，守卫读不到。
- *
- * 真实后果：`src/router/guard.ts` 用 `to.meta.requiresAuth === false` 判公开页，
- * 顶层 `requiresAuth: false` 丢失后该判定永假 → 未登录访问 `/login` 被重定向到
- * `/login` → 无限重定向，浏览器渲染进程 100% CPU 卡死（Playwright 的
- * `page.evaluate()` 永久挂起，看起来像「浏览器环境不可用」）。
- *
- * 修法是写进 `meta`：`computeMeta()` 是 `const base = page.pageMeta?.meta ?? {}`，
- * 然后整体 `JSON.stringify` —— **`meta` 逐字透传**。
- *
- * `docs/v3.md` §4.2 把 `requiresAuth` 列为 `definePage` 合法顶层字段，与生成器
- * 实际行为不符；本用例以生成器行为为准。
- */
+/** `definePage` 顶层字段纪律：ubean 0.6.0 生成器只发射 `cache` / `requiresAuth` 两个顶层字段，其余（含 `requiresAuth: false`）被静默丢弃。详见 docs/v3-notes.md N-417。 */
 const pagesDir = resolve(import.meta.dirname, '../../../src', 'pages');
 
 /** 生成器会静默丢弃或错误发射的顶层字段 */
@@ -36,10 +11,7 @@ const FORBIDDEN_TOP_LEVEL = ['requiresAuth', 'cache'] as const;
 /** 只扫 `definePage({...})` 的顶层键：行首两空格 + `key:`（`meta` 内部的键缩进更深） */
 const TOP_LEVEL_KEY = /^ {2}([A-Za-z_$][\w$]*)\s*:/;
 
-/**
- * 页面私有目录：`modules/` 装搜索表单 / 操作弹窗等子组件，`components/` 装页面局部
- * 组件。两者都不是页面（ubean 扫描器同样忽略它们），因此不要求声明 `meta`。
- */
+/** 页面私有目录：`modules/` 装搜索表单 / 操作弹窗等子组件，`components/` 装页面局部组件。 */
 const PRIVATE_DIRS = new Set(['modules', 'components']);
 
 function collectPages(dir: string): string[] {

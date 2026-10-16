@@ -8,19 +8,7 @@ import type { AntFlowPalette } from './antv-g6-flow';
 import { nodeStatus } from './status';
 import type { CustomGraphData } from './types';
 
-/**
- * G6 画布容器（P4-01，v2 `modules/antv-flow.vue` 的移植）。
- *
- * 与 v2 的差异：
- * - `vResizeObserver` 来自 `@vueuse/components`（v3 未安装）→ 改用
- *   `useElementSize` + `watch`；
- * - 画布不再用固定 `id="antv-flow"`（一个页面放两个实例就撞 id 了）→ 直接把
- *   `containerRef` 的元素交给 G6；
- * - 工具条与图例从 naive-ui 换成 `@vean/ui`（`SButton` / `SPopover` / `SIcon`），
- *   图标用 iconify 名而不再是 `icon-*` 组件语法；
- * - v2 的 `try {} catch {}` 空捕获换成「元素不在图里就不设选中态」的显式判断；
- * - 主题色由 `palette` 传入（G6 需要具体颜色字符串，不是 CSS 变量）。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-343。 */
 interface Props {
   data: CustomGraphData;
   /** 主色 / 危险色的解析结果 + 明暗标记 */

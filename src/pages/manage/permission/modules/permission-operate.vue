@@ -7,17 +7,7 @@ import { api } from '@/request';
 import { permissionFormSchema, emptyPermissionForm, toPermissionForm } from '@/schema/permission';
 import type { PermissionFormDTO, PermissionCreateDTO, PermissionUpdateDTO } from '@/schema/permission';
 
-/**
- * 权限点新增 / 编辑弹窗（P3-03）。
- *
- * 资源绑定：`resourceType` 为 `menu` / `api` 时必须选 `resourceId`，后端会据此
- * 推导 `name` / `code`（见 `src/services/permission.service.ts` 的
- * `resolveResourceBinding`）；`other` 则手工填 `name` / `code`。
- *
- * 刻意不提供 `button` 选项：schema 与种子数据里有这个取值，但
- * `resolveResourceBinding` 只认 `other` / `api` / `menu`，选了会被后端拒绝。
- * 搜索卡仍保留 `button`，以便过滤历史数据。
- */
+/** 权限点新增 / 编辑弹窗（P3-03） 详见 docs/v3-notes.md N-327。 */
 defineOptions({ name: 'PermissionOperate' });
 
 const props = defineProps<{

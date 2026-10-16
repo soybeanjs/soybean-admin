@@ -9,13 +9,7 @@ import { roleFormSchema, emptyRoleForm, toRoleForm } from '@/schema/role';
 import type { RoleFormDTO, RoleCreateDTO, RoleUpdateDTO } from '@/schema/role';
 import PermissionPicker from './permission-picker.vue';
 
-/**
- * 角色新增 / 编辑弹窗（P3-03）。
- *
- * 权限点不用 `SSelect multiple`（上百条会撑爆下拉），改为「已选 N 项」+ 按钮
- * 打开 `PermissionPicker`。当前选中集从 `form.useSelector` 读（`form.state`
- * 是 TanStack Store 快照，没有 Vue 响应性），写回走 `form.setFieldValue`。
- */
+/** 角色新增 / 编辑弹窗（P3-03） 详见 docs/v3-notes.md N-329。 */
 defineOptions({ name: 'RoleOperate' });
 
 const props = defineProps<{

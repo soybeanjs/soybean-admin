@@ -7,20 +7,7 @@ import type { ITheme, IVChart } from '@visactor/vchart';
 import darkTheme from '@visactor/vchart-theme/public/dark.json';
 import lightTheme from '@visactor/vchart-theme/public/light.json';
 
-/**
- * VChart 生命周期（P4-01，v2 `hooks/common/vchart.ts` 的移植）。
- *
- * 与 `useEcharts` 同构：容器尺寸就绪才创建实例、尺寸变化 resize、明暗切换
- * 销毁重建。差异只在库本身：
- *
- * - VChart 实例的尺寸跟随容器，`resize()` 在 0×0 时会抛错，因此尺寸归零
- *   只销毁不重建（`canRender()`）；
- * - 主题用 `ThemeManager.setCurrentTheme()` 全局切换，**必须**在 new 之前设置，
- *   否则沿用上一个实例的主题。
- *
- * 主题 JSON 是运行时数据（不是样式），直接 import；`ECharts` 侧的 `backgroundColor`
- * 透明处理在 VChart 无对应项，改用 `background: 'transparent'` spec 字段由页面决定。
- */
+/** 与 `useEcharts` 同构：容器尺寸就绪才创建实例、尺寸变化 resize、明暗切换，销毁重建。差异只在库本身： 详见 docs/v3-notes.md N-272。 */
 
 VChart.ThemeManager.registerTheme('light', toTheme(lightTheme));
 VChart.ThemeManager.registerTheme('dark', toTheme(darkTheme));
@@ -39,13 +26,7 @@ export interface VChartHooks {
   onDestroy?: (chart: IVChart) => void;
 }
 
-/**
- * VChart 生命周期钩子。
- *
- * `target` 由调用方提供（页面里是 `useTemplateRef<HTMLElement>('chart')`）。
- * `specFactory` 里可以放任意 `ISpec`，不做类型收窄 —— VChart 的 spec 是
- * 按 `type` 分派的联合体，页面各自知道自己要什么。
- */
+/** VChart 生命周期钩子 详见 docs/v3-notes.md N-273。 */
 export function useVChart<T extends { type: string }>(
   target: MaybeRefOrGetter<HTMLElement | null | undefined>,
   specFactory: () => T,

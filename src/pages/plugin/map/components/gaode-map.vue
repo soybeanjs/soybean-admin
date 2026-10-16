@@ -3,12 +3,7 @@ import { onMounted, useTemplateRef } from 'vue';
 import { useScriptTag } from '@vueuse/core';
 import { AMAP_SDK_URL } from '../map-sdk';
 
-/**
- * 高德地图（P4-01）。
- *
- * SDK 是 UMD 包，`useScriptTag` 注入后从全局 `AMap` 取构造器；类型见
- * `map-sdk.d.ts`。脚本按 URL 去重，三个地图组件切换时不会重复注入。
- */
+/** 高德地图（P4-01） 详见 docs/v3-notes.md N-360。 */
 defineOptions({ name: 'GaodeMap' });
 
 const domRef = useTemplateRef<HTMLDivElement>('mapRef');

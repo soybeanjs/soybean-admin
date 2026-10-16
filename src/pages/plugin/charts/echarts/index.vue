@@ -13,15 +13,7 @@ import {
   radarOptions
 } from './data';
 
-/**
- * ECharts 演示（P4-01）。
- *
- * 与 v2 的差异：
- * - 用 v3 的 `useEcharts(target, factory)`（`target` 是模板 ref，v2 是零参版本）；
- * - 仪表盘时钟的 `setInterval` 只在 `onMounted` 起、`onUnmounted` 清（v2 在
- *   setup 里直接起，组件报错也照跑）；
- * - `v2` 的 `min-800px`/`h-400px` 这类长度改成 UnoCSS 的 `h-100`（= 400px）。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-347。 */
 defineOptions({ name: 'PluginChartsEcharts' });
 
 const { t } = useI18n();

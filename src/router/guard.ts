@@ -8,56 +8,9 @@ import { initAuthStore, useAuthStore, useMenuStore, useTabStore } from '@/store'
 import { env } from '@/env';
 import { api } from '@/request';
 
-/**
- * 全局路由守卫（由 `defineApp({ router: { setup } })` 注册）。
- *
- * 链路（v3 §5.2/§5.5）：
- * 1. 进度条：`@vean/ui` 的 `progress`（`SConfigProvider` 已自动挂载
- *    `SProgressProvider`，无需手动包 Provider）。
- * 2. 登录跳转：未登录访问需鉴权页 → `Login`（带 `redirect` 回跳参数）；
- *    已登录访问登录页 → 回 `homePath`。
- * 3. 用户/菜单初始化：`initUserInfo`（幂等补拉）+ `initMenu`（static 派生 /
- *    dynamic 拉取 + `addRoute`）。dynamic 模式首跳目标若因路由未注册而落
- *    `NotFound`，初始化后重定向原路径让 router 重新解析（真 404 第二次仍会
- *    正常落 NotFound，不会死循环）。
- * 4. 404 vs 403：dynamic 模式路由按权限下发，菜单里存在但无权 → 路由没注册
- *    → 落 `NotFound`。此时反查 `POST /api/menu/exist-path`，路径存在即改判
- *    403（v3 §4.2）。static 模式路由本地全注册，落 NotFound 就是真 404，
- *    不查后端。判定抽在 `@/shared/route-exist`，便于单测。反查前用
- *    `stripLocalePrefix` 剥掉实际地址里的语言前缀（`/en/about` → `/about`），
- *    菜单的 `routePath` 一律无前缀，不剥就永远查不到。
- *
- * ⚠️ vp dev 关键约束（实测教训，勿回退）：
- * ubean dev 的 HTML 请求会在 **Node 里预渲染执行应用与守卫**，且该上下文带
- * 「client 编译标志」—— `import.meta.server === false`（不可用它判定！），
- * 但 `window`/`localStorage` 均不存在。守卫若在此上下文跑鉴权重定向，会因
- * `localStorage` 缺失恒判未登录而无限重定向（挂起请求或 dev 进程崩溃）。
- * 因此守卫体首行必须以 `typeof window === 'undefined'` 早退放行，鉴权只在
- * 真浏览器执行（客户端水合后再跳转，语义不变）。
- *
- * 模块依赖：本文件静态 import `@/store`（守卫运行时 Pinia 已安装）。
- * store 侧**不持有** router 引用 —— 需要导航的 action 一律由调用方把 router
- * 传进来（组件用 `useRouter()`，守卫用这里的 `setup` 入参）。这样既没有
- * `store → @/router → guard → store` 的模块环，也不再需要 router 单例模块。
- *
- * `setup` 必须**同步**注册守卫（回调可异步）。页面标题不在这里设置 ——
- * `useI18n()` 只能在 setup 上下文用，标题的 i18n 解析统一放 `src/app.vue`
- * 的 watcher（见该文件）。
- *
- * ⚠️ 公开页判定读的是 `to.meta.requiresAuth`，因此页面必须写成
- * `definePage({ meta: { requiresAuth: false } })`。ubean 0.6.0 生成器只发射
- * 顶层 `requiresAuth: true`，顶层 `false` 被静默丢弃 → 本守卫会把登录页自己
- * 也重定向到登录页，形成无限重定向（真浏览器里 CPU 打满卡死）。
- * 回归保护见 `test/specs/guards/page-meta-guard.test.ts`。
- */
+/** 链路（v3 §5.2/§5.5）： 详见 docs/v3-notes.md N-080。 */
 export function setupRouterGuard(instance: Router): void {
-  /**
-   * 注册请求层登出回调。
-   *
-   * 放在这里（而不是 `src/app.ts` 模块顶层）是因为回调要跳登录页，需要 router
-   * 实例 —— 本函数是框架唯一把实例交到应用手里的时候。回调体仍动态 import
-   * store / 组件库：`router.setup` 在 pinia 安装之前执行，此刻取不到活跃 pinia。
-   */
+  /** 注册请求层登出回调 详见 docs/v3-notes.md N-081。 */
   initAuthStore(instance);
 
   const router = instance;

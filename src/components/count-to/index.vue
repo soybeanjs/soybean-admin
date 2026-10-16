@@ -19,10 +19,7 @@ const props = withDefaults(
   }
 );
 
-/**
- * 计数源从 0 起：服务端渲染与首帧必须一致，否则水合时数字会跳变/报 mismatch。
- * 真实值在 `onMounted` 后再喂给 `useTransition` 触发动画。
- */
+/** 计数源从 0 起：服务端渲染与首帧必须一致，否则水合时数字会跳变/报 mismatch 详见 docs/v3-notes.md N-028。 */
 const source = ref(0);
 
 const output = useTransition(source, { duration: props.duration });

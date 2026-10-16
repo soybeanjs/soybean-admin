@@ -16,12 +16,7 @@ import type { DictItemResource, DictItemSearchFormDTO } from '@/schema/dict-item
 import DictItemOperate from './modules/dict-item-operate.vue';
 import DictItemSearch from './modules/dict-item-search.vue';
 
-/**
- * 字典项管理页（P3-03）。
- *
- * 支持 `?dictId=<id>` 预置筛选（字典页的「查看字典项」入口）。`dictId` 列只存
- * id，需要一份 `GET /api/dict/all` 的 id → 名称映射。
- */
+/** 字典项管理页（P3-03） 详见 docs/v3-notes.md N-319。 */
 defineOptions({ name: 'ManageDictItem' });
 
 const { t } = useI18n();

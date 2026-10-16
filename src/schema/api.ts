@@ -13,17 +13,7 @@ import {
   rowText
 } from './_shared';
 
-/**
- * 接口（API）资源契约（v3 §6.3，unify api.service 范式）。
- *
- * 一个接口域一个文件，装三件事：服务端请求 schema、搜索表单 schema、operate
- * 表单 schema 及默认值。命名约定：`apiXxxSchema` = 服务端请求，
- * `apiSearchFormSchema` = 搜索表单，`apiFormSchema` = operate 表单。
- *
- * `update` 由 `create` 推导（`partial`）：新增与更新的值域只声明一份，不会
- * 两份漂移。`partial` 会去掉默认值，未传字段交由服务层 `dto.x ?? current.x`
- * 保留原值。
- */
+/** 接口（API）资源契约（v3 §6.3，unify api.service 范式） 详见 docs/v3-notes.md N-202。 */
 
 /* -------------------------------------------------------------------------- */
 /*                              服务端请求 schema                              */

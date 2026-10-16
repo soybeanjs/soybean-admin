@@ -1,16 +1,7 @@
 import { useKV } from 'ubean/server';
 import { AppError } from '@/shared/error';
 
-/**
- * 图形验证码服务（P2-08，v3 §4.6）。
- *
- * 答案存在 `@ubean/server` 的 KV 存储里（`useKV('captcha')`，dev 内存 driver，
- * 演进换 Redis driver 与 token 黑名单同路），TTL 5 分钟、**一次性消费**：
- * 校验过即删除，避免同一验证码被重放。
- *
- * 图像是自绘 SVG（无第三方图形库依赖）：4 个去易混字符（无 `0/O/1/I`）
- * + 随机旋转/字号/颜色 + 干扰线，以 base64 data URL 返回，前端直接塞 `<img src>`。
- */
+/** 图形验证码服务：答案存在 `@ubean/server` 的 KV 里（TTL 5 分钟、一次性消费），图像为自绘 SVG，无图形库依赖。详见 docs/v3-notes.md N-250。 */
 
 /** 验证码有效期（秒） */
 export const CAPTCHA_TTL_SECONDS = 300;
@@ -96,8 +87,6 @@ export async function createCaptcha(): Promise<CaptchaResult> {
 
 /**
  * 校验验证码（大小写不敏感）并**一次性消费**。
- *
- * @throws AppError `CAPTCHA_EXPIRED` 不存在/已用/已过期；`CAPTCHA_INVALID` 不匹配
  */
 export async function verifyCaptcha(captchaId: string, captchaCode: string): Promise<void> {
   const expected = await captchaStore().get(captchaId);

@@ -2,13 +2,7 @@ import { defineHandler, defineHandlerMeta, describeRoute, resolver } from 'ubean
 import { createCaptcha } from '@/services/captcha.service';
 import { captchaResultSchema } from '@/schema/auth';
 
-/**
- * `GET /api/auth/captcha` —— 获取图形验证码（公开）。
- *
- * 返回 `{ captchaId, img }`：`img` 是自绘 SVG 的 base64 data URL，可直接塞进
- * `<img :src>`；答案存 `useKV('captcha')`（TTL 5 分钟），校验一次即消费。
- * 供密码登录（可开关）与验证码登录/重置密码使用。
- */
+/** `GET /api/auth/captcha` —— 获取图形验证码（公开） 详见 docs/v3-notes.md N-083。 */
 export const GET = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({

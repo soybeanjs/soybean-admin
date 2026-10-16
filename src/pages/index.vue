@@ -6,12 +6,7 @@ import HomePieChart from '@/pages/home/modules/pie-chart.vue';
 import HomeProjectNews from '@/pages/home/modules/project-news.vue';
 import HomeStatCards from '@/pages/home/modules/stat-cards.vue';
 
-/**
- * 首页工作台（P3-01）：问候横幅 / 4 统计卡 / 折线 + 饼图 / 项目动态 / 创意横幅。
- *
- * 数据全为本地静态 mock（与 v2 对齐，不新增端点）；重模块放 `src/pages/home/modules/`
- * （login 页先例），页面只做组合与路由 meta。
- */
+/** 首页工作台（P3-01）：问候横幅 / 4 统计卡 / 折线 + 饼图 / 项目动态 / 创意横幅 详见 docs/v3-notes.md N-315。 */
 definePage({
   meta: {
     title: '工作台',

@@ -32,14 +32,7 @@ export const useAppStore = defineStore('app', () => {
     mobileOpen.value = open;
   }
 
-  /**
-   * 进入/退出移动端只修「抽屉开合」这类运行态。
-   *
-   * 布局模式不在这里改写：Vean 在移动端本来就固定渲染 `sidebar` 骨架
-   * （`app-shell.vue` 的 `mobileView ? sidebar : mode`），而
-   * `resolveLayoutMatrix()` 已把这件事显式化。改写 settings 会把「移动端退化」
-   * 持久化进 localStorage，用户下次在桌面打开就回不到原来选的模式了。
-   */
+  /** 进入/退出移动端只修「抽屉开合」这类运行态 详见 docs/v3-notes.md N-097。 */
   function syncMobileLayout(mobile: boolean): void {
     // 从移动端回到桌面：抽屉必须收起，否则侧栏与遮罩会同时存在
     if (!mobile) mobileOpen.value = false;

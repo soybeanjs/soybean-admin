@@ -3,11 +3,7 @@ import { createEmptyPageResult, defaultTableTransform, toTablePagination } from 
 
 type Row = { id: string; username: string };
 
-/**
- * 表格分页字段改名（P3-02）：
- * 后端列表接口返回 `{ current, size, total, list }`，而 `@vean/ui` 的
- * `usePaginatedTable` 要 `{ page, pageSize, total, list }`。
- */
+/** 表格分页字段改名（P3-02）：后端列表接口返回 `{ current, size, total, list }`，而 `@vean/ui` 的`usePaginatedTable` 要。 */
 describe('defaultTableTransform', () => {
   it('把 current/size 改名为 page/pageSize', () => {
     const page = { current: 3, size: 20, total: 47, list: [{ id: '1', username: 'soy' }] };

@@ -4,16 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SButton, SCard, STag } from '@vean/ui';
 
-/**
- * 隐藏子菜单（P3-06，v3 §4.6）。
- *
- * 一个视图挂 4 条路由：`/function/hide-child`（父，菜单位）+ 三个
- * `hideInMenu: true` 的子页。三个子页声明了
- * `meta.activeMenu: 'FunctionHideChildIndex'` —— 布局的 `activeMenuValue`
- * 优先取它，因此访问隐藏子页时侧栏高亮仍停在父菜单上（而不是全灭）。
- * 这是 v2「隐藏子菜单」演示的核心行为，不需要父路由 `redirect`（ubean 的
- * `PageMeta` 没有 `redirect` 字段，父级重定向在本仓不可用）。
- */
+/** 隐藏子菜单（P3-06，v3 §4.6） 详见 docs/v3-notes.md N-307。 */
 defineOptions({ name: 'FunctionHideChild' });
 
 const { t } = useI18n();

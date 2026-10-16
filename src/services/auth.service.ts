@@ -20,13 +20,7 @@ import { verifyCaptcha } from './captcha.service';
 import { permissionService } from './permission.service';
 import { roleService } from './role.service';
 
-/**
- * 认证服务（P1-04/P1-05，v3 §6.3/§6.4，unify auth.service 范式）。
- *
- * JWT 双 token（hono/jwt HS256）+ 黑名单（useKV，dev 内存 / prod 可换 Redis driver）：
- * - 登出: access token 拉黑 1h（覆盖剩余有效期），refreshToken 拉黑 7d；
- * - 刷新: 旧 refreshToken 立即拉黑防重放，签发新 token 对。
- */
+/** JWT 双 token（hono/jwt HS256）+ 黑名单（useKV，dev 内存 / prod 可换 Redis driver）： 详见 docs/v3-notes.md N-245。 */
 
 export type UserRow = typeof user.$inferSelect;
 export type LoginResult = { token: string; refreshToken: string; user: AuthUserDTO };
@@ -58,13 +52,7 @@ export function toAuthUserDTO(row: UserRow, roles: string[] = [], buttons: strin
   return { ...rest, roles, buttons };
 }
 
-/**
- * 带角色码 + 按钮权限码的用户安全视图。
- *
- * `roles` 供路由/菜单级判定与 `v-auth="['role']"`；`buttons` 是全量权限码，
- * 供按钮级 `hasAuth(code)` / `v-auth="['system:user:add']"`（P3-06）。超级管理员的
- * 权限码来自 `rolePermission` 关联表（seed 里已给全量），无需特例。
- */
+/** 带角色码 + 按钮权限码的用户安全视图 详见 docs/v3-notes.md N-246。 */
 export async function toAuthUserWithRoles(row: UserRow): Promise<AuthUserDTO> {
   const roles = roleService.getRolesByUserId(row.id).map(role => role.code);
   const buttons = await permissionService.getUserPermissionCodes(row.id);
@@ -91,11 +79,7 @@ function assertUserUsable(row: UserRow): void {
 }
 
 export const authService = {
-  /**
-   * 密码登录（`grantType: 'pwd'`）。
-   *
-   * `captcha` 传入时先消费图形验证码（密码登录页可开启验证码开关）。
-   */
+  /** 密码登录（`grantType: 'pwd'`） 详见 docs/v3-notes.md N-247。 */
   async login(
     username: string,
     passwordValue: string,
@@ -124,12 +108,7 @@ export const authService = {
     }
   },
 
-  /**
-   * 验证码登录（`grantType: 'captcha'`）。
-   *
-   * 图形验证码代替 v2 的短信验证码承担凭证角色：校验通过即按用户名签发 token
-   * 对（用户名不存在报 `USER_NOT_FOUND`）。
-   */
+  /** 验证码登录（`grantType: 'captcha'`） 详见 docs/v3-notes.md N-248。 */
   async loginByCaptcha(username: string, captchaId: string, captchaCode: string): Promise<LoginResult> {
     try {
       await verifyCaptcha(captchaId, captchaCode);
@@ -180,12 +159,7 @@ export const authService = {
     }
   },
 
-  /**
-   * 生成微信绑定二维码（mock）。
-   *
-   * 无微信开放平台凭证，返回自建 ticket + 形似官方 qrconnect 的 url；
-   * `ticket` 入 KV（TTL 5 分钟），绑定成功后单向消费。
-   */
+  /** 生成微信绑定二维码（mock） 详见 docs/v3-notes.md N-249。 */
   async createWechatQrcode(): Promise<{ ticket: string; url: string; expiresIn: number }> {
     const ticket = crypto.randomUUID();
 

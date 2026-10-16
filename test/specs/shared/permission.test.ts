@@ -1,17 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { hasPermissionCode, hasRole, SUPER_ROLE } from '@/shared/permission';
 
-/**
- * 权限判定纯函数（`src/shared/permission.ts`）。
- *
- * 这两个函数被三处共用，行为必须一致：
- * - 路由级门禁：`src/router/guard.ts` 的 `to.meta.roles` → 不命中落 403；
- * - 指令：`src/directives/auth.ts` 的 `v-auth` / `v-auth:role` / `v-auth.super`；
- * - 组合式函数：`useAuth().hasAuth / hasAuthRole`。
- *
- * 守卫的这段判定逻辑在本文件里以 `shouldBlock` 复刻（守卫本身依赖
- * pinia/localStorage，无法直接单测），任何一边改了规则都应同步改这里。
- */
+/** 这两个函数被三处共用，行为必须一致： 详见 docs/v3-notes.md N-433。 */
 
 /** 守卫里「路由声明了 roles 且不命中 → 403」的等值复刻 */
 function shouldBlock(userRoles: string[], declaredRoles: string[] | undefined): boolean {

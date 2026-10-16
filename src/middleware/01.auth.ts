@@ -6,16 +6,7 @@ import { authService } from '@/services/auth.service';
 import { permissionService } from '@/services/permission.service';
 import type { AuthUserDTO } from '@/schema/auth';
 
-/**
- * 认证 / RBAC 中间件（v3 §6.1/§2，P1-06）。
- *
- * 执行序（仅 /api/ 前缀路由）：
- * 1. 读路由 meta（ubean 注册路由时经 metaMiddleware 写入 `c.set('route')`）；
- *    `requiresAuth: false` 的路由（登录、验证码、健康检查、演示错误端点）直接放行；
- * 2. `Bearer <token>` → authService.verifyToken（签名+过期+黑名单+用户状态）；
- * 3. 权限码 `api:${method}:(/path)` 精确匹配 permissionService.checkUserHasPermission；
- *    超级管理员角色（R_super）持有全量权限码，普通用户按权限码放行。
- */
+/** 执行序（仅 /api/ 前缀路由）： 详见 docs/v3-notes.md N-073。 */
 
 /** 无需登录即可访问的业务路由（与路由文件 defineHandlerMeta({requiresAuth:false}) 一致） */
 const PUBLIC_API_PATHS = new Set([
@@ -65,10 +56,7 @@ export default defineMiddleware(async (c: Context, next: Next) => {
     return next();
   }
 
-  // 权限码必须用**路由模板**（`/api/user/:id`），不能用具体请求路径 —— 后者会拼出
-  // `api:get:(/user/123)`，与登记的 `api:get:(/user/[id])` 永不相等，带路径参数的
-  // 端点 RBAC 会静默失效。`c.get('route').path` 就是 `c.req.path`（具体路径），
-  // 模板只能从 `c.req.routePath` 取（hono 按 routeIndex 反查注册表）。
+  // 权限码必须用**路由模板**（`/api/user/:id`），不能用具体请求路径 —— 后者会拼出`api:get:(/user/123)`，与登记的。
   const permissionCode = buildApiPermissionCode(c.req.method, c.req.routePath);
   const allowed = await permissionService.checkUserHasPermission(authUser.id, permissionCode);
 

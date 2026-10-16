@@ -6,13 +6,7 @@ import ManageSearch from '@/components/manage-search/index.vue';
 import { dictItemSearchFormSchema } from '@/schema/dict-item';
 import type { DictItemSearchFormDTO } from '@/schema/dict-item';
 
-/**
- * 字典项搜索卡（P3-03）。
- *
- * `initialDictId` 来自 URL 的 `?dictId=`（字典页「查看字典项」入口），作为
- * `defaultValues` 的初值 —— 这样「重置」也会回到该筛选，符合从字典页跳过来的
- * 语境。
- */
+/** 字典项搜索卡（P3-03） 详见 docs/v3-notes.md N-320。 */
 defineOptions({ name: 'DictItemSearch' });
 
 const props = defineProps<{

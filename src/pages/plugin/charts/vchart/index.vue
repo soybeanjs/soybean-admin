@@ -11,15 +11,7 @@ import {
   stackedDashAreaSpec
 } from './data';
 
-/**
- * VChart 演示（P4-01）。
- *
- * 与 v2 的差异：v2 的 `liquid` 与 `circularProgress` 两个演示依赖
- * `registerLiquidChart()` —— 本仓只 `import VChart from '@visactor/vchart'`
- * （`use-vchart.ts` 里不额外注册图表类型），`vchart-all` 只内建了
- * wordCloud / histogram / bar / area 等常用图，液面图与环形进度图在本版
- * **不注册**。因此这里砍掉两个演示，保留 5 个能跑的。
- */
+/** VChart 演示（P4-01） 详见 docs/v3-notes.md N-350。 */
 defineOptions({ name: 'PluginChartsVchart' });
 
 const stackedDashAreaRef = useTemplateRef<HTMLElement>('stackedDashArea');

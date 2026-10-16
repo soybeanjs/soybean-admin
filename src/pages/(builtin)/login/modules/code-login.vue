@@ -8,14 +8,7 @@ import { codeLoginFormSchema, codeLoginDefaults } from '@/schema/auth';
 import type { CodeLoginFormValues } from '@/schema/auth';
 import { useLoginCaptcha, useLoginModuleNavigate, useLoginRedirect } from '../use-login';
 
-/**
- * 验证码登录（v3 §4.6 / §5.7 P3-05）。
- *
- * v3 无短信通道 —— 短信验证码的凭证角色由**图形验证码**承担（见
- * `src/services/captcha.service.ts`）：用户名 + 图形验证码即完成登录，
- * 服务端按 `grantType: 'captcha'` 分支处理。表单校验走 `codeLoginFormSchema`
- * （服务端 `loginSchema` 的 captcha 分支同一份声明）。
- */
+/** 验证码登录（v3 §4.6 / §5.7 P3-05） 详见 docs/v3-notes.md N-294。 */
 defineOptions({ name: 'CodeLogin' });
 
 const { t } = useI18n();

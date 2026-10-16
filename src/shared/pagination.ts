@@ -1,9 +1,4 @@
-/**
- * 分页 / 排序参数解析（unify 范式）。
- *
- * 列表查询约定：`page`（默认 1）、`pageSize`（默认 10）、
- * `sort='field1,-field2'`（默认升序，`-` 前缀表示降序）。
- */
+/** 分页 / 排序参数解析（unify 范式） 详见 docs/v3-notes.md N-158。 */
 export function resolvePagination(query: { page?: number | null; pageSize?: number | null }) {
   const page = query.page ?? 1;
   const pageSize = query.pageSize ?? 10;
@@ -33,12 +28,7 @@ export function resolveSort(sort?: string | null): ResolvedSortField[] {
   });
 }
 
-/**
- * 从排序串解析出 drizzle 列引用（列表查询专用）。
- *
- * `sort='-createdTime'` + 表的列字典 → { column, isDesc }；
- * 字段不在列字典中时回落到 fallback 列，非法输入不炸接口。
- */
+/** 从排序串解析出 drizzle 列引用（列表查询专用） 详见 docs/v3-notes.md N-159。 */
 export function resolveSortColumn<T extends object>(
   sort: string | undefined | null,
   columns: T,

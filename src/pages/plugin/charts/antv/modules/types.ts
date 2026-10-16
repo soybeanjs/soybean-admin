@@ -10,13 +10,7 @@ export type NodeStatus =
   | 'COMPLETED_EARLY'
   | 'COMPLETED_LATE';
 
-/**
- * 流程图节点数据。
- *
- * `NodeData` 自身带 `[key: string]: unknown` 索引签名，所以自定义字段（`name`
- * 等）虽然能写进去，但读出来是 `unknown`。这里把用到的字段显式声明成精确
- * 类型，避免每处取值都要窄化。
- */
+/** 流程图节点数据 详见 docs/v3-notes.md N-346。 */
 export interface CustomNodeData extends NodeData {
   /** 节点标题（画在矩形里） */
   name?: string;

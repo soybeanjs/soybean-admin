@@ -2,17 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { diffApiRoutes, formatApiRouteDiff } from '@/shared/api-route-sync';
 import type { RegisteredRoute } from '@/shared/api-route-sync';
 
-/**
- * 路由 ↔ `api` 表对账（§5.2-5）。
- *
- * 回归背景：`seedApis` 手工维护，与 `src/routes/api/**` 真实路由漂移而不自知 ——
- * 漂移的后果不是报错，而是「端点存在但没有任何权限点可授予」：非 super 用户
- * 永远 4003，或者该端点因为权限码对不上而裸奔。对账把这种静默漂移变成启动 warning。
- *
- * 关键点是**两侧都要归一**：`route:register` 钩子回传的 hono 模板是
- * `/api/user/:id`，而 `api` 表登记的是 `/user/[id]`；不归一的话
- * 全部带参端点都会被误报成 missing。
- */
+/** 路由 ↔ `api` 表对账（§5.2-5） 详见 docs/v3-notes.md N-428。 */
 describe('diffApiRoutes', () => {
   const route = (method: string, path: string): RegisteredRoute => ({ method, path });
 

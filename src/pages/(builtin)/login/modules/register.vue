@@ -7,16 +7,7 @@ import { registerFormSchema, registerDefaults } from '@/schema/auth';
 import type { RegisterFormValues } from '@/schema/auth';
 import { useLoginModuleNavigate, useLoginRedirect } from '../use-login';
 
-/**
- * 注册（v3 §4.6 / §5.7 P3-05）。
- *
- * 后端 `/api/auth/register` 是「注册即登录」：直接返回 token 对，因此注册
- * 成功后无需再走一次登录，落库后按 `?redirect=` / `homePath` 回跳。
- *
- * 校验走 `registerFormSchema` —— 服务端 `registerSchema` 的超集：用户名长度、
- * 密码长度、邮箱格式两边同一份声明，多出的只有「两次密码一致」。`email` 在
- * 表单里是普通字符串（空串 = 未填），提交前 `|| undefined` 归一。
- */
+/** 注册（v3 §4.6 / §5.7 P3-05） 详见 docs/v3-notes.md N-296。 */
 defineOptions({ name: 'Register' });
 
 const { t } = useI18n();

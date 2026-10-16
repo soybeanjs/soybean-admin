@@ -1,14 +1,4 @@
-/**
- * 全局搜索（P2-11）的纯逻辑部分。
- *
- * 菜单树是搜索的唯一数据源；把派生逻辑从组件里拆出来是为了能单测 —— 仓库里
- * 没有 DOM 测试环境（`vitest.config.ts` 是 `environment: 'node'`），组件层测不了，
- * 但「树 → 条目」是纯函数。
- *
- * 菜单条目把 `i18nKey` 原样带出去，由组件按 `t(i18nKey) || label` 解析（这里拿不到
- * `t`，而且把翻译留在组件里才能让本文件被 node 环境的单测直接 import）；分组常量的
- * `label` 保持 i18n key，`remove:i18n` 会把 `label: '<key>'` 就地内联成文案。
- */
+/** 全局搜索（P2-11）的纯逻辑部分 详见 docs/v3-notes.md N-033。 */
 
 import type { MenuTreeNode } from '@/typings/app';
 
@@ -41,12 +31,7 @@ export interface SearchGroup {
   items: SearchEntry[];
 }
 
-/**
- * 展平菜单树。
- *
- * 只保留有 `path` 的节点：目录节点点开了也跳不了，列出来只会污染结果。
- * 子树先于自身排？不 —— 父在前、子在后，键盘顺序即菜单顺序。
- */
+/** 展平菜单树 详见 docs/v3-notes.md N-034。 */
 export function flattenMenuEntries(
   items: readonly MenuTreeNode[],
   group: SearchGroupKey = SEARCH_GROUP_MENU
@@ -61,12 +46,7 @@ export function flattenMenuEntries(
   });
 }
 
-/**
- * 按分组打包成 `SCommand` 的 `items`。
- *
- * 分组 `value` 加 `group-` 前缀，避免与作为条目 `value` 的路由名撞车；
- * 分组顺序按首次出现（菜单在前，动作在后）。
- */
+/** 按分组打包成 `SCommand` 的 `items`。分组 `value` 加 `group-` 前缀，避免与作为条目 `value` 的路由名撞车；分组顺序按首次出现（菜单在前，动作在后）。 */
 export function groupEntries(entries: readonly SearchEntry[]): SearchGroup[] {
   const keys = entries
     .map(entry => entry.group)

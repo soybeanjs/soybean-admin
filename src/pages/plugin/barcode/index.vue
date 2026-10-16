@@ -5,12 +5,7 @@ import { SCard, useTheme } from '@vean/ui';
 import JsBarcode from 'jsbarcode';
 import type { Options } from 'jsbarcode';
 
-/**
- * 条形码演示（P4-01）。
- *
- * JsBarcode 直接写 SVG 元素的子节点，必须在元素挂载后调用；明暗切换时重新
- * 生成 —— 有几组配置用了固定深色，深色背景下会看不见。
- */
+/** 条形码演示（P4-01）。JsBarcode 直接写 SVG 元素的子节点，必须在元素挂载后调用；明暗切换时重新生成 —— 有几组配置用了固定深色，深色背景下会看不见。 */
 defineOptions({ name: 'PluginBarcode' });
 
 const { t } = useI18n();

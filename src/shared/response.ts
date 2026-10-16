@@ -1,10 +1,7 @@
 import { ErrorCode } from '@/constants/error-code';
 import type { ErrorCodeKey, ErrorCodeValue } from '@/constants/error-code';
 
-/**
- * 统一响应契约（v3 §6.1）：所有 `/api/**` 响应恒为 `{ code, message, data }`。
- * 由 src/middleware/00.response.ts 重写 `c.json` 自动包装，handler 只写业务数据。
- */
+/** 统一响应契约（v3 §6.1）：所有 `/api/**` 响应恒为 `{ code, message, data }` 详见 docs/v3-notes.md N-166。 */
 export type ApiResponse<T = unknown> = {
   code: ErrorCodeValue;
   message: string;

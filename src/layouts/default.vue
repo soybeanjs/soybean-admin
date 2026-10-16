@@ -26,29 +26,7 @@ import { useHydrated } from '@/composables/use-hydrated';
 import { env } from '@/env';
 import type { AppTab, MenuTreeNode } from '@/typings/app';
 
-/**
- * 默认布局：`SAppShell` 全接线（v3 §5.2 后台壳）。
- *
- * - 菜单/页签标题在此解析 `t(i18nKey) || label`（layout 是 setup 上下文，
- *   切语言后 computed 重算 —— 标题单一来源仍是 i18nKey，store 只存 key）。
- * - 页签状态由 SPageTabs 内部持有并以 `update:tabs` 全量回写
- *   （close/pin/drag/右键菜单都走它），应用侧只做 value 对齐 + pinned 合并。
- *   用 `#tabs` 槽而不是 `tabs` prop 是为了注入 `variant`（页签风格）——
- *   壳的 `tabProps` 类型是 `PageTabsCompactProps`，不含样式层的 `variant`。
- * - 出口是 `<PageView />`（ubean 内置，自带 KeepAlive + 转场），
- *   布局内不要再套 `<RouterView>`；转场名来自主题设置（P2-15）。
- * - 壳模式与 layoutProps 全部来自 `resolveLayoutMatrix()`（P2-20）：
- *   `scrollBehavior: 'content'` 之类需要联动的维度在矩阵里统一裁决，
- *   不在此处写第二份条件分支。
- * - `ui.layoutContent` 补内容区内边距：`@vean/ui` 的 `app-shell` 把
- *   `layoutContent` 默认为**空串**（见 `styles/app-shell.js` 的 `slots`），
- *   不补的话所有页面都贴着侧栏/顶栏，卡片没有呼吸感。填充值由壳合并进
- *   `SLayout.ui.content`，所以 `scrollBehavior: 'content'` 时内滚区也带内边距。
- * - 页签列表在展示前先按**路由布局**过一遍：`blank` 布局的页面（登录 /
- *   403 / 404 / 500）不渲染本壳，不该出现在页签栏（判定见 `@/shared/tab`）。
- *   写入侧 `tabStore.addTab` 已经拦了，这里是**第二道** —— 它同时清掉旧版本
- *   持久化在 `localStorage` 里的历史脏页签（如登录成功后残留的「登录」）。
- */
+/** - 壳模式与 layoutProps 全部来自 `resolveLayoutMatrix()`（P2-20）： 详见 docs/v3-notes.md N-051。 */
 const { locale, t } = useI18n();
 const route = useRoute();
 const router = useRouter();
@@ -58,44 +36,18 @@ const authStore = useAuthStore();
 const menuStore = useMenuStore();
 const tabStore = useTabStore();
 
-/**
- * 「布局模式 × 设置」矩阵（P2-20）。
- *
- * `contentScroll` 传 `true`：内容滚动模式下 `<PageView>` 自带滚动容器，
- * 页脚跟内容一起滚，矩阵据此不再强制关闭 `fixedFooter`。
- */
+/** 「布局模式 × 设置」矩阵（P2-20） 详见 docs/v3-notes.md N-052。 */
 const layoutMatrix = computed(() =>
   resolveLayoutMatrix(themeStore.settings, { isMobile: appStore.isMobile, contentScroll: true })
 );
 
-/**
- * 下发给 `SAppShell` 的菜单参数（P2-20 补充）。
- *
- * 顶栏菜单（`top` 模式）需要显式开启 `treeNav.collapsible`：Vean 的
- * `STreeNav` 默认不收缩，条目超出容器宽度时会把顶栏撑破，也不会出现末尾的
- * 「更多」弹层。`moreLabel` 用 i18n 文案（Vean 默认是硬编码英文 `More`）。
- */
+/** 下发给 `SAppShell` 的菜单参数（P2-20 补充） 详见 docs/v3-notes.md N-053。 */
 const layoutMatrixMenuProps = computed(() => resolveMenuProps(layoutMatrix.value, { more: t('common.more') }));
 
-/**
- * `SAppShell` 的 `ui` 覆盖。
- *
- * `layoutContent`：Vean 默认给内容区空字符串，页面会贴边（P2-20）。
- */
+/** `SAppShell` 的 `ui` 覆盖 详见 docs/v3-notes.md N-054。 */
 const SHELL_UI = { layoutContent: 'p-4' };
 
-/**
- * `SAppShell` 的 `menuUi` 覆盖（`top` 模式顶栏菜单的测量容器）。
- *
- * 开 `treeNav.collapsible` 后 Vean 把 `STreeNav` 包进一个
- * `[data-vean-tree-nav-overflow]` 测量容器，但它的 `overflow` 槽类只有
- * `group` —— **没有 `min-w-0`**。这个容器是 `headerCenter`
- * （`flex-1 min-w-0 overflow-hidden`）的 flex 子项，默认 `min-width: auto`
- * 让它被内部那条 `w-fit` 导航条撑到内容宽（实测 2081px，容器只有 1002px），
- * 于是 `isOverflowing()` 的 `root.scrollWidth > container.clientWidth` 永远
- * 为假 —— reflow 一次都不跑，溢出条目被 `overflow-hidden` 直接裁掉，末尾的
- * 「更多」也不出现。补 `min-w-0` 后测量容器回到容器宽，收缩正常工作。
- */
+/** `SAppShell` 的 `menuUi` 覆盖（`top` 模式顶栏菜单的测量容器） 详见 docs/v3-notes.md N-055。 */
 const SHELL_MENU_UI = { treeNav: { overflow: 'group min-w-0' } };
 
 /** 侧栏展开（桌面）/ 抽屉展开（移动）都是 app store 的受控态（P2-13） */
@@ -109,13 +61,7 @@ const mobileOpen = computed({
   set: (value: boolean) => appStore.setMobileOpen(value)
 });
 
-/**
- * 页面转场（P2-15）。
- *
- * `false` 是「明确关闭」：`PageView` 里 `transition === false` 会短路掉
- * `route.meta.transition` 与全局 `usePageTransition()` 两级兜底，传空串反而会
- * 落回全局值。所以关闭动画只能传 `false`，不能用 `''`。
- */
+/** 页面转场（P2-15） 详见 docs/v3-notes.md N-056。 */
 const pageTransition = computed(() => {
   const { pageAnimate, pageAnimateMode } = themeStore.settings;
 
@@ -126,22 +72,7 @@ const pageTransition = computed(() => {
 // 这里引用 useTheme 仅保证在 provider 上下文中（提供 consumerName 便于调试）。
 useTheme('AppLayout');
 
-/**
- * 服务端预渲染时的菜单兜底（P4 水合修复）。
- *
- * ubean dev 的预渲染上下文里**路由守卫不会执行**（实测：守卫里打点从未触发），
- * 于是菜单 store 停在空数组 —— 侧栏（树菜单）、面包屑都渲染成空壳，客户端水合
- * 出满树，控制台刷 `Hydration node/children mismatch`。这是真 bug 而非噪音：
- * 首屏侧栏会「闪一下」才出现。
- *
- * static 模式的菜单是**纯数据**（`src/menus/menus.json` + 路由表），无请求、无
- * `localStorage`，服务端可以照建，两侧于是渲染同一棵树。dynamic 模式的菜单依赖
- * 登录态与 `GET /api/menu/user`，服务端拿不到，那里只能让客户端先渲染空壳
- * （守卫随后补齐）。
- *
- * 守卫在浏览器里仍会再调一次 `initStaticMenu`：建树是幂等的纯计算，且它拿到的
- * 是路由表当下的事实（本处只是让首屏两侧一致）。
- */
+/** 出满树，控制台刷 `Hydration node/children mismatch`。这是真 bug 而非噪音： 详见 docs/v3-notes.md N-057。 */
 if (env.authRouteMode === 'static' && menuStore.isEmpty) {
   menuStore.initStaticMenu(router);
 }
@@ -196,15 +127,7 @@ const menuNodeMap = computed(() => {
   return map;
 });
 
-/**
- * 菜单叶子选中 → 跳转（页签由 afterEach 守卫补）。三条通道，优先级：
- * 1. `href`（`menuType: 'link'`）—— 新窗口打开，不产生路由/页签；
- * 2. `iframeUrl`（`menuType: 'iframe'`）—— 跳内置 `/iframe?url=`，地址做
- *    `encodeURIComponent`（URL 里的 `//`、`?` 进不了路径段，只能走 query）；
- * 3. `path` —— 普通路由，内部页面。
- * 不按路由名跳：dynamic 模式运行时注册的路由名不在 RouteNamedMap 字面量并集
- * 里，`push({ name })` 过不了类型；目录节点本就无可导航目标，忽略即可。
- */
+/** 菜单叶子选中 → 跳转（页签由 afterEach 守卫补）。三条通道，优先级： 详见 docs/v3-notes.md N-058。 */
 function onMenuSelect(key: string): void {
   const node = menuNodeMap.value.get(key);
 
@@ -233,24 +156,10 @@ function onMenuSelect(key: string): void {
 // 页签
 // ---------------------------------------------------------------------------
 
-/**
- * 是否已完成客户端挂载。
- *
- * 页签、用户信息都持久化在 `localStorage`，服务端读不到 —— 不门控就是首屏
- * 预渲染出空页签栏 / 默认头像、客户端水合出真值，控制台报
- * `Hydration node/attribute mismatch`（详见 `@/composables/use-hydrated`）。
- */
+/** 是否已完成客户端挂载 详见 docs/v3-notes.md N-059。 */
 const hydrated = useHydrated();
 
-/**
- * 页签栏里这条页签还该不该显示。
- *
- * 页签只持久化了 `routeName` / `fullPath`，没有布局快照 —— 所以拿 `fullPath` 回查
- * **当下**的路由表取 `meta.layout`（用路径而非名字：页签名是裸 `string`，
- * vue-router 的 `resolve` 只接受生成器产出的名字字面量并集）。解析不到任何记录
- * 时按可显示处理 —— 宁可留一个点进去是 404 的页签，也不因为一次查表失败把用户
- * 的页签静默抹掉。
- */
+/** 页签栏里这条页签还该不该显示 详见 docs/v3-notes.md N-060。 */
 function isTabbableTab(tab: AppTab): boolean {
   const record = router.resolve(tab.fullPath).matched.at(-1);
 
@@ -275,23 +184,14 @@ function onTabValueChange(value: unknown): void {
   void tabStore.switchTab(router, String(value));
 }
 
-/**
- * 页签点击 → 切换路由。
- *
- * `SPageTabs` 把 `click` 同时声明成了组件事件（页签数据）和原生事件（根元素），
- * 模板上绑定的处理函数得同时吃下两种参数，所以这里按参数形状分派一次。
- */
+/** 页签点击 → 切换路由 详见 docs/v3-notes.md N-061。 */
 function onTabClick(payload: PageTabsOptionData | PointerEvent): void {
   if (typeof payload === 'object' && payload !== null && 'value' in payload) {
     void tabStore.switchTab(router, String(payload.value));
   }
 }
 
-/**
- * SPageTabs 的全量回写（close/pin/drag 都走 `update:tabs`）：
- * 按 value 对齐应用侧页签（保留 routeName/fullPath），合并 pinned 变化；
- * 对比回写前后移除的页签，驱逐对应 keep-alive 缓存。
- */
+/** SPageTabs 的全量回写（close/pin/drag 都走 `update:tabs`）：按 value 对齐应用侧页签（保留 routeName/fullPath），合并。 */
 function onTabsUpdate(tabs: PageTabsOptionData[]): void {
   const nextValues = new Set(tabs.map(tab => String(tab.value)));
   const removed = tabStore.tabs.filter(tab => !nextValues.has(tab.value));
@@ -314,13 +214,7 @@ function onTabsUpdate(tabs: PageTabsOptionData[]): void {
   }
 }
 
-/**
- * 页签右键菜单（v2 `TabsDropdown` 的等价物）。
- *
- * 动作全部走 `PageTabsState` 提供的操作，组件内部照旧把它们汇进
- * `update:items` 回写 —— 应用层不需要为每个动作写一遍 store 调用。
- * 不可用项交给 `disabled`（工具栏显示灰态，和 v2 一致）。
- */
+/** 页签右键菜单（v2 `TabsDropdown` 的等价物） 详见 docs/v3-notes.md N-063。 */
 function tabMenuFactory(tab: PageTabsOptionData, state: PageTabsState): PageTabsContextMenuOptionData[] {
   const reload = () => onTabReload(tab.value);
 
@@ -356,8 +250,7 @@ function tabMenuFactory(tab: PageTabsOptionData, state: PageTabsState): PageTabs
 }
 
 /**
- * 右键菜单的「重载」：非当前页签要先切过去再重载，
- * 否则 `reloadTab()` 驱逐的是当前页的 keep-alive 缓存，点在别的页签上会重载错页。
+ * 右键菜单的「重载」：非当前页签要先切过去再重载，否则 `reloadTab()` 驱逐的是当前页的 keep-alive 缓存，点在别的页签上会重载错页。
  */
 async function onTabReload(value: string): Promise<void> {
   const tab = tabStore.tabs.find(item => item.value === value);
@@ -377,13 +270,7 @@ const userLabel = computed(() => authStore.userInfo?.fullName || authStore.userI
 
 const userAvatarSrc = computed(() => authStore.userInfo?.avatar ?? '');
 
-/**
- * 头像兜底文案。
- *
- * `userInfo` 来自 `localStorage`，服务端读不到 —— 不门控就是 SSR `'U'` /
- * 水合 `'超'` 的 `alt` 属性不匹配（与页签同一个成因，见 `mounted` 的说明）。
- * 水合前与服务端一律用 `'U'`，挂载后才是真实姓氏。
- */
+/** 头像兜底文案 详见 docs/v3-notes.md N-065。 */
 const userAvatarFallback = computed(() => {
   const initial = hydrated.value ? userLabel.value.slice(0, 1).toUpperCase() : '';
 
@@ -416,8 +303,7 @@ function onUserMenuSelect(value: unknown): void {
 }
 
 /**
- * 语言下拉项：直接由 `APP_LOCALES` 派生（新增语言只改常量 + JSON），
- * 当前语言置灰（点自己无意义）。
+ * 语言下拉项：直接由 `APP_LOCALES` 派生（新增语言只改常量 + JSON），当前语言置灰（点自己无意义）。
  */
 const localeMenuItems = computed(() =>
   APP_LOCALES.map(code => ({
@@ -435,12 +321,7 @@ const currentLocaleLabel = computed(() => {
   return matched ? APP_LOCALE_LABELS[matched] : current;
 });
 
-/**
- * 切语言：先按需补注册 Vean 组件文案包（`zh` / `en` 是幂等空转，新增语言才真正
- * 走动态 `import()`），再调 `setLocale` —— 后者由 `ubean/client` 负责写 cookie、
- * 懒加载 `src/locales/*.json`、并按 `prefix_except_default` 策略 `router.replace`
- * 到带语言前缀的路径。
- */
+/** 切语言：先按需补注册 Vean 组件文案包（`zh` / `en` 是幂等空转，新增语言才真正走动态 `import()`），再调 `setLocale` —— 后者由。 */
 async function onLocaleMenuSelect(value: unknown): Promise<void> {
   if (typeof value !== 'string' || value === locale.value) return;
 
@@ -466,10 +347,9 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
     @select="onMenuSelect"
   >
     <!--
-      页签走 `#tabs` 槽而不是 `tabs` prop：页签风格（chrome/card/slider）在样式层
-      `PageTabsProps.variant`，壳的 `tabProps` 是 `PageTabsCompactProps`，类型上给不到。
-      槽内 SPageTabs 的事件与壳内置版一致（壳也是把 `update:items` 透传成 `update:tabs`），
-      这里直接绑到 store，少一层事件转发。
+      页签走 `#tabs` 槽而不是 `tabs` prop：页签风格（chrome/card/slider）在样式层`PageTabsProps.variant`，壳的 `tabProps`
+      是 `PageTabsCompactProps`，类型上给不到。
+      详见 docs/v3-notes.md N-068。
     -->
     <template #tabs>
       <SPageTabs
@@ -531,11 +411,7 @@ async function onLocaleMenuSelect(value: unknown): Promise<void> {
       </div>
     </template>
 
-    <!--
- 包一层 `relative` 作为离场页的定位基准：交叉淡出时两个页面同时存在，
-         CSS 会把离场那份移出文档流（见 `src/styles/transition.css`），
-         它需要最近的定位祖先来确定自己的宽度与上边距。
--->
+    <!-- 包一层 `relative` 作为离场页的定位基准：交叉淡出时两个页面同时存在，CSS 会把离场那份移出文档流（见 `src/styles/transition.css`），它需要最近的定位祖 先来确定自己的宽度与上边距。 -->
     <div class="relative">
       <PageView :transition="pageTransition" />
     </div>

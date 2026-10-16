@@ -17,15 +17,7 @@ import {
   resetPasswordDefaults
 } from '@/schema/auth';
 
-/**
- * P3-05 的核心契约：**登录页表单与服务端共用同一份 valibot 声明**。
- *
- * 断言的是「同一份规则」而非「两份长得像」：表单 schema 通过
- * `...serverSchema.entries` 复用服务端字段对象，所以同一条错误消息必然同源。
- *
- * 每个用例都喂**完整对象**（缺键会先报 `Invalid key: Expected …`，把字段规则
- * 的比较淹掉）。
- */
+/** P3-05 的核心契约：**登录页表单与服务端共用同一份 valibot 声明** 详见 docs/v3-notes.md N-421。 */
 
 /** 收集 issue 的 message */
 function issueMessages(schema: BaseSchema<unknown, unknown, BaseIssue<unknown>>, input: unknown): string[] {

@@ -3,13 +3,7 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SButtonIcon, SInput } from '@vean/ui';
 
-/**
- * 路由参数 / 查询编辑器（P3-03）。
- *
- * 值域是 `Record<string, string>`（后端 `routeParams` / `routeQueries` 的 DTO 形
- * 状）。行内编辑用局部数组，避免每次按键都重建 record 造成父级表单抖动；
- * 回写用 `JSON.stringify` 比对，防止 `watch` 来回互相触发。
- */
+/** 路由参数 / 查询编辑器（P3-03） 详见 docs/v3-notes.md N-324。 */
 defineOptions({ name: 'RouteParamForm' });
 
 const props = defineProps<{

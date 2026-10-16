@@ -4,13 +4,7 @@ import { SButton } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
 import ExceptionBase from '@/components/exception-base/index.vue';
 
-/**
- * 403 无访问权限（P3-06 引入，P3-07 改用统一异常壳）。
- *
- * 触发点：`src/router/guard.ts` 的路由级 `meta.roles` 判定不命中 →
- * 重定向到这里并带上 `?from=`。角色判定复用 `@/shared/permission` 的
- * `hasRole`，与 `v-auth:role` 指令同一份纯函数。
- */
+/** 403 无访问权限（P3-06 引入，P3-07 改用统一异常壳） 详见 docs/v3-notes.md N-302。 */
 definePage({
   name: 'Forbidden',
   layout: 'blank',

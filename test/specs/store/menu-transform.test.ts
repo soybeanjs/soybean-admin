@@ -2,17 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { transformMenuToRoute } from '@/store/modules/menu';
 import type { MenuResource } from '@/schema/menu';
 
-/**
- * dynamic 菜单行 → 路由记录（P3-07 补 iframe 分支）。
- *
- * 覆盖三条分流：
- * - `menu` / `page`：有 `routePath` + `routeName` → 普通路由（缺页占位兜底）；
- * - `iframe`：不配 `routePath`，生成一条 `redirect → /iframe?url=` 的路由，
- *   让菜单项可跳转且 URL 不进路径段；
- * - `directory` / `link`：不产生路由（前者只是分组，后者由布局新窗口打开）。
- *
- * `views` 传空对象即代表「所有视图都缺失」，正好顺带验证占位兜底分支。
- */
+/** 覆盖三条分流： 详见 docs/v3-notes.md N-442。 */
 function row(partial: Partial<MenuResource>): MenuResource {
   return {
     id: 'M_1',

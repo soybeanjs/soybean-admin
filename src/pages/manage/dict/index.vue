@@ -15,12 +15,7 @@ import type { DictResource, DictSearchFormDTO } from '@/schema/dict';
 import DictOperate from './modules/dict-operate.vue';
 import DictSearch from './modules/dict-search.vue';
 
-/**
- * 字典管理页（P3-03）。
- *
- * 额外提供「查看字典项」跳转：`/manage/dict-item?dictId=<id>`，由字典项页读取
- * query 预置筛选，省去手抄 dictId。
- */
+/** 字典管理页（P3-03） 详见 docs/v3-notes.md N-321。 */
 defineOptions({ name: 'ManageDict' });
 
 const { t } = useI18n();

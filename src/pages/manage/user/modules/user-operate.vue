@@ -8,27 +8,13 @@ import { api } from '@/request';
 import { userFormSchema, emptyUserForm, toUserForm } from '@/schema/user';
 import type { UserFormDTO, UserCreateDTO, UserUpdateDTO } from '@/schema/user';
 
-/**
- * 用户新增 / 编辑弹窗（P3-03）。
- *
- * 与 `api-operate.vue` 同形，额外两处：
- * - 密码只在新增时必填（`manage.user.createPasswordRequired`），编辑留空表示不改；
- * - 角色用 `SSelect multiple`，选项来自 `GET /api/role/all`。
- *
- * 空串 → `null` 的还原在提交时统一做：表单一律用空串表达"未填"（`SInput`
- * 的 `modelValue` 是 `string`），后端 DTO 的可选字段是 `string | null`。
- */
+/** 与 `api-operate.vue` 同形，额外两处： 详见 docs/v3-notes.md N-332。 */
 defineOptions({ name: 'UserOperate' });
 
 const props = defineProps<{
   /** 正在编辑的用户 id；`undefined` 表示为新增 */
   userId?: string;
-  /**
-   * 正在编辑的用户的角色 id 列表。
-   *
-   * 由列表页从行数据带过来：`GET /api/user/:id` 不返回角色关联（只有列表行
-   * 带 `roles: [{id}]`），若在这里再查列表会多打一次请求且要处理分页。
-   */
+  /** 正在编辑的用户的角色 id 列表。由列表页从行数据带过来：`GET /api/user/:id` 不返回角色关联（只有列表行带 `roles: [{id}]`），若在这里再查列表会多打一次请求且要处理分页。 */
   roleIds?: string[];
 }>();
 

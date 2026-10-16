@@ -12,15 +12,7 @@ import {
   toUpdateProfilePayload
 } from '@/schema/profile';
 
-/**
- * 个人中心表单契约测试（P3-09）。
- *
- * 重点不是「valibot 能跑」，而是两条本项目特有的约定：
- * 1. **空串合法**：表单里留空 = 清空该字段，不能在格式校验上被拦（邮箱/手机号）；
- * 2. **前后端共用同一份规则**：`profileUpdateSchema` 就是
- *    `src/routes/api/auth/profile.ts` 的 `validate('json', ...)` 入参，
- *    这里断言它的行为与表单侧一致。
- */
+/** 重点不是「valibot 能跑」，而是两条本项目特有的约定： 详见 docs/v3-notes.md N-422。 */
 
 /** 收集校验失败的首条 message（成功时返回 null） */
 function firstIssue(schema: v.BaseSchema<unknown, unknown, v.BaseIssue<unknown>>, input: unknown): string | null {

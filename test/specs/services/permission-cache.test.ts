@@ -9,17 +9,7 @@ import {
   userPermissionCacheKey
 } from '@/shared/permission-cache';
 
-/**
- * 权限码缓存（§5.2）。
- *
- * 回归背景：`checkUserHasPermission` 是每个已登录请求的热路径，改造前每次三查
- * （permission → user_role → role_permission）。缓存后热路径退化为一次 KV 读，
- * 但**正确性完全依赖失效**：写操作没清键 → 停权后旧 token 在 TTL 内仍然放行。
- * 所以这里同时测「命中原样返回」与「失效后必然回源」。
- *
- * 注意 `useKV` 的命名空间是模块级单例（同名只按首次调用初始化，options 被忽略），
- * 所以每个用例前手动 `clear()`，不依赖调用顺序。
- */
+/** 注意 `useKV` 的命名空间是模块级单例（同名只按首次调用初始化，options 被忽略）， 详见 docs/v3-notes.md N-426。 */
 describe('permission-cache', () => {
   beforeEach(async () => {
     await invalidateAllPermissionCache();

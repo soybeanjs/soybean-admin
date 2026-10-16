@@ -6,18 +6,7 @@ import { SCard, STag } from '@vean/ui';
 import { useMenuStore } from '@/store';
 import { findMenuTrail } from '@/store/modules/menu';
 
-/**
- * 多级菜单演示的共享内容块（P3-10）。
- *
- * 四个页面（一级 + 二级 + 二级(有子) + 三级）是同一模板的四份实例，
- * 收敛成这个组件，避免四份重复的卡片骨架。
- *
- * 层级链由菜单树现算，而不是读路由 —— 证据是**建树结果**：
- * 菜单是从 `meta.menuParent` 声明出来的，不是从 path 前缀猜出来的。
- *
- * 高亮值与链路同源：`meta.activeMenu` 优先（隐藏子页指回父菜单），
- * 与 `src/layouts/default.vue` 的 `activeMenuValue` 同一判据。
- */
+/** 层级链由菜单树现算，而不是读路由 —— 证据是**建树结果**： 详见 docs/v3-notes.md N-339。 */
 defineOptions({ name: 'MultiMenuPanel' });
 
 const props = defineProps<{

@@ -15,13 +15,7 @@ import { env } from '@/env';
 import { api } from '@/request';
 import type { AuthUserDTO, LoginResult } from '@/schema/auth';
 
-/**
- * 认证 store（v3 §5.5）：token 对 + 用户信息 + 登录/登出流程。
- *
- * token 与用户信息同步落 localStorage（`src/utils/auth.ts`），刷新页面经
- * `initUserInfo` 恢复；请求层的登出回调由守卫在拿到 router 后注册（见
- * `initAuthStore` 与 `src/router/guard.ts`）。
- */
+/** 认证 store（v3 §5.5）：token 对 + 用户信息 + 登录/登出流程 详见 docs/v3-notes.md N-098。 */
 
 interface AuthState {
   token: string;
@@ -77,12 +71,7 @@ export const useAuthStore = defineStore('auth', {
       this.refreshToken = result.refreshToken;
       this.userInfo = result.user;
     },
-    /**
-     * 覆盖本地用户信息（个人中心改资料后调用）。
-     *
-     * 必须同时写 localStorage：否则刷新页面后 `userInfo` 从旧快照恢复，
-     * 改动看起来「丢了」。
-     */
+    /** 覆盖本地用户信息（个人中心改资料后调用）。必须同时写 localStorage：否则刷新页面后 `userInfo` 从旧快照恢复，改动看起来「丢了」。 */
     setUserInfo(userInfo: AuthUserDTO) {
       this.userInfo = userInfo;
       setAuthStorage({ token: this.token, refreshToken: this.refreshToken, user: userInfo });
@@ -100,10 +89,7 @@ export const useAuthStore = defineStore('auth', {
         });
       }
     },
-    /**
-     * 登出：调后端拉黑 token 对 → 重置本地。
-     * 抛错不阻断 —— 后端不可达时也要完成前端登出。
-     */
+    /** 登出：调后端拉黑 token 对 → 重置本地 详见 docs/v3-notes.md N-100。 */
     async logout() {
       try {
         await api.post('/auth/logout');
@@ -112,13 +98,7 @@ export const useAuthStore = defineStore('auth', {
       }
       this.resetStore();
     },
-    /**
-     * 重置登录态并回登录页。
-     *
-     * 跳转经 `handleAuthReset()`（守卫注册的回调持有 router 实例），因此本
-     * action 不需要 router 参数，从任何上下文（组件事件、请求层回调、测试）
-     * 调用都能完成「清空 + 回登录页」。
-     */
+    /** 重置登录态并回登录页。跳转经 `handleAuthReset()`（守卫注册的回调持有 router 实例），因此本action 不需要 router。 */
     resetStore() {
       clearAuthStorage();
       this.token = '';
@@ -134,15 +114,7 @@ export const useAuthStore = defineStore('auth', {
   }
 });
 
-/**
- * 注册请求层登出回调与「重置收尾」回调（`setupRouterGuard` 拿到 router 后调用一次）。
- *
- * ①故意做成**模块级普通函数**而非 store action：ubean 的 `router.setup` 在
- * `applyAppConfig`（安装 plugins/pinia）**之前**执行，此时拿不到活跃 pinia；
- * 回调注册本身不需要 store 实例，回调体在使用期（接口响应时）才动态取 store。
- * ②回调体动态 import，避免 store ↔ 请求层循环引用。
- * ③两个回调都靠注册时注入的 router 实例，不依赖任何单例模块。
- */
+/** 注册请求层登出回调与「重置收尾」回调（`setupRouterGuard` 拿到 router 后调用一次） 详见 docs/v3-notes.md N-102。 */
 export function initAuthStore(router: Router): void {
   setLogoutHandler((silent: boolean) => {
     void import('@/store').then(({ useAuthStore: resolveAuthStore }) => {

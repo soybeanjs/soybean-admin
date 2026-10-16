@@ -4,19 +4,7 @@ import type { NodeStyle } from '@antv/g6/lib/spec/element/node';
 import { getNodeIcon, nodeStatus } from './status';
 import type { CustomEdgeData, CustomGraphData, CustomNodeData } from './types';
 
-/**
- * AntV G6 流程图（P4-01，v2 `modules/antv-g6-flow.ts` 的移植）。
- *
- * 与 v2 的差异：
- * - 主题色不再从 `useThemeStore()` 取（v3 无该 store），改为构造时传入的
- *   `palette`（`primary` / `destructive` 的完整 CSS 颜色，由调用方从
- *   `@vean/theme` 的 `resolveTokenColor()` + `useTheme()` 状态算出来）——
- *   G6 要的是具体颜色字符串，不是 CSS 变量，所以必须在 Vue 侧解析；
- * - `import type { Canvas } from '@antv/g6/lib/runtime/canvas'` 在本版
- *   **不存在**（g6 5.1.1 无该深路径）→ 从 `@antv/g6` 根导入 `Canvas`；
- * - tooltip 的 HTML 换行由内联样式负责（G6 的 tooltip 挂在 canvas 容器外，
- *   UnoCSS 的类名对它无效，v2 的注释也提到过这点）。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-344。 */
 export interface AntFlowPalette {
   /** 主色（选中态、高亮 halo） */
   primary: string;
@@ -162,12 +150,7 @@ export function useAntFlow(config: AntFlowConfig) {
   return { graph };
 }
 
-/**
- * tooltip 的 HTML。
- *
- * G6 把 tooltip 节点插在 canvas 容器的**外层**，UnoCSS 的作用域覆盖不到，
- * 因此这里只能写内联样式（v2 的同名注释也是这个原因）。
- */
+/** tooltip 的 HTML。G6 把 tooltip 节点插在 canvas 容器的**外层**，UnoCSS 的作用域覆盖不到，因此这里只能写内联样式（v2 的同名注释也是这个原因）。 */
 function renderTooltip(items: CustomNodeData[], dark: boolean): string {
   const mutedColor = dark ? 'rgb(161 161 170)' : 'rgb(156 163 175)';
   const textColor = dark ? '#e5e5e5' : '#111827';

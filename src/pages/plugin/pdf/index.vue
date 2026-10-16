@@ -4,17 +4,7 @@ import { useI18n } from 'vue-i18n';
 import VuePdfEmbed from 'vue-pdf-embed';
 import { SCard, SCheckbox, SPagination, SScrollArea, SSkeleton, SButtonIcon, STooltip } from '@vean/ui';
 
-/**
- * PDF 预览（P4-01）。
- *
- * 与 v2 的差异：
- * - v2 的 `useLoading` 来自 `@sa/hooks`（v3 无此包）→ 换本地 `ref`；
- * - `NSkeleton text :repeat="12"` → `v3` 的 `SSkeleton` 没有 `text`/`repeat`，
- *   改为手写 12 个骨架条；
- * - `ButtonIcon tooltip-content="…"` → `SButtonIcon` 没有 `tooltipContent`，
- *   外面套 `STooltip`；
- * - `NPagination page-count/page-size` → `SPagination total/pageSize`。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-368。 */
 defineOptions({ name: 'PluginPdf' });
 
 const { t } = useI18n();

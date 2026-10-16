@@ -18,11 +18,7 @@ const authStore = useAuthStore();
 
 const userName = computed(() => authStore.userInfo?.username ?? '');
 
-/**
- * 服务端 / 水合前空串（`userInfo` 来自 `localStorage`，见
- * `@/composables/use-hydrated`）。不门控会让首屏渲染 `早安，, ...`、水合渲染
- * `早安，admin, ...`，报 `Hydration text content mismatch`。
- */
+/** `早安，admin, ...`，报 `Hydration text content mismatch` 详见 docs/v3-notes.md N-314。 */
 const hydratedUserName = useHydratedValue(userName, '');
 
 const avatarLabel = computed(() => hydratedUserName.value.slice(0, 1).toUpperCase());

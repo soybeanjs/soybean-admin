@@ -2,17 +2,7 @@
 import { useI18n } from 'vue-i18n';
 import { SButton, SCard, SForm } from '@vean/ui';
 
-/**
- * manage 页搜索卡外壳（P3-03）。
- *
- * 8 套 CRUD 的搜索卡结构一致：`SCard`（标题「搜索」+ 可折叠超出滚动）内含一个
- * 栅格化的 `SForm`，末尾是「重置 / 搜索」两个按钮。差异只在字段本身，因此
- * 字段由页面经默认插槽塞进来，按钮与`<form>` 元素（`type="submit"` 生效的前提）
- * 收敛在这里。
- *
- * **字段组件必须由页面提供**（`SFormField` 的 `name` 依赖页面 `useForm` 的
- * schema 推导），所以本组件只做外壳，不接管表单状态。
- */
+/** manage 页搜索卡外壳（P3-03） 详见 docs/v3-notes.md N-039。 */
 defineOptions({ name: 'ManageSearch' });
 
 const props = withDefaults(

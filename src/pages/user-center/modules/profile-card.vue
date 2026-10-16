@@ -6,12 +6,7 @@ import { useAuthStore } from '@/store';
 import { useHydratedValue } from '@/composables/use-hydrated';
 import EnabledTag from '@/components/enabled-tag/index.vue';
 
-/**
- * 用户信息概览卡（个人中心左侧）。
- *
- * 只读视图 —— 可编辑字段在右侧表单里，这里刻意不重复渲染输入控件，避免同一
- * 份数据出现两个真相源（改表单后卡片不刷新、或卡片改了表单不认）。
- */
+/** 用户信息概览卡（个人中心左侧）。只读视图 —— 可编辑字段在右侧表单里，这里刻意不重复渲染输入控件，避免同一份数据出现两个真相源（改表单后卡片不刷新、或卡片改了表单不认）。 */
 
 defineOptions({ name: 'UserCenterProfileCard' });
 
@@ -21,24 +16,12 @@ const authStore = useAuthStore();
 
 const user = computed(() => authStore.userInfo);
 
-/**
- * 水合前一律 `undefined`（服务端读不到 `localStorage`，见
- * `@/composables/use-hydrated`）。
- *
- * 卡片里**每一处**用户字段都走它，而不是直接用 `user` —— 名字/邮箱/角色标签
- * 任意一处漏掉都会报 `Hydration text content mismatch`。挂载后自动变为真值。
- */
+/** 卡片里**每一处**用户字段都走它，而不是直接用 `user` —— 名字/邮箱/角色标签 详见 docs/v3-notes.md N-380。 */
 const hydratedUser = useHydratedValue(user, undefined);
 
 const avatarText = computed(() => (user.value?.fullName ?? user.value?.username ?? 'U').slice(0, 1).toUpperCase());
 
-/**
- * 服务端 / 水合前一律 `'U'`。
- *
- * `userInfo` 来自 `localStorage`，服务端读不到 —— 直接用真值会让 SSR 渲染
- * `'U'`、水合渲染 `'超'`，报 `Hydration attribute mismatch`（见
- * `@/composables/use-hydrated`）。
- */
+/** 服务端 / 水合前一律 `'U'` 详见 docs/v3-notes.md N-381。 */
 const hydratedAvatarText = useHydratedValue(avatarText, 'U');
 
 /** 空值统一显示 `-`（与 manage 页表格同一约定） */

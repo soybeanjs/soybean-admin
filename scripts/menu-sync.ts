@@ -4,42 +4,9 @@ import { fileURLToPath } from 'node:url';
 import type { ScannedPage } from '@ubean/scan';
 import { scanPages } from '@ubean/vue/vite';
 
-/**
- * `pnpm menu:sync` —— 用页面文件补齐 `src/menus/menus.json`（文档 §5 的 P1）。
- *
- * 菜单源数据是人写的（层级、标题、图标、排序都是审美决定），但「哪些页面
- * 存在、路径是什么」是机器事实。本脚本只做这两件事之间的对账：
- *
- * - **新增**：页面有 `definePage` 标题却不在菜单里 → 追加一行（`order` 留
- *   `DEFAULT_ORDER` 待人工排）。
- * - **刷新派生字段**：`routePath` / `routeComponent` 从页面文件重算。这两个
- *   必须与文件系统一致，否则 `router.push` 跳错页 —— 所以它们不接受人工覆盖。
- * - **绝不改**：已有条目的 `name` / `icon` / `i18nKey` / `order` / `parentId` /
- *   各开关，一个字段都不动。
- * - **绝不删**：路由消失的条目只打警告并列出来，由人决定删还是留（可能是
- *   页面临时下线）。
- *
- * 「页面是否该进菜单」的判据（`hideInMenu` / `blank` 布局 / `requiresAuth: false`
- * / 无标题）在 `src/store/modules/menu/shared.ts` 与这里各有一份，两者必须一致 ——
- * 前者管运行时，后者管生成期。**不抽公共模块是刻意的**：本脚本要能被普通
- * `node` 直接执行，而 `@/` 别名模块（`@/schema/menu` 等）在 Vite 之外解析不了，
- * 抽出去就得多加一层构建步骤，不值得。
- *
- * 为什么不写机器产物 `_generated.json`（文档 §5.1 约束②）：那条约束要防的是
- * 「单文件双写导致人工字段被覆盖」。这里已经用「只写派生字段 + 只追加」把风险
- * 消掉了，多一个文件反而让「菜单到底在哪」变成两个地方。
- *
- * 运行方式：`node scripts/menu-sync.ts`（Node 原生 TS，无需构建）。因此**不能
- * import `@/` 别名模块** —— 下面的 `snake` 与字段清单是本脚本自带的副本。
- */
+/** 菜单源数据是人写的（层级、标题、图标、排序都是审美决定），但「哪些页面，存在、路径是什么」是机器事实。本脚本只做这两件事之间的对账： 详见 docs/v3-notes.md N-391。 */
 
-/**
- * 与 `src/store/modules/menu/shared.ts` 的 `AppMenu` 对齐的字段顺序。
- *
- * 覆盖 `src/db/schema/menu.ts` 的全部列（除 `enabled` —— 那是 DB 的运行时状态，
- * 不该由菜单源文件管），这样手写的 `routeRedirect` / `routeQueries` / `description`
- * 等可选字段也能安全回写，不会被本脚本砍掉。
- */
+/** 与 `src/store/modules/menu/shared.ts` 的 `AppMenu` 对齐的字段顺序 详见 docs/v3-notes.md N-392。 */
 const FIELD_ORDER = [
   'id',
   'parentId',
@@ -160,12 +127,7 @@ export interface MenuSyncResult {
   conflicted: string[];
 }
 
-/**
- * 执行一次对账并写回 `src/menus/menus.json`。
- *
- * 抽成函数是为了让 P2 （`vite.config.ts` 的插件，监听
- * `src/pages/**` 变更）能直接复用，而不是再写一份。
- */
+/** 执行一次对账并写回 `src/menus/menus.json` 详见 docs/v3-notes.md N-393。 */
 export async function syncMenus(): Promise<MenuSyncResult> {
   const scanned = await scanPages(scanOptions);
   const pages = scanned.pages.filter(isMenuPage);

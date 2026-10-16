@@ -2,12 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { nextTick, ref, shallowRef } from 'vue';
 import { useTableOperate } from '@/composables/use-table-operate';
 
-/**
- * `useTableOperate`（P3-02）：表格交互范式。
- *
- * 只测纯逻辑部分 —— operate 弹窗开关、选中集、查询重置、分页与 query 的双向
- * 同步。`t()` 只在 `usePageSizeOptions` 里用（需要 setup 上下文），不在覆盖范围。
- */
+/** `useTableOperate`（P3-02）：表格交互范式 详见 docs/v3-notes.md N-412。 */
 function setup(initialQuery: Record<string, unknown> = {}) {
   const query = ref<Record<string, unknown>>({ ...initialQuery });
   const page = ref(1);

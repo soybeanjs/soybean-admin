@@ -3,12 +3,7 @@ import { AppError } from '@/shared/error';
 import { authService } from '@/services/auth.service';
 import { nullDataSchema } from '@/schema/_shared';
 
-/**
- * `POST /api/auth/logout` —— 登出（需登录）。
- *
- * access token 拉黑 1h、refreshToken 拉黑 7d；token 已失效时幂等返回成功。
- * 用户上下文由鉴权中间件写入（c.get('userId')）。
- */
+/** `POST /api/auth/logout` —— 登出（需登录） 详见 docs/v3-notes.md N-086。 */
 export const POST = defineHandler(
   describeRoute({
     tags: ['认证'],

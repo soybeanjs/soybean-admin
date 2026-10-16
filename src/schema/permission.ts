@@ -13,13 +13,7 @@ import {
   rowText
 } from './_shared';
 
-/**
- * 权限点契约（v3 §6.3，unify permission.service 范式）。
- *
- * `name` / `code` 只有 `resourceType === 'other'` 时才是权威值；绑定
- * `menu` / `api` / `button` 资源时由服务端 `resolveResourceBinding` 推导，
- * 故两者在新增里也是可选。
- */
+/** 权限点契约（v3 §6.3，unify permission.service 范式）。 */
 
 /* -------------------------------------------------------------------------- */
 /*                              服务端请求 schema                              */
@@ -96,13 +90,7 @@ export const permissionSearchFormSchema = object({
 /*                               operate 表单 schema                           */
 /* -------------------------------------------------------------------------- */
 
-/**
- * 权限点新增 / 编辑表单。
- *
- * `name` / `code` 只有 `resourceType === 'other'` 时才是权威值；绑定
- * `menu` / `api` / `button` 资源时由服务端（`resolveResourceBinding`）推导，
- * 客户端传空串即可（服务端 create schema 里两者也是 optional）。
- */
+/** 权限点新增 / 编辑表单。`name` / `code` 只有 `resourceType === 'other'` 时才是权威值；绑定`menu` / `api` / `button`。 */
 export const permissionFormSchema = object({
   name: pipe(string(), description('权限名称，绑定资源时留空')),
   code: pipe(string(), description('权限编码，绑定资源时留空')),

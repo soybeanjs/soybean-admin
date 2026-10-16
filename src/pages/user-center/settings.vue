@@ -12,16 +12,7 @@ import OperationPanel from '@/components/theme-drawer/operation-panel.vue';
 import { THEME_DRAWER_TABS } from '@/components/theme-drawer/shared';
 import type { ThemeDrawerTab } from '@/components/theme-drawer/shared';
 
-/**
- * 个人中心 · 设置（P3-09）。
- *
- * **直接复用主题抽屉的四个面板组件**，不抄一遍二十多个开关：抽屉里的面板本就
- * 没有抽屉依赖（各自只读 `themeStore`），所以同一份配置清单可以同时出现在
- * 抽屉和整页两种容器里。这样新增一个主题配置项只需改一处，两边自动同步。
- *
- * 差异只在容器：抽屉是 `SDrawer`，这里是 `SCard` + `STabs`；抽屉的 Tab 组件
- * 用 `unmount-on-hide=false` 保持状态，这里同样设置，避免来回切 Tab 丢失滚动位置。
- */
+/** 个人中心 · 设置（P3-09） 详见 docs/v3-notes.md N-386。 */
 
 defineOptions({ name: 'UserCenterSettings' });
 

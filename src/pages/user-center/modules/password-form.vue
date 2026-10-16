@@ -6,15 +6,7 @@ import { api } from '@/request';
 import { EMPTY_PASSWORD_FORM, changePasswordFormSchema } from '@/schema/profile';
 import type { ChangePasswordFormValues } from '@/schema/profile';
 
-/**
- * 修改密码卡（个人中心）。
- *
- * `changePasswordFormSchema` 用 `v.forward(v.partialCheck(...))` 做「两次输入一致」
- * 的跨字段校验 —— 与登录页注册表单同一写法；错误键落在 `confirmPassword` 上，
- * 所以模板里只需渲染三个字段，不需要额外的手写比较。
- *
- * 成功后不强制登出（后端旧 token 仍有效），只清空表单提示用户。
- */
+/** 修改密码卡（个人中心） 详见 docs/v3-notes.md N-378。 */
 
 defineOptions({ name: 'UserCenterPasswordForm' });
 

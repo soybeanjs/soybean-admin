@@ -7,16 +7,7 @@ import { api } from '@/request';
 import { apiFormSchema, emptyApiForm, toApiForm } from '@/schema/api';
 import type { ApiUpdateDTO, ApiFormDTO } from '@/schema/api';
 
-/**
- * 接口新增 / 编辑弹窗（P3-03）。
- *
- * 8 套 operate 弹窗同形，本文件是**参照实现**：
- * 1. `operateId` 变化 → 拉详情（编辑）或 `form.reset(空表)`（新增）；
- * 2. `useForm({schema, defaultValues})` 的 `defaultValues` 在**组合时**固化，
- *    所以回填只能走 `form.reset(values)`（TanStack 的 `reset` 会把
- *    `defaultValues` 一并替换成新值，见 `FormApi.js:127`）；
- * 3. 提交成功后 `open=false` + `toast.success` + `emit('success')` 通知列表刷新。
- */
+/** 8 套 operate 弹窗同形，本文件是**参照实现**： 详见 docs/v3-notes.md N-317。 */
 defineOptions({ name: 'ApiOperate' });
 
 const props = defineProps<{

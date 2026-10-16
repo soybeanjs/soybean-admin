@@ -5,19 +5,7 @@ import { validate } from '@/shared/validate';
 import { nullDataSchema } from '@/schema/_shared';
 import { demoErrorQuerySchema } from '@/schema/auth';
 
-/**
- * `POST /api/auth/error` —— 错误归一演示（P3-06，v3 §4.6）。
- *
- * 请求演示页按 `?code=` 逐条触发请求层的四类分派：
- * - `8888` → `DEMO_LOGOUT`，命中 `VITE_SERVICE_LOGOUT_CODES` → 静默登出；
- * - `7777` → `DEMO_MODAL_LOGOUT`，命中弹窗登出码 → `dialog.warning` 后登出；
- * - `9999` → `DEMO_REFRESH_TOKEN`，命中过期码 → 单飞刷新 + 重放；
- * - 不传 / 未登记 → `SYSTEM_ERROR`（`1000`）普通报错（3s 同文案去重）。
- *
- * 注意本端点**公开**（在鉴权中间件的 `PUBLIC_API_PATHS` 里），因此演示
- * 「令牌过期」不需要真实 token —— 请求层拿到 9999 会走刷新链路，刷新失败
- * 再回到这里重新报错（演示链路要看的正是这一段）。
- */
+/** 请求演示页按 `?code=` 逐条触发请求层的四类分派： 详见 docs/v3-notes.md N-084。 */
 export const POST = defineHandler(
   defineHandlerMeta({ requiresAuth: false }),
   describeRoute({

@@ -3,14 +3,7 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { SCard, STag } from '@vean/ui';
 
-/**
- * 隐藏子菜单的共享内容块（P3-06）。
- *
- * 三个隐藏子页（one/two/three）是同一视觉模板的三份实例：路由各自独立
- * （各占一个页签），但菜单里不可见（`hideInMenu: true`），侧栏高亮由
- * `meta.activeMenu` 指回父菜单 `/function/hide-child`。
- * 收敛成这个组件，避免三份重复的卡片骨架。
- */
+/** 隐藏子菜单的共享内容块（P3-06） 详见 docs/v3-notes.md N-308。 */
 defineOptions({ name: 'HideChildPanel' });
 
 const props = defineProps<{

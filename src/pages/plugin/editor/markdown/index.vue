@@ -5,16 +5,7 @@ import { useTheme, SCard } from '@vean/ui';
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
 
-/**
- * Markdown 编辑器（vditor，P4-01）。
- *
- * 与 v2 的差异：
- * - `useThemeStore().darkMode` → `@vean/ui` 的 `useTheme().effectiveMode`；
- * - v2 用 `watch(..., v => vditor.setTheme(...))` 但**在 `onUnmounted` 里才停
- *   监听**，且 `vditor` 引用没销毁（编辑器实例与 DOM 一起泄漏）→ 这里统一在
- *   `onUnmounted` 销毁实例、停 watch；
- * - vditor 的主题切换是命令式的（`setTheme`），不会自己跟着 CSS 变量走。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-352。 */
 defineOptions({ name: 'PluginEditorMarkdown' });
 
 const { t } = useI18n();

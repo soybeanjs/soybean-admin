@@ -2,26 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { resolveLocale, resolveLocaleRegistry } from '@vean/aria/locale';
 import { APP_LOCALES } from '@/constants';
 
-/**
- * 应用 locale key ↔ Vean 组件内置文案的对齐守卫。
- *
- * **为什么需要这条守卫**（真实回归）：`@vean/aria/locale` 出厂只注册两个 key
- * —— `en` 与 `zh-CN`，而 `resolveLocaleRegistry()` 对**未知 key 静默回落到
- * `en`**，不抛错也不警告：
- *
- * ```
- * resolveLocaleRegistry('zh').key       // 'en'（回落！）
- * resolveLocale('zh').table.emptyTitle  // 'No data'（应为「暂无数据」）
- * ```
- *
- * 本项目把应用 locale 从 `zh-CN` 改成了更简洁的 `zh`（见 `@/constants`），
- * 若无人补注册，分页 / 表格空态 / 标签页等**组件内部文案会整体变英文**，
- * 且 typecheck、lint、build、bundle budget 全部绿灯 —— 没有任何闸门能发现。
- * 这条用例把「每个 APP_LOCALES 都能解析到自己」变成即时反馈。
- *
- * 补注册在 `@/shared/vean-locale`，由 `src/app.ts` 在启动时调用；这里在
- * 测试里显式调用一次，断言的是注册后的最终状态。
- */
+/** —— `en` 与 `zh-CN`，而 `resolveLocaleRegistry()` 对**未知 key 静默回落到，`en`**，不抛错也不警告： 详见 docs/v3-notes.md N-438。 */
 describe('Vean 组件文案：locale key 对齐', () => {
   it('`en` 是出厂自带 key，无需补注册', () => {
     expect(resolveLocaleRegistry('en').key).toBe('en');
@@ -52,13 +33,7 @@ describe('Vean 组件文案：locale key 对齐', () => {
   });
 });
 
-/**
- * 13 个出厂语言包的「存在性 + 可用性」守卫。
- *
- * `VEAN_LOCALE_PACKS` 是手写清单（`@vean/aria` 没有导出语言包枚举），写错
- * 一个码（`pt-br` 大小写、`zh-TW` 漏写）在 dev 下不会报错 —— 只有该语言切
- * 过去时组件文案静默变英文。这里逐个真的 `import()`，钉死包名与内容。
- */
+/** 13 个出厂语言包的「存在性 + 可用性」守卫 详见 docs/v3-notes.md N-439。 */
 describe('Vean 出厂语言包：13 个包全可用', () => {
   it('清单与子路径导出逐个对得上（key / 文案分组 / 方向）', async () => {
     const { VEAN_LOCALE_PACKS, isVeanLocalePack, registerVeanLocalePack, resolveVeanLocalePack } =

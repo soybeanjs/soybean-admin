@@ -7,15 +7,7 @@ import { passwordLoginFormSchema, passwordLoginDefaults } from '@/schema/auth';
 import type { PasswordLoginFormValues } from '@/schema/auth';
 import { useLoginModuleNavigate, useLoginRedirect } from '../use-login';
 
-/**
- * 密码登录（v3 §4.6 / §5.7 P3-05）。
- *
- * 校验交给 `useForm` + `src/schema/auth.ts` 的 `passwordLoginFormSchema` ——
- * 与服务端 `loginSchema` 的 pwd 分支**同一份 valibot 规则**，前端不再手写
- * 「非空」判断。服务端业务错误（如 `2009` 用户名或密码错误）由请求层统一
- * toast，这里 catch 住不重复提示。成功后回跳 `?redirect=` 指向的来源页，
- * 否则用户 `homePath`。
- */
+/** 密码登录（v3 §4.6 / §5.7 P3-05） 详见 docs/v3-notes.md N-295。 */
 defineOptions({ name: 'PwdLogin' });
 
 const { t } = useI18n();

@@ -7,17 +7,7 @@ import { api } from '@/request';
 import type { WechatQrcode } from '@/schema/auth';
 import { useLoginModuleNavigate } from '../use-login';
 
-/**
- * 绑定微信（v3 §4.6）。
- *
- * ⚠️ 本模块**需要登录态**：绑定是账号级操作，服务端 `GET/POST
- * /api/auth/bind-wechat` 走默认鉴权；未登录时只提示去登录，不发请求
- * （避免 401 触发全局登出回调）。
- *
- * mock 说明：无微信开放平台凭证，服务端 `wechat-qrcode` 只下发 ticket +
- * 形似 `qrconnect` 的 url；这里用 ticket 派生 21×21 伪点阵（含三个定位角）
- * 作占位二维码，「模拟扫码」提交 ticket 完成绑定。
- */
+/** 绑定微信（v3 §4.6） 详见 docs/v3-notes.md N-293。 */
 defineOptions({ name: 'BindWechat' });
 
 /** 占位二维码边长（格） */

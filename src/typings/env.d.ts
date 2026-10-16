@@ -1,11 +1,6 @@
 /// <reference types="vite/client" />
 
-/**
- * 客户端可见环境变量（Vite 原生 `import.meta.env`）。
- *
- * ⚠️ 服务端变量不放这里：它们由 `src/env.server.ts` 的 `defineEnv()` 校验，
- * 且**不会**注入浏览器（`@ubean/shared` 的 defineEnv 只读 `process.env`）。
- */
+/** 客户端可见环境变量（Vite 原生 `import.meta.env`） 详见 docs/v3-notes.md N-023。 */
 interface ImportMetaEnv {
   /** 应用标题 */
   readonly VITE_APP_TITLE: string;
@@ -49,20 +44,8 @@ interface ImportMeta {
   readonly server: boolean;
 }
 
-/**
- * 构建时间戳（ISO 8601，`vite.config.ts` 的 `define` 注入）。
- *
- * dev（vite dev server）与 build 都会在**模块求值前**由 esbuild/rolldown
- * 做纯文本替换，因此 dev 下每次重启会给新值、HMR 不重算（与 vite 官方
- * `define` 行为一致）。about 页读它展示「最后构建时间」。
- *
- * 类型声明放这里（而非 `src/constants`）的原因：它是构建器注入的自由变量，
- * 不是常量模块导出的值。
- */
+/** 构建时间戳（ISO 8601，`vite.config.ts` 的 `define` 注入） 详见 docs/v3-notes.md N-024。 */
 declare const __BUILD_TIME__: string;
 
-/**
- * about 页的依赖清单（`vite.config.ts` / `vitest.config.ts` 经 `define` 注入）。
- * 类型来自构建期解析器 `scripts/dependency-manifest.ts`，浏览器侧只消费结果。
- */
+/** about 页的依赖清单（`vite.config.ts` / `vitest.config.ts` 经 `define` 注入） 详见 docs/v3-notes.md N-025。 */
 declare const __DEPENDENCIES__: import('../../scripts/dependency-manifest').DependencyManifest;

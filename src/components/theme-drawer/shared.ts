@@ -1,17 +1,4 @@
-/* @unocss-include */
-/**
- * 主题抽屉的共享件（P2-10）。
- *
- * v2 的 theme-drawer 每个配置项都是「左侧文案 + 右侧控件」的一行，四个 Tab
- * 加起来二十多行。抽成三个小组件 + 一份共享常量后，面板文件只剩配置清单本身，
- * 读起来才是「有哪些开关」而不是「怎么排版」。
- *
- * 这些只在 `src/components/theme-drawer/` 内部使用，所以放在同目录的
- * `shared.ts`，而不是 `src/shared/`（后者是跨模块的纯逻辑）。
- *
- * 顶部 `@unocss-include`：`uno.config.ts` 的 pipeline 只扫 `vue/[jt]sx`，
- * 本文件里的 class 字面量（尤其是布局模式缩略图）必须显式声明才不会被漏提取。
- */
+// @unocss-include 详见 docs/v3-notes.md N-045。
 
 import { computed } from 'vue';
 import type { WritableComputedRef } from 'vue';
@@ -49,22 +36,13 @@ export const PRESET_CARD_CLASS =
 
 /**
  * 预设色卡的底色（内联 style，不是 class）。
- *
- * 色值由 `@vean/theme` 的 `resolveTokenColor(preset, 'primary', mode, 'hsl')` 现算，
- * 避免把调色板抄一份进 TS。
+ * 色值由 `@vean/theme` 的 `resolveTokenColor(preset, 'primary', mode, 'hsl')` 现算，不抄调色板进 TS。
  */
 export function presetSwatchStyle(color: string): Record<string, string> {
   return { backgroundColor: color };
 }
 
-/**
- * 布局模式缩略图（P2-10 布局 Tab）。
- *
- * `boxes` 是画在缩略图画布里的绝对定位块：`bg-primary` = 一级导航落点，
- * `bg-primary/40` = 二级面板，`bg-muted` = 内容区。只用来「看懂模式」，
- * 不承担真实布局。落点与 `SAppShell` 各模式的菜单挂载位置一致
- * （`sidebar` 侧栏整列 / `top` 顶栏 / `dual-vertical` 轨道+面板 …）。
- */
+/** 布局模式缩略图（P2-10 布局 Tab） 详见 docs/v3-notes.md N-047。 */
 export interface LayoutModeDiagram {
   value: LayoutModeName;
   /** i18n key */
@@ -113,13 +91,7 @@ export const LAYOUT_MODE_CARD_CLASS =
 /** 缩略图画布 */
 export const LAYOUT_MODE_CANVAS_CLASS = 'relative h-8 w-full overflow-hidden rounded-sm border border-border';
 
-/**
- * 下拉/分段控件回传的 `string | number` → 精确的字面量联合。
- *
- * lint 禁 `as T` 断言，而 `SSelect` 的 emit 类型就是宽的 `DefinedValue`，所以在边界处
- * 用「候选表里找得到就采纳，找不到就用默认值」代替断言 —— 顺带把越界值（手改
- * localStorage / 旧版本持久化数据）一次性吸收掉。
- */
+/** 下拉/分段控件回传的 `string | number` → 精确的字面量联合 详见 docs/v3-notes.md N-048。 */
 export function toSettingValue<T extends string>(value: string | number, items: readonly T[], fallback: T): T {
   const text = String(value);
   return items.find(item => item === text) ?? fallback;
@@ -136,13 +108,7 @@ export interface SelectFieldOptions<T extends string> {
   patch: (value: T) => Partial<ThemeSettings>;
 }
 
-/**
- * 「下拉控件 ↔ store 字段」的双向代理。
- *
- * 写入统一走 `setThemeSettings`（一次 `computed` 定义，八个下拉共用），面板里
- * 不出现 `@update:modelValue` 的手写窄化，也不需要类型断言。嵌套字段（水印时间
- * 格式）同样可行：`patch` 里自己重建嵌套对象。
- */
+/** 「下拉控件 ↔ store 字段」的双向代理 详见 docs/v3-notes.md N-049。 */
 export function useSelectField<T extends string>(
   options: SelectFieldOptions<T>
 ): WritableComputedRef<ThemeOptionValue> {
@@ -182,12 +148,7 @@ export interface OptionRowProps<T extends ThemeOptionValue = ThemeOptionValue> {
   controlClass?: ClassValue;
 }
 
-/**
- * 把 `SInputNumber` 回传的 `null` 收敛为兜底值。
- *
- * Vean 的数字输入允许空值（`number | null`），主题设置里所有字段都不接受 null，
- * 所以在边界处一次性处理。
- */
+/** 把 `SInputNumber` 回传的 `null` 收敛为兜底值 详见 docs/v3-notes.md N-050。 */
 export function fallbackNumber(value: number | null, fallback: number): number {
   return value ?? fallback;
 }

@@ -12,20 +12,7 @@ import { getLocalRefreshToken, getLocalToken, handleLogoutRequest, setAuthStorag
 import { env } from '@/env';
 import type { LoginResult } from '@/schema/auth';
 
-/**
- * 请求实例工厂（v3 §5.4 / P2-18）。
- *
- * 每一个 baseURL（主实例 + 每个 `/_p/{key}` 代理实例）都从这里创建，
- * **共享同一套钩子与模块级状态**：
- *
- * - envelope 解包 + 业务码判定（`transform` / `isBackendSuccess`）
- * - Bearer 注入
- * - 令牌过期 → 单飞刷新（模块级 `refreshPromise`）→ 原配置重放
- * - 错误提示去重（模块级 `lastErrorMessage` / `lastErrorAt`）
- *
- * 共享单飞与去重状态是刻意的：多个 baseURL 指向同一套账号体系时，
- * 并发过期只应触发一次刷新、只弹一次提示。
- */
+/** 每一个 baseURL（主实例 + 每个 `/_p/{key}` 代理实例）都从这里创建，**共享同一套钩子与模块级状态**： 详见 docs/v3-notes.md N-235。 */
 
 /** 响应 envelope（所有 `/api/**` 恒为该结构，见后端 src/shared/response.ts） */
 export interface ApiEnvelope<T = unknown> {
@@ -45,8 +32,7 @@ function readEnvelope(response: FetchResponse<ApiEnvelope>): ApiEnvelope | null 
 }
 
 /**
- * refresh-token 响应的受信边界：裸 fetch 的响应体是 `unknown`，先做关键
- * 字段运行时校验，再集中「信任」一次（避免调用处散落 as 断言）。
+ * refresh-token 响应的受信边界：裸 fetch 的响应体是 `unknown`，先做关键字段运行时校验，再集中「信任」一次（避免调用处散落 as 断言）。
  */
 function trustLoginResult(_value: object): _value is LoginResult {
   return true;
@@ -73,12 +59,7 @@ function parseRefreshResult(raw: unknown): LoginResult | null {
 
 let refreshPromise: Promise<boolean> | null = null;
 
-/**
- * 单飞刷新：并发过期只发一次 refresh，成功后本地凭据已更新。
- *
- * 刷新始终打在**主 baseURL**（账号体系在主服务上）；`/_p/{key}` 代理实例只是
- * 换后端数据源，不换身份中心。
- */
+/** 单飞刷新：并发过期只发一次 refresh，成功后本地凭据已更新 详见 docs/v3-notes.md N-237。 */
 function refreshTokenSingleFlight(): Promise<boolean> {
   refreshPromise ??= (async () => {
     const rawRefreshToken = getLocalRefreshToken();
@@ -150,8 +131,7 @@ function createApiRequest(baseURL: string) {
         return config;
       },
       /**
-       * 后端业务失败：过期码 → 单飞刷新后原配置重放（onRequest 会取新 token）；
-       * 登出码 → 移交全局登出回调；其余 → 去重提示后按失败抛出。
+       * 后端业务失败：过期码 → 单飞刷新后原配置重放（onRequest 会取新 token）；登出码 → 移交全局登出回调；其余 → 去重提示后按失败抛出。
        */
       onBackendFail: async (response, instance) => {
         const envelope = readEnvelope(response);
@@ -179,18 +159,7 @@ function createApiRequest(baseURL: string) {
         notifyError(envelope.message);
         return null;
       },
-      /**
-       * 传输层错误（网络/超时/5xx）与**业务失败**共用同一入口。
-       *
-       * ⚠️ 业务失败必须跳过：`onBackendFail` 已经用后端 `message` 提示过，
-       * 但 `@soybeanjs/fetch` 在 `onBackendFail` 返回空后仍会 `throw
-       * new BackendError(backendErrorMsg)`，那条错误会再走一次本钩子。
-       * 两处都提示的后果不只是「弹两次」—— 两条文案不同（后端 message
-       * vs `backendErrorMsg` 的英文兜底），而 `notifyError` 的去重键是
-       * **文案**，于是同一业务错误连发时永远命不中去重窗口，页面上会叠
-       * 出 N 组双 toast。判据用包导出的 `BACKEND_ERROR_FLAG`（`error.code`
-       * 即该值），不要去比对 message。
-       */
+      /** 传输层错误（网络/超时/5xx）与**业务失败**共用同一入口 详见 docs/v3-notes.md N-239。 */
       onError: (error: FetchError<ApiEnvelope>) => {
         if (error.code === BACKEND_ERROR_FLAG) return;
 
@@ -209,15 +178,7 @@ export interface ApiClients {
   flatApi: ReturnType<typeof toFlatTypedClient<paths, '/api'>>;
 }
 
-/**
- * 按 baseURL 造一套 client。
- *
- * - `baseURL` 为空走同源：dev 下 ubean 同进程 Hono，`/api/**` 直接命中；
- *   生产由反向代理/同域部署承接。
- * - 代理实例传 `/_p/{key}`，请求落到 `routeRules.proxy` 转发到对应上游。
- * - `paths` 来自 `.ubean/openapi.d.ts`（仓库唯一 API 类型源）；第二泛型 `'/api'`
- *   是后端挂载前缀，须与路由前缀一致，否则类型路径整体对不上。
- */
+/** 按 baseURL 造一套 client 详见 docs/v3-notes.md N-240。 */
 export function createApiClients(baseURL: string): ApiClients {
   const request = createApiRequest(baseURL);
 

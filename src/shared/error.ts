@@ -3,13 +3,7 @@ import type { ErrorCodeKey, ErrorCodeValue } from '@/constants/error-code';
 import { createErrorResponse } from './response';
 import type { ApiResponse } from './response';
 
-/**
- * 应用错误类（v3 §6.1）：携带业务码键的结构化错误。
- *
- * handler / service 中 `throw new AppError('RESOURCE_NOT_FOUND', '...')`，
- * 由全局错误中间件（src/middleware/03.error.ts 经 onError）统一转成
- * `{ code, message, data: null }` 响应。
- */
+/** 应用错误类（v3 §6.1）：携带业务码键的结构化错误。 */
 export class AppError extends Error {
   /** 业务错误码键（运行时经 ErrorCode 映射为业务码字符串） */
   codeKey: ErrorCodeKey;

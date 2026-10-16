@@ -14,17 +14,7 @@ import type { ApiResource, ApiSearchFormDTO } from '@/schema/api';
 import ApiOperate from './modules/api-operate.vue';
 import ApiSearch from './modules/api-search.vue';
 
-/**
- * 接口管理页（P3-03，8 套 CRUD 的**参照实现**）。
- *
- * 职责分层：
- * - `usePaginatedTable`（`@vean/ui`）：数据与分页；
- * - `useTableOperate`：交互状态（弹窗 id、多选、搜索/重置/刷新）；
- * - `ManagePage`：骨架（搜索卡槽位 / 表头操作 / 表格 / 分页）；
- * - `ApiSearch` + `ApiOperate`：本域字段。
- *
- * 复用到其他域时只需改：`query` 字段、`api` 回调、列定义、两个子组件。
- */
+/** 职责分层： 详见 docs/v3-notes.md N-316。 */
 defineOptions({ name: 'ManageApi' });
 
 const { t } = useI18n();

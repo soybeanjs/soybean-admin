@@ -4,16 +4,7 @@ import { SSegment } from '@vean/ui';
 import type { SwiperOptions } from 'swiper/types';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
-/**
- * 轮播示例（P4-01）。
- *
- * 与 v2 的差异：
- * - 只留一个轮播实例 + `SSegment` 切换配置（v2 是 8 张卡竖排，滚动太长）；
- * - `SwiperCore.use` 的全局注册改为组件级 `modules`，避免污染其它页面的 chunk；
- * - `NCard/NSpace` → `SSegment` + UnoCSS；
- * - `v-bind="options"` 会被 Swiper 的 props 类型拒绝（Swiper 的 props 是逐个
- *   声明的，不接受任意对象）→ 显式展开成独立 prop。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-371。 */
 defineOptions({ name: 'PluginSwiper' });
 
 interface SwiperExample {

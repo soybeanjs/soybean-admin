@@ -31,18 +31,7 @@ import {
   pivotTableRecords
 } from './data';
 
-/**
- * VTable 四种表格形态的演示（P4-01，v2 `views/plugin/vtable/index.vue` 的移植）。
- *
- * 与 v2 的差异：
- * - `useThemeStore().darkMode` → `useTheme().effectiveMode`（v3 无 theme store）；
- * - 两张 pivot 表的 records 从远程 fetch 改为本地静态数据（演示页不该依赖外部
- *   站点可用性，也避免演示页偷偷发请求）；
- * - 去掉 `any` / `as` 断言：`@visactor/vue-vtable` 的表格组件类型是
- *   `DefineComponent<Record<string, never>, ...>`（props / emits 全无类型），
- *   所以模板属性不参与类型检查，实例方法改用运行时类型守卫；
- * - `NSpace` / `NCard` / 全局 `WebSiteLink` → `SCard` + `PluginDocLinks`。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-376。 */
 
 registerChartModule('vchart', VChart);
 
@@ -136,12 +125,7 @@ function baseTheme(): typeof VTable.themes.DEFAULT {
   return isDark.value ? VTable.themes.DARK : VTable.themes.DEFAULT;
 }
 
-/**
- * 分组标题背景色。
- *
- * `args.table` 是表格实例，`getGroupTitleLevel(col, row)` 给出该单元格所处分组
- * 层级（0 起），据此在取色池里轮转。层级取不到时用白色兜底。
- */
+/** 分组标题背景色 详见 docs/v3-notes.md N-377。 */
 function groupTitleBackground(args: VTable.TYPES.StylePropertyFunctionArg): string {
   const level = args.table.getGroupTitleLevel(args.col, args.row);
 

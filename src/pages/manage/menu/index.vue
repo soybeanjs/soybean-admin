@@ -14,12 +14,7 @@ import type { MenuResource, MenuSearchFormDTO } from '@/schema/menu';
 import MenuOperate from './modules/menu-operate.vue';
 import MenuSearch from './modules/menu-search.vue';
 
-/**
- * 菜单管理页（P3-03）。
- *
- * `parentId` 列只存 id，需要一份 `GET /api/menu/all` 的 id → 名称映射才能显示；
- * 同一份全量列表也传给 `MenuOperate` 做父级选择与组件名候选。
- */
+/** 菜单管理页（P3-03）。`parentId` 列只存 id，需要一份 `GET /api/menu/all` 的 id → 名称映射才能显示；同一份全量列表也传给 `MenuOperate`。 */
 defineOptions({ name: 'ManageMenu' });
 
 const { t } = useI18n();

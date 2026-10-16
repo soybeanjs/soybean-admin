@@ -3,13 +3,7 @@ import { validate } from '@/shared/validate';
 import { authService } from '@/services/auth.service';
 import { bindWechatSchema, wechatBindingSchema } from '@/schema/auth';
 
-/**
- * `GET /api/auth/bind-wechat` —— 查询当前用户微信绑定状态（需登录）。
- * `POST /api/auth/bind-wechat` —— 完成微信绑定（需登录，mock）。
- *
- * mock 语义：ticket 由 `GET /api/auth/wechat-qrcode` 下发并缓存，POST 时
- * 校验 ticket 有效即视为「扫码成功」，按 userId 派生稳定假昵称落 KV。
- */
+/** `GET /api/auth/bind-wechat` —— 查询当前用户微信绑定状态（需登录） 详见 docs/v3-notes.md N-082。 */
 export const GET = defineHandler(
   describeRoute({
     tags: ['认证'],

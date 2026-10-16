@@ -2,18 +2,7 @@ import { runMigrations } from '@ubean/server';
 import type { Migration } from '@ubean/server';
 import { appDatabase } from './index.ts';
 
-/**
- * SQLite 建表 DDL（与 src/db/schema 13 表一一对应，v3 §6.1）。
- *
- * 约定（P1-08）：
- * - 主键 text（UUID v7，应用层 createUuidV7 生成）；
- * - enabled 'Y'|'N'|'D' 默认 'Y'，'D' 为软删；
- * - 审计四字段 createdBy/updatedBy/createdTime/updatedTime；
- * - 时间存本地时间字符串（drizzle text 列，default datetime('now','localtime')）。
- *
- * 注意：ubean runMigrations 的 Migration.up 是**纯 SQL 字符串**（直接 db.exec），
- * 不是回调。PostgreSQL 方言差异（uuid/jsonb/now()）上线前按 DATABASE_URL 裁剪。
- */
+/** 约定（P1-08）： 详见 docs/v3-notes.md N-227。 */
 
 const AUDIT_COLUMNS = `created_by text not null default 'system',
   created_time text not null default (datetime('now','localtime')),
@@ -187,18 +176,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS uk_org_role ON "org_role" (org_id, role_id);
 CREATE UNIQUE INDEX IF NOT EXISTS uk_user_org ON "user_org" (user_id, org_id);`
   },
   {
-    // 0003：api 表自然键 + 鉴权链路索引（§5.1 / §5.2 配套）。
-    //
-    // 一、修已知漂移。seed 是 `INSERT OR IGNORE`，而 api 行的**主键是 id**：
-    //     `A_auth_refresh` / `A_api_list` 这两个 id 在旧库里已存在（指向错误路径），
-    //     新 seed 同 id 不同 path → 会被 IGNORE 掉，漂移永远修不掉。
-    //     所以得在迁移里按 id 改回正确路径。（全新库迁移时这两行还不存在，UPDATE 空跑。）
-    //
-    // 二、自然键。`(method, path)` 唯一索引同时是治理幽灵行/重复登记的手段。
-    //
-    // 三、鉴权热路径索引。RBAC 链路是 user_id → user_role → role_permission → permission，
-    //     0002 的 uk_user_role/uk_role_permission 已覆盖最左前缀；这里补 permission.code
-    //     反查（按 code 直查权限点）与单列索引。
+    // 一、修已知漂移。seed 是 `INSERT OR IGNORE`，而 api 行的**主键是 id**： 详见 docs/v3-notes.md N-228。
     name: '0003-api-natural-key-and-auth-indexes',
     up: `UPDATE "api" SET path = '/auth/refresh-token' WHERE id = 'A_auth_refresh';
 UPDATE "api" SET path = '/api/list' WHERE id = 'A_api_list';

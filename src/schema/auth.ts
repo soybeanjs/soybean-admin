@@ -19,12 +19,7 @@ import {
 import type { InferOutput } from 'valibot';
 import { enabledSchema, idSchema, rowText } from './_shared';
 
-/**
- * 认证域 DTO（v3 §6.3/§5.5）。
- *
- * 同一份 Valibot 声明同时驱动服务端校验与登录页表单（P3-05 契约）：表单
- * schema 通过 `...serverSchema.entries` 复用服务端字段对象，错误消息必然同源。
- */
+/** 认证域 DTO（v3 §6.3/§5.5） 详见 docs/v3-notes.md N-203。 */
 
 /* -------------------------------------------------------------------------- */
 /*                              服务端请求 schema                              */
@@ -63,12 +58,7 @@ export const refreshTokenSchema = object({
   refreshToken: pipe(string(), nonEmpty('refreshToken 不能为空'), description('刷新令牌'))
 });
 
-/**
- * 重置密码请求（未登录，图形验证码代替短信验证码）。
- *
- * 无短信通道（demo 无短信服务商），重置凭证用图形验证码承担，语义与 v2
- * `reset-pwd` 页面一致（v2 用手机号 + 短信码）。
- */
+/** 重置密码请求（未登录，图形验证码代替短信验证码） 详见 docs/v3-notes.md N-204。 */
 export const resetPasswordSchema = object({
   userName: pipe(string(), nonEmpty('用户名不能为空'), description('用户名')),
   password: pipe(string(), minLength(6, '密码至少 6 个字符'), description('新密码')),
@@ -76,13 +66,7 @@ export const resetPasswordSchema = object({
   captchaCode: pipe(string(), nonEmpty('验证码不能为空'), description('图形验证码'))
 });
 
-/**
- * `POST /api/auth/error` 的演示码入参（P3-06）。
- *
- * `code` 只接受 `demoErrorCodeMap` 里登记的三个演示码，缺省（空串）回落到
- * `SYSTEM_ERROR`，让「请求演示页」能逐条触发请求层的四类分派
- * （静默登出 / 弹窗登出 / 刷新重放 / 普通报错）。
- */
+/** `POST /api/auth/error` 的演示码入参（P3-06） 详见 docs/v3-notes.md N-205。 */
 export const demoErrorQuerySchema = object({
   code: optional(pipe(string(), description('演示错误码，留空回落 SYSTEM_ERROR')), '')
 });
@@ -96,17 +80,7 @@ export const bindWechatSchema = object({
 /*                          登录页表单（P3-05）                                */
 /* -------------------------------------------------------------------------- */
 
-/**
- * 登录页表单 schema 是**服务端 schema 的超集**：`useForm`（`@vean/ui`）直接吃
- * valibot（Standard Schema），前端不再手写「非空 / 长度 / 邮箱格式」这套重复
- * 校验 —— 只保留服务端没有的「确认密码一致」。
- *
- * **字段名与类型必须宽兼容服务端 schema**：`useForm` 用
- * `@tanstack/form-core` 的 `DeepKeys<Values>` 推导字段名，一旦引入
- * `undefined` 成员（`v.optional(…)` 且无默认值）会整体退化成 `never[]`，
- * `SFormField` 的 `name` 与插槽类型随之失效。所以这里一律「每个键都有值」，
- * 用空串表达「未填 / 未用」；提交前折算成 DTO 时再把空串去掉。
- */
+/** 登录页表单 schema 是**服务端 schema 的超集**：`useForm`（`@vean/ui`）直接吃 详见 docs/v3-notes.md N-206。 */
 
 /** 密码登录表单（服务端 `pwdLoginSchema` 的 pwd 分支） */
 export const passwordLoginFormSchema = object({
@@ -119,17 +93,7 @@ export const passwordLoginFormSchema = object({
 /** 图形验证码登录表单（服务端 `captchaLoginSchema`） */
 export const codeLoginFormSchema = object({ ...captchaLoginSchema.entries });
 
-/**
- * 注册表单（服务端 `registerSchema` + 确认密码）。
- *
- * `email` 服务端是 `v.optional(...)`，表单里放宽成 `v.string()`（空串 = 未填）
- * —— 这样「不填邮箱」不再触发邮箱格式错误，提交前 `|| undefined` 归一后再交给
- * 服务端同一份规则。
- *
- * 「两次密码一致」是服务端没有的规则，用 `v.forward` + `v.partialCheck` 把
- * issue 挂到 `confirmPassword` 字段上（无字段路径的 issue 会落到 `_form` 键，
- * 弹窗/表单里没地方渲染）。
- */
+/** 注册表单（服务端 `registerSchema` + 确认密码） 详见 docs/v3-notes.md N-207。 */
 export const registerFormSchema = pipe(
   object({
     ...registerSchema.entries,
@@ -175,12 +139,7 @@ export const LOGIN_PAGE_FORM_SCHEMAS = {
 /*                              表单默认值（P3-05）                            */
 /* -------------------------------------------------------------------------- */
 
-/**
- * `@vean/ui` 的 `useForm` 以 `defaultValues` 为基准（`handleReset` 也回这里），
- * 与各 manage 域的 `emptyXxxForm` 同一套路。
- *
- * 演示账号预填：密码登录带 `admin` / `123456`（与 v2 一致），其余留空。
- */
+/** `@vean/ui` 的 `useForm` 以 `defaultValues` 为基准（`handleReset` 也回这里）， 详见 docs/v3-notes.md N-208。 */
 
 /** 密码登录默认值（演示账号预填） */
 export const passwordLoginDefaults: PasswordLoginFormValues = {
@@ -233,13 +192,7 @@ export const authUserSchema = object({
   description: rowText('备注说明'),
   enabled: enabledSchema,
   roles: pipe(array(string()), description('角色码列表（粗粒度，做路由 / 菜单级判定）')),
-  /**
-   * 按钮级权限码列表（v3 §4.6：`userInfo.buttons` + `hasAuth(code)` + `v-auth`）。
-   *
-   * 与 `roles` 的分工：`roles` 是角色码（粗粒度、做路由/菜单级判定），
-   * `buttons` 是权限码（细粒度、做按钮级判定）。超级管理员拿到全量权限码，
-   * 前端只需按 `buttons.includes(code)` 判定，不再逐个角色推导。
-   */
+  /** 按钮级权限码列表（v3 §4.6：`userInfo.buttons` + `hasAuth(code)` + `v-auth`） 详见 docs/v3-notes.md N-209。 */
   buttons: pipe(array(string()), description('按钮级权限码列表（细粒度，做按钮级判定）'))
 });
 

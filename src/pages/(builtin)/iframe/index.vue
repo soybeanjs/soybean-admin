@@ -5,21 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { SCard, SEmpty } from '@vean/ui';
 import { resolveIframeUrl } from '@/shared/iframe';
 
-/**
- * iframe 内嵌外链页（P3-07，v3 §4.2 的 `(builtin)/iframe/[url].vue`）。
- *
- * 地址来源：`?url=` 查询串。dynamic 模式下菜单行 `iframeUrl` 无法映射成路由
- * 参数（URL 含 `//`、`?`，当路径段会被 router 拆碎），所以`transformMenuToRoute`
- * 生成的是一条 `redirect: { path: '/iframe', query: { url } }` 的路由；静态声明
- * 或手动使用也一律走同一条 query 通道。
- *
- * 安全：只接受 `http(s)` 协议（`javascript:` / `data:` 会被浏览器拒绝执行脚本
- * 但也可能被当作下载，一律拦掉）；无 sandbox 是刻意的 —— 内嵌页需要自己的
- * 脚本与存储，sandbox 会让常见站点白屏。此处只做协议白名单。
- *
- * ⚠️ `requiresAuth: false` 写在 `meta` 里而非顶层：ubean 生成器只发射顶层
- * `requiresAuth: true`，`false` 会被静默丢弃（详见 `src/pages/(builtin)/login.vue`）。
- */
+/** iframe 内嵌外链页（P3-07，v3 §4.2 的 `(builtin)/iframe/[url].vue`） 详见 docs/v3-notes.md N-290。 */
 definePage({
   name: 'IframeUrl',
   meta: {

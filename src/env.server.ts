@@ -1,14 +1,6 @@
 import { defineEnv } from '@ubean/shared';
 
-/**
- * 服务端环境变量（校验 + 默认值）。
- *
- * 只在服务端代码里 import（`src/routes/**`、`src/services/**`、`src/db/**`、
- * `src/crons/**`、`src/middleware/**`）—— 浏览器里 `process` 不存在，
- * 客户端要用的变量请走 `src/env.ts`。
- *
- * `mode: 'throw'` 让缺失的必填项在启动期直接失败，而不是运行期才 500。
- */
+/** 服务端环境变量（校验 + 默认值） 详见 docs/v3-notes.md N-008。 */
 const { env, validate } = defineEnv({
   mode: 'throw',
   server: {

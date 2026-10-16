@@ -33,9 +33,7 @@ import {
 
 /**
  * 菜单契约（v3 §6.3，unify menu.service 范式）。
- *
- * 路由相关字段单独抽成 `routeFields`：新增与更新共用同一份值域，只有默认值
- * （新增带 `null` / `{}`，更新不带）与可选性不同。
+ * 路由字段抽成 `routeFields`：新增与更新共用一份值域，只有默认值与可选性不同。
  */
 
 /* -------------------------------------------------------------------------- */
@@ -142,17 +140,7 @@ export const menuListSchema = pipe(array(menuResourceSchema), description('菜�
 /** 菜单树节点类型（`children` 自引用递归） */
 export type MenuTreeNode = InferOutput<typeof menuResourceSchema> & { children: MenuTreeNode[] };
 
-/**
- * 菜单树节点 schema。
- *
- * 递归 schema 必须用 `metadata({ ref })` 显式命名，否则 OpenAPI 类型生成会失败：
- * `@standard-community/standard-json` 生成的 `$defs.0` 会被
- * `convertToOpenAPISchema` 的递归提前捕获并转成 `#/components/schemas/0`，
- * 但 `children.items` 里的 `$ref` 仍是 `#/$defs/0` —— 悬空引用，
- * `hono-openapi` 报 `Can't resolve $ref at #/components/schemas/0/properties/children/items`。
- * 加 `metadata({ ref: 'MenuTree' })` 后 `$defs/0` 变成 `{ $ref: '#/components/schemas/MenuTree' }`，
- * 由 `convertToOpenAPISchema` 正确上提为 `components.schemas.MenuTree`。
- */
+/** 递归 schema 必须用 `metadata({ ref })` 显式命名，否则 OpenAPI 类型生成会失败： 详见 docs/v3-notes.md N-213。 */
 const menuTreeSchema: GenericSchema<MenuTreeNode> = pipe(
   object({
     ...menuRowFields,
@@ -265,21 +253,7 @@ export function toMenuForm(row: MenuResource): MenuFormDTO {
   };
 }
 
-/**
- * 菜单源数据（`src/menus/menus.json` 的 `menus` 数组），也是 static / dynamic 两种
- * 模式的**统一中间表示** `AppMenu`（`docs/v3-menu-route-modes.md` §4.1/§4.3）。
- *
- * 与 `menuCreateSchema` 是两回事：那是管理端表单（人手填），这是仓库里的源
- * 文件（`pnpm menu:sync` 生成 + 人工调层级/标题）。字段与 `menuRowFields` 对齐，
- * 但**可选字段允许缺省或 null** —— JSON 里没写就是没有，不必逐个写出；同时
- * 放宽到可空，`MenuResource` 才能直接当 `AppMenu` 用（dynamic 模式的输入是
- * 完整的数据库行，含 `enabled` 与审计字段，多出的字段不影响结构兼容）。
- *
- * 为什么需要它：`resolveJsonModule` 把 JSON 字面量放宽成 `string`，直接
- * `import menus.json` 得不到 `menuType` 这类窄类型。过一遍 schema 才拿到
- * `MenuSource`（与 `src/utils/route-meta.ts` 收窄 `RouteMeta` 同一个套路：信任
- * 边界只在一处，其余地方不进 `as` 断言）。顺带为人手编辑把关。
- */
+/** 菜单源数据（`src/menus/menus.json` 的 `menus` 数组），也是 static / dynamic 两种 详见 docs/v3-notes.md N-214。 */
 export const menuSourceSchema = object({
   id: idSchema,
   parentId: optional(nullable(idSchema)),

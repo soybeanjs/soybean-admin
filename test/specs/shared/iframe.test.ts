@@ -3,10 +3,7 @@ import { resolveExternalUrl, resolveIframeUrl } from '@/shared/iframe';
 
 /**
  * 外链 / 内嵌页地址解析（P3-07）。
- *
- * `resolveExternalUrl` 是 `menuType: 'link'`（新窗口打开）与 `menuType: 'iframe'`
- * （内嵌页）共同的数据入口，也是唯一挡下 `javascript:` / `data:` 这类注入面的
- * 地方 —— 判定必须比「能被 `new URL` 解析」严格得多。
+ * `resolveExternalUrl` 是 `link`（新窗口）与 `iframe`（内嵌）共同的数据入口，也是唯一挡下 `javascript:` 注入面的地方。
  */
 describe('resolveExternalUrl', () => {
   it('放行 http / https 并返回规范化地址', () => {

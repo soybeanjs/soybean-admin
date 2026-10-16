@@ -15,17 +15,7 @@ import { resourceTypeSearchSchema } from '@/schema/_search';
 import { API_METHODS, ENABLED_VALUES, enabledSchema, menuTypeSchema } from '@/schema/_shared';
 import { permissionCreateSchema } from '@/schema/permission';
 
-/**
- * 常量层与 schema 层的**值域一致性**护栏（P3-03）。
- *
- * `src/constants/manage.ts` 刻意不 import drizzle / valibot（那会把两份运行时
- * 依赖拉进客户端产物），代价是值域有两份声明：Constants 里一份供客户端渲染，
- * `src/schema/**` 与 `src/db/schema/**` 里一份供校验与服务端。
- *
- * 两份声明一旦漂移，症状是「前端下拉里能选的值，提交时被 valibot 拒绝」——
- * typecheck 看不到（两边都是 `readonly string[]`），只有跑起来才发现。
- * 本文件把那句注释里的承诺变成断言。
- */
+/** 常量层与 schema 层的**值域一致性**护栏（P3-03） 详见 docs/v3-notes.md N-413。 */
 
 describe('constants/manage 与 schema 值域一致', () => {
   it('MANAGE_ENABLED_VALUES === ENABLED_VALUES', () => {

@@ -7,19 +7,7 @@ import type { GanttConfigOptions, ZoomLevel } from 'dhtmlx-gantt';
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css';
 import { ganttTasks } from './data';
 
-/**
- * DHTMLX 甘特图演示（P4-01，v2 `gantt/dhtmlx/index.vue` 的移植）。
- *
- * 与 v2 的差异：
- * - `NCard` + `#header-extra` 里的 `NTabs type="segment"` → `SCard` 的 `extra` 槽
- *   + `SSegment`（`items` 是 required，`v-model:modelValue` 直接是 `TimeType`）；
- * - 时间粒度切到别的页签再回来时会重建 —— dhtmlx 的 `zoom` 扩展是**全局单例**
- *   （挂在 `gantt.ext` 上），多个实例互相覆盖，所以这里 `onUnmounted` 里清掉
- *   DOM 内容，避免残留状态；
- * - 任务条 / 表格文案来自 `t()`（v2 是硬编码中文）。
- *
- * 注意：dhtmlx-gantt 的 `gantt` 是模块级单例，一个页面只应实例化一次。
- */
+/** 与 v2 的差异： 详见 docs/v3-notes.md N-355。 */
 defineOptions({ name: 'PluginGanttDhtmlx' });
 
 const { t } = useI18n();

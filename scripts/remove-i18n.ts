@@ -1,32 +1,5 @@
 #!/usr/bin/env node
-/**
- * `pnpm remove:i18n` —— 一键裁剪国际化（v3 §4.5「保留 `remove-i18n` 裁剪脚本」）。
- *
- * 给不需要多语言的模板用户用：把 `src/**` 里 `t('key')` / `$t('key')` 的**字面量
- * 调用**就地替换成默认语言（`src/constants/index.ts` 的 `DEFAULT_LOCALE`）文案，
- * 再拆掉 i18n 基础设施（`src/locales/`、`src/shared/vean-locale.ts`、
- * `ubean.config.ts` 的 `i18n` 段、语言切换 UI、`useI18n()` 装配）。
- *
- * 定位：**只处理可机械判定的部分**，跑完打印剩余人工项并以非 0 退出码收尾，
- * 让人工项永远可见（宁可报出来，也不要静默改错）。默认 dry-run，`--write` 才落盘。
- *
- * 处理范围：
- * 1. 字面量 `t('a.b')` → `'文案'`；带参 `t('a.b', { name })` → `` `文案：${name}` ``；
- * 2. 常量表里的 `label: 'a.b'` → 文案，并解包 `t(item.label)`（常量表把取值与
- *    展示文案放在同一条记录里，只能逐字段内联，不能整表删）；
- * 3. `*TitleKeys` 常量表（`Record<K, string>` 的 i18n key 表）→ `*Titles` 文案表，
- *    并把 `t(activeTitle)` 这类「t 包一个已翻译变量」的解包；
- * 4. 基础设施文件删除 + `app.ts` / `app.vue` / 布局 / 登录壳的定点改写（见 FILE_RULES）；
- * 5. 残留扫描：`useI18n`、动态 `t(…)`、`@/shared/vean-locale`、`setLocale` 等。
- *
- * 不处理（有意留下）：`i18nKey` / `title` 字段本身 —— 它们是数据（可来自后端菜单），
- * 去掉解析后就是普通文本字段，删字段属于业务改造，不在本脚本职责内。
- *
- * 用法：
- *   pnpm remove:i18n            # dry-run，只打印计划
- *   pnpm remove:i18n --write    # 落盘
- *   node scripts/remove-i18n.ts --root /tmp/copy --write
- */
+/** 用法： 详见 docs/v3-notes.md N-395。 */
 import { existsSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -38,13 +11,7 @@ const DEFAULT_ROOT = resolve(SCRIPT_DIR, '..');
 const SOURCE_EXTENSIONS = ['.vue', '.ts'];
 /** 跳过：locale 文案本体、测试、构建产物 */
 const SKIP_DIRECTORIES = ['node_modules', 'dist', '.git', '.ubean', 'src/locales'];
-/**
- * 残留扫描的「活跃 i18n API」模式。
- *
- * 只报「引用即报错」的东西：纯数据字段（`i18nKey` / `title` / `AppLocale`）与
- * 常量表（`APP_LOCALES` / `APP_LOCALE_LABELS` / `DEFAULT_LOCALE`）不算 —— 它们
- * 删掉解析后就是普通数据，留着无害，删字段属于业务改造。
- */
+/** 残留扫描的「活跃 i18n API」模式 详见 docs/v3-notes.md N-396。 */
 const LEFTOVER_PATTERNS = [
   { label: 'useI18n', pattern: /useI18n/ },
   { label: '动态 t(...)', pattern: /(?:\$t|(?<![\w.$])t)\(\s*[^'")]/ },
@@ -53,13 +20,7 @@ const LEFTOVER_PATTERNS = [
   { label: 'syncDocumentLocale', pattern: /syncDocumentLocale/ }
 ];
 
-/**
- * 有意保留 `useI18n` 装配的文件（相对仓库根，POSIX 分隔）。
- *
- * `src/pages/plugin/**` 是第三方库集成示例页：它们整体保留、只是被 code-split，
- * 页面标题/说明走静态 `t('plugin.x')` 字面量属于产品行为，不做文案内联。
- * 与 `KEPT_ON_PURPOSE` 的区别：这里豁免的是「删掉会改变页面表现」的活代码。
- */
+/** 有意保留 `useI18n` 装配的文件（相对仓库根，POSIX 分隔） 详见 docs/v3-notes.md N-397。 */
 const PLUGIN_DEMO_PREFIX = 'src/pages/plugin/';
 
 /** 有意保留（不报残留）：数据字段与常量表 */
@@ -144,12 +105,7 @@ export function interpolate(text: string, paramNames: string[]): string | null {
   return text.replace(/\{([\w$]+)\}/g, '${$1}');
 }
 
-/**
- * 把源码里的字面量 `t('key')` / `$t('key')` 替换成文案。
- *
- * 只认字面量 key（含可解析的第二个参数对象）：动态 key（`t(meta.i18nKey)`）留给
- * `FILE_RULES` 的定点规则或人工处理 —— 机械替换猜不出运行时值。
- */
+/** 把源码里的字面量 `t('key')` / `$t('key')` 替换成文案。只认字面量 key（含可解析的第二个参数对象）：动态 key（`t(meta.i18nKey)`）留给。 */
 export function inlineTranslations(source: string, messages: Messages): InlineResult {
   const literalCall = /(?:\$t|(?<![\w.$])t)\(\s*(['"])([^'"]+)\1\s*(?:,\s*(\{[^}]*\}))?\s*\)/g;
   const inlined: string[] = [];
@@ -179,11 +135,7 @@ export function inlineTranslations(source: string, messages: Messages): InlineRe
   return { code, inlined, problems };
 }
 
-/**
- * i18n key 表 → 文案表：`const moduleTitleKeys: Record<K, string> = { a: 'x.y' }`
- * 变成 `const moduleTitles: Record<K, string> = { a: '文案' }`，并解包
- * `t(activeTitle…)`（该变量此后已经是文案，再包一层 `t()` 就错了）。
- */
+/** i18n key 表 → 文案表：`const moduleTitleKeys: Record<K, string> = { a: 'x.y' }`。 */
 export function inlineTitleKeyMaps(source: string, messages: Messages): { code: string; rewrites: string[] } {
   const rewrites: string[] = [];
   let code = source;
@@ -232,14 +184,7 @@ export function inlineTitleKeyMaps(source: string, messages: Messages): { code: 
   return { code, rewrites };
 }
 
-/**
- * 常量表里的 `label: 'a.b'` → 文案。
- *
- * 选项表（主题抽屉的下拉/分段控件候选）把取值与展示文案放在同一条记录里：
- * `{ value: 'card', label: 'theme.tabVariant.card' }`。取值要留着做持久化，标签要换成
- * 文案，所以只能逐字段内联 —— 判据仍是「文案表里有这个 key」，纯数据字段
- * （`i18nKey` / `title`）不受影响。
- */
+/** 常量表里的 `label: 'a.b'` → 文案。选项表（主题抽屉的下拉/分段控件候选）把取值与展示文案放在同一条记录里：。 */
 export function inlineLabelFields(source: string, messages: Messages): { code: string; inlined: string[] } {
   const inlined: string[] = [];
   const code = source.replace(
@@ -258,13 +203,7 @@ export function inlineLabelFields(source: string, messages: Messages): { code: s
   return { code, inlined };
 }
 
-/**
- * `t(item.label)` → `item.label`。
- *
- * `inlineLabelFields` 之后 `label` 已经是文案，再包一层 `t()` 会把文案当 key 查
- * （vue-i18n 直接回显 key 并告警）。只解包「以 `.label` 结尾」的实参：
- * `t(node.i18nKey)` 这类真・动态 key 不在本规则职责内，由 `FILE_RULES` 定点处理。
- */
+/** `t(item.label)` → `item.label`。`inlineLabelFields` 之后 `label` 已经是文案，再包一层 `t()` 会把文案当 key 查。 */
 export function unwrapLabelCalls(source: string): { code: string; rewrites: string[] } {
   const rewrites: string[] = [];
   const pattern = /(?:\$t|(?<![\w.$])t)\(\s*([A-Za-z_$][\w$]*(?:\.[\w$]+)*\.label)\s*\)/g;
@@ -322,7 +261,7 @@ export const FILE_RULES: FileRule[] = [
         description: '删除 registerVeanLocales import'
       },
       {
-        find: /\n\/\*\*\n \* 注册 Vean 组件内置文案的 locale key[\s\S]*?\*\/\nregisterVeanLocales\(\);\n/,
+        find: /\n\/\*\* 注册 Vean 组件内置文案的 locale key[\s\S]*?registerVeanLocales\(\);\n/,
         replace: '\n',
         description: '删除 registerVeanLocales() 调用与其注释'
       }
@@ -340,7 +279,7 @@ export const FILE_RULES: FileRule[] = [
       },
       { find: 'const { t, locale } = useI18n();\n', replace: '', description: '删除 useI18n 解构' },
       {
-        find: /\n\/\*\*\n \* 把应用 locale[\s\S]*?const veanLocale = computed\(\(\) => locale\.value\);\n/,
+        find: /\n\/\*\* 把应用 locale[\s\S]*?const veanLocale = computed\(\(\) => locale\.value\);\n/,
         replace: '',
         description: '删除 veanLocale 计算属性'
       },
@@ -350,7 +289,7 @@ export const FILE_RULES: FileRule[] = [
         description: '标题回落 meta.title'
       },
       {
-        find: /\n\/\*\*\n \* locale → `<html lang>`[\s\S]*?watch\(locale, syncDocumentLocale, \{ immediate: true \}\);\n/,
+        find: /\n\/\*\* locale → `<html lang>`[\s\S]*?watch\(locale, syncDocumentLocale, \{ immediate: true \}\);\n/,
         replace: '',
         description: '删除 <html lang> 同步 watcher'
       },

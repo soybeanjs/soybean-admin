@@ -13,11 +13,7 @@ import {
   yesOrNoSchema
 } from './_shared';
 
-/**
- * 字典契约（v3 §6.3，unify dict.service 范式）。
- *
- * `update` 一律由 `create` + `partial` 推导，值域只声明一份。
- */
+/** 字典契约（v3 §6.3，unify dict.service 范式）。`update` 一律由 `create` + `partial` 推导，值域只声明一份。 */
 
 /* -------------------------------------------------------------------------- */
 /*                              服务端请求 schema                              */

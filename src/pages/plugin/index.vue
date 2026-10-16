@@ -3,16 +3,7 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { SAlert, SCard, SIcon, SLink } from '@vean/ui';
 
-/**
- * plugin 演示总入口（P4-01，v3 §5.8）。
- *
- * 侧栏里 plugin 是一棵树（分组靠 `meta.menuParent`），本页只是给「点父级菜单」
- * 之外的入口一个可用落地页：按分组列出全部子页，点击直达。
- *
- * 链接清单与 `src/pages/plugin/**` 一一对应；这里刻意用静态数组而不是从
- * `router.getRoutes()` 反查 —— 演示页的导航顺序是人工编排的，反射出来的
- * 顺序会跟着 meta.order 变，反而不稳定。
- */
+/** plugin 演示总入口（P4-01，v3 §5.8） 详见 docs/v3-notes.md N-358。 */
 defineOptions({ name: 'PluginIndex' });
 
 const { t } = useI18n();

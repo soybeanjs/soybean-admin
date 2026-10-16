@@ -7,12 +7,7 @@ import ManageSearch from '@/components/manage-search/index.vue';
 import { userSearchFormSchema } from '@/schema/user';
 import type { UserSearchFormDTO } from '@/schema/user';
 
-/**
- * 用户搜索卡（P3-03）。
- *
- * `useForm` 在这里调用（`SFormField` 靠它的 `provide` 解析字段类型），
- * 提交/重置后把值交给父级页面去合并进表格 query。
- */
+/** 用户搜索卡（P3-03） 详见 docs/v3-notes.md N-334。 */
 defineOptions({ name: 'UserSearch' });
 
 const props = defineProps<{

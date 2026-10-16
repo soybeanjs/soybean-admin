@@ -33,14 +33,7 @@ import * as echarts from 'echarts/core';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 
-/**
- * echarts 按需注册（P3-01 起，v2 `hooks/common/echarts.ts` 的移植）。
- *
- * 注册清单是工作台 + `/plugin/charts/echarts` 演示页的并集：折线 / 饼 / 柱 /
- * 雷达 / 散点 / 象形柱 / 仪表 + 标题 / 图例 / 提示 / 网格 / 工具箱 / 数据集 / 变换
- * + Canvas 渲染器。新增图表类型时**在这里加一行**，不要在页面里
- * `import 'echarts'`（整包会把体积从 ~100 kB 推到 ~1 MB gzip）。
- */
+/** echarts 按需注册（P3-01 起，v2 `hooks/common/echarts.ts` 的移植） 详见 docs/v3-notes.md N-260。 */
 echarts.use([
   TitleComponent,
   LegendComponent,
@@ -87,18 +80,7 @@ export interface EchartsHooks {
   onDestroy?: (chart: echarts.ECharts) => void;
 }
 
-/**
- * 图表生命周期钩子（v3 §4.6：v2 `useEcharts` 保留）。
- *
- * 负责三件事：容器尺寸就绪后 init、尺寸变化 resize、明暗切换重建实例
- * （echarts 的主题只在 init 时生效，切主题必须 dispose + init）。
- *
- * 只在容器**有真实尺寸**时 init —— 隐藏容器（页签切走 / 折叠）里 init 会
- * 得到 0×0 画布，`resize()` 也救不回来。
- *
- * `target` 由调用方提供（页面里是 `useTemplateRef<HTMLElement>('chart')`），
- * 这样模板上的 `ref="chart"` 与脚本里的变量同源，不需要额外把 ref 名再暴露一遍。
- */
+/** 图表生命周期钩子（v3 §4.6：v2 `useEcharts` 保留） 详见 docs/v3-notes.md N-261。 */
 export function useEcharts<T extends ECOption>(
   target: MaybeRefOrGetter<HTMLElement | null | undefined>,
   optionsFactory: () => T,
@@ -185,8 +167,7 @@ export function useEcharts<T extends ECOption>(
   }
 
   /**
-   * 增量更新（异步数据回来时调用）：patch 结果并入本地 options 再 setOption，
-   * 保证 `render()` 在重建（切主题）时用的是最新数据。
+   * 增量更新（异步数据回来时调用）：patch 结果并入本地 options 再 setOption，保证 `render()` 在重建（切主题）时用的是最新数据。
    */
   async function updateOptions(patch: (options: T) => Partial<T> = () => chartOptions): Promise<void> {
     const instance = chart;

@@ -16,8 +16,8 @@ const themeStore = useThemeStore();
 const theme = useTheme('ThemeAppearancePanel');
 
 /**
- * 明暗模式不在 customizer 的 `mode` section 里重复：`SThemeModeSegment` 直接绑
- * `theme.mode`，放在抽屉顶部更显眼（对齐 v2 抽屉第一屏）。
+ * 明暗模式不放进 customizer 的 `mode` section，而是 `SThemeModeSegment` 直接绑 `theme.mode`。
+ * 放在抽屉顶部更显眼（对齐 v2 抽屉第一屏）。
  */
 const sections = computed<ThemeCustomizerSection[]>(() => [
   'palette',
@@ -71,12 +71,10 @@ function onPresetSelect(name: string) {
     </div>
 
     <!--
-      `ui.root` 必须显式给 `w-full h-full`：`ui` 覆盖走 tailwind-merge **叠加**，
-      而 recipe 默认是 `w-96 max-w-[calc(100vw-2rem)] max-h-fit h-[70vh]` —— 不显式
-      给尺寸类，`w-96`（384px）与 `h-[70vh]`（实测 630px）都会留下来。抽屉内容列
-      实测只有 334px，于是 customizer 右边超出 50px 被抽屉裁掉；高度上 `h-[70vh]`
-      比父级可用高度还大，底部又溢出 22px。`w-full` / `h-full` 与默认值同属
-      width / height 组，合并时后者胜出（`grow` 覆盖不了 `h-[70vh]`，必须给 `h-full`）。
+      `ui.root` 必须显式给 `w-full h-full`：`ui` 覆盖走 tailwind-merge **叠加**，而 recipe 默认是 `w-96
+      max-w-[calc(100vw-2rem)] max-h-fit h-[70vh]` —— 不显式给尺寸类，`w-96`（384px）与 `h-[70vh]`（实测
+      630px）都会留下来。
+      详见 docs/v3-notes.md N-043。
     -->
     <SThemeCustomizer
       :sections="sections"

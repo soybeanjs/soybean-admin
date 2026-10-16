@@ -2,13 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { buildMenuTree, findMenuTrail, loadStaticMenus, validateMenuRoutes } from '@/store/modules/menu/shared';
 import type { AppMenu, MenuRouteEntry } from '@/store/modules/menu/shared';
 
-/**
- * 菜单建树 / 加载 / 校验的单测（`docs/v3-menu-route-modes.md` §4）。
- *
- * 这三个纯函数是 static（`src/menus/menus.json` + 路由表）与 dynamic
- * （`GET /api/menu/user`）两条路径的**公共收敛点**，所以它们的行为就是两种模式
- * 共同的行为 —— 这里测一遍等于两种模式都测了。
- */
+/** 菜单建树 / 加载 / 校验的单测（`docs/v3-menu-route-modes.md` §4） 详见 docs/v3-notes.md N-441。 */
 
 function menu(id: string, partial: Partial<AppMenu> = {}): AppMenu {
   return { id, name: id, code: id, menuType: 'menu', order: 0, ...partial };

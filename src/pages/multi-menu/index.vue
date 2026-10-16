@@ -4,13 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { SButton } from '@vean/ui';
 import MultiMenuPanel from './modules/multi-menu-panel.vue';
 
-/**
- * 多级菜单演示 · 一级（P3-10）。
- *
- * 菜单树形（一级 › 二级 › 二级(有子) › 三级）由 `meta.menuParent` 声明建出，
- * 侧栏会在本项下展开两级子菜单 —— 这就是 v2「多级菜单」演示的等价行为，
- * v3 用文件目录 + 显式父声明表达（ubean 的 `PageMeta` 没有嵌套语法）。
- */
+/** 多级菜单演示 · 一级（P3-10） 详见 docs/v3-notes.md N-337。 */
 defineOptions({ name: 'MultiMenuIndex' });
 
 const { t } = useI18n();
@@ -24,14 +18,7 @@ function toThird(): void {
   void router.push('/multi-menu/first/second-new/third');
 }
 
-/**
- * 多级菜单演示 · 一级（P3-10，v3 §4.6「保留（文件目录天然表达）」）。
- *
- * 四个页面在磁盘上是平级的（文件式路由不产生嵌套），层级靠
- * `meta.menuParent` 显式声明而不是从 path 前缀猜：前缀推断会把 `/manage/*`
- * 八套管理页也折叠进一个大目录，那是导航结构的改变，不该由演示页决定。
- * 建树在 `src/store/modules/menu/index.ts` 的 `buildStaticMenuTree()`。
- */
+/** 多级菜单演示 · 一级（P3-10，v3 §4.6「保留（文件目录天然表达）」） 详见 docs/v3-notes.md N-338。 */
 definePage({
   meta: {
     title: '多级菜单',

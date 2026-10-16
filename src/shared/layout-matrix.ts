@@ -1,39 +1,4 @@
-/**
- * 「布局模式 × 配置项」矩阵（P2-20 PoC）。
- *
- * ## 为什么要有这个模块
- *
- * 主题抽屉的开关是**笛卡尔积**：6 种布局模式 × 19 个配置项 = 114 种组合，
- * 其中相当一部分在 Vean 里根本不生效（侧栏都没有时谈侧栏宽度毫无意义）。
- * 这些组合不会报错、不会崩，只会让某个开关**默默无反应**，typecheck / lint /
- * build / 视觉回归全绿。
- *
- * 所以把「哪些组合有效、生效值是什么、为什么无效」从 `SAppShell` 的隐式行为
- * 提成**显式的纯函数矩阵**：
- * - `resolveLayoutMatrix()` 是运行时真值（布局组件据此下发 props）；
- * - `describeLayoutMatrix()` 渲染成 Markdown 表（`docs/v3-task.md` 直接抄）。
- *
- * ## 事实来源（Vean 0.50 源码，改版即回归）
- *
- * - `packages/ui/src/components/app-shell/shared.ts` 的 `appShellSkeletons`：
- *   每个 `AppShellMode` 的 `orientation` / `sidebarVisible` / `collapsible` /
- *   `menuPlacement` / `logoPlacement` / `stableSidebar`。
- * - `app-shell.vue` 模板：`v-bind="layoutProps"` 在前，随后
- *   `:orientation` / `:sidebar-visible` / `:collapsible="skeleton.collapsible"`
- *   / `:sidebar-width` / `:collapsed-sidebar-width` 覆盖 ⇒ **本应用设置的
- *   `collapsible` 不生效**；`breadcrumbVisible` 另需 `menuPlacement==='sidebar'
- *   && logoPlacement==='sidebar'`。
- * - `app-shell.vue` 的 `resolveShellWidths(size, columns, override)` 写成
- *   `override.sidebarWidth ?? columnsWidth(tree)`：**四个分栏模式的侧栏宽度
- *   是推导值**（`resolveSplitNavSidebarColumns()` 按「当前激活的一级菜单有没有
- *   子菜单」决定轨道/面板列是否存在），一旦应用在 `layoutProps` 里下发
- *   `sidebarWidth` 就会短路掉推导、侧栏变固定宽度。所以矩阵对这四个模式
- *   **不下发**这两个键（`derivesSidebarWidth`）。
- * - `app-shell.vue`：`isMobile` 时骨架固定为 `sidebar`，与 `mode` 无关。
- *
- * **版本哨兵**：`APP_SHELL_MATRIX_VERSION` 每次改动同步 bump；改动矩阵语义时
- * 同步更新 `describeLayoutMatrix()` 的断言基线（测试里会钉住版本号）。
- */
+/** 所以把「哪些组合有效、生效值是什么、为什么无效」从 `SAppShell` 的隐式行为，提成**显式的纯函数矩阵**： 详见 docs/v3-notes.md N-146。 */
 import type { AppShellMenuProps, AppShellMode, LayoutCollapsible, LayoutScrollBehavior, LayoutVariant } from '@vean/ui';
 import { LAYOUT_MODES, MOBILE_DEGRADED_MODES, mapLayoutMode } from '@/constants/layout';
 import type { LayoutModeName } from '@/constants/layout';
@@ -42,12 +7,7 @@ import type { TabVariant } from '@/constants/theme';
 /** 矩阵语义版本：与 Vean 源码事实绑定，升级 Vean 时应 bump */
 export const APP_SHELL_MATRIX_VERSION = '0.50.2-vean-app-shell-skeletons';
 
-/**
- * 矩阵的列（配置项维度）。
- *
- * 顺序即文档表格顺序：**布局 → 尺寸 → 显隐 → 行为**。
- * 新增抽屉开关时在此登记，避免出现「只在面板里有、矩阵里查不到」的孤儿开关。
- */
+/** 矩阵的列（配置项维度） 详见 docs/v3-notes.md N-147。 */
 export const MATRIX_DIMENSIONS = [
   // 布局形态
   'variant',
@@ -101,10 +61,7 @@ export const MATRIX_DIMENSION_LABELS: Record<MatrixDimension, string> = {
 
 /**
  * 单个壳模式的能力（= `appShellSkeletons` 的可观察后果）。
- *
- * 不用 `AppShellMode` 作 key 而用 `LayoutModeName`：能力随**应用**模式而非
- * shell 模式声明，一个 shell 模式只对应一个应用模式（`mapLayoutMode` 是单射），
- * 但这样新增应用模式时若忘了补能力表，`Record<...>` 会立刻报缺失键。
+ * key 用 `LayoutModeName` 而非 `AppShellMode`：能力随应用模式声明，不随壳模式。
  */
 interface ShellCapability {
   /** 该模式下布局是否存在侧栏（`skeleton.sidebarVisible`） */
@@ -117,18 +74,7 @@ interface ShellCapability {
   triggerCapable: boolean;
   /** 侧栏内容稳定不跳动（`stableSidebar`：宽度变化会推动 header） */
   stableSidebar: boolean;
-  /**
-   * 侧栏宽度是否由骨架**推导**（而不是直接采用应用设置）。
-   *
-   * 四个分栏模式（`dual-vertical` / `vertical-horizontal` /
-   * `horizontal-vertical` / `horizontal-dual-vertical`）的侧栏由
-   * `SSplitNav` 渲染「轨道 + 面板」列，列的存在取决于当前激活的一级菜单
-   * **有没有子菜单** —— 所以宽度必须由 `resolveSplitNavSidebarColumns()`
-   * 现算。应用若在 `layoutProps` 里下发 `sidebarWidth` /
-   * `collapsedSidebarWidth`，`resolveShellWidths()` 的 `override` 会短路掉
-   * 推导（`override.sidebarWidth ?? columnsWidth(tree)`），于是侧栏变成固定
-   * 宽度：叶子菜单也占着面板的宽度，激活有子菜单的一级菜单时又对不上。
-   */
+  /** 侧栏宽度是否由骨架**推导**（而不是直接采用应用设置） 详见 docs/v3-notes.md N-149。 */
   derivesSidebarWidth: boolean;
 }
 
@@ -219,25 +165,13 @@ export interface LayoutMatrixInput {
 export interface LayoutMatrixContext {
   /** <768px（与 SAppShell 同一断点） */
   isMobile: boolean;
-  /**
-   * 内容区是否自带滚动容器。
-   *
-   * `scrollBehavior: 'content'` 时页脚必须跟内容一起滚（否则页脚被固定在视口
-   * 底部、内容从它下面穿过），Vean 用 `fixedFooter` 表达这个需求。
-   */
+  /** 内容区是否自带滚动容器。`scrollBehavior: 'content'` 时页脚必须跟内容一起滚（否则页脚被固定在视口底部、内容从它下面穿过），Vean 用 `fixedFooter` 表达这个需求。 */
   contentScroll?: boolean;
 }
 
 export type DimensionState = 'effective' | 'forced' | 'inert';
 
-/**
- * 非生效态的原因分类。
- *
- * `degraded` 只把 `mode` 计入「该模式的固有限制」：
- * `user`（用户自己关的）与 `viewport`（桌面用不到移动端宽度）不该让抽屉报
- * 「当前模式不支持」。`dependency` 是「本应用根据其他设置现算」—— 既不是模式
- * 限制，也不是用户没开，所以同样不计入 `degraded`。
- */
+/** `degraded` 只把 `mode` 计入「该模式的固有限制」： 详见 docs/v3-notes.md N-151。 */
 export type MatrixReason = 'mode' | 'viewport' | 'user' | 'dependency';
 
 export interface DimensionCell {
@@ -260,12 +194,7 @@ export interface LayoutMatrixRow {
   /** 移动端下该模式是否失去了原本的形态（<768px 退化为纯侧栏） */
   mobileDegraded: boolean;
   cells: Record<MatrixDimension, DimensionCell>;
-  /**
-   * 可直接 `v-bind` 到 `SAppShell` 的 props。
-   *
-   * 这是矩阵的**运行时效用**：`cells` 是给人看的诊断，`layoutProps` 是给壳的
-   * 真值（已应用 forced 覆盖）。两者用同一批局部变量构建，不会走神。
-   */
+  /** 可直接 `v-bind` 到 `SAppShell` 的 props 详见 docs/v3-notes.md N-152。 */
   layoutProps: LayoutMatrixProps;
 }
 
@@ -274,15 +203,7 @@ export interface LayoutMatrixProps {
   variant: LayoutVariant;
   collapsible: LayoutCollapsible;
   scrollBehavior: LayoutScrollBehavior;
-  /**
-   * 侧栏展开宽度。
-   *
-   * **分栏模式不下发**（`derivesSidebarWidth` 为真时缺省）：壳的
-   * `resolveShellWidths()` 写成 `override.sidebarWidth ?? columnsWidth(tree)`，
-   * 一旦给了值就短路掉「按当前列数推导」的逻辑，侧栏会变成固定宽度 ——
-   * 激活叶子菜单时仍占着面板宽度，激活有子菜单的一级菜单时又对不上。
-   * 缺省（`undefined`）时才由壳按轨道/面板列数现算。
-   */
+  /** 侧栏展开宽度 详见 docs/v3-notes.md N-153。 */
   sidebarWidth?: number;
   /** 折叠态宽度；与 `sidebarWidth` 同理，分栏模式不下发 */
   collapsedSidebarWidth?: number;
@@ -304,28 +225,13 @@ export interface LayoutMatrixProps {
 /** 移动端壳模式：Vean 在 `isMobile` 时固定渲染 `sidebar` 骨架 */
 const MOBILE_SHELL: AppShellMode = 'sidebar';
 
-/**
- * 顶栏菜单（`top` 模式）是否把放不下的条目收进末尾的「更多」弹层。
- *
- * `STreeNav` 的 `collapsible` **默认 false**（`TreeNavCompactProps` 的
- * `@defaultValue false`），不开就只是一条横向导航：条目超出容器时既不换行也
- * 不收缩，直接把顶栏撑破（实测容器 1002px、导航条 1311px，溢出 309px）。
- * 开了之后 `TreeNavCompact` 会把尾部的条目逐个移进「更多」弹层。
- */
+/** 顶栏菜单（`top` 模式）是否把放不下的条目收进末尾的「更多」弹层 详见 docs/v3-notes.md N-154。 */
 const TREE_NAV_COLLAPSIBLE = true;
 
 /** 与 Vean 的默认一致（`tree-nav-options-compact.vue` 的 `moreEntry`），显式写出便于搜索 */
 const TREE_NAV_MORE_ICON = 'lucide:ellipsis';
 
-/**
- * 下发给 `SAppShell` 的 `menuProps`。
- *
- * 目前只有一件事：给**顶栏菜单**（`top` 骨架的 `STreeNav`）开容器超长收缩。
- * 分栏/侧栏模式渲染的是 `STreeMenu` / `SSplitNav`，没有「更多」弹层这回事，
- * 下发 `treeNav` 也无人消费，所以只有 `top` 模式才给。
- *
- * `moreLabel` 由调用方传 i18n 文案：矩阵是纯函数，不该去碰 i18n 上下文。
- */
+/** 下发给 `SAppShell` 的 `menuProps` 详见 docs/v3-notes.md N-155。 */
 export function resolveMenuProps(row: LayoutMatrixRow, labels: { more: string }): AppShellMenuProps | undefined {
   if (row.shell !== 'top') return undefined;
 
@@ -353,11 +259,7 @@ function on(value: number | boolean | string | null, note = ''): DimensionCell {
   return { state: 'effective', value, reason: null, note };
 }
 
-/**
- * 核心：解一个「模式 × 配置项」组合。
- *
- * 纯函数，无 DOM / 无 store —— 所以能在 node 环境里跑矩阵全组合测试（P2-20）。
- */
+/** 核心：解一个「模式 × 配置项」组合 详见 docs/v3-notes.md N-156。 */
 export function resolveLayoutMatrix(input: LayoutMatrixInput, context: LayoutMatrixContext): LayoutMatrixRow {
   const { isMobile, contentScroll = false } = context;
   const shell: AppShellMode = isMobile ? MOBILE_SHELL : mapLayoutMode(input.layoutMode);
@@ -526,11 +428,7 @@ function fullContentNote(input: LayoutMatrixInput, cap: ShellCapability): string
     : '全屏内容：头部/页签/面包屑/页脚均被隐藏';
 }
 
-/**
- * 渲染 Markdown 表（6 模式 × 19 维），供 `docs/v3-task.md` 直接引用。
- *
- * 单元格记号：`✅` 生效 / `🔒` 被骨架覆盖（forced）/ `—` 失效（inert）。
- */
+/** 渲染 Markdown 表（6 模式 × 19 维），供 `docs/v3-task.md` 直接引用 详见 docs/v3-notes.md N-157。 */
 export function describeLayoutMatrix(
   input: LayoutMatrixInput,
   context: LayoutMatrixContext = { isMobile: false }

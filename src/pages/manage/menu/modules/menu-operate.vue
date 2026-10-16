@@ -10,16 +10,7 @@ import { menuFormSchema, emptyMenuForm, toMenuForm } from '@/schema/menu';
 import type { MenuFormDTO, MenuCreateDTO, MenuResource } from '@/schema/menu';
 import RouteParamForm from './route-param-form.vue';
 
-/**
- * 菜单新增 / 编辑弹窗（P3-03）。
- *
- * 菜单类型决定字段可见性与提交内容，参照 unify 的 `clearFieldsByMenuType`：
- * 切换类型时把不适用字段清空，避免脏数据进入后端（后端
- * `src/services/menu.service.ts` 的 `validateMenuTypeConstraints` 会拒绝）。
- *
- * `menuType` / `routePath` / `routeQueries` / `routeParams` 都从
- * `form.useSelector` 读（`form.state` 是 TanStack Store 快照，无 Vue 响应性）。
- */
+/** 菜单类型决定字段可见性与提交内容，参照 unify 的 `clearFieldsByMenuType`： 详见 docs/v3-notes.md N-323。 */
 defineOptions({ name: 'MenuOperate' });
 
 const props = defineProps<{

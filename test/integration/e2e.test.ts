@@ -2,22 +2,7 @@ import { describe, expect, it, beforeAll, afterAll } from 'vitest';
 import type { Browser, Page } from 'playwright';
 import { BASE_URL } from '../shared/api-client';
 
-/**
- * 真实浏览器回归（P4-02，v3 §5.9 中必须在真 DOM 里验证的部分）。
- *
- * 覆盖（这些能力在 node/jsdom 下测不到）：
- * - **应用能渲染**：P4-02 之前 `/login` 会无限重定向（`requiresAuth: false` 被
- *   ubean 生成器丢弃），headless Chrome 渲染进程 100% CPU 卡死，`page.evaluate()`
- *   永久挂起 —— 看起来像「浏览器环境不可用」，实为应用 bug。本用例的
- *   `gotoAndRead` 超时断言就是那条结论的回归保护。
- * - **登录成功 notification**（`toast.success`）。
- * - **页签持久化 + 跨用户清页签**（真 localStorage + 真路由跳转）。
- * - **主题设置生产缓存**（写 `theme-settings` → reload → `<html>` filter 生效）。
- * - **错误提示去重**：一次失败登录只应出现一条后端文案，且不应出现英文兜底。
- *
- * ⚠️ **需要本机有 Playwright 浏览器**。CI（ubuntu，无浏览器安装步骤）会整体跳过；
- * 纯逻辑 / 静态守卫的回归在 `test/specs/**` 的单测里，CI 必跑。跳过时不影响门槛。
- */
+/** 覆盖（这些能力在 node/jsdom 下测不到）： 详见 docs/v3-notes.md N-406。 */
 
 let browser: Browser | null = null;
 
@@ -55,13 +40,7 @@ async function gotoAndRead(page: Page, path: string): Promise<{ title: string; b
   return Promise.race([read, timeout]);
 }
 
-/**
- * 打开页面并**等到水合完成**。
- *
- * 必须等：ubean 是 SSR，首屏 HTML 里的 `<input>` 在客户端水合前**没有**
- * `v-model` 绑定 —— 那时 `fill()` 写进去的值不会被 Vue 感知（水合还可能把它
- * 覆盖回去），点提交自然什么都不发生。`networkidle` 覆盖水合期的 chunk 拉取。
- */
+/** 必须等：ubean 是 SSR，首屏 HTML 里的 `<input>` 在客户端水合前**没有** 详见 docs/v3-notes.md N-407。 */
 async function gotoApp(page: Page, path: string): Promise<void> {
   await page.goto(`${BASE_URL}${path}`, { waitUntil: 'networkidle', timeout: 15_000 });
   await page.waitForTimeout(300);

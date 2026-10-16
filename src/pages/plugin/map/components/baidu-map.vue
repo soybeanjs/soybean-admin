@@ -3,13 +3,7 @@ import { onMounted, useTemplateRef } from 'vue';
 import { useScriptTag } from '@vueuse/core';
 import { BAIDU_MAP_SDK_URL } from '../map-sdk';
 
-/**
- * 百度地图（P4-01）。
- *
- * `window.HOST_TYPE = '2'` 是百度 GL 分支的开关，必须在脚本加载**前**设置；
- * v2 把它写在模块顶层（import 时执行）—— 这是对的，但副作用发生在模块求值期。
- * 这里保留同一时机，并靠 `map-sdk.d.ts` 里的 `Window` 声明让它有类型。
- */
+/** 百度地图（P4-01） 详见 docs/v3-notes.md N-359。 */
 defineOptions({ name: 'BaiduMap' });
 
 window.HOST_TYPE = '2';

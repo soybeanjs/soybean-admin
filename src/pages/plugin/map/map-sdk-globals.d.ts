@@ -1,14 +1,4 @@
-/**
- * 地图 SDK 的全局类型声明（P4-01）。
- *
- * 三个 SDK 都是通过 `<script>` 注入的 UMD 包，挂在全局作用域上、**没有 npm
- * 类型包**。这里只声明地图页真正用到的构造器与方法，够用就好；不要让
- * `@types/*` 这类依赖为了三个演示页进入依赖树。
- *
- * 注意：这些名字必须写在 `declare global` **里面**。文件末尾有 `export {}`，
- * 所以文件本身是模块；写在模块作用域的 `declare const` 只是模块局部变量，
- * 组件里看不到。
- */
+/** 注意：这些名字必须写在 `declare global` **里面**。文件末尾有 `export {}`， 详见 docs/v3-notes.md N-364。 */
 
 declare global {
   interface Window {
