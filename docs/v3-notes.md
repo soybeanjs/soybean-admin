@@ -367,10 +367,14 @@
 - **N-243** `src/request/proxy.ts:6` — 多 baseURL 代理 client（v3 §4.3 / P2-18）：`/_p/{key}/**` 由`routeRules.proxy` 转发到 `API_PROXY_TARGETS` 里对应的上游。
 - **N-244** `src/request/proxy.ts:23` — 按 key 取代理 client。
 
-### src/router/guard.ts
+### src/router/guard
 
-- **N-080** `src/router/guard.ts:11` — 全局路由守卫（由 `defineApp({ router: { setup } })` 注册）。 链路（v3 §5.2/§5.5）：`SProgressProvider`，无需手动包 Provider）。
-- **N-081** `src/router/guard.ts:17` — 注册请求层登出回调。 放在这里（而不是 `src/app.ts` 模块顶层）是因为回调要跳登录页，需要 router实例 —— 本函数是框架唯一把实例交到应用手里的时候。
+- **N-080** `src/router/guard/auth.ts:37` — 鉴权守卫（P2-16）。链路：浏览器早退 → 未登录跳登录页（记 `redirect`）→ 已登录访问裸登录页回 `homePath` → `initUserInfo` + `initMenu` → `meta.roles` 门禁 → dynamic 首跳补偿 → `NotFound` 反查 `POST /api/menu/exist-path` 区分 404/403。
+- **N-081** `src/router/guard/auth.ts:100` — 注册请求层登出回调与「重置收尾」回调（模块级普通函数，不是 store action：ubean 的 `router.setup` 在 `applyAppConfig` 安装 pinia **之前**执行，拿不到活跃 pinia）。
+- **N-450** `src/router/guard/context.ts:1-16` — 预渲染上下文早退判据 `isBrowserContext()`。ubean dev 的 HTML 请求在 Node 里预渲染执行应用与守卫，该上下文带 client 编译标志（`import.meta.server === false`，不可用！）但无 `window`/`localStorage`；判据是**能力检测**不是编译标志。守卫里不准再直接写 `typeof window`。
+- **N-451** `src/router/guard/index.ts:1-29` — 守卫链注册顺序即执行顺序：`initAuthGuardWiring` → `createProgressGuard` → `createAuthGuard` → `createTabGuard`。进度条必须最外层先注册（鉴权要 `await` 用户信息与菜单）。
+- **N-452** `src/router/guard/tab.ts:1-19` — 页签守卫。只能挂 `afterEach`：`beforeEach` 里目标路由尚未 resolve，`to.name` 可能是 `NotFound` 占位。
+- **N-453** `src/router/guard/progress.ts:1-25` — 进度条守卫。`onError` 里必须 `done(true)`，否则导航报错会让进度条永远停在屏幕上。
 
 ### src/routes/api
 
@@ -1674,44 +1678,28 @@ routeName/fullPath），合并 pinned 变化； * 对比回写前后移除的页
  */
 ```
 
-### N-080 · src/router/guard.ts:11-52
+### N-080 · src/router/guard/auth.ts:1-36
 
 ```ts
 /**
- * 全局路由守卫（由 `defineApp({ router: { setup } })` 注册）。
+ * 鉴权守卫（P2-16）。
  *
- * 链路（v3 §5.2/§5.5）：
- * 1. 进度条：`@vean/ui` 的 `progress`（`SConfigProvider` 已自动挂载
- *    `SProgressProvider`，无需手动包 Provider）。
- * 2. 登录跳转：未登录访问需鉴权页 → `Login`（带 `redirect` 回跳参数）；
- *    已登录访问登录页 → 回 `homePath`。
- * 3. 用户/菜单初始化：`initUserInfo`（幂等补拉）+ `initMenu`（static 派生 /
- *    dynamic 拉取 + `addRoute`）。dynamic 模式首跳目标若因路由未注册而落
- *    `NotFound`，初始化后重定向原路径让 router 重新解析（真 404 第二次仍会
- *    正常落 NotFound，不会死循环）。
- * 4. 404 vs 403：dynamic 模式路由按权限下发，菜单里存在但无权 → 路由没注册
- *    → 落 `NotFound`。此时反查 `POST /api/menu/exist-path`，路径存在即改判
- *    403（v3 §4.2）。static 模式路由本地全注册，落 NotFound 就是真 404，
- *    不查后端。判定抽在 `@/shared/route-exist`，便于单测。反查前用
- *    `stripLocalePrefix` 剥掉实际地址里的语言前缀（`/en/about` → `/about`），
- *    菜单的 `routePath` 一律无前缀，不剥就永远查不到。
- *
- * ⚠️ vp dev 关键约束（实测教训，勿回退）：
- * ubean dev 的 HTML 请求会在 **Node 里预渲染执行应用与守卫**，且该上下文带
- * 「client 编译标志」—— `import.meta.server === false`（不可用它判定！），
- * 但 `window`/`localStorage` 均不存在。守卫若在此上下文跑鉴权重定向，会因
- * `localStorage` 缺失恒判未登录而无限重定向（挂起请求或 dev 进程崩溃）。
- * 因此守卫体首行必须以 `typeof window === 'undefined'` 早退放行，鉴权只在
- * 真浏览器执行（客户端水合后再跳转，语义不变）。
- *
- * 模块依赖：本文件静态 import `@/store`（守卫运行时 Pinia 已安装）。
- * store 侧**不持有** router 引用 —— 需要导航的 action 一律由调用方把 router
- * 传进来（组件用 `useRouter()`，守卫用这里的 `setup` 入参）。这样既没有
- * `store → @/router → guard → store` 的模块环，也不再需要 router 单例模块。
- *
- * `setup` 必须**同步**注册守卫（回调可异步）。页面标题不在这里设置 ——
- * `useI18n()` 只能在 setup 上下文用，标题的 i18n 解析统一放 `src/app.vue`
- * 的 watcher（见该文件）。
+ * 顺序就是语义，改动前先读这几条：
+ * 1. **浏览器早退**：见 `./context` —— 预渲染上下文里没有 `localStorage`，
+ *    跑鉴权会无限重定向。
+ * 2. **未登录**：公开页（`requiresAuth: false`）放行，其余去登录页并记 `redirect`。
+ * 3. **已登录访问登录页**：回 `homePath`。例外是 `?module=`（注册/重置密码/绑定微信）
+ *    —— 这些模块在登录态同样有意义（绑定微信本身就是登录态操作）。
+ * 4. **用户信息 + 菜单初始化**：两者都幂等，守卫每次导航都调也无副作用。
+ * 5. **角色门禁**：`definePage({ meta: { roles: [...] } })`，与 `v-auth:role`
+ *    共用 `@/shared/permission` 的纯函数（超级角色恒过）。
+ * 6. **dynamic 首跳补偿**：目标路由可能刚由 `initMenu` 注册 —— 回跳原路径重新解析。
+ * 7. **404 vs 403**：dynamic 模式路由按权限下发，菜单里存在但无权 → 路由没注册
+ *    → 落 `NotFound`。此时反查 `POST /api/menu/exist-path`，路径存在即改判 403
+ *    （v3 §4.2）。static 模式路由本地全注册，落 NotFound 就是真 404，不查后端。
+ *    反查前用 `stripLocalePrefix` 剥掉实际地址里的语言前缀（`/en/about` → `/about`），
+ *    菜单的 `routePath` 一律无前缀，不剥就永远查不到；网络异常静默降级为 404
+ *    （不能因反查失败阻塞导航）。
  *
  * ⚠️ 公开页判定读的是 `to.meta.requiresAuth`，因此页面必须写成
  * `definePage({ meta: { requiresAuth: false } })`。ubean 0.6.0 生成器只发射
@@ -1721,15 +1709,16 @@ routeName/fullPath），合并 pinned 变化； * 对比回写前后移除的页
  */
 ```
 
-### N-081 · src/router/guard.ts:54-60
+### N-081 · src/router/guard/auth.ts:92-99
 
 ```ts
 /**
- * 注册请求层登出回调。
+ * 注册请求层登出回调与「重置收尾」回调。
  *
- * 放在这里（而不是 `src/app.ts` 模块顶层）是因为回调要跳登录页，需要 router
- * 实例 —— 本函数是框架唯一把实例交到应用手里的时候。回调体仍动态 import
- * store / 组件库：`router.setup` 在 pinia 安装之前执行，此刻取不到活跃 pinia。
+ * 放在守卫模块（而不是 `src/app.ts` 模块顶层）是因为回调要跳登录页，需要 router
+ * 实例 —— `createRouterGuard` 是框架唯一把实例交到应用手里的时候。
+ * 回调体仍动态 import store / 组件库：`router.setup` 在 pinia 安装之前执行，
+ * 此刻取不到活跃 pinia。
  */
 ```
 

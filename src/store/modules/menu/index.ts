@@ -1,3 +1,4 @@
+import { computed, ref } from 'vue';
 import type { RouteComponent, RouteRecordRaw, Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { AUTH_ROUTE_MODE as ENV_AUTH_ROUTE_MODE } from 'ubean:env/client';
@@ -9,120 +10,103 @@ import { buildMenuTree, loadStaticMenus, normalizeRoutePath, parseMenuSource, va
 
 /** 不能在 action 里解析 locale（否则切语言后 label 不更新） 详见 docs/v3-notes.md N-103。 */
 
-interface MenuState {
-  /** 菜单树（展示层解析 i18nKey） */
-  items: MenuTreeNode[];
-  /** dynamic 模式的用户菜单行 */
-  userMenus: MenuResource[];
-  /** 菜单是否已初始化（守卫只拉一次） */
-  inited: boolean;
-}
-
 /** src/pages 下全部视图组件（Vite 编译期静态分析，勿改为运行时拼接）。
  * .vue 模块的真实形状是 `{ default: Component }`，恰好匹配 vue-router
  * 惰性组件的 `Lazy<Promise<{ default: T }>>` 形状，无需断言 */
 const viewModules = import.meta.glob<{ default: RouteComponent }>('@/pages/**/*.vue');
 
-export const useMenuStore = defineStore('menu', {
-  state: (): MenuState => ({
-    items: [],
-    userMenus: [],
-    inited: false
-  }),
-  getters: {
-    /** 菜单树是否为空 */
-    isEmpty: state => state.items.length === 0,
-    /** dynamic 路由名 → 菜单行（页签/权限判定用） */
-    routeNameMap: state => {
-      const map = new Map<string, MenuResource>();
+export const useMenuStore = defineStore('menu', () => {
+  /** 菜单树（展示层解析 i18nKey） */
+  const items = ref<MenuTreeNode[]>([]);
+  /** dynamic 模式的用户菜单行 */
+  const userMenus = ref<MenuResource[]>([]);
+  /** 菜单是否已初始化（守卫只拉一次） */
+  const inited = ref(false);
 
-      for (const row of state.userMenus) {
-        if (row.routeName) map.set(row.routeName, row);
+  /** 菜单树是否为空 */
+  const isEmpty = computed(() => items.value.length === 0);
+
+  /** 从仓库里的菜单源数据建树 详见 docs/v3-notes.md N-104。 */
+  function initStaticMenu(router: Router): void {
+    const routes = router.getRoutes().map(route => ({ name: String(route.name), path: route.path }));
+    const menus = loadStaticMenus(parseMenuSource(menusSource), routes);
+
+    if (import.meta.env.DEV && typeof window !== 'undefined') {
+      const problems = validateMenuRoutes(menus, routes);
+
+      if (problems.length > 0) {
+        console.warn(`[menu] 静态菜单与路由表不一致（${problems.length} 项）：\n  ${problems.join('\n  ')}`);
       }
-      return map;
     }
-  },
-  actions: {
-    /** 初始化菜单（登录后守卫调用；幂等） */
-    async initMenu(router: Router) {
-      if (this.inited) return;
 
-      if (ENV_AUTH_ROUTE_MODE === 'dynamic') {
-        await this.initDynamicMenu(router);
-      } else {
-        this.initStaticMenu(router);
+    items.value = buildMenuTree(menus);
+  }
+
+  /** dev 下断言 dynamic 菜单与本地视图的一致性，输出缺页清单 详见 docs/v3-notes.md N-105。 */
+  function assertRouteConsistency(): void {
+    if (!import.meta.env.DEV || typeof window === 'undefined') return;
+
+    const missing: string[] = [];
+
+    for (const row of userMenus.value) {
+      if (row.menuType !== 'menu' && row.menuType !== 'page') continue;
+
+      if (!resolveViewKey(row.routeComponent)) {
+        missing.push(`${row.routeName ?? row.code} → ${row.routeComponent ?? '(未配置 routeComponent)'}`);
       }
-      this.inited = true;
-    },
+    }
 
-    // ------------------------------------------------------------------
-    // static 模式：menus.json + 路由表 → 菜单树
-    // ------------------------------------------------------------------
-
-    /** 从仓库里的菜单源数据建树 详见 docs/v3-notes.md N-104。 */
-    initStaticMenu(router: Router) {
-      const routes = router.getRoutes().map(route => ({ name: String(route.name), path: route.path }));
-      const menus = loadStaticMenus(parseMenuSource(menusSource), routes);
-
-      if (import.meta.env.DEV && typeof window !== 'undefined') {
-        const problems = validateMenuRoutes(menus, routes);
-
-        if (problems.length > 0) {
-          console.warn(`[menu] 静态菜单与路由表不一致（${problems.length} 项）：\n  ${problems.join('\n  ')}`);
-        }
-      }
-
-      this.items = buildMenuTree(menus);
-    },
-
-    // ------------------------------------------------------------------
-    // dynamic 模式：菜单行 → 动态路由 + 菜单树
-    // ------------------------------------------------------------------
-
-    async initDynamicMenu(router: Router) {
-      this.userMenus = await api.get('/menu/user');
-
-      // 先注册路由（保证菜单树里的 routeName 都可导航）
-      const routes = this.userMenus
-        .map(row => transformMenuToRoute(row, viewModules))
-        .filter((route): route is RouteRecordRaw => route !== null);
-
-      for (const route of routes) {
-        if (!route.name || !router.hasRoute(route.name)) router.addRoute(route);
-      }
-
-      this.items = buildMenuTree(this.userMenus);
-      this.assertRouteConsistency();
-    },
-
-    /** dev 下断言 dynamic 菜单与本地视图的一致性，输出缺页清单 详见 docs/v3-notes.md N-105。 */
-    assertRouteConsistency() {
-      if (!import.meta.env.DEV || typeof window === 'undefined') return;
-
-      const missing: string[] = [];
-
-      for (const row of this.userMenus) {
-        if (row.menuType !== 'menu' && row.menuType !== 'page') continue;
-
-        if (!resolveViewKey(row.routeComponent)) {
-          missing.push(`${row.routeName ?? row.code} → ${row.routeComponent ?? '(未配置 routeComponent)'}`);
-        }
-      }
-
-      if (missing.length > 0) {
-        console.warn(
-          `[menu] 动态菜单缺页清单（${missing.length} 项，路由将使用占位组件）：\n  ${missing.join('\n  ')}`
-        );
-      }
-    },
-
-    /** 重置（登出时调用；动态路由随整页刷新失效，无需逐个 removeRoute） */
-    resetStore() {
-      this.items = [];
-      this.userMenus = [];
-      this.inited = false;
+    if (missing.length > 0) {
+      console.warn(`[menu] 动态菜单缺页清单（${missing.length} 项，路由将使用占位组件）：\n  ${missing.join('\n  ')}`);
     }
   }
+
+  async function initDynamicMenu(router: Router): Promise<void> {
+    userMenus.value = await api.get('/menu/user');
+
+    // 先注册路由（保证菜单树里的 routeName 都可导航）
+    const routes = userMenus.value
+      .map(row => transformMenuToRoute(row, viewModules))
+      .filter((route): route is RouteRecordRaw => route !== null);
+
+    for (const route of routes) {
+      if (!route.name || !router.hasRoute(route.name)) router.addRoute(route);
+    }
+
+    items.value = buildMenuTree(userMenus.value);
+    assertRouteConsistency();
+  }
+
+  /** 初始化菜单（登录后守卫调用；幂等） */
+  async function initMenu(router: Router): Promise<void> {
+    if (inited.value) return;
+
+    if (ENV_AUTH_ROUTE_MODE === 'dynamic') {
+      await initDynamicMenu(router);
+    } else {
+      initStaticMenu(router);
+    }
+    inited.value = true;
+  }
+
+  /** 重置（登出时调用；动态路由随整页刷新失效，无需逐个 removeRoute） */
+  function resetStore(): void {
+    items.value = [];
+    userMenus.value = [];
+    inited.value = false;
+  }
+
+  return {
+    items,
+    userMenus,
+    inited,
+    isEmpty,
+    initMenu,
+    initStaticMenu,
+    initDynamicMenu,
+    assertRouteConsistency,
+    resetStore
+  };
 });
 
 // ---------------------------------------------------------------------------

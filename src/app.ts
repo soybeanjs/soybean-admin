@@ -1,6 +1,5 @@
 import type { App } from 'vue';
 import { defineApp } from 'ubean/client';
-import { createPinia } from 'pinia';
 import { createThemeInitScript } from '@vean/theme/ssr';
 import 'uno.css';
 import '@vean/ui/styles.css';
@@ -9,7 +8,8 @@ import { seedPresetState } from '@/shared/theme-preset';
 import { registerVeanLocales } from '@/shared/vean-locale';
 import { setupAuthDirectives } from '@/directives/auth';
 import { readStoredThemeSettings, resolvePresetThemeState } from '@/store/modules/theme';
-import { setupRouterGuard } from '@/router';
+import { setupStore } from '@/store/setup';
+import { createRouterGuard } from '@/router';
 import '@/styles/index.css';
 
 /** 注册 Vean 组件内置文案的 locale key（详见 `@/shared/vean-locale`）。 */
@@ -30,9 +30,9 @@ export default defineApp({
     script: [{ id: 'vean-theme-init', textContent: createThemeInitScript() }]
   },
   rootId: APP_ROOT_ID,
-  plugins: [createPinia()],
+  plugins: [setupStore],
   router: {
-    setup: setupRouterGuard
+    setup: createRouterGuard
   },
   onAppCreated(app: App) {
     // 自定义指令（v-auth 权限指令，详见 @/directives/auth）。
