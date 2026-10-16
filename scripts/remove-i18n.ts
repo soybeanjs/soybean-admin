@@ -317,7 +317,7 @@ export const FILE_RULES: FileRule[] = [
         description: '常量 import 去掉语言表'
       },
       {
-        find: /\nimport \{ registerVeanLocalePack \} from '@\/shared\/vean-locale';/,
+        find: /\nimport \{[^}]*\bregisterVeanLocalePack\b[^}]*\} from '@\/shared\/vean-locale';/,
         replace: '',
         description: '删除语言包注册 import'
       },

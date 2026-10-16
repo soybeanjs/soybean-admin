@@ -1,8 +1,8 @@
 # v3 注释沉淀（注释清理回收站）
 
-> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **449 条**（N-001 – N-449）。
+> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **452 条**（N-001 – N-449、N-454 – N-456；另有 N-450 – N-453 只在下面的注意事项汇编里，来自 `src/router/guard/**` 的拆分）。
 > 代码里只保留「这是什么 / 必须怎么做」的一两行说明，**为什么这么做**的历史推理放在这里；
-> 代码注释里出现 `docs/v3-notes.md N-0xx` 时即指向对应条目（当前 360 处引用、覆盖 217 个文件）。
+> 代码注释里出现 `docs/v3-notes.md N-0xx` 时即指向对应条目（当前 356 处引用、覆盖 214 个文件）。
 > 重建完整注释时，把该条目正文按原位置贴回即可；条目正文就是压缩前的原文，带原始缩进与 ``` 围栏。
 
 ## 目录
@@ -19,6 +19,7 @@
 - **scripts**：15 条（N-387 – N-401）
 - **test**：45 条（N-402 – N-446）
 - **登录页与 SSR 豁免**：3 条（N-447 – N-449）
+- **菜单下拉 / 语言切换**：3 条（N-454 – N-456）
 
 ## 注意事项汇编（从现有代码注释汇总，供项目文档参考）
 
@@ -205,6 +206,7 @@
 - **N-061** `src/layouts/default.vue:226` — 页签点击 → 切换路由。
 - **N-063** `src/layouts/default.vue:262` — 页签右键菜单（v2 `TabsDropdown` 的等价物）。 动作全部走 `PageTabsState` 提供的操作，组件内部照旧把它们汇进`update:items` 回写 —— 应用层不需要为每个动作写一遍 store 调用。
 - **N-065** `src/layouts/default.vue:322` — 头像兜底文案。 水合前与服务端一律用 `'U'`，挂载后才是真实姓氏。
+- **N-454** `src/layouts/default.vue:294-297` — 菜单 `select` 的第 1 个参数是 **menu item 对象**。`SDropdownMenu` 的 `select` 类型为 `[item: MenuOptionData<T>, event: Event]`，按裸 value 比较恒为假、静默失效（登出无反应）；签名刻意不收 `unknown`，写错时当场报错。同文件 `:348` 的 `SAppShell` 那条 select 载荷**仍是裸 string**，别一起改。
 - **N-068** `src/layouts/default.vue:406` — 页签走 `#tabs` 槽而不是 `tabs` prop：页签风格（chrome/card/slider）在样式层`PageTabsProps.variant`，壳的 `tabProps` 是 `PageTabsCompactProps`，类型上给不到。
 
 ### src/middleware/01.auth.ts
@@ -577,6 +579,8 @@
 - **N-184** `src/shared/vean-locale.ts:6` — 把应用 locale key（`zh` / `en`，见 `@/constants` 的 `APP_LOCALES`）对齐到Vean 的组件内置文案。 **为什么需要这一步**：`@vean/aria/locale` 出厂只注册两个 key —— `en`与 `zh-CN`（`node_modules/@vean/aria/dist/loca le/locales.js` 里的`{[en.key]: en, [zhCN.key]: zhCN}`），而 `resolveLocaleRegistry()` 对**未知key 静默回落到 resolveLocaleRegistry('zh').key // 'en'（回落！） resolveLocale('zh').table.emptyTitle // 'No data'（应为「暂无数据」）
 - **N-185** `src/shared/vean-locale.ts:18` — Vean 出厂的 **13 个语言包**（`node_modules/@vean/aria/dist/locale/langs/`）。 与 `@/constants` 的 `APP_LOCALES` 是两件事：`APP_LOCALES` 是**本应用**提供 JSON 文案的语言（当前 `zh` / `en`），这里是**组件库**自带的文案包。
 - **N-188** `src/shared/vean-locale.ts:79` — 应用 locale → 语言包（纯函数，无副作用）。
+- **N-456** `src/layouts/default.vue:305-315` — 登出二次确认走 `dialog.warning(message, data?)`。`@vean/aria` 里 `warning(message, data)` = `create({ ...data, title: message, type: 'warning' })`，**文案只能塞在 `title`**（`DialogExternal` 无独立 message 字段）；不传 `cancelText` 时回落组件包内置的 `dialog.cancel`（随 locale 变），所以不要写死「取消」。
+- **N-455** `src/shared/vean-locale.ts:62-68` — `isAppLocale()`：菜单交回的是 `string`，这是收窄回 `AppLocale` 的唯一入口（禁 `as` 断言）。写法与配套的 `isVeanLocalePack()` 一致。
 
 ### src/shared/watermark.ts
 
@@ -6476,3 +6480,62 @@ export const LOGIN_ROUTE_PREFIX = '/login';
 **排查教训**：DOM 出现「两套壳的属性混在一起」时，先查 hydration mismatch，不要先怀疑 CSS 优先级。
 `definePage({ ssr: false })` 没生效浪费了两轮；直接改 `routeRules` 后 `X-SSR-Mode` 立刻从 `ssr` 变 `csr`，
 SSR HTML 也从 `id="app"><div class="h-full">…` 变成 `id="app" data-ubean-ssr="false"></div>`（空壳）。
+
+### N-454 · src/layouts/default.vue:292-297
+
+```ts
+/**
+ * 注意入参是 **menu item 对象**，不是裸 value：`SDropdownMenu` 的 `select` 类型为 `[item: MenuOptionData<T>, event: Event]`。
+ * 这里刻意不回退到 `unknown` —— 写错时 `item.value` 会当场报错，而不是像 `value === 'logout'` 那样恒为假、静默失效。
+ */
+function onUserMenuSelect(item: MenuOptionData<string>): void {
+```
+
+同款写法的第二处（`src/layouts/default.vue:334-335`，语言下拉）：
+
+```ts
+async function onLocaleMenuSelect(item: MenuOptionData<string>): Promise<void> {
+  if (!isAppLocale(item.value) || item.value === locale.value) return;
+```
+
+**为什么会漏**：仓内另一个同名事件载荷确实是裸串 —— `SAppShell` 的 `AppShellEmits.select: [key: string, event?: Event]`（`src/layouts/default.vue:348` 的 `@select="onMenuSelect"` 写法正确、不要一起改）。两个组件同名事件语义不同，照了邻居的写法就会踩这里。参考实现 `soybean-unify` 的 `apps/admin/src/layouts/modules/layout-header/user-avatar.vue:39` 是按 item 取值（`switch (option.value)`），本次即对齐它。
+
+**证据**：Playwright 真机点击头像下拉的「退出登录」，console 打出 `PROBE_USERMENU {"value":"logout","label":"退出登录"}`，而旧代码 `function onUserMenuSelect(value: unknown)` 里 `value === 'logout'` 对对象恒 false → 三个分支全不命中、静默 return；同页面 `page.evaluate` 直调 `useAuthStore().logout()` 则正常跳 `/login` 并清 token。同一 bug 还压着语言切换（旧 `onLocaleMenuSelect` 的 `typeof value !== 'string'` 直接 return，`docs/v3-task.md` 早有未修记录）。**测试盲点**：原有 e2e「登出清空页签」用动态 import 直调 store，绕过了下拉菜单，所以真实 HTTP 用例全绿也拦不住这个 bug。
+
+### N-455 · src/shared/vean-locale.ts:62-68
+
+```ts
+/**
+ * 运行时判定字符串是否是一个应用 locale。
+ * 菜单 `@select` 把 item 的 `value` 交回来时类型只会收窄到 `string`，这是把 `string` 收回 `AppLocale` 的唯一入口（不收 `as` 断言）。
+ */
+export function isAppLocale(value: string): value is AppLocale {
+  return APP_LOCALES.some(code => code === value);
+}
+```
+
+**为什么需要它**：`MenuOptionData<T>` 的 `T` 在 `SDropdownMenu` 的 `@select` 上给不到字面量联合，`item.value` 只能是 `string`，而 `registerVeanLocalePack` / `setLocale` 要的是 `AppLocale` —— 没有运行时守卫就只能写 `as AppLocale`（`eslint.config.mjs` 禁 `as T`，仅 `as const` 例外）。写法与同文件的 `isVeanLocalePack()`（守 13 个出厂包）一致：`APP_LOCALES.some(code => code === value)`。
+
+### N-456 · src/layouts/default.vue:305-315
+
+```ts
+/**
+ * 登出前二次确认（对齐 `soybean-unify` 的 `dialog.warning`）。
+ * `dialog.warning(title, data)` 在 `@vean/aria` 里是 `create({ ...data, title, type: 'warning' })` —— 文案只能走 `title`。
+ * 未传 `cancelText` 时回落组件包内置的 `dialog.cancel`（随 locale 切换），所以这里不写死「取消」。
+ */
+function confirmLogout(): void {
+  dialog.warning(t('common.logoutConfirm'), {
+    confirmText: t('common.confirm'),
+    onConfirm: () => void authStore.logout()
+  });
+}
+```
+
+**契约细节（读 `node_modules/@vean/aria/dist/components/dialog/state.js` 得到）**：`dialog.warning(message, data?)` 的签名看着像 UI 库常见的「message + 选项」，实际实现是 `create({ ...data, title: message, type: 'warning' })`；`DialogExternal` 的字段是 `Omit<DialogT, 'id' | 'type' | 'title'>`，即只开放 `description` / `content` / `footer` / `cancelText` / `confirmText` / `onCancel` / `onConfirm` / `onDismiss` / `icon` / `showCancel` / `showConfirm` / `ui` —— **没有独立 message 字段**，误传 `message` 不会渲染。
+
+**取消键文案不要写死**：`DialogCompact` 的 `showCancel` 默认值是字符串 `'onlyWarning'`（即只有 warning 才显示取消），`cancelText` 缺省时回落组件包 locale 表里的 `dialog.cancel`（`node_modules/@vean/aria/dist/locale/langs/zh-CN.js` 的 `dialog:{cancel:'取消',confirm:'确认',…}`），会随 `SConfigProvider` 的 locale 切换。这里只自定义 `confirmText`（`t('common.confirm')`），取消键交给库里，切到英文时自动变 `Cancel`。
+
+**为什么要有这个确认**：`authStore.logout()` 会清 token + 三个 store + 页签并跳 `/login`，是不可逆的一步；参考实现 `soybean-unify` 的 `apps/admin/src/layouts/modules/layout-header/user-avatar.vue:48` 同样先弹确认再重置。
+
+`SDialogProvider` 由 `SConfigProvider` 内部渲染（`node_modules/@vean/ui/dist/components/config-provider/config-provider.js` 的 render 里 `c(r)` 即 dialog-provider），所以 `src/app.vue` 无需再手动挂 provider。

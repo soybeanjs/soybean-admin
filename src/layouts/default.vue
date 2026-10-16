@@ -3,6 +3,8 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { setLocale } from 'ubean/client';
+// `MenuOptionData` 没被 `@vean/ui` 再导出，只能从 `@vean/aria/menu` 取（与 Vean 自己的 app-shell 同款）
+import type { MenuOptionData } from '@vean/aria/menu';
 import {
   SAppShell,
   SAvatar,
@@ -11,6 +13,7 @@ import {
   SDropdownMenu,
   SPageTabs,
   SThemeModeSwitch,
+  dialog,
   useTheme
 } from '@vean/ui';
 import type { PageTabsContextMenuOptionData, PageTabsOptionData, PageTabsState } from '@vean/ui';
@@ -20,7 +23,7 @@ import { resolveExternalUrl } from '@/shared/iframe';
 import { resolveLayoutMatrix, resolveMenuProps } from '@/shared/layout-matrix';
 import { normalizeRoutePath } from '@/shared/route';
 import { isTabbableRoute } from '@/shared/tab';
-import { registerVeanLocalePack } from '@/shared/vean-locale';
+import { isAppLocale, registerVeanLocalePack } from '@/shared/vean-locale';
 import { toAppRouteMeta } from '@/utils/route-meta';
 import { useAppStore, useAuthStore, useMenuStore, useTabStore, useThemeStore } from '@/store';
 import { useHydrated } from '@/composables/use-hydrated';
@@ -288,18 +291,34 @@ const userMenuItems = computed(() => [
   { value: USER_MENU_LOGOUT, label: t('common.logout') }
 ]);
 
-function onUserMenuSelect(value: unknown): void {
-  if (value === USER_MENU_PROFILE) {
+/**
+ * 注意入参是 **menu item 对象**，不是裸 value：`SDropdownMenu` 的 `select` 类型为 `[item: MenuOptionData<T>, event: Event]`。
+ * 这里刻意不回退到 `unknown` —— 写错时 `item.value` 会当场报错，而不是像 `value === 'logout'` 那样恒为假、静默失效。
+ */
+function onUserMenuSelect(item: MenuOptionData<string>): void {
+  if (item.value === USER_MENU_PROFILE) {
     void router.push('/user-center/profile');
     return;
   }
 
-  if (value === USER_MENU_SETTINGS) {
+  if (item.value === USER_MENU_SETTINGS) {
     void router.push('/user-center/settings');
     return;
   }
 
-  if (value === USER_MENU_LOGOUT) void authStore.logout();
+  if (item.value === USER_MENU_LOGOUT) confirmLogout();
+}
+
+/**
+ * 登出前二次确认（对齐 `soybean-unify` 的 `dialog.warning`）。
+ * `dialog.warning(title, data)` 在 `@vean/aria` 里是 `create({ ...data, title, type: 'warning' })` —— 文案只能走 `title`。
+ * 未传 `cancelText` 时回落组件包内置的 `dialog.cancel`（随 locale 切换），所以这里不写死「取消」。
+ */
+function confirmLogout(): void {
+  dialog.warning(t('common.logoutConfirm'), {
+    confirmText: t('common.confirm'),
+    onConfirm: () => void authStore.logout()
+  });
 }
 
 /**
@@ -321,12 +340,15 @@ const currentLocaleLabel = computed(() => {
   return matched ? APP_LOCALE_LABELS[matched] : current;
 });
 
-/** 切语言：先按需补注册 Vean 组件文案包（`zh` / `en` 是幂等空转，新增语言才真正走动态 `import()`），再调 `setLocale` —— 后者由。 */
-async function onLocaleMenuSelect(value: unknown): Promise<void> {
-  if (typeof value !== 'string' || value === locale.value) return;
+/**
+ * 切语言：先按需补注册 Vean 组件文案包（`zh` / `en` 是幂等空转，新增语言才真正走动态 `import()`），再调 `setLocale`。
+ * 入参同 `onUserMenuSelect`，是 item 对象；`value` 收窄回 `AppLocale` 走 `isAppLocale()`（受信边界，不用 `as`）。
+ */
+async function onLocaleMenuSelect(item: MenuOptionData<string>): Promise<void> {
+  if (!isAppLocale(item.value) || item.value === locale.value) return;
 
-  await registerVeanLocalePack(value);
-  await setLocale(value);
+  await registerVeanLocalePack(item.value);
+  await setLocale(item.value);
 }
 </script>
 

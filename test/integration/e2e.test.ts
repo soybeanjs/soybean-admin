@@ -55,6 +55,27 @@ async function login(page: Page, userName: string, password: string): Promise<vo
   await page.waitForFunction(() => location.pathname !== '/login', undefined, { timeout: 15_000 });
 }
 
+/**
+ * 点头像开下拉、按文案点中一项。
+ * 必须走**真实 UI 点击**：`@select` 的第 1 个参数是 menu item 对象而不是裸 value，
+ * 曾经漏出过「handler 收 `unknown` 与裸串比较、恒为假、静默无反应」的 bug —— 直调 store 的用例盖不住。
+ */
+async function selectUserMenuItem(page: Page, label: string): Promise<void> {
+  await page.locator('header [class*="cursor-pointer"]').last().click();
+  await page.locator('[role="menuitem"]', { hasText: label }).first().click();
+}
+
+/**
+ * 从右上角头像下拉菜单登出，并等真实跳转。
+ * 登出前有二次确认（`dialog.warning`），按文案点掉 —— 用例在 UI 层多覆盖一次那个对话框。
+ */
+async function logoutViaMenu(page: Page): Promise<void> {
+  await page.waitForTimeout(600);
+  await selectUserMenuItem(page, '退出登录');
+  await page.locator('button', { hasText: '确认' }).last().click();
+  await page.waitForFunction(() => location.pathname === '/login', undefined, { timeout: 15_000 });
+}
+
 describe.skipIf(!process.env.PW_E2E)('真实浏览器（P4-02 §5.9）', () => {
   it('公开页在未登录状态可渲染（无限重定向的回归保护）', async () => {
     const page = await browser!.newPage();
@@ -84,8 +105,10 @@ describe.skipIf(!process.env.PW_E2E)('真实浏览器（P4-02 §5.9）', () => {
       }));
 
       expect(stored.token).toBeTruthy();
-      // 不断言解析后的形状（那是 `as` 断言的入口）；页签列表里出现 Login 即可
-      expect(stored.tabs).toContain('"value":"Login"');
+      // 不断言解析后的形状（那是 `as` 断言的入口）；页签列表里出现工作台即可。
+      // 登录页是 `layout: 'blank'`（见 `src/pages/(builtin)/login/index.vue` 的 `definePage`），
+      // `isTabbableRoute()` 把 blank 一律排除，所以**不会**有 "Login" 这个页签。
+      expect(stored.tabs).toContain('"value":"Index"');
     } finally {
       await page.close();
     }
@@ -132,21 +155,20 @@ describe.skipIf(!process.env.PW_E2E)('真实浏览器（P4-02 §5.9）', () => {
 
     try {
       await login(page, 'admin', '123456');
-      await page.goto(`${BASE_URL}/about`, { waitUntil: 'networkidle' });
-      await page.waitForTimeout(600);
+      await gotoApp(page, '/about');
 
-      // 传字符串而不是箭头函数：Vite 会把箭头函数里的 `import()` 重写成
-      // `__vite_ssr_dynamic_import__`（浏览器里不存在）。字符串原样求值，
-      // 走浏览器原生 dynamic import。
-      await page.evaluate(
-        `(async () => {
-          const { useAuthStore } = await import('/src/store/modules/auth/index.ts');
+      await logoutViaMenu(page);
 
-          await useAuthStore().logout();
-        })()`
-      );
+      // 对话节点「确认」后再次进头像菜单 → 「退出登录」，取消后应**留在原页且 token 不变**
+      await login(page, 'admin', '123456');
+      await selectUserMenuItem(page, '退出登录');
+      await page.locator('button', { hasText: '取消' }).last().click();
+      await page.waitForTimeout(500);
 
-      await page.waitForFunction(() => location.pathname === '/login', undefined, { timeout: 15_000 });
+      expect(await page.evaluate(() => location.pathname)).not.toBe('/login');
+      expect(await page.evaluate(() => localStorage.getItem('@soybean/token'))).not.toBeNull();
+
+      await logoutViaMenu(page);
 
       const after = await page.evaluate(() => ({
         token: localStorage.getItem('@soybean/token'),
@@ -154,9 +176,54 @@ describe.skipIf(!process.env.PW_E2E)('真实浏览器（P4-02 §5.9）', () => {
       }));
 
       expect(after.token).toBeNull();
-      // 登出后只剩 Login 一个页签（字符串比对，见上一条用例的说明）
-      expect(after.tabs).toContain('"value":"Login"');
-      expect(after.tabs).not.toContain('"value":"AboutIndex"');
+      // 登出后页签被清空，且不含登出前访问过的 About（同样不会有 Login，理由见上一条用例）
+      expect(JSON.parse(after.tabs ?? '[]')).toHaveLength(0);
+      expect(after.tabs).not.toContain('AboutIndex');
+    } finally {
+      await page.close();
+    }
+  });
+
+  it('右上角头像下拉「个人资料」跳用户中心', async () => {
+    const page = await browser!.newPage();
+
+    try {
+      await login(page, 'admin', '123456');
+      await selectUserMenuItem(page, '个人资料');
+      await page.waitForFunction(() => location.pathname === '/user-center/profile', undefined, {
+        timeout: 15_000
+      });
+
+      expect(await page.evaluate(() => location.pathname)).toBe('/user-center/profile');
+    } finally {
+      await page.close();
+    }
+  });
+
+  it('语言下拉切到 English 后 cookie / html lang / 文案同时生效', async () => {
+    const page = await browser!.newPage();
+
+    try {
+      await login(page, 'admin', '123456');
+
+      await page.getByRole('button', { name: '语言' }).click();
+      await page.locator('[role="menuitem"]', { hasText: 'English' }).first().click();
+
+      // 侧栏菜单文案来自 vue-i18n（不是 Vean 组件包），它比 cookie / html lang 晚一拍生效，
+      // 所以等文案而不是等 `lang`。
+      await page.waitForFunction(() => document.body.innerText.includes('Dashboard'), undefined, {
+        timeout: 15_000
+      });
+
+      const after = await page.evaluate(() => ({
+        lang: document.documentElement.lang,
+        cookie: document.cookie,
+        body: document.body.innerText.replace(/\s+/g, ' ')
+      }));
+
+      expect(after.lang).toBe('en');
+      expect(after.cookie).toContain('ubean_locale=en');
+      expect(after.body).toContain('Dashboard');
     } finally {
       await page.close();
     }

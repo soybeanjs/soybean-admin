@@ -1,6 +1,7 @@
 import { registerLocale } from '@vean/aria/locale';
 import type { LocaleRegistry } from '@vean/aria/locale';
 import zhCN from '@vean/aria/locale/zh-CN';
+import { APP_LOCALES } from '@/constants';
 import type { AppLocale } from '@/constants';
 
 /** 把应用 locale key（`zh` / `en`）对齐到 Vean 组件内置文案 key。详见 docs/v3-notes.md N-184。 */
@@ -56,6 +57,14 @@ const ZH_APP_LOCALE: AppLocale = 'zh';
 /** 运行时判定字符串是否是 13 个出厂包之一（受信边界，不收 `as` 断言） */
 export function isVeanLocalePack(value: string): value is VeanLocalePack {
   return VEAN_LOCALE_PACKS.some(code => code === value);
+}
+
+/**
+ * 运行时判定字符串是否是一个应用 locale。
+ * 菜单 `@select` 把 item 的 `value` 交回来时类型只会收窄到 `string`，这是把 `string` 收回 `AppLocale` 的唯一入口（不收 `as` 断言）。
+ */
+export function isAppLocale(value: string): value is AppLocale {
+  return APP_LOCALES.some(code => code === value);
 }
 
 /** 应用 locale → 语言包（纯函数，无副作用） 详见 docs/v3-notes.md N-188。 */
