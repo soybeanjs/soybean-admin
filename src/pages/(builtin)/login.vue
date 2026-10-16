@@ -75,7 +75,7 @@ const activeTitleKey = computed(() => moduleTitleKeys[activeModule.value]);
 </script>
 
 <template>
-  <div class="relative flex-center size-full overflow-hidden bg-background p-4">
+  <div class="relative flex-center size-full overflow-hidden bg-primary-200 dark:bg-primary-300 p-4">
     <WaveBg />
 
     <SCard
