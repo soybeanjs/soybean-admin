@@ -1,13 +1,21 @@
 <script lang="ts">
 import type { Component } from 'vue';
+import type { LoginLayoutName } from '@/constants/theme';
 import BindWechat from '@/pages/(builtin)/login/modules/bind-wechat.vue';
 import CodeLogin from '@/pages/(builtin)/login/modules/code-login.vue';
 import PwdLogin from '@/pages/(builtin)/login/modules/pwd-login.vue';
 import Register from '@/pages/(builtin)/login/modules/register.vue';
 import ResetPwd from '@/pages/(builtin)/login/modules/reset-pwd.vue';
+import { LOGIN_MODULE_TITLE_KEYS } from '@/pages/(builtin)/login/shared';
 import type { LoginModule } from '@/pages/(builtin)/login/use-login';
+import LoginLayoutCard from './components/card.vue';
+import LoginLayoutFullscreen from './components/fullscreen.vue';
+import LoginLayoutSplit from './components/split.vue';
 
-/** 模块注册表与标题 key 放**模块作用域**（普通 `<script>` 块）：放 setup 里会让对象被 Vue 响应式包装，`<component :is>` 会警告"made a。 */
+/**
+ * 模块与壳的注册表放**模块作用域**（普通 `<script>` 块）：放 setup 里会让对象被 Vue 响应式包装，
+ * `<component :is>` 会警告 "made a component reactive" 详见 docs/v3-notes.md N-292。
+ */
 const moduleComponents: Record<LoginModule, Component> = {
   'pwd-login': PwdLogin,
   'code-login': CodeLogin,
@@ -16,25 +24,24 @@ const moduleComponents: Record<LoginModule, Component> = {
   'bind-wechat': BindWechat
 };
 
-const moduleTitleKeys: Record<LoginModule, string> = {
-  'pwd-login': 'common.login',
-  'code-login': 'login.codeLogin',
-  register: 'login.register',
-  'reset-pwd': 'login.resetPwd',
-  'bind-wechat': 'login.bindWechat'
+/** 壳注册表：键与 `LOGIN_LAYOUTS` 一一对应 */
+const layoutComponents: Record<LoginLayoutName, Component> = {
+  card: LoginLayoutCard,
+  split: LoginLayoutSplit,
+  fullscreen: LoginLayoutFullscreen
 };
+
+/** 注册表失配时的兜底壳（不该发生，但比渲染空白好） */
+const FALLBACK_LAYOUT = layoutComponents.card;
 </script>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import { SCard, SThemeModeSegment } from '@vean/ui';
-import { APP_TITLE } from '@/constants';
-import WaveBg from '@/components/wave-bg.vue';
+import { useThemeStore } from '@/store/modules/theme';
 import { resolveLoginModule } from '@/pages/(builtin)/login/use-login';
 
-/** （`@ubean/vue/dist/generator.js` 的 `renderRouteRecord`：） 详见 docs/v3-notes.md N-292。 */
+/** 详见 docs/v3-notes.md N-292：`@ubean/vue/dist/generator.js` 的 `renderRouteRecord`。 */
 definePage({
   layout: 'blank',
   meta: {
@@ -43,37 +50,26 @@ definePage({
   }
 });
 
-const { t } = useI18n();
 const route = useRoute();
+const themeStore = useThemeStore();
 
 const activeModule = computed(() => resolveLoginModule(route.query.module));
-const activeTitleKey = computed(() => moduleTitleKeys[activeModule.value]);
+
+/**
+ * 壳由主题设置决定（主题抽屉 → 通用 → 登录页布局）。
+ * 组件库不认识登录页语义，所以查表而**不是**把值直接当组件名用。
+ */
+const activeLayout = computed(() => layoutComponents[themeStore.settings.loginLayout] ?? FALLBACK_LAYOUT);
+
+/** 壳只收已解析的文案，不认识「模块」语义 */
+const layoutProps = computed(() => ({
+  title: LOGIN_MODULE_TITLE_KEYS[activeModule.value],
+  description: '一个清新优雅的中后台模版'
+}));
 </script>
 
 <template>
-  <div class="relative flex-center size-full overflow-hidden bg-primary-200 dark:bg-primary-300 p-4">
-    <WaveBg />
-
-    <SCard
-      size="lg"
-      :ui="{
-        root: 'relative z-2 w-full max-w-96',
-        titleRoot: 'flex-1 justify-center',
-        title: 'text-xl'
-      }"
-    >
-      <template #title-leading>
-        <AppLogo class="size-8" />
-      </template>
-      <template #title>{{ APP_TITLE }}</template>
-      <template #extra>
-        <SThemeModeSegment size="sm" />
-      </template>
-
-      <h2 class="text-center text-lg font-600 text-primary">{{ t(activeTitleKey) }}</h2>
-      <p class="mt-1 mb-6 text-center text-sm text-muted-foreground">{{ t('app.description') }}</p>
-
-      <component :is="moduleComponents[activeModule]" />
-    </SCard>
-  </div>
+  <component :is="activeLayout" v-bind="layoutProps">
+    <component :is="moduleComponents[activeModule]" />
+  </component>
 </template>

@@ -215,7 +215,10 @@
     "wechatTip": "Scan the QR code with WeChat to bind (this demo uses a simulated scan)",
     "wechatMockScan": "Simulate scan & bind",
     "wechatBound": "WeChat bound: {nickname}",
-    "refreshQrcode": "Refresh QR code"
+    "refreshQrcode": "Refresh QR code",
+    "brandSlogan": "A fresh and elegant admin template",
+    "brandDescription": "Batteries-included auth, menu and theming — built on Vue 3 + Vite.",
+    "icp": "ICP"
   },
   "theme": {
     "settings": "Theme settings",
@@ -285,6 +288,12 @@
       "topHybridHeaderFirst": "Top bar + sidebar",
       "verticalHybridHeaderFirst": "Top + dual sidebar",
       "mobileDisabled": "Mobile only supports the sidebar layout; switch to a wider screen first"
+    },
+    "loginLayout": {
+      "title": "Login layout",
+      "card": "Centered card",
+      "split": "Split screen",
+      "fullscreen": "Fullscreen"
     },
     "fixedHeaderAndTab": "Sticky header and tabs",
     "fixedFooter": "Fixed footer",

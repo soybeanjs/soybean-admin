@@ -215,7 +215,10 @@
     "wechatTip": "使用微信扫描二维码完成绑定（演示环境为模拟扫码）",
     "wechatMockScan": "模拟扫码绑定",
     "wechatBound": "已绑定微信：{nickname}",
-    "refreshQrcode": "刷新二维码"
+    "refreshQrcode": "刷新二维码",
+    "brandSlogan": "清新优雅的中后台模版",
+    "brandDescription": "开箱即用的权限、菜单与主题方案，基于 Vue 3 + Vite 构建。",
+    "icp": "备案号"
   },
   "theme": {
     "settings": "主题设置",
@@ -285,6 +288,12 @@
       "topHybridHeaderFirst": "顶栏 + 侧边",
       "verticalHybridHeaderFirst": "顶部 + 双栏",
       "mobileDisabled": "移动端仅支持「左侧菜单」布局，请切换到宽屏后再试"
+    },
+    "loginLayout": {
+      "title": "登录页布局",
+      "card": "居中卡片",
+      "split": "左右分栏",
+      "fullscreen": "全屏背景"
     },
     "fixedHeaderAndTab": "头部与页签吸顶",
     "fixedFooter": "页脚吸底",

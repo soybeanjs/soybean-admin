@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
   API_PROXY_PREFIX,
+  LOGIN_ROUTE_PREFIX,
+  PLUGIN_DEMO_ROUTE_PREFIX,
+  buildPluginSsrRouteRules,
   buildProxyRouteRules,
   parseApiProxyKeys,
   parseApiProxyTargets,
@@ -53,6 +56,19 @@ describe('代理路由规则', () => {
 
   it('空配置生成空规则集（不注册通配代理，避免把 / 也代理走）', () => {
     expect(buildProxyRouteRules([])).toEqual({});
+  });
+});
+
+describe('SSR 豁免规则', () => {
+  it('plugin 演示页与登录页都降级为 CSR', () => {
+    expect(buildPluginSsrRouteRules()).toEqual({
+      [`${PLUGIN_DEMO_ROUTE_PREFIX}/**`]: { ssr: false },
+      [`${LOGIN_ROUTE_PREFIX}/**`]: { ssr: false }
+    });
+  });
+
+  it('登录页必须在豁免名单里 —— 它的布局来自 localStorage，预渲染必与客户端首帧不一致', () => {
+    expect(buildPluginSsrRouteRules()[`${LOGIN_ROUTE_PREFIX}/**`]).toEqual({ ssr: false });
   });
 });
 

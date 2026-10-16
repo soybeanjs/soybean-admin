@@ -1,6 +1,6 @@
 # v3 注释沉淀（注释清理回收站）
 
-> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **446 条**（N-001 – N-446）。
+> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **449 条**（N-001 – N-449）。
 > 代码里只保留「这是什么 / 必须怎么做」的一两行说明，**为什么这么做**的历史推理放在这里；
 > 代码注释里出现 `docs/v3-notes.md N-0xx` 时即指向对应条目（当前 360 处引用、覆盖 217 个文件）。
 > 重建完整注释时，把该条目正文按原位置贴回即可；条目正文就是压缩前的原文，带原始缩进与 ``` 围栏。
@@ -18,6 +18,7 @@
 - **pages**：97 条（N-290 – N-386）
 - **scripts**：15 条（N-387 – N-401）
 - **test**：45 条（N-402 – N-446）
+- **登录页与 SSR 豁免**：3 条（N-447 – N-449）
 
 ## 注意事项汇编（从现有代码注释汇总，供项目文档参考）
 
@@ -689,6 +690,9 @@
 - **N-443** `test/specs/store/tab-store.test.ts:7` — 页签 store 的持久化与跨用户清理（P4-02，v3 §5.9）。 ② **跨用户清页签**：登出/换用户必须清空页签，否则新用户会看到上一个用户的页面痕迹（信息泄露）。
 - **N-445** `test/specs/store/tab-store.test.ts:110` — 空白布局的页面不进页签栏。
 - **N-446** `test/specs/store/theme-settings.test.ts:5` — P2-10：主题设置里两块「无 DOM 也能验证」的纯逻辑 —— 滤镜互斥、预设 → 主题信封。
+- **N-447** `src/pages/(builtin)/login/components/split.vue:24` — 登录分栏壳左栏的「窄屏隐藏」写法。 本项目 `hidden md:flex` **必失效**：`@vean/ui/dist/styles.css` 末尾有无 media 的 `.hidden{display:none;}`，排在 UnoCSS 之后，同优先级后者赢。改用 `flex max-md:hidden`。
+- **N-448** `src/pages/(builtin)/login/index.vue:40` — 登录页的 `definePage`。 不加 `ssr: false`（实测 dev 下 `pageMeta.ssr` 到不了服务端），SSR 豁免走 `ubean.config.ts` 的 `routeRules`。
+- **N-449** `src/shared/api-proxy.ts:86` — `buildPluginSsrRouteRules()` 里登录页的 SSR 豁免。 登录壳来自 localStorage，Node 预渲染只能出 `card`，客户端读 `split` 后 hydration diff 会把两个壳混进一棵树。
 
 ## 工程根 / 应用入口
 
@@ -6401,3 +6405,85 @@ mismatch`。挂载后自动变为真值。 */
  * `src/app.vue` 直接引用），导出位置就是它们的归属，测试跟着契约走。
  */
 ```
+
+### N-447 · src/pages/(builtin)/login/components/split.vue:24
+
+```vue
+<!-- 左栏：品牌插画 + 毛玻璃，窄屏隐藏 -->
+<div class="relative flex max-md:hidden items-center justify-center overflow-hidden md:flex-1 lg:flex-[2]">
+```
+
+**为什么不是 `hidden md:flex`**：本项目里 `hidden md:flex` 是**必失效**的组合。
+`@vean/ui/dist/styles.css` 末尾有一条无 media 的 `.hidden{display:none;}`（offset 200667 / 202915），
+它排在 Vite 注入的 UnoCSS 之后，同优先级下**后写的赢** —— `md:flex` 被压掉，元素在桌面端也保持 `display:none`。
+实测：1200px 视口下左栏 `getBoundingClientRect().width === 0`、`getComputedStyle().display === 'none'`，
+而 `element.matches('div.md\\:flex')` 是 `true`（选择器匹配 ≠ 样式生效）。
+
+改法：用 `@vean/ui` 不定义的类 token，避开同优先级冲突 —— `flex max-md:hidden`
+（`max-md:hidden` 只在 UnoCSS 产出，`@vean/ui` 里没有，两者不打架）。
+
+同类陷阱：任何 `hidden <断点>:block|flex|grid` 在本项目都可能翻车，因为 `@vean/ui` 会带进无条件的
+`.hidden` / `.block` / `.flex` / `.grid` 之一。写「窄屏隐藏」时优先用 `max-*:hidden`。
+
+### N-448 · src/pages/(builtin)/login/index.vue:46-53
+
+```ts
+definePage({
+  layout: 'blank',
+  meta: {
+    title: '登录',
+    requiresAuth: false
+  }
+});
+```
+
+登录页**不加** `ssr: false`，SSR 豁免改走 `ubean.config.ts` 的 `routeRules`（见 N-449）。
+
+试过 `definePage({ ssr: false })`，**实测无效**，响应头仍是 `X-SSR-Mode: ssr`。
+按 0.6.4 的源码它本该生效：`node_modules/@ubean/vue/dist/vite.js:304` 解析出 `parsed.ssr`、
+`:794` 把它写进路由 meta 的 `ssr` 字段，服务端 `resolveSelectSsr`
+（`node_modules/@ubean/routes/dist/index.js:815`）也确实是 `input.pageSsr ?? input.routeRuleSsr` 的优先级。
+dev 下 `page.pageMeta.ssr` 没被带到服务端（具体在哪一环丢失没有再往下追）。
+结论：**SSR 豁免用 `routeRules`，它在 dev 与 build 两个环境都验证有效**。
+
+### N-449 · src/shared/api-proxy.ts:86-106
+
+```ts
+/**
+ * 登录页的 SSR 豁免规则（`ssr: false`）。
+ *
+ * 登录壳由 `themeStore.settings.loginLayout` 选择，该值来自 localStorage —— Node 预渲染读不到，
+ * 只能渲染默认的 `card`。客户端首帧读到 `split` 后会与预渲染树做 hydration diff，
+ * 结果是两个壳的 DOM 混在一棵树里（分栏内容被塞进窄卡片容器）。
+ */
+export const LOGIN_ROUTE_PREFIX = '/login';
+```
+
+**这是本次迁移最隐蔽的一处**。症状看起来纯 CSS：选了 `split` 布局后，分栏里的表单被挤在
+一张窄卡片里居中显示（因为 `card` 的 `SCard` 根节点 `.max-w-96` 先渲染出来、`split` 的内容被塞进它里面）。
+
+真实原因是 **hydration mismatch**：
+
+1. dev server 对每个 HTML 请求在 Node 里预渲染（`ubean.config.ts` 的 `mode: 'fullstack'` + `ssr: false`
+   仍会走 `createVueRenderer`，见 `docs/v3-task.md` 的 P4-01 条）；
+2. 预渲染时 `localStorage` 不存在 → `themeStore.settings.loginLayout` 是默认值 `card` → 输出 `card` 壳的 DOM；
+3. 浏览器 hydration 时读到 `loginLayout: 'split'` → 客户端 vdom 是 `split` 壳；
+4. Vue 的 mismatch 处理是**保留旧节点 + 追加新节点**，不是清空重建。Playwright 读到的证据：
+   ```
+   root class = "relative flex-center size-full overflow-hidden bg-primary-200 dark:bg-primary-300 p-4"  ← card 的根
+   root.children = [ 分栏左栏, 分栏右栏 ]                                                                ← split 的内容
+   ```
+   `#app` 里 `bg-gray-50`（split 根）计数为 0，两个壳的片段混在一棵树上。
+
+控制台原文（`definePage({ ssr: false })` 那轮抓到的）：
+
+```
+[Vue warn]: Hydration class mismatch on JSHandle@node
+  - rendered on server: class="flex flex-col items-stretch rounded-md border bg-card ... max-w-96"
+  - expected on client: class="relative hidden items-center justify-center overflow-hidden md:flex md:flex-1 lg:flex-[2]"
+  Note: this mismatch is check-only. The DOM will not be rectified in production due to performance overhead.
+```
+
+**排查教训**：DOM 出现「两套壳的属性混在一起」时，先查 hydration mismatch，不要先怀疑 CSS 优先级。
+`definePage({ ssr: false })` 没生效浪费了两轮；直接改 `routeRules` 后 `X-SSR-Mode` 立刻从 `ssr` 变 `csr`，
+SSR HTML 也从 `id="app"><div class="h-full">…` 变成 `id="app" data-ubean-ssr="false"></div>`（空壳）。

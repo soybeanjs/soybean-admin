@@ -5,8 +5,20 @@ import type { LayoutCollapsible, LayoutScrollBehavior, LayoutVariant, ThemeSetti
 import { LAYOUT_MODE as ENV_LAYOUT_MODE, THEME_PRESET as ENV_THEME_PRESET } from 'ubean:env/client';
 import { LAYOUT_MODES } from '@/constants/layout';
 import type { LayoutModeName } from '@/constants/layout';
-import { COLOR_WEAKNESS_FILTER, GRAYSCALE_FILTER, WATERMARK_TIME_FORMATS } from '@/constants/theme';
-import type { PageAnimationMode, ResetCacheStrategy, TabVariant, WatermarkTimeFormat } from '@/constants/theme';
+import {
+  COLOR_WEAKNESS_FILTER,
+  DEFAULT_LOGIN_LAYOUT,
+  GRAYSCALE_FILTER,
+  LOGIN_LAYOUTS,
+  WATERMARK_TIME_FORMATS
+} from '@/constants/theme';
+import type {
+  LoginLayoutName,
+  PageAnimationMode,
+  ResetCacheStrategy,
+  TabVariant,
+  WatermarkTimeFormat
+} from '@/constants/theme';
 import { getLocalJson, setLocalJson } from '@/utils/storage';
 
 type PaletteKey = NonNullable<ThemeOptions['base']>;
@@ -68,6 +80,8 @@ export interface ThemeSettings {
   triggerVisible: boolean;
   /** 头部 + 页签吸顶（→ SLayout `fixedTop`） */
   fixedHeaderAndTab: boolean;
+  /** 登录页布局外观（P2-10 之后的追加项；只影响 `/login`，不影响后台壳） */
+  loginLayout: LoginLayoutName;
   /** 页脚吸底（→ SLayout `fixedFooter`） */
   fixedFooter: boolean;
   /** 页脚撑满内容宽度（→ SLayout `stretchFooter`；v2 `footerFullWidth` 在 Vean 无对应 prop） */
@@ -128,6 +142,7 @@ function defaultThemeSettings(): ThemeSettings {
     breadcrumbVisible: true,
     triggerVisible: true,
     fixedHeaderAndTab: true,
+    loginLayout: DEFAULT_LOGIN_LAYOUT,
     fixedFooter: false,
     stretchFooter: true,
     fullContent: false,
@@ -143,6 +158,7 @@ function defaultThemeSettings(): ThemeSettings {
 
 /**
  * 从 localStorage 恢复：`watermark` 是唯一嵌套对象，旧数据缺该键时浅合并会留下 `undefined`，所以显式补回默认值。
+ * `loginLayout` 是后加的字段，旧数据里没有 —— 浅合并后会是 `undefined`，必须逐个候选表校验。
  */
 function restoreThemeSettings(): ThemeSettings {
   const base = defaultThemeSettings();
@@ -150,8 +166,9 @@ function restoreThemeSettings(): ThemeSettings {
   if (!stored) return base;
 
   const merged = { ...base, ...stored };
+  const loginLayout = LOGIN_LAYOUTS.find(item => item.value === merged.loginLayout)?.value ?? base.loginLayout;
 
-  return { ...merged, watermark: { ...base.watermark, ...stored.watermark } };
+  return { ...merged, loginLayout, watermark: { ...base.watermark, ...stored.watermark } };
 }
 
 /**

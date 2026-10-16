@@ -174,13 +174,9 @@ describe('remove-i18n：本仓库计划（dry-run 不落盘）', () => {
     expect(plan.leftovers).toEqual([]);
     expect(plan.problems).toEqual([]);
 
-    for (const file of [
-      'ubean.config.ts',
-      'src/app.ts',
-      'src/app.vue',
-      'src/layouts/default.vue',
-      'src/pages/(builtin)/login/index.vue'
-    ]) {
+    // 登录页已无 i18n 装配（模块标题是字面量），因此不出现
+    // 在 plan.files 里 —— 它只在真的需要改写时才进计划。
+    for (const file of ['ubean.config.ts', 'src/app.ts', 'src/app.vue', 'src/layouts/default.vue']) {
       expect(plan.files.has(file), file).toBe(true);
     }
 

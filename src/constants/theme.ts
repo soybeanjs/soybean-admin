@@ -41,6 +41,26 @@ export const WATERMARK_TIME_FORMATS = [
 
 export type WatermarkTimeFormat = (typeof WATERMARK_TIME_FORMATS)[number];
 
+/**
+ * 登录页布局外观（三种壳，模块表单复用不分叉）：
+ *
+ * - `card`：居中卡片（本项目原有外观，默认）
+ * - `split`：左右分栏 —— 左品牌插画（毛玻璃）+ 右表单
+ * - `fullscreen`：大背景图铺满 + 居中玻璃卡
+ *
+ * 默认值刻意保持 `card`：升级后既有用户的登录页外观不变。
+ */
+export const LOGIN_LAYOUTS = [
+  { value: 'card', label: 'theme.loginLayout.card' },
+  { value: 'split', label: 'theme.loginLayout.split' },
+  { value: 'fullscreen', label: 'theme.loginLayout.fullscreen' }
+] as const;
+
+export type LoginLayoutName = (typeof LOGIN_LAYOUTS)[number]['value'];
+
+/** 登录页布局的默认值（兜底与持久化恢复共用一处） */
+export const DEFAULT_LOGIN_LAYOUT: LoginLayoutName = 'card';
+
 /** 重置缓存策略（P2-20 矩阵的一个配置维度） */
 export const RESET_CACHE_STRATEGIES = [
   { value: 'close', label: 'theme.resetCache.close' },

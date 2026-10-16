@@ -4,13 +4,14 @@ import { useI18n } from 'vue-i18n';
 import { SInput, SLabel } from '@vean/ui';
 import type { LayoutScrollBehavior, PageTabsVariant } from '@vean/ui';
 import {
+  LOGIN_LAYOUTS,
   PAGE_ANIMATION_MODES,
   RESET_CACHE_STRATEGIES,
   SCROLL_MODES,
   TAB_VARIANTS,
   WATERMARK_TIME_FORMATS
 } from '@/constants/theme';
-import type { PageAnimationMode, ResetCacheStrategy, WatermarkTimeFormat } from '@/constants/theme';
+import type { LoginLayoutName, PageAnimationMode, ResetCacheStrategy, WatermarkTimeFormat } from '@/constants/theme';
 import { useThemeStore } from '@/store/modules/theme';
 import type { WatermarkSettings } from '@/store/modules/theme';
 import { THEME_ROW_CLASS, THEME_SECTION_TITLE_CLASS, WATERMARK_TIME_FORMAT_ITEMS, useSelectField } from './shared';
@@ -40,6 +41,11 @@ const resetStrategyItems = computed<ThemeOptionItem[]>(() =>
   RESET_CACHE_STRATEGIES.map(item => ({ value: item.value, label: t(item.label) }))
 );
 
+/** 登录页外观：只影响 `/login`，与后台壳的布局模式互不干扰 */
+const loginLayoutItems = computed<ThemeOptionItem[]>(() =>
+  LOGIN_LAYOUTS.map(item => ({ value: item.value, label: t(item.label) }))
+);
+
 const scrollBehavior = useSelectField<LayoutScrollBehavior>({
   get: () => themeStore.settings.scrollBehavior,
   items: ['wrapper', 'content'],
@@ -66,6 +72,13 @@ const resetCacheStrategy = useSelectField<ResetCacheStrategy>({
   items: ['close', 'refresh'],
   fallback: 'close',
   patch: value => ({ resetCacheStrategy: value })
+});
+
+const loginLayout = useSelectField<LoginLayoutName>({
+  get: () => themeStore.settings.loginLayout,
+  items: LOGIN_LAYOUTS.map(item => item.value),
+  fallback: 'card',
+  patch: value => ({ loginLayout: value })
 });
 
 /** 以当前水印设置为底，覆盖若干字段（`setThemeSettings` 需要完整的 `watermark` 对象） */
@@ -113,6 +126,8 @@ const showTimeFormat = computed(
         :label="t('theme.page.animateMode')"
         :items="animateModeItems"
       />
+      <!-- 登录页外观：只影响 `/login`，与后台壳的布局模式互不干扰 -->
+      <OptionRow v-model="loginLayout" :label="t('theme.loginLayout.title')" :items="loginLayoutItems" />
     </div>
 
     <div class="flex flex-col gap-1">

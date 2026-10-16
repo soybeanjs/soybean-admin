@@ -83,9 +83,25 @@ export function buildProxyRouteRules(targets: ApiProxyTarget[]): Record<string, 
 /** 这些页面本来就只是本地演示、没有 SSR 价值，统一按 URL 前缀降级为 CSR： 详见 docs/v3-notes.md N-134。 */
 export const PLUGIN_DEMO_ROUTE_PREFIX = '/plugin';
 
-/** 演示页的 SSR 豁免规则（`ssr: false`），与代理规则合并后交给 ubean 的 `routeRules` */
+/**
+ * 登录页的 SSR 豁免规则（`ssr: false`）。
+ *
+ * 登录壳由 `themeStore.settings.loginLayout` 选择，该值来自 localStorage —— Node 预渲染读不到，
+ * 只能渲染默认的 `card`。客户端首帧读到 `split` 后会与预渲染树做 hydration diff，
+ * 结果是两个壳的 DOM 混在一棵树里（分栏内容被塞进窄卡片容器）。
+ *
+ * 不用 `definePage({ ssr: false })`：0.6.4 的 `/vite` 插件把它写进 `route.meta.ssr`，
+ * 但同一份 config 的 `routeRules` 在服务端先匹配（`resolveSelectSsr` 里 `routeRuleSsr` 生效），
+ * 页面元数据赢不了，实测响应头仍是 `X-SSR-Mode: ssr`（详见 docs/v3-notes.md N-135）。
+ */
+export const LOGIN_ROUTE_PREFIX = '/login';
+
+/** 演示页 + 登录页的 SSR 豁免规则（`ssr: false`），与代理规则合并后交给 ubean 的 `routeRules` */
 export function buildPluginSsrRouteRules(): Record<string, { ssr: false }> {
-  return { [`${PLUGIN_DEMO_ROUTE_PREFIX}/**`]: { ssr: false } };
+  return {
+    [`${PLUGIN_DEMO_ROUTE_PREFIX}/**`]: { ssr: false },
+    [`${LOGIN_ROUTE_PREFIX}/**`]: { ssr: false }
+  };
 }
 
 /** 客户端 baseURL 前缀 → key（`/_p/default` → `default`），不匹配返回 `''` */
