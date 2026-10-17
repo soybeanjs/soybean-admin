@@ -2,6 +2,7 @@ import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { permissionService } from '@/services/permission.service';
 import { permissionCreateSchema, permissionResourceSchema } from '@/schema/permission';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/permission` —— 新增权限。
@@ -22,6 +23,6 @@ export const POST = defineHandler(
   c => {
     const body = c.req.valid('json');
 
-    return c.json(permissionService.createPermission(body));
+    return c.json(permissionService.createPermission(body, currentActor(c)));
   }
 );

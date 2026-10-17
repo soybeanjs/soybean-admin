@@ -4,6 +4,7 @@ import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { orgRoleAssignSchema } from '@/schema/org';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `PUT /api/org/:id/roles` —— 组织绑定角色（全量替换）。
@@ -25,7 +26,7 @@ export const PUT = defineHandler(
     const id = requireParam(c, 'id');
     const { roleIds } = c.req.valid('json');
 
-    orgService.assignOrgRoles(id, roleIds);
+    orgService.assignOrgRoles(id, roleIds, currentActor(c));
 
     return c.json(null);
   }

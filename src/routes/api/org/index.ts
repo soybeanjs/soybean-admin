@@ -2,6 +2,7 @@ import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
 import { orgCreateSchema, orgResourceSchema } from '@/schema/org';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/org` —— 新增组织。
@@ -22,6 +23,6 @@ export const POST = defineHandler(
   c => {
     const body = c.req.valid('json');
 
-    return c.json(orgService.createOrg(body));
+    return c.json(orgService.createOrg(body, currentActor(c)));
   }
 );

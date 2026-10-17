@@ -1,5 +1,6 @@
 import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
+import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
 import { invalidateUserPermissionCacheMany } from '@/shared/permission-cache';
@@ -12,8 +13,6 @@ import { permissionService } from './permission.service';
 /** 角色服务（P1-07，unify role.service 范式） 详见 docs/v3-notes.md N-257。 */
 
 export type RoleRow = typeof role.$inferSelect;
-
-const ACTOR = 'admin';
 
 /** 反查持有某角色的用户 id（角色权限变更后精准失效用） */
 function getUserIdsByRoleIds(roleIds: readonly string[]): string[] {
@@ -50,15 +49,19 @@ export const roleService = {
       .offset(offset)
       .all();
 
-    const list = rows.map(row => {
-      const { total: userCount } = appDb
-        .select({ total: count() })
-        .from(userRole)
-        .where(eq(userRole.roleId, row.id))
-        .get() ?? { total: 0 };
+    // 一次 group by 统计各角色的用户数 —— 逐行 count 是 N+1（size=100 时 102 条 SQL）
+    const roleIds = rows.map(row => row.id);
+    const countRows = roleIds.length
+      ? appDb
+          .select({ roleId: userRole.roleId, total: count() })
+          .from(userRole)
+          .where(inArray(userRole.roleId, roleIds))
+          .groupBy(userRole.roleId)
+          .all()
+      : [];
 
-      return { ...row, userCount };
-    });
+    const countByRoleId = new Map(countRows.map(item => [item.roleId, item.total]));
+    const list = rows.map(row => ({ ...row, userCount: countByRoleId.get(row.id) ?? 0 }));
 
     return { total, current: query.current, size: query.size, list };
   },
@@ -86,7 +89,7 @@ export const roleService = {
     return { ...row, permissions };
   },
 
-  async createRole(dto: RoleCreateDTO): Promise<RoleRow> {
+  async createRole(dto: RoleCreateDTO, actor: string = SYSTEM_ACTOR): Promise<RoleRow> {
     const [existing] = appDb.select().from(role).where(eq(role.name, dto.name)).all();
     if (existing) {
       throw new AppError('RESOURCE_EXISTS', '角色名称已存在');
@@ -99,9 +102,9 @@ export const roleService = {
       code: dto.code,
       description: dto.description ?? null,
       enabled: 'Y',
-      createdBy: ACTOR,
+      createdBy: actor,
       createdTime: now,
-      updatedBy: ACTOR,
+      updatedBy: actor,
       updatedTime: now
     };
     appDb.insert(role).values(row).run();
@@ -113,7 +116,7 @@ export const roleService = {
     return row;
   },
 
-  async updateRole(id: string, dto: RoleUpdateDTO): Promise<RoleRow> {
+  async updateRole(id: string, dto: RoleUpdateDTO, actor: string = SYSTEM_ACTOR): Promise<RoleRow> {
     const current = this.getRoleById(id);
 
     if (dto.name && dto.name !== current.name) {
@@ -130,7 +133,7 @@ export const roleService = {
         code: dto.code ?? current.code,
         description: dto.description !== undefined ? dto.description : current.description,
         enabled: dto.enabled ?? current.enabled,
-        updatedBy: ACTOR,
+        updatedBy: actor,
         updatedTime: new Date().toISOString()
       })
       .where(eq(role.id, id))
@@ -171,7 +174,7 @@ export const roleService = {
   },
 
   /** 全量替换角色-权限关联（失效持有该角色的用户缓存） */
-  async replaceRolePermissions(roleId: string, permissionIds: string[]): Promise<void> {
+  async replaceRolePermissions(roleId: string, permissionIds: string[], actor: string = SYSTEM_ACTOR): Promise<void> {
     const affected = getUserIdsByRoleIds([roleId]);
     const now = new Date().toISOString();
 
@@ -185,9 +188,9 @@ export const roleService = {
               id: createUuidV7(),
               roleId,
               permissionId,
-              createdBy: ACTOR,
+              createdBy: actor,
               createdTime: now,
-              updatedBy: ACTOR,
+              updatedBy: actor,
               updatedTime: now
             }))
           )

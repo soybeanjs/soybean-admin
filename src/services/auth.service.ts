@@ -12,10 +12,12 @@ import {
   verifyToken
 } from '@/shared/auth';
 import type { JwtPayload } from '@/shared/auth';
+import { DEFAULT_REGISTER_ROLE_CODE } from '@/db/seed-data';
 import { AppError } from '@/shared/error';
+import { createUuidV7 } from '@/shared/uuid';
 import type { AuthUserDTO } from '@/schema/auth';
 import { appDb } from '../db';
-import { user } from '../db/schema';
+import { role, user, userRole } from '../db/schema';
 import { verifyCaptcha } from './captcha.service';
 import { permissionService } from './permission.service';
 import { roleService } from './role.service';
@@ -207,7 +209,7 @@ export const authService = {
 
       const now = new Date().toISOString();
       const newRow: UserRow = {
-        id: crypto.randomUUID(),
+        id: createUuidV7(),
         username,
         password: await hashPassword(passwordValue),
         phone: null,
@@ -222,7 +224,29 @@ export const authService = {
         updatedBy: username,
         updatedTime: now
       };
-      appDb.insert(user).values(newRow).run();
+      // 注册与建用户必须在一个事务里：只建了用户却没绑上角色，登录后拿不到任何
+      // 权限码，菜单和接口全 4003，而且这种半成品账号在库里看不出来
+      appDb.transaction(tx => {
+        tx.insert(user).values(newRow).run();
+
+        // 默认角色：不绑角色的话 RBAC 集合为空，注册完等于一个什么都不能看的账号
+        const defaultRole = tx.select({ id: role.id }).from(role).where(eq(role.code, DEFAULT_REGISTER_ROLE_CODE)).get();
+
+        if (defaultRole) {
+          const now = new Date().toISOString();
+          tx.insert(userRole)
+            .values({
+              id: createUuidV7(),
+              userId: newRow.id,
+              roleId: defaultRole.id,
+              createdBy: username,
+              createdTime: now,
+              updatedBy: username,
+              updatedTime: now
+            })
+            .run();
+        }
+      });
 
       const authUser = await toAuthUserWithRoles(newRow);
 

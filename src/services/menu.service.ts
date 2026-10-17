@@ -1,5 +1,6 @@
 import { and, count, eq, inArray, isNotNull, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
+import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
 import { invalidateAllPermissionCache } from '@/shared/permission-cache';
@@ -14,8 +15,6 @@ import { permissionService } from './permission.service';
 
 export type MenuRow = typeof menu.$inferSelect;
 export type MenuTree = MenuRow & { children: MenuRow[] };
-
-const ACTOR = 'admin';
 
 function findMenuById(id: string): MenuRow | undefined {
   const [row] = appDb.select().from(menu).where(eq(menu.id, id)).all();
@@ -212,7 +211,7 @@ export const menuService = {
     return buildMenuTree(rows);
   },
 
-  createMenu(dto: MenuCreateDTO): MenuRow {
+  createMenu(dto: MenuCreateDTO, actor: string = SYSTEM_ACTOR): MenuRow {
     validateParent(dto.parentId ?? null);
     validateMenuTypeConstraints({
       menuType: dto.menuType,
@@ -249,9 +248,9 @@ export const menuService = {
       pinned: dto.pinned ?? 'N',
       description: null,
       enabled: 'Y',
-      createdBy: ACTOR,
+      createdBy: actor,
       createdTime: now,
-      updatedBy: ACTOR,
+      updatedBy: actor,
       updatedTime: now
     };
     appDb.insert(menu).values(row).run();
@@ -259,7 +258,7 @@ export const menuService = {
     return row;
   },
 
-  updateMenu(id: string, dto: MenuUpdateDTO): MenuRow {
+  updateMenu(id: string, dto: MenuUpdateDTO, actor: string = SYSTEM_ACTOR): MenuRow {
     const current = requireMenu(id);
     const next = normalizeValues(dto, current);
 
@@ -277,7 +276,7 @@ export const menuService = {
 
     appDb
       .update(menu)
-      .set({ ...next, updatedBy: ACTOR, updatedTime: new Date().toISOString() })
+      .set({ ...next, updatedBy: actor, updatedTime: new Date().toISOString() })
       .where(eq(menu.id, id))
       .run();
 

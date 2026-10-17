@@ -19,5 +19,8 @@ export function hasRole(roles: string[], required: string[]): boolean {
 export function hasPermissionCode(codes: string[], required: string[]): boolean {
   if (required.length === 0) return true;
 
-  return required.some(code => codes.includes(code));
+  // 路由守卫每次导航都会调用，用 Set 把 O(required × codes) 降成 O(required)
+  const owned = new Set(codes);
+
+  return required.some(code => owned.has(code));
 }

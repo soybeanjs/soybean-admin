@@ -1,4 +1,5 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { roleService } from '@/services/role.service';
@@ -43,7 +44,7 @@ export const PUT = defineHandler(
     const id = requireParam(c, 'id');
     const body = c.req.valid('json');
 
-    return c.json(await roleService.updateRole(id, body));
+    return c.json(await roleService.updateRole(id, body, currentActor(c)));
   }
 );
 

@@ -4,6 +4,7 @@ import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { orgResourceSchema, orgUpdateSchema } from '@/schema/org';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `GET /api/org/:id` —— 组织详情。
@@ -43,7 +44,7 @@ export const PUT = defineHandler(
     const id = requireParam(c, 'id');
     const body = c.req.valid('json');
 
-    return c.json(orgService.updateOrg(id, body));
+    return c.json(orgService.updateOrg(id, body, currentActor(c)));
   }
 );
 

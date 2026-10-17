@@ -1,5 +1,6 @@
 import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
+import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
 import { getCachedPermissionCodes, invalidateAllPermissionCache } from '@/shared/permission-cache';
@@ -94,7 +95,7 @@ export const permissionService = {
     return row;
   },
 
-  createPermission(dto: PermissionCreateDTO): PermissionRecord {
+  createPermission(dto: PermissionCreateDTO, actor: string = SYSTEM_ACTOR): PermissionRecord {
     const binding = resolveResourceBinding(dto.resourceType ?? 'other', dto.resourceId);
     const name = binding?.name ?? dto.name;
     const code = binding?.code ?? dto.code;
@@ -115,9 +116,9 @@ export const permissionService = {
       resourceId: dto.resourceId ?? null,
       description: dto.description ?? null,
       enabled: 'Y',
-      createdBy: 'admin',
+      createdBy: actor,
       createdTime: now,
-      updatedBy: 'admin',
+      updatedBy: actor,
       updatedTime: now
     };
 
@@ -126,7 +127,7 @@ export const permissionService = {
     return row;
   },
 
-  async updatePermission(id: string, dto: PermissionUpdateDTO): Promise<PermissionRecord> {
+  async updatePermission(id: string, dto: PermissionUpdateDTO, actor: string = SYSTEM_ACTOR): Promise<PermissionRecord> {
     const current = this.getPermissionById(id);
     const nextType = dto.resourceType ?? current.resourceType;
     const nextResourceId = dto.resourceId !== undefined ? dto.resourceId : current.resourceId;
@@ -148,7 +149,7 @@ export const permissionService = {
         resourceId: nextResourceId ?? null,
         enabled: nextEnabled,
         description: dto.description !== undefined ? dto.description : current.description,
-        updatedBy: 'admin',
+        updatedBy: actor,
         updatedTime: new Date().toISOString()
       })
       .where(eq(permission.id, id))
@@ -199,7 +200,8 @@ export const permissionService = {
   async checkUserHasPermission(userId: string, code: string): Promise<boolean> {
     const codes = await getCachedPermissionCodes(userId, () => this.queryUserPermissionCodes(userId));
 
-    return codes.includes(code);
+    // 鉴权热路径：每次请求都跑，线性 includes 在权限码上百时会明显拖慢
+    return new Set(codes).has(code);
   },
 
   /** 用户全量权限码集合（去重，带缓存） */

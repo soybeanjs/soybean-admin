@@ -4,6 +4,7 @@ import { validate } from '@/shared/validate';
 import { menuService } from '@/services/menu.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { menuResourceSchema, menuUpdateSchema } from '@/schema/menu';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `GET /api/menu/:id` —— 菜单详情。
@@ -43,7 +44,7 @@ export const PUT = defineHandler(
     const id = requireParam(c, 'id');
     const body = c.req.valid('json');
 
-    return c.json(menuService.updateMenu(id, body));
+    return c.json(menuService.updateMenu(id, body, currentActor(c)));
   }
 );
 

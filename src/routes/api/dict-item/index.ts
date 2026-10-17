@@ -2,6 +2,7 @@ import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
 import { dictItemCreateSchema, dictItemResourceSchema } from '@/schema/dict-item';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/dict-item` —— 新增字典项。
@@ -22,6 +23,6 @@ export const POST = defineHandler(
   c => {
     const body = c.req.valid('json');
 
-    return c.json(dictService.createDictItem(body));
+    return c.json(dictService.createDictItem(body, currentActor(c)));
   }
 );

@@ -24,8 +24,12 @@ function idRow() {
   return { ...auditRow() };
 }
 
-const ROLE_SUPER = 'R_super';
-const ROLE_USER = 'R_user';
+/** 内置角色主键（注册赠送的角色、迁移与 seed 共用同一组常量） */
+export const ROLE_SUPER = 'R_super';
+export const ROLE_USER = 'R_user';
+
+/** 角色码：注册用户默认拿到的角色（`code` 列，不是主键） */
+export const DEFAULT_REGISTER_ROLE_CODE = 'user';
 
 /** 菜单源数据（`src/menus/menus.json`，由 `pnpm menu:sync` 与页面文件对账） */
 const staticMenus = parse(menuSourceFileSchema, menusSource).menus;

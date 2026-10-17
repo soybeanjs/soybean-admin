@@ -745,6 +745,52 @@ describe('user CRUD', () => {
     expect(after.body.code).toBe('2007');
   });
 
+  it('审计列记录真实操作者而不是硬编码 admin', async () => {
+    const create = await api<{ id: string; createdBy: string; updatedBy: string }>('POST', '/api/user', {
+      token: adminToken,
+      body: { username: `it_actor_${runId}`, password: 'pass123456', fullName: '审计列用例' }
+    });
+    const created = okData<{ id: string; createdBy: string; updatedBy: string }>(create.body);
+
+    createdIds.userIds.push(created.id);
+
+    // 操作者是 token 里的真实用户 id（admin 的 seed 主键），不是迁移前硬编码的 'admin'
+    expect(created.createdBy).toBe('U_admin');
+    expect(created.updatedBy).toBe('U_admin');
+  });
+
+  it('软删用户后列表默认查不到，显式按 enabled=D 才查得到', async () => {
+    const create = await api<{ id: string }>('POST', '/api/user', {
+      token: adminToken,
+      body: { username: `it_soft_${runId}`, password: 'pass123456', fullName: '软删用例' }
+    });
+    const created = okData<{ id: string }>(create.body);
+
+    createdIds.userIds.push(created.id);
+
+    const del = await api('DELETE', `/api/user/${created.id}`, { token: adminToken });
+
+    expect(del.body.code).toBe('0000');
+
+    const hidden = okData<{ total: number }>(
+      (await api('GET', '/api/user/list', { token: adminToken, query: { current: '1', size: '10', username: `it_soft_${runId}` } })).body
+    );
+
+    expect(hidden.total).toBe(0);
+
+    const visible = okData<{ total: number; list: Array<{ enabled: string }> }>(
+      (
+        await api('GET', '/api/user/list', {
+          token: adminToken,
+          query: { current: '1', size: '10', username: `it_soft_${runId}`, enabled: 'D' }
+        })
+      ).body
+    );
+
+    expect(visible.total).toBe(1);
+    expect(visible.list[0]?.enabled).toBe('D');
+  });
+
   it('get 不存在 id 返回业务码 2007', async () => {
     const { body } = await api('GET', '/api/user/not-exist-id', { token: adminToken });
 

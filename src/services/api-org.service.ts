@@ -1,5 +1,6 @@
 import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
+import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
 import { invalidateAllPermissionCache } from '@/shared/permission-cache';
@@ -15,8 +16,6 @@ import { api, org, orgRole, permission, userOrg } from '../db/schema';
 
 export type ApiRow = typeof api.$inferSelect;
 export type OrgRow = typeof org.$inferSelect;
-
-const ACTOR = 'admin';
 
 export const apiService = {
   getApiList(query: ApiQuery) {
@@ -58,7 +57,7 @@ export const apiService = {
     return row;
   },
 
-  createApi(dto: ApiCreateDTO): ApiRow {
+  createApi(dto: ApiCreateDTO, actor: string = SYSTEM_ACTOR): ApiRow {
     const [existing] = appDb
       .select()
       .from(api)
@@ -76,9 +75,9 @@ export const apiService = {
       method: dto.method,
       description: dto.description ?? null,
       enabled: 'Y',
-      createdBy: ACTOR,
+      createdBy: actor,
       createdTime: now,
-      updatedBy: ACTOR,
+      updatedBy: actor,
       updatedTime: now
     };
     appDb.insert(api).values(row).run();
@@ -86,7 +85,7 @@ export const apiService = {
     return row;
   },
 
-  updateApi(id: string, dto: ApiUpdateDTO): ApiRow {
+  updateApi(id: string, dto: ApiUpdateDTO, actor: string = SYSTEM_ACTOR): ApiRow {
     const current = this.getApiById(id);
     const nextPath = dto.path ?? current.path;
     const nextMethod = dto.method ?? current.method;
@@ -109,7 +108,7 @@ export const apiService = {
         path: nextPath,
         method: nextMethod,
         description: dto.description !== undefined ? dto.description : current.description,
-        updatedBy: ACTOR,
+        updatedBy: actor,
         updatedTime: new Date().toISOString()
       })
       .where(eq(api.id, id))
@@ -186,7 +185,7 @@ export const orgService = {
     return row;
   },
 
-  createOrg(dto: OrgCreateDTO): OrgRow {
+  createOrg(dto: OrgCreateDTO, actor: string = SYSTEM_ACTOR): OrgRow {
     if (dto.parentId) this.getOrgById(dto.parentId);
 
     const [existing] = appDb.select().from(org).where(eq(org.code, dto.code)).all();
@@ -202,9 +201,9 @@ export const orgService = {
       code: dto.code,
       description: dto.description ?? null,
       enabled: 'Y',
-      createdBy: ACTOR,
+      createdBy: actor,
       createdTime: now,
-      updatedBy: ACTOR,
+      updatedBy: actor,
       updatedTime: now
     };
     appDb.insert(org).values(row).run();
@@ -212,7 +211,7 @@ export const orgService = {
     return row;
   },
 
-  updateOrg(id: string, dto: OrgUpdateDTO): OrgRow {
+  updateOrg(id: string, dto: OrgUpdateDTO, actor: string = SYSTEM_ACTOR): OrgRow {
     const current = this.getOrgById(id);
 
     if (dto.parentId) {
@@ -237,7 +236,7 @@ export const orgService = {
         name: dto.name ?? current.name,
         code: nextCode,
         description: dto.description !== undefined ? dto.description : current.description,
-        updatedBy: ACTOR,
+        updatedBy: actor,
         updatedTime: new Date().toISOString()
       })
       .where(eq(org.id, id))
@@ -265,7 +264,7 @@ export const orgService = {
   },
 
   /** 组织绑定角色（不影响鉴权热路径：鉴权只看 user_role，org_role 尚未接入） */
-  assignOrgRoles(orgId: string, roleIds: string[]): void {
+  assignOrgRoles(orgId: string, roleIds: string[], actor: string = SYSTEM_ACTOR): void {
     this.getOrgById(orgId);
     const now = new Date().toISOString();
 
@@ -279,9 +278,9 @@ export const orgService = {
               id: createUuidV7(),
               orgId,
               roleId,
-              createdBy: ACTOR,
+              createdBy: actor,
               createdTime: now,
-              updatedBy: ACTOR,
+              updatedBy: actor,
               updatedTime: now
             }))
           )
@@ -291,7 +290,7 @@ export const orgService = {
   },
 
   /** 组织分配用户 */
-  assignOrgUsers(orgId: string, userIds: string[]): void {
+  assignOrgUsers(orgId: string, userIds: string[], actor: string = SYSTEM_ACTOR): void {
     this.getOrgById(orgId);
     const now = new Date().toISOString();
 
@@ -305,9 +304,9 @@ export const orgService = {
               id: createUuidV7(),
               orgId,
               userId,
-              createdBy: ACTOR,
+              createdBy: actor,
               createdTime: now,
-              updatedBy: ACTOR,
+              updatedBy: actor,
               updatedTime: now
             }))
           )
