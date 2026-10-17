@@ -35,6 +35,13 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # `.env` 不入库（审计 1.1：曾把 JWT_SECRET 的占位符一起公开），
+      # 而 `env.mode: 'throw'` 下缺 `.env` 会让 build / typecheck / test 直接抛错。
+      # `pnpm build`、`pnpm test` 自身会先跑 `scripts/ensure-env.ts`，这一行是为了
+      # 让日志里能一眼看到「本次 CI 用的是 example 里的开发值」。
+      - name: Prepare env
+        run: cp .env.example .env
+
       # ubean 的类型定义（.ubean/**）是构建产物、不入库（.gitignore 里忽略了 .ubean），
       # 而 `~ubean/openapi` 只有 build 的 openapi 步骤会写（dev 路径用 UBEAN_CODEGEN_BY_CLI=1
       # 跳过、`vp config` / npm `prepare` 也不生成）→ 必须在 typecheck 之前先 build，

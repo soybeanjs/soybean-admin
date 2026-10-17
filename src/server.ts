@@ -1,7 +1,11 @@
 import { defineServer } from 'ubean/server';
 import { createUbeanLogger } from '@ubean/shared/logger';
 import { createRequestLoggerMiddleware } from '@ubean/shared/logger/hono';
-import { SERVER_HOST as ENV_SERVER_HOST, SERVER_PORT as ENV_SERVER_PORT } from 'ubean:env/server';
+import {
+  REDIS_URL as ENV_REDIS_URL,
+  SERVER_HOST as ENV_SERVER_HOST,
+  SERVER_PORT as ENV_SERVER_PORT
+} from 'ubean:env/server';
 import { diffApiRoutes, formatApiRouteDiff } from '@/shared/api-route-sync';
 import type { RegisteredRoute } from '@/shared/api-route-sync';
 import { errorMiddleware } from '@/middleware/03.error';
@@ -64,6 +68,17 @@ export default defineServer({
     }
   ],
   onServerReady: async () => {
+    // 审计 1.5：token 黑名单 / 权限码缓存 / 图形验证码三个 KV 都走 `useKV`，而
+    // `useStorage()` 目前只有内存驱动 —— 一旦起多个实例，A 实例登出写进自己的
+    // 黑名单、B 实例从没见过该 key，已失效 token 会在 B 上继续有效。这里只在
+    // 生产环境留空时告警（不阻断启动：单实例部署是合法前提）。
+    if (process.env.NODE_ENV === 'production' && !ENV_REDIS_URL) {
+      console.warn(
+        '[soybean-admin] REDIS_URL 为空：登录黑名单、权限码缓存、图形验证码都会落在单进程内存里。' +
+          '多实例部署必须配置外部 KV，否则登出 / 撤权不会跨实例生效。'
+      );
+    }
+
     // 迁移 + seed 幂等（账本去重 / INSERT OR IGNORE），每次启动都执行：全新环境（CI、新克隆）的文件库从零建表灌数据；已有环境空跑无事。
     // 不在这里做的话，`.data/dev.sqlite3` 不入库（gitignored），新环境起服务必然「no such table: user」—— 集成测试与首次登录全挂。
     await runAppMigrations();
