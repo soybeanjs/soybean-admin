@@ -62,8 +62,8 @@ export const DELETE = defineHandler(
       }
     }
   }),
-  c => {
-    menuService.deleteMenu(requireParam(c, 'id'));
+  async c => {
+    await menuService.deleteMenu(requireParam(c, 'id'));
 
     return c.json(null);
   }

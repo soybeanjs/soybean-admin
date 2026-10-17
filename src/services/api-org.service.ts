@@ -2,11 +2,12 @@ import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
+import { invalidateAllPermissionCache } from '@/shared/permission-cache';
 import { createUuidV7 } from '@/shared/uuid';
 import type { ApiCreateDTO, ApiQuery, ApiUpdateDTO } from '@/schema/api';
 import type { OrgCreateDTO, OrgQuery, OrgUpdateDTO } from '@/schema/org';
 import { appDb } from '../db';
-import { api, org, orgRole, userOrg } from '../db/schema';
+import { api, org, orgRole, permission, userOrg } from '../db/schema';
 
 /**
  * API 与组织服务（P1-07，unify api.service / org.service 范式）。
@@ -117,14 +118,32 @@ export const apiService = {
     return this.getApiById(id);
   },
 
-  deleteApi(id: string): void {
+  /**
+   * 删接口时连带删掉以它为资源的权限行。不删会留下悬空权限
+   * （`resourceId` 指向已不存在的接口），而 `role_permission` 仍挂在上面 ——
+   * `getRolePermissions` 只按 `permission.enabled` 过滤，于是角色详情里会残留
+   * 一条查不到资源、也永远匹配不上任何路由的权限码（审计 1.3）。
+   */
+  async deleteApi(id: string): Promise<void> {
     this.getApiById(id);
-    appDb.delete(api).where(eq(api.id, id)).run();
+
+    appDb.transaction(tx => {
+      tx.delete(permission).where(and(eq(permission.resourceType, 'api'), eq(permission.resourceId, id))).run();
+      tx.delete(api).where(eq(api.id, id)).run();
+    });
+
+    await invalidateAllPermissionCache();
   },
 
-  batchDeleteApis(ids: string[]): void {
+  async batchDeleteApis(ids: string[]): Promise<void> {
     if (!ids.length) return;
-    appDb.delete(api).where(inArray(api.id, ids)).run();
+
+    appDb.transaction(tx => {
+      tx.delete(permission).where(and(eq(permission.resourceType, 'api'), inArray(permission.resourceId, ids))).run();
+      tx.delete(api).where(inArray(api.id, ids)).run();
+    });
+
+    await invalidateAllPermissionCache();
   }
 };
 
@@ -229,61 +248,71 @@ export const orgService = {
 
   deleteOrg(id: string): void {
     this.getOrgById(id);
-    appDb.delete(orgRole).where(eq(orgRole.orgId, id)).run();
-    appDb.delete(userOrg).where(eq(userOrg.orgId, id)).run();
-    appDb.delete(org).where(eq(org.id, id)).run();
+    appDb.transaction(tx => {
+      tx.delete(orgRole).where(eq(orgRole.orgId, id)).run();
+      tx.delete(userOrg).where(eq(userOrg.orgId, id)).run();
+      tx.delete(org).where(eq(org.id, id)).run();
+    });
   },
 
   batchDeleteOrgs(ids: string[]): void {
     if (!ids.length) return;
-    appDb.delete(orgRole).where(inArray(orgRole.orgId, ids)).run();
-    appDb.delete(userOrg).where(inArray(userOrg.orgId, ids)).run();
-    appDb.delete(org).where(inArray(org.id, ids)).run();
+    appDb.transaction(tx => {
+      tx.delete(orgRole).where(inArray(orgRole.orgId, ids)).run();
+      tx.delete(userOrg).where(inArray(userOrg.orgId, ids)).run();
+      tx.delete(org).where(inArray(org.id, ids)).run();
+    });
   },
 
   /** 组织绑定角色（不影响鉴权热路径：鉴权只看 user_role，org_role 尚未接入） */
   assignOrgRoles(orgId: string, roleIds: string[]): void {
     this.getOrgById(orgId);
-    appDb.delete(orgRole).where(eq(orgRole.orgId, orgId)).run();
-
-    if (!roleIds.length) return;
     const now = new Date().toISOString();
-    appDb
-      .insert(orgRole)
-      .values(
-        roleIds.map(roleId => ({
-          id: createUuidV7(),
-          orgId,
-          roleId,
-          createdBy: ACTOR,
-          createdTime: now,
-          updatedBy: ACTOR,
-          updatedTime: now
-        }))
-      )
-      .run();
+
+    appDb.transaction(tx => {
+      tx.delete(orgRole).where(eq(orgRole.orgId, orgId)).run();
+
+      if (roleIds.length) {
+        tx.insert(orgRole)
+          .values(
+            roleIds.map(roleId => ({
+              id: createUuidV7(),
+              orgId,
+              roleId,
+              createdBy: ACTOR,
+              createdTime: now,
+              updatedBy: ACTOR,
+              updatedTime: now
+            }))
+          )
+          .run();
+      }
+    });
   },
 
   /** 组织分配用户 */
   assignOrgUsers(orgId: string, userIds: string[]): void {
     this.getOrgById(orgId);
-    appDb.delete(userOrg).where(eq(userOrg.orgId, orgId)).run();
-
-    if (!userIds.length) return;
     const now = new Date().toISOString();
-    appDb
-      .insert(userOrg)
-      .values(
-        userIds.map(userId => ({
-          id: createUuidV7(),
-          orgId,
-          userId,
-          createdBy: ACTOR,
-          createdTime: now,
-          updatedBy: ACTOR,
-          updatedTime: now
-        }))
-      )
-      .run();
+
+    appDb.transaction(tx => {
+      tx.delete(userOrg).where(eq(userOrg.orgId, orgId)).run();
+
+      if (userIds.length) {
+        tx.insert(userOrg)
+          .values(
+            userIds.map(userId => ({
+              id: createUuidV7(),
+              orgId,
+              userId,
+              createdBy: ACTOR,
+              createdTime: now,
+              updatedBy: ACTOR,
+              updatedTime: now
+            }))
+          )
+          .run();
+      }
+    });
   }
 };

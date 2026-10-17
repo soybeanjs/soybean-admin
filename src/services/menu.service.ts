@@ -2,6 +2,7 @@ import { and, count, eq, inArray, isNotNull, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
+import { invalidateAllPermissionCache } from '@/shared/permission-cache';
 import { findHonoRouteByPath } from '@/shared/route';
 import { createUuidV7 } from '@/shared/uuid';
 import type { MenuCreateDTO, MenuQuery, MenuUpdateDTO } from '@/schema/menu';
@@ -283,7 +284,7 @@ export const menuService = {
     return requireMenu(id);
   },
 
-  deleteMenu(id: string): void {
+  async deleteMenu(id: string): Promise<void> {
     requireMenu(id);
 
     const [child] = appDb.select().from(menu).where(eq(menu.parentId, id)).all();
@@ -291,14 +292,18 @@ export const menuService = {
       throw new AppError('OPERATION_NOT_ALLOWED', '请先删除子菜单');
     }
 
-    appDb
-      .delete(permission)
-      .where(and(eq(permission.resourceType, 'menu'), eq(permission.resourceId, id)))
-      .run();
-    appDb.delete(menu).where(eq(menu.id, id)).run();
+    appDb.transaction(tx => {
+      tx.delete(permission)
+        .where(and(eq(permission.resourceType, 'menu'), eq(permission.resourceId, id)))
+        .run();
+      tx.delete(menu).where(eq(menu.id, id)).run();
+    });
+
+    // 挂在某个角色上的菜单权限行被删掉了 → 该用户的权限码集合已变（审计 1.3）
+    await invalidateAllPermissionCache();
   },
 
-  batchDeleteMenus(ids: string[]): void {
+  async batchDeleteMenus(ids: string[]): Promise<void> {
     if (!ids.length) return;
 
     const rows = appDb.select().from(menu).where(inArray(menu.id, ids)).all();
@@ -311,11 +316,14 @@ export const menuService = {
       throw new AppError('OPERATION_NOT_ALLOWED', '请先删除子菜单');
     }
 
-    appDb
-      .delete(permission)
-      .where(and(eq(permission.resourceType, 'menu'), inArray(permission.resourceId, ids)))
-      .run();
-    appDb.delete(menu).where(inArray(menu.id, ids)).run();
+    appDb.transaction(tx => {
+      tx.delete(permission)
+        .where(and(eq(permission.resourceType, 'menu'), inArray(permission.resourceId, ids)))
+        .run();
+      tx.delete(menu).where(inArray(menu.id, ids)).run();
+    });
+
+    await invalidateAllPermissionCache();
   },
 
   /** 公共路由菜单（无需登录） */

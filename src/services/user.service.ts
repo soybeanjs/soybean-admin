@@ -1,4 +1,4 @@
-import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
+import { and, count, eq, inArray, like, ne, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { comparePassword, hashPassword } from '@/shared/auth';
 import { AppError } from '@/shared/error';
@@ -32,7 +32,8 @@ export const userService = {
     if (query.phone) conditions.push(like(user.phone, `%${query.phone}%`));
     if (query.email) conditions.push(like(user.email, `%${query.email}%`));
     if (query.fullName) conditions.push(like(user.fullName, `%${query.fullName}%`));
-    if (query.enabled) conditions.push(eq(user.enabled, query.enabled));
+    // 软删行（enabled='D'）默认不出现在列表里，只有显式按 enabled=D 过滤才查得到
+    conditions.push(query.enabled ? eq(user.enabled, query.enabled) : ne(user.enabled, 'D'));
 
     const where = conditions.length ? and(...conditions) : undefined;
     const offset = (query.current - 1) * query.size;
@@ -58,8 +59,13 @@ export const userService = {
     return { total, current: query.current, size: query.size, list };
   },
 
+  /** 软删（`enabled='D'`）的用户视同不存在：详情、鉴权、资料都走这里 */
   findUserById(id: string): UserRow | undefined {
-    const [row] = appDb.select().from(user).where(eq(user.id, id)).all();
+    const [row] = appDb
+      .select()
+      .from(user)
+      .where(and(eq(user.id, id), ne(user.enabled, 'D')))
+      .all();
 
     return row;
   },
@@ -91,25 +97,27 @@ export const userService = {
 
   /** 全量替换用户-角色关联（失效该用户权限码缓存） */
   async replaceUserRoles(userId: string, roleIds: string[]): Promise<void> {
-    appDb.delete(userRole).where(eq(userRole.userId, userId)).run();
+    const now = new Date().toISOString();
 
-    if (roleIds.length) {
-      const now = new Date().toISOString();
-      appDb
-        .insert(userRole)
-        .values(
-          roleIds.map(roleId => ({
-            id: createUuidV7(),
-            userId,
-            roleId,
-            createdBy: ACTOR,
-            createdTime: now,
-            updatedBy: ACTOR,
-            updatedTime: now
-          }))
-        )
-        .run();
-    }
+    appDb.transaction(tx => {
+      tx.delete(userRole).where(eq(userRole.userId, userId)).run();
+
+      if (roleIds.length) {
+        tx.insert(userRole)
+          .values(
+            roleIds.map(roleId => ({
+              id: createUuidV7(),
+              userId,
+              roleId,
+              createdBy: ACTOR,
+              createdTime: now,
+              updatedBy: ACTOR,
+              updatedTime: now
+            }))
+          )
+          .run();
+      }
+    });
 
     await invalidateUserPermissionCacheMany([userId]);
   },
@@ -144,7 +152,6 @@ export const userService = {
 
   async updateUser(id: string, dto: UserUpdateDTO): Promise<Omit<UserRow, 'password'>> {
     const current = this.getUserById(id);
-    const nextPassword = dto.password ? await hashPassword(dto.password) : current.password;
 
     appDb
       .update(user)
@@ -156,7 +163,9 @@ export const userService = {
         homePath: dto.homePath !== undefined ? dto.homePath : current.homePath,
         description: dto.description !== undefined ? dto.description : current.description,
         enabled: dto.enabled ?? current.enabled,
-        password: nextPassword,
+        // 只在显式传 password 时才写这一列 —— 否则会把当前哈希重算一遍（bcrypt 随机盐
+        // 让每次结果都不同，等于无条件改密码 + 多一次 100ms 级开销）
+        ...(dto.password ? { password: await hashPassword(dto.password) } : {}),
         updatedBy: ACTOR,
         updatedTime: new Date().toISOString()
       })
@@ -173,17 +182,31 @@ export const userService = {
     return stripPassword(this.getUserById(id));
   },
 
+  /**
+   * 软删（`enabled` 置 `'D'`），与 OpenAPI 文案一致 —— 硬删会连带丢掉审计线索，
+   * 而 `user_role` 里的历史绑定也再无法回溯。`findUserById` 会把 `'D'` 视同不存在。
+   */
   async deleteUser(id: string): Promise<void> {
     this.getUserById(id);
-    appDb.delete(userRole).where(eq(userRole.userId, id)).run();
-    appDb.delete(user).where(eq(user.id, id)).run();
+    appDb.update(user).set({ enabled: 'D', updatedBy: ACTOR, updatedTime: new Date().toISOString() }).where(eq(user.id, id)).run();
     await invalidateUserPermissionCacheMany([id]);
   },
 
   async batchDeleteUsers(ids: string[]): Promise<void> {
     if (!ids.length) return;
-    appDb.delete(userRole).where(inArray(userRole.userId, ids)).run();
-    appDb.delete(user).where(inArray(user.id, ids)).run();
+
+    // 先确认全部存在：部分 id 已删时静默跳过会让调用方以为都删掉了
+    const existing = appDb
+      .select({ id: user.id })
+      .from(user)
+      .where(and(inArray(user.id, ids), ne(user.enabled, 'D')))
+      .all();
+
+    if (existing.length !== ids.length) {
+      throw new AppError('RESOURCE_NOT_FOUND', '部分用户不存在');
+    }
+
+    appDb.update(user).set({ enabled: 'D', updatedBy: ACTOR, updatedTime: new Date().toISOString() }).where(inArray(user.id, ids)).run();
     await invalidateUserPermissionCacheMany(ids);
   },
 

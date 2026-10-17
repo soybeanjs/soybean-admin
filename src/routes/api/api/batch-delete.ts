@@ -19,10 +19,10 @@ export const POST = defineHandler(
     }
   }),
   validate('json', batchDeleteSchema),
-  c => {
+  async c => {
     const { ids } = c.req.valid('json');
 
-    apiService.batchDeleteApis(ids);
+    await apiService.batchDeleteApis(ids);
 
     return c.json(null);
   }

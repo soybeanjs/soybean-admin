@@ -169,15 +169,19 @@ export const permissionService = {
 
   async deletePermission(id: string): Promise<void> {
     this.getPermissionById(id);
-    appDb.delete(rolePermission).where(eq(rolePermission.permissionId, id)).run();
-    appDb.delete(permission).where(eq(permission.id, id)).run();
+    appDb.transaction(tx => {
+      tx.delete(rolePermission).where(eq(rolePermission.permissionId, id)).run();
+      tx.delete(permission).where(eq(permission.id, id)).run();
+    });
     await invalidateAllPermissionCache();
   },
 
   async batchDeletePermissions(ids: string[]): Promise<void> {
     if (!ids.length) return;
-    appDb.delete(rolePermission).where(inArray(rolePermission.permissionId, ids)).run();
-    appDb.delete(permission).where(inArray(permission.id, ids)).run();
+    appDb.transaction(tx => {
+      tx.delete(rolePermission).where(inArray(rolePermission.permissionId, ids)).run();
+      tx.delete(permission).where(inArray(permission.id, ids)).run();
+    });
     await invalidateAllPermissionCache();
   },
 

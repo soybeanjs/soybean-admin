@@ -115,8 +115,10 @@ export const dictService = {
       throw new AppError('OPERATION_NOT_ALLOWED', '系统内置字典不可删除');
     }
 
-    appDb.delete(dictItem).where(eq(dictItem.dictId, id)).run();
-    appDb.delete(dict).where(eq(dict.id, id)).run();
+    appDb.transaction(tx => {
+      tx.delete(dictItem).where(eq(dictItem.dictId, id)).run();
+      tx.delete(dict).where(eq(dict.id, id)).run();
+    });
   },
 
   batchDeleteDicts(ids: string[]): void {
@@ -127,8 +129,10 @@ export const dictService = {
       throw new AppError('OPERATION_NOT_ALLOWED', '系统内置字典不可删除');
     }
 
-    appDb.delete(dictItem).where(inArray(dictItem.dictId, ids)).run();
-    appDb.delete(dict).where(inArray(dict.id, ids)).run();
+    appDb.transaction(tx => {
+      tx.delete(dictItem).where(inArray(dictItem.dictId, ids)).run();
+      tx.delete(dict).where(inArray(dict.id, ids)).run();
+    });
   },
 
   // ---------- 字典项 ----------
