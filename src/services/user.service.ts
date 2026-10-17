@@ -3,7 +3,7 @@ import type { SQL } from 'drizzle-orm';
 import { comparePassword, hashPassword } from '@/shared/auth';
 import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
-import { resolveSortColumn } from '@/shared/pagination';
+import { resolvePageWindow, resolveSortColumn } from '@/shared/pagination';
 import { invalidateUserPermissionCacheMany } from '@/shared/permission-cache';
 import { createUuidV7 } from '@/shared/uuid';
 import type { UserCreateDTO, UserQuery, UserUpdateDTO } from '@/schema/user';
@@ -35,7 +35,7 @@ export const userService = {
     conditions.push(query.enabled ? eq(user.enabled, query.enabled) : ne(user.enabled, 'D'));
 
     const where = conditions.length ? and(...conditions) : undefined;
-    const offset = (query.current - 1) * query.size;
+    const { offset, limit } = resolvePageWindow(query);
     const sort = query.sort ?? '-createdTime';
     const { column: sortColumn, isDesc } = resolveSortColumn(sort, user, 'createdTime');
 
@@ -45,7 +45,7 @@ export const userService = {
       .from(user)
       .where(where)
       .orderBy(isDesc ? sql`${sortColumn} DESC` : sql`${sortColumn} ASC`)
-      .limit(query.size)
+      .limit(limit)
       .offset(offset)
       .all();
 

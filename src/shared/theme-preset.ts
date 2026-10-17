@@ -7,14 +7,6 @@ import { isClient } from '@/utils/storage';
 
 /** 主题 store 只做状态存取，radius/mode 的调整必须经组件（`SThemeCustomizer` / `SThemeModeSegment`）走。详见 docs/v3-notes.md N-179。 */
 
-/** 信封 → 完整可编辑主题状态（`ThemeOptions` + 明暗偏好） */
-export function readThemeState(): ThemeSettingsState | null {
-  const envelope = readThemeEnvelope();
-  if (!envelope) return null;
-
-  return { ...envelope.options, mode: envelope.mode };
-}
-
 /** 仅当尚无持久化信封时写入（幂等、SSR 安全）。必须在挂载 `SConfigProvider` 之前调用（`src/app.ts` 顶层）。 */
 export function seedPresetState(state: ThemeSettingsState): void {
   if (!isClient()) return;

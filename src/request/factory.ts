@@ -26,9 +26,19 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
 }
 
-/** 从响应体取 envelope（非 JSON/空体按失败处理） */
+/**
+ * 从响应体取 envelope。
+ *
+ * 服务端所有 envelope 都来自 `createSuccessResponse` / `createErrorResponse`，可以靠
+ * `code` 是字符串来判断；但这里之前连 `message` / `data` 都不要求，`{ code: 'x' }`
+ * 这种畸形体也能蒙过 —— 现在要求 `code` 与 `message` 同时是字符串，过不了就当失败。
+ */
 function readEnvelope(response: FetchResponse<ApiEnvelope>): ApiEnvelope | null {
-  return response.data && typeof response.data === 'object' && 'code' in response.data ? response.data : null;
+  if (!isRecord(response.data)) return null;
+
+  const { code, message } = response.data;
+
+  return typeof code === 'string' && typeof message === 'string' ? response.data : null;
 }
 
 /**

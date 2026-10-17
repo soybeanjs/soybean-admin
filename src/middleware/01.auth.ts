@@ -4,7 +4,6 @@ import { AppError } from '@/shared/error';
 import { buildApiPermissionCode } from '@/shared/route';
 import { authService } from '@/services/auth.service';
 import { permissionService } from '@/services/permission.service';
-import type { AuthUserDTO } from '@/schema/auth';
 
 /** 执行序（仅 /api/ 前缀路由）： 详见 docs/v3-notes.md N-073。 */
 
@@ -66,8 +65,3 @@ export default defineMiddleware(async (c: Context, next: Next) => {
 
   await next();
 });
-
-/** 供测试/其他模块使用的类型收窄工具 */
-export function getAuthUser(c: Context): AuthUserDTO | undefined {
-  return c.get('user');
-}
