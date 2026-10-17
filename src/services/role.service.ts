@@ -151,43 +151,49 @@ export const roleService = {
   async deleteRole(id: string): Promise<void> {
     this.getRoleById(id);
     const affected = getUserIdsByRoleIds([id]);
-    appDb.delete(rolePermission).where(eq(rolePermission.roleId, id)).run();
-    appDb.delete(userRole).where(eq(userRole.roleId, id)).run();
-    appDb.delete(role).where(eq(role.id, id)).run();
+    appDb.transaction(tx => {
+      tx.delete(rolePermission).where(eq(rolePermission.roleId, id)).run();
+      tx.delete(userRole).where(eq(userRole.roleId, id)).run();
+      tx.delete(role).where(eq(role.id, id)).run();
+    });
     await invalidateUserPermissionCacheMany(affected);
   },
 
   async batchDeleteRoles(ids: string[]): Promise<void> {
     if (!ids.length) return;
     const affected = getUserIdsByRoleIds(ids);
-    appDb.delete(rolePermission).where(inArray(rolePermission.roleId, ids)).run();
-    appDb.delete(userRole).where(inArray(userRole.roleId, ids)).run();
-    appDb.delete(role).where(inArray(role.id, ids)).run();
+    appDb.transaction(tx => {
+      tx.delete(rolePermission).where(inArray(rolePermission.roleId, ids)).run();
+      tx.delete(userRole).where(inArray(userRole.roleId, ids)).run();
+      tx.delete(role).where(inArray(role.id, ids)).run();
+    });
     await invalidateUserPermissionCacheMany(affected);
   },
 
   /** 全量替换角色-权限关联（失效持有该角色的用户缓存） */
   async replaceRolePermissions(roleId: string, permissionIds: string[]): Promise<void> {
     const affected = getUserIdsByRoleIds([roleId]);
-    appDb.delete(rolePermission).where(eq(rolePermission.roleId, roleId)).run();
+    const now = new Date().toISOString();
 
-    if (permissionIds.length) {
-      const now = new Date().toISOString();
-      appDb
-        .insert(rolePermission)
-        .values(
-          permissionIds.map(permissionId => ({
-            id: createUuidV7(),
-            roleId,
-            permissionId,
-            createdBy: ACTOR,
-            createdTime: now,
-            updatedBy: ACTOR,
-            updatedTime: now
-          }))
-        )
-        .run();
-    }
+    appDb.transaction(tx => {
+      tx.delete(rolePermission).where(eq(rolePermission.roleId, roleId)).run();
+
+      if (permissionIds.length) {
+        tx.insert(rolePermission)
+          .values(
+            permissionIds.map(permissionId => ({
+              id: createUuidV7(),
+              roleId,
+              permissionId,
+              createdBy: ACTOR,
+              createdTime: now,
+              updatedBy: ACTOR,
+              updatedTime: now
+            }))
+          )
+          .run();
+      }
+    });
 
     await invalidateUserPermissionCacheMany(affected);
   },

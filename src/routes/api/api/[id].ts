@@ -62,8 +62,8 @@ export const DELETE = defineHandler(
       }
     }
   }),
-  c => {
-    apiService.deleteApi(requireParam(c, 'id'));
+  async c => {
+    await apiService.deleteApi(requireParam(c, 'id'));
 
     return c.json(null);
   }
