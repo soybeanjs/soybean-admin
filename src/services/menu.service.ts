@@ -2,7 +2,7 @@ import { and, count, eq, inArray, isNotNull, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
-import { resolveSortColumn } from '@/shared/pagination';
+import { resolvePageWindow, resolveSortColumn } from '@/shared/pagination';
 import { invalidateAllPermissionCache } from '@/shared/permission-cache';
 import { findHonoRouteByPath } from '@/shared/route';
 import { createUuidV7 } from '@/shared/uuid';
@@ -175,7 +175,7 @@ export const menuService = {
     if (query.enabled) conditions.push(eq(menu.enabled, query.enabled));
 
     const where = conditions.length ? and(...conditions) : undefined;
-    const offset = (query.current - 1) * query.size;
+    const { offset, limit } = resolvePageWindow(query);
     const sort = query.sort ?? '-createdTime';
     const { column: sortColumn, isDesc } = resolveSortColumn(sort, menu, 'createdTime');
 
@@ -185,7 +185,7 @@ export const menuService = {
       .from(menu)
       .where(where)
       .orderBy(isDesc ? sql`${sortColumn} DESC` : sql`${sortColumn} ASC`)
-      .limit(query.size)
+      .limit(limit)
       .offset(offset)
       .all();
 

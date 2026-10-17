@@ -1,31 +1,18 @@
-/** 分页 / 排序参数解析（unify 范式） 详见 docs/v3-notes.md N-158。 */
-export function resolvePagination(query: { page?: number | null; pageSize?: number | null }) {
-  const page = query.page ?? 1;
-  const pageSize = query.pageSize ?? 10;
-  const offset = (page - 1) * pageSize;
+/**
+ * 列表查询的公共算式（审计 3.2）。
+ *
+ * 迁移前 8 处列表方法各自手写 `const offset = (query.current - 1) * query.size`。
+ * 排序默认值不用单独兜底的函数 —— `resolveSortColumn(sort, table, fallback)` 的第三参
+ * 已经是「缺省时用哪一列」，各用一句 `const sort = query.sort ?? '-createdTime'` 只是
+ * 把同一个约定抄了 8 遍。
+ */
 
-  return { page, pageSize, offset };
-}
-
-export type ResolvedSortField = {
-  field: string;
-  order: 'asc' | 'desc';
-};
-
-/** 解析排序串：'name,-updatedTime' → [{field:'name',order:'asc'}, {field:'updatedTime',order:'desc'}] */
-export function resolveSort(sort?: string | null): ResolvedSortField[] {
-  if (!sort) {
-    return [];
-  }
-
-  return sort.split(',').map(item => {
-    const isDesc = item.startsWith('-');
-
-    return {
-      field: isDesc ? item.slice(1) : item,
-      order: isDesc ? ('desc' as const) : ('asc' as const)
-    };
-  });
+/** 分页游标：`current` 从 1 开始，`size` 由 schema 的 `maxValue` 兜住上限 */
+export function resolvePageWindow(query: { current: number; size: number }): {
+  offset: number;
+  limit: number;
+} {
+  return { offset: (query.current - 1) * query.size, limit: query.size };
 }
 
 /** 从排序串解析出 drizzle 列引用（列表查询专用） 详见 docs/v3-notes.md N-159。 */

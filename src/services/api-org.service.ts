@@ -2,7 +2,7 @@ import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
-import { resolveSortColumn } from '@/shared/pagination';
+import { resolvePageWindow, resolveSortColumn } from '@/shared/pagination';
 import { invalidateAllPermissionCache } from '@/shared/permission-cache';
 import { createUuidV7 } from '@/shared/uuid';
 import type { ApiCreateDTO, ApiQuery, ApiUpdateDTO } from '@/schema/api';
@@ -26,7 +26,7 @@ export const apiService = {
     if (query.method) conditions.push(eq(api.method, query.method));
 
     const where = conditions.length ? and(...conditions) : undefined;
-    const offset = (query.current - 1) * query.size;
+    const { offset, limit } = resolvePageWindow(query);
     const sort = query.sort ?? '-createdTime';
     const { column: sortColumn, isDesc } = resolveSortColumn(sort, api, 'createdTime');
 
@@ -36,7 +36,7 @@ export const apiService = {
       .from(api)
       .where(where)
       .orderBy(isDesc ? sql`${sortColumn} DESC` : sql`${sortColumn} ASC`)
-      .limit(query.size)
+      .limit(limit)
       .offset(offset)
       .all();
 
@@ -154,7 +154,7 @@ export const orgService = {
     if (query.code) conditions.push(like(org.code, `%${query.code}%`));
 
     const where = conditions.length ? and(...conditions) : undefined;
-    const offset = (query.current - 1) * query.size;
+    const { offset, limit } = resolvePageWindow(query);
     const sort = query.sort ?? '-createdTime';
     const { column: sortColumn, isDesc } = resolveSortColumn(sort, org, 'createdTime');
 
@@ -164,7 +164,7 @@ export const orgService = {
       .from(org)
       .where(where)
       .orderBy(isDesc ? sql`${sortColumn} DESC` : sql`${sortColumn} ASC`)
-      .limit(query.size)
+      .limit(limit)
       .offset(offset)
       .all();
 

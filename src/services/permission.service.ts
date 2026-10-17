@@ -2,7 +2,7 @@ import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
-import { resolveSortColumn } from '@/shared/pagination';
+import { resolvePageWindow, resolveSortColumn } from '@/shared/pagination';
 import { getCachedPermissionCodes, invalidateAllPermissionCache } from '@/shared/permission-cache';
 import { buildApiPermissionCode } from '@/shared/route';
 import { createUuidV7 } from '@/shared/uuid';
@@ -59,7 +59,7 @@ export const permissionService = {
     if (query.enabled) conditions.push(eq(permission.enabled, query.enabled));
 
     const where = conditions.length ? and(...conditions) : undefined;
-    const offset = (query.current - 1) * query.size;
+    const { offset, limit } = resolvePageWindow(query);
     const { column: sortColumn, isDesc } = resolveSortColumn(query.sort, permission, 'createdTime');
 
     const { total } = appDb.select({ total: count() }).from(permission).where(where).get() ?? { total: 0 };
@@ -68,7 +68,7 @@ export const permissionService = {
       .from(permission)
       .where(where)
       .orderBy(isDesc ? sql`${sortColumn} DESC` : sql`${sortColumn} ASC`)
-      .limit(query.size)
+      .limit(limit)
       .offset(offset)
       .all();
 

@@ -2,7 +2,7 @@ import { and, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
-import { resolveSortColumn } from '@/shared/pagination';
+import { resolvePageWindow, resolveSortColumn } from '@/shared/pagination';
 import { invalidateUserPermissionCacheMany } from '@/shared/permission-cache';
 import { createUuidV7 } from '@/shared/uuid';
 import type { RoleCreateDTO, RoleQuery, RoleUpdateDTO } from '@/schema/role';
@@ -35,7 +35,7 @@ export const roleService = {
     if (query.enabled) conditions.push(eq(role.enabled, query.enabled));
 
     const where = conditions.length ? and(...conditions) : undefined;
-    const offset = (query.current - 1) * query.size;
+    const { offset, limit } = resolvePageWindow(query);
     const sort = query.sort ?? '-createdTime';
     const { column: sortColumn, isDesc } = resolveSortColumn(sort, role, 'createdTime');
 
@@ -45,7 +45,7 @@ export const roleService = {
       .from(role)
       .where(where)
       .orderBy(isDesc ? sql`${sortColumn} DESC` : sql`${sortColumn} ASC`)
-      .limit(query.size)
+      .limit(limit)
       .offset(offset)
       .all();
 

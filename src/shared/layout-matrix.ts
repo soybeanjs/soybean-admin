@@ -36,29 +36,6 @@ export const MATRIX_DIMENSIONS = [
 
 export type MatrixDimension = (typeof MATRIX_DIMENSIONS)[number];
 
-/** 矩阵维度名 → i18n key（文档与抽屉共用同一套命名） */
-export const MATRIX_DIMENSION_LABELS: Record<MatrixDimension, string> = {
-  variant: 'theme.variant.title',
-  collapsible: 'theme.collapsible.title',
-  scrollBehavior: 'theme.scrollMode',
-  sidebarWidth: 'theme.layout.sidebarWidth',
-  collapsedSidebarWidth: 'theme.layout.collapsedSidebarWidth',
-  mobileSidebarWidth: 'theme.layout.mobileSidebarWidth',
-  headerHeight: 'theme.layout.headerHeight',
-  tabHeight: 'theme.layout.tabHeight',
-  footerHeight: 'theme.layout.footerHeight',
-  headerVisible: 'theme.layout.headerVisible',
-  tabVisible: 'theme.layout.tabVisible',
-  footerVisible: 'theme.layout.footerVisible',
-  breadcrumbVisible: 'theme.layout.breadcrumbVisible',
-  triggerVisible: 'theme.layout.siderTrigger',
-  fixedHeaderAndTab: 'theme.layout.fixedHeaderAndTab',
-  fixedFooter: 'theme.layout.fixedFooter',
-  stretchFooter: 'theme.layout.stretchFooter',
-  fullContent: 'theme.layout.fullContent',
-  tabStyle: 'theme.tab.variant'
-};
-
 /**
  * 单个壳模式的能力（= `appShellSkeletons` 的可观察后果）。
  * key 用 `LayoutModeName` 而非 `AppShellMode`：能力随应用模式声明，不随壳模式。

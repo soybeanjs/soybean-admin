@@ -2,7 +2,7 @@ import { and, asc, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
-import { resolveSortColumn } from '@/shared/pagination';
+import { resolvePageWindow, resolveSortColumn } from '@/shared/pagination';
 import { createUuidV7 } from '@/shared/uuid';
 import type { DictCreateDTO, DictQuery, DictUpdateDTO } from '@/schema/dict';
 import type { DictItemCreateDTO, DictItemQuery, DictItemUpdateDTO } from '@/schema/dict-item';
@@ -25,7 +25,7 @@ export const dictService = {
     if (query.isSystem) conditions.push(eq(dict.isSystem, query.isSystem));
 
     const where = conditions.length ? and(...conditions) : undefined;
-    const offset = (query.current - 1) * query.size;
+    const { offset, limit } = resolvePageWindow(query);
     const sort = query.sort ?? '-createdTime';
     const { column: sortColumn, isDesc } = resolveSortColumn(sort, dict, 'createdTime');
 
@@ -35,7 +35,7 @@ export const dictService = {
       .from(dict)
       .where(where)
       .orderBy(isDesc ? sql`${sortColumn} DESC` : sql`${sortColumn} ASC`)
-      .limit(query.size)
+      .limit(limit)
       .offset(offset)
       .all();
 
@@ -144,7 +144,7 @@ export const dictService = {
     if (query.value) conditions.push(like(dictItem.value, `%${query.value}%`));
 
     const where = conditions.length ? and(...conditions) : undefined;
-    const offset = (query.current - 1) * query.size;
+    const { offset, limit } = resolvePageWindow(query);
     const sort = query.sort ?? 'order';
     const { column: sortColumn, isDesc } = resolveSortColumn(sort, dictItem, 'order');
 
@@ -154,7 +154,7 @@ export const dictService = {
       .from(dictItem)
       .where(where)
       .orderBy(isDesc ? sql`${sortColumn} DESC` : sql`${sortColumn} ASC`)
-      .limit(query.size)
+      .limit(limit)
       .offset(offset)
       .all();
 
