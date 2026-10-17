@@ -43,7 +43,7 @@ chore(deps): update deps
 pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm analyze:check
 ```
 
-`pnpm test` 是真实 HTTP 集成测试（`test/global-setup.ts` 自起 dev server，端口 9527）；`pnpm analyze:check` 对比 `benchmarks/bundle-baseline.json`，包体合法增长时用 `pnpm analyze` 重写基线并在提交信息里说明。
+`pnpm test` 是真实 HTTP 集成测试（`test/global-setup.ts` 自起 dev server，端口默认 9527、可用 `DEV_PORT` 覆盖）；`pnpm analyze:check` 对比 `benchmarks/bundle-baseline.json`，包体合法增长时用 `pnpm analyze` 重写基线并在提交信息里说明。
 
 ## 硬约定（配置里推不出、必须遵守）
 
@@ -64,4 +64,5 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm analyze:check
 - **没有 router 单例**：组件用 `useRouter()`（`vue-router` 的 `inject(routerKey)`）；store 的导航类 action 收 `router: Router` 参数（组件把 setup 期拿到的实例传进去，守卫用 `setupRouterGuard(router)` 的入参）；`authStore.resetStore()` 回登录页走 `src/utils/auth.ts` 的 `setAuthResetHandler` / `handleAuthReset` 回调。**不要**再引入 `getRouter()` 之类模块级单例 —— 那正是历史上 store ↔ router 模块环导致 dev 转换管线静默死锁的根源。
 - `useRouter()` **只在 setup 与导航守卫里可用**：`inject()` 依赖 `currentInstance`，而事件回调的统一入口 `callWithErrorHandling` 不设置它；裸 store action 里调用会拿到 `undefined` 并告警 `inject() can only be used inside setup() or functional components.`。做法是 setup 期捕获实例、之后在回调里调其方法。
 - 本机 curl 访问 dev server 用 `--noproxy '*'`，否则系统代理会返回 502。
+- **`git worktree` 并行开发要各自错开端口**：`DEV_PORT=9531 pnpm dev` / `DEV_PORT=9531 pnpm test`。`vite.config.ts` 的 `server.port`、`test/global-setup.ts` 的 `BASE_URL` 与 `spawn` 的 env、`.env` 的 `SERVER_INTERNAL_URL` / `API_PROXY_TARGETS`（`${DEV_PORT:-9527}` 由 dotenv 展开）四处同源。不换端口时第二个实例会被 `strictPort: true` 直接拒，而不是静默漂移 —— 漂移会让 `global-setup` 的健康检查命中另一个 worktree 的实例。注意 `src/server.ts` 日志里的 `server ready at ...:9527` 打印的是 `SERVER_PORT`（`.env`），**不是**实际监听端口，以 `vite` 的 `Local:` 行为准。
 - 注释里写的测试路径引用要先确认目标文件真的存在 —— `src/constants/manage.ts` 曾长期声称 `src/constants/manage.test.ts` 断言了值域一致性，而该文件在 git 历史里从未存在过（现已补齐为 `test/specs/constants/manage.test.ts`）。

@@ -44,17 +44,27 @@ const SSR_BUNDLED_PACKAGES = [
   /^@visactor\/vdataset(\/.*)?$/
 ];
 
+/**
+ * dev / 集成测试共用的端口。
+ *
+ * 默认 9527：与 `.env` 的 `SERVER_PORT` / `SERVER_INTERNAL_URL` 对齐。
+ * `DEV_PORT` 供 `git worktree` 并行开发时错开端口 —— 两个 worktree 同时 `pnpm dev`
+ * 会争同一个端口，`strictPort: true` 下第二个直接失败。测试侧
+ * `test/global-setup.ts` 读同一个变量，保证「自起 dev server」也落在同一端口。
+ *
+ * 注意：`vp dev` 不读 `ubean.config.ts` 的 `dev.port`（那是 `ubean dev` CLI 的配置），
+ * vite 默认落到 5173，导致 global-setup 轮询 9527 永远超时；所以端口必须在这里写死/注入。
+ */
+const devPort = Number(process.env.DEV_PORT ?? 9527);
+
 export default defineConfig({
   staged: {
     '*': 'vp check --fix'
   },
   server: {
-    // dev server 固定 9527：与 .env 的 SERVER_PORT / SERVER_INTERNAL_URL、
-    // test/global-setup.ts 的健康检查地址三方对齐。
-    // 注意：vp dev 不读 ubean.config.ts 的 dev.port（那是 `ubean dev` CLI 的配置），
-    // vite 默认落到 5173，导致 global-setup 轮询 9527 永远超时；
-    // strictPort 让端口被占时直接失败，而不是静默漂移到 5173+。
-    port: 9527,
+    port: devPort,
+    // 端口被占时直接失败，而不是静默漂移到 9527+1 —— 漂移会让 global-setup
+    // 的健康检查命中另一个实例，测试跑在别人的工作区上。
     strictPort: true
   },
   define: {
