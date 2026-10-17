@@ -19,6 +19,7 @@ import type { AuthUserDTO } from '@/schema/auth';
 import { appDb } from '../db';
 import { role, user, userRole } from '../db/schema';
 import { verifyCaptcha } from './captcha.service';
+import { clearLoginFailures, recordLoginFailure, requiresCaptcha } from './login-guard.service';
 import { permissionService } from './permission.service';
 import { roleService } from './role.service';
 
@@ -81,22 +82,38 @@ function assertUserUsable(row: UserRow): void {
 }
 
 export const authService = {
-  /** 密码登录（`grantType: 'pwd'`） 详见 docs/v3-notes.md N-247。 */
+  /**
+   * 密码登录（`grantType: 'pwd'`） 详见 docs/v3-notes.md N-247。
+   *
+   * 失败计数达到 `LOGIN_ATTEMPT_LIMIT` 后**强制要求**图形验证码：此前的实现里验证码
+   * 纯属可选，配合无失败计数等于给在线爆破开了直通车（审计 1.6）。
+   */
   async login(
     username: string,
     passwordValue: string,
     captcha?: { captchaId: string; captchaCode: string }
   ): Promise<LoginResult> {
     try {
-      if (captcha?.captchaId && captcha.captchaCode) {
-        await verifyCaptcha(captcha.captchaId, captcha.captchaCode);
+      const captchaProvided = Boolean(captcha?.captchaId && captcha.captchaCode);
+
+      if (await requiresCaptcha(username)) {
+        if (!captchaProvided) {
+          throw new AppError('LOGIN_ATTEMPTS_EXCEEDED', '登录失败次数过多，请输入图形验证码后重试');
+        }
+
+        await verifyCaptcha(captcha!.captchaId, captcha!.captchaCode);
+      } else if (captchaProvided) {
+        await verifyCaptcha(captcha!.captchaId, captcha!.captchaCode);
       }
 
       const row = findUserByUsername(username);
       if (!row || !(await comparePassword(passwordValue, row.password))) {
+        await recordLoginFailure(username);
         throw new AppError('PASSWORD_INVALID', '用户名或密码错误');
       }
+
       assertUserUsable(row);
+      await clearLoginFailures(username);
 
       const authUser = await toAuthUserWithRoles(row);
 
@@ -106,6 +123,10 @@ export const authService = {
         user: authUser
       };
     } catch (error) {
+      // AppError 原样上抛：迁移前这里无条件包成 SYSTEM_ERROR，把 2009（密码错误）
+      // 一起吞成了 1000，前端拿不到可判定的业务码
+      if (error instanceof AppError) throw error;
+
       throw AppError.from(error, 'SYSTEM_ERROR', '登录失败');
     }
   },
@@ -154,6 +175,9 @@ export const authService = {
         })
         .where(eq(user.id, row.id))
         .run();
+
+      // 改密成功即视为账号已收回，清掉失败计数，避免刚重置就被要求验证码
+      await clearLoginFailures(username);
     } catch (error) {
       if (error instanceof AppError) throw error;
 

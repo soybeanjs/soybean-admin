@@ -773,14 +773,19 @@ describe('user CRUD', () => {
     expect(del.body.code).toBe('0000');
 
     const hidden = okData<{ total: number }>(
-      (await api('GET', '/api/user/list', { token: adminToken, query: { current: '1', size: '10', username: `it_soft_${runId}` } })).body
+      (
+        await api<{ total: number }>('GET', '/api/user/list', {
+          token: adminToken,
+          query: { current: '1', size: '10', username: `it_soft_${runId}` }
+        })
+      ).body
     );
 
     expect(hidden.total).toBe(0);
 
     const visible = okData<{ total: number; list: Array<{ enabled: string }> }>(
       (
-        await api('GET', '/api/user/list', {
+        await api<{ total: number; list: Array<{ enabled: string }> }>('GET', '/api/user/list', {
           token: adminToken,
           query: { current: '1', size: '10', username: `it_soft_${runId}`, enabled: 'D' }
         })
