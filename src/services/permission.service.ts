@@ -127,7 +127,11 @@ export const permissionService = {
     return row;
   },
 
-  async updatePermission(id: string, dto: PermissionUpdateDTO, actor: string = SYSTEM_ACTOR): Promise<PermissionRecord> {
+  async updatePermission(
+    id: string,
+    dto: PermissionUpdateDTO,
+    actor: string = SYSTEM_ACTOR
+  ): Promise<PermissionRecord> {
     const current = this.getPermissionById(id);
     const nextType = dto.resourceType ?? current.resourceType;
     const nextResourceId = dto.resourceId !== undefined ? dto.resourceId : current.resourceId;

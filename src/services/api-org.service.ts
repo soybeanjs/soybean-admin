@@ -127,7 +127,9 @@ export const apiService = {
     this.getApiById(id);
 
     appDb.transaction(tx => {
-      tx.delete(permission).where(and(eq(permission.resourceType, 'api'), eq(permission.resourceId, id))).run();
+      tx.delete(permission)
+        .where(and(eq(permission.resourceType, 'api'), eq(permission.resourceId, id)))
+        .run();
       tx.delete(api).where(eq(api.id, id)).run();
     });
 
@@ -138,7 +140,9 @@ export const apiService = {
     if (!ids.length) return;
 
     appDb.transaction(tx => {
-      tx.delete(permission).where(and(eq(permission.resourceType, 'api'), inArray(permission.resourceId, ids))).run();
+      tx.delete(permission)
+        .where(and(eq(permission.resourceType, 'api'), inArray(permission.resourceId, ids)))
+        .run();
       tx.delete(api).where(inArray(api.id, ids)).run();
     });
 

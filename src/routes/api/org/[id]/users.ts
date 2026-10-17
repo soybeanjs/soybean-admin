@@ -1,10 +1,10 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { orgUserAssignSchema } from '@/schema/org';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `PUT /api/org/:id/users` —— 组织绑定用户（全量替换）。

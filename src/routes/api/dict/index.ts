@@ -1,8 +1,8 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
 import { dictCreateSchema, dictResourceSchema } from '@/schema/dict';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/dict` —— 新增字典。

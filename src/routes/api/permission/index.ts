@@ -1,8 +1,8 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { validate } from '@/shared/validate';
 import { permissionService } from '@/services/permission.service';
 import { permissionCreateSchema, permissionResourceSchema } from '@/schema/permission';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/permission` —— 新增权限。

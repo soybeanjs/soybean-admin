@@ -1,7 +1,7 @@
 import { and, count, eq, inArray, like, ne, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
-import { comparePassword, hashPassword } from '@/shared/auth';
 import { SYSTEM_ACTOR } from '@/shared/actor';
+import { comparePassword, hashPassword } from '@/shared/auth';
 import { AppError } from '@/shared/error';
 import { resolvePageWindow, resolveSortColumn } from '@/shared/pagination';
 import { invalidateUserPermissionCacheMany } from '@/shared/permission-cache';

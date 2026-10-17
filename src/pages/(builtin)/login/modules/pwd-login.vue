@@ -2,8 +2,8 @@
 import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { SButton, SForm, SInput, SPassword, toast, useForm } from '@vean/ui';
 import { BACKEND_ERROR_FLAG } from '@soybeanjs/fetch';
+import { SButton, SForm, SInput, SPassword, toast, useForm } from '@vean/ui';
 import { useAuthStore } from '@/store/modules/auth';
 import { passwordLoginFormSchema, passwordLoginDefaults } from '@/schema/auth';
 import type { PasswordLoginFormValues } from '@/schema/auth';

@@ -1,10 +1,10 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { dictResourceSchema, dictUpdateSchema } from '@/schema/dict';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `GET /api/dict/:id` —— 字典详情。

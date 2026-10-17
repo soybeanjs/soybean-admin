@@ -12,9 +12,9 @@ import {
   verifyToken
 } from '@/shared/auth';
 import type { JwtPayload } from '@/shared/auth';
-import { DEFAULT_REGISTER_ROLE_CODE } from '@/db/seed-data';
 import { AppError } from '@/shared/error';
 import { createUuidV7 } from '@/shared/uuid';
+import { DEFAULT_REGISTER_ROLE_CODE } from '@/db/seed-data';
 import type { AuthUserDTO } from '@/schema/auth';
 import { appDb } from '../db';
 import { role, user, userRole } from '../db/schema';
@@ -254,7 +254,11 @@ export const authService = {
         tx.insert(user).values(newRow).run();
 
         // 默认角色：不绑角色的话 RBAC 集合为空，注册完等于一个什么都不能看的账号
-        const defaultRole = tx.select({ id: role.id }).from(role).where(eq(role.code, DEFAULT_REGISTER_ROLE_CODE)).get();
+        const defaultRole = tx
+          .select({ id: role.id })
+          .from(role)
+          .where(eq(role.code, DEFAULT_REGISTER_ROLE_CODE))
+          .get();
 
         if (defaultRole) {
           const now = new Date().toISOString();
