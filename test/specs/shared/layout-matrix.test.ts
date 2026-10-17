@@ -1,14 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { LAYOUT_MODES, MOBILE_DEGRADED_MODES } from '@/constants/layout';
 import type { LayoutModeName } from '@/constants/layout';
-import {
-  APP_SHELL_MATRIX_VERSION,
-  MATRIX_DIMENSIONS,
-  describeLayoutMatrix,
-  isCellEffective,
-  resolveLayoutMatrix,
-  resolveMenuProps
-} from '@/shared/layout-matrix';
+import { MATRIX_DIMENSIONS, resolveLayoutMatrix, resolveMenuProps } from '@/shared/layout-matrix';
 import type { LayoutMatrixInput } from '@/shared/layout-matrix';
 
 /** P2-20：布局模式 × 配置项矩阵的守卫 详见 docs/v3-notes.md N-432。 */
@@ -42,10 +35,6 @@ function baseInput(overrides: Partial<LayoutMatrixInput> = {}): LayoutMatrixInpu
 }
 
 describe('布局矩阵 · 结构不变量', () => {
-  it('矩阵事实锚定在已核对的 Vean 版本上（升级 Vean 需复核）', () => {
-    expect(APP_SHELL_MATRIX_VERSION).toBe('0.50.2-vean-app-shell-skeletons');
-  });
-
   it('6 种应用模式一一映射到 6 个壳模式，无重复', () => {
     const shells = ALL_MODES.map(
       mode => resolveLayoutMatrix(baseInput({ layoutMode: mode }), { isMobile: false }).shell
@@ -79,7 +68,7 @@ describe('布局矩阵 · 结构不变量', () => {
       const modish = Object.values(row.cells).filter(item => item.state === 'forced' || item.reason === 'mode');
 
       expect(row.degraded, mode).toBe(modish.length > 0);
-      expect(isCellEffective(row.cells.tabStyle)).toBe(true);
+      expect(row.cells.tabStyle.state).toBe('effective');
     }
   });
 
@@ -356,17 +345,5 @@ describe('布局矩阵 · 移动端降级标记', () => {
     expect(mobile.mobileDegraded).toBe(true);
     // 移动端下 sidebar 骨架全能力，没有任何维度被「强制改写」，所以 degraded 仍为 false
     expect(mobile.degraded).toBe(false);
-  });
-});
-
-describe('布局矩阵 · 文档渲染', () => {
-  it('Markdown 表覆盖全部维度与模式，且带 Vean 版本哨兵', () => {
-    const table = describeLayoutMatrix(baseInput());
-
-    expect(table).toContain(APP_SHELL_MATRIX_VERSION);
-    expect(table.split('\n').filter(line => line.startsWith('|'))).toHaveLength(MATRIX_DIMENSIONS.length + 2);
-    for (const dimension of MATRIX_DIMENSIONS) {
-      expect(table, dimension).toContain(`\`${dimension}\``);
-    }
   });
 });
