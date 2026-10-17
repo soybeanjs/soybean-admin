@@ -4,6 +4,7 @@ import { validate } from '@/shared/validate';
 import { dictService } from '@/services/dict.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { dictResourceSchema, dictUpdateSchema } from '@/schema/dict';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `GET /api/dict/:id` —— 字典详情。
@@ -43,7 +44,7 @@ export const PUT = defineHandler(
     const id = requireParam(c, 'id');
     const body = c.req.valid('json');
 
-    return c.json(dictService.updateDict(id, body));
+    return c.json(dictService.updateDict(id, body, currentActor(c)));
   }
 );
 

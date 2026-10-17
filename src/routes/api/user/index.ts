@@ -1,4 +1,5 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { validate } from '@/shared/validate';
 import { userService } from '@/services/user.service';
 import { userCreateSchema, userResourceSchema } from '@/schema/user';
@@ -22,6 +23,6 @@ export const POST = defineHandler(
   async c => {
     const body = c.req.valid('json');
 
-    return c.json(await userService.createUser(body));
+    return c.json(await userService.createUser(body, currentActor(c)));
   }
 );

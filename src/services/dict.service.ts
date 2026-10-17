@@ -1,5 +1,6 @@
 import { and, asc, count, eq, inArray, like, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
+import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
 import { createUuidV7 } from '@/shared/uuid';
@@ -14,8 +15,6 @@ import { dict, dictItem } from '../db/schema';
 
 export type DictRow = typeof dict.$inferSelect;
 export type DictItemRow = typeof dictItem.$inferSelect;
-
-const ACTOR = 'admin';
 
 export const dictService = {
   getDictList(query: DictQuery) {
@@ -57,7 +56,7 @@ export const dictService = {
     return row;
   },
 
-  createDict(dto: DictCreateDTO): DictRow {
+  createDict(dto: DictCreateDTO, actor: string = SYSTEM_ACTOR): DictRow {
     const [existing] = appDb.select().from(dict).where(eq(dict.code, dto.code)).all();
     if (existing) {
       throw new AppError('RESOURCE_EXISTS', '字典编码已存在');
@@ -71,9 +70,9 @@ export const dictService = {
       description: dto.description ?? null,
       isSystem: dto.isSystem ?? 'N',
       enabled: 'Y',
-      createdBy: ACTOR,
+      createdBy: actor,
       createdTime: now,
-      updatedBy: ACTOR,
+      updatedBy: actor,
       updatedTime: now
     };
     appDb.insert(dict).values(row).run();
@@ -81,7 +80,7 @@ export const dictService = {
     return row;
   },
 
-  updateDict(id: string, dto: DictUpdateDTO): DictRow {
+  updateDict(id: string, dto: DictUpdateDTO, actor: string = SYSTEM_ACTOR): DictRow {
     const current = this.getDictById(id);
     const nextCode = dto.code ?? current.code;
 
@@ -99,7 +98,7 @@ export const dictService = {
         code: nextCode,
         description: dto.description !== undefined ? dto.description : current.description,
         isSystem: dto.isSystem ?? current.isSystem,
-        updatedBy: ACTOR,
+        updatedBy: actor,
         updatedTime: new Date().toISOString()
       })
       .where(eq(dict.id, id))
@@ -178,7 +177,7 @@ export const dictService = {
     return row;
   },
 
-  createDictItem(dto: DictItemCreateDTO): DictItemRow {
+  createDictItem(dto: DictItemCreateDTO, actor: string = SYSTEM_ACTOR): DictItemRow {
     this.assertDictExists(dto.dictId);
 
     const now = new Date().toISOString();
@@ -190,9 +189,9 @@ export const dictService = {
       value: dto.value,
       order: dto.order ?? 0,
       enabled: 'Y',
-      createdBy: ACTOR,
+      createdBy: actor,
       createdTime: now,
-      updatedBy: ACTOR,
+      updatedBy: actor,
       updatedTime: now
     };
     appDb.insert(dictItem).values(row).run();
@@ -200,7 +199,7 @@ export const dictService = {
     return row;
   },
 
-  updateDictItem(id: string, dto: DictItemUpdateDTO): DictItemRow {
+  updateDictItem(id: string, dto: DictItemUpdateDTO, actor: string = SYSTEM_ACTOR): DictItemRow {
     const current = this.getDictItemById(id);
 
     if (dto.dictId && dto.dictId !== current.dictId) {
@@ -215,7 +214,7 @@ export const dictService = {
         label: dto.label ?? current.label,
         value: dto.value ?? current.value,
         order: (dto.order !== undefined ? dto.order : current.order) ?? 0,
-        updatedBy: ACTOR,
+        updatedBy: actor,
         updatedTime: new Date().toISOString()
       })
       .where(eq(dictItem.id, id))

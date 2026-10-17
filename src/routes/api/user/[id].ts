@@ -1,4 +1,5 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { userService } from '@/services/user.service';
@@ -43,7 +44,7 @@ export const PUT = defineHandler(
     const id = requireParam(c, 'id');
     const body = c.req.valid('json');
 
-    return c.json(await userService.updateUser(id, body));
+    return c.json(await userService.updateUser(id, body, currentActor(c)));
   }
 );
 
@@ -63,7 +64,7 @@ export const DELETE = defineHandler(
     }
   }),
   async c => {
-    await userService.deleteUser(requireParam(c, 'id'));
+    await userService.deleteUser(requireParam(c, 'id'), currentActor(c));
 
     return c.json(null);
   }

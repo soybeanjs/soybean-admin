@@ -1,4 +1,5 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { validate } from '@/shared/validate';
 import { userService } from '@/services/user.service';
 import { batchDeleteSchema, nullDataSchema } from '@/schema/_shared';
@@ -22,7 +23,7 @@ export const POST = defineHandler(
   async c => {
     const { ids } = c.req.valid('json');
 
-    await userService.batchDeleteUsers(ids);
+    await userService.batchDeleteUsers(ids, currentActor(c));
 
     return c.json(null);
   }

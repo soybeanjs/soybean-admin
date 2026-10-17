@@ -1,4 +1,5 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { roleService } from '@/services/role.service';
@@ -25,7 +26,7 @@ export const PUT = defineHandler(
     const id = requireParam(c, 'id');
     const { permissionIds } = c.req.valid('json');
 
-    await roleService.replaceRolePermissions(id, permissionIds);
+    await roleService.replaceRolePermissions(id, permissionIds, currentActor(c));
 
     return c.json(null);
   }

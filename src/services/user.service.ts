@@ -1,6 +1,7 @@
 import { and, count, eq, inArray, like, ne, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { comparePassword, hashPassword } from '@/shared/auth';
+import { SYSTEM_ACTOR } from '@/shared/actor';
 import { AppError } from '@/shared/error';
 import { resolveSortColumn } from '@/shared/pagination';
 import { invalidateUserPermissionCacheMany } from '@/shared/permission-cache';
@@ -14,8 +15,6 @@ import { roleService } from './role.service';
 /** 用户服务（P1-07，unify user.service 范式） 详见 docs/v3-notes.md N-258。 */
 
 export type UserRow = typeof user.$inferSelect;
-
-const ACTOR = 'admin';
 
 function stripPassword(row: UserRow): Omit<UserRow, 'password'> {
   const { password: _password, ...rest } = row;
@@ -50,11 +49,24 @@ export const userService = {
       .offset(offset)
       .all();
 
-    const list = rows.map(row => {
-      const roleLinks = appDb.select({ id: userRole.roleId }).from(userRole).where(eq(userRole.userId, row.id)).all();
+    // 一次批量查角色绑定，再在内存里按 userId 归组 —— 逐行查是 N+1（size=100 时 102 条 SQL）
+    const userIds = rows.map(row => row.id);
+    const roleLinks = userIds.length
+      ? appDb
+          .select({ userId: userRole.userId, roleId: userRole.roleId })
+          .from(userRole)
+          .where(inArray(userRole.userId, userIds))
+          .all()
+      : [];
 
-      return { ...stripPassword(row), roles: roleLinks.map(link => ({ id: link.id })) };
+    const rolesByUserId = new Map<string, { id: string }[]>();
+    roleLinks.forEach(link => {
+      const bucket = rolesByUserId.get(link.userId) ?? [];
+      bucket.push({ id: link.roleId });
+      rolesByUserId.set(link.userId, bucket);
     });
+
+    const list = rows.map(row => ({ ...stripPassword(row), roles: rolesByUserId.get(row.id) ?? [] }));
 
     return { total, current: query.current, size: query.size, list };
   },
@@ -96,7 +108,7 @@ export const userService = {
   },
 
   /** 全量替换用户-角色关联（失效该用户权限码缓存） */
-  async replaceUserRoles(userId: string, roleIds: string[]): Promise<void> {
+  async replaceUserRoles(userId: string, roleIds: string[], actor: string = SYSTEM_ACTOR): Promise<void> {
     const now = new Date().toISOString();
 
     appDb.transaction(tx => {
@@ -109,9 +121,9 @@ export const userService = {
               id: createUuidV7(),
               userId,
               roleId,
-              createdBy: ACTOR,
+              createdBy: actor,
               createdTime: now,
-              updatedBy: ACTOR,
+              updatedBy: actor,
               updatedTime: now
             }))
           )
@@ -122,7 +134,7 @@ export const userService = {
     await invalidateUserPermissionCacheMany([userId]);
   },
 
-  async createUser(dto: UserCreateDTO): Promise<Omit<UserRow, 'password'>> {
+  async createUser(dto: UserCreateDTO, actor: string = SYSTEM_ACTOR): Promise<Omit<UserRow, 'password'>> {
     if (this.findUserByUsername(dto.username)) {
       throw new AppError('RESOURCE_EXISTS', '用户名已存在');
     }
@@ -139,18 +151,18 @@ export const userService = {
       description: null,
       homePath: dto.homePath ?? '/home',
       enabled: 'Y',
-      createdBy: ACTOR,
+      createdBy: actor,
       createdTime: now,
-      updatedBy: ACTOR,
+      updatedBy: actor,
       updatedTime: now
     };
     appDb.insert(user).values(row).run();
-    await this.replaceUserRoles(row.id, dto.roleIds ?? []);
+    await this.replaceUserRoles(row.id, dto.roleIds ?? [], actor);
 
     return stripPassword(row);
   },
 
-  async updateUser(id: string, dto: UserUpdateDTO): Promise<Omit<UserRow, 'password'>> {
+  async updateUser(id: string, dto: UserUpdateDTO, actor: string = SYSTEM_ACTOR): Promise<Omit<UserRow, 'password'>> {
     const current = this.getUserById(id);
 
     appDb
@@ -166,14 +178,14 @@ export const userService = {
         // 只在显式传 password 时才写这一列 —— 否则会把当前哈希重算一遍（bcrypt 随机盐
         // 让每次结果都不同，等于无条件改密码 + 多一次 100ms 级开销）
         ...(dto.password ? { password: await hashPassword(dto.password) } : {}),
-        updatedBy: ACTOR,
+        updatedBy: actor,
         updatedTime: new Date().toISOString()
       })
       .where(eq(user.id, id))
       .run();
 
     if (dto.roleIds) {
-      await this.replaceUserRoles(id, dto.roleIds);
+      await this.replaceUserRoles(id, dto.roleIds, actor);
     } else if (dto.enabled !== undefined) {
       // 停用用户 → 权限码缓存失效（启用同理，保持对称）
       await invalidateUserPermissionCacheMany([id]);
@@ -186,13 +198,17 @@ export const userService = {
    * 软删（`enabled` 置 `'D'`），与 OpenAPI 文案一致 —— 硬删会连带丢掉审计线索，
    * 而 `user_role` 里的历史绑定也再无法回溯。`findUserById` 会把 `'D'` 视同不存在。
    */
-  async deleteUser(id: string): Promise<void> {
+  async deleteUser(id: string, actor: string = SYSTEM_ACTOR): Promise<void> {
     this.getUserById(id);
-    appDb.update(user).set({ enabled: 'D', updatedBy: ACTOR, updatedTime: new Date().toISOString() }).where(eq(user.id, id)).run();
+    appDb
+      .update(user)
+      .set({ enabled: 'D', updatedBy: actor, updatedTime: new Date().toISOString() })
+      .where(eq(user.id, id))
+      .run();
     await invalidateUserPermissionCacheMany([id]);
   },
 
-  async batchDeleteUsers(ids: string[]): Promise<void> {
+  async batchDeleteUsers(ids: string[], actor: string = SYSTEM_ACTOR): Promise<void> {
     if (!ids.length) return;
 
     // 先确认全部存在：部分 id 已删时静默跳过会让调用方以为都删掉了
@@ -206,7 +222,11 @@ export const userService = {
       throw new AppError('RESOURCE_NOT_FOUND', '部分用户不存在');
     }
 
-    appDb.update(user).set({ enabled: 'D', updatedBy: ACTOR, updatedTime: new Date().toISOString() }).where(inArray(user.id, ids)).run();
+    appDb
+      .update(user)
+      .set({ enabled: 'D', updatedBy: actor, updatedTime: new Date().toISOString() })
+      .where(inArray(user.id, ids))
+      .run();
     await invalidateUserPermissionCacheMany(ids);
   },
 

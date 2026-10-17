@@ -4,6 +4,7 @@ import { validate } from '@/shared/validate';
 import { apiService } from '@/services/api-org.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { apiResourceSchema, apiUpdateSchema } from '@/schema/api';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `GET /api/api/:id` —— 接口详情。
@@ -43,7 +44,7 @@ export const PUT = defineHandler(
     const id = requireParam(c, 'id');
     const body = c.req.valid('json');
 
-    return c.json(apiService.updateApi(id, body));
+    return c.json(apiService.updateApi(id, body, currentActor(c)));
   }
 );
 

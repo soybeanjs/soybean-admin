@@ -2,6 +2,7 @@ import { defineHandler, describeRoute, resolver } from 'ubean/server';
 import { validate } from '@/shared/validate';
 import { menuService } from '@/services/menu.service';
 import { menuCreateSchema, menuResourceSchema } from '@/schema/menu';
+import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/menu` —— 新增菜单。
@@ -22,6 +23,6 @@ export const POST = defineHandler(
   c => {
     const body = c.req.valid('json');
 
-    return c.json(menuService.createMenu(body));
+    return c.json(menuService.createMenu(body, currentActor(c)));
   }
 );
