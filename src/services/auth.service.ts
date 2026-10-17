@@ -299,6 +299,30 @@ export const authService = {
     }
   },
 
+  /**
+   * 鉴权中间件专用的身份视图（审计 3.6）。
+   *
+   * 逐个请求跑完 `getUserInfo` 是浪费：它把用户行、角色码、**全部按钮权限码**都查一遍，
+   * 而中间件实际只需要两件事 —— 这个用户还在不在（`enabled`）、是不是超管。
+   * 权限码紧接着由 `checkUserHasPermission` 单独查（带缓存），两条路径本来就重复。
+   *
+   * 键权限仍然每请求走一次，但不再拉全量按钮码；`user` 仍返回完整 DTO 供路由取
+   * `username` / `homePath` 等字段。
+   */
+  async getAuthIdentity(userId: string): Promise<{ user: AuthUserDTO; isSuper: boolean }> {
+    const row = findUserById(userId);
+
+    if (!row) {
+      throw new AppError('UNAUTHORIZED', '未登录或令牌无效');
+    }
+
+    assertUserUsable(row);
+
+    const roles = roleService.getRolesByUserId(row.id).map(role => role.code);
+
+    return { user: toAuthUserDTO(row, roles), isSuper: roles.includes('super') };
+  },
+
   /** 刷新 token 对（验签 + 黑名单 + 用户状态；旧 refreshToken 立即拉黑防重放） */
   async refreshToken(refreshToken: string): Promise<LoginResult> {
     try {

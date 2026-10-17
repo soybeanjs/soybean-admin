@@ -1,6 +1,6 @@
 /** 所以把「哪些组合有效、生效值是什么、为什么无效」从 `SAppShell` 的隐式行为，提成**显式的纯函数矩阵**： 详见 docs/v3-notes.md N-146。 */
 import type { AppShellMenuProps, AppShellMode, LayoutCollapsible, LayoutScrollBehavior, LayoutVariant } from '@vean/ui';
-import { LAYOUT_MODES, MOBILE_DEGRADED_MODES, mapLayoutMode } from '@/constants/layout';
+import { MOBILE_DEGRADED_MODES, mapLayoutMode } from '@/constants/layout';
 import type { LayoutModeName } from '@/constants/layout';
 import type { TabVariant } from '@/constants/theme';
 
@@ -403,35 +403,4 @@ function fullContentNote(input: LayoutMatrixInput, cap: ShellCapability): string
   return cap.hasSidebar
     ? '全屏内容：头部/页签/面包屑/页脚均被隐藏，侧栏保留'
     : '全屏内容：头部/页签/面包屑/页脚均被隐藏';
-}
-
-/** 渲染 Markdown 表（6 模式 × 19 维），供 `docs/v3-task.md` 直接引用 详见 docs/v3-notes.md N-157。 */
-export function describeLayoutMatrix(
-  input: LayoutMatrixInput,
-  context: LayoutMatrixContext = { isMobile: false }
-): string {
-  const MARK: Record<DimensionState, string> = { effective: '✅', forced: '🔒', inert: '—' };
-  const header = ['维度', ...LAYOUT_MODES.map(mode => mode.value)];
-  const lines = [
-    `<!-- ${APP_SHELL_MATRIX_VERSION} -->`,
-    `| ${header.join(' | ')} |`,
-    `| ${header.map(() => '---').join(' | ')} |`
-  ];
-
-  for (const dimension of MATRIX_DIMENSIONS) {
-    const cells = LAYOUT_MODES.map(mode => {
-      const row = resolveLayoutMatrix({ ...input, layoutMode: mode.value }, context);
-      const item = row.cells[dimension];
-      return `${MARK[item.state]} ${String(item.value ?? '—')}`;
-    });
-
-    lines.push(`| \`${dimension}\` | ${cells.join(' | ')} |`);
-  }
-
-  return lines.join('\n');
-}
-
-/** `effective` 视作未降级时，布尔维度的真值（供抽屉提示层使用） */
-export function isCellEffective(item: DimensionCell): boolean {
-  return item.state === 'effective';
 }
