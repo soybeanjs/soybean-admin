@@ -1,8 +1,8 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { validate } from '@/shared/validate';
 import { menuService } from '@/services/menu.service';
 import { menuCreateSchema, menuResourceSchema } from '@/schema/menu';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/menu` —— 新增菜单。

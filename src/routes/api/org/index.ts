@@ -1,8 +1,8 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { validate } from '@/shared/validate';
 import { orgService } from '@/services/api-org.service';
 import { orgCreateSchema, orgResourceSchema } from '@/schema/org';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/org` —— 新增组织。

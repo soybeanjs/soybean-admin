@@ -1,10 +1,10 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { apiService } from '@/services/api-org.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { apiResourceSchema, apiUpdateSchema } from '@/schema/api';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `GET /api/api/:id` —— 接口详情。

@@ -1,8 +1,8 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { validate } from '@/shared/validate';
 import { apiService } from '@/services/api-org.service';
 import { apiCreateSchema, apiResourceSchema } from '@/schema/api';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `POST /api/api` —— 新增接口。

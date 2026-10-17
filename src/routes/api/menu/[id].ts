@@ -1,10 +1,10 @@
 import { defineHandler, describeRoute, resolver } from 'ubean/server';
+import { currentActor } from '@/shared/actor';
 import { requireParam } from '@/shared/route';
 import { validate } from '@/shared/validate';
 import { menuService } from '@/services/menu.service';
 import { nullDataSchema } from '@/schema/_shared';
 import { menuResourceSchema, menuUpdateSchema } from '@/schema/menu';
-import { currentActor } from '@/shared/actor';
 
 /**
  * `GET /api/menu/:id` —— 菜单详情。
