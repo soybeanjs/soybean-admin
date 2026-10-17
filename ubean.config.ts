@@ -85,16 +85,26 @@ export default defineConfig({
       API_PROXY_TARGETS: envField.string({ context: 'server', access: 'secret', default: '' }),
 
       // ---- 鉴权 ----
-      JWT_SECRET: envField.string({
-        context: 'server',
-        access: 'secret',
-        default: 'soybean-admin-v3-dev-secret-change-me'
-      }),
+      /**
+       * **必须显式提供，故意不给 `default`**。
+       *
+       * `parseEnvFieldValue` 把空字符串等同「没给」，有 `default` 时会静默回退 ——
+       * 于是 `.env.prod` 里那行 `JWT_SECRET=` 曾让生产用仓库公开的占位符签名，
+       * 任何人拿它就能签一个 `{id:'U_admin'}` 的 token（审计 1.1）。
+       * 去掉 `default` 后配合 `mode: 'throw'`，缺失/留空在启动期直接抛错。
+       */
+      JWT_SECRET: envField.string({ context: 'server', access: 'secret' }),
       JWT_EXPIRES_IN: envField.string({ context: 'server', access: 'secret', default: '1d' }),
       REFRESH_TOKEN_EXPIRES_IN: envField.string({ context: 'server', access: 'secret', default: '7d' }),
 
       // ---- 数据库 / 缓存 ----
       DATABASE_URL: envField.string({ context: 'server', access: 'secret', default: '' }),
+      /**
+       * 目前**无消费方**：ubean 0.6.4 的 `useStorage` 只有内存驱动，`useKV` 的
+       * token 黑名单 / 权限码缓存 / 图形验证码全落在进程内存里。保留声明是为了
+       * 部署时能一眼看出「多实例需要外部 KV」这件事，`src/server.ts` 在
+       * 生产环境留空时会打印告警（审计 1.5）。
+       */
       REDIS_URL: envField.string({ context: 'server', access: 'secret', default: '' })
     }
   },
