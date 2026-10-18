@@ -4,16 +4,35 @@
 
 ## 必读 skills（执行规约，非可选参考）
 
-位置：`~/.agents/skills/<name>/SKILL.md`。写代码前按触发条件先读对应 skill：
+以 skill **名称**为准，不写死磁盘路径。`npx skills add -g` 会把 skill 装到用户级目录并链到各 agent 的全局 skills 目录（macOS / Linux / Windows 位置各不相同），装好后 agent 自动可见，**无需关心装在哪里**。写代码前按触发条件先读对应 skill：
 
-| skill                         | 触发条件（满足其一即读）                                                                |
-| ----------------------------- | --------------------------------------------------------------------------------------- |
-| `ubean`                       | 改 `ubean.config.ts`、写 `src/pages/**` / `src/routes/api/**`、用 `defineEnv` / codegen |
-| `vean-ui`                     | 用任何 `S*` 组件（`@vean/ui`）时；组件文档在 `vean-ui/components/*.md`                  |
-| `vean-aria`                   | 用无样式原语（`@vean/aria`）、自建组件、定制 class map 时                               |
-| `vue-sfc-structure`           | 每个 `.vue` 文件                                                                        |
-| `typescript-functional-style` | 每个 `.ts` / `.tsx` 文件                                                                |
-| `pnpm-deps-upgrade`           | 升级依赖时（`upkg` → 锁文件重装 → 修 allowBuilds → 门槛 → 提交推送）                    |
+| skill                         | 触发条件（满足其一即读）                                                                | 安装源              |
+| ----------------------------- | --------------------------------------------------------------------------------------- | ------------------- |
+| `ubean`                       | 改 `ubean.config.ts`、写 `src/pages/**` / `src/routes/api/**`、用 `defineEnv` / codegen | `soybeanjs/ubean`   |
+| `vean-ui`                     | 用任何 `S*` 组件（`@vean/ui`）时；组件文档在 `vean-ui/components/*.md`                  | `soybeanjs/vean-ui` |
+| `vean-aria`                   | 用无样式原语（`@vean/aria`）、自建组件、定制 class map 时                               | `soybeanjs/vean-ui` |
+| `vue-sfc-structure`           | 每个 `.vue` 文件                                                                        | `soybeanjs/skills`  |
+| `typescript-functional-style` | 每个 `.ts` / `.tsx` 文件                                                                | `soybeanjs/skills`  |
+| `pnpm-deps-upgrade`           | 升级依赖时（`upkg` → 锁文件重装 → 修 allowBuilds → 门槛 → 提交推送）                    | `soybeanjs/skills`  |
+
+### 缺 skill 先装（不要静默跳过）
+
+开工前先检查，缺失就装，再继续写代码。用 CLI 列已装 skill（跨平台，不依赖路径）：
+
+```bash
+npx skills list -g   # 输出里应能看到上表 6 个名字
+```
+
+补装命令（`-g` 装全局，按需加 `-s <name>` 只装单个）：
+
+```bash
+npx skills add soybeanjs/skills -g     # vue-sfc-structure / typescript-functional-style / pnpm-deps-upgrade
+npx skills add soybeanjs/vean-ui -g    # vean-ui / vean-aria / vean-ui-develop（-s vean-ui -s vean-aria 可只取前两个）
+npx skills add soybeanjs/ubean -g      # ubean
+```
+
+- 装完确认：再跑一次 `npx skills list -g`，6 个名字都在即可。
+- skill 内容随上游仓库更新，`npx skills update -g` 同步；升级后若 API 与本文档冲突，以 skill 为准并顺手修文档。
 
 其他 skill（`vue`、`pinia`、`unocss`、`vitest`、`vite`、`pr`、`code-review`、`diagnosing-bugs`、`tdd`、`writing-for-agents`）在对应场景按需读。完整索引见 `docs/v3.md` §11.2。
 
