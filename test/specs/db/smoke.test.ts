@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { defineDatabase } from 'ubean/server';
+import { parse } from 'valibot';
 import { appDatabase } from '@/db/index.ts';
 import { runAppMigrations } from '@/db/migrations';
 import { runSeed } from '@/db/seed';
+import menusSource from '@/menus/menus.json';
+import { menuSourceFileSchema } from '@/schema/menu';
 
 /**
  * 迁移 + seed 幂等性冒烟（独立内存库，不污染 dev 库、可重复运行）。
@@ -23,10 +26,11 @@ describe('db migrations + seed', () => {
     expect(users.rows.length).toBe(2);
     expect(users.rows[0]).toMatchObject({ username: 'admin' });
 
-    // 44 条 = src/menus/menus.json 的行数（菜单源文件是 seed 的输入，
-    // 改造前这里手写 6 行 legacy 路由名，与真实页面对不上）
+    // 菜单行数 = `src/menus/menus.json` 的行数（菜单源文件是 seed 的输入，
+    // 改造前这里手写 6 行 legacy 路由名，与真实页面对不上）。用源文件长度而非
+    // 硬编码数字：加一个菜单页不必再改这个断言。
     const menus = await db.sql<{ c: number }>`SELECT count(*) AS c FROM menu`;
-    expect(Number(menus.rows[0]?.c)).toBe(44);
+    expect(Number(menus.rows[0]?.c)).toBe(parse(menuSourceFileSchema, menusSource).menus.length);
 
     const menuRow = await db.sql`SELECT route_name, route_path FROM menu WHERE id = 'M_manage_user_index'`;
     expect(menuRow.rows[0]).toMatchObject({ route_name: 'ManageUserIndex', route_path: '/manage/user' });

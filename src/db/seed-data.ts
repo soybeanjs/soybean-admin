@@ -59,7 +59,7 @@ export const seedRoles: NewRole[] = [
 ];
 
 /** 菜单种子 = 仓库里的菜单源数据（`src/menus/menus.json`），不在这里另写一份 详见 docs/v3-notes.md N-232。 */
-export const seedMenus: NewMenu[] = staticMenus.map(row => ({
+const menuSeedRows: NewMenu[] = staticMenus.map(row => ({
   ...row,
   // 源文件里可省/可为 null 的字段，入库前补成 DB 的 NOT NULL 默认值
   requiresAuth: row.requiresAuth ?? 'Y',
@@ -71,6 +71,32 @@ export const seedMenus: NewMenu[] = staticMenus.map(row => ({
   enabled: 'Y',
   ...idRow()
 }));
+
+/**
+ * 菜单按「父先于子」排序：`menu.parent_id` 是指向同表的外键，而源文件按 `order`
+ * 排序（子项 order 常小于父目录），直接按源文件顺序 INSERT 会撞 FOREIGN KEY constraint。
+ */
+export const seedMenus: NewMenu[] = (() => {
+  const pending = [...menuSeedRows];
+  const emitted = new Set<string>();
+  const ordered: NewMenu[] = [];
+
+  while (pending.length > 0) {
+    const index = pending.findIndex(row => !row.parentId || emitted.has(row.parentId));
+
+    // 父 id 指向不存在的行（脏数据）：原样放行，别在种子里静默丢菜单
+    const next = index === -1 ? pending.shift() : pending.splice(index, 1)[0];
+
+    if (!next) break;
+
+    // `$defaultFn` 让 drizzle 把 `id` 推导为可选；seed 行总是自带显式 id，
+    // 缺失时只是不登记（下一轮会重新轮到它，不至于死循环——那一轮 index 仍为 -1 时被 shift 掉）
+    if (next.id) emitted.add(next.id);
+    ordered.push(next);
+  }
+
+  return ordered;
+})();
 
 /** 权限：按钮权限（挂菜单）+ API 权限（挂 API 记录） */
 export const seedPermissions: NewPermission[] = [
