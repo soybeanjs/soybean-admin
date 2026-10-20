@@ -59,7 +59,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': srcDir
+      '@': srcDir,
+      // `virtual:ubean-pages` 只在构建期由 ubean 插件生成，vitest 加载不到 → 指到桩。
+      // 详见 test/shared/stub-virtual-pages.ts 与 docs/v3-notes.md N-462。
+      'virtual:ubean-pages': fileURLToPath(new URL('./test/shared/stub-virtual-pages.ts', import.meta.url))
     }
   }
 });

@@ -3,7 +3,6 @@ import {
   seedApis,
   seedDictItems,
   seedDicts,
-  seedMenus,
   seedPermissions,
   seedRolePermissions,
   seedRoles,
@@ -20,7 +19,6 @@ type InsertSpec = { table: string; rows: SeedRow[] };
 const TABLE_BY_SEED: Record<string, InsertSpec> = {
   users: { table: 'user', rows: seedUsers },
   roles: { table: 'role', rows: seedRoles },
-  menus: { table: 'menu', rows: seedMenus },
   permissions: { table: 'permission', rows: seedPermissions },
   userRoles: { table: 'user_role', rows: seedUserRoles },
   rolePermissions: { table: 'role_permission', rows: seedRolePermissions },

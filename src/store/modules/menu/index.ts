@@ -2,11 +2,12 @@ import { computed, ref } from 'vue';
 import type { RouteComponent, RouteRecordRaw, Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { AUTH_ROUTE_MODE as ENV_AUTH_ROUTE_MODE } from 'ubean:env/client';
-import menusSource from '@/menus/menus.json';
+import { pages as scannedPages } from 'virtual:ubean-pages';
 import { api } from '@/request';
 import type { MenuResource } from '@/schema/menu';
 import type { MenuTreeNode } from '@/typings/app';
-import { buildMenuTree, loadStaticMenus, normalizeRoutePath, parseMenuSource, validateMenuRoutes } from './shared';
+import { buildMenuTree, normalizeRoutePath, validateMenuRoutes } from './shared';
+import { deriveMenus } from './derive';
 
 /** 不能在 action 里解析 locale（否则切语言后 label 不更新） 详见 docs/v3-notes.md N-103。 */
 
@@ -26,10 +27,12 @@ export const useMenuStore = defineStore('menu', () => {
   /** 菜单树是否为空 */
   const isEmpty = computed(() => items.value.length === 0);
 
-  /** 从仓库里的菜单源数据建树 详见 docs/v3-notes.md N-104。 */
+  /** 从页面扫描结果建树 详见 docs/v3-notes.md N-104。 */
   function initStaticMenu(router: Router): void {
     const routes = router.getRoutes().map(route => ({ name: String(route.name), path: route.path }));
-    const menus = loadStaticMenus(parseMenuSource(menusSource), routes);
+    // 菜单身份就写在页面自己的 `definePage({ meta })` 里，没有中间配置层；
+    // `routePath` 一律取路由表的真实路径（`:id` 参数化路径会被规范化）。
+    const menus = deriveMenus(Object.values(scannedPages));
 
     if (import.meta.env.DEV && typeof window !== 'undefined') {
       const problems = validateMenuRoutes(menus, routes);

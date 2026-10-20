@@ -1,6 +1,6 @@
 # v3 注释沉淀（注释清理回收站）
 
-> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **457 条**（N-001 – N-449、N-454 – N-461；另有 N-450 – N-453 只在下面的注意事项汇编里，来自 `src/router/guard/**` 的拆分）。
+> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **460 条**（N-001 – N-449、N-454 – N-464；另有 N-450 – N-453 只在下面的注意事项汇编里，来自 `src/router/guard/**` 的拆分）。
 > 代码里只保留「这是什么 / 必须怎么做」的一两行说明，**为什么这么做**的历史推理放在这里；
 > 代码注释里出现 `docs/v3-notes.md N-0xx` 时即指向对应条目（当前 356 处引用、覆盖 214 个文件）。
 > 重建完整注释时，把该条目正文按原位置贴回即可；条目正文就是压缩前的原文，带原始缩进与 ``` 围栏。
@@ -21,6 +21,7 @@
 - **登录页与 SSR 豁免 / 外观切换**：4 条（N-447 – N-449、N-457）
 - **菜单下拉 / 语言切换**：3 条（N-454 – N-456）
 - **菜单文件化（目录 / 外链 / 内嵌）**：4 条（N-458 – N-461）
+- **菜单数据源收敛到页面扫描**：3 条（N-462 – N-464）
 
 ## 注意事项汇编（从现有代码注释汇总，供项目文档参考）
 
@@ -6636,3 +6637,57 @@ definePage({
 **为什么不测 `syncMenus()` 本身**：它会写盘、依赖真实文件系统快照，断言逻辑容易退化成「跑一遍看看输出」；而且派生规则的输入是 `ScannedPage`，构造六个假页面比断言产物脆得多。真正会回归的是**产物的字段组合**（改 `toMenuRow()` 时把 `link` 的 `routeName` 又填回去、目录的 `routePath` 被清空），这些在 json 上一眼可查。
 
 **`parentId` 悬空为什么要查**：`buildMenuTree()` 找不到父节点时把子项静默降级成根节点，菜单层级错乱但没有任何报错。这类缺陷在 dev 页面里表现为「某个子菜单跑到一级去了」，很难联想到是 json 里的 id 拼错。
+
+### N-462 · src/store/modules/menu/derive.ts:1
+
+```ts
+/**
+ * 静态菜单的唯一来源：`src/pages/**` 的扫描结果。
+ *
+ * 每个页面用 `definePage({ meta })` 声明自己的菜单身份（`title` / `i18nKey` /
+ * `icon` / `order` / `menuParent` / `menuType` / `href` / `iframeUrl`），
+ * 这里把它翻译成 `buildMenuTree` 认的 `AppMenu`。**没有中间 JSON** ——
+ * 页面文件改了菜单就跟着变，不存在「文件与配置漂移」这一类问题。
+ *
+ * 目录（`menuType: 'directory'`）与外链（`'link'`）写成 `.meta.ts` + `routable: false`：
+ * 它们不是路由，`router.getRoutes()` 里看不到，只有扫描清单里有 —— 所以这个函数
+ * 的入参必须来自 `virtual:ubean-pages` 的 `pages`，不能用路由表。
+ */
+```
+
+**为什么删掉 `src/menus/menus.json`**：它是页面文件的**派生产物** —— `pnpm menu:sync` 从 `definePage` 读出 `title` / `icon` / `order` / `menuType`，只有 `order` 是人工字段。派生数据落盘就要维护一条同步链路（脚本 + watcher + 幂等测试 + 漂移告警），而漂移的代价在 M-05 已经实测过：`routeComponent` 与真实页面文件不一致，多数路由落到 `_placeholder.vue`。直接读扫描结果，漂移在结构上不存在。
+
+**为什么入参不能是路由表**：目录（`menuType: 'directory'`）与外链（`'link'`）用 `.meta.ts` + `routable: false` 声明，它们**没有路由记录** —— `router.getRoutes()` 里查不到，侧栏就会少两项。`virtual:ubean-pages` 的 `pages` 是扫描清单，路由页与元数据页都在里面，是唯一同时看得到两者的入口。
+
+**为什么不用 `ubean:pages`**：`@ubean/build` 的 `createPagesVirtualModule` 只发射 `name` / `path` / `filePath` / `layout` / `reuseTarget` / `routable`，**没有 `pageMeta`**（`dev` 下 `.ubean/virtual/pages.ts` 里 `pageMeta` 全是 `null`）。而菜单的 `title` / `icon` / `order` 全在 `pageMeta` 里。`virtual:ubean-pages`（`@ubean/vue` 的 `VUE_ROUTES_MODULE_ID`）保留了完整 `pageMeta`。
+
+**`pages` 是 `Record<name, page>` 不是数组**：按名字索引，遍历要 `Object.values()`。
+
+### N-463 · src/db/seed-data.ts:1
+
+**菜单表不再 seed**。`seed-data.ts` 原先 `import menusSource from '../menus/menus.json'` 并把它写进 `menu` 表，现在整块删掉，`TABLE_BY_SEED` 也没有 `menus` 项了。
+
+**为什么 DB 不再存菜单**：菜单有两个出口 —— static（前端直接读页面扫描结果）与 dynamic（服务端下发、支持运营改）。static 模式的菜单是**构建期事实**，塞进 DB 只是复制一份，而且立刻产生「页面文件与 DB 行谁是对的」这个问题。DB 只服务 dynamic 模式：那里菜单是运营数据，CRUD 是业务需求，与页面文件无关。
+
+**为什么 `test/specs/db/smoke.test.ts` 断言菜单行数是 0**：锁住这个契约。哪天有人「顺手」把菜单 seed 加回来，两条出口会同时存在并互相打架，这个断言会先红。
+
+**集成测试自己造数据**：`test/integration/api.test.ts` 的 RBAC 段原先依赖 seed 出来的菜单（断言 `/api/menu/public` 非空、`exist-path` 认得 `ManageUserIndex`）。现在 seed 为空，那段改成 `beforeAll` 造一条 `requiresAuth: 'N'` 的 page 菜单，并 push 进 `createdIds.menuIds` 让收尾的 `batch-delete` 清掉。
+
+### N-464 · test/specs/store/derive-menu.test.ts:1
+
+```ts
+/**
+ * 页面扫描结果 → 菜单行的派生规则单测。
+ *
+ * 入参用显式夹具而非真实 `virtual:ubean-pages`：断言的是**规则**，加一个页面不该
+ * 让这里红一片（真实仓库的完整性由 `pnpm dev` 的 dev 校验与集成测试兜住）。
+ */
+```
+
+**为什么替代了 `test/specs/scripts/menus-source.test.ts`**：那份测的是 `menus.json` 这个**产物**的类型契约（六种 `menuType` 各允许哪些字段非空）。JSON 没了，产物不存在了，但**规则还在** —— 规则从 `scripts/menu-sync.ts` 的 `toMenuRow()` 搬到了 `src/store/modules/menu/derive.ts` 的 `toMenuRow()`，所以测试跟着搬，断言对象从 JSON 行换成函数返回值。
+
+**为什么不用真实扫描结果当夹具**：`scanPages()` 要跑 glob、读文件、解析 `definePage`，一个测试文件里跑两次要几百毫秒；而且断言的是规则，不是「仓库里现在有哪几个页面」。用真实扫描会让「新增一个页面」把测试搞红 —— 那是 dev 期 `validateMenuRoutes` 的活。夹具用 `page()` / `menuPage()` 两个工厂函数构造，入参类型是 `MenuPageSource`（`derive.ts` 自己导出，只含函数消费的字段）。
+
+**`requiresAuth` 读 `meta` 不读顶层**：这一条曾经写错过（改成读 `pageMeta.requiresAuth`，`M_about_index` 立刻从 `'N'` 变 `'Y'`）。公开页判定必须与 `src/router/guard/auth.ts` 一致 —— 那边读 `to.meta.requiresAuth === false`。顶层 `requiresAuth: false` 会被 ubean 生成器静默丢弃（只发射 `true`），所以写在顶层等于没写。`src/pages/500.vue` 与 `src/pages/(builtin)/login/index.vue` 都是写在 `meta` 里的正确范例。
+
+**顺带发现旧数据是错的**：`menus.json` 里 `M_about_index.requiresAuth` 是 `'N'`，而 `src/pages/about/index.vue` 的 `definePage` 从未写过 `requiresAuth`（`git log -S requiresAuth -- src/pages/about/index.vue` 无命中）。派生结果 `'Y'` 才对，实测 `/about` 未登录渲染的是登录页内容。旧 JSON 的这一格是当年手写/误生成留下的，删掉它顺带修掉了。

@@ -3,7 +3,6 @@ import { ubeanPlugin } from 'ubean/vite';
 import UnoCSS from 'unocss/vite';
 import { fmt, lint } from '@soybeanjs/oxc-config';
 import { buildDependencyManifest } from './scripts/dependency-manifest';
-import { menuSyncWatch } from './scripts/menu-watch';
 
 // about 页的依赖清单在构建期解析：版本号真实值只在 pnpm-workspace.yaml 的 catalog 段，
 // 解析要带 YAML 解析器（约 30 kB gzip）。这里解析一次并把结果字面量注入客户端，
@@ -82,7 +81,7 @@ export default defineConfig({
       resolve: { noExternal: SSR_BUNDLED_PACKAGES }
     }
   },
-  // menuSyncWatch 必须在 dev 下生效，故用 vite 插件而非 ubean.config.ts 的 modules：
-  // 后者只在 `ubean build` CLI 里被 resolveModules 解析，`vp dev` 下完全不执行（已实测）。
-  plugins: [ubeanPlugin(), UnoCSS(), menuSyncWatch()]
+  // 菜单不再需要同步插件：菜单身份直接写在页面的 `definePage({ meta })` 里，
+  // static 模式在运行时从 `virtual:ubean-pages` 的扫描结果派生菜单树。
+  plugins: [ubeanPlugin(), UnoCSS()]
 });

@@ -253,7 +253,7 @@ export function toMenuForm(row: MenuResource): MenuFormDTO {
   };
 }
 
-/** 菜单源数据（`src/menus/menus.json` 的 `menus` 数组），也是 static / dynamic 两种 详见 docs/v3-notes.md N-214。 */
+/** 菜单源数据形状（`MenuSource`）：static 模式从页面扫描结果派生、dynamic 模式从 DB 读出，两者在建树前收敛成这个中间表示。详见 docs/v3-notes.md N-214。 */
 export const menuSourceSchema = object({
   id: idSchema,
   parentId: optional(nullable(idSchema)),
@@ -278,9 +278,6 @@ export const menuSourceSchema = object({
   pinned: optional(nullable(yesOrNoSchema)),
   description: optional(nullable(string()))
 });
-
-/** `src/menus/menus.json` 的整个文件（`$schema` 这类额外键被 object() 丢弃） */
-export const menuSourceFileSchema = object({ menus: array(menuSourceSchema) });
 
 /* -------------------------------------------------------------------------- */
 /*                                  类型导出                                   */

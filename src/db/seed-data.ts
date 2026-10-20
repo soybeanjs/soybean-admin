@@ -1,12 +1,7 @@
-import { parse } from 'valibot';
 import { hashSync } from 'bcryptjs';
-import { DEFAULT_ORDER } from '../constants/db';
-import menusSource from '../menus/menus.json';
-import { menuSourceFileSchema } from '../schema/menu';
 import type { NewApi } from './schema/api';
 import type { NewDict } from './schema/dict';
 import type { NewDictItem } from './schema/dict-item';
-import type { NewMenu } from './schema/menu';
 import type { NewPermission } from './schema/permission';
 import type { NewRole } from './schema/role';
 import type { NewUser } from './schema/user';
@@ -31,8 +26,6 @@ export const ROLE_USER = 'R_user';
 /** 角色码：注册用户默认拿到的角色（`code` 列，不是主键） */
 export const DEFAULT_REGISTER_ROLE_CODE = 'user';
 
-/** 菜单源数据（`src/menus/menus.json`，由 `pnpm menu:sync` 与页面文件对账） */
-const staticMenus = parse(menuSourceFileSchema, menusSource).menus;
 export const seedUsers: NewUser[] = [
   {
     id: 'U_admin',
@@ -58,47 +51,6 @@ export const seedRoles: NewRole[] = [
   { id: ROLE_USER, name: '普通用户', code: 'user', description: '仅可访问公开页面', ...idRow() }
 ];
 
-/** 菜单种子 = 仓库里的菜单源数据（`src/menus/menus.json`），不在这里另写一份 详见 docs/v3-notes.md N-232。 */
-const menuSeedRows: NewMenu[] = staticMenus.map(row => ({
-  ...row,
-  // 源文件里可省/可为 null 的字段，入库前补成 DB 的 NOT NULL 默认值
-  requiresAuth: row.requiresAuth ?? 'Y',
-  order: row.order ?? DEFAULT_ORDER,
-  keepAlive: row.keepAlive ?? 'N',
-  multiTab: row.multiTab ?? 'N',
-  pinned: row.pinned ?? 'N',
-  // id 来自菜单源文件，不交给 drizzle 的 $defaultFn；审计字段统一补
-  enabled: 'Y',
-  ...idRow()
-}));
-
-/**
- * 菜单按「父先于子」排序：`menu.parent_id` 是指向同表的外键，而源文件按 `order`
- * 排序（子项 order 常小于父目录），直接按源文件顺序 INSERT 会撞 FOREIGN KEY constraint。
- */
-export const seedMenus: NewMenu[] = (() => {
-  const pending = [...menuSeedRows];
-  const emitted = new Set<string>();
-  const ordered: NewMenu[] = [];
-
-  while (pending.length > 0) {
-    const index = pending.findIndex(row => !row.parentId || emitted.has(row.parentId));
-
-    // 父 id 指向不存在的行（脏数据）：原样放行，别在种子里静默丢菜单
-    const next = index === -1 ? pending.shift() : pending.splice(index, 1)[0];
-
-    if (!next) break;
-
-    // `$defaultFn` 让 drizzle 把 `id` 推导为可选；seed 行总是自带显式 id，
-    // 缺失时只是不登记（下一轮会重新轮到它，不至于死循环——那一轮 index 仍为 -1 时被 shift 掉）
-    if (next.id) emitted.add(next.id);
-    ordered.push(next);
-  }
-
-  return ordered;
-})();
-
-/** 权限：按钮权限（挂菜单）+ API 权限（挂 API 记录） */
 export const seedPermissions: NewPermission[] = [
   {
     id: 'P_system_user_add',

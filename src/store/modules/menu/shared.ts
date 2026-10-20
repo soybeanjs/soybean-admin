@@ -1,5 +1,3 @@
-import { parse } from 'valibot';
-import { menuSourceFileSchema } from '@/schema/menu';
 import type { MenuSource } from '@/schema/menu';
 import type { MenuTreeNode } from '@/typings/app';
 /** 菜单纯函数与统一中间表示：static / dynamic 两条来源在建树前收敛为同一个 `AppMenu[]`，`buildMenuTree` 是唯一建树点。详见 docs/v3-notes.md N-111。 */
@@ -70,25 +68,10 @@ export function findMenuTrail(nodes: readonly MenuTreeNode[], value: string): Me
   return [];
 }
 
-/** 解析菜单源文件（`src/menus/menus.json`）为 `AppMenu[]` 详见 docs/v3-notes.md N-113。 */
-export function parseMenuSource(raw: unknown): AppMenu[] {
-  return parse(menuSourceFileSchema, raw).menus;
-}
-
 /** 路由表的一行（`router.getRoutes()` 的最小子集，便于单测） */
 export interface MenuRouteEntry {
   name: string;
   path: string;
-}
-
-/** static 模式的加载器：菜单源数据 + 路由表 → `AppMenu[]` 详见 docs/v3-notes.md N-114。 */
-export function loadStaticMenus(source: readonly AppMenu[], routes: readonly MenuRouteEntry[]): AppMenu[] {
-  const pathByRouteName = new Map(routes.map(route => [route.name, normalizeRoutePath(route.path)]));
-
-  return source.map(menu => ({
-    ...menu,
-    routePath: (menu.routeName ? pathByRouteName.get(menu.routeName) : undefined) ?? menu.routePath
-  }));
 }
 
 /** 三项来自两版路由插件的真实踩坑： 详见 docs/v3-notes.md N-115。 */

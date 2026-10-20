@@ -113,11 +113,11 @@ function generateRouteName(routePath) {
 
 static / dynamic 因此不是两种模式，而是同一份 `ApiMenuRow[]` 的两个产地。
 
-**落地后**：产地其实有三个，但都是同一份文件的投影 —— `pnpm menu:sync` 从页面文件生成它、seed 把它写进 DB、static 模式直接 import 它。
+**落地后（M-16 之后的当前形态）**：溯源链只剩两环 —— `src/pages/**` 的 `definePage({ meta })` 是唯一事实来源，`deriveMenus()` 在启动时把它投影成 `AppMenu[]`；dynamic 模式的源是 DB（由后台菜单管理维护），两边仍然在上层收敛成同一个 `AppMenu[]`。**没有中间 JSON 了**。
 
 ### 4.2 单一来源消除种子漂移
 
-现状是 `src/db/seed-data.ts` 写菜单种子，static 模式还要另写一份，两份必然漂移。改成：
+现状是 `src/db/seed-data.ts` 写菜单种子，static 模式还要另写一份，两份必然漂移。原计划改成：
 
 ```
 src/menus/menus.json      ← 单一菜单源（人手写 + 工具补缺）
@@ -125,6 +125,17 @@ src/db/seed-data.ts       ← import menus.json，seed 进 DB
 static 模式                ← import menus.json，不请求 API
 dynamic 模式               ← seed 后的 API 返回
 ```
+
+**但 M-16 把中间文件整个去掉了** —— 再多一层 JSON 只是把「两份要同步的文件」换成「一份文件 + 一个刷新工具」，漂移只是被工具挡住了，没消失。当前形态：
+
+```
+src/pages/** 的 definePage({ meta })   ← 唯一事实来源（人手写）
+deriveMenus(pages)                      ← static 模式的菜单（纯函数，启动时现算）
+DB menu 表（后台菜单管理维护）         ← dynamic 模式的菜单
+dynamic 模式 ← GET /menu/user 返回
+```
+
+菜单表**不再 seed**（`src/db/seed-data.ts` 里没有菜单这个 seed 块），界面上看到的菜单来自页面文件；后台菜单管理仍是 dynamic 模式的编辑入口。
 
 ### 4.3 对照 `soybean-unify` 的实现
 
@@ -136,7 +147,7 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 
 本仓库可照搬这个收敛点，把 `App.Menu[]` 定为 static / dynamic 的统一中间表示。
 
-**落地结果**：`src/store/modules/menu/shared.ts` 导出 `AppMenu`（= `src/schema/menu.ts` 的 `MenuSource`）与 `buildMenuTree`；static 侧 `loadStaticMenus` 对应 unify 的 `buildMenuByStaticMenus`，但**只补 `routePath`**（`routeLayout` / `routeComponent` 由 `transformMenuToRoute` 从 `row` 直接读，不经中间表示）；`validateMenuRoutes` 对应 `validateRoute` 并多了 directory 前缀校验。与 unify 的差异：unify 的 `App.StaticMenu` 把开关字段也剔出去了，本仓库保留（菜单与 DB 行同形，seed 直接可用）。
+**落地结果**：`src/store/modules/menu/shared.ts` 导出 `AppMenu`（= `src/schema/menu.ts` 的 `MenuSource`）与 `buildMenuTree`；static 侧的历史实现 `loadStaticMenus` 已随 M-16 删除（它唯一的职责是「从路由表补 `routePath`」，而现在 `routePath` 在派生时就已经是扫描结果里的真实值），`deriveMenus` 承担了它与 `parseMenuSource` 的合计职责；`validateMenuRoutes` 对应 `validateRoute` 并多了 directory 前缀校验。与 unify 的差异：unify 的 `App.StaticMenu` 把开关字段也剔出去了，本仓库保留（菜单与 DB 行同形，dynamic 模式的 API 行可直接复用）。
 
 ---
 
@@ -148,7 +159,8 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 
 1. **按 `routeName` 增量 merge**：路由新增 → 追加条目（`name` / `icon` / `order` 留空待填）；已存在 → 一个字段都不动；路由消失 → 只打警告，不删。
 2. **机器产物与人产物分文件**：`src/menus/_generated.json`（工具写，含 `pending: true` 标记）+ `src/menus/menus.json`（人写，覆盖标题/图标/顺序/层级）。单文件双写是冲突来源。
-   → **落地时改为单文件**（`src/menus/menus.json`）。此约束要防的是「工具覆盖人工字段」，实际实现只用更窄的规则就消掉了这个风险：工具**只刷新从页面文件重算的派生字段**（`routePath` / `routeComponent` / `keepAlive` / `multiTab` / `pinned`）与**只追加**新条目，而 `name` / `icon` / `i18nKey` / `order` / `parentId` 等审美决定**一个字段都不动**。降到一个文件的好处是「菜单在哪」只有一个答案 —— 两个文件反而让「这条到底算人工还是机器」成为新的含糊点。代价：工具不能再往条目里写 `pending: true`（会与人工字段混在一起），新增条目以 `order: DEFAULT_ORDER`（= 999）末位插入作标记。
+   → **P1 落地时改为单文件**（`src/menus/menus.json`）：工具**只刷新从页面文件重算的派生字段**（`routePath` / `routeComponent` / `keepAlive` / `multiTab` / `pinned`）与**只追加**新条目，而 `name` / `icon` / `i18nKey` / `order` / `parentId` 等审美决定**一个字段都不动**。代价：工具不能再往条目里写 `pending: true`，新增条目以 `order: DEFAULT_ORDER`（= 999）末位插入作标记。
+   → **M-16 直接删除了中间文件**：既然派生字段（`routeName` / `routePath` / `keepAlive` / `multiTab` / `pinned`）全部能从页面扫描结果现算，人工字段（`title` / `i18nKey` / `icon` / `order` / `menuParent` / `menuType` / `href` / `iframeUrl`）本来就写在页面 `definePage({ meta })` 里，那么中间文件里**一个字也不是独有的**。删掉它，「漂移」这个问题连同维持工具一起消失。
 3. **面板写回原子替换 + 固定 JSON 格式**（2 空格缩进、键序稳定），否则每次 git diff 全是噪声。
 
 ### 5.2 拖拽排序 / 换父的边界
@@ -156,7 +168,7 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 - **order 无法推断**，只能：新建条目给路径字典序初值 + `pending: true`，人在面板里改。
   → 落地实现给的是 `order: DEFAULT_ORDER`（999，末位）而非字典序，人改起来更好找。
 - **换父（拖进别的目录）实际改的是 `routePath`**，而 `routePath` 来自文件路径 → 拖拽不能直接写文件。正解：**拖拽改的是 `parentId` + 可选 `routePath` 覆盖（存在 JSON 里，不改页面文件路径）**。这要求 `routePath` 与文件路径解耦 —— `transformMenuToRoute` 已经用 `row.routePath` 而非文件路径，本来就是解耦的。
-  → 落地后：static 模式下 `routePath` 实际由 `loadStaticMenus` 从**路由表**取（不是从菜单 JSON 取），所以换父只需改 `parentId`；`routePath` 想脱离文件路径时手写的值只在路由表查不到该 `routeName` 时分生效。层级调整无需动页面文件。
+  → 落地后：`routePath` 由页面文件路径决定（`deriveMenus` 直接取扫描结果的 `route`，不再经过路由表回填）。因此**换父就是要换页面目录**：想把一个页面拖进另一个目录，得改文件路径（相应地要改它的 `menuParent`）。这是「菜单即页面」的自然后果 —— 文件位置是真实信息，不是冗余。
 
 ### 5.3 分期
 
@@ -166,7 +178,7 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 | P2  | `scripts/menu-watch.ts`：vite 插件监听 `src/pages/**` 变更触发 P1                   | +4 小时  |
 | P3  | 菜单面板（拖拽排序/换父写回 JSON）                                                  | +1-2 天  |
 
-**P1 / P2 已完成**（`pnpm menu:sync`；dev 下自动触发）。**P3 勘察后判定为阻塞**（见下），记在 `docs/v3-task.md` 的 M-14。
+**P1 / P2 已完成，但随后被 M-16 整体删除** —— 中间文件一删，生成器与监听器就没有存在理由了（`pnpm menu:sync` / `scripts/menu-watch.ts` 均已从仓库移除）。**P3 勘察后判定为阻塞**（见下），记在 `docs/v3-task.md` 的 M-14。
 
 > **P2 未走 ubean module**（与本文原计划不同）：`ubean.config.ts` 的 `modules` 只在 `ubean build` CLI 的 `prepareBuild` 里被 `resolveModules` 解析，`@ubean/build` 只解构 `{ plugins }`，`serverHandlers` / `devServerHandlers` / `devToolsTabs` 三个数组**无人消费**；`vp dev`（裸 Vite）下注入的 `modules` 探针 25 秒 0 次命中 —— 即该路径在 dev 下完全不执行。所以 P2 做成 `vite.config.ts` 的 `plugins` 项。
 >
@@ -174,7 +186,7 @@ unify 的关键设计：static 与 dynamic 在 store 层收敛成同一个 `App.
 
 ### 5.4 明确不做
 
-- 自动删条目、自动决定 order、自动改 `routePath` 重命名页面文件。
+- 自动删条目、自动决定 order、自动改 `routePath` 重命名页面文件。（M-16 后前两条已无意义：没有可被工具改写的条目了。`order` / `menuParent` 依旧是人写在页面 `definePage({ meta })` 里的决定。）
 - 改后端 schema（现有列够用）。
 - **把菜单结构写回页面文件的 `definePage`** —— 那正是 legacy 被批评的原因，工具一上手就退回老路。
 
@@ -254,6 +266,8 @@ if (exist) return { name: noPermissionRoute }; // → 403
 ## 7. 待落地清单
 
 > **本节是原始清单，落地状态见下表末列。** 实施后的实际路径与本表有两处不同：文件叫 `src/menus/menus.json`（不是 `index.json`）；`routeComponent` 的编码从 legacy 的 `layout.base$view.xxx` 改为**页面相对路径**（`manage/user/index.vue`），旧格式仍兼容。
+>
+> **M-16 的变化**：第 1 / 6 两条已被推翻 —— 中间文件与同步脚本都已删除，第 3 列的路径不再是现状。保留本节是为了记录演化过程，当前形态看下一小节。
 
 | #   | 改动                                                                      | 文件                                                                                                        | 估计     | 状态                                                                                                                                                                                                                                                                                                                                                   |
 | --- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -263,24 +277,21 @@ if (exist) return { name: noPermissionRoute }; // → 403
 | 4   | dynamic 模式 `exist-path` 接进 guard，区分 403/404；补 403 页面           | `src/router/guard.ts`、新建 `src/pages/403.vue`、`src/locales/{zh,en}.json`                                 | 1 小时   | ✅ 已于此前的 P3-08 落地（`src/shared/route-exist.ts` 纯函数 + 单测）；参数路由与 locale 前缀的反查已由 M-08 补齐（`findHonoRouteByPath` + `stripLocalePrefix`）。                                                                                                                                                                                     |
 | 5   | `routePath` 建树 + directory 前缀校验（仅 dynamic 建树与 dev 断言）       | `src/services/menu.service.ts`、`src/store/modules/menu/index.ts`                                           | 1 小时   | ✅ **已完成**。按用户决定建树走 `parentId`（方案 A 已否决），`routePath` 降级为校验——两处都已落地：`shared.ts` 的 `validateMenuRoutes`（dev 启动期，菜单源快照）与 `menu.service.ts` 的 `validateDirectoryPrefix`（**写入时**，create/update 两入口，两个方向）。同时 `validateMenuTypeConstraints` 放行了 directory 的 `routePath`（M-02）。          |
 | 6   | 菜单同步脚本（P1）                                                        | 新建 `scripts/menu-sync.ts`                                                                                 | 2-3 小时 | ✅ `pnpm menu:sync`（`node scripts/menu-sync.ts`）。**未按原计划分 `_generated.json`** —— 只用「只刷新派生字段 + 只追加、绝不改人工字段、绝不删」把风险消掉，多一个文件反而让「菜单到底在哪」变两份（理由写在脚本头注释）。已实测幂等。                                                                                                                |
-| 7   | 更新 `docs/v3.md` §5.3 / §5.5，同步 `docs/v3-task.md`                     | `docs/`                                                                                                     | 20 分钟  | ✅ §5.3 已加链接；本文件 §6.5 / §7 / §8 已更新；`docs/v3-task.md` 新增 Phase 6 表（M-01…M-14）。                                                                                                                                                                                                                                                       |
+| 7   | 更新 `docs/v3.md` §5.3 / §5.5，同步 `docs/v3-task.md`                     | `docs/`                                                                                                     | 20 分钟  | ✅ §5.3 已加链接；本文件 §6.5 / §7 / §8 已更新；`docs/v3-task.md` 新增 Phase 6 表（M-01…M-16）。                                                                                                                                                                                                                                                       |
 
-**落地后的真实数据流（一条，不再分叉）**：
+**落地后的真实数据流（M-16 之后的当前形态）**：
 
 ```
-                  ┌─ static ─ src/menus/menus.json ─┐
-页面文件（事实）──┴─ dynamic ─ DB seed（同一份）─────┴─> GET /api/menu/user
-                                                            ↓
-                                          loadStaticMenus / 直接映射
-                                                            ↓
-                                                      AppMenu[]
-                                                            ↓
-                                      buildMenuTree（唯一建树点）
-                                                            ↓
-                                                    MenuTreeNode[]
+src/pages/** 的 definePage({ meta })   ← 唯一事实来源（人手写 title/icon/order/menuParent/menuType）
+              ↓ scanPages（ubean）
+      virtual:ubean-pages 的 pages    ← 含 routable: false 的目录/外链元数据页
+              ↓ deriveMenus（纯函数）
+            AppMenu[]                 ← static 模式；dynamic 模式则由 GET /menu/user 给同形数组
+              ↓ buildMenuTree（唯一建树点）
+          MenuTreeNode[]              ← 侧栏渲染
 ```
 
-路由本身仍从页面文件自动生成（`src/pages/**`），菜单的 `routePath` 在 static 模式下被路由表的真实 path 覆盖 —— 所以**改页面文件名不会把菜单跳错**，这是 `loadStaticMenus` 存在的理由。
+路由与菜单**同源**（都是 `src/pages/**`）：`route` 直接取扫描结果的真实路径，所以「页面文件重命名 → 菜单跳错」这类问题不存在——它们本来就一起变。这也是 `loadStaticMenus` 可以删掉的原因：它唯一的职责就是从路由表回填 `routePath`，而现在这个值在派生时就已经是对的。
 
 ---
 

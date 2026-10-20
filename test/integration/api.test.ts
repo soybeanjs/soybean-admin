@@ -504,6 +504,28 @@ describe('微信绑定（mock）', () => {
 // ---------- RBAC ----------
 
 describe('RBAC', () => {
+  // 菜单表不再 seed（见 docs/v3-notes.md N-463）：菜单只在页面文件里声明，DB 只服务
+  // dynamic 模式的 CRUD。所以这几个用例需要的菜单数据必须自己造，并在收尾删掉。
+  let publicMenuRouteName = '';
+
+  beforeAll(async () => {
+    publicMenuRouteName = `ItRbacPublic${runId}`;
+
+    const create = await api<{ id: string }>('POST', '/api/menu', {
+      token: adminToken,
+      body: {
+        name: '集成公开菜单',
+        code: `it_rbac_public_${runId}`,
+        menuType: 'page',
+        routeName: publicMenuRouteName,
+        routePath: `/it-rbac-public-${runId}`,
+        requiresAuth: 'N'
+      }
+    });
+
+    createdIds.menuIds.push(okData<{ id: string }>(create.body).id);
+  });
+
   it('super 访问任意授权端点放行', async () => {
     const { body } = await api('GET', '/api/user/list', { token: adminToken, query: { current: '1', size: '1' } });
 
@@ -550,7 +572,7 @@ describe('RBAC', () => {
   it('exist-path 判定已存在路由', async () => {
     const { body } = await api<{ exists: boolean }>('POST', '/api/menu/exist-path', {
       token: adminToken,
-      body: { routeName: 'ManageUserIndex' }
+      body: { routeName: publicMenuRouteName }
     });
 
     expect(okData<{ exists: boolean }>(body).exists).toBe(true);

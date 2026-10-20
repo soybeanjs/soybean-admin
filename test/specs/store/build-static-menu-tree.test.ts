@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { buildMenuTree, findMenuTrail, loadStaticMenus, validateMenuRoutes } from '@/store/modules/menu/shared';
+import { buildMenuTree, findMenuTrail, validateMenuRoutes } from '@/store/modules/menu/shared';
 import type { AppMenu, MenuRouteEntry } from '@/store/modules/menu/shared';
 
-/** 菜单建树 / 加载 / 校验的单测（`docs/v3-menu-route-modes.md` §4） 详见 docs/v3-notes.md N-441。 */
+/** 菜单建树 / 校验的单测（`docs/v3-menu-route-modes.md` §4） 详见 docs/v3-notes.md N-441。 */
 
 function menu(id: string, partial: Partial<AppMenu> = {}): AppMenu {
   return { id, name: id, code: id, menuType: 'menu', order: 0, ...partial };
@@ -87,34 +87,6 @@ describe('findMenuTrail', () => {
 
   it('目标不存在时返回空数组', () => {
     expect(findMenuTrail(tree, 'NotExistIndex')).toEqual([]);
-  });
-});
-
-describe('loadStaticMenus', () => {
-  const routes: MenuRouteEntry[] = [
-    { name: 'Index', path: '/:locale(en)?/' },
-    { name: 'AboutIndex', path: '/:locale(en)?/about' }
-  ];
-
-  it('用路由表上的真实 path 覆盖菜单里写的 routePath（并剥掉 locale 段）', () => {
-    const menus = loadStaticMenus([menu('M_index', { routeName: 'Index', routePath: '/stale' })], routes);
-
-    expect(menus[0]?.routePath).toBe('/');
-  });
-
-  it('路由表里没有该 routeName 时保留菜单写的 routePath（问题交给校验器报出）', () => {
-    const menus = loadStaticMenus([menu('M_ghost', { routeName: 'GhostIndex', routePath: '/ghost' })], routes);
-
-    expect(menus[0]?.routePath).toBe('/ghost');
-  });
-
-  it('不影响其它字段', () => {
-    const menus = loadStaticMenus(
-      [menu('M_about', { routeName: 'AboutIndex', routePath: '/about', icon: 'mdi:info', order: 900 })],
-      routes
-    );
-
-    expect(menus[0]).toMatchObject({ icon: 'mdi:info', order: 900, routePath: '/about' });
   });
 });
 
