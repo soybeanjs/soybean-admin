@@ -131,7 +131,8 @@ definePage({
     title: '字典项管理',
     i18nKey: 'route.manageDictItem',
     icon: 'mdi:format-list-bulleted',
-    order: 17
+    order: 17,
+    menuParent: 'ManageIndex'
   }
 });
 </script>

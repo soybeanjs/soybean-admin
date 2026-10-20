@@ -42,6 +42,21 @@ function snake(input: string): string {
 
 type MenuRow = Record<string, string | number | null>;
 
+/** 能出现在菜单里的 `menuType`（`button` / `other` 不进菜单，页面 meta 写了也当普通菜单） */
+const MENU_TYPES_VISIBLE: ReadonlySet<string> = new Set(['directory', 'menu', 'page', 'iframe', 'link']);
+
+/** 页面 meta 的 `menuType` → 菜单行类型；缺省与非法值一律当普通菜单 */
+function menuTypeOf(meta: Record<string, unknown>): string {
+  const raw = meta.menuType;
+
+  return typeof raw === 'string' && MENU_TYPES_VISIBLE.has(raw) ? raw : 'menu';
+}
+
+/** 页面 meta 的可选字符串字段（`href` / `iframeUrl`）→ 菜单列；非字符串当没写 */
+function optionalString(raw: unknown): string | null {
+  return typeof raw === 'string' && raw.length > 0 ? raw : null;
+}
+
 /** 顶层 `src/pages` 相对路径 → 菜单行 id */
 function menuIdOf(pageName: string): string {
   return `M_${snake(pageName)}`;
@@ -64,16 +79,20 @@ function toMenuRow(page: ScannedPage): MenuRow {
   // 必须拷贝：`extractDefinePageFromCode` 的 `result.meta` 是扫描器缓存里的
   // 实时引用（`result.meta = parsed.meta`），直接改会污染后续读取
   const meta = { ...page.pageMeta?.meta };
+  const menuType = menuTypeOf(meta);
+  /** 目录与外链都不是路由：`routeName` 必须留空，否则 dev 校验会去找一条不存在的路由 */
+  const isRoute = menuType !== 'directory' && menuType !== 'link';
 
   return {
     id: menuIdOf(page.name),
     parentId: meta.menuParent ? menuIdOf(meta.menuParent) : null,
     name: meta.title ?? page.name,
     code: snake(page.name),
-    menuType: 'menu',
+    menuType,
     requiresAuth: meta.requiresAuth === false ? 'N' : 'Y',
-    routeName: page.name,
-    routePath: page.route,
+    // 目录保留 `routePath`（子项前缀校验靠它），外链两者都不要。
+    routeName: isRoute ? page.name : null,
+    routePath: menuType === 'link' ? null : page.route,
     routeComponent: page.relativePath,
     order: meta.order ?? 999,
     icon: meta.icon ?? null,
@@ -81,8 +100,8 @@ function toMenuRow(page: ScannedPage): MenuRow {
     keepAlive: page.cache === true ? 'Y' : 'N',
     multiTab: meta.multiTab ? 'Y' : 'N',
     pinned: meta.pinned ? 'Y' : 'N',
-    href: null,
-    iframeUrl: null,
+    href: optionalString(meta.href),
+    iframeUrl: optionalString(meta.iframeUrl),
     routeLayout: null,
     routeRedirect: null,
     routeQueries: null,
@@ -131,7 +150,9 @@ export interface MenuSyncResult {
 export async function syncMenus(): Promise<MenuSyncResult> {
   const scanned = await scanPages(scanOptions);
   const pages = scanned.pages.filter(isMenuPage);
-  const pageByRouteName = new Map(pages.map(page => [page.name, page]));
+  // 用 id 索引而非 routeName：目录类元数据页没有 routeName（它不是路由），
+  // 而 id 对每个页面都确定（`menuIdOf(page.name)`）。
+  const pageById = new Map(pages.map(page => [menuIdOf(page.name), page]));
 
   const raw: unknown = JSON.parse(readFileSync(MENUS_FILE, 'utf8'));
   const current: MenuRow[] = isMenusFile(raw) ? (raw.menus ?? []) : [];
@@ -144,29 +165,38 @@ export async function syncMenus(): Promise<MenuSyncResult> {
   // 这三个开关一样是页面 meta 的事实（`definePage({ cache })` / `meta.multiTab`），
   // 放 JSON 里只是为了让 seed 能把它们带进 DB —— 页面改了 JSON 就得跟上。
   const merged = current.map(row => {
-    const routeName = row.routeName;
-
-    if (typeof routeName !== 'string') return row;
-
-    const page = pageByRouteName.get(routeName);
+    const page = pageById.get(String(row.id));
 
     if (!page) return row;
 
     const next: MenuRow = { ...row };
-    const derived: Record<string, string> = {
-      routePath: page.route,
-      routeComponent: page.relativePath,
-      keepAlive: page.cache === true ? 'Y' : 'N'
-    };
     const meta = page.pageMeta?.meta ?? {};
+    const menuType = menuTypeOf(meta);
+    const isRoute = menuType !== 'directory' && menuType !== 'link';
+    const derived: Record<string, string | number | null> = {
+      // 路径与组件始终跟页面走（外链没有路由）
+      routePath: menuType === 'link' ? null : page.route,
+      routeComponent: page.relativePath,
+      routeName: isRoute ? page.name : null,
+      keepAlive: page.cache === true ? 'Y' : 'N',
+      multiTab: meta.multiTab ? 'Y' : 'N',
+      pinned: meta.pinned ? 'Y' : 'N'
+    };
 
-    derived.multiTab = meta.multiTab ? 'Y' : 'N';
-    derived.pinned = meta.pinned ? 'Y' : 'N';
+    // 类型、外链地址、层级归属只在页面显式声明时接管：普通页面不声明 `menuType`，
+    // 也就不会把人工在 JSON 里设的类型 / 外链地址擦掉。
+    if (typeof meta.menuType === 'string') {
+      derived.menuType = menuType;
+      derived.href = optionalString(meta.href);
+      derived.iframeUrl = optionalString(meta.iframeUrl);
+    }
+    if (meta.menuParent) derived.parentId = menuIdOf(meta.menuParent);
 
     for (const [key, value] of Object.entries(derived)) {
-      if (next[key] === value) continue;
+      // 缺键与 null 等价（写回时都会补 null），否则每次 sync 都会报告一遍「undefined → null」
+      if ((next[key] ?? null) === value) continue;
 
-      refreshed.push(`${routeName}: ${key} ${String(next[key] ?? '')} → ${value}`);
+      refreshed.push(`${String(row.id)}: ${key} ${String(next[key] ?? '')} → ${String(value ?? '')}`);
       next[key] = value;
     }
 
@@ -176,36 +206,32 @@ export async function syncMenus(): Promise<MenuSyncResult> {
   const knownRouteNames = new Set(
     merged.map(row => row.routeName).filter((name): name is string => typeof name === 'string')
   );
-
-  // 页面有、菜单没有 → 追加（order 留 999 待人工排）。
-  // 追加时立即登记 routeName 与 id：两个页面撞名（重名 id）时后者会被跳过并告警，
-  // 否则会写出重复 id 的菜单行，建树时静默丢一个。
   const seenIds = new Set(merged.map(row => String(row.id)));
 
+  // 页面有、菜单没有 → 追加（order 留 999 待人工排）。
+  // 两个维度都查：id（页面名的确定性函数）与 routeName（人工可能改过 id，
+  // 这时只能靠 routeName 认出「这条菜单已经对应了该页面」）。
   for (const page of pages) {
-    if (knownRouteNames.has(page.name)) continue;
+    const id = menuIdOf(page.name);
+
+    if (seenIds.has(id) || knownRouteNames.has(page.name)) continue;
 
     const row = toMenuRow(page);
 
-    if (seenIds.has(String(row.id))) {
-      conflicted.push(`${page.name}（id ${String(row.id)} 已被占用，未追加）`);
-      continue;
-    }
-
     merged.push(row);
-    knownRouteNames.add(page.name);
-    seenIds.add(String(row.id));
+    if (typeof row.routeName === 'string') knownRouteNames.add(row.routeName);
+    seenIds.add(id);
     added.push(page.name);
   }
 
-  // 菜单有、页面没有 → 只警告（可能是页面临时下线，删不删由人定）
+  // 菜单有、页面没有 → 只警告（可能是页面临时下线，删不删由人定）。
+  // 目录/外链/iframe 同样要查：它们的页面文件是 `.meta.ts` / `.reuse.ts`。
   for (const row of merged) {
-    const routeName = row.routeName;
+    if (pageById.has(String(row.id))) continue;
 
-    if (typeof routeName !== 'string') continue;
-    if (pageByRouteName.has(routeName)) continue;
-
-    conflicted.push(`${routeName}${row.parentId ? `（父 ${String(row.parentId)}）` : ''}`);
+    conflicted.push(
+      `${typeof row.routeName === 'string' ? row.routeName : String(row.code)}${row.parentId ? `（父 ${String(row.parentId)}）` : ''}`
+    );
   }
 
   // 固定键序 + 剔除 null 之外的意外键，写回（先写临时文件再 rename，避免中断留半个文件）

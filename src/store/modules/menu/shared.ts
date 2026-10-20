@@ -39,13 +39,18 @@ export function buildMenuTree(menus: readonly AppMenu[]): MenuTreeNode[] {
 }
 
 function toMenuNode(menu: AppMenu): MenuTreeNode {
+  const isDirectory = menu.menuType === 'directory';
+
   return {
+    // 目录没有 `routeName`（它不是路由），回退 `code`
     value: menu.routeName || menu.code,
     label: menu.name,
     i18nKey: menu.i18nKey ?? undefined,
     icon: menu.icon ?? undefined,
-    path: menu.routePath ?? undefined,
-    // 外链/内嵌页：没有可导航的内部 path，布局的 onMenuSelect 分别走
+    // 目录只用于展开分组，不能当导航目标：不给 `path`，布局与全局搜索
+    // 都靠这个字段区分「能跳」与「只能展开」。
+    path: isDirectory ? undefined : (menu.routePath ?? undefined),
+    // 外链 / 内嵌页：没有可导航的内部 path，布局的 onMenuSelect 分别走
     // 「新窗口打开」与「切到 /iframe 页」两条分支。
     href: menu.menuType === 'link' && menu.href ? menu.href : undefined,
     iframeUrl: menu.menuType === 'iframe' && menu.iframeUrl ? menu.iframeUrl : undefined

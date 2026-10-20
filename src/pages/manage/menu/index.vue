@@ -144,7 +144,8 @@ definePage({
     title: '菜单管理',
     i18nKey: 'route.manageMenu',
     icon: 'mdi:menu',
-    order: 13
+    order: 13,
+    menuParent: 'ManageIndex'
   }
 });
 </script>

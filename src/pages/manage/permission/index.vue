@@ -114,7 +114,8 @@ definePage({
     title: '权限管理',
     i18nKey: 'route.managePermission',
     icon: 'mdi:shield-key',
-    order: 14
+    order: 14,
+    menuParent: 'ManageIndex'
   }
 });
 </script>

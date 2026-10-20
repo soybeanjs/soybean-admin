@@ -111,7 +111,8 @@ definePage({
     title: '字典管理',
     i18nKey: 'route.manageDict',
     icon: 'mdi:book-open-variant',
-    order: 16
+    order: 16,
+    menuParent: 'ManageIndex'
   }
 });
 </script>

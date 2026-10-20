@@ -105,7 +105,8 @@ definePage({
     title: '角色管理',
     i18nKey: 'route.manageRole',
     icon: 'mdi:account-group',
-    order: 12
+    order: 12,
+    menuParent: 'ManageIndex'
   }
 });
 </script>

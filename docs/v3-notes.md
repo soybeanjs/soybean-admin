@@ -1,6 +1,6 @@
 # v3 注释沉淀（注释清理回收站）
 
-> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **453 条**（N-001 – N-449、N-454 – N-457；另有 N-450 – N-453 只在下面的注意事项汇编里，来自 `src/router/guard/**` 的拆分）。
+> 本文件收拢 `src/**` / `test/**` / `scripts/**` 中被精简掉的长注释原文，共 **457 条**（N-001 – N-449、N-454 – N-461；另有 N-450 – N-453 只在下面的注意事项汇编里，来自 `src/router/guard/**` 的拆分）。
 > 代码里只保留「这是什么 / 必须怎么做」的一两行说明，**为什么这么做**的历史推理放在这里；
 > 代码注释里出现 `docs/v3-notes.md N-0xx` 时即指向对应条目（当前 356 处引用、覆盖 214 个文件）。
 > 重建完整注释时，把该条目正文按原位置贴回即可；条目正文就是压缩前的原文，带原始缩进与 ``` 围栏。
@@ -20,6 +20,7 @@
 - **test**：45 条（N-402 – N-446）
 - **登录页与 SSR 豁免 / 外观切换**：4 条（N-447 – N-449、N-457）
 - **菜单下拉 / 语言切换**：3 条（N-454 – N-456）
+- **菜单文件化（目录 / 外链 / 内嵌）**：4 条（N-458 – N-461）
 
 ## 注意事项汇编（从现有代码注释汇总，供项目文档参考）
 
@@ -6557,3 +6558,81 @@ defineOptions({ name: 'LoginLayoutSwitcher' });
 **位置放在壳外部而非 `SCard` 的 `#extra`**：`card` / `fullscreen` 两个壳原来把暗色模式切换放在 `SCard` 的 `#extra`，本次统一提到右上角与布局下拉并列（`absolute top-4 right-4 z-10 flex items-center gap-2`），`split` 壳本来就是右上角，三壳一致；`SCard` 的 `titleRoot: 'flex-1 justify-center'` 因此成为唯一的居中手段（原来靠 `#extra` 的宽度撑对称）。
 
 **取值收窄**：`SSelect` 的 `v-model` 回传 `string | number`（`SelectCompact` 的 `T` 要显式给才行），这里复用主题抽屉的 `toSettingValue(value, layoutNames, DEFAULT_LOGIN_LAYOUT)` 收窄回 `LoginLayoutName`，不走 `as` 断言。`DEFAULT_LOGIN_LAYOUT` 是兜底：万一存进来的值不在候选表里（旧数据）也落回一个合法值。
+
+### N-458 · src/pages/manage/index.meta.ts:1
+
+```ts
+/** 系统管理（纯分组目录，无对应组件；ubean 元数据页） */
+definePage({
+  routable: false,
+  meta: {
+    menuType: 'directory',
+    title: '系统管理',
+    i18nKey: 'route.manage',
+    icon: 'mdi:cog-outline',
+    order: 2
+  }
+});
+```
+
+**为什么要有这个文件**：`/manage` 是纯分组，没有落地组件。此前它要么压根不存在（菜单靠 `parentId` 隐式分层），要么得写一个空 `index.vue` 骗扫描器 —— 前者让「层级」在文件系统里不可见，后者会产出一条能导航到白屏页的路由。
+
+**`routable: false` 是关键**：ubean 0.6.8 起，`.meta.ts` 页面只提供元数据、不产生路由记录（客户端 `generatePagesModuleSource` 与 SSR 侧 `buildDevSsrRoutes` / `staticSsgEntry` 都按同一规则过滤）。少了它，vue-router 会对 `/manage` 报 `VUE_ROUTER_R0026`（dev 警告），且首次访问渲染空白。
+
+**`title` / `i18nKey` / `icon` / `order` 写在页面里而不是 JSON 里**：这四项是「这一页是什么」的事实，跟着文件走；`menus.json` 只保留人工审美决定（放哪个分组、排序微调、谁先谁后）。`pnpm menu:sync` 会把它们同步进 JSON。
+
+**`NORMAL` 与 `DIRECTORY` 的区别在 `menuType`**：目录行没有 `routeName`（`scripts/menu-sync.ts` 的 `toMenuRow()` 显式置 null），因为目录不是路由；`src/store/modules/menu/shared.ts` 的 `toMenuNode()` 因此也不再给它 `path`，布局点它只展开不跳转。
+
+### N-459 · src/pages/documentation/vue.meta.ts:1
+
+```ts
+/** Vue 文档（外链菜单：新窗口打开，不产生路由） */
+definePage({
+  routable: false,
+  meta: {
+    menuType: 'link',
+    href: 'https://cn.vuejs.org/',
+    title: 'Vue 文档',
+    ...
+  }
+});
+```
+
+**外链为什么不做成路由**：`window.open(href, '_blank')` 不需要路由记录，硬造成路由只会得到「能 push 但 push 完什么也不渲染」的死条目。所以 `routable: false` + `menuType: 'link'` + `href`，布局的 `onMenuSelect` 认出 `node.href` 就走新窗口。
+
+**`routeName` / `routePath` 都必须是 null**：`scripts/menu-sync.ts` 的 `toMenuRow()` 里 `const isRoute = menuType !== 'directory' && menuType !== 'link'`，外链不写路由字段。写了会让 `validateMenuRoutes()` 去路由表里查一个不存在的 routeName，dev 每次启动都告警。
+
+### N-460 · src/pages/documentation/soybean-ui.reuse.ts:1
+
+```ts
+/** SoybeanUI 文档（内嵌菜单：复用 (builtin)/iframe 页的组件，地址取自 `meta.iframeUrl`） */
+definePage({
+  reuse: 'IframeUrl',
+  meta: {
+    menuType: 'iframe',
+    iframeUrl: 'https://ui.soybeanjs.cn/',
+    ...
+  }
+});
+```
+
+**内嵌页不需要新组件**：`src/pages/(builtin)/iframe/index.vue` 已经是通用 iframe 壳，`.reuse.ts` 让它以另一个路由名再挂一次（ubean 的 reuse 复用 target 的 loader，不复制组件）。ubean 侧零改动 —— `virtual-pages.ts` 的 `if (p.isReuse && p.reuseTarget && pageByName.has(p.reuseTarget))` 早已支持。
+
+**地址走 `meta.iframeUrl` 而不是 `?url=`**：查询串版本（`/iframe?url=...`）在标签页、收藏、刷新后都可能丢掉 query，且 URL 里的 `&` 需要双重编码。改成路由 meta 后地址是静态的，`rawUrl` computed 里 `route.meta.iframeUrl` 优先、`route.query.url` 兜底，动态菜单（服务端下发 `iframeUrl`）仍然走旧通道。
+
+**依赖 ubean 的一个修复**：SSR 侧的路由表原先不透传 `pageMeta.meta`（只有客户端透传），于是 dev 首屏渲染出「缺少有效的内嵌地址」的空态，水合后才变成 iframe —— 首屏与水合结果不一致。已在 ubean 的 `packages/builder/src/dev/dev-ssr-routes.ts` 与 `packages/builder/src/ssg-entry.ts` 补上，并加了两条断言（`dev-ssr-routes.test.ts` / `ssg-entry.test.ts`）。
+
+### N-461 · test/specs/scripts/menus-source.test.ts:1
+
+```ts
+/**
+ * `src/menus/menus.json` 的类型契约（`menuType` × 路由字段的那几种合法组合）。
+ *
+ * 菜单行由 `pnpm menu:sync` 从页面文件派生，派生规则散在 `scripts/menu-sync.ts` 里；
+ * 这里锁的是**产物**该长什么样 —— 六种 `menuType` 每一类允许哪些字段非空。
+ */
+```
+
+**为什么不测 `syncMenus()` 本身**：它会写盘、依赖真实文件系统快照，断言逻辑容易退化成「跑一遍看看输出」；而且派生规则的输入是 `ScannedPage`，构造六个假页面比断言产物脆得多。真正会回归的是**产物的字段组合**（改 `toMenuRow()` 时把 `link` 的 `routeName` 又填回去、目录的 `routePath` 被清空），这些在 json 上一眼可查。
+
+**`parentId` 悬空为什么要查**：`buildMenuTree()` 找不到父节点时把子项静默降级成根节点，菜单层级错乱但没有任何报错。这类缺陷在 dev 页面里表现为「某个子菜单跑到一级去了」，很难联想到是 json 里的 id 拼错。

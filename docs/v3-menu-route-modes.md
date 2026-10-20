@@ -295,7 +295,7 @@ if (exist) return { name: noPermissionRoute }; // → 403
 - `routePath` 段与历史种子数据是否全部一致：只核对了 schema 与部分种子，未全量校验。
   → **已核实为完全不一致**：历史 seed 的 `routeName` 是 legacy elegant-router 约定（`home` / `system_user` / `about`），真实页面是 ubean 的 `Index` / `ManageUserIndex` / `AboutIndex`；`routeComponent: 'layout.base$view.xxx'` 指向已不存在的 `src/views`。已整体替换（见 §7 第 1 项）。
 - 目录节点（无对应路由）的可点击性：`src/layouts/default.vue:81` 的 `resolveMenuItems` 递归映射时是否需要跳过无路由的节点，未实测。
-  → **悬空**：当前 44 条菜单**没有 directory 行**，所以没触发。一旦引入纯分组目录（`routePath` 有、无 `routeName`），需确认 `resolveMenuItems` 不会把目录渲染成可导航项。
+  → **已收口**（本次改造引入 2 条 directory 行后实测）：真正要改的不是 `resolveMenuItems`（它只翻译 i18n 文案，不看路由），而是 `src/store/modules/menu/shared.ts` 的 `toMenuNode()` —— 给 directory 行不再输出 `path`。布局的 `onMenuSelect` 只在 `menuPathMap` 里查到 path 时才 `router.push`，目录因此只展开不跳。`/manage` 与 `/documentation` 都实测过：HTTP 200 且菜单节点无 `href`/`path`。
 - static 模式 `roles` 的判定语义需与 v2 对齐（v2 是 `authStore.isStaticSuper || !routeRoles.length || hasRole`），落 `hasAnyRole` 时不要引入行为差异。
   → **已核对等价**：`src/shared/permission.ts` 的 `hasRole` 是「super 恒过 + required 空放行 + 交集」，与 v2 逐项等价（M-07）。未另造 `hasAnyRole`。
 

@@ -19,8 +19,12 @@ definePage({
 const { t } = useI18n();
 const route = useRoute();
 
-/** 候选地址：`?url=` 查询串 */
+/** 候选地址：路由 `meta.iframeUrl`（文件化内嵌菜单）优先，回退到 `?url=` 查询串 */
 const rawUrl = computed(() => {
+  const fromMeta = route.meta.iframeUrl;
+
+  if (typeof fromMeta === 'string' && fromMeta.length > 0) return fromMeta;
+
   const fromQuery = route.query.url;
 
   return typeof fromQuery === 'string' ? fromQuery : '';

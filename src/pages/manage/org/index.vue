@@ -121,7 +121,8 @@ definePage({
     title: '组织管理',
     i18nKey: 'route.manageOrg',
     icon: 'mdi:office-building',
-    order: 15
+    order: 15,
+    menuParent: 'ManageIndex'
   }
 });
 </script>

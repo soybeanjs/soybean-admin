@@ -129,7 +129,8 @@ definePage({
     title: '用户管理',
     i18nKey: 'route.manageUser',
     icon: 'mdi:account',
-    order: 11
+    order: 11,
+    menuParent: 'ManageIndex'
   }
 });
 </script>

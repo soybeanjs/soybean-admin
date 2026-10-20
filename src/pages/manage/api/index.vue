@@ -99,7 +99,8 @@ definePage({
     title: '接口管理',
     i18nKey: 'route.manageApi',
     icon: 'mdi:api',
-    order: 10
+    order: 10,
+    menuParent: 'ManageIndex'
   }
 });
 </script>
