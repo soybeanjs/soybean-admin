@@ -24,7 +24,7 @@ const source = ref(0);
 
 const output = useTransition(source, { duration: props.duration });
 
-const text = computed(() => `${props.prefix}${output.value}`);
+const text = computed(() => `${props.prefix}${Number.parseInt(output.value.toString())}`);
 
 onMounted(() => {
   source.value = props.value;
