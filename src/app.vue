@@ -18,9 +18,6 @@ const route = useRoute();
 const themeStore = useThemeStore();
 const { t, locale } = useI18n();
 
-/** 把应用 locale 直接交给 SConfigProvider 做组件文案 locale 详见 docs/v3-notes.md N-005。 */
-const veanLocale = computed(() => locale.value);
-
 /** 标题单一来源：`t(meta.i18nKey) || meta.title`（无则回落应用名）。
  * RouteMeta 已在 app.d.ts 全局扩展为 AppRouteMeta，直接读扩展字段 */
 const documentTitle = computed(() => {
@@ -56,7 +53,7 @@ watch(
 </script>
 
 <template>
-  <SConfigProvider :locale="veanLocale" persist-theme>
+  <SConfigProvider :locale="locale" persist-theme>
     <ThemeBridge>
       <slot />
       <GlobalWatermark />

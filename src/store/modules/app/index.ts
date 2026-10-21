@@ -57,7 +57,7 @@ export const useAppStore = defineStore('app', () => {
   }
 
   /** 语言由 i18n 插件持有，这里只做镜像，便于非组件处读取 */
-  const locale = ref<string>('zh');
+  const locale = ref<string>('zh-CN');
 
   const setLocaleMirror = (next: string): void => {
     locale.value = next;

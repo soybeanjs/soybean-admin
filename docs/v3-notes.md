@@ -136,7 +136,7 @@
 
 - **N-275** `src/constants/index.ts:1` — 应用常量。
 - **N-276** `src/constants/index.ts:16` — 应用 locale 列表。 注意：Vean（`@vean/aria/locale`）出厂只注册 `en` 与 `zh-CN`，且未知 key**静默回落到 `en`**。
-- **N-277** `src/constants/index.ts:27` — locale → 展示名（**各语言的原生写法**，切语言时不变形）。 语言下拉的单一来源：`APP_LOCALES` 加一项 + 此处补一行即可，不要在视图里写 `if (value === 'zh')` 这类硬编码分支。
+- **N-277** `src/constants/index.ts:27` — locale → 展示名（**各语言的原生写法**，切语言时不变形）。 语言下拉的单一来源：`APP_LOCALES` 加一项 + 此处补一行即可，不要在视图里写 `if (value === 'zh-CN')` 这类硬编码分支。
 
 ### src/constants/layout.ts
 
@@ -578,7 +578,7 @@
 
 ### src/shared/vean-locale.ts
 
-- **N-184** `src/shared/vean-locale.ts:6` — 把应用 locale key（`zh` / `en`，见 `@/constants` 的 `APP_LOCALES`）对齐到Vean 的组件内置文案。 **为什么需要这一步**：`@vean/aria/locale` 出厂只注册两个 key —— `en`与 `zh-CN`（`node_modules/@vean/aria/dist/loca le/locales.js` 里的`{[en.key]: en, [zhCN.key]: zhCN}`），而 `resolveLocaleRegistry()` 对**未知key 静默回落到 resolveLocaleRegistry('zh').key // 'en'（回落！） resolveLocale('zh').table.emptyTitle // 'No data'（应为「暂无数据」）
+- **N-184** `src/shared/vean-locale.ts:6` — 把应用 locale key（`zh` / `en`，见 `@/constants` 的 `APP_LOCALES`）对齐到Vean 的组件内置文案。 **为什么需要这一步**：`@vean/aria/locale` 出厂只注册两个 key —— `en`与 `zh-CN`（`node_modules/@vean/aria/dist/loca le/locales.js` 里的`{[en.key]: en, [zhCN.key]: zhCN}`），而 `resolveLocaleRegistry()` 对**未知key 静默回落到 resolveLocaleRegistry('zh-CN').key // 'en'（回落！） resolveLocale('zh-CN').table.emptyTitle // 'No data'（应为「暂无数据」）
 - **N-185** `src/shared/vean-locale.ts:18` — Vean 出厂的 **13 个语言包**（`node_modules/@vean/aria/dist/locale/langs/`）。 与 `@/constants` 的 `APP_LOCALES` 是两件事：`APP_LOCALES` 是**本应用**提供 JSON 文案的语言（当前 `zh` / `en`），这里是**组件库**自带的文案包。
 - **N-188** `src/shared/vean-locale.ts:79` — 应用 locale → 语言包（纯函数，无副作用）。
 - **N-456** `src/layouts/default.vue:305-315` — 登出二次确认走 `dialog.warning(message, data?)`。`@vean/aria` 里 `warning(message, data)` = `create({ ...data, title: message, type: 'warning' })`，**文案只能塞在 `title`**（`DialogExternal` 无独立 message 字段）；不传 `cancelText` 时回落组件包内置的 `dialog.cancel`（随 locale 变），所以不要写死「取消」。
@@ -692,7 +692,7 @@
 - **N-434** `test/specs/shared/route.test.ts:9` — `normalizeRoutePath` 守卫（P3-11）。
 - **N-435** `test/specs/shared/route.test.ts:45` — API 权限码归一化（M-06）。
 - **N-436** `test/specs/shared/route.test.ts:88` — `stripLocalePrefix`（M-08）。
-- **N-438** `test/specs/shared/vean-locale.test.ts:5` — 应用 locale key ↔ Vean 组件内置文案的对齐守卫。 **为什么需要这条守卫**（真实回归）：`@vean/aria/locale` 出厂只注册两个 key—— `en` 与 `zh-CN`，而 `resolveLocaleRegistry()` 对**未知 key 静默回落到`en`**，不抛错也不警告：本项目把应用 locale 从 `zh-CN` 改成了更简洁的 `zh`（见 resolveLocaleRegistry('zh').key // 'en'（回落！） resolveLocale('zh').table.emptyTitle // 'No data'（应为「暂无数据」）
+- **N-438** `test/specs/shared/vean-locale.test.ts:5` — 应用 locale key ↔ Vean 组件内置文案的对齐守卫。 **为什么需要这条守卫**（真实回归）：`@vean/aria/locale` 出厂只注册两个 key—— `en` 与 `zh-CN`，而 `resolveLocaleRegistry()` 对**未知 key 静默回落到`en`**，不抛错也不警告：本项目把应用 locale 从 `zh-CN` 改成了更简洁的 `zh`（见 resolveLocaleRegistry('zh-CN').key // 'en'（回落！） resolveLocale('zh-CN').table.emptyTitle // 'No data'（应为「暂无数据」）
 - **N-439** `test/specs/shared/vean-locale.test.ts:46` — 13 个出厂语言包的「存在性 + 可用性」守卫。 `VEAN_LOCALE_PACKS` 是手写清单（`@vean/aria` 没有导出语言包枚举），写错一个码（`pt-br` 大小写、`zh-TW` 漏写）在 dev 下不会报错 —— 只有该语言切过去时组件文案静默变英文。
 - **N-440** `test/specs/shared/watermark.test.ts:5` — P2-12：水印内容优先级与计时器开关的守卫。
 - **N-441** `test/specs/store/build-static-menu-tree.test.ts:5` — 菜单建树 / 加载 / 校验的单测（`docs/v3-menu-route-modes.md` §4）。
@@ -3166,8 +3166,8 @@ routeName/fullPath），合并 pinned 变化； * 对比回写前后移除的页
  * key 静默回落到 `en`**：
  *
  * ```
- * resolveLocaleRegistry('zh').key        // 'en'（回落！）
- * resolveLocale('zh').table.emptyTitle   // 'No data'（应为「暂无数据」）
+ * resolveLocaleRegistry('zh-CN').key        // 'en'（回落！）
+ * resolveLocale('zh-CN').table.emptyTitle   // 'No data'（应为「暂无数据」）
  * ```
  *
  * 也就是说，仅把 locale 目录改成 `zh.json` 会让分页、表格空态、标签页等
@@ -4427,7 +4427,7 @@ routeName/fullPath），合并 pinned 变化； * 对比回写前后移除的页
  * locale → 展示名（**各语言的原生写法**，切语言时不变形）。
  *
  * 语言下拉的单一来源：`APP_LOCALES` 加一项 + 此处补一行即可，
- * 不要在视图里写 `if (value === 'zh')` 这类硬编码分支。
+ * 不要在视图里写 `if (value === 'zh-CN')` 这类硬编码分支。
  * （`ubean.config.ts` 的 `i18n.locales[].name` 是服务端中间件/head 用的元数据，
  * 客户端下拉不读它：那份配置只在 Node 侧可用，客户端要另起运行时请求。）
  */
@@ -6281,8 +6281,8 @@ mismatch`。挂载后自动变为真值。 */
  * `en`**，不抛错也不警告：
  *
  * ```
- * resolveLocaleRegistry('zh').key       // 'en'（回落！）
- * resolveLocale('zh').table.emptyTitle  // 'No data'（应为「暂无数据」）
+ * resolveLocaleRegistry('zh-CN').key       // 'en'（回落！）
+ * resolveLocale('zh-CN').table.emptyTitle  // 'No data'（应为「暂无数据」）
  * ```
  *
  * 本项目把应用 locale 从 `zh-CN` 改成了更简洁的 `zh`（见 `@/constants`），

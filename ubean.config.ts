@@ -118,9 +118,9 @@ export default defineConfig({
   icon: true,
   pinia: true,
   i18n: {
-    defaultLocale: 'zh',
+    defaultLocale: 'zh-CN',
     locales: [
-      { code: 'zh', language: 'zh-CN', name: '简体中文', dir: 'ltr' },
+      { code: 'zh-CN', language: 'zh-CN', name: '简体中文', dir: 'ltr', path: 'zh' },
       { code: 'en', language: 'en-US', name: 'English', dir: 'ltr' }
     ],
     strategy: 'prefix_except_default'

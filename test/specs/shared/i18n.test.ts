@@ -10,9 +10,9 @@ import {
 /** `<html lang>` / `<html dir>` 派生的纯函数守卫 详见 docs/v3-notes.md N-430。 */
 describe('locale 子标签与书写方向', () => {
   it('裁掉地区/书写体后缀，大小写不敏感', () => {
-    expect(resolveLocaleSubtag('zh')).toBe('zh');
-    expect(resolveLocaleSubtag('zh-CN')).toBe('zh');
-    expect(resolveLocaleSubtag('ZH-hant-TW')).toBe('zh');
+    expect(resolveLocaleSubtag('zh-CN')).toBe('zh-CN');
+    expect(resolveLocaleSubtag('zh-CN')).toBe('zh-CN');
+    expect(resolveLocaleSubtag('ZH-hant-TW')).toBe('zh-CN');
     expect(resolveLocaleSubtag('')).toBe('');
   });
 
@@ -22,13 +22,13 @@ describe('locale 子标签与书写方向', () => {
       expect(resolveLocaleDir(`${subtag}-XX`), subtag).toBe('rtl');
     }
 
-    expect(resolveLocaleDir('zh')).toBe('ltr');
+    expect(resolveLocaleDir('zh-CN')).toBe('ltr');
     expect(resolveLocaleDir('en-US')).toBe('ltr');
     expect(resolveLocaleDir('zh-Hant')).toBe('ltr');
   });
 
   it('attrs 与 dir 判定同源', () => {
-    expect(buildDocumentLocaleAttrs('zh')).toEqual({ lang: 'zh', dir: 'ltr' });
+    expect(buildDocumentLocaleAttrs('zh-CN')).toEqual({ lang: 'zh-CN', dir: 'ltr' });
     expect(buildDocumentLocaleAttrs('ar-EG')).toEqual({ lang: 'ar-EG', dir: 'rtl' });
   });
 
@@ -44,8 +44,8 @@ describe('locale 子标签与书写方向', () => {
     expect(document.documentElement.lang).toBe('ar-EG');
     expect(document.documentElement.dir).toBe('rtl');
 
-    syncDocumentLocale('zh');
-    expect(document.documentElement.lang).toBe('zh');
+    syncDocumentLocale('zh-CN');
+    expect(document.documentElement.lang).toBe('zh-CN');
     expect(document.documentElement.dir).toBe('ltr');
   });
 });

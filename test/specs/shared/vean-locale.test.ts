@@ -12,13 +12,13 @@ describe('Vean 组件文案：locale key 对齐', () => {
     const { registerVeanLocales } = await import('@/shared/vean-locale');
     registerVeanLocales();
 
-    const registry = resolveLocaleRegistry('zh');
-    expect(registry.key, '`zh` 回落到了 `en` —— 补注册缺失或失效').toBe('zh');
+    const registry = resolveLocaleRegistry('zh-CN');
+    expect(registry.key, '`zh` 回落到了 `en` —— 补注册缺失或失效').toBe('zh-CN');
     expect(registry.name).toBe('简体中文');
 
     // 抽查几个真实取自 table / pagination 的键，确认拿到的是中文而非英文
-    expect(resolveLocale('zh').table.emptyTitle).toBe('暂无数据');
-    expect(resolveLocale('zh').pagination.firstPage).toBe('第一页');
+    expect(resolveLocale('zh-CN').table.emptyTitle).toBe('暂无数据');
+    expect(resolveLocale('zh-CN').pagination.firstPage).toBe('第一页');
     expect(resolveLocale('en').table.emptyTitle).toBe('No data');
   });
 
@@ -64,7 +64,7 @@ describe('Vean 出厂语言包：13 个包全可用', () => {
   it('裸码经映射表解析到语言包（zh → zh-CN，en → en）', async () => {
     const { resolveVeanLocalePack } = await import('@/shared/vean-locale');
 
-    expect(resolveVeanLocalePack('zh')).toBe('zh-CN');
+    expect(resolveVeanLocalePack('zh-CN')).toBe('zh-CN');
     expect(resolveVeanLocalePack('en')).toBe('en');
     expect(resolveVeanLocalePack('zh-TW')).toBe('zh-TW');
     expect(resolveVeanLocalePack('pt-BR')).toBe('pt-BR');

@@ -441,11 +441,11 @@ export function parseOptions(argv: string[]): Options {
 export function readDefaultLocale(root: string): { locale: string; source: string } {
   const constantsPath = join(root, 'src/constants/index.ts');
 
-  if (!existsSync(constantsPath)) return { locale: 'zh', source: '回落默认值' };
+  if (!existsSync(constantsPath)) return { locale: 'zh-CN', source: '回落默认值' };
 
   const match = readFileSync(constantsPath, 'utf8').match(/DEFAULT_LOCALE[^=]*=\s*'([^']+)'/);
 
-  return match ? { locale: match[1], source: 'src/constants/index.ts' } : { locale: 'zh', source: '回落默认值' };
+  return match ? { locale: match[1], source: 'src/constants/index.ts' } : { locale: 'zh-CN', source: '回落默认值' };
 }
 
 function readMessages(root: string, locale: string): Messages | null {

@@ -11,15 +11,15 @@ export const APP_DESCRIPTION = 'A fresh and elegant admin template';
 export const APP_ROOT_ID = 'app';
 
 /** 注意：Vean（`@vean/aria/locale`）出厂只注册 `en` 与 `zh-CN`，且未知 key 详见 docs/v3-notes.md N-276。 */
-export const APP_LOCALES = ['zh', 'en'] as const;
+export const APP_LOCALES = ['zh-CN', 'en'] as const;
 export type AppLocale = (typeof APP_LOCALES)[number];
 
 /** 默认 locale（需与 `ubean.config.ts` 的 `i18n.defaultLocale` 一致） */
-export const DEFAULT_LOCALE: AppLocale = 'zh';
+export const DEFAULT_LOCALE: AppLocale = 'zh-CN';
 
-/** 语言下拉的单一来源：`APP_LOCALES` 加一项 + 此处补一行即可，不要在视图里写 `if (value === 'zh')` 这类硬编码分支 详见 docs/v3-notes.md N-277。 */
+/** 语言下拉的单一来源：`APP_LOCALES` 加一项 + 此处补一行即可，不要在视图里写 `if (value === 'zh-CN')` 这类硬编码分支 详见 docs/v3-notes.md N-277。 */
 export const APP_LOCALE_LABELS: Record<AppLocale, string> = {
-  zh: '简体中文',
+  'zh-CN': '简体中文',
   en: 'English'
 };
 

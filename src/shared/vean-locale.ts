@@ -30,7 +30,7 @@ export type VeanLocalePack = (typeof VEAN_LOCALE_PACKS)[number];
  * 裸码（`zh`）与语言包码（`zh-CN`）不一致时**必须**在此声明，否则按同名包精确匹配会找不到 `zh-CN`。
  */
 export const APP_LOCALE_PACK_MAP = [
-  { app: 'zh', pack: 'zh-CN' },
+  { app: 'zh-CN', pack: 'zh-CN' },
   { app: 'en', pack: 'en' }
 ] as const satisfies readonly { readonly app: AppLocale; readonly pack: VeanLocalePack }[];
 
@@ -52,7 +52,7 @@ const VEAN_LOCALE_PACK_LOADERS: Record<VeanLocalePack, () => Promise<LocaleRegis
 };
 
 /** 应用裸码 `zh` 使用的语言包（唯一需要**同步**补注册的包） */
-const ZH_APP_LOCALE: AppLocale = 'zh';
+const ZH_APP_LOCALE: AppLocale = 'zh-CN';
 
 /** 运行时判定字符串是否是 13 个出厂包之一（受信边界，不收 `as` 断言） */
 export function isVeanLocalePack(value: string): value is VeanLocalePack {

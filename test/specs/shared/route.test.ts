@@ -81,7 +81,7 @@ describe('buildApiPermissionCode', () => {
 
 /** `stripLocalePrefix`（M-08） 详见 docs/v3-notes.md N-436。 */
 describe('stripLocalePrefix', () => {
-  const locales = ['zh', 'en'] as const;
+  const locales = ['zh-CN', 'en'] as const;
 
   it('剥掉已解析地址里的语言前缀', () => {
     expect(stripLocalePrefix('/en/about', locales)).toBe('/about');

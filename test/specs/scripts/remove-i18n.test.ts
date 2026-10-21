@@ -203,7 +203,7 @@ describe('remove-i18n：沙箱落盘', () => {
     mkdirSync(join(root, 'src/locales'), { recursive: true });
     mkdirSync(join(root, 'src/shared'), { recursive: true });
     mkdirSync(join(root, 'src/constants'), { recursive: true });
-    writeFileSync(join(root, 'src/constants/index.ts'), "export const DEFAULT_LOCALE = 'zh';\n");
+    writeFileSync(join(root, 'src/constants/index.ts'), "export const DEFAULT_LOCALE = 'zh-CN';\n");
     writeFileSync(join(root, 'src/locales/zh.json'), JSON.stringify({ common: { logout: '退出登录' } }));
     writeFileSync(join(root, 'src/shared/i18n.ts'), 'export const RTL_LANGUAGE_SUBTAGS = [];\n');
     writeFileSync(
