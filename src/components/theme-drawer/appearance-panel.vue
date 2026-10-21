@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { resolveTokenColor } from '@vean/theme';
 import { SButton, SThemeCustomizer, SThemeModeSegment, useTheme } from '@vean/ui';
 import type { ThemeCustomizerSection } from '@vean/ui';
+import { resolveTokenColor } from '@vean/theme';
 import { requestPreset } from '@/shared/theme-preset';
 import { useThemeStore } from '@/store/modules/theme';
 import { PRESET_CARD_CLASS, THEME_CONTROL_CLASS, THEME_ROW_CLASS, presetSwatchStyle } from './shared';

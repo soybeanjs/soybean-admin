@@ -3,8 +3,6 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { setLocale } from 'ubean/client';
-// `MenuOptionData` 没被 `@vean/ui` 再导出，只能从 `@vean/aria/menu` 取（与 Vean 自己的 app-shell 同款）
-import type { MenuOptionData } from '@vean/aria/menu';
 import {
   SAppShell,
   SAvatar,
@@ -17,6 +15,8 @@ import {
   useTheme
 } from '@vean/ui';
 import type { PageTabsContextMenuOptionData, PageTabsOptionData, PageTabsState } from '@vean/ui';
+// `MenuOptionData` 没被 `@vean/ui` 再导出，只能从 `@vean/aria/menu` 取（与 Vean 自己的 app-shell 同款）
+import type { MenuOptionData } from '@vean/aria/menu';
 import { AUTH_ROUTE_MODE as ENV_AUTH_ROUTE_MODE } from 'ubean:env/client';
 import { APP_LOCALES, APP_LOCALE_LABELS, APP_TITLE, APP_VERSION } from '@/constants';
 import { resolveExternalUrl } from '@/shared/iframe';
@@ -368,11 +368,6 @@ async function onLocaleMenuSelect(item: MenuOptionData<string>): Promise<void> {
     :menu-ui="SHELL_MENU_UI"
     @select="onMenuSelect"
   >
-    <!--
-      页签走 `#tabs` 槽而不是 `tabs` prop：页签风格（chrome/card/slider）在样式层`PageTabsProps.variant`，壳的 `tabProps`
-      是 `PageTabsCompactProps`，类型上给不到。
-      详见 docs/v3-notes.md N-068。
-    -->
     <template #tabs>
       <SPageTabs
         v-if="shellTabs.length"

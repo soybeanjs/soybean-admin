@@ -57,7 +57,7 @@ export function toAuthUserDTO(row: UserRow, roles: string[] = [], buttons: strin
 
 /** 带角色码 + 按钮权限码的用户安全视图 详见 docs/v3-notes.md N-246。 */
 export async function toAuthUserWithRoles(row: UserRow): Promise<AuthUserDTO> {
-  const roles = roleService.getRolesByUserId(row.id).map(role => role.code);
+  const roles = roleService.getRolesByUserId(row.id).map(r => r.code);
   const buttons = await permissionService.getUserPermissionCodes(row.id);
 
   return toAuthUserDTO(row, roles, buttons);
@@ -261,16 +261,16 @@ export const authService = {
           .get();
 
         if (defaultRole) {
-          const now = new Date().toISOString();
+          const n = new Date().toISOString();
           tx.insert(userRole)
             .values({
               id: createUuidV7(),
               userId: newRow.id,
               roleId: defaultRole.id,
               createdBy: username,
-              createdTime: now,
+              createdTime: n,
               updatedBy: username,
-              updatedTime: now
+              updatedTime: n
             })
             .run();
         }
@@ -322,7 +322,7 @@ export const authService = {
 
     assertUserUsable(row);
 
-    const roles = roleService.getRolesByUserId(row.id).map(role => role.code);
+    const roles = roleService.getRolesByUserId(row.id).map(r => r.code);
 
     return { user: toAuthUserDTO(row, roles), isSuper: roles.includes('super') };
   },

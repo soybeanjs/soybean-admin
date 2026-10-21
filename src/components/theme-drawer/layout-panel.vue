@@ -2,9 +2,9 @@
 import { computed } from 'vue';
 import { useBreakpoints } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
-import { mobileViewportMaxWidth } from '@vean/aria/shared';
 import { SButton } from '@vean/ui';
 import type { LayoutCollapsible, LayoutVariant } from '@vean/ui';
+import { mobileViewportMaxWidth } from '@vean/aria/shared';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import type { LayoutModeName } from '@/store/modules/theme';

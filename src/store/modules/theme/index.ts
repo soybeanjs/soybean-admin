@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
-import type { ThemeModePreference, ThemeOptions, ThemeRadiusValue } from '@vean/theme';
 import type { LayoutCollapsible, LayoutScrollBehavior, LayoutVariant, ThemeSettingsState } from '@vean/ui';
+import type { ThemeModePreference, ThemeOptions, ThemeRadiusValue } from '@vean/theme';
 import { LAYOUT_MODE as ENV_LAYOUT_MODE, THEME_PRESET as ENV_THEME_PRESET } from 'ubean:env/client';
 import { LAYOUT_MODES } from '@/constants/layout';
 import type { LayoutModeName } from '@/constants/layout';

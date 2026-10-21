@@ -1,6 +1,6 @@
 import { defineConfig, transformerDirectives, transformerVariantGroup } from 'unocss';
-import { presetSoybean } from '@soybeanjs/unocss-preset';
 import { presetUi } from '@vean/unocss';
+import { presetSoybean } from '@soybeanjs/unocss-preset';
 
 export default defineConfig({
   content: {

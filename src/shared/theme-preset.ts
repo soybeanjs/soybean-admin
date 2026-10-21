@@ -1,8 +1,8 @@
 import { shallowRef } from 'vue';
 import type { ShallowRef } from 'vue';
+import type { ThemeSettingsState } from '@vean/ui';
 import { readThemeEnvelope, writeThemeEnvelope } from '@vean/theme/storage';
 import type { ThemeEnvelopeInput } from '@vean/theme/storage';
-import type { ThemeSettingsState } from '@vean/ui';
 import { isClient } from '@/utils/storage';
 
 /** 主题 store 只做状态存取，radius/mode 的调整必须经组件（`SThemeCustomizer` / `SThemeModeSegment`）走。详见 docs/v3-notes.md N-179。 */

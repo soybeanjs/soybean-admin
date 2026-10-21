@@ -1,8 +1,8 @@
 import type { App } from 'vue';
 import { defineApp } from 'ubean/client';
 import { createThemeInitScript } from '@vean/theme/ssr';
-import 'uno.css';
 import '@vean/ui/styles.css';
+import 'uno.css';
 import { APP_DESCRIPTION, APP_ROOT_ID, APP_TITLE, DEFAULT_LOCALE } from '@/constants';
 import { seedPresetState } from '@/shared/theme-preset';
 import { registerVeanLocales } from '@/shared/vean-locale';

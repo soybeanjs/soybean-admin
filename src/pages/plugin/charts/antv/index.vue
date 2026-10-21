@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import type { CustomBehaviorOption, IPointerEvent } from '@antv/g6';
-import { resolveTokenColor } from '@vean/theme';
 import { SButton, SCard, toast, useTheme } from '@vean/ui';
+import { resolveTokenColor } from '@vean/theme';
+import type { CustomBehaviorOption, IPointerEvent } from '@antv/g6';
 import AntvFlow from './modules/antv-flow.vue';
 import type { CustomGraphData } from './modules/types';
 import { getFlowData } from './data';

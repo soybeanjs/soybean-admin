@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, shallowRef, useTemplateRef, watch } from 'vue';
 import { useDebounceFn, useElementSize } from '@vueuse/core';
-import type { CustomBehaviorOption, Graph } from '@antv/g6';
 import { SButton, SIcon, SPopover } from '@vean/ui';
+import type { CustomBehaviorOption, Graph } from '@antv/g6';
 import { useAntFlow } from './antv-g6-flow';
 import type { AntFlowPalette } from './antv-g6-flow';
 import { nodeStatus } from './status';
