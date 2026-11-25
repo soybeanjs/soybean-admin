@@ -16,4 +16,5 @@ shamefullyHoist: true
 ignoreWorkspaceRootCheck: true
 linkWorkspacePackages: true
 minimumReleaseAgeExclude:
-  - '@iconify/json@2.2.541'
+  - '@iconify/json@2.2.541 || 2.2.561'
+  - '@types/node@26.6.10'
