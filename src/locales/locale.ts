@@ -1,9 +1,9 @@
-import enUS from './langs/en-us';
-import zhCN from './langs/zh-cn';
+import enUS from './langs/en-us.json';
+import zhCN from './langs/zh-cn.json';
 
-const locales: Record<App.I18n.LangType, App.I18n.Schema> = {
+const locales = {
   'zh-CN': zhCN,
   'en-US': enUS
-};
+} satisfies Record<App.I18n.LangType, App.I18n.Schema>;
 
 export default locales;
